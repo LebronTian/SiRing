@@ -1,0 +1,44 @@
+<style>
+    .form-label{
+        text-align: right;
+    }
+</style>
+{extend name="layout"}
+
+{block name="content"}
+<form method="post" action="{:url('admin/menu/updata')}" id="" class="">
+    {volist name="menu" id="val"}
+        <label class="form-label col-xs-4 col-sm-3" id=""><span>菜单名称1111</span></label>
+        <input type="text" class="" id="" name="name" value="{$val.name}" placeholder="" style="margin-bottom: 20px;"><br/>
+        <label class="" id=""><span>菜单url</span></label>
+        <input type="text" name="url" value="{$val.url}" placeholder="" class="" id="" style="margin-bottom: 20px;"><br/>
+        <label class="" id=""><span>状态</span></label>
+        <select id="" class="" name="status">
+            <option value="1">启用</option>
+            <option value="0">停用</option>
+        </select><br/>
+        <label class="" id=""><span>菜单排序</span></label>
+        <input type="text" class="" id="" name="sort_number" value="{$val.sort_number}" placeholder="" style="margin-bottom: 20px;"><br/>
+        <label class="" id=""><span>无</span></label>
+        {if !empty($menu_list)}
+        <select name="pid" class="" id="" style="margin-bottom: 20px;">
+            <option value="0">顶级</option>
+            {volist name="menu_list" id="value"}
+            <option value="{$value.id}">{$value.name}</option>
+            {/volist}
+        </select><br/>
+        {/if}
+        <input type="hidden" name="id" value="{$val.id}">
+        <input type="submit" id="" class="" value="提交">
+    {/volist}
+
+</form>
+
+{/block}
+
+
+{block name="bottom"}
+<script>
+
+</script>
+{/block}

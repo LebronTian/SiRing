@@ -1,0 +1,43 @@
+{extend name="layout"}
+
+{block name="content"}
+<form method="post" action="{:url('admin/menu/save')}" id="" class="" style="padding: 20px;overflow: hidden;">
+    <label class="form-label col-xs-4 col-sm-3" id="" style="text-align: right"><span>菜单名称</span></label>
+    <div class="col-xs-8 col-sm-9"><input type="text" class="input-text" id="" name="name" value="" placeholder="" style="margin-bottom: 20px;"><br/></div>
+    <label class="form-label col-xs-4 col-sm-3" id="" style="text-align: right"><span>菜单url</span></label>
+    <div class="col-xs-8 col-sm-9"><input type="text" name="url" value="" placeholder="" class="input-text" id="" style="margin-bottom: 20px;"><br/></div>
+    <label class="form-label col-xs-4 col-sm-3" id="" style="text-align: right"><span>状态</span></label>
+    <div class="col-xs-8 col-sm-9">
+    <select id="" class="form-control" name="status" style="margin-bottom: 20px;width: 80px;height:30px;">
+        <option value="1">启用</option>
+        <option value="0">停用</option>
+    </select><br/>
+    </div>
+    <label class="form-label col-xs-4 col-sm-3" id="" style="text-align: right"><span>菜单排序</span></label>
+    <div class="col-xs-8 col-sm-9"><input type="text" class="input-text" id="" name="sort_number" value="" placeholder="" style="margin-bottom: 20px;"><br/></div>
+    <label class="form-label col-xs-4 col-sm-3" id="" style="text-align: right"><span>无</span></label>
+    {if !empty($menu_list)}
+    <div class="col-xs-8 col-sm-9">
+    <select name="pid" class="form-control" id="" style="margin-bottom: 20px;width: 80px;height:30px;">
+        <option value="0">顶级</option>
+        {volist name="menu_list" id="value"}
+             <option value="{$value.id}">{$value.name}</option>
+        {/volist}
+    </select><br/>
+    </div>
+    {/if}
+    <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+        <input class="btn btn-primary radius" type="submit" id="" class="" value="提交">
+    </div>
+
+
+</form>
+
+{/block}
+
+
+{block name="bottom"}
+<script>
+
+</script>
+{/block}

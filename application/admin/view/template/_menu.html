@@ -1,0 +1,25 @@
+<aside class="Hui-aside">
+	<div class="menu_dropdown bk_2">
+
+		{volist name="menu_list" id="value"}
+		{if isset($value["sub"])}
+		<dl id="menu-admin">
+			<dt><i class="Hui-iconfont">&#xe62d;</i>{$value.name}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				{volist name="$value.sub" id="val"}
+				<ul>
+					<li><a data-href="{:url($val['url'])}" data-title="{$val.name}" href="javascript:void(0)">{$val.name}</a></li>
+				</ul>
+				{/volist}
+			</dd>
+		</dl>
+		{else}
+		<dl id="menu-system">
+			<dt><i class="Hui-iconfont">&#xe62d;</i>{$value.name}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+		</dl>
+		{/if}
+		{/volist}
+
+	</div>
+</aside>
+<div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>

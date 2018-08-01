@@ -1,0 +1,27 @@
+{include file="template/_meta" /}
+    <title></title>
+</head>
+<body>
+
+{block name="content"}
+
+<!--自定义内容-->
+
+
+{/block}
+
+<!--_footer 作为公共模版分离出去-->
+{include file="template/_footer" /}
+<!--/_footer 作为公共模版分离出去-->
+
+
+
+<!--请在下方写此页面业务相关的脚本-->
+{block name="bottom"}
+<!--自定义内容-->
+{/block}
+<script type="text/javascript" src="__STATIC__/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/lib/laypage/1.2/laypage.js"></script>
+</body>
+</html>

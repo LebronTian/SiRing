@@ -1,0 +1,54 @@
+body {font-size: 14px;}
+.simple-layout #app-container {padding-top: 15px;}
+.app-filter-region {margin-bottom: 15px;}
+
+/*nav*/
+.wj-nav {list-style: none;padding: 0;margin: 0;}
+.wj-nav>li {line-height: 2.8; padding:0 15px;}
+.wj-nav>li>a {display: block;color: #333;text-decoration: none;}
+
+.wj-frame-ft {/*position: fixed;left: 0;bottom: 0;*/padding: 15px;right: 0;border-top: 1px solid #ddd;background-color: #fff;}
+
+.attach-side {float: left; width: 180px; min-height: 350px; padding-top: 5px;}
+.attach-side > .zent-btn {display: block; width: 70%; margin: 15px auto}
+
+.attach-content {margin:10px 10px 0 20px;float: left;width: calc(100% - 220px);box-sizing: border-box;}
+.simple-layout .attach-content {padding-right: 15px;}
+
+.attach-nav>li:hover {background-color: #f4f4f4;}
+.attach-nav>li.active {background-color: #fff;}
+
+.attach-files {margin-top: 15px;}
+.attach-file {margin-bottom: 8px;}
+.attach-header .help-block {color: #aaa}
+.attach-header input {width: 280px;}
+.attach-header>h3>span {font-size: 18px;}
+.attach-header>h3>small {font-size: 14px;}
+.attach-header>h3 {margin: 0 0 8px;}
+
+.attach-title-actions .van-icon {vertical-align: middle;}
+
+.attach-action {background-color: #F8F8F8; margin-bottom: 0;}
+.attach-action > .wj-checkbox {display: inline-block;}
+
+.attach-files.disabled .attach-facebox:hover {cursor: not-allowed;}
+
+.attach-facebox {/*padding-bottom: 100%;*/ background: no-repeat center/cover #c9c9c9; box-sizing: border-box; border: 2px solid transparent; position: relative;}
+.attach-facebox .ui-page-loading {min-height: auto;top: 0;bottom: 0;position: absolute;}
+.attach-actionbox {text-align: center;}
+
+.attach-bag {display: none;}
+.attach-facebox.active {border-color: #38F; }
+.attach-files .attach-facebox.active:hover {cursor: pointer;}
+.attach-facebox.active:after {content: ' '; position: absolute;top: 0;right: 0;border: 14px solid #38F;border-left-color: transparent;border-bottom-color: transparent;}
+.attach-facebox.active>.attach-bag {display: block;position: absolute;top: 0;right: 0;color: #fff;z-index: 5;width: 14px;text-align: center;}
+
+.uploader {margin-left: -5px;}
+.uploader>.wj-col {width: 80px; padding: 5px;}
+#uploaderBtn {line-height: 68px; text-align: center; display: block; border: 2px dotted #ccc; color: #ccc; box-sizing: border-box;}
+
+.uploader-file {position: relative; background: no-repeat center/cover; height: 70px;}
+.uploader-file .close {position: absolute;top: -10px;right: -5px;}
+.uploader-file-progress {position: absolute;top: 0;right: 0;bottom: 0;height: 100%;background-color: rgba(0,0,0,.2);line-height: 70px;}
+
+.nav-tabs+#js-container {padding: 8px 15px}

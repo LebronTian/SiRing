@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/admin/static/h-ui2/css/amazeui2.1.spv3.min.css" />
+</head>
+<body>
+
+<div class="conter-right-body">
+    <style>
+        .am-g{
+            padding: 30px 30px 0 30px;
+        }
+        .am-text-primary,.am-text-danger{
+            margin-right: 10px;
+        }
+        .noCats-box{
+            margin-left: 4em;
+            padding: 0.7em 0;
+            display: none;
+        }
+        .noCats-box section{
+            display: inline-block;
+            padding: 10px;
+            border: thin solid #ddd;
+            margin-right: 0.5em;
+            background: #ffffff;
+            cursor: pointer;
+        }
+        .admin-content #chooseCats{
+            max-height: 700px;
+        }
+
+        tbody .table-check span{
+            margin-left: 15px!important;
+            color: rgb(0,119,221);
+        }
+    </style>
+
+    <!-- <div class="am-cf am-padding" onselectstart="return false">
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">分类管理</strong> / <small>共6条数据</small></div>
+    </div>
+    <hr> -->
+
+    <div class="am-g">
+        <div class="am-fl am-cf">
+            <a href="{:url('admin/Category/add')}" type="button" class="am-btn am-btn-success blue-self">新建商品分组</a>
+        </div>
+        <!--    <select class="catList-yhc"></select>-->
+        <!-- <button style="margin-left: 1em" type="button" class="am-btn am-btn-primary choose-cats">
+            选择分类
+        </button> -->
+        <div class="am-form-group am-fr am-cf mb0">
+            <div class="am-form-group am-form-icon pro-input-self mb0">
+                <i class="am-icon-search"></i>
+                <input type="search" class="am-form-field option_key" placeholder="搜索" style="padding-left: 30px!important;width: 110px;">
+            </div>
+        </div>
+        <div class="noCats-box"></div>
+    </div>
+
+
+    <div class="am-u-sm-12 pl0 pr0" style="min-height: 600px">
+        <table class="am-table am-table-hover table-main pro-table-self cats-table-self">
+            <thead>
+            <tr>
+                <th class="table-check">
+                    <input type="checkbox" class="ccheckall">
+                    <a href="javascript:;" class="am-text-danger cdeleteall" style="margin-left:10px;color: #000"><span class="table-title">分类名称</span></a>
+                </th>
+                <th class="table-parent">父级分类</th>
+                <!-- <th class="table-image">图片</th> -->
+                <th class="table-order">排序</th>
+                <th class="table-status">状态</th>
+                <th><a href="/?_easy=shop.sp.catlist&amp;_u=sp.catlist&amp;_a=shop&amp;sort=1">创建时间</a></th>
+                <th class="table-set">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="am-danger " data-id="118"><td class="table-check am-text-truncate width200"><input type="checkbox" class="ccheck"><span>干果类 [118]</span></td><td>顶级</td><!-- <td><img src="?_a=upload&_u=index.out&uidm=17775349f" style="max-width:100px;max-height:100px;"></td> --><td>6</td><td><button data-status="1" class="cstatus am-btn am-btn-xs am-btn-danger">已禁用</button></td><td>2017-07-25 17:45:24</td><td><a href="?_a=shop&amp;_u=sp.addcat&amp;uid=118" target="_self" class="am-text-primary">编辑</a><a class="am-text-danger cdelete" data-id="118">删除</a><a class="am-text-danger">链接</a></td></tr><tr data-id="93"><td class="table-check am-text-truncate width200"><input type="checkbox" class="ccheck"><span>亚麻油 [93]</span></td><td>顶级</td><!-- <td><img src="" style="max-width:100px;max-height:100px;"></td> --><td>5</td><td><button data-status="0" class="cstatus am-btn am-btn-xs am-btn-success blue-self">已显示</button></td><td>2016-06-15 18:25:45</td><td><a href="?_a=shop&amp;_u=sp.addcat&amp;uid=93" target="_self" class="am-text-primary">编辑</a><a class="am-text-danger cdelete" data-id="93">删除</a><a class="am-text-danger">链接</a></td></tr><tr data-id="30"><td class="table-check am-text-truncate width200"><input type="checkbox" class="ccheck"><span>女装 [30]</span></td><td>顶级</td><!-- <td><img src="?_a=upload&_u=index.out&uidm=58451a1d" style="max-width:100px;max-height:100px;"></td> --><td>0</td><td><button data-status="0" class="cstatus am-btn am-btn-xs am-btn-success blue-self">已显示</button></td><td>2016-04-14 11:10:42</td><td><a href="?_a=shop&amp;_u=sp.addcat&amp;uid=30" target="_self" class="am-text-primary">编辑</a><a class="am-text-danger cdelete" data-id="30">删除</a><a class="am-text-danger">链接</a></td></tr><tr data-id="31"><td class="table-check am-text-truncate width200"><input type="checkbox" class="ccheck"><span>男装 [31]</span></td><td>顶级</td><!-- <td><img src="?_a=upload&_u=index.out&uidm=58582c9a" style="max-width:100px;max-height:100px;"></td> --><td>0</td><td><button data-status="0" class="cstatus am-btn am-btn-xs am-btn-success blue-self">已显示</button></td><td>2016-04-14 11:11:43</td><td><a href="?_a=shop&amp;_u=sp.addcat&amp;uid=31" target="_self" class="am-text-primary">编辑</a><a class="am-text-danger cdelete" data-id="31">删除</a><a class="am-text-danger">链接</a></td></tr><tr data-id="32"><td class="table-check am-text-truncate width200"><input type="checkbox" class="ccheck"><span>鞋靴 [32]</span></td><td>顶级</td><!-- <td><img src="?_a=upload&_u=index.out&uidm=177618f55" style="max-width:100px;max-height:100px;"></td> --><td>0</td><td><button data-status="0" class="cstatus am-btn am-btn-xs am-btn-success blue-self">已显示</button></td><td>2016-04-14 11:12:01</td><td><a href="?_a=shop&amp;_u=sp.addcat&amp;uid=32" target="_self" class="am-text-primary">编辑</a><a class="am-text-danger cdelete" data-id="32">删除</a><a class="am-text-danger">链接</a></td></tr><tr class="am-danger " data-id="33"><td class="table-check am-text-truncate width200"><input type="checkbox" class="ccheck"><span>箱包 [33]</span></td><td>顶级</td><!-- <td><img src="" style="max-width:100px;max-height:100px;"></td> --><td>0</td><td><button data-status="1" class="cstatus am-btn am-btn-xs am-btn-danger">已禁用</button></td><td>2016-04-14 11:12:06</td><td><a href="?_a=shop&amp;_u=sp.addcat&amp;uid=33" target="_self" class="am-text-primary">编辑</a><a class="am-text-danger cdelete" data-id="33">删除</a><a class="am-text-danger">链接</a></td></tr>	</tbody>
+        </table>
+    </div>
+    <div class="am-u-sm-12 pl0 pr0 pro-btngroup-self">
+        <div class="am-fl am-cf">
+            <button class="am-btn am-btn-default time-btn cdeleteall">删除</button>
+        </div>
+        <!-- <div class="am-u-sm-12">
+                </div> -->
+    </div>
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="chooseCats">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">选择分类
+                <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a>
+            </div>
+            <div class="am-modal-bd">
+                <div style="overflow: scroll;max-height: 40em">
+                    <select class="catList-yhc" style="display: none;"></select><div class="cly-open-btn" onselectstart="return false" style="display:inline-block;text-align:center;position:relative;z-index:999;margin-left:1em;"><p style="padding:0.6em 1.5em;display:inline-block;border:thin solid #ddd;background:white;min-width:4em;cursor:pointer;margin:0 6px;color:#777;display:none;color:black">选择分类</p><ul class="cly-ul" style="list-style-type:none;margin:0;padding:0;vertical-align:middle;border-radius:10px;background:#eee;padding-right:5px;" data-loop="0"><li class="cly-li" style="text-align:left;margin:6px 0;"><p class="cly-p" data-uid="30" data-puid="0" style="padding:0.6em 1.5em;display:inline-block;border:thin solid #ddd;background:white;min-width:4em;cursor:pointer;margin:0 6px;color:#777;color:white;background:#5eb95e;">女装</p><ul class="cly-ul" style="list-style-type:none;margin:0;padding:0;vertical-align:middle;border-radius:10px;background:#eee;padding-right:5px;" data-loop="1"><li class="cly-li" style="text-align:left;margin:6px 0;"><p class="cly-p" data-uid="90" data-puid="30" style="padding:0.6em 1.5em;display:inline-block;border:thin solid #ddd;background:white;min-width:4em;cursor:pointer;margin:0 6px;color:#777;">上衣</p></li></ul></li><li class="cly-li" style="text-align:left;margin:6px 0;"><p class="cly-p" data-uid="31" data-puid="0" style="padding:0.6em 1.5em;display:inline-block;border:thin solid #ddd;background:white;min-width:4em;cursor:pointer;margin:0 6px;color:#777;color:white;background:#5eb95e;">男装</p><ul class="cly-ul" style="list-style-type:none;margin:0;padding:0;vertical-align:middle;border-radius:10px;background:#eee;padding-right:5px;" data-loop="1"><li class="cly-li" style="text-align:left;margin:6px 0;"><p class="cly-p" data-uid="108" data-puid="31" style="padding:0.6em 1.5em;display:inline-block;border:thin solid #ddd;background:white;min-width:4em;cursor:pointer;margin:0 6px;color:#777;">男士上装</p></li><li class="cly-li" style="text-align:left;margin:6px 0;"><p class="cly-p" data-uid="109" data-puid="31" style="padding:0.6em 1.5em;display:inline-block;border:thin solid #ddd;background:white;min-width:4em;cursor:pointer;margin:0 6px;color:#777;">男士下装</p></li><li class="cly-li" style="text-align:left;margin:6px 0;"><p class="cly-p" data-uid="110" data-puid="31" style="padding:0.6em 1.5em;display:inline-block;border:thin solid #ddd;background:white;min-width:4em;cursor:pointer;margin:0 6px;color:#777;">男士外套</p></li></ul></li><li class="cly-li" style="text-align:left;margin:6px 0;"><p class="cly-p" data-uid="32" data-puid="0" style="padding:0.6em 1.5em;display:inline-block;border:thin solid #ddd;background:white;min-width:4em;cursor:pointer;margin:0 6px;color:#777;">鞋靴</p></li><li class="cly-li" style="text-align:left;margin:6px 0;"><p class="cly-p" data-uid="33" data-puid="0" style="padding:0.6em 1.5em;display:inline-block;border:thin solid #ddd;background:white;min-width:4em;cursor:pointer;margin:0 6px;color:#777;">箱包</p></li><li class="cly-li" style="text-align:left;margin:6px 0;"><p class="cly-p" data-uid="93" data-puid="0" style="padding:0.6em 1.5em;display:inline-block;border:thin solid #ddd;background:white;min-width:4em;cursor:pointer;margin:0 6px;color:#777;color:white;background:#5eb95e;">亚麻油</p><ul class="cly-ul" style="list-style-type:none;margin:0;padding:0;vertical-align:middle;border-radius:10px;background:#eee;padding-right:5px;" data-loop="1"><li class="cly-li" style="text-align:left;margin:6px 0;"><p class="cly-p" data-uid="111" data-puid="93" style="padding:0.6em 1.5em;display:inline-block;border:thin solid #ddd;background:white;min-width:4em;cursor:pointer;margin:0 6px;color:#777;">麻油</p></li><li class="cly-li" style="text-align:left;margin:6px 0;"><p class="cly-p" data-uid="112" data-puid="93" style="padding:0.6em 1.5em;display:inline-block;border:thin solid #ddd;background:white;min-width:4em;cursor:pointer;margin:0 6px;color:#777;">油脸</p></li><li class="cly-li" style="text-align:left;margin:6px 0;"><p class="cly-p" data-uid="113" data-puid="93" style="padding:0.6em 1.5em;display:inline-block;border:thin solid #ddd;background:white;min-width:4em;cursor:pointer;margin:0 6px;color:#777;">亚麻油1</p></li><li class="cly-li" style="text-align:left;margin:6px 0;"><p class="cly-p" data-uid="114" data-puid="93" style="padding:0.6em 1.5em;display:inline-block;border:thin solid #ddd;background:white;min-width:4em;cursor:pointer;margin:0 6px;color:#777;">亚麻油2</p></li><li class="cly-li" style="text-align:left;margin:6px 0;"><p class="cly-p" data-uid="115" data-puid="93" style="padding:0.6em 1.5em;display:inline-block;border:thin solid #ddd;background:white;min-width:4em;cursor:pointer;margin:0 6px;color:#777;">亚麻油3</p></li><li class="cly-li" style="text-align:left;margin:6px 0;"><p class="cly-p" data-uid="116" data-puid="93" style="padding:0.6em 1.5em;display:inline-block;border:thin solid #ddd;background:white;min-width:4em;cursor:pointer;margin:0 6px;color:#777;">亚麻油4</p></li><li class="cly-li" style="text-align:left;margin:6px 0;"><p class="cly-p" data-uid="117" data-puid="93" style="padding:0.6em 1.5em;display:inline-block;border:thin solid #ddd;background:white;min-width:4em;cursor:pointer;margin:0 6px;color:#777;">亚麻油24</p></li></ul></li><li class="cly-li" style="text-align:left;margin:6px 0;"><p class="cly-p" data-uid="118" data-puid="0" style="padding:0.6em 1.5em;display:inline-block;border:thin solid #ddd;background:white;min-width:4em;cursor:pointer;margin:0 6px;color:#777;color:white;background:#5eb95e;">干果类</p><ul class="cly-ul" style="list-style-type:none;margin:0;padding:0;vertical-align:middle;border-radius:10px;background:#eee;padding-right:5px;" data-loop="1"><li class="cly-li" style="text-align:left;margin:6px 0;"><p class="cly-p" data-uid="189" data-puid="118" style="padding:0.6em 1.5em;display:inline-block;border:thin solid #ddd;background:white;min-width:4em;cursor:pointer;margin:0 6px;color:#777;">花生</p></li></ul></li></ul></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var parents =[{"uid":"118","shop_uid":"3","parent_uid":"0","title":"\u5e72\u679c\u7c7b","title_en":"","image":"?_a=upload&_u=index.out&uidm=17775349f","create_time":"1500975924","sort":"6","status":"1"},{"uid":"93","shop_uid":"3","parent_uid":"0","title":"\u4e9a\u9ebb\u6cb9","title_en":"","image":"","create_time":"1465986345","sort":"5","status":"0"},{"uid":"30","shop_uid":"3","parent_uid":"0","title":"\u5973\u88c5","title_en":"","image":"?_a=upload&_u=index.out&uidm=58451a1d","create_time":"1460603442","sort":"0","status":"0"},{"uid":"31","shop_uid":"3","parent_uid":"0","title":"\u7537\u88c5","title_en":"","image":"?_a=upload&_u=index.out&uidm=58582c9a","create_time":"1460603503","sort":"0","status":"0"},{"uid":"32","shop_uid":"3","parent_uid":"0","title":"\u978b\u9774","title_en":"","image":"?_a=upload&_u=index.out&uidm=177618f55","create_time":"1460603521","sort":"0","status":"0"},{"uid":"33","shop_uid":"3","parent_uid":"0","title":"\u7bb1\u5305","title_en":"","image":"","create_time":"1460603526","sort":"0","status":"1"}];
+        var cats =[{"uid":"118","shop_uid":"3","parent_uid":"0","title":"\u5e72\u679c\u7c7b","title_en":"","image":"?_a=upload&_u=index.out&uidm=17775349f","create_time":"1500975924","sort":"6","status":"1"},{"uid":"93","shop_uid":"3","parent_uid":"0","title":"\u4e9a\u9ebb\u6cb9","title_en":"","image":"","create_time":"1465986345","sort":"5","status":"0"},{"uid":"30","shop_uid":"3","parent_uid":"0","title":"\u5973\u88c5","title_en":"","image":"?_a=upload&_u=index.out&uidm=58451a1d","create_time":"1460603442","sort":"0","status":"0"},{"uid":"31","shop_uid":"3","parent_uid":"0","title":"\u7537\u88c5","title_en":"","image":"?_a=upload&_u=index.out&uidm=58582c9a","create_time":"1460603503","sort":"0","status":"0"},{"uid":"32","shop_uid":"3","parent_uid":"0","title":"\u978b\u9774","title_en":"","image":"?_a=upload&_u=index.out&uidm=177618f55","create_time":"1460603521","sort":"0","status":"0"},{"uid":"33","shop_uid":"3","parent_uid":"0","title":"\u7bb1\u5305","title_en":"","image":"","create_time":"1460603526","sort":"0","status":"1"}];
+        var catsAll =[{"uid":"118","shop_uid":"3","parent_uid":"0","title":"\u5e72\u679c\u7c7b","title_en":"","image":"?_a=upload&_u=index.out&uidm=17775349f","create_time":"1500975924","sort":"6","status":"1"},{"uid":"93","shop_uid":"3","parent_uid":"0","title":"\u4e9a\u9ebb\u6cb9","title_en":"","image":"","create_time":"1465986345","sort":"5","status":"0"},{"uid":"30","shop_uid":"3","parent_uid":"0","title":"\u5973\u88c5","title_en":"","image":"?_a=upload&_u=index.out&uidm=58451a1d","create_time":"1460603442","sort":"0","status":"0"},{"uid":"31","shop_uid":"3","parent_uid":"0","title":"\u7537\u88c5","title_en":"","image":"?_a=upload&_u=index.out&uidm=58582c9a","create_time":"1460603503","sort":"0","status":"0"},{"uid":"32","shop_uid":"3","parent_uid":"0","title":"\u978b\u9774","title_en":"","image":"?_a=upload&_u=index.out&uidm=177618f55","create_time":"1460603521","sort":"0","status":"0"},{"uid":"33","shop_uid":"3","parent_uid":"0","title":"\u7bb1\u5305","title_en":"","image":"","create_time":"1460603526","sort":"0","status":"1"},{"uid":"90","shop_uid":"3","parent_uid":"30","title":"\u4e0a\u8863","title_en":"","image":"","create_time":"1462324744","sort":"0","status":"0","parent_cat":{"uid":"30","shop_uid":"3","parent_uid":"0","title":"\u5973\u88c5","title_en":"","image":"?_a=upload&_u=index.out&uidm=58451a1d","create_time":"1460603442","sort":"0","status":"0"}},{"uid":"108","shop_uid":"3","parent_uid":"31","title":"\u7537\u58eb\u4e0a\u88c5","title_en":"","image":"","create_time":"1499227812","sort":"0","status":"0","parent_cat":{"uid":"31","shop_uid":"3","parent_uid":"0","title":"\u7537\u88c5","title_en":"","image":"?_a=upload&_u=index.out&uidm=58582c9a","create_time":"1460603503","sort":"0","status":"0"}},{"uid":"109","shop_uid":"3","parent_uid":"31","title":"\u7537\u58eb\u4e0b\u88c5","title_en":"","image":"","create_time":"1499227836","sort":"0","status":"0","parent_cat":{"uid":"31","shop_uid":"3","parent_uid":"0","title":"\u7537\u88c5","title_en":"","image":"?_a=upload&_u=index.out&uidm=58582c9a","create_time":"1460603503","sort":"0","status":"0"}},{"uid":"110","shop_uid":"3","parent_uid":"31","title":"\u7537\u58eb\u5916\u5957","title_en":"","image":"","create_time":"1499227849","sort":"0","status":"0","parent_cat":{"uid":"31","shop_uid":"3","parent_uid":"0","title":"\u7537\u88c5","title_en":"","image":"?_a=upload&_u=index.out&uidm=58582c9a","create_time":"1460603503","sort":"0","status":"0"}},{"uid":"111","shop_uid":"3","parent_uid":"93","title":"\u9ebb\u6cb9","title_en":"","image":"","create_time":"1499307128","sort":"0","status":"0","parent_cat":{"uid":"93","shop_uid":"3","parent_uid":"0","title":"\u4e9a\u9ebb\u6cb9","title_en":"","image":"","create_time":"1465986345","sort":"5","status":"0"}},{"uid":"112","shop_uid":"3","parent_uid":"93","title":"\u6cb9\u8138","title_en":"","image":"","create_time":"1499307178","sort":"0","status":"0","parent_cat":{"uid":"93","shop_uid":"3","parent_uid":"0","title":"\u4e9a\u9ebb\u6cb9","title_en":"","image":"","create_time":"1465986345","sort":"5","status":"0"}},{"uid":"113","shop_uid":"3","parent_uid":"93","title":"\u4e9a\u9ebb\u6cb91","title_en":"","image":"","create_time":"1499307656","sort":"0","status":"0","parent_cat":{"uid":"93","shop_uid":"3","parent_uid":"0","title":"\u4e9a\u9ebb\u6cb9","title_en":"","image":"","create_time":"1465986345","sort":"5","status":"0"}},{"uid":"114","shop_uid":"3","parent_uid":"93","title":"\u4e9a\u9ebb\u6cb92","title_en":"","image":"","create_time":"1499307663","sort":"0","status":"0","parent_cat":{"uid":"93","shop_uid":"3","parent_uid":"0","title":"\u4e9a\u9ebb\u6cb9","title_en":"","image":"","create_time":"1465986345","sort":"5","status":"0"}},{"uid":"115","shop_uid":"3","parent_uid":"93","title":"\u4e9a\u9ebb\u6cb93","title_en":"","image":"","create_time":"1499307674","sort":"0","status":"0","parent_cat":{"uid":"93","shop_uid":"3","parent_uid":"0","title":"\u4e9a\u9ebb\u6cb9","title_en":"","image":"","create_time":"1465986345","sort":"5","status":"0"}},{"uid":"116","shop_uid":"3","parent_uid":"93","title":"\u4e9a\u9ebb\u6cb94","title_en":"","image":"","create_time":"1499307686","sort":"0","status":"0","parent_cat":{"uid":"93","shop_uid":"3","parent_uid":"0","title":"\u4e9a\u9ebb\u6cb9","title_en":"","image":"","create_time":"1465986345","sort":"5","status":"0"}},{"uid":"117","shop_uid":"3","parent_uid":"93","title":"\u4e9a\u9ebb\u6cb924","title_en":"","image":"","create_time":"1499307745","sort":"0","status":"0","parent_cat":{"uid":"93","shop_uid":"3","parent_uid":"0","title":"\u4e9a\u9ebb\u6cb9","title_en":"","image":"","create_time":"1465986345","sort":"5","status":"0"}},{"uid":"189","shop_uid":"3","parent_uid":"118","title":"\u82b1\u751f","title_en":"peanut","image":"?_a=upload&_u=index.out&uidm=177785436","create_time":"1504661035","sort":"0","status":"0","parent_cat":{"uid":"118","shop_uid":"3","parent_uid":"0","title":"\u5e72\u679c\u7c7b","title_en":"","image":"?_a=upload&_u=index.out&uidm=17775349f","create_time":"1500975924","sort":"6","status":"1"}}];
+        console.log(catsAll)
+    </script>
+
+</div>
+
+<script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/static/h-ui2/js/catlist.js"></script>
+</body>
+</html>
