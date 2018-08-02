@@ -168,9 +168,12 @@
                                                     <div>
                                                         <div class="zent-popover-wrapper zent-select select-large "
                                                              style="display: inline-block;">
-                                                            <div class="zent-select-tags js-goods_category"
+                                                            <!-- <div class="zent-select-tags js-goods_category"
                                                                  data-text="请选择商品分组">请选择商品分组
-                                                            </div>
+                                                            </div> -->
+                                                            <select name="" id="goods-list" class="zent-select-tags js-goods_category">
+                                                                <!-- <option value="">顶级</option> -->
+                                                            </select>
                                                         </div>
                                                         <p class="help-inline">
                                                             <a href="javascript:;"
@@ -1919,6 +1922,28 @@ body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}</style><
 
 
 {block name="bottom"}
+<script>
+    // $("#goods-list").click(function () {
+        (function(){
+            $.ajax({
+                url:"{:url('admin/Category/add')}",
+                type:"POST",
+                async:false,
+                timeout:5000,
+                dataType:"json",
+                success:function (data) {
+                    var len = data.data.length;
+                    for(var i = 0; i < len; i++){
+                        $('#goods-list').append('<option value="">'+data.data[i].name+'</option>')
+                    }
+                },
+                error:function () {
+                    console.log("错误");
+                }
+            })
+        }())
+    // })
+</script>
 <script>
     $(function () {
         $(".js-add_goods_pic").click(function () {
