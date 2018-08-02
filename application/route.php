@@ -69,6 +69,7 @@ Route::group("admin",[
     /*商品分类*/
     "category_index"=>"admin/Category/index",
     "category_add"=>"admin/Category/add",
+    "category_save"=>"admin/Category/save",
 ]);
 
 /*测试页面*/

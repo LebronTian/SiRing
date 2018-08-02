@@ -86,6 +86,7 @@ function ajax_error($msg = '服务器错误，可刷新页面重试',$data=array
 
     exit(json_encode($return,JSON_UNESCAPED_UNICODE));
 }
+
 function ajax_success($msg = '提交成功',$data=array()){
     $return = array('status'=>'1');
     $return['info'] = $msg;

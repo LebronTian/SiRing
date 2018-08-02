@@ -11,8 +11,7 @@
     </select><br/>
     <label><span>父类分类</span></label>
     <select class="pid">
-        <option value="1">启用</option>
-        <option value="0">停用</option>
+        <option value="0">顶级</option>
     </select><br/>
     <label class=""><span>菜单排序</span></label>
     <input type="text" class="sort_number" style="margin-bottom: 20px;"><br/>
@@ -30,15 +29,15 @@
         var sort_number = $(".sort_number").val();
         var pid = $(".pid").val();
         $.ajax({
-            url:"{:url('admin/Category/add')}",
+            url:"{:url('admin/Category/save')}",
             type:"POST",
             async:false,
             timeout:5000,
             data:{
-                "category_name":CategoryName,
+                "name":CategoryName,
                 "status":Status,
                 "sort_number":sort_number,
-                "pid":pid,
+                "pid":pid
             },
             dataType:"json",
             success:function (data) {
