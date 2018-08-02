@@ -65,6 +65,7 @@ Route::group("admin",[
     /*商品管理*/
     "goods_index"=>"admin/Goods/index",
     "goods_add"=>"admin/Goods/add",
+    "goods_save"=>"admin/Goods/save",
 
     /*商品分类*/
     "category_index"=>"admin/Category/index",
