@@ -6,14 +6,14 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>产品标题：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="" name="pro_title" style="width: 200px">
+				<input type="text" class="input-text goods_name" value="" placeholder="" id="" style="width: 200px">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类栏目：</label>
 			<div class="formControls col-xs-8 col-sm-9"> 
                 <span class="select-box" style="width: 200px">
-                    <select name="" id="goods-list" class="select">
+                    <select id="goods-list" class="select goods_type_id">
                         <!-- <option value="0">一级分类</option> -->
                     </select>
                 </span> 
@@ -22,7 +22,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">排序值：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="0" placeholder="" id="" name="" style="width: 200px">
+				<input type="text" class="input-text sort_number" value="0" placeholder="" id="" style="width: 200px">
 			</div>
 		</div>
 		<!-- <div class="row cl">
@@ -37,17 +37,13 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">产品规格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" name="" id="" placeholder="输入长度" value="" class="input-text" style=" width:25%">
-				MM
-				<input type="text" name="" id="" placeholder="输入宽度" value="" class="input-text" style=" width:25%">
-				MM
-				<input type="text" name="" id="" placeholder="输入高度" value="" class="input-text" style=" width:25%">
-				MM </div>
+				<input type="text" id="" placeholder="输入规格" value="" class="input-text goods_specification" style=" width:200px">
+            </div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">产地：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" name="" id="" placeholder="" value="" class="input-text" style="width: 200px">
+				<input type="text" id="" placeholder="" value="" class="input-text goods_place" style="width: 200px">
 			</div>
 		</div>
 		<!-- <div class="row cl">
@@ -59,14 +55,14 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">所属供应商：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" name="" id="" placeholder="" value="" class="input-text" style="width: 200px">
+				<input type="text" id="" placeholder="" value="" class="input-text goods_supplier" style="width: 200px">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">价格计算单位：</label>
 			<div class="formControls col-xs-8 col-sm-9">
                 <span class="select-box" style="width: 200px;">
-                    <select class="select">
+                    <select class="select goods_unit">
                         <option>请选择</option>
                         <option value="1">件</option>
                         <option value="2">斤</option>
@@ -92,35 +88,35 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">市场价格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" name="" id="" placeholder="" value="" class="input-text" style="width:200px">
+				<input type="text" id="" placeholder="" value="" class="input-text goods_bazaar_money" style="width:200px">
 				元</div>
 		</div>
-		<div class="row cl">
+		<!-- <div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">成本价格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" name="" id="" placeholder="" value="" class="input-text" style="width:200px">
+				<input type="text" name="goods_bottom_money" id="" placeholder="" value="" class="input-text" style="width:200px">
 				元</div>
-		</div>
+		</div> -->
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">最低销售价格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" name="" id="" placeholder="" value="" class="input-text" style="width:200px">
+				<input type="text" id="" placeholder="" value="" class="input-text goods_bottom_mone" style="width:200px">
 				元</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">产品关键字：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" name="" id="" placeholder="多个关键字用英文逗号隔开，限10个关键字" value="" class="input-text" style="width: 250px">
+				<input type="text" id="" placeholder="多个关键字用英文逗号隔开，限10个关键字" value="" class="input-text goods_keyword" style="width: 250px">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">产品摘要：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)" style="width: 250px"></textarea>
+				<textarea cols="" rows="" class="textarea goods_abstract"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)" style="width: 250px"></textarea>
 				<!-- <p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p> -->
 			</div>
 		</div>
-		<div class="row cl">
+		<!-- <div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">缩略图：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<div class="uploader-thum-container">
@@ -129,7 +125,7 @@
 					<button id="btn-star" class="btn btn-default btn-uploadstar radius ml-10">开始上传</button>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">图片上传：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -154,7 +150,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">详细内容：</label>
 			<div class="formControls col-xs-8 col-sm-9"> 
-				<script id="editor" type="text/plain" style="width:100%;height:400px;"></script> 
+				<script id="editor" class="goods_detail" type="text/plain" style="width:100%;height:400px;"></script> 
 			</div>
 		</div>
 		<div class="row cl">
@@ -173,6 +169,7 @@
 {block name="bottom"}
 <script>
     (function(){
+        //  分类栏目，请求地址获取数据，插入select
         $.ajax({
             url:"{:url('admin/Category/add')}",
             type:"POST",
@@ -183,7 +180,7 @@
                 var len = data.data.length;
                 console.log(data)
                 for(var i = 0; i < len; i++){
-                    $('#goods-list').append('<option value="">'+ data.data[i].name+'</option>')
+                    $('#goods-list').append('<option value="'+ data.data[i].id+'">'+ data.data[i].name+'</option>')
                 }
             },
             error:function () {
@@ -191,6 +188,27 @@
             }
         })
     }())
+
+    
+    $(".btn-primary").click(function () {
+        var Ogoods_name = $('.goods_name').val();
+        $.ajax({
+            url:"{:url('admin/Goods/save')}",
+            type:"POST",
+            async:false,
+            timeout:5000,
+            data:{
+                "goods_name": Ogoods_name
+            },
+            dataType:"json",
+            success:function (data) {
+                console.log(data);
+            },
+            error:function () {
+                console.log("错误");
+            }
+        })
+    })
 </script>
 
 
@@ -527,7 +545,7 @@ $(function(){
         function addFile( file ) {
             var $li = $( '<li id="' + file.id + '">' +
                     '<p class="title">' + file.name + '</p>' +
-                    '<p class="imgWrap"></p>'+
+                    '<p class="imgWrap goods_images"></p>'+
                     '<p class="progress"><span></span></p>' +
                     '</li>' ),
 
@@ -888,5 +906,6 @@ $(function(){
 $(function(){
 	var ue = UE.getEditor('editor');
 });
+
 </script>
 {/block}
