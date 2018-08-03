@@ -104,7 +104,7 @@
         var city = $('.select option:selected').html();
         var remark = $('.textarea').val();
         $.ajax({
-            url: "{:url('admin/Goods/save')}",
+            url: "{:url('admin/User/save')}",
             type: "POST",
             async: false,
             timeout: 5000,
@@ -119,10 +119,14 @@
                 "remark": remark
             },
             success: function(data){
-                console.log(data)
+                console.log(data);
+                if(data.code ==0) {
+                  alert(data.msg)
+                }
             },
-            error: function(){
-                console.log("错误")
+            error: function(data){
+                    console.log(data);
+
             }
             
         })
