@@ -54,6 +54,11 @@ class User extends Controller{
         return view("user_show");
     }
 
+    public function pass_edit(){
+        return view("pass_edit");
+    }
+
+
 
 
 
