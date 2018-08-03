@@ -84,6 +84,7 @@ Route::group("admin",[
     /*会员管理*/
     "user_index"=>"admin/User/index", //会员概况
     "user_add"=>"admin/User/add",     //会员增加
+    "user_save"=>"admin/User/save",     //会员增加(逻辑处理)
     "user_edit"=>"admin/User/edit",     //会员编辑
     "user_del"=>"admin/User/del",     //会员删除
     "user_show"=>"admin/User/show",     //会员删除

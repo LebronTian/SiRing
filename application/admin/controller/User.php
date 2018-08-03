@@ -8,6 +8,7 @@
 namespace app\admin\controller;
 
 use think\Controller;
+use  think\Db;
 
 class User extends Controller{
     /**
@@ -32,6 +33,56 @@ class User extends Controller{
 
     /**
      **************李火生*******************
+     * 用户信息添加功能实现
+     **************************************
+     */
+    public function save(){
+        if($_POST){
+            $data =input('post.');
+            $username =$data['username'];
+            if(empty($username)){
+                $this->error('用户名不能为空',url('admin/user/add'));
+            }
+            $password =$data['password'];
+            if(empty($password)){
+                $this->error('密码不能为空',url('admin/user/add'));
+            }
+            $sex =$data['sex'];
+            if(empty( $sex)){
+                $this->error('性别不能为空',url('admin/user/add'));
+            }
+            $phone =$data['phone'];
+            if(empty($phone)){
+                $this->error('电话号码不能为空',url('admin/user/add'));
+            }
+            $email =$data['email'];
+            if(empty($email)){
+                $this->error('邮箱不能为空',url('admin/user/add'));
+            }
+            $datas =[
+              'user_name'=>$data['username'],
+                'password'=>md5($data['password']),
+                'sex'=>$data['sex'],
+                'phone_num'=>$data['phone'],
+                'email'=>$data['email'],
+                'city'=>$data['city'],
+                'create_time'=>date('Y-m-d H:i:s'),
+                'remark'=>$data['remark'],
+                'status' => 1
+            ];
+          $res =  Db::name('user')->insert($datas);
+          if($res){
+              $this->success('会员添加成功',url('admin/user/index'));
+          }else{
+              $this->error('会员添加失败');
+          }
+
+        }
+    }
+
+
+    /**
+     **************李火生*******************
      * @return \think\response\View
      * 会员删除
      **************************************
@@ -50,10 +101,22 @@ class User extends Controller{
         return view("user_edit");
     }
 
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 会员展示信息
+     **************************************
+     */
     public function show(){
         return view("user_show");
     }
 
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     *会员密码修改
+     **************************************
+     */
     public function pass_edit(){
         return view("pass_edit");
     }
