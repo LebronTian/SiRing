@@ -43,13 +43,11 @@ class Login extends Controller{
      * @param Request $request
      */
     public function login(Request $request){
-
         if(!captcha_check($request->only("yzm")["yzm"])){
             //验证失败
             $this->error("验证码有误",url("admin/Login/index"));
             exit();
         };
-
         if ($request->isPost()){
             $username = $request->only("account")["account"];
             $passwd = $request->only("passwd")["passwd"];
@@ -68,7 +66,6 @@ class Login extends Controller{
             }
         }
     }
-
     /**
      * [退出]
      * 陈绪

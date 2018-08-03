@@ -19,6 +19,15 @@ use think\Route;
 Route::group("",[
     /*首页*/
     "/"=>"index/index/index",
+
+    /*登录页面*/
+    "login"=>"index/Login/login",
+    "logout"=>"index/Login/logout",
+    /*验证码*/
+    "login_captcha"=>"index/Login/captchas",
+    /*注册页面*/
+    "register"=>"index/Register/index",
+
 ]);
 
 /**
@@ -73,7 +82,19 @@ Route::group("admin",[
     "category_save"=>"admin/Category/save",
 
     /*会员管理*/
-    "user_grade"=>"admin/User/index"
+    "user_index"=>"admin/User/index", //会员概况
+    "user_add"=>"admin/User/add",     //会员增加
+    "user_save"=>"admin/User/save",     //会员增加(逻辑处理)
+    "user_edit"=>"admin/User/edit",     //会员编辑
+    "user_del"=>"admin/User/del",     //会员删除
+    "user_show"=>"admin/User/show",     //会员删除
+    "pass_edit"=>"admin/User/pass_edit",     //会员删除
+
+    "user_grade"=>"admin/User/grade",  //会员等级
+    "user_rule"=>"admin/User/rule"   //会员等级
+
+
+
 ]);
 
 /*测试页面*/
