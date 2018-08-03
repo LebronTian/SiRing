@@ -83,6 +83,9 @@ Route::group("admin",[
 
     /*会员管理*/
     "user_index"=>"admin/User/index", //会员概况
+    "user_add"=>"admin/User/add",     //会员增加
+    "user_edit"=>"admin/User/edit",     //会员编辑
+    "user_del"=>"admin/User/del",     //会员删除
     "user_grade"=>"admin/User/grade",  //会员等级
     "user_rule"=>"admin/User/rule"   //会员等级
 

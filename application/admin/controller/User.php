@@ -23,6 +23,43 @@ class User extends Controller{
     /**
      **************李火生*******************
      * @return \think\response\View
+     * 会员增加
+     **************************************
+     */
+    public function add(){
+        return view("user_add");
+    }
+
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 会员删除
+     **************************************
+     */
+    public function del(){
+        return view("user_add");
+    }
+
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 会员编辑
+     **************************************
+     */
+    public function edit(){
+        return view("user_edit");
+    }
+
+    public function show(){
+        return view("user_show");
+    }
+
+
+
+
+    /**
+     **************李火生*******************
+     * @return \think\response\View
      * 会员等级
      **************************************
      */
