@@ -56,8 +56,8 @@
 			<label class="form-label col-xs-4 col-sm-3">所在城市：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
 				<select class="select" size="1" name="city">
-					<option value="">请选择城市</option>
-					<option value="1" selected>北京</option>
+					<option value="" selected>请选择城市</option>
+					<option value="1" >北京</option>
 					<option value="2">上海</option>
 					<option value="3">广州</option>
 				</select>
@@ -120,9 +120,9 @@
             },
             success: function(data){
                 console.log(data);
-                if(data.code ==0) {
+//                if(data.code ==0) {
                   alert(data.msg)
-                }
+//                }
             },
             error: function(data){
                     console.log(data);
