@@ -19,6 +19,15 @@ use think\Route;
 Route::group("",[
     /*首页*/
     "/"=>"index/index/index",
+
+    /*登录页面*/
+    "login"=>"index/Login/login",
+    "logout"=>"index/Login/logout",
+    /*验证码*/
+    "login_captcha"=>"index/Login/captchas",
+    /*注册页面*/
+    "register"=>"index/Register/index",
+
 ]);
 
 /**
@@ -69,6 +78,12 @@ Route::group("admin",[
     /*商品分类*/
     "category_index"=>"admin/Category/index",
     "category_add"=>"admin/Category/add",
+
+
+    /*会员管理*/
+    "user_index"=>"admin/User/index", //会员概况
+    "user_grade"=>"admin/User/grade",  //会员等级
+    "user_rule"=>"admin/User/grade"   //会员等级
 ]);
 
 /*测试页面*/
