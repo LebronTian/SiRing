@@ -45,6 +45,7 @@ class Goods extends Controller{
            $bool = db("goods")->insert($goods_data);
            if($bool){
                $goods_images = $request->only(["goods_images"]);
+               halt($goods_images);
                if(!empty($goods_images)){
                    $dir_name = "/public/upload".date("Y-m-d");
                    if(is_dir($dir_name)){
