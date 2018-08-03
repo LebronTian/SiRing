@@ -44,15 +44,19 @@ class Goods extends Controller{
            ]);
            $bool = db("goods")->insert($goods_data);
            if($bool){
-               $goods_images = $request->only(["goods_images"]);
-               halt($goods_images);
+               //取出图片在存到数据库
+               $goods_images = $request->only(["goods_images"])["goods_images"];
                if(!empty($goods_images)){
-                   $dir_name = "/public/upload".date("Y-m-d");
-                   if(is_dir($dir_name)){
-                       mkdir($dir_name,777);
+                   $dir_name = "/public/static/admin/upload".date("Y-m-d");
+                   if(is_dir($dir_name)) {
+                       mkdir($dir_name, 777);
                    }
-                   $filename = uniqid().strrchr($_FILES["goods_images"]['name'],".");
-                   //$bool = move_image_file($_FILES["goods_images"][]);
+
+                   $strrchr = uniqid().time().strstr($goods_images,"d",true);
+                   halt($strrchr);
+                   $path = $path.$strrchr;
+                   $bool = move_uploaded_file($path,$dir_name.$path);
+                   halt($bool);
                }
            }
        }
