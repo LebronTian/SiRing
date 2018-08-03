@@ -18,6 +18,10 @@ class User extends Controller{
      **************************************
      */
     public function index(){
+       $data = Db::name('user')->field('id ,user_name,password,sex,phone_num,email,city,create_time,status')->order('id desc')->select();
+       if(!empty($data)){
+         ajax_success('成功',$data);
+       }
         return view('user_index');
     }
 
@@ -59,6 +63,19 @@ class User extends Controller{
             if(empty($email)){
                 $this->error('邮箱不能为空',url('admin/user/add'));
             }
+            //判断数据库中是否已经注册
+            $res_name =Db::name('user')->where('user_name',$username)->find();
+            if($res_name){
+                $this->error('此用户名已被注册',url('admin/user/add'));
+            }
+            $res_phone =Db::name('user')->where('phone_num',$phone)->find();
+            if($res_phone){
+                $this->error('此手机号已注册',url('admin/user/add'));
+            }
+            $res_email =Db::name('user')->where('email',$email)->find();
+            if($res_email){
+                $this->error('此邮箱已注册',url('admin/user/add'));
+            }
             $datas =[
               'user_name'=>$data['username'],
                 'password'=>md5($data['password']),
@@ -72,6 +89,7 @@ class User extends Controller{
             ];
           $res =  Db::name('user')->insert($datas);
           if($res){
+//              $this->success('会员添加成功');
               $this->success('会员添加成功',url('admin/user/index'));
           }else{
               $this->error('会员添加失败');
