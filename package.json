@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "vue-quill-editor": "^3.0.6"
+  }
+}
