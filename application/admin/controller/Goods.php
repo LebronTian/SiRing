@@ -28,7 +28,6 @@ class Goods extends Controller{
 
     public function save(Request $request){
        if ($request->isPost()){
-           
            $goods_data = $request->only([
                         "goods_name",
                         "sort_number",
@@ -48,6 +47,11 @@ class Goods extends Controller{
                $goods_images = $request->only(["goods_images"]);
                if(!empty($goods_images)){
                    $dir_name = "/public/upload".date("Y-m-d");
+                   if(is_dir($dir_name)){
+                       mkdir($dir_name,777);
+                   }
+                   $filename = uniqid().strrchr($_FILES["goods_images"]['name'],".");
+                   //$bool = move_image_file($_FILES["goods_images"][]);
                }
            }
        }
