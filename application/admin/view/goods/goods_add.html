@@ -201,10 +201,10 @@
         var Ogoods_bottom_mone = $('.goods_bottom_mone').val();
         var Ogoods_keyword = $('.goods_keyword').val();
         var Ogoods_abstract = $('.goods_abstract').val();
-        var Ogoods_images = $('.goods_images img').attr("src");
+        var Ogoods_images_name = $('.goods_images').siblings('p.title').html();
+        var Ogoods_images_src = $('.goods_images img').attr('src');
         // 富文本内容
         // var Ogoods_detail = UE.getEditor('editor').getContent();
-
         $.ajax({
             url:"{:url('admin/Goods/save')}",
             type:"POST",
@@ -222,7 +222,7 @@
                 "goods_bottom_mone": Ogoods_bottom_mone,
                 "goods_keyword": Ogoods_keyword,
                 "goods_abstract": Ogoods_abstract,
-                "goods_images": Ogoods_images,
+                "goods_images": Ogoods_images_name + Ogoods_images_src,
                 // "goods_detail": goods_detail
             },
             dataType:"json",
