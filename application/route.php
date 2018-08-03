@@ -74,16 +74,20 @@ Route::group("admin",[
     /*商品管理*/
     "goods_index"=>"admin/Goods/index",
     "goods_add"=>"admin/Goods/add",
+    "goods_save"=>"admin/Goods/save",
 
     /*商品分类*/
     "category_index"=>"admin/Category/index",
     "category_add"=>"admin/Category/add",
-
+    "category_save"=>"admin/Category/save",
 
     /*会员管理*/
     "user_index"=>"admin/User/index", //会员概况
     "user_grade"=>"admin/User/grade",  //会员等级
-    "user_rule"=>"admin/User/grade"   //会员等级
+    "user_rule"=>"admin/User/rule"   //会员等级
+
+
+
 ]);
 
 /*测试页面*/

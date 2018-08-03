@@ -10,6 +10,7 @@ namespace app\admin\controller;
 use think\Controller;
 use think\Config;
 use think\captcha\Captcha;
+use think\Request;
 class Index extends Controller{
 
     /**
@@ -17,7 +18,12 @@ class Index extends Controller{
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      * 陈绪
      */
-    public function index(){
+    public function index(Request $request){
+        if($request->isPost()){
+            $menu_list = Config::get("menu_list");
+            return ajax_success("获取成功",$menu_list);
+        }
+
         return view("index",["menu_list"=>Config::get("menu_list")]);
     }
 

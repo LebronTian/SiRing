@@ -32,7 +32,6 @@ class Menu extends Controller
      * 陈绪
      */
     public function save(Request $request){
-        //halt($request->except(['submit']));
        $data = $request->param();
        if(!empty($data)){
            $bool = model("Menu")->sSave($data);
