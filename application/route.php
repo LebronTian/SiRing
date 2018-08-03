@@ -71,6 +71,9 @@ Route::group("admin",[
     "category_index"=>"admin/Category/index",
     "category_add"=>"admin/Category/add",
     "category_save"=>"admin/Category/save",
+
+    /*会员管理*/
+    "user_grade"=>"admin/User/index"
 ]);
 
 /*测试页面*/
