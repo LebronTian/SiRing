@@ -107,7 +107,7 @@ class User extends Controller{
      **************************************
      */
     public function del(Request $request){
-        if($request->isPost()){
+        if($request->isPost('id')){
             $id  =$_POST['id'];
           $res =  Db::name('user')->where('id',$id)->delete();
           if($res)
@@ -126,14 +126,15 @@ class User extends Controller{
       if($request->isPost()){
           $id =$_POST['id'];
           $status =Db::name('user')->field('status')->where('id',$id)->find();
+          $status =$status['status'];
           if($status ==1){
-              $res =Db::name('user')->where('id',$id)->update('status',0);
+              $res =Db::name('user')->where('id',$id)->update(['status'=>0]);
               if($res){
                   $this->success('成功',url('admin/user/index'));
               }
           }
           if($status ==0){
-              $res =Db::name('user')->where('id',$id)->update('status',1);
+              $res =Db::name('user')->where('id',$id)->update(['status'=>1]);
               if($res){
                   $this->success('成功',url('admin/user/index'));
               }
@@ -153,7 +154,13 @@ class User extends Controller{
      * 会员编辑
      **************************************
      */
-    public function edit(){
+    public function edit(Request $request){
+        if($request->isPost()){
+            $id =$_POST['id'];
+            $dates = Db::name('user')->where('id',$id)->find();
+            dump($dates);exit();
+        }
+
         return view("user_edit");
     }
 
