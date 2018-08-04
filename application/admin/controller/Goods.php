@@ -20,6 +20,7 @@ class Goods extends Controller{
      * 陈绪
      */
     public function index(){
+
         return view("goods_index");
     }
 
@@ -30,8 +31,7 @@ class Goods extends Controller{
 
     public function save(Request $request){
        if ($request->isPost()){
-          
-           $data = $request->only(["text"]);
+           $data = $request->param();
            halt($data);
            $goods_data = $request->only([
                         "goods_name",
