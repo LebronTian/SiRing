@@ -106,7 +106,16 @@ class User extends Controller{
      * 会员删除
      **************************************
      */
-    public function del(){
+    public function del(Request $request){
+        if($request->isPost()){
+            $id  =$_POST['id'];
+//            dump($id);exit();
+          $res =  Db::name('user')->where('id',$id)->delete();
+          if($res)
+          {
+              $this->success('成功',url('admin/user/index'));
+          }
+        }
         return view("user_add");
     }
 
