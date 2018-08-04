@@ -9,6 +9,7 @@ namespace app\admin\controller;
 
 use think\Controller;
 use  think\Db;
+use think\Request;
 
 class User extends Controller{
     /**
@@ -17,10 +18,10 @@ class User extends Controller{
      * 会员概况
      **************************************
      */
-    public function index(){
+    public function index(Request $request){
        $data = Db::name('user')->field('id ,user_name,password,sex,phone_num,email,city,create_time,status')->order('id desc')->select();
-       if(!empty($data)){
-         ajax_success('成功',$data);
+       if($request->isPost()){
+        return ajax_success('成功',$data);
        }
         return view('user_index');
     }
