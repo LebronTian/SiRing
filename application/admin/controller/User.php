@@ -109,7 +109,6 @@ class User extends Controller{
     public function del(Request $request){
         if($request->isPost()){
             $id  =$_POST['id'];
-//            dump($id);exit();
           $res =  Db::name('user')->where('id',$id)->delete();
           if($res)
           {

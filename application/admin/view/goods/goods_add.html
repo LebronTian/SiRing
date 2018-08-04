@@ -2,18 +2,18 @@
 
 {block name="content"}
 <div class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="form-article-add">
+	<form action="{:url('admin/Goods/save')}" method="post" class="form form-horizontal" id="form-article-add" enctype="">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>产品标题：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text goods_name" value="" placeholder="" id="" style="width: 200px">
+				<input type="text" class="input-text" name="goods_name" value="" placeholder="" id="" style="width: 200px">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类栏目：</label>
 			<div class="formControls col-xs-8 col-sm-9"> 
                 <span class="select-box" style="width: 200px">
-                    <select id="goods-list" class="select goods_type_id">
+                    <select id="goods-list" name="goods_type_id" class="select">
                         <!-- <option value="0">一级分类</option> -->
                     </select>
                 </span> 
@@ -22,7 +22,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">排序值：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text sort_number" value="0" placeholder="" id="" style="width: 200px">
+				<input type="text" class="input-text" name="sort_number" value="0" placeholder="" id="" style="width: 200px">
 			</div>
 		</div>
 		<!-- <div class="row cl">
@@ -37,13 +37,13 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">产品规格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" id="" placeholder="输入规格" value="" class="input-text goods_specification" style=" width:200px">
+				<input type="text" id="" placeholder="输入规格" name="goods_specification" value="" class="input-text" style=" width:200px">
             </div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">产地：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" id="" placeholder="" value="" class="input-text goods_place" style="width: 200px">
+				<input type="text" id="" placeholder="" value="" class="input-text" name="goods_place" style="width: 200px">
 			</div>
 		</div>
 		<!-- <div class="row cl">
@@ -55,14 +55,14 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">所属供应商：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" id="" placeholder="" value="" class="input-text goods_supplier" style="width: 200px">
+				<input type="text" id="" placeholder="" value="" class="input-text" name="goods_supplier" style="width: 200px">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">价格计算单位：</label>
 			<div class="formControls col-xs-8 col-sm-9">
                 <span class="select-box" style="width: 200px;">
-                    <select class="select goods_unit">
+                    <select class="select" name="goods_unit">
                         <option>请选择</option>
                         <option value="1">件</option>
                         <option value="2">斤</option>
@@ -88,7 +88,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">市场价格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" id="" placeholder="" value="" class="input-text goods_bazaar_money" style="width:200px">
+				<input type="text" class="input-text" name="goods_bazaar_money" style="width:200px">
 				元</div>
 		</div>
 		<!-- <div class="row cl">
@@ -100,19 +100,19 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">最低销售价格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" id="" placeholder="" value="" class="input-text goods_bottom_mone" style="width:200px">
+				<input type="text" name="goods_bottom_mone" class="input-text" style="width:200px">
 				元</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">产品关键字：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" id="" placeholder="多个关键字用英文逗号隔开，限10个关键字" value="" class="input-text goods_keyword" style="width: 250px">
+				<input type="text" name="goods_keyword" placeholder="多个关键字用英文逗号隔开，限10个关键字" value="" class="input-text" style="width: 250px">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">产品摘要：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea cols="" rows="" class="textarea goods_abstract"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)" style="width: 250px"></textarea>
+				<textarea name="goods_abstract" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)" style="width: 250px"></textarea>
 				<!-- <p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p> -->
 			</div>
 		</div>
@@ -151,7 +151,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">详细内容：</label>
 			<div class="formControls col-xs-8 col-sm-9"> 
-				<script id="editor" class="goods_detail" type="text/plain" style="width:100%;height:400px;"></script> 
+				<script id="editor" type="text/plain" name="goods_detail" style="width:100%;height:400px;"></script> 
 			</div>
         </div>
 
@@ -204,51 +204,51 @@
             })
         }())
     
-        $(".btn-primary").click(function () {
-            var Ogoods_name = $('.goods_name').val();
-            var Ogoods_type_id = $('.goods_type_id option:selected').html();
-            var Osort_number = $('.sort_number').val();
-            var Ogoods_specification = $('.goods_specification').val();
-            var Ogoods_place = $('.goods_place').val();
-            var Ogoods_supplier = $('.goods_supplier').val();
-            var Ogoods_unit = $('.goods_unit option:selected').html();
-            var Ogoods_bazaar_money = $('.goods_bazaar_money').val();
-            var Ogoods_bottom_mone = $('.goods_bottom_mone').val();
-            var Ogoods_keyword = $('.goods_keyword').val();
-            var Ogoods_abstract = $('.goods_abstract').val();
-            var Ogoods_images_name = $('.goods_images').siblings('p.title').html();
-            var Ogoods_images_src = $('.goods_images img').attr('src');
-            // 富文本内容
-            // var Ogoods_detail = UE.getEditor('editor').getContent();
-            $.ajax({
-                url:"{:url('admin/Goods/save')}",
-                type:"POST",
-                async:false,
-                timeout:5000,
-                data:{
-                    "goods_name": Ogoods_name,
-                    "goods_type_id": Ogoods_type_id,
-                    "sort_number": Osort_number,
-                    "goods_specification": Ogoods_specification,
-                    "goods_place": Ogoods_place,
-                    "goods_supplier": Ogoods_supplier,
-                    "goods_unit": Ogoods_unit,
-                    "goods_bazaar_money": Ogoods_bazaar_money,
-                    "goods_bottom_mone": Ogoods_bottom_mone,
-                    "goods_keyword": Ogoods_keyword,
-                    "goods_abstract": Ogoods_abstract,
-                    "goods_images": Ogoods_images_src,
-                    // "goods_detail": goods_detail
-                },
-                dataType:"json",
-                success:function (data) {
-                    console.log(data);
-                },
-                error:function () {
-                    console.log("错误");
-                }
-            })
-        })
+        // $(".btn-primary").click(function () {
+        //     var Ogoods_name = $('.goods_name').val();
+        //     var Ogoods_type_id = $('.goods_type_id option:selected').html();
+        //     var Osort_number = $('.sort_number').val();
+        //     var Ogoods_specification = $('.goods_specification').val();
+        //     var Ogoods_place = $('.goods_place').val();
+        //     var Ogoods_supplier = $('.goods_supplier').val();
+        //     var Ogoods_unit = $('.goods_unit option:selected').html();
+        //     var Ogoods_bazaar_money = $('.goods_bazaar_money').val();
+        //     var Ogoods_bottom_mone = $('.goods_bottom_mone').val();
+        //     var Ogoods_keyword = $('.goods_keyword').val();
+        //     var Ogoods_abstract = $('.goods_abstract').val();
+        //     var Ogoods_images_name = $('.goods_images').siblings('p.title').html();
+        //     var Ogoods_images_src = $('.goods_images img').attr('src');
+        //     // 富文本内容
+        //     // var Ogoods_detail = UE.getEditor('editor').getContent();
+        //     $.ajax({
+        //         url:"{:url('admin/Goods/save')}",
+        //         type:"POST",
+        //         async:false,
+        //         timeout:5000,
+        //         data:{
+        //             "goods_name": Ogoods_name,
+        //             "goods_type_id": Ogoods_type_id,
+        //             "sort_number": Osort_number,
+        //             "goods_specification": Ogoods_specification,
+        //             "goods_place": Ogoods_place,
+        //             "goods_supplier": Ogoods_supplier,
+        //             "goods_unit": Ogoods_unit,
+        //             "goods_bazaar_money": Ogoods_bazaar_money,
+        //             "goods_bottom_mone": Ogoods_bottom_mone,
+        //             "goods_keyword": Ogoods_keyword,
+        //             "goods_abstract": Ogoods_abstract,
+        //             "goods_images": Ogoods_images_src,
+        //             // "goods_detail": goods_detail
+        //         },
+        //         dataType:"json",
+        //         success:function (data) {
+        //             console.log(data);
+        //         },
+        //         error:function () {
+        //             console.log("错误");
+        //         }
+        //     })
+        // })
         
     </script>
 
@@ -578,7 +578,7 @@ $(function(){
         function addFile( file ) {
             var $li = $( '<li id="' + file.id + '">' +
                     '<p class="title">' + file.name + '</p>' +
-                    '<p class="imgWrap goods_images"></p>'+
+                    '<p class="imgWrap" name="goods_images"></p>'+
                     '<p class="progress"><span></span></p>' +
                     '</li>' ),
 
