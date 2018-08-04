@@ -83,10 +83,12 @@ Route::group("admin",[
 
     /*会员管理*/
     "user_index"=>"admin/User/index", //会员概况
+    "user_search"=>"admin/User/search", //会员搜索
     "user_add"=>"admin/User/add",     //会员增加
     "user_save"=>"admin/User/save",     //会员增加(逻辑处理)
     "user_edit"=>"admin/User/edit",     //会员编辑
     "user_edits"=>"admin/User/edits",     //会员编辑
+    "user_update"=>"admin/User/update",     //会员编辑更新
     "user_del"=>"admin/User/del",     //会员删除
     "user_status"=>"admin/User/status",     //会员软删除禁用
     "user_statu"=>"admin/User/statu",     //会员软删除启用

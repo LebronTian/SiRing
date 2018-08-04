@@ -26,6 +26,14 @@ class User extends Controller{
         return view('user_index');
     }
 
+    public function search(){
+            $keywords =input('keywords');
+            $condition = " `email` like '%{$keywords}%' or `user_name` like '%{$keywords}%' or `phone_num` like '%{$keywords}%' ";
+            $res = Db::name("user")->where($condition)->select();
+            dump($res);exit();
+        return view('user_index');
+    }
+
     /**
      **************李火生*******************
      * @return \think\response\View
@@ -119,6 +127,22 @@ class User extends Controller{
 
     /**
      **************李火生*******************
+     * @param Request $request
+     * 批量删除
+     **************************************
+//     */
+//    public function dels(Request $request){
+//        if($request->isPost()){
+//            $data =$_POST;
+//            foreach ($data as $k $v){
+//                Db::name('user')->where('id',$id)->delete();
+//            }
+//
+//        }
+//    }
+
+    /**
+     **************李火生*******************
      * 软删除，修改状态值
      **************************************
      */
@@ -183,6 +207,12 @@ class User extends Controller{
         return view("user_edit");
     }
 
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 会员编辑页面获取传值
+     **************************************
+     */
     public function edits(Request $request){
         if($request->isPost()){
         $id =$_SESSION['id'];
@@ -191,11 +221,17 @@ class User extends Controller{
             return ajax_success('成功',$datas);
         }
     }
-
-
     public function  update(Request $request){
         if($request->isPost()){
-
+                $id =$_POST['id'];
+                $data =$_POST;
+                $res =Db::name('user')->data('data',$data)->where('id',$id)->update();
+                if($res){
+                    $this->success('更新成功',url('admin/user/index'));
+                }
+                if(!$res){
+                    $this->error('更新失败');
+                }
         }
     }
 
@@ -216,6 +252,8 @@ class User extends Controller{
      **************************************
      */
     public function pass_edit(){
+
+
         return view("pass_edit");
     }
 
