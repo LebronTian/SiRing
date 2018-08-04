@@ -146,7 +146,7 @@ function member_start(obj,id){
 function member_edit(title,url,id,w,h){
 	layer_show(title,url,w,h);
 	$.ajax({
-		url: "{:url('admin/user/del')}",
+		url: "{:url('admin/user/edit')}",
 		type: 'POST',
 		dataType: 'json',
 		data: {
