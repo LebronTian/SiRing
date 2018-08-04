@@ -142,6 +142,12 @@ class User extends Controller{
       }
     }
 
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 状态启用
+     **************************************
+     */
     public function statu(Request $request){
         if($request->isPost()){
             $id =$_POST['id'];
@@ -167,14 +173,30 @@ class User extends Controller{
      **************************************
      */
     public function edit(Request $request){
+
         if($request->isPost()){
             $id =$_POST['id'];
+            $_SESSION['id'] =$id;
             $datas = Db::name('user')->where('id',$id)->find();
-          if($datas){
               return ajax_success('成功',$datas);
-          }
         }
         return view("user_edit");
+    }
+
+    public function edits(Request $request){
+        if($request->isPost()){
+        $id =$_SESSION['id'];
+        $datas = Db::name('user')->where('id',$id)->find();
+            unset($_SESSION['id']);
+            return ajax_success('成功',$datas);
+        }
+    }
+
+
+    public function  update(Request $request){
+        if($request->isPost()){
+
+        }
     }
 
     /**
