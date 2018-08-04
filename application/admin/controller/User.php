@@ -115,8 +115,37 @@ class User extends Controller{
               $this->success('成功',url('admin/user/index'));
           }
         }
-        return view("user_add");
     }
+
+    /**
+     **************李火生*******************
+     * 软删除，修改状态值
+     **************************************
+     */
+    public function status(Request $request){
+      if($request->isPost()){
+          $id =$_POST['id'];
+          $status =Db::name('user')->field('status')->where('id',$id)->find();
+          if($status ==1){
+              $res =Db::name('user')->where('id',$id)->update('status',0);
+              if($res){
+                  $this->success('成功',url('admin/user/index'));
+              }
+          }
+          if($status ==0){
+              $res =Db::name('user')->where('id',$id)->update('status',1);
+              if($res){
+                  $this->success('成功',url('admin/user/index'));
+              }
+          }
+
+      }
+    }
+
+
+
+
+
 
     /**
      **************李火生*******************
