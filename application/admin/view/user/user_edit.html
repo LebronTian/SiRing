@@ -127,7 +127,20 @@ $(function(){
 			parent.layer.close(index);
 		}
 	});
+    $.ajax({
+        url: "{:url('admin/user/edits')}",
+        type: 'POST',
+        dataType: 'json',
+        success: function(data){
+            alert('成功');
+            console.log(data)
+        },
+        error: function(){
+            console.log('失败');
+        }
+    });
 });
+<<<<<<< HEAD
 	
     (function(){
         $.ajax({
@@ -144,6 +157,13 @@ $(function(){
             }
         })
     }())
+=======
+
+
+
+
+
+>>>>>>> eb57d9e9236ee9913ce543e6e4fb6f13ce84b8e3
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->
 {/block}
