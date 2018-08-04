@@ -126,24 +126,42 @@ class User extends Controller{
       if($request->isPost()){
           $id =$_POST['id'];
           $status =Db::name('user')->field('status')->where('id',$id)->find();
-          $status =$status['status'];
-          if($status ==1){
+          $statu =$status['status'];
+          if($statu ==1){
               $res =Db::name('user')->where('id',$id)->update(['status'=>0]);
               if($res){
                   $this->success('成功',url('admin/user/index'));
               }
           }
-          if($status ==0){
+          if($statu ==0){
               $res =Db::name('user')->where('id',$id)->update(['status'=>1]);
               if($res){
                   $this->success('成功',url('admin/user/index'));
               }
           }
-
       }
     }
 
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 状态启用
+     **************************************
+     */
+    public function statu(Request $request){
+        if($request->isPost()){
+            $id =$_POST['id'];
+            $status =Db::name('user')->field('status')->where('id',$id)->find();
+            $statu =$status['status'];
+            if($statu ==0){
+                $res =Db::name('user')->where('id',$id)->update(['status'=>1]);
+                if($res){
+                    $this->success('成功',url('admin/user/index'));
+                }
+            }
 
+        }
+    }
 
 
 
@@ -155,13 +173,30 @@ class User extends Controller{
      **************************************
      */
     public function edit(Request $request){
+
         if($request->isPost()){
             $id =$_POST['id'];
-            $dates = Db::name('user')->where('id',$id)->find();
-            dump($dates);exit();
+            $_SESSION['id'] =$id;
+            $datas = Db::name('user')->where('id',$id)->find();
+              return ajax_success('成功',$datas);
         }
-
         return view("user_edit");
+    }
+
+    public function edits(Request $request){
+        if($request->isPost()){
+        $id =$_SESSION['id'];
+        $datas = Db::name('user')->where('id',$id)->find();
+            unset($_SESSION['id']);
+            return ajax_success('成功',$datas);
+        }
+    }
+
+
+    public function  update(Request $request){
+        if($request->isPost()){
+
+        }
     }
 
     /**
