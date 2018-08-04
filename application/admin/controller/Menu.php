@@ -13,7 +13,8 @@ class Menu extends Controller
     public function index(){
         $menu_lists = db("Menu")->order("sort_number")->paginate(10);
         //$menu_list = genTree($menu_lists);
-        return view("index",["menu_list"=>$menu_lists]);
+        $page = $menu_lists->render();
+        return view("index",["menu_list"=>$menu_lists,"page"=>$page]);
     }
 
     public function add($pid = 0){

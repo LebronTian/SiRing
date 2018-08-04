@@ -19,8 +19,12 @@ class Goods extends Controller{
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      * 陈绪
      */
-    public function index(){
-
+    public function index(Request $request){
+        if($request->isPost()){
+            $goods = db("goods")->select();
+            $goods_type = db("goods_type")->select();
+            return ajax_success("获取成功",array("goods"=>$goods,"goods_type"=>$goods_type));
+        }
         return view("goods_index");
     }
 
@@ -31,8 +35,6 @@ class Goods extends Controller{
 
     public function save(Request $request){
        if ($request->isPost()){
-           $data = $request->param();
-           halt($data);
            $goods_data = $request->only([
                         "goods_name",
                         "sort_number",

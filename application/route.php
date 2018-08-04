@@ -87,16 +87,17 @@ Route::group("admin",[
     "user_save"=>"admin/User/save",     //会员增加(逻辑处理)
     "user_edit"=>"admin/User/edit",     //会员编辑
     "user_del"=>"admin/User/del",     //会员删除
-    "user_status"=>"admin/User/status",     //会员软删除
+    "user_status"=>"admin/User/status",     //会员软删除禁用
+    "user_statu"=>"admin/User/statu",     //会员软删除启用
+
     "user_show"=>"admin/User/show",     //会员查看
     "pass_edit"=>"admin/User/pass_edit",     //会员密码编辑
 
     "user_grade"=>"admin/User/grade",  //会员等级
-    "user_rule"=>"admin/User/rule"   //会员等级
+    "user_rule"=>"admin/User/rule",  //会员等级
 
-
-
+    /*测试页面*/
+    "text"=>"admin/Text/index",
 ]);
 
-/*测试页面*/
-Route::any("test","");
+
