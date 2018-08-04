@@ -152,6 +152,7 @@ function member_edit(title,url,id,w,h){
 		url: "{:url('admin/user/edit')}",
 		type: 'POST',
 		dataType: 'json',
+		async: false,
 		data: {
 			'id': id
 		},
@@ -159,7 +160,7 @@ function member_edit(title,url,id,w,h){
 			console.log(data)
 		},
 		error: function(data){
-			console.log(data)
+			console.log('错误')
 		}
 	})
 }
@@ -236,7 +237,6 @@ function member_del(obj,id){
 							// $('#stop_btn'+data.data[i].id).attr('title','停用');
 						}
 						if(data.data[i].status == 0){
-							console.log(data.data[i].id)
 							$('#mystatus'+data.data[i].id).html('已停用').attr('class', 'label label-defaunt radius');
 							$('#stopbtn_'+data.data[i].id).children(i).attr('class','Hui-iconfont').html('&#xe6e1;');
 							$('#stopbtn_'+data.data[i].id).attr('title','启用');
