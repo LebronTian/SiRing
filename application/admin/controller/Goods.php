@@ -35,7 +35,7 @@ class Goods extends Controller{
 
     public function save(Request $request){
        if ($request->isPost()){
-           $data = $request->file("upload");
+           $data = $request->file("goods_images");
            halt($data);
            $goods_data = $request->only([
                         "goods_name",
