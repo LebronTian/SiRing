@@ -106,7 +106,6 @@ function member_stop(obj,id){
 			},
 			success: function(data){
 			    alert(data.msg);
-				console.log(data)
 				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
 				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
 				$(obj).remove();
