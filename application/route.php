@@ -94,11 +94,10 @@ Route::group("admin",[
     "pass_edit"=>"admin/User/pass_edit",     //会员密码编辑
 
     "user_grade"=>"admin/User/grade",  //会员等级
-    "user_rule"=>"admin/User/rule"   //会员等级
+    "user_rule"=>"admin/User/rule",  //会员等级
 
-
-
+    /*测试页面*/
+    "text"=>"admin/Text/index",
 ]);
 
-/*测试页面*/
-Route::any("test","");
+
