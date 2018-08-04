@@ -128,6 +128,21 @@ $(function(){
 		}
 	});
 });
+	$.ajax({
+		url: "{:url('admin/user/del')}",
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			'id': id
+		},
+		success: function(data){
+			console.log(data)
+		},
+		error: function(){
+			console.log('错误')
+		}
+	})
+
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->
 {/block}
