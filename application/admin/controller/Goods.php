@@ -8,8 +8,10 @@
 
 namespace app\admin\controller;
 
+use think\console\Input;
 use think\Controller;
 use think\Request;
+use think\Image;
 
 class Goods extends Controller{
     /**
@@ -45,17 +47,12 @@ class Goods extends Controller{
            $bool = db("goods")->insert($goods_data);
            if($bool){
                //取出图片在存到数据库
-               $goods_images = $request->only(["goods_images"])["goods_images"];
-               if(!empty($goods_images)){
-                   $dir_name = "/public/static/admin/upload".date("Y-m-d");
-                   if(is_dir($dir_name)) {
-                       mkdir($dir_name, 777);
-                   }
-
-                   $strrchr = uniqid().time().strstr($goods_images,"d",true);
-                   halt($strrchr);
-                   $path = $path.$strrchr;
-                   $bool = move_uploaded_file($path,$dir_name.$path);
+               if(isset($goods_images)){
+                   $strrchr = uniqid().time().strrchr($goods_images,".");
+                   $file = request()->file('goods_images');
+                   $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
+                   halt($info);
+                   $bool = $goods_images->validate(["ext"=>"jpg,png,gif"])->move(ROOT_PATH . "public".DS."upload");
                    halt($bool);
                }
            }
