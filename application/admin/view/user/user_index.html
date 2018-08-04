@@ -124,13 +124,14 @@ function member_start(obj,id){
 	layer.confirm('确认要启用吗？',function(index){
 		$.ajax({
 			type: 'POST',
-			url:  "{:url('admin/user/status')}",
+			url:  "{:url('admin/user/index')}",
 			dataType: 'json',
 			data: {
 				'id': idNum[1]
 			},
 			success: function(data){
 			    alert(data.msg);
+				console.log(data);
 				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
 				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
 				$(obj).remove();
@@ -215,7 +216,7 @@ function member_del(obj,id){
 													<span class="label label-success radius" id="mystatus'+data.data[i].id+'">'+data.data[i].status +'</span>\
 												</td>\
 												<td class="td-manage">\
-													<a style="text-decoration:none" id="stopbtn_'+data.data[i].id+'" onClick="'+'member_stop(this,'+'10001'+')'+'" href="javascript:;" title="停用">\
+													<a style="text-decoration:none" id="stopbtn_'+data.data[i].id+'" onClick="'+'member_stop(this,'+'10001'+')'+'" href="javascript:;">\
 														<i class="Hui-iconfont">&#xe631;</i>\
 													</a>\
 													<a title="编辑" href="javascript:;" id="editbtn_'+data.data[i].id+'" onclick="member_edit('+"'"+'编辑'+"'"+','+"'"+'user_edit.html'+"'"+','+data.data[i].id+','+"'"+''+"'"+','+'510'+')" class="ml-5" style="text-decoration:none">\
@@ -232,12 +233,14 @@ function member_del(obj,id){
 							// $('#stop_btn'+data.data[i].id).children(i).attr('class','Hui-iconfont').html('&#xe631;');
 							// $('#stop_btn'+data.data[i].id).attr('title','停用');
 						}
-						// if(data.data[i].status == 0){
-							// $('#mystatus'+data.data[i].id).html('已停用');
-							// $('#stop_btn'+data.data[i].id).children(i).attr('class','Hui-iconfont').html('&#xe6e1;');
-							// $('#stop_btn'+data.data[i].id).attr('title','启用');
-
-						// }
+						if(data.data[i].status == 0){
+							console.log(data.data[i].id)
+							$('#mystatus'+data.data[i].id).html('已停用').attr('class', 'label label-defaunt radius');
+							$('#stopbtn_'+data.data[i].id).children(i).attr('class','Hui-iconfont').html('&#xe6e1;');
+							$('#stopbtn_'+data.data[i].id).attr('title','启用');
+							$('#stopbtn_'+data.data[i].id).attr('onClick','member_start(this,10001)')
+						}
+						
 					}
                     
                 },
