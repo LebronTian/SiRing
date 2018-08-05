@@ -90,6 +90,7 @@ Route::group("admin",[
     "user_edits"=>"admin/User/edits",     //会员编辑
     "user_update"=>"admin/User/update",     //会员编辑更新
     "user_del"=>"admin/User/del",     //会员删除
+    "user_dels"=>"admin/User/dels",     //会员批量删除
     "user_status"=>"admin/User/status",     //会员软删除禁用
     "user_statu"=>"admin/User/statu",     //会员软删除启用
 

@@ -26,6 +26,12 @@ class User extends Controller{
         return view('user_index');
     }
 
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 搜索功能
+     **************************************
+     */
     public function search(){
             $keywords =input('keywords');
             $condition = " `email` like '%{$keywords}%' or `user_name` like '%{$keywords}%' or `phone_num` like '%{$keywords}%' ";
@@ -67,6 +73,13 @@ class User extends Controller{
             $phone =$data['phone'];
             if(empty($phone)){
                 $this->error('电话号码不能为空',url('admin/user/add'));
+            }
+            if (strlen($phone)!=11)
+            {
+                $this->error('手机号码应为11位数');
+            }
+            if(!is_numeric($phone)){
+                $this->error('手机号码必须为为数字');
             }
             $email =$data['email'];
             if(empty($email)){
@@ -130,16 +143,24 @@ class User extends Controller{
      * @param Request $request
      * 批量删除
      **************************************
-//     */
-//    public function dels(Request $request){
-//        if($request->isPost()){
-//            $data =$_POST;
-//            foreach ($data as $k $v){
-//                Db::name('user')->where('id',$id)->delete();
-//            }
-//
-//        }
-//    }
+     */
+    public function dels(Request $request){
+        if($request->isGet()){
+            $id =$_GET['id'];
+            if(is_array($id)){
+                $where ='id in('.implode(',',$id).')';
+            }else{
+                $where ='id='.$id;
+            }
+            $list =  Db::name('user')->where($where)->delete();
+            if($list!==false)
+            {
+                $this->success('成功删除{$list}条!');
+            }else{
+                $this->error('删除失败');
+            }
+        }
+    }
 
     /**
      **************李火生*******************
@@ -217,21 +238,57 @@ class User extends Controller{
         if($request->isPost()){
         $id =$_SESSION['id'];
         $datas = Db::name('user')->where('id',$id)->find();
-            unset($_SESSION['id']);
+//            unset($_SESSION['id']);
             return ajax_success('成功',$datas);
         }
     }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 会员信息编辑更新
+     **************************************
+     */
     public function  update(Request $request){
         if($request->isPost()){
-                $id =$_POST['id'];
-                $data =$_POST;
-                $res =Db::name('user')->data('data',$data)->where('id',$id)->update();
-                if($res){
-                    $this->success('更新成功',url('admin/user/index'));
+            $id =$_SESSION['id'];
+            $tb_data =Db::name('user')->where('id',$id)->find();
+            $user_name = $_POST['user_name'];
+            $phone =$_POST['phone_num'];
+            $email =$_POST['email'];
+            $exist_info = Db::name('user')->field('user_name,phone_num,email')->select();
+             foreach ($exist_info as $k=>$v){
+                if($user_name ==$v['user_name'] && $user_name !=$tb_data['user_name']){
+                     $this->error('用户名不能改为已存在的');
+                 }
+                 if($phone ==$v['phone_num'] &&$phone !=$tb_data['phone_num']){
+                     $this->error('手机号不能改为已存在的');
+                 }
+                 if($phone ==$v['email'] &&$phone !=$tb_data['email']){
+                     $this->error('邮箱不能改为已存在的');
+                 }
+             }
+                $data =[
+                    'user_name'=>$user_name,
+                    'sex'=>$_POST['sex'],
+                    'phone_num'=>$phone,
+                    'email'=>$email,
+                    'city'=>$_POST['city'],
+                    'remark'=>$_POST['remark']
+                ];
+                if(!empty($data)){
+                    $res =Db::name('user')->data($data)->where('id',$id)->update();
+                    if($res){
+                        $this->success('更新成功',url('admin/user/index'));
+                        unset($_SESSION['id']);
+                    }
+                    if(!$res){
+                       $this->error('更新失败');
+                        unset($_SESSION['id']);
+                    }
                 }
-                if(!$res){
-                    $this->error('更新失败');
-                }
+
+
         }
     }
 

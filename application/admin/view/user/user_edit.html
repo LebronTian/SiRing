@@ -166,6 +166,7 @@ $(function(){
         }
     });
 	$('.btn_submit').click(function(){
+
 		var username = $('.username').val();
 		var sex = $('.radio-box').children('div.checked').siblings()[0].innerHTML;
 		var mobile = $('.mobile').val();
@@ -173,7 +174,7 @@ $(function(){
 		var city = $('.select option:selected')[0].innerHTML;
 		var remark = $('.notes').val();
 		// alert(remark)
-		// alert(sex)
+//		 alert(sex)
 		$.ajax({
 			url: "{:url('admin/user/update')}",
 			type: 'POST',
@@ -188,10 +189,12 @@ $(function(){
 				"remark": remark
 			},
 			success: function(data){
-				console.log(data);
+//				console.log(data);
+				alert(data.msg);
 			},
-			error: function(){
-				console.log('错误')
+			error: function(data){
+				console.log('失败');
+//				alert(data.msg);
 			}
 		})
 	})
