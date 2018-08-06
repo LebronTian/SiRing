@@ -23,7 +23,8 @@ class Goods extends Controller{
         if($request->isPost()){
             $goods = db("goods")->select();
             $goods_type = db("goods_type")->select();
-            return ajax_success("获取成功",array("goods"=>$goods,"goods_type"=>$goods_type));
+            $goods_images = db("goods_images")->select();
+            return ajax_success("获取成功",array("goods"=>$goods[0],"goods_type"=>$goods_type[0],"goods_images"=>$goods_images[0]));
         }
         return view("goods_index");
     }
@@ -35,8 +36,6 @@ class Goods extends Controller{
 
     public function save(Request $request){
        if ($request->isPost()){
-           $data = $request->file("goods_images");
-           halt($data);
            $goods_data = $request->only([
                         "goods_name",
                         "sort_number",
@@ -54,14 +53,20 @@ class Goods extends Controller{
            $bool = db("goods")->insert($goods_data);
            if($bool){
                //取出图片在存到数据库
-               if(isset($goods_images)){
-                   $strrchr = uniqid().time().strrchr($goods_images,".");
+                   $goods_images = [];
+                   $goodsid = db("goods")->getLastInsID();
                    $file = request()->file('goods_images');
-                   $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
-                   halt($info);
-                   $bool = $goods_images->validate(["ext"=>"jpg,png,gif"])->move(ROOT_PATH . "public".DS."upload");
-                   halt($bool);
-               }
+                   foreach ($file as $value){
+                       $info = $value->move("" . 'public' . DS . 'uploads');
+                       $goods_url = $info->getSaveName();
+                       $goods_images[] = ["goods_images"=>$goods_url,"goods_id"=>$goodsid];
+                   }
+                   $booldata = model("goods_images")->saveAll($goods_images);
+                   if($booldata){
+                       $this->success("添加成功",url('admin/Goods/index'));
+                   }else{
+                       $this->error("添加失败",url('admin/Goods/add'));
+                   }
            }
        }
     }
