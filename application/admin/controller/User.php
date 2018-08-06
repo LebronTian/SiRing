@@ -315,7 +315,15 @@ class User extends Controller{
     }
 
 
-
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 城市测试
+     **************************************
+     */
+    public function cityss(){
+        return view('user_cityss');
+    }
 
 
     /**
@@ -337,6 +345,9 @@ class User extends Controller{
     public function rule(){
         return view('user_rule');
     }
+
+
+
 
 
 
