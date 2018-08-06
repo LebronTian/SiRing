@@ -19,7 +19,9 @@ class User extends Controller{
      **************************************
      */
     public function index(Request $request){
+
        $data = Db::name('user')->field('id ,user_name,password,sex,phone_num,email,city,create_time,status')->order('id desc')->select();
+//       dump($data[]);
        if($request->isPost()){
         return ajax_success('成功',$data);
        }
@@ -32,12 +34,39 @@ class User extends Controller{
      * 搜索功能
      **************************************
      */
-    public function search(){
-            $keywords =input('keywords');
-            $condition = " `email` like '%{$keywords}%' or `user_name` like '%{$keywords}%' or `phone_num` like '%{$keywords}%' ";
-            $res = Db::name("user")->where($condition)->select();
-            dump($res);exit();
-        return view('user_index');
+    public function search(Request $request){
+        if($request->isPost()){
+            $keywords =input('search_key');
+            $timemin  =strtotime(input('datemin'));
+            $timemax  =strtotime(input('datemax'));
+            if(empty($timemin)||empty($timemax)){
+                $condition = " `email` like '%{$keywords}%' or `user_name` like '%{$keywords}%' or `phone_num` like '%{$keywords}%' ";
+                $res = Db::name("user")->where($condition)->select();
+                return ajax_success('成功',$res);
+            }
+            if(!empty($timemin)&&!empty($timemax)){
+                if(empty($keywords)){
+                    $condition = "create_time>{$timemin} and create_time< {$timemax}";
+                    $res = Db::name("user")->where($condition)->select();
+                    return ajax_success('成功',$res);
+
+                }
+                if(!empty($keywords)){
+                    $condition = " `email` like '%{$keywords}%' or `user_name` like '%{$keywords}%' or `phone_num` like '%{$keywords}%' ";
+                    $res = Db::name("user")->where($condition)->select();
+                    return ajax_success('成功',$res);
+                }
+
+            }
+
+
+
+
+        }
+
+
+
+//        return view('user_index');
     }
 
     /**
@@ -99,6 +128,8 @@ class User extends Controller{
                 $this->error('此邮箱已注册',url('admin/user/add'));
             }
            $city =implode(',',$data['city']);
+            $time = date('Y-m-d H:i:s');
+            $times =strtotime($time);
             $datas =[
               'user_name'=>$data['username'],
                 'password'=>md5($data['password']),
@@ -106,7 +137,7 @@ class User extends Controller{
                 'phone_num'=>$data['phone'],
                 'email'=>$data['email'],
                 'city'=>$city,
-                'create_time'=>date('Y-m-d H:i:s'),
+                'create_time'=> $times,
                 'remark'=>$data['remark'],
                 'status' => 1
             ];

@@ -410,16 +410,11 @@ function recursionGoods($arr) {
     return $array;
 }
 
-function _tree_sorts($arr,$cols){
+function _tree_sorts($arr){
     //子分类排序
-    foreach ($arr as $k => &$v) {
-        if(empty($v['sub'])){
-            $v['sub']=_tree_sort($v['sub'],$cols);
-        }
-        $sort[$k]=$v[$cols];
+    foreach ($arr as $key=>$value){
+        $arr[$key] = _tree_sorts($value);
     }
-    if(isset($sort))
-        array_multisort($sort,SORT_ASC,$arr);
     return $arr;
 }
 

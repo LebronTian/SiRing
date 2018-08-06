@@ -244,8 +244,8 @@ $('#search_bt').click(function(){
 		dataType: 'json',
 		async: false,
 		data: {
-			"datemin": datemin,
-			"datemax": datemax,
+			"datemin": datemin+' '+'00:00:00',
+			"datemax": datemax+' '+'00:00:00',
 			"search_key": search_key
 		},
 		success: function(data){
@@ -258,6 +258,17 @@ $('#search_bt').click(function(){
 })
 </script> 
 <script>
+    function timetrans(date){
+        var date = new Date(date*1000);//如果date为13位不需要乘1000
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+        var m = (date.getMinutes() <10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+        var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
+        return Y+M+D+h+m+s;
+    }
+
 	(function(){
             //  分类栏目，请求地址获取数据，插入select
             $.ajax({
@@ -267,8 +278,10 @@ $('#search_bt').click(function(){
                 timeout:5000,
                 dataType:"json",
                 success: (data) => {
+                    console.log(data);
                     var len = data.data.length;
 					for(var i = 0; i < len; i++){
+					    var time_create =timetrans(data.data[i].create_time);
 						$('.tbody').append('<tr class="text-c mytr">\
 												<td><input type="checkbox" id="input_'+data.data[i].id+'"></td>\
 												<td>'+ data.data[i].id +'</td>\
@@ -279,7 +292,7 @@ $('#search_bt').click(function(){
 												<td>'+ data.data[i].phone_num+'</td>\
 												<td>'+ data.data[i].email+'</td>\
 												<td class="text-l">'+ data.data[i].city+'</td>\
-												<td>'+ data.data[i].create_time+'</td>\
+												<td>'+ time_create+'</td>\
 												<td class="td-status">\
 													<span class="label label-success radius" id="mystatus'+data.data[i].id+'">'+data.data[i].status +'</span>\
 												</td>\
