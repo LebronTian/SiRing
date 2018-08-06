@@ -9,6 +9,7 @@ namespace  app\index\controller;
 
 use think\Controller;
 use think\Db;
+use think\Request;
 
 class Register extends  Controller{
     /**
@@ -54,38 +55,65 @@ class Register extends  Controller{
 //        }
         public function index()
         {
-            if($_POST){
-                $data = input('post.');
-                if(empty($data['account'])){
-                    $this->error('用户名不能为空');
-                }
-                if(empty($data['passwd'])){
-                    $this->error('密码不能为空');
-                }
-                if(empty($data['yzm'])){
-                    $this->error('验证码不能为空');
-                }
-                $create_time =date('Y-m-d H:i:s');
-                $datas=[
-                    "user_name" => $data['account'],
-                    "password" => $data['passwd'],
-                    "create_time" =>$create_time,
-                    "status"=>1
-                ];
-                $name =Db::name('user')->field('user_name')->where('user_name',$data['account'])->find();
-                if(!empty($name)){
-                    $this->error("此用户名已被使用");
-                }
-                $res = Db::name('user')->insert($datas);
-                if(!$res && $res == null){
-                    $this->error("注册失败");
-                }
-                if($res)
-                {
-                    $this->success('注册成功',url('index/login/login'));
-                }
-            }
+//            if($_POST){
+//                $data = input('post.');
+//                if(empty($data['account'])){
+//                    $this->error('用户名不能为空');
+//                }
+//                if(empty($data['passwd'])){
+//                    $this->error('密码不能为空');
+//                }
+//                if(empty($data['yzm'])){
+//                    $this->error('验证码不能为空');
+//                }
+//                $create_time =date('Y-m-d H:i:s');
+//                $datas=[
+//                    "user_name" => $data['account'],
+//                    "password" => $data['passwd'],
+//                    "create_time" =>$create_time,
+//                    "status"=>1
+//                ];
+//                $name =Db::name('user')->field('user_name')->where('user_name',$data['account'])->find();
+//                if(!empty($name)){
+//                    $this->error("此用户名已被使用");
+//                }
+//                $res = Db::name('user')->insert($datas);
+//                if(!$res && $res == null){
+//                    $this->error("注册失败");
+//                }
+//                if($res)
+//                {
+//                    $this->success('注册成功',url('index/login/login'));
+//                }
+//            }
                 return view('index');
+        }
+
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 手机注册
+     **************************************
+     */
+        public function  doRegByPhone(Request $request){
+            if($request->isPost())
+            {
+                dump('注册');
+            }
+        }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 邮箱注册
+     **************************************
+     */
+        public function  doRegByEmail(Request $request){
+            if($request->isPost())
+            {
+                dump('邮箱注册');
+            }
         }
 
 

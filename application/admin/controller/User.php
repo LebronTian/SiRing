@@ -21,7 +21,6 @@ class User extends Controller{
     public function index(Request $request){
 
        $data = Db::name('user')->field('id ,user_name,password,sex,phone_num,email,city,create_time,status')->order('id desc')->select();
-//       dump($data[]);
        if($request->isPost()){
         return ajax_success('成功',$data);
        }
@@ -186,7 +185,7 @@ class User extends Controller{
             $list =  Db::name('user')->where($where)->delete();
             if($list!==false)
             {
-                $this->success('成功删除{$list}条!');
+                $this->success('成功删除!');
             }else{
                 $this->error('删除失败');
             }

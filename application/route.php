@@ -27,6 +27,13 @@ Route::group("",[
     "login_captcha"=>"index/Login/captchas",
     /*注册页面*/
     "register"=>"index/Register/index",
+    /*短信注册*/
+    "doreg_phone" =>"index/Register/doRegByPhone",
+    /*邮箱注册*/
+    "doreg_email" =>"index/Register/doRegByEmail",
+
+
+
     /*找回密码页面*/
     "findpwd"=>"index/Findpwd/findpwd",
 
