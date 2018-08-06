@@ -1,0 +1,191 @@
+<!DOCTYPE html >
+<html>
+<head>
+    <meta name="Generator" content="ECSHOP v2.7.3" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>用户中心_用户商城  </title>
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/css/login.css"/>
+
+    <!--
+    <link rel="stylesheet" href="themesmobile/68ecshopcom_mobile/css/ecsmart.css" />
+    -->
+    <script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/validate/jquery.validate.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/validate/messages_zh.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/common.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/utils.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/user.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/transport.js"></script>
+</head>
+<body>
+<header id="header" class='header'>
+    <div class="h-left">	<a href="javascript:history.back(-1)"></a>
+    </div>
+    <div class="h-mid">
+        找回密码
+    </div>
+</header>
+
+<div id="tbh5v0">
+    <div class="find">
+
+        <section class="innercontent">
+            <form action="" method="post" id="fpForm" name="fpForm" class="c-form login-form">
+                <div class="yonghu">
+                    <input type="text" id="u_name" name="u_name" placeholder="请输入用户名/邮箱/手机号" value="" />
+                </div>
+                <div class="yanzheng" style=" margin-top:10px;">
+                    <div class="codeTxt">
+                        <input type="text" id="captcha" name="captcha" placeholder="验证码" />
+                    </div>
+                    <div class="codePhoto">
+                        <img class="check-code-img" src="" alt="验证码" title="" onClick="" height="35"/>
+                    </div>
+                </div>
+                <div class="submit-btn">
+                    <input type="button" id="btn_submit" class="btn_big1" value="下一步" />
+                    <input type="hidden" name="act" value="check_username" />
+                </div>
+            </form>
+        </section>
+        <script type="text/javascript">
+            $().ready(function(){
+                var container = $("#error_container");
+                var validator = $("#fpForm").validate({
+                    rules: {
+                        u_name: "required",
+                        captcha: {
+                            required: true,
+                            maxlength: 4
+                        }
+                    },
+                    messages: {
+                        u_name: "请输入您的用户名/邮箱/已验证的手机",
+                        captcha: {
+                            required: "验证码不能为空",
+                            max: "验证码格式不正确"
+                        }
+                    },
+                    //errorPlacement: function(error, element) {
+                    //	error.appendTo($("#error_container"));
+                    //},
+                    errorContainer: container,
+                    errorLabelContainer: $(container),
+                    wrapper: 'div'
+                });
+                $("#btn_submit").click(function(){
+                    // 验证信息
+                    if(!validator.form()){
+                        return;
+                    }
+
+                    $("#fpForm").submit();
+                });
+            });
+        </script>
+        <div class="footer" >
+            <div class="links"  id="ECS_MEMBERZONE">           	<a href="login.html"><span>登录</span></a><a href="register.html"><span>注册</span></a><a href="#"><span>反馈</span></a><a href="javascript:window.scrollTo(0,0);"><span>回顶部</span></a>
+            </div>
+            <ul class="linkss" >
+                <li>
+                    <a href="#">
+                        <i class="footerimg_1"></i>
+                        <span >客户端</span></a></li>
+                <li>
+                    <a href="javascript:;"><i class="footerimg_2"></i><span class="gl">触屏版</span></a></li>
+                <li><a href="index.php?is_c=1" class="goDesktop"><i class="footerimg_3"></i><span>电脑版</span></a></li></ul>
+            <p class="mf_o4">&copy; 2018-2018 鸿宇多用户商城 版权所有，并保留所有权利。</p>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+    var process_request = "正在处理您的请求...";
+    var username_empty = "- 用户名不能为空。";
+    var username_shorter = "- 用户名长度不能少于 3 个字符。";
+    var username_invalid = "- 用户名只能是由字母数字以及下划线组成。";
+    var password_empty = "- 登录密码不能为空。";
+    var password_shorter = "- 登录密码不能少于 6 个字符。";
+    var confirm_password_invalid = "- 两次输入密码不一致";
+    var email_empty = "- Email 为空";
+    var email_invalid = "- Email 不是合法的地址";
+    var agreement = "- 您没有接受协议";
+    var msn_invalid = "- msn地址不是一个有效的邮件地址";
+    var qq_invalid = "- QQ号码不是一个有效的号码";
+    var home_phone_invalid = "- 家庭电话不是一个有效号码";
+    var office_phone_invalid = "- 办公电话不是一个有效号码";
+    var mobile_phone_invalid = "- 手机号码不是一个有效号码";
+    var msg_un_blank = "* 用户名不能为空";
+    var msg_un_length = "* 用户名不得超过14个字符";
+    var msg_un_format = "* 用户名含有非法字符";
+    var msg_un_registered = "* 用户名已经存在,请重新输入";
+    var msg_can_rg = "* 可以注册";
+    var msg_email_blank = "* 邮件地址不能为空";
+    var msg_email_registered = "* 邮箱已存在";
+    var msg_email_format = "* 邮件地址不合法";
+    var msg_blank = "不能为空";
+    var no_select_question = "- 您没有完成密码提示问题的操作";
+    var passwd_balnk = "- 密码中不能包含空格";
+    var username_chana = "- 用户名不能有中文。";
+    var msg_uname_length = "- 用户名不能超过 20 个字符。";
+    var msg_un_chine = "* 用户名不能为中文";
+    var msg_mobile_phone_blank = "* 手机号码不能为空";
+    var msg_mobile_phone_registered = "* 手机号码已存在";
+    var msg_mobile_phone_format = "* 手机号码不是一个有效号码";
+    var msg_email_code_blank = "- 邮箱验证码不能为空";
+    var msg_mobile_phone_code_blank = "- 手机验证码不能为空";
+    var msg_captcha_blank = "- 验证码不能为空";
+    var msg_register_type_blank = "- 注册类型不能为空";
+    var username_exist = "用户名 %s 已经存在";
+</script>
+</div>
+
+<div style="height:50px; line-height:50px; clear:both;"></div>
+<div class="v_nav">
+    <div class="vf_nav">
+        <ul>
+            <li> <a href="./">
+                <i class="vf_1"></i>
+                <span>首页</span></a></li>
+            <li><a href="http://wpa.qq.com/msgrd?v=3&uin=1527200768&site=qq&menu=yes" target="_blank">
+                <i class="vf_2"></i>
+                <span>客服</span></a></li>
+            <li><a href="catalog.php">
+                <i class="vf_3"></i>
+                <span>分类</span></a></li>
+            <li>
+                <a href="flow.php">
+                    <em class="global-nav__nav-shop-cart-num" id="ECS_CARTINFO" style="right:9px;"> 0 </em>
+                    <i class="vf_4"></i>
+                    <span>购物车</span>
+
+                </a></li>
+            <li><a href="user.php">
+                <i class="vf_5"></i>
+                <span>我的</span></a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        $('input[type=text],input[type=password]').bind({
+            focus:function(){
+                $(".global-nav").css("display",'none');
+            },
+            blur:function(){
+                $(".global-nav").css("display",'flex');
+            }
+        });
+    })
+</script>
+</body>
+</html>

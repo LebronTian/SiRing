@@ -1,59 +1,70 @@
-<!doctype html>
+<!DOCTYPE html >
 <html>
 <head>
+    <meta name="Generator" content="ECSHOP v2.7.3" />
     <meta charset="UTF-8">
-    <title>登录页</title>
-    <link rel="stylesheet" href="__STATIC__/admin/user/css_style/enroll.css">
-    <link rel="stylesheet" type="text/css" href="__STATIC__/admin/user/css_style/banner.css">
+    <meta name="viewport" content="width=device-width">
+    <title>用户中心_用户商城  </title>
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/css/login.css"/>
 
+    <script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/common.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/utils.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/user.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/transport.js"></script>
 </head>
-<body onload="refresh()">
+<body>
 
-<div id="h" style="margin-top:100px; margin-left: -150px;">
-    <div>
+<header id="header" class='header'>
+    <div class="h-left"><a href="javascript:history.back(-1)" class="sb-back"></a></div>
+    <div class="h-mid">会员登录     </div>
+</header>
+<div class="denglu">
+    <form action="user.php" method="post">
+        <div class="Login">
+            <dl>
+                <dt>用户名：</dt>
+                <dd><input type="text" name="username" placeholder="请输入用户名/邮箱/手机号" value="" /></dd>
+            </dl>
+            <dl style=" margin-top:15px;">
+                <dt>密码：</dt>
+                <dd><input type="password" name="password" placeholder="密码"/></dd>
+            </dl>
+            <div class="field submit-btn">
+                <input type="submit" class="btn_big1" onclick="member_login()" value="登 录" />
+                <input type="hidden" name="act" value="act_login" />
+                <input type="hidden" name="back_act" value="http://glb.siring.cn/mobile/register.php" />
+            </div>
+            <div class="ng-foot">
+                <div class="ng-cookie-area" >
+                    <label class="bf1 login_ffri">
+                        <input type="checkbox" name="remember" value="1" checked=""> &nbsp;自动登录
+                    </label>
+                </div>
+                <div class="ng-link-area" >
+                <span style=" margin-right:5px; border-right:1px solid #eeeeee">
+                  <a href="register.html" >免费注册</a>
+                </span>
+                    <span class="user_line"></span>
+                    <span >
+                  <a href="findPwd.html" >忘记密码？</a>
+                </span>
+                </div>
+                <div class="third-area ">
+                    <div class="third-area-a">第三方登录</div>
+                    <a class="ta-qq" href="user.php?act=oath&type=qq" target="_blank" title="QQ"></a>
+                    <a class="ta-weibo" href="user.php?act=oath&type=weibo" target="_blank" title="weibo"></a>
+                    <a class="ta-alipay" href="user.php?act=oath&type=alipay" target="_blank" title="alipay"></a>
+                </div>
+            </div>
 
-        <form method="post" action="{:url('index/login/login')}" autoComplete="off" class="js-ajax-form">
-
-            <table></table>
-
-            <h3>登录页</h3>
-            <ul type="none">
-                <li>
-                    账户名<span id="unameMsg" class=""></span>
-                    <input type="text" name="account" id="user_username" placeholder="账户名">
-                </li>
-
-                <li>
-                    账户密码<span id="upwdMsg" class=""></span><!-- <a href="#">忘记密码？</a> -->
-                    <input type="password" name="passwd" id="upwd" placeholder="账户密码">
-
-                </li>
-                <li style="display:inline-block;width:100%; height: 50px;">
-                    验证码
-                    <input type="text" id="yzm" name="yzm" placeholder="验证码" style="width: 220px; height: 50px;">
-                    <span style="display:inline-block;float:right"><img src="{:url('index/Login/captchas')}"  alt="captcha"  onclick="this.src='{:url("index/Login/captchas")}?id='+Math.random();" /></span>
-                </li>
-
-                <li>
-                    <input type="submit" value="登录" id="tjbtn" class="aaa1">
-
-                    <div class="alert alert-success">
-                    </div>
-                </li>
-            </ul>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 
-
 </body>
-
-<script src="__STATIC__/admin/user/js/jquery-1.11.3.js"></script>
-<script src="__STATIC__/admin/user/js/enroll.js"></script>
-
-
-
 </html>
-
-
-

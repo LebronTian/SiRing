@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>登录页</title>
+    <link rel="stylesheet" href="__STATIC__/admin/user/css_style/enroll.css">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/admin/user/css_style/banner.css">
+
+</head>
+<body onload="refresh()">
+
+<div id="h" style="margin-top:100px; margin-left: -150px;">
+    <div>
+
+        <form method="post" action="{:url('index/login/login')}" autoComplete="off" class="js-ajax-form">
+
+            <table></table>
+
+            <h3>登录页</h3>
+            <ul type="none">
+                <li>
+                    账户名<span id="unameMsg" class=""></span>
+                    <input type="text" name="account" id="user_username" placeholder="账户名">
+                </li>
+
+                <li>
+                    账户密码<span id="upwdMsg" class=""></span><!-- <a href="#">忘记密码？</a> -->
+                    <input type="password" name="passwd" id="upwd" placeholder="账户密码">
+
+                </li>
+                <li style="display:inline-block;width:100%; height: 50px;">
+                    验证码
+                    <input type="text" id="yzm" name="yzm" placeholder="验证码" style="width: 220px; height: 50px;">
+                    <span style="display:inline-block;float:right"><img src="{:url('index/Login/captchas')}"  alt="captcha"  onclick="this.src='{:url("index/Login/captchas")}?id='+Math.random();" /></span>
+                </li>
+
+                <li>
+                    <input type="submit" value="登录" id="tjbtn" class="aaa1">
+
+                    <div class="alert alert-success">
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>
+
+
+</body>
+
+<script src="__STATIC__/admin/user/js/jquery-1.11.3.js"></script>
+<script src="__STATIC__/admin/user/js/enroll.js"></script>
+
+
+
+</html>
+
+
+
