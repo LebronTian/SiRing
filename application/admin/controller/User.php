@@ -98,20 +98,20 @@ class User extends Controller{
             if($res_email){
                 $this->error('此邮箱已注册',url('admin/user/add'));
             }
+           $city =implode(',',$data['city']);
             $datas =[
               'user_name'=>$data['username'],
                 'password'=>md5($data['password']),
                 'sex'=>$data['sex'],
                 'phone_num'=>$data['phone'],
                 'email'=>$data['email'],
-                'city'=>$data['city'],
+                'city'=>$city,
                 'create_time'=>date('Y-m-d H:i:s'),
                 'remark'=>$data['remark'],
                 'status' => 1
             ];
           $res =  Db::name('user')->insert($datas);
           if($res){
-//              $this->success('会员添加成功');
               $this->success('会员添加成功',url('admin/user/index'));
           }else{
               $this->error('会员添加失败');
@@ -145,8 +145,8 @@ class User extends Controller{
      **************************************
      */
     public function dels(Request $request){
-        if($request->isGet()){
-            $id =$_GET['id'];
+        if($request->isPost()){
+            $id =$_POST['id'];
             if(is_array($id)){
                 $where ='id in('.implode(',',$id).')';
             }else{

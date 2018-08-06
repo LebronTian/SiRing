@@ -27,6 +27,8 @@ Route::group("",[
     "login_captcha"=>"index/Login/captchas",
     /*注册页面*/
     "register"=>"index/Register/index",
+    /*找回密码页面*/
+    "findpwd"=>"index/Findpwd/findpwd",
 
 ]);
 
@@ -42,6 +44,7 @@ Route::group("admin",[
     "index"=>"admin/Login/index",
     "login"=>"admin/Login/login",
     "logout"=>"admin/Login/logout",
+
 
     /*验证码*/
     "login_captcha"=>"admin/Login/captchas",
