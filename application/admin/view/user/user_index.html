@@ -221,8 +221,32 @@ $('.btn_del').click(function(){
 		type: 'POST',
 		url: "{:url('admin/user/dels')}",
 		dataType: 'json',
+		async: false,
 		data: {
 			'id': id_checked
+		},
+		success: function(data){
+			console.log(data)
+		},
+		error: function(){
+			console.log('错误')
+		}
+	})
+})
+/*搜用户*/
+$('#search_bt').click(function(){
+	var datemin = $('#datemin')[0].value; 
+	var datemax = $('#datemax')[0].value;
+	var search_key = $('#search_key').val();
+	$.ajax({
+		url: "{:url('admin/user/search')}",
+		type: "POST",
+		dataType: 'json',
+		async: false,
+		data: {
+			"datemin": datemin,
+			"datemax": datemax,
+			"search_key": search_key
 		},
 		success: function(data){
 			console.log(data)
