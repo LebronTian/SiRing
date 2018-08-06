@@ -22,9 +22,10 @@ class Goods extends Controller{
     public function index(Request $request){
         if($request->isPost()){
             $goods = db("goods")->select();
-            $goods_type = db("goods_type")->select();
             $goods_images = db("goods_images")->select();
-            return ajax_success("获取成功",array("goods"=>$goods[0],"goods_type"=>$goods_type[0],"goods_images"=>$goods_images[0]));
+            $goods_type = db("goods_type")->select();
+            $data = array("goods"=>$goods,"goods_type"=>$goods_type,"goods_images"=>$goods_images);
+            return ajax_success("获取成功",$data);
         }
         return view("goods_index");
     }
@@ -32,8 +33,14 @@ class Goods extends Controller{
     public function add(){
 
         return view("goods_add");
+
     }
 
+    /**
+     * [商品添加]
+     * 陈绪
+     * @param Request $request
+     */
     public function save(Request $request){
        if ($request->isPost()){
            $goods_data = $request->only([
@@ -57,8 +64,8 @@ class Goods extends Controller{
                    $goodsid = db("goods")->getLastInsID();
                    $file = request()->file('goods_images');
                    foreach ($file as $value){
-                       $info = $value->move("" . 'public' . DS . 'uploads');
-                       $goods_url = $info->getSaveName();
+                       $info = $value->move(ROOT_PATH . 'public' . DS . 'uploads');
+                       $goods_url = str_replace("\\","/",$info->getSaveName());
                        $goods_images[] = ["goods_images"=>$goods_url,"goods_id"=>$goodsid];
                    }
                    $booldata = model("goods_images")->saveAll($goods_images);
@@ -70,4 +77,15 @@ class Goods extends Controller{
            }
        }
     }
+
+
+    /**
+     * [商品修改]
+     * 陈绪
+     */
+    public function edit(Request $r,$id){
+
+    }
+
+
 }

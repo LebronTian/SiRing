@@ -163,15 +163,18 @@ $(function(){
 			// 设置邮箱
 			$('.email').val(data.data.email);
 			// 设置城市
-			var myoption = $('#province select option');
-			// console.log(myoption)
-			var len = $('#province select option').length;
-			var oCity = data.data.city;
-			for(var i = 0; i < len; i++){
-				if(oCity == myoption[i].innerHTML){
-					myoption[i].selected = true;
+			var allSelect = $('#province select');
+			console.log(allSelect)
+			var oCity = data.data.city.split(',');
+			// console.log(oCity)
+			for(var i = 0; i < 3; i++){
+				// console.log('这里是第'+ i + '个')
+				for(var j = 1; j < allSelect[i].length; j++){
+					if(oCity[0] == allSelect[0][j].innerHTML){
+						allSelect[0][j].selected = true;
+					}
 				}
-			}
+			}			
 			// 备注
 			$('.notes').val(data.data.remark);
 			
@@ -179,7 +182,7 @@ $(function(){
         error: function(){
             console.log('失败');
         }
-    });
+	});
 	$('.btn_submit').click(function(){
 
 		var username = $('.username').val();
