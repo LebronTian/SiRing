@@ -146,7 +146,7 @@ class Goods extends Controller{
                 $goodsid = db("goods")->getLastInsID();
                 $file = request()->file('goods_images');
                 foreach ($file as $value){
-                    $info = $value->move(ROOT_PATH . 'public' . DS . 'uploads');
+                    $info = $value->move(ROOT_PATH . 'public' . DS . 'upload');
                     $goods_url = str_replace("\\","/",$info->getSaveName());
                     $goods_images[] = ["goods_images"=>$goods_url,"goods_id"=>$goodsid];
                 }
