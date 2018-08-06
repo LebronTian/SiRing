@@ -33,7 +33,7 @@
             dataType:"json",
             success:function (data) {
                 var len = data.data.length;
-                console.log(data);
+                console.log(data.goods);
                 for(var i = 0; i < len; i++){
                     $('#goods-list').append('<option value="'+ data.data[i].id+'">'+ data.data[i].name+'</option>')
                 }
