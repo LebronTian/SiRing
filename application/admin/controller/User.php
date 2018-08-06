@@ -145,8 +145,8 @@ class User extends Controller{
      **************************************
      */
     public function dels(Request $request){
-        if($request->isGet()){
-            $id =$_GET['id'];
+        if($request->isPost()){
+            $id =$_POST['id'];
             if(is_array($id)){
                 $where ='id in('.implode(',',$id).')';
             }else{
