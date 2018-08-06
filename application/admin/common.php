@@ -371,10 +371,10 @@ function q($tip){
     }
 }
 
-function ajaxSuccess($msg = '操作成功',$url = '',$data = []){
+/*function ajaxSuccess($msg = '操作成功',$url = '',$data = []){
     $return = ['status'=>1,'url'=>$url,'data'=>$data,'info'=>$msg];
     return response()->json($return);
-}
+}*/
 
 function getSelectList($table , $pid = 0 ,&$result = [] , $spac = -2){
     $spac += 2;
@@ -391,7 +391,7 @@ function getSelectList($table , $pid = 0 ,&$result = [] , $spac = -2){
 function recursionArr($arr,$pid = 0) {
     $array = [];
     foreach ($arr as $value) {
-        if ($value['parent_id'] == $pid) {
+        if ($value['pid'] == $pid) {
             $value['child'] = recursionArr($arr,$value['id']);
             $array[] = $value;
         }
@@ -399,6 +399,29 @@ function recursionArr($arr,$pid = 0) {
     return $array;
 }
 
+function recursionGoods($arr) {
+    $array = [];
+    foreach ($arr as $value) {
+        if (isset($value['sub'])) {
+            $value['sub'] = recursionGoods($arr);
+            $array[] = $value;
+        }
+    }
+    return $array;
+}
+
+function _tree_sorts($arr,$cols){
+    //子分类排序
+    foreach ($arr as $k => &$v) {
+        if(empty($v['sub'])){
+            $v['sub']=_tree_sort($v['sub'],$cols);
+        }
+        $sort[$k]=$v[$cols];
+    }
+    if(isset($sort))
+        array_multisort($sort,SORT_ASC,$arr);
+    return $arr;
+}
 
 
 
