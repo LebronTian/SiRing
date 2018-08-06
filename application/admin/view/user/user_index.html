@@ -9,9 +9,20 @@
 		<input type="text" class="input-text" style="width:250px" placeholder="输入会员名称、电话、邮箱" id="search_key" name="">
 		<button type="submit" class="btn btn-success radius" id="search_bt" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="member_add('添加用户','user_add.html','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加用户</a>
-	<a href="javascript:;" onclick="member_add('城市管理','user_cityss.html','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 城市测试</a>
-	</span> <span class="r">共有数据：<strong>88</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+		<span class="l">
+			<a href="javascript:;" onclick="" class="btn btn-danger radius btn_del">
+				<i class="Hui-iconfont">&#xe6e2;</i> 批量删除
+			</a> 
+			<a href="javascript:;" onclick="member_add('添加用户','user_add.html','','510')" class="btn btn-primary radius">
+				<i class="Hui-iconfont">&#xe600;</i> 添加用户
+			</a>
+			<a href="javascript:;" onclick="member_add('城市管理','user_cityss.html','','510')" class="btn btn-primary radius">
+				<i class="Hui-iconfont">&#xe600;</i> 城市测试
+			</a>
+		</span> 
+		<span class="r">共有数据：<strong>88</strong> 条</span> 
+	</div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -193,6 +204,32 @@ function member_del(obj,id){
 	});
 }
 /*用户批量删除*/
+$('.btn_del').click(function(){
+	// 被选中的input
+	var input_checked = $('.mytr input:checked');
+	var len_checked = input_checked.length;
+	// 存放被选中input的id
+	var id_checked = [];
+	for(var i = 0; i < len_checked; i++){
+		// 拆分被选中input中的id
+		id_checked.push(input_checked[i].id.split('_')[1]);
+		$(input_checked[i]).parents('tr').remove();
+	}
+	$.ajax({
+		type: 'POST',
+		url: "{:url('admin/user/dels')}",
+		dataType: 'json',
+		data: {
+			'id': id_checked
+		},
+		success: function(data){
+			console.log(data)
+		},
+		error: function(){
+			console.log('错误')
+		}
+	})
+})
 </script> 
 <script>
 	(function(){
@@ -206,8 +243,8 @@ function member_del(obj,id){
                 success: (data) => {
                     var len = data.data.length;
 					for(var i = 0; i < len; i++){
-						$('.tbody').append('<tr class="text-c">\
-												<td><input type="checkbox" value="1" name=""></td>\
+						$('.tbody').append('<tr class="text-c mytr">\
+												<td><input type="checkbox" id="input_'+data.data[i].id+'"></td>\
 												<td>'+ data.data[i].id +'</td>\
 												<td>\
 													<u style="cursor:pointer" class="text-primary" onclick="member_show('+ "'"+data.data[i].user_name +"'"+','+"'"+'user_show.html'+"'"+','+'10001'+','+'360'+','+'400'+')">'+ data.data[i].user_name+'</u>\
