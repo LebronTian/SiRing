@@ -115,8 +115,13 @@
         var sex = $('.radio-box div.checked').siblings('label').html();
         var phone = $('#mobile').val();
         var email = $('#email').val();
-        var city = $('.select option:selected').html();
-        var remark = $('.textarea').val();
+		var city = [];
+		var remark = $('.textarea').val();
+		// 遍历 城市
+		for(var i = 0; i < 3; i++){
+			city.push($('#province select option:selected')[i].innerHTML);
+		}
+
         $.ajax({
             url: "{:url('admin/User/save')}",
             type: "POST",
