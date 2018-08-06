@@ -85,11 +85,18 @@ Route::group("admin",[
     "goods_index"=>"admin/Goods/index",
     "goods_add"=>"admin/Goods/add",
     "goods_save"=>"admin/Goods/save",
+    "goods_edit"=>"admin/Goods/edit",
+    "goods_updata"=>"admin/Goods/updata",
+    "goods_del"=>"admin/Goods/del",
+
 
     /*商品分类*/
     "category_index"=>"admin/Category/index",
     "category_add"=>"admin/Category/add",
     "category_save"=>"admin/Category/save",
+    "category_edit"=>"admin/Category/edit",
+    "category_del"=>"admin/Category/del",
+    "category_updata"=>"admin/Category/updata",
 
     /*会员管理*/
     "user_index"=>"admin/User/index", //会员概况
