@@ -2,260 +2,307 @@
 
 
 {block name="content"}
-
-<div id="app-third-sidebar" class="js-app-third-sidebar" style="margin-bottom: 30px;">
-    <nav class="ui-nav">
-        <ul>
-            <li id="js-nav-list-index" class="active" data-type="1">
-                <a href="#1"><span>出售中</span></a>
-            </li>
-            <li id="js-nav-list-soldout" class="" data-type="3">
-                <a href="#3"><span>已售罄</span></a>
-            </li>
-            <li id="js-nav-list-draft" class="" data-type="2">
-                <a href="#2"><span>仓库中</span></a>
-            </li>
-        </ul>
-    </nav>
-</div>
-<div class="app">
-    <div class="app-inner clearfix">
-        <div class="app-init-container">
-            <div id="app-region" class="app__content">
-                <div data-reactroot="">
-                    <div class="app-filter-region">
-                        <div class="list-filter clearfix">
-                            <a href="/goods/index/create.html" class="zent-btn-primary zent-btn">发布商品</a>
-                            <div class="filter-right filter-group">
-                                <div class="zent-popover-wrapper zent-select size-select " style="display: inline-block;">
-                                    <div class="zent-select-text">所有分组</div>
-                                </div>
-                            </div>
-                            <div class="search-input">
-                                <i class="zenticon zenticon-search"></i>
-                                <div class="zent-input-wrapper">
-                                    <input type="text" class="zent-input js-search" placeholder="搜索" value="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="goods-list-content">
-                        <div class="zent-table-container">
-                            <div class="zent-loading-container zent-loading-container-static" style="height: initial;">
-                                <div class="zent-table goods-list-table">
-                                    <div class="thead">
-                                        <div class="stickrow tr">
-                                            <div class="cell cell--selection" style="width: 30%; flex: 0 1 auto;">
-                                                <div class="cell__child-container">
-                                                    <label class="select-check zent-checkbox-wrap">
-                                        <span class="zent1-checkbox">
-                                            <input type="checkbox" value="on" class="js-checkbox">
-                                        </span>
-                                                    </label>
-                                                    <div class="goods-image-td"><span>商品</span></div>
-                                                </div>
-                                            </div>
-                                            <div class="cell" style="width: 10%; flex: 0 1 auto;">
-                                                <div class="cell__child-container">访问量</div>
-                                            </div>
-                                            <div class="cell" style="width: 8%; flex: 0 1 auto;">
-                                                <div class="cell__child-container" data-order="sku"><a>库存</a></div>
-                                            </div>
-                                            <div class="cell" style="width: 10%; flex: 0 1 auto;">
-                                                <div class="cell__child-container" data-order="sales_volume"><a>总销量</a></div>
-                                            </div>
-                                            <div class="cell" style="width: 10%; flex: 0 1 auto;">
-                                                <div class="cell__child-container" data-order="dateline"><a>创建时间<span class="js-sort desc"></span></a></div>
-                                            </div>
-                                            <div class="cell" style="width: 7%; flex: 0 1 auto;">
-                                                <div class="cell__child-container" data-order="sort"><a>序号</a></div>
-                                            </div>
-                                            <div class="cell" style="width: 25%; flex: 0 1 auto;">
-                                                <div class="cell__child-container">操作</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tbody">
-                                        <div class=" tr" data-wid="389">
-                                            <div class="cell cell--selection" style="width: 30%; flex: 0 1 auto;">
-                                                <label class="select-check zent-checkbox-wrap">
-                                        <span class="zent1-checkbox">
-                                            <input type="checkbox" name="goods_id" value="389">
-                                        </span>
-                                                </label>
-                                                <div class="cell__child-container">
-                                                    <div class="goods-header">
-                                                        <div class="goods-image">
-                                                            <img alt="" src="https://demo.cmswj.com/uploads/20180724/6fc502858eaf415e4a4dd60dfe42c3fb.png?w=410&amp;h=454">
-                                                        </div>
-                                                        <div class="goods-info">
-                                                            <p class="goods-info__title">
-                                                                <a alt="999" target="_blank" rel="noopener noreferrer" href="/goods.html?store_id=224#/detail/389">
-                                                                    999                                                        </a>
-                                                            </p>
-                                                            <p class="goods-info__sub">
-                                                                <span class="goods-price">￥100.00</span>
-                                                                <br>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="cell" style="width: 10%; flex: 0 1 auto;">
-                                                <div class="cell__child-container">
-                                                    <div>
-                                                        <p>浏览量:0</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="cell" style="width: 8%; flex: 0 1 auto;">
-                                                <div class="cell__child-container">
-                                                    <div>1000</div>
-                                                </div>
-                                            </div>
-                                            <div class="cell" style="width: 10%; flex: 0 1 auto;">
-                                                <div class="cell__child-container"><span class="gray">0</span></div>
-                                            </div>
-                                            <div class="cell" style="width: 10%; flex: 0 1 auto;">
-                                                <div class="cell__child-container">
-                                                    <div>2018-07-24 14:25</div>
-                                                </div>
-                                            </div>
-                                            <div class="cell" style="width: 7%; flex: 0 1 auto;">
-                                                <div class="cell__child-container">
-                                                    <a class="sort" data-goods-id="389">13</a>
-                                                </div>
-                                            </div>
-                                            <div class="cell" style="width: 25%; flex: 0 1 auto;">
-                                                <div class="cell__child-container">
-                                                    <div class="menu-opt">
-                                                        <div>
-                                                            <a href="/goods/index/edit/wid/389.html" rel="noopener noreferrer">编辑</a>
-                                                            <span class="split">|</span>
-                                                            <a href="javascript:void(0);" class="drp-setting" data-id="389">分销设置</a>
-                                                            <span class="split">|</span>
-                                                            <div class="zent-popover-wrapper zent-pop-wrapper" style="display: inline-block;">
-                                                                <a href="javascript:void(0);" data-url="https://demo.cmswj.com/goods.html?store_id=224#/detail/389" class="js-promotion-btn" data-id="389">推广</a>
-                                                            </div>
-                                                        </div>
-                                                        <!--<p>&nbsp;<a href="javascript:;" class="hover-show">复制</a></p>-->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class=" tr" data-wid="388">
-                                            <div class="cell cell--selection" style="width: 30%; flex: 0 1 auto;">
-                                                <label class="select-check zent-checkbox-wrap">
-                                        <span class="zent1-checkbox">
-                                            <input type="checkbox" name="goods_id" value="388">
-                                        </span>
-                                                </label>
-                                                <div class="cell__child-container">
-                                                    <div class="goods-header">
-                                                        <div class="goods-image">
-                                                            <img alt="" src="https://demo.cmswj.com/uploads/20180722/ffd0ff51d4d9d65f39bcdba0cf011042.jpg?w=482&amp;h=468">
-                                                        </div>
-                                                        <div class="goods-info">
-                                                            <p class="goods-info__title">
-                                                                <a alt="HTML" target="_blank" rel="noopener noreferrer" href="/goods.html?store_id=224#/detail/388">
-                                                                    HTML                                                        </a>
-                                                            </p>
-                                                            <p class="goods-info__sub">
-                                                                <span class="goods-price">￥50.00</span>
-                                                                <br>
-                                                                <i class="platform-tag drp-tag">分销</i>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="cell" style="width: 10%; flex: 0 1 auto;">
-                                                <div class="cell__child-container">
-                                                    <div>
-                                                        <p>浏览量:0</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="cell" style="width: 8%; flex: 0 1 auto;">
-                                                <div class="cell__child-container">
-                                                    <div>100</div>
-                                                </div>
-                                            </div>
-                                            <div class="cell" style="width: 10%; flex: 0 1 auto;">
-                                                <div class="cell__child-container"><span class="gray">0</span></div>
-                                            </div>
-                                            <div class="cell" style="width: 10%; flex: 0 1 auto;">
-                                                <div class="cell__child-container">
-                                                    <div>2018-07-24 11:15</div>
-                                                </div>
-                                            </div>
-                                            <div class="cell" style="width: 7%; flex: 0 1 auto;">
-                                                <div class="cell__child-container">
-                                                    <a class="sort" data-goods-id="388">0</a>
-                                                </div>
-                                            </div>
-                                            <div class="cell" style="width: 25%; flex: 0 1 auto;">
-                                                <div class="cell__child-container">
-                                                    <div class="menu-opt">
-                                                        <div>
-                                                            <a href="/goods/index/edit/wid/388.html" rel="noopener noreferrer">编辑</a>
-                                                            <span class="split">|</span>
-                                                            <a href="javascript:void(0);" class="drp-setting" data-id="388">分销设置</a>
-                                                            <span class="split">|</span>
-                                                            <div class="zent-popover-wrapper zent-pop-wrapper" style="display: inline-block;">
-                                                                <a href="javascript:void(0);" data-url="https://demo.cmswj.com/goods.html?store_id=224#/detail/388" class="js-promotion-btn" data-id="388">推广</a>
-                                                            </div>
-                                                        </div>
-                                                        <!--<p>&nbsp;<a href="javascript:;" class="hover-show">复制</a></p>-->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tfoot clearfix">
-                                        <div class="tfoot__batchcomponents tfoot__batchcomponents--has-children">
-                                            <label class="select-check zent-checkbox-wrap" style="display: none">
-                                <span class="zent1-checkbox">
-                                    <input type="checkbox" value="on">
-                                </span>
-                                            </label>
-                                            <div class="subcomponent-wrapper">
-                                                <div class="zent-popover-wrapper zent-pop-wrapper" style="display: inline-block;">
-                                                    <button type="button" class="zent-btn change-tag-btn js-batch-tag">改分组</button>
-                                                </div>
-                                            </div>
-                                            <div class="subcomponent-wrapper">
-                                                <div class="zent-popover-wrapper zent-pop-wrapper" style="display: inline-block;">
-                                                    <button type="button" class="zent-btn js-batch-change_type" style="margin-right: 10px;">下架</button>
-                                                </div>
-                                            </div>
-                                            <div class="subcomponent-wrapper">
-                                                <div class="zent-popover-wrapper zent-pop-wrapper" style="display: inline-block;"><button type="button" class="zent-btn js-batch-delete">删除</button></div>
-                                            </div>
-                                        </div>
-                                        <div class="tfoot__page">
-                                            <div class="zent-pagination ">
-                                    <span class="zent-pagination__info">
-                                        <div class="js-page-list ui-box pagenavi"> <span class="total">共 <span class="js-total_num">2</span> 条，每页 20 条</span></div>                                    </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div></div>
+<div>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 产品管理 <span class="c-gray en">&gt;</span> 产品列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+        <div class="text-c"> 日期范围：
+            <input type="text" id="logmin" class="input-text Wdate" style="width:120px;">
+            -
+            <input type="text" id="logmax" class="input-text Wdate" style="width:120px;">
+            <input type="text" name="" id="" placeholder=" 产品名称" style="width:250px" class="input-text">
+            <button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜产品</button>
         </div>
-        <div class="notify-bar js-notify animated hinge hide">
+        <div class="cl pd-5 bg-1 bk-gray mt-20"> 
+            <span class="l">
+                <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+                    <i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
+                    <a class="btn btn-primary radius" onclick="product_add('添加产品','product-add.html')" href="javascript:;">
+                        <i class="Hui-iconfont">&#xe600;</i> 添加产品
+                    </a>
+            </span> 
+            <span class="r">共有数据：
+                <strong>54</strong> 条
+            </span> 
+        </div>
+        <div class="mt-20">
+            <table class="table table-border table-bordered table-bg table-hover table-sort">
+                <thead>
+                    <tr class="text-c">
+                        <th width="40"><input name="" type="checkbox" value=""></th>
+                        <th width="40">ID</th>
+                        <th width="60">缩略图</th>
+                        <th width="100">产品名称</th>
+                        <th>描述</th>
+                        <th width="100">单价</th>
+                        <th width="60">发布状态</th>
+                        <th width="100">操作</th>
+                    </tr>
+                </thead>
+                <tbody class="tbody">
+                    <tr class="text-c va-m">
+                        <td><input name="" type="checkbox" value=""></td>
+                        <td>001</td>
+                        <td>
+                            <a onClick="product_show('哥本哈根橡木地板','product-show.html','10001')" href="javascript:;">
+                                <img width="60" class="product-thumb" src="__STATIC__/admin/temp/product/Thumb/6204.jpg">
+                            </a>
+                        </td>
+                        <td class="text-l">
+                            <a style="text-decoration:none" onClick="product_show('哥本哈根橡木地板','product-show.html','10001')" href="javascript:;">
+                                <img title="国内品牌" src="__STATIC__/admin/static/h-ui.admin/images/cn.gif"> 
+                                <b class="text-success">圣象</b> 哥本哈根橡木地板KS8373
+                            </a>
+                        </td>
+                        <td class="text-l">原木的外在,实木条形结构,色泽花纹自然,写意;款式设计吸取实木地板的天然去雕饰之美,在视觉上给人带来深邃联想.多款产品适合搭配不同的风格的室内装饰;功能流露出尊贵典雅的大气韵味。</td>
+                        <td>
+                            <span class="price">356.0</span> 元/平米
+                        </td>
+                        <td class="td-status">
+                            <span class="label label-success radius">已发布</span>
+                        </td>
+                        <td class="td-manage">
+                            <a style="text-decoration:none" onClick="product_stop(this,'10001')" href="javascript:;" title="下架">
+                                <i class="Hui-iconfont">&#xe6de;</i>
+                            </a> 
+                            <a style="text-decoration:none" class="ml-5" onClick="product_edit('产品编辑','product-add.html','10001')" href="javascript:;" title="编辑">
+                                <i class="Hui-iconfont">&#xe6df;</i>
+                            </a> 
+                            <a style="text-decoration:none" class="ml-5" onClick="product_del(this,'10001')" href="javascript:;" title="删除">
+                                <i class="Hui-iconfont">&#xe6e2;</i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
-<div class="zent-portal zent-select auto-width zent-popover zent-popover-internal-id-group zent-popover-position-bottom-left" style="position: absolute; top: 108px; left: 790px; display: none;">   <div data-reactroot="" class="zent-popover-content">       <div class="zent-select-popup" tabindex="0" style="height: auto;opacity: 1">           <div class="zent-select-search">               <input type="text" placeholder="" class="zent-select-filter">           </div><span class="zent-select-empty">没有找到匹配项</span>       </div>   </div></div>
-
 {/block}
 
 
 {block name="bottom"}
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__STATIC__/admin/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="__STATIC__/admin/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__STATIC__/admin/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="__STATIC__/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__STATIC__/admin/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/__STATIC__/admin/static/h-ui2/js/tp.js"></script>
+
+<script>
+    // 发布商品
+    (function(){
+        //  分类栏目，请求地址获取数据，插入select
+        $.ajax({
+            url:"{:url('admin/Goods/index')}",
+            type:"POST",
+            async:false,
+            dataType:"json",
+            success:function (data) {
+                console.log(data)
+                var data = data.data;
+                var len = data.goods.length;
+                for(var i = 0; i < len; i++){
+                    $('.tbody').append('<tr class="text-c va-m">\
+                        <td><input name="" type="checkbox" value=""></td>\
+                        <td>'+data.goods[i].id+'</td>\
+                        <td>\
+                            <a onClick="product_show('+"哥本哈根橡木地板"+','+ '"'+'product-show.html' + '"'+',' +'10001'+')" href="javascript:;">\
+                                <img width="60" class="product-thumb" src="__STATIC__/admin/temp/product/Thumb/6204.jpg">\
+                            </a>\
+                        </td>\
+                        <td class="text-l">\
+                            <a style="text-decoration:none" onClick="product_show('+"哥本哈根橡木地板"+','+ '"'+'product-show.html'+ '"'+',' +'10001'+')" href="javascript:;">\
+                                <img title="国内品牌" src="__STATIC__/admin/static/h-ui.admin/images/cn.gif"> \
+                                <b class="text-success">圣象</b> 哥本哈根橡木地板KS8373\
+                            </a>\
+                        </td>\
+                        <td class="text-l">原木的外在,实木条形结构,色泽花纹自然,写意;款式设计吸取实木地板的天然去雕饰之美,在视觉上给人带来深邃联想.多款产品适合搭配不同的风格的室内装饰;功能流露出尊贵典雅的大气韵味。</td>\
+                        <td>\
+                            <span class="price">356.0</span> 元/平米\
+                        </td>\
+                        <td class="td-status">\
+                            <span class="label label-success radius">已发布</span>\
+                        </td>\
+                        <td class="td-manage">\
+                            <a style="text-decoration:none" onClick="product_stop(this,'+'10001'+')" href="javascript:;" title="下架">\
+                                <i class="Hui-iconfont">&#xe6de;</i>\
+                            </a> \
+                            <a style="text-decoration:none" class="ml-5" onClick="product_edit('+"产品编辑"+','+ '"'+product-add.html + '"'+',' +'10001'+')" href="javascript:;" title="编辑">\
+                                <i class="Hui-iconfont">&#xe6df;</i>\
+                            </a> \
+                            <a style="text-decoration:none" class="ml-5" onClick="product_del(this,'+'10001'+')" href="javascript:;" title="删除">\
+                                <i class="Hui-iconfont">&#xe6e2;</i>\
+                            </a>\
+                        </td>\
+                    </tr>')
+                }
+                 
+            },
+            error:function () {
+                console.log("错误");
+            }
+        })
+    }())
+</script>
+<script type="text/javascript">
+var setting = {
+	view: {
+		dblClickExpand: false,
+		showLine: false,
+		selectedMulti: false
+	},
+	data: {
+		simpleData: {
+			enable:true,
+			idKey: "id",
+			pIdKey: "pId",
+			rootPId: ""
+		}
+	},
+	callback: {
+		beforeClick: function(treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("tree");
+			if (treeNode.isParent) {
+				zTree.expandNode(treeNode);
+				return false;
+			} else {
+				//demoIframe.attr("src",treeNode.file + ".html");
+				return true;
+			}
+		}
+	}
+};
+
+var zNodes =[
+	{ id:1, pId:0, name:"一级分类", open:true},
+	{ id:11, pId:1, name:"二级分类"},
+	{ id:111, pId:11, name:"三级分类"},
+	{ id:112, pId:11, name:"三级分类"},
+	{ id:113, pId:11, name:"三级分类"},
+	{ id:114, pId:11, name:"三级分类"},
+	{ id:115, pId:11, name:"三级分类"},
+	{ id:12, pId:1, name:"二级分类 1-2"},
+	{ id:121, pId:12, name:"三级分类 1-2-1"},
+	{ id:122, pId:12, name:"三级分类 1-2-2"},
+];
+		
+		
+		
+$(document).ready(function(){
+	var t = $("#treeDemo");
+	t = $.fn.zTree.init(t, setting, zNodes);
+	//demoIframe = $("#testIframe");
+	//demoIframe.on("load", loadReady);
+	var zTree = $.fn.zTree.getZTreeObj("tree");
+	//zTree.selectNode(zTree.getNodeByParam("id",'11'));
+});
+
+$('.table-sort').dataTable({
+	"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+	"bStateSave": true,//状态保存
+	"aoColumnDefs": [
+	  {"orderable":false,"aTargets":[0,7]}// 制定列不参与排序
+	]
+});
+/*产品-添加*/
+function product_add(title,url){
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: url
+	});
+	layer.full(index);
+}
+/*产品-查看*/
+function product_show(title,url,id){
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: url
+	});
+	layer.full(index);
+}
+/*产品-审核*/
+function product_shenhe(obj,id){
+	layer.confirm('审核文章？', {
+		btn: ['通过','不通过'], 
+		shade: false
+	},
+	function(){
+		$(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="product_start(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
+		$(obj).remove();
+		layer.msg('已发布', {icon:6,time:1000});
+	},
+	function(){
+		$(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="product_shenqing(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-danger radius">未通过</span>');
+		$(obj).remove();
+    	layer.msg('未通过', {icon:5,time:1000});
+	});	
+}
+/*产品-下架*/
+function product_stop(obj,id){
+	layer.confirm('确认要下架吗？',function(index){
+		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="product_start(this,id)" href="javascript:;" title="发布"><i class="Hui-iconfont">&#xe603;</i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已下架</span>');
+		$(obj).remove();
+		layer.msg('已下架!',{icon: 5,time:1000});
+	});
+}
+
+/*产品-发布*/
+function product_start(obj,id){
+	layer.confirm('确认要发布吗？',function(index){
+		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="product_stop(this,id)" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
+		$(obj).remove();
+		layer.msg('已发布!',{icon: 6,time:1000});
+	});
+}
+
+/*产品-申请上线*/
+function product_shenqing(obj,id){
+	$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">待审核</span>');
+	$(obj).parents("tr").find(".td-manage").html("");
+	layer.msg('已提交申请，耐心等待审核!', {icon: 1,time:2000});
+}
+
+/*产品-编辑*/
+function product_edit(title,url,id){
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: url
+	});
+	layer.full(index);
+}
+
+/*产品-删除*/
+function product_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: '',
+			dataType: 'json',
+			success: function(data){
+				$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});		
+	});
+}
+</script>
+
 <script>
     $(function () {
         $('.js-checkbox').click(function(){
@@ -270,33 +317,6 @@
                 $(".zent-popover-position-bottom-left").css("display","none");
             }
         });
-
-
     })
 </script>
-<script type="text/javascript" src="__STATIC__/admin/static/h-ui2/js/tp.js"></script>
-<script>
-
-    (function(){
-        //  分类栏目，请求地址获取数据，插入select
-        $.ajax({
-            url:"{:url('admin/Goods/index')}",
-            type:"POST",
-            async:false,
-            timeout:5000,
-            dataType:"json",
-            success:function (data) {
-                var len = data.data.length;
-                console.log(data)
-                for(var i = 0; i < len; i++){
-                    $('#goods-list').append('<option value="'+ data.data[i].id+'">'+ data.data[i].name+'</option>')
-                }
-            },
-            error:function () {
-                console.log("错误");
-            }
-        })
-    }())
-</script>
-
 {/block}
