@@ -15,7 +15,10 @@ use think\Image;
 
 class Goods extends Controller{
 
-    protected $goods_status = ["1","0"];
+    protected $goods_status = [
+        0=>'1',
+        1=>'0'
+    ];
     /**
      * [商品列表]
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
@@ -25,7 +28,7 @@ class Goods extends Controller{
         if($request->isPost()){
             $goods = db("goods")->alias("g")
                      ->join("tb_goods_images gi","g.id=gi.goods_id")
-                     ->field("g.id, g.goods_name, g.goods_detail, gi.goods_images, g.goods_bottom_money, g.goods_status")
+                     ->field("g.id, g.goods_name, g.goods_detail, gi.goods_images, g.goods_bottom_money, g.goods_status, g.goods_unit")
                      ->select();
             return ajax_success("获取成功",$goods);
         }
@@ -59,7 +62,7 @@ class Goods extends Controller{
                         "goods_abstract",
                         "goods_detail",
            ]);
-           $goods_data["goods_status"] = $this->goods_status;
+           $goods_data["goods_status"] = $this->goods_status[0];
            $bool = db("goods")->insert($goods_data);
            if($bool){
                //取出图片在存到数据库
