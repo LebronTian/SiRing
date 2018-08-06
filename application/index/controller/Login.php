@@ -65,7 +65,8 @@ class Login extends Controller{
      **************************************
      */
     public function loginout(){
-
+        unset($_SESSION['member']);
+        $this->success('退出成功',url('index/Login/login'));
     }
     /**
      **************李火生*******************
