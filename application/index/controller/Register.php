@@ -99,7 +99,35 @@ class Register extends  Controller{
         public function  doRegByPhone(Request $request){
             if($request->isPost())
             {
-                dump($_POST);exit();
+                $mobile = trim($_POST['mobile']);
+                $code = trim($_POST['mobile_code']);
+                $password =trim($_POST['password']);
+                $confirm_password =trim($_POST['confirm_password']);
+
+                if($password !==$confirm_password ){
+                    $this->error('两个密码不相同');
+                }
+                if (strlen($mobile) != 11 || substr($mobile, 0, 1) != '1' || $code == '') {
+                    $this->error("参数不正确");
+                }
+                if ($_SESSION['mobileCode'] != $code || $_SESSION['mobile'] != $mobile) {
+                    $this->error("验证码不正确");
+                }
+                $data =[
+                  'phone_num'=>$mobile,
+                    'password'=>$password
+                ];
+                unset($_SESSION['mobile']);
+                unset($_SESSION['mobileCode']);
+
+                $res =Db::name('user')->data($data)->insert();
+                if($res){
+                    $this->success("注册成功",url('index/Login/login'));
+                }else{
+                    $this->error('注册失败');
+                }
+
+
             }
         }
 
@@ -117,7 +145,43 @@ class Register extends  Controller{
         }
 
 
-
-
-
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 手机验证码
+     **************************************
+     */
+        public function sendMobileCode(Request $request)
+        {
+            //接受验证码的手机号码
+            if ($request->isPost()) {
+                $mobile = $_POST["mobile"];
+                $mobileCode = rand(100000, 999999);
+                $arr = json_decode($mobile, true);
+                $mobiles = strlen($arr);
+                if (isset($mobiles) != 11) {
+                    $this->error("手机号码不正确");
+                }
+                //存入session中
+                if (strlen($mobileCode) > 0) {
+                    $_SESSION['mobileCode'] = $mobileCode;
+                    $_SESSION['mobile'] = $mobile;
+                }
+                $content = "尊敬的用户，您本次验证码为{$mobileCode}，十分钟内有效";
+                $url = "http://120.26.38.54:8000/interface/smssend.aspx";
+                $post_data = array("account" => "gagaliang", "password" => "123qwe", "mobile" => "$mobile", "content" => $content);
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+                $output = curl_exec($ch);
+                curl_close($ch);
+                if ($output) {
+                    ajax_success("发送成功", $output);
+                } else {
+                    $this->error("发送失败");
+                }
+            }
+        }
 }

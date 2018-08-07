@@ -1,32 +1,33 @@
 <?php
-
-namespace app\index\controller;
+/**
+ * Created by PhpStorm.
+ * User: 李火生
+ * Date: 2018/8/7
+ * Time: 15:14
+ */
+namespace  app\index\controller;
 
 use think\Controller;
-class Index extends Controller
-{
+
+class  News extends Controller{
     /**
      **************李火生*******************
      * @return \think\response\View
-     * 首页信息
+     * 商城资讯
      **************************************
      */
-    public function index()
-    {
+    public function  index(){
         return view("index");
     }
 
     /**
      **************李火生*******************
      * @return \think\response\View
-     * 商品列表
+     * 新闻详情
      **************************************
      */
-    public function lists()
-    {
-        return view("lists");
+    public function  detail(){
+        return view("detail");
     }
-
-
 
 }
