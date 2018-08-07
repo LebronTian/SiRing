@@ -2,7 +2,7 @@
 
 {block name="content"}
 <div class="page-container">
-	<div class="text-c"> 日期范围：
+	<!-- <div class="text-c"> 日期范围：
 		<input type="date" id="datemin" class="input-text Wdate" style="width:140px;">
 		-
 		<input type="date" id="datemax" class="input-text Wdate" style="width:140px;">
@@ -10,7 +10,7 @@
 		<button type="submit" class="btn btn-success radius" id="search_bt" name="">
 			<i class="Hui-iconfont">&#xe665;</i> 搜用户
 		</button>
-	</div>
+	</div> -->
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
 		<span class="l">
 			<a href="javascript:;" onclick="" class="btn btn-danger radius btn_del">
@@ -235,52 +235,52 @@ $('.btn_del').click(function(){
 	})
 })
 /*搜用户*/
-$('#search_bt').click(function(){
-	var datemin = $('#datemin')[0].value; 
-	var datemax = $('#datemax')[0].value;
-	var search_key = $('#search_key').val();
-	$.ajax({
-		url: "{:url('admin/user/search')}",
-		type: "POST",
-		dataType: 'json',
-		async: false,
-		data: {
-			"datemin": datemin+' '+'00:00:00',
-			"datemax": datemax+' '+'00:00:00',
-			"search_key": search_key
-		},
-		success: function(data){
-			// 存放data
-			var data_arr = [];
-			var data_len = data.data.length;
-			// 存放页面显示的data
-			var page_arr = [];
-			var page_len = $('.sorting_1').length;
-			var page = $('.sorting_1');
-			console.log(page)
-			for(var i = 0; i < data_len; i++){
-				data_arr[data.data[i].id] = true;//将 data.data[i].id 中的元素值作为data_arr 中的键，值为true
-			}
-			for(var j = 0; j < page_len; j++){
-				if(!data_arr[page[j].innerHTML]){
-					page_arr.push(page[j].innerHTML);// 过滤两个数组中相同的元素
-				}
-			}
-			for(var z = 0; z < page_arr.length; z++){
-				for(var i = 0; i < page_len; i++){
-					if(page[i].innerHTML == page_arr[z]){
-						page[i].parentNode.style.display = 'none';
-					}
-				}
-			}
-			$('#count_number').html(page_len - page_arr.length);
-			$('.dataTables_info').css('display','none');
-		},
-		error: function(){
-			console.log('错误')
-		}
-	})
-})
+// $('#search_bt').click(function(){
+// 	var datemin = $('#datemin')[0].value; 
+// 	var datemax = $('#datemax')[0].value;
+// 	var search_key = $('#search_key').val();
+// 	$.ajax({
+// 		url: "{:url('admin/user/search')}",
+// 		type: "POST",
+// 		dataType: 'json',
+// 		async: false,
+// 		data: {
+// 			"datemin": datemin+' '+'00:00:00',
+// 			"datemax": datemax+' '+'00:00:00',
+// 			"search_key": search_key
+// 		},
+// 		success: function(data){
+// 			// 存放data
+// 			var data_arr = [];
+// 			var data_len = data.data.length;
+// 			// 存放页面显示的data
+// 			var page_arr = [];
+// 			var page_len = $('.sorting_1').length;
+// 			var page = $('.sorting_1');
+// 			console.log(page)
+// 			for(var i = 0; i < data_len; i++){
+// 				data_arr[data.data[i].id] = true;//将 data.data[i].id 中的元素值作为data_arr 中的键，值为true
+// 			}
+// 			for(var j = 0; j < page_len; j++){
+// 				if(!data_arr[page[j].innerHTML]){
+// 					page_arr.push(page[j].innerHTML);// 过滤两个数组中相同的元素
+// 				}
+// 			}
+// 			for(var z = 0; z < page_arr.length; z++){
+// 				for(var i = 0; i < page_len; i++){
+// 					if(page[i].innerHTML == page_arr[z]){
+// 						page[i].parentNode.style.display = 'none';
+// 					}
+// 				}
+// 			}
+// 			$('#count_number').html(page_len - page_arr.length);
+// 			$('.dataTables_info').css('display','none');
+// 		},
+// 		error: function(){
+// 			console.log('错误')
+// 		}
+// 	})
+// })
 </script> 
 <script>
     function timetrans(date){
