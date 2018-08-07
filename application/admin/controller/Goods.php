@@ -100,11 +100,11 @@ class Goods extends Controller{
         return view("goods_edit");
     }
 
+
     /**
      * [商品删除]
      * 陈绪
      */
-
     public function del(Request $request){
         if ($request->isPost()){
             $id = $request->only(["id"])["id"];
@@ -123,6 +123,11 @@ class Goods extends Controller{
     }
 
 
+    /**
+     * [产品更新]
+     * 陈绪
+     * @param Request $request
+     */
     public function updata(Request $request){
         if($request->isPost()){
             $goods_data = $request->only([
