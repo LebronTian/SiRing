@@ -18,7 +18,23 @@ use think\Route;
  */
 Route::group("",[
     /*首页*/
-    "/"=>"index/index/index",
+    "/$"=>"index/index/index",
+    /*商品列表*/
+    "index_lists"=>"index/Index/lists",
+    /*分类*/
+    "class_index"=>"index/Classify/index",
+    /*购物车*/
+    "cat_index"=>"index/Cat/index",
+    /*购物车详情*/
+    "cat_detail"=>"index/Cat/detail",
+    /*我的页面*/
+    "member_index"=>"index/Member/index",
+    /*确认订单*/
+    "cat_order"=>"index/Cat/order",
+    /*商城资讯*/
+    "news_index"=>"index/News/index",
+    /*新闻详情*/
+    "news_detail"=>"index/News/detail",
 
     /*登录页面*/
     "login"=>"index/Login/login",
@@ -29,6 +45,8 @@ Route::group("",[
     "register"=>"index/Register/index",
     /*短信注册*/
     "doreg_phone" =>"index/Register/doRegByPhone",
+    /*手机验证码*/
+    "send_mobile_code"=>"index/Register/sendMobileCode",
     /*邮箱注册*/
     "doreg_email" =>"index/Register/doRegByEmail",
 
@@ -46,6 +64,7 @@ Route::group("",[
 Route::group("admin",[
     /*首页*/
     "/$"=>"admin/index/index",
+
 
     /*登录页面*/
     "index"=>"admin/Login/index",

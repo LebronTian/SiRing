@@ -1,10 +1,612 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<title>手袋购物网</title>
+	<link rel="icon" type="image/x-icon" href="__STATIC__/index/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="__STATIC__/index/css/aui.css" />
+	<style>
+		/* header {
+
+
+		} */
+		.aui-searchbar {
+			background: transparent;
+		}
+		.aui-bar-nav .aui-searchbar-input {
+			background-color: #ffffff;
+		}
+		.aui-bar-light .aui-searchbar-input {
+			background-color: #f5f5f5;
+		}
+
+		.bg-dark {
+			background: #333333 !important;
+		}
+		.aui-slide-node img {
+			width: 100%;
+			height: 100%;
+		}
+
+		.aui-grid .aui-row-img-wt i { width:38px; height:38px; display:inline-block; margin:0 auto}
+
+	</style>
+	<link rel="stylesheet" href="__STATIC__/index/css/aui-flex.css">
+	<link rel="stylesheet" href="__STATIC__/index/css/aui-slide.css">
 </head>
-<body>
-    这是首页1111
+<body style="background:none">
+
+	<header class="aui-bar aui-bar-nav">
+		<a class="aui-pull-left aui-btn">
+			<span class="aui-iconfont aui-icon-camera"></span>
+		</a>
+		<div class="aui-title" style="left:2rem; right: 2rem;">
+			<div class="aui-searchbar" id="search">
+				<div class="aui-searchbar-input aui-border-radius">
+					<i class="aui-iconfont aui-icon-search"></i>
+					<input type="search" placeholder="7.4洗衣机超级购物日" id="search-input">
+					<div class="aui-searchbar-clear-btn">
+						<i class="aui-iconfont aui-icon-close"></i>
+					</div>
+				</div>
+				<div class="aui-searchbar-btn" tapmode>取消</div>
+			</div>
+		</div>
+		<a class="aui-pull-right aui-btn" href="chat.html">
+			<span class="aui-iconfont aui-icon-comment"></span>
+		</a>
+	</header>
+
+	<div id="aui-slide">
+		<div class="aui-slide-wrap" >
+			<div class="aui-slide-node bg-dark" onclick="javascript:location.href='product.html';">
+				<img src="__STATIC__/index/image/banner2.jpg" />
+			</div>
+			<div class="aui-slide-node bg-dark" onclick="javascript:location.href='product.html';">
+				<img src="__STATIC__/index/image/banner6.jpg" />
+			</div>
+			<div class="aui-slide-node bg-dark" onclick="javascript:location.href='product.html';">
+				<img src="__STATIC__/index/image/banner5.jpg" />
+			</div>
+			<div class="aui-slide-node bg-dark" onclick="javascript:location.href='product.html';">
+				<img src="__STATIC__/index/image/banner4.jpg" />
+			</div>
+			<div class="aui-slide-node bg-dark" onclick="javascript:location.href='product.html';">
+				<img src="__STATIC__/index/image/banner3.jpg" />
+			</div>
+			<div class="aui-slide-node bg-dark" onclick="javascript:location.href='product.html';">
+				<img src="__STATIC__/index/image/banner1.jpg" />
+			</div>
+		</div>
+		<div class="aui-slide-page-wrap"><!--分页容器--></div>
+	</div>
+	<div id="aui-slide2">
+		<div class="aui-slide-wrap" >
+			<div class="aui-slide-node">
+				<div class="aui-grid">
+					<div class="aui-row aui-row-img-wt">
+						<div class="aui-col-xs-3">
+							<a href="list.html" class="tolist">
+								<i class="aui-iconfont "><img src="__STATIC__/index/image/icon/img1.png" alt=""></i>
+								<div class="aui-grid-label">iPhone</div>
+							</a>
+						</div>
+						<div class="aui-col-xs-3">
+							<a href="list.html" class="tolist">
+								<i class="aui-iconfont "><img src="__STATIC__/index/image/icon/img2.png" alt=""></i>
+								<div class="aui-grid-label">安卓</div>
+							</a>
+						</div>
+						<div class="aui-col-xs-3">
+							<a href="list.html" class="tolist">
+								<i class="aui-iconfont "><img src="__STATIC__/index/image/icon/img3.png" alt=""></i>
+								<div class="aui-grid-label">平板</div>
+							</a>
+						</div>
+						<div class="aui-col-xs-3">
+							<a href="list.html" class="tolist">
+								<i class="aui-iconfont "><img src="__STATIC__/index/image/icon/img4.png" alt=""></i>
+								<div class="aui-grid-label">笔记本</div>
+							</a>
+						</div>
+						<div class="aui-col-xs-3">
+							<!-- <div class="aui-badge">88</div> -->
+							<a href="list.html" class="tolist">
+								<i class="aui-iconfont "><img src="__STATIC__/index/image/icon/img5.png" alt=""></i>
+								<div class="aui-grid-label">iPhone 6s Plus</div>
+							</a>
+						</div>
+						<div class="aui-col-xs-3">
+							<!-- <div class="aui-badge">88</div> -->
+							<a href="list.html" class="tolist">
+								<i class="aui-iconfont "><img src="__STATIC__/index/image/icon/img6.png" alt=""></i>
+								<div class="aui-grid-label">手机测评</div>
+							</a>
+						</div>
+						<div class="aui-col-xs-3">
+							<!-- <div class="aui-badge">88</div> -->
+							<a href="list.html" class="tolist">
+								<i class="aui-iconfont "><img src="__STATIC__/index/image/icon/img7.png" alt=""></i>
+								<div class="aui-grid-label">商城配件</div>
+							</a>
+						</div>
+						<div class="aui-col-xs-3">
+							<!-- <div class="aui-badge">88</div> -->
+							<a href="list.html" class="tolist">
+								<i class="aui-iconfont "><img src="__STATIC__/index/image/icon/img8.png" alt=""></i>
+								<div class="aui-grid-label">买手机</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="aui-slide-node">
+				<div class="aui-grid">
+					<div class="aui-row">
+						<div class="aui-col-xs-3">
+							<div class="aui-badge">88</div>
+							<i class="aui-iconfont"><img src="image/icon/icon-1.png" alt=""></i>
+							<div class="aui-grid-label">首页</div>
+						</div>
+						<div class="aui-col-xs-3">
+							<div class="aui-badge">88</div>
+							<i class="aui-iconfont"><img src="image/icon/icon-1.png" alt=""></i>
+							<div class="aui-grid-label">首页</div>
+						</div>
+						<div class="aui-col-xs-3">
+							<div class="aui-badge">88</div>
+							<i class="aui-iconfont"><img src="image/icon/icon-1.png" alt=""></i>
+							<div class="aui-grid-label">首页</div>
+						</div>
+						<div class="aui-col-xs-3">
+							<div class="aui-badge">88</div>
+							<i class="aui-iconfont"><img src="image/icon/icon-1.png" alt=""></i>
+							<div class="aui-grid-label">首页</div>
+						</div>
+						<div class="aui-col-xs-3">
+							<div class="aui-badge">88</div>
+							<i class="aui-iconfont"><img src="image/icon/icon-1.png" alt=""></i>
+							<div class="aui-grid-label">首页</div>
+						</div>
+						<div class="aui-col-xs-3">
+							<div class="aui-badge">88</div>
+							<i class="aui-iconfont"><img src="image/icon/icon-1.png" alt=""></i>
+							<div class="aui-grid-label">首页</div>
+						</div>
+						<div class="aui-col-xs-3">
+							<div class="aui-badge">88</div>
+							<i class="aui-iconfont"><img src="image/icon/icon-1.png" alt=""></i>
+							<div class="aui-grid-label">首页</div>
+						</div>
+						<div class="aui-col-xs-3">
+							<div class="aui-badge">88</div>
+							<i class="aui-iconfont"><img src="image/icon/icon-1.png" alt=""></i>
+							<div class="aui-grid-label">首页</div>
+						</div>
+					</div>
+				</div>
+			</div> -->
+
+		</div>
+		<!-- <div class="aui-slide-page-wrap">分页容器</div> -->
+	</div>
+
+	<section class="aui-content aui-border-t " style="background-color: #fff;">
+		<div class="aui-flex-col aui-flex-center aui-border-tb">
+			<div class="aui-flex-item-4 aui-flex-row aui-flex-middle aui-padded-10 aui-border-b">
+				<h3 class="aui-text-danger">淘抢购</h3>
+				<p>可爱的你会喜欢</p>
+				<img src="__STATIC__/index/image/f1.jpg">
+			</div>
+			<div class="aui-flex-item-8 aui-border-l">
+				<div class="aui-flex-col aui-padded-10 aui-border-b">
+					<div class="aui-flex-item-12">
+						<div class="aui-flex-item-9">
+							<h3 class="aui-text-info">发现好货</h3>
+							<p>好货需要好品质</p>
+						</div>
+						<div class="aui-flex-item-3 aui-text-right"><img src="__STATIC__/index/image/f2.jpg"></div>
+					</div>
+				</div>
+				<div class="aui-flex-col aui-border-b">
+					<div class="aui-flex-item-6 aui-padded-10 " style="position: relative;">
+						<h5 class="aui-text-warning">爱逛街</h5>
+						<p>疯狂赛车来袭</p>
+						<img src="__STATIC__/index/image/f3.jpg">
+					</div>
+					<div class="aui-flex-item-6 aui-padded-10 aui-border-l ">
+						<h5 class="aui-text-success">新品首发</h5>
+						<p>要买就买最新的</p>
+						<img src="__STATIC__/index/image/f5.jpg">
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="aui-content  " style="background-color: #fff;">
+		<div class="aui-flex-col aui-flex-center aui-border-tb">
+			<div class="aui-flex-item-4 aui-flex-row aui-flex-middle aui-padded-10 aui-border-b">
+				<h3 class="aui-text-danger">最新排行榜</h3>
+				<p>老罗才是真爱</p>
+				<img src="__STATIC__/index/image/ad1.jpg">
+			</div>
+			<div class="aui-flex-item-8 aui-border-l">
+				<div class="aui-flex-col aui-padded-10 aui-border-b">
+					<div class="aui-flex-item-12">
+						<div class="aui-flex-item-9">
+							<h3 class="aui-text-info" style="color:#e0620d !important">零食的节日</h3>
+							<p>好货需要好品质</p>
+						</div>
+						<div class="aui-flex-item-3 aui-text-right"><img src="__STATIC__/index/image/ad2.jpg"></div>
+					</div>
+				</div>
+				<div class="aui-flex-col aui-border-b">
+					<div class="aui-flex-item-6 aui-padded-10 " style="position: relative;">
+						<h5 class="aui-text-warning">智能时代</h5>
+						<p>手环疯狂来袭</p>
+						<img src="__STATIC__/index/image/ad3.jpg">
+					</div>
+					<div class="aui-flex-item-6 aui-padded-10 aui-border-l ">
+						<h5 class="aui-text-success">生鲜水果</h5>
+						<p>最新鲜的水果</p>
+						<img src="__STATIC__/index/image/ad4.jpg">
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="aui-content  " style="background-color: #fff;">
+		<div class="aui-flex-col aui-flex-center aui-border-tb">
+			<div class="aui-flex-item-6 ">
+				<div class="aui-flex-col aui-padded-10 aui-border-b">
+					<div class="aui-flex-item-12">
+						<div class="aui-flex-item-7">
+							<h3 class="aui-text-info" style="color:#e0620d !important">时尚馆</h3>
+							<p>商场同款5折</p>
+						</div>
+						<div class="aui-flex-item-5 aui-text-right"><img src="__STATIC__/index/image/ad5.jpg"></div>
+					</div>
+				</div>
+			</div>
+			<div class="aui-flex-item-6 aui-border-l">
+				<div class="aui-flex-col aui-padded-10 aui-border-b">
+					<div class="aui-flex-item-12">
+						<div class="aui-flex-item-7">
+							<h3 class="aui-text-info" style="color:#e0620d !important">个护清洁</h3>
+							<p>满199减100</p>
+						</div>
+						<div class="aui-flex-item-5 aui-text-right"><img src="__STATIC__/index/image/ad6.jpg"></div>
+					</div>
+				</div>
+			</div>
+			<div class="aui-flex-item-6 ">
+				<div class="aui-flex-col aui-padded-10 aui-border-b">
+					<div class="aui-flex-item-12">
+						<div class="aui-flex-item-7">
+							<h3 class="aui-text-info" style="color:#e0620d !important">智能生活</h3>
+							<p>智能公路车</p>
+						</div>
+						<div class="aui-flex-item-5 aui-text-right"><img src="__STATIC__/index/image/ad7.jpg"></div>
+					</div>
+				</div>
+			</div>
+			<div class="aui-flex-item-6 aui-border-l">
+				<div class="aui-flex-col aui-padded-10 aui-border-b">
+					<div class="aui-flex-item-12">
+						<div class="aui-flex-item-7">
+							<h3 class="aui-text-info" style="color:#e0620d !important">精品粉底</h3>
+							<p>精选优质生活</p>
+						</div>
+						<div class="aui-flex-item-5 aui-text-right"><img src="__STATIC__/index/image/ad8.jpg"></div>
+					</div>
+				</div>
+			</div>
+			<div class="aui-flex-item-6 ">
+				<div class="aui-flex-col aui-padded-10 aui-border-b">
+					<div class="aui-flex-item-12">
+						<div class="aui-flex-item-7">
+							<h3 class="aui-text-info" style="color:#e0620d !important">厨房的节日</h3>
+							<p>好货需要好品质</p>
+						</div>
+						<div class="aui-flex-item-5 aui-text-right"><img src="__STATIC__/index/image/ad9.jpg"></div>
+					</div>
+				</div>
+			</div>
+			<div class="aui-flex-item-6 aui-border-l">
+				<div class="aui-flex-col aui-padded-10 aui-border-b">
+					<div class="aui-flex-item-12">
+						<div class="aui-flex-item-7">
+							<h3 class="aui-text-info" style="color:#e0620d !important">好家好生活</h3>
+							<p>家装节1元抢</p>
+						</div>
+						<div class="aui-flex-item-5 aui-text-right"><img src="__STATIC__/index/image/ad10.jpg"></div>
+					</div>
+				</div>
+			</div>
+			<div class="aui-flex-item-6 ">
+				<div class="aui-flex-col aui-padded-10 aui-border-b">
+					<div class="aui-flex-item-12">
+						<div class="aui-flex-item-7">
+							<h3 class="aui-text-info" style="color:#e0620d !important">零食的节日</h3>
+							<p>好货需要好品质</p>
+						</div>
+						<div class="aui-flex-item-5 aui-text-right"><img src="__STATIC__/index/image/ad2.jpg"></div>
+					</div>
+				</div>
+			</div>
+			<div class="aui-flex-item-6 aui-border-l">
+				<div class="aui-flex-col aui-padded-10 aui-border-b">
+					<div class="aui-flex-item-12">
+						<div class="aui-flex-item-7">
+							<h3 class="aui-text-info" style="color:#e0620d !important">零食的节日</h3>
+							<p>好货需要好品质</p>
+						</div>
+						<div class="aui-flex-item-5 aui-text-right"><img src="__STATIC__/index/image/ad2.jpg"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div style="height:10px; background:#efefef"></div>
+	<div class="aui-content">
+		<ul class="aui-list aui-media-list">
+			<li class="aui-list-item">
+				<a href="product.html">
+					<div class="aui-media-list-item-inner">
+						<div class="aui-list-item-inner">
+							<div class="aui-list-item-text">
+								<div class="aui-list-item-title aui-font-size-18">李宁男鞋跑步鞋 新款网面轻质运动鞋透气舒适慢跑鞋 ARBL023 透气一体织网面 男42(265mm)</div>
+							</div>
+							<div class="aui-info aui-padded-b-0">
+								<div class="aui-info-item aui-font-size-12">
+									<span class="aui-margin-l-5">￥199.00</span>
+								</div>
+								<div class="aui-info-item aui-font-size-12">好评率100%</div>
+							</div>
+						</div>
+						<div class="aui-list-item-media">
+							<img src="__STATIC__/index/image/demo/pa1.jpg">
+						</div>
+					</div>
+				</a>
+			</li>
+			<li class="aui-list-item">
+				<div class="aui-media-list-item-inner">
+					<div class="aui-list-item-inner">
+						<div class="aui-list-item-text">
+							<div class="aui-list-item-title aui-font-size-18">ochirly欧时力2017新女秋装刺绣棉质宽松卫衣式长袖T恤1JY3021380 花灰050 S(160/84A)</div>
+						</div>
+						<div class="aui-info aui-padded-b-0">
+							<div class="aui-info-item aui-font-size-12">
+								<span class="aui-margin-l-5">￥249.00</span>
+							</div>
+							<div class="aui-info-item aui-font-size-12">好评率100%</div>
+						</div>
+					</div>
+					<div class="aui-list-item-media">
+						<img src="__STATIC__/index/image/demo/pa3.jpg">
+					</div>
+				</div>
+			</li>
+			<li class="aui-list-item">
+				<div class="aui-media-list-item-inner">
+					<div class="aui-list-item-inner">
+						<div class="aui-list-item-text">
+							<div class="aui-list-item-title aui-font-size-18">铠旗 订制专车专用汽车坐垫2017款四季通用透气舒适全包围真皮座垫新款汽车座椅皮套 黑咖色(送头枕和抱枕) 大众新迈腾B</div>
+						</div>
+						<div class="aui-info aui-padded-b-0">
+							<div class="aui-info-item aui-font-size-12">
+								<span class="aui-margin-l-5">￥899.00</span>
+							</div>
+							<div class="aui-info-item aui-font-size-12">好评率98%</div>
+						</div>
+					</div>
+					<div class="aui-list-item-media">
+						<img src="__STATIC__/index/image/demo/pa2.jpg">
+					</div>
+				</div>
+			</li>
+			<li class="aui-list-item">
+				<div class="aui-media-list-item-inner">
+					<div class="aui-list-item-inner">
+						<div class="aui-list-item-text">
+							<div class="aui-list-item-title aui-font-size-18"> <i class="product-name">全球购</i>意大利进口 mellin美林 宝宝手指饼干宝宝零食饼干 360g 手指饼干 4M+</div>
+						</div>
+						<div class="aui-info aui-padded-b-0">
+							<div class="aui-info-item aui-font-size-12">
+								<span class="aui-margin-l-5">￥45.00</span>
+							</div>
+							<div class="aui-info-item aui-font-size-12">好评率100%</div>
+						</div>
+					</div>
+					<div class="aui-list-item-media">
+						<img src="__STATIC__/index/image/demo/pa4.jpg">
+					</div>
+				</div>
+			</li>
+			<li class="aui-list-item">
+				<div class="aui-media-list-item-inner">
+					<div class="aui-list-item-inner">
+						<div class="aui-list-item-text">
+							<div class="aui-list-item-title aui-font-size-18">春季新款真皮豆豆鞋男士休闲皮鞋黑色软底套脚潮流韩版驾车懒人鞋 棕色 42</div>
+						</div>
+						<div class="aui-info aui-padded-b-0">
+							<div class="aui-info-item aui-font-size-12">
+								<span class="aui-margin-l-5">￥258.00</span>
+							</div>
+							<div class="aui-info-item aui-font-size-12">好评率100%</div>
+						</div>
+					</div>
+					<div class="aui-list-item-media">
+						<img src="__STATIC__/index/image/demo/pa5.jpg">
+					</div>
+				</div>
+			</li>
+
+
+			<li class="aui-list-item">
+				<div class="aui-media-list-item-inner" onclick="javascript:location.href='page.html';">
+					<div class="aui-list-item-inner">
+						<div class="aui-list-item-title aui-font-size-18">小米手机的质量到底有多差？</div>
+						<div class="aui-list-item-text">
+							<p class="aui-ellipsis-2">我买了小米手机五台，还有三台小米平板​第一台是跟前女友一起买的小米 2s，用了三年，到现在没出现卡顿，后来给妈妈买了一台红米1s，老妈到现在还在用着，我因为工作需要要用电信联通两张卡</p>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li class="aui-list-item">
+				<div class="aui-list-item-inner" onclick="javascript:location.href='page.html';">
+					<div class="aui-list-item-title aui-font-size-18">爱诗诗/AISHISHI官方旗舰店推荐</div>
+					<p class="aui-ellipsis-2">烟花烫2017秋装新款女装气质修身圆领雪纺印花长连衣裙 芳喻 花色 L烟花烫2017秋装新款女装气质修身圆领雪纺印花长连衣裙 芳喻 花色 L</p>
+					<div class="aui-row aui-row-padded aui-margin-t-5">
+						<div class="aui-col-xs-4">
+							<img src="__STATIC__/index/image/demo/pa6.jpg"/>
+						</div>
+						<div class="aui-col-xs-4">
+							<img src="__STATIC__/index/image/demo/pa7.jpg" />
+						</div>
+						<div class="aui-col-xs-4">
+							<img src="__STATIC__/index/image/demo/pa8.jpg" />
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div style="padding:0.75rem 0.75rem 0 0.75rem">
+		<a href="#"><img src="__STATIC__/index/image/demo/ad1.jpg" alt=""></a>
+	</div>
+
+
+	<div class="aui-card-list-content-padded aui-border-b aui-border-t">
+		<div class="aui-bj1"><a href="#"></a></div>
+		<div class="aui-row aui-row-padded aui-zdy-text">
+			<div class="aui-col-xs-6">
+				<a href="product.html">
+					<img src="__STATIC__/index/image/demo/ad2.jpg">
+					<p>[为你推荐]kaman抽屉式化妆品收纳盒大号创意护肤桌面收纳盒塑料口红置物架</p>
+					<span class="aui-margin-l-5">￥39.00</span>
+				</a>
+			</div>
+			<div class="aui-col-xs-6">
+				<a href="product.html">
+					<img src="__STATIC__/index/image/demo/ad3.jpg">
+					<p>[为你推荐]蚊帐三开门1.2m床坐床式拉链1.5m床蒙古包1.8m米床双人床家用蚊帐</p>
+					<span class="aui-margin-l-5">￥199.00</span>
+				</a>
+			</div>
+			<div class="aui-col-xs-6">
+				<a href="product.html">
+					<img src="__STATIC__/index/image/demo/ad4.jpg">
+					<p>[为你推荐]纯棉床裙式床罩三件套单件蕾丝边保护床套1.5米1.8m双人2.0m床群</p>
+					<span class="aui-margin-l-5">￥169.00</span>
+				</a>
+			</div>
+			<div class="aui-col-xs-6">
+				<a href="product.html">
+					<img src="__STATIC__/index/image/demo/ad5.jpg">
+					<p>[为你推荐]可爱卡通脏衣篓儿童玩具收纳桶布艺脏衣服收纳筐衣物换洗衣服篮子</p>
+					<span class="aui-margin-l-5">￥39.00</span>
+				</a>
+			</div>
+			<div class="aui-col-xs-6">
+				<a href="product.html">
+					<img src="__STATIC__/index/image/demo/ad6.jpg">
+					<p>美丽俏佳人力荐 蜗牛补水保湿面膜20片 温和补水 呵护肌肤</p>
+					<span class="aui-margin-l-5">￥99.00</span>
+				</a>
+			</div>
+			<div class="aui-col-xs-6">
+				<a href="product.html">
+					<img src="__STATIC__/index/image/demo/ad7.jpg">
+					<p>[为你推荐]【佳彩天颜】diy数字油画卡通动漫动物手工绘油彩填色装饰画麋鹿</p>
+					<span class="aui-margin-l-5">￥299.00</span>
+				</a>
+			</div>
+
+		</div>
+	</div>
+
+	<div style="height:48px"></div>
+	<div id="demo" style="display:none">1</div>
+	<footer class="aui-bar aui-bar-tab aui-bar-tab-cl aui-border-t" id="footer">
+		<a href="index.html" class="aui-bar-tab-item " tapmode>
+			<i class="aui-iconfont aui-icon-home"></i>
+			<div class="aui-bar-tab-label">首页</div>
+		</a>
+		<a class="aui-bar-tab-item" tapmode href="{:url('index/Classify/index')}">
+			<i class="aui-iconfont aui-icon-menu"></i>
+			<div class="aui-bar-tab-label">分类</div>
+		</a>
+		<a class="aui-bar-tab-item" tapmode href="{:url('index/Cat/index')}">
+			<i class="aui-iconfont aui-icon-cart"></i>
+			<div class="aui-bar-tab-label">购物车</div>
+		</a>
+		<a href="{:url('index/Member/index')}" class="aui-bar-tab-item" id="my" tapmode>
+			<i class="aui-iconfont aui-icon-my"></i>
+			<div class="aui-bar-tab-label">我的</div>
+		</a>
+	</footer>
+
 </body>
+<script type="text/javascript" src="__STATIC__/index/js/index/api.js" ></script>
+<script type="text/javascript" src="__STATIC__/index/js/index/aui-tab.js" ></script>
+<script type="text/javascript" src="__STATIC__/index/js/index/aui-slide.js"></script>
+<script type="text/javascript">
+	
+
+    var slide = new auiSlide({
+        container:document.getElementById("aui-slide"),
+        // "width":300,
+        "height":185,
+        "speed":300,
+        "autoPlay":5000, //自动播放时间
+        "pageShow":true,
+        "loop":true,
+        "pageStyle":'dot',
+        'dotPosition':'center'
+    })
+
+    function currentFun(index) {
+        console.log(index);
+    }
+    var slide2 = new auiSlide({
+        container:document.getElementById("aui-slide2"),
+        // "width":300,
+        "height":170,
+        "speed":300,
+        "autoPlay":0, //自动播放
+        "pageShow":true,
+        "loop":true,
+        "pageStyle":'dot',
+        'dotPosition':'center'
+    })
+    var slide3 = new auiSlide({
+        container:document.getElementById("aui-slide3"),
+        // "width":300,
+        "height":240,
+        "speed":500,
+        "autoPlay": 3000, //自动播放
+        "loop":true,
+        "pageShow":true,
+        "pageStyle":'line',
+        'dotPosition':'center'
+    })
+    console.log(slide3.pageCount());
+</script>
+<script type="text/javascript">
+    apiready = function(){
+        api.parseTapmode();
+    }
+    var tab = new auiTab({
+        element:document.getElementById("footer")
+    },function(ret){
+        console.log(ret);
+        if(ret){
+            document.getElementById("demo").textContent = ret.index;
+        }
+    });
+</script>
 </html>
