@@ -166,7 +166,7 @@
                                                     <span class="price">'+data[i].goods_bottom_money+'</span> 元/'+data[i].goods_unit+'\
                                                 </td>\
                                                 <td class="td-status">\
-                                                    <span class="label label-success radius">'+data[i].goods_status+'</span>\
+                                                    <span class="label label-success radius" id="mystatus'+data[i].id+'">'+data[i].goods_status+'</span>\
                                                 </td>\
                                                 <td class="td-manage">\
                                                     <a style="text-decoration:none" onClick="product_stop(this,'+'10001'+')" href="javascript:;" title="下架">\
@@ -181,17 +181,18 @@
                                                 </td>\
                                             </tr>')
                     }
-                }
-                if(data.data[i].status == 1){
-                    $('#mystatus'+data.data[i].id).html('已发布');
-                    // $('#stop_btn'+data.data[i].id).children(i).attr('class','Hui-iconfont').html('&#xe631;');
-                    // $('#stop_btn'+data.data[i].id).attr('title','停用');
-                }
-                if(data.data[i].status == 0){
-                    $('#mystatus'+data.data[i].id).html('已停用').attr('class', 'label label-defaunt radius');
-                    $('#stopbtn_'+data.data[i].id).children(i).attr('class','Hui-iconfont').html('&#xe6e1;');
-                    $('#stopbtn_'+data.data[i].id).attr('title','启用');
-                    $('#stopbtn_'+data.data[i].id).attr('onClick','member_start(this,10001)')
+                    
+                    if(data[i].goods_status == 1){
+                        $('#mystatus'+data[i].id).html('已发布');
+                        // $('#stop_btn'+data.data[i].id).children(i).attr('class','Hui-iconfont').html('&#xe631;');
+                        // $('#stop_btn'+data.data[i].id).attr('title','停用');
+                    }
+                    if(data[i].goods_status == 0){
+                        $('#mystatus'+data[i].id).html('已下架').attr('class', 'label label-defaunt radius');
+                        // $('#stopbtn_'+data[i].id).children(i).attr('class','Hui-iconfont').html('&#xe6e1;');
+                        // $('#stopbtn_'+data[i].id).attr('title','启用');
+                        // $('#stopbtn_'+data[i].id).attr('onClick','member_start(this,10001)')
+                    }
                 }
             },
             error:function () {
