@@ -24,20 +24,21 @@
     <div class="h-mid">会员登录     </div>
 </header>
 <div class="denglu">
-    <form action="user.php" method="post">
+    <form action="login.html" method="post">
         <div class="Login">
             <dl>
                 <dt>用户名：</dt>
-                <dd><input type="text" name="username" placeholder="请输入用户名/邮箱/手机号" value="" /></dd>
+                <dd>
+                    <input type="text" class="user_name" name="account" placeholder="请输入用户名/邮箱/手机号" value="" /></dd>
             </dl>
             <dl style=" margin-top:15px;">
                 <dt>密码：</dt>
-                <dd><input type="password" name="password" placeholder="密码"/></dd>
+                <dd><input type="password" class="password" name="passwd" placeholder="密码"/></dd>
             </dl>
             <div class="field submit-btn">
                 <input type="submit" class="btn_big1" onclick="member_login()" value="登 录" />
                 <input type="hidden" name="act" value="act_login" />
-                <input type="hidden" name="back_act" value="http://glb.siring.cn/mobile/register.php" />
+                <input type="hidden" name="back_act" value="" />
             </div>
             <div class="ng-foot">
                 <div class="ng-cookie-area" >
@@ -56,15 +57,40 @@
                 </div>
                 <div class="third-area ">
                     <div class="third-area-a">第三方登录</div>
-                    <a class="ta-qq" href="user.php?act=oath&type=qq" target="_blank" title="QQ"></a>
-                    <a class="ta-weibo" href="user.php?act=oath&type=weibo" target="_blank" title="weibo"></a>
-                    <a class="ta-alipay" href="user.php?act=oath&type=alipay" target="_blank" title="alipay"></a>
+                    <a class="ta-qq" href="" target="_blank" title="QQ"></a>
+                    <a class="ta-weibo" href="" target="_blank" title="weibo"></a>
+                    <a class="ta-alipay" href="" target="_blank" title="alipay"></a>
                 </div>
             </div>
 
         </div>
     </form>
 </div>
+<script type="text/javascript">
+    $(function(){
+        $('.btn_big1').click(function(){
+            var username = $('.user_name').val();
+            var password = $('.password').val();
+            $.ajax({
+                url: "{:url('index/index/login')}",
+                type: 'POST',
+                async: false,
+                dataType: 'json',
+                data: {
+                    "user_name": username,
+                    "password":password,
+                },
+                success: function(data){
+                    alert(data.msg);
+                },
+                error: function(data){
+                    console.log('失败');
+                }
+            })
+        })
+    });
+
+</script>
 
 </body>
 </html>

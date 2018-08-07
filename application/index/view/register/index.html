@@ -4,7 +4,7 @@
     <meta name="Generator" content="ECSHOP v2.7.3" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>用户中心_鸿宇多用户商城  </title>
+    <title>用户中心_用户商城  </title>
     <meta name="Keywords" content="" />
     <meta name="Description" content="" />
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
@@ -25,6 +25,7 @@
     <div class="h-mid">用户注册</div>
 </header>
 <div id="tbh5v0">
+
     <script type="text/javascript">
 
         $().ready(function(){
@@ -33,9 +34,7 @@
 
             //判断点击验证码
             var is_mob_log = true;
-
             $("#mobileForm").find(".check-code-img").click();
-
             //登录切换
             $("#logRegTab li").bind("click", function () {
                 if (this.id == "mob_log") {
@@ -43,9 +42,7 @@
                     if(is_mob_log){
                         return;
                     }
-
                     is_mob_log = true;
-
                     $("#mob_log").removeClass("currl");
                     $("#acc_log").addClass("currr");
                     $("#phonearea").removeClass("hide");
@@ -55,13 +52,10 @@
 
                     $("#mobileForm").find(".check-code-img").click();
                 } else {
-
                     if(!is_mob_log){
                         return;
                     }
-
                     is_mob_log = false;
-
                     $("#acc_log").removeClass("currr");
                     $("#mob_log").addClass("currl");
                     $("#phonearea").addClass("hide");
@@ -76,6 +70,8 @@
             });
         });
     </script>
+
+
     <div class="log_reg_box">
         <ul class="tab" id="logRegTab">
             <li id="mob_log" class="curr" style="cursor:pointer;">
@@ -91,7 +87,7 @@
         </ul>
         <div id="logRegTabCon">
             <div class="log_reg_item" id="phonearea">
-                <form action="register.php" id="mobileForm" name="mobileForm" method="post">
+                <form action="" id="mobileForm" name="mobileForm" method="post">
                     <input type="hidden" id="register_type" name="register_type" value="mobile" />
 
                     <div class="field phone">
@@ -128,13 +124,13 @@
                             <input id="zphone" type="button" value="获取手机验证码 " class="zphone" style="color:#FFF;cursor:pointer;" />
                         </div>
                     </div>
-                    <input type="submit" id="btn_submit" name="Submit" class="btn_big1" value="注 册" />
+                    <input type="submit" id="btn_submit1" name="Submit" class="btn_big1" value="注 册" />
                     <input type="hidden" name="act" value="register" />
                     <input type="hidden" name="back_act" value="" />
                 </form>
             </div>
             <div class="log_reg_item hide" id="accountarea">
-                <form action="register.php" method="post" id="emailForm" name="emailForm" >
+                <form action="register.html" method="post" id="emailForm" name="emailForm" >
                     <input type="hidden" id="register_type" name="register_type" value="email" />
                     <div class="field email">
                         <div class="st">
@@ -177,7 +173,7 @@
                     </div>
 
                     <input type="checkbox" style="display: none" name="agreement" value="1" checked="checked" required />
-                    <input type="submit" id="btn_submit" name="Submit" class="btn_big1" style="cursor:pointer;" value="注 册" />
+                    <input type="submit" id="btn_submit2" name="Submit" class="btn_big1" style="cursor:pointer;" value="注 册" />
                     <input type="hidden" name="act" value="register" />
                     <input type="hidden" name="back_act" value="" />
 
@@ -256,7 +252,6 @@
             <li><a href="index.php?is_c=1" class="goDesktop"><i class="footerimg_3"></i><span>电脑版</span></a></li></ul>
         <p class="mf_o4">&copy; 2018-2018</p>
     </div>
-
 </div>
 <script type="text/javascript">
     var process_request = "正在处理您的请求...";
@@ -310,5 +305,65 @@
         });
     })
 </script>
+
+<script>
+    $('#btn_submit1').click(function () {
+        /*手机*/
+        var mobile_phone =$('#mobile_phone').val();
+        var password = $('#password').val();
+        var confirm_password = $('#confirm_password').val();
+        var mobile_code = $('#mobile_code').val();
+
+            $.ajax({
+            url: "{:url('index/register/doRegByPhone')}",
+            type: 'POST',
+            async: false,
+            dataType: 'json',
+            data: {
+                "mobile_phone": mobile_phone,
+                "password":password,
+                "confirm_password":confirm_password,
+                "mobile_code":mobile_code,
+            },
+            success: function(data){
+                alert(data.msg);
+            },
+            error: function(data){
+                console.log('失败');
+            }
+        })
+    })
+
+
+    $('#btn_submit2').click(function () {
+        /*邮箱*/
+        var password = $('#password').val();
+        var confirm_password = $('#confirm_password').val();
+        var email =$('#email').val();
+        var email_code =$('#email_code').val();
+        $.ajax({
+            url: "{:url('index/register/doRegByEmail')}",
+            type: 'POST',
+            async: false,
+            dataType: 'json',
+            data: {
+                "password":password,
+                "confirm_password":confirm_password,
+                "email_code":email_code,
+                "email":email,
+            },
+            success: function(data){
+                alert(data.msg);
+            },
+            error: function(data){
+                console.log('失败');
+            }
+        })
+    })
+
+</script>
+
+
+
 </body>
 </html>

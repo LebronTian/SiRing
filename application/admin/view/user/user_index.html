@@ -23,7 +23,7 @@
 				<i class="Hui-iconfont">&#xe600;</i> 城市测试
 			</a>
 		</span> 
-		<span class="r">共有数据：<strong>88</strong> 条</span> 
+		<span class="r">共有数据：<strong id="count_number">0</strong> 条</span>
 	</div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
@@ -226,7 +226,8 @@ $('.btn_del').click(function(){
 			'id': id_checked
 		},
 		success: function(data){
-			console.log(data)
+			console.log(data);
+			alert(data.msg);
 		},
 		error: function(){
 			console.log('错误')
@@ -282,6 +283,7 @@ $('#search_bt').click(function(){
                 success: (data) => {
                     console.log(data);
                     var len = data.data.length;
+        			$('#count_number').html(len);
 					for(var i = 0; i < len; i++){
 					    var time_create =timetrans(data.data[i].create_time);
 						$('.tbody').append('<tr class="text-c mytr">\
