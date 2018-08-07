@@ -99,7 +99,7 @@ class Register extends  Controller{
         public function  doRegByPhone(Request $request){
             if($request->isPost())
             {
-                dump('注册');
+                dump($_POST);exit();
             }
         }
 
@@ -112,9 +112,11 @@ class Register extends  Controller{
         public function  doRegByEmail(Request $request){
             if($request->isPost())
             {
-                dump('邮箱注册');
+                dump($_POST);exit();
             }
         }
+
+
 
 
 
