@@ -25,7 +25,7 @@ Route::group("",[
     "class_index"=>"index/Classify/index",
     /*购物车*/
     "cat_index"=>"index/Cat/index",
-    /*购物车详情*/
+    /*商品详情*/
     "cat_detail"=>"index/Cat/detail",
     /*我的页面*/
     "member_index"=>"index/Member/index",
