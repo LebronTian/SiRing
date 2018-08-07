@@ -250,9 +250,31 @@ $('#search_bt').click(function(){
 			"search_key": search_key
 		},
 		success: function(data){
-			console.log(data)
-			var data = data.data;
-			var len = data.length;
+			// 存放data
+			var data_arr = [];
+			var data_len = data.data.length;
+			// 存放页面显示的data
+			var page_arr = [];
+			var page_len = $('.sorting_1').length;
+			var page = $('.sorting_1');
+			console.log(page)
+			for(var i = 0; i < data_len; i++){
+				data_arr[data.data[i].id] = true;//将 data.data[i].id 中的元素值作为data_arr 中的键，值为true
+			}
+			for(var j = 0; j < page_len; j++){
+				if(!data_arr[page[j].innerHTML]){
+					page_arr.push(page[j].innerHTML);// 过滤两个数组中相同的元素
+				}
+			}
+			for(var z = 0; z < page_arr.length; z++){
+				for(var i = 0; i < page_len; i++){
+					if(page[i].innerHTML == page_arr[z]){
+						page[i].parentNode.style.display = 'none';
+					}
+				}
+			}
+			$('#count_number').html(page_len - page_arr.length);
+			$('.dataTables_info').css('display','none');
 		},
 		error: function(){
 			console.log('错误')
