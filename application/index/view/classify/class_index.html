@@ -136,7 +136,7 @@
 <div class="tab">
 	<button class="tablinks" onclick="openCity(event, 'tab1')" id="defaultOpen">热门推荐</button>
 	{volist name="category" id="value"}
-	<button class="tablinks" onclick="openCity(event, 'tab2')">{$value.name}</button>
+	<button class="tablinks" value="{$value.id}" onclick="openCity(event, 'tab2')">{$value.name}</button>
 	{/volist}
 </div>
 
@@ -308,7 +308,6 @@
 				<p>领券享满减</p>
 			</a>
 		</div>
-
 	</div>
 	<div class="class-ui-title">
 		<h3>热门专场</h3>
@@ -353,92 +352,7 @@
 	</div>
 </div>
 
-<div id="tab4" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-
-<div id="tab5" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-
-<div id="tab6" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-
-<div id="tab7" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-
-<div id="tab8" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-<div id="tab9" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-<div id="tab10" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-<div id="tab11" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-<div id="tab12" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-<div id="tab13" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-
-<div id="tab14" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-<div id="tab15" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-
-<div id="tab16" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-
-<div id="tab17" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-
-
-<div id="tab18" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-<div id="tab19" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-
-
-<div id="tab20" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-
-
-
-
-
-
-
+<script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
     function openCity(evt, cityName) {
         var i, tabcontent, tablinks;
@@ -456,6 +370,26 @@
 
     // 触发 id="defaultOpen" click 事件
     document.getElementById("defaultOpen").click();
+</script>
+<script>
+    $(".tablinks").click(function () {
+        var goods_type_id = $(this).val();
+        console.log(goods_type_id);
+        $.ajax({
+            type:"POST",
+            url:"{:url('index/Classify/show')}",
+            data:{"goods_type_id":goods_type_id},
+            async:false,
+            timeout:5000,
+            dataType:"json",
+            success:function (data) {
+                console.log(data);
+            },
+            error:function () {
+                console.log("错误");
+            }
+        })
+    })
 </script>
 </body>
 </html>

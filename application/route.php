@@ -27,6 +27,7 @@ Route::group("",[
 
     /*分类*/
     "class_index"=>"index/Classify/index",
+    "class_show"=>"index/Classify/show",
 
 
     /*购物车*/
@@ -136,6 +137,7 @@ Route::group("admin",[
     "category_edit"=>"admin/Category/edit",
     "category_del"=>"admin/Category/del",
     "category_updata"=>"admin/Category/updata",
+    "category_ajax"=>"admin/Category/ajax_add",
 
     /*会员管理*/
     "user_index"=>"admin/User/index", //会员概况

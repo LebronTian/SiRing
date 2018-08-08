@@ -8,6 +8,7 @@
 namespace  app\index\controller;
 
 use think\Controller;
+use think\Request;
 
 class  Classify extends  Controller{
 
@@ -19,5 +20,17 @@ class  Classify extends  Controller{
     public function  index(){
         $category = db("goods_type")->where("status","<>","0")->select();
         return view('class_index',["category"=>$category]);
+    }
+
+
+    /**
+     * [商品显示]
+     * 陈绪
+     */
+    public function show(Request $request){
+        if ($request->isPost()){
+            $goods = db("goods")->where("goods_type_id",$request->param("goods_type_id"))->select();
+            return ajax_success("获取成功",$goods);
+        }
     }
 }
