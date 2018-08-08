@@ -101,5 +101,17 @@ class Category extends Controller{
         }
     }
 
+
+    public function ajax_add($pid = 0){
+        $goods_cate = [];
+        $goods_list = [];
+        if($pid == 0){
+            $goods_list = getSelectList("goods_type");
+        }else{
+            $goods_cate = db("goods_type")->where("id",$pid)->field()->select();
+        }
+        return ajax_success("获取成功",$goods_list);
+    }
+
 }
 

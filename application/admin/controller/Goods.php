@@ -56,6 +56,8 @@ class Goods extends Controller{
                         "goods_abstract",
                         "goods_detail",
            ]);
+           $show_images = $request->file("goods_show_images")->move(ROOT_PATH . 'public' . DS . 'uploads');
+           $goods_data["goods_show_images"] = str_replace("\\","/",$show_images->getSaveName());
            $goods_data["goods_status"] = $this->goods_status[0];
            $bool = db("goods")->insert($goods_data);
            if($bool){

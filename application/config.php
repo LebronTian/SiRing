@@ -142,7 +142,9 @@ return [
     'view_replace_str'       => [
         /*"__AdminCss__"=>"/static/admin/static"*/
         "__UPLOAD__"=>"/SiRing/public/upload",
-        "__UEDITOR__"=>"/SiRing/public/ueditor",   
+        "__UPLOADS__"=>"/SiRing/public/uploads",
+        "__UEDITOR__"=>"/SiRing/public/ueditor",
+        "__INDEX__"=>"/SiRing/public/",
     ],
     // 默认跳转页面对应的模板文件
     'dispatch_success_tmpl'  => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',

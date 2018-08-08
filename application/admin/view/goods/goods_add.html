@@ -213,6 +213,8 @@
 
 			</div>
 		</div>
+		<label>商品显示图片</label>
+		<input type="file" name="goods_show_images">
 
 		<div class="row cl" id="dndArea">
 			<label class="form-label col-xs-4 col-sm-2">详细内容：</label>
@@ -248,7 +250,7 @@
                     (function(){
                         //  分类栏目，请求地址获取数据，插入select
                         $.ajax({
-                            url:"{:url('admin/Category/add')}",
+                            url:"{:url('admin/Category/ajax_add')}",
                             type:"POST",
                             async:false,
                             timeout:5000,
