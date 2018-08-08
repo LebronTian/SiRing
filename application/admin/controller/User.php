@@ -75,6 +75,9 @@ class User extends Controller{
      **************************************
      */
     public function add(){
+        $province = Db::name('tree')->where (array('pid'=>1) )->select();
+        dump($province);
+        $this->assign('province',$province);
         return view("user_add");
     }
 
@@ -328,8 +331,31 @@ class User extends Controller{
      * 会员展示信息
      **************************************
      */
-    public function show(){
+    public function show(Request $request){
+        if($request->isPost()){
+            $id = $_POST['id'];
+            $_SESSION['user_id'] =$id;
+        }
         return view("user_show");
+    }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 用来传值回去使用
+     **************************************
+     */
+    public function  shows(Request $request){
+        if($request->isPost())
+        {
+            $id =$_SESSION['user_id'];
+            $res = Db::name('user')->where('id',$id)->find();
+            if($res){
+                return ajax_success('成功',$res);
+            }else{
+                return ajax_error('失败');
+            }
+        }
     }
 
     /**

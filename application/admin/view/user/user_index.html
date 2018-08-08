@@ -106,7 +106,23 @@ function member_add(title,url,w,h){
 }
 /*用户-查看*/
 function member_show(title,url,id,w,h){
-	layer_show(title,url,w,h);
+    $.ajax({
+        type: 'POST',
+        url: "{:url('admin/user/show')}",
+        dataType: 'json',
+        data: {
+            'id': id
+        },
+        success: function(data){
+            console.log('111');
+            console.log(data);
+            console.log('111');
+        },
+        error:function(data) {
+            console.log(data.msg);
+        },
+    });
+    layer_show(title,url,w,h);
 }
 /*用户-停用*/
 function member_stop(obj,id){
@@ -246,7 +262,7 @@ $('#search_bt').click(function(){
 		async: false,
 		data: {
 			"datemin": datemin+' '+'00:00:00',
-			"datemax": datemax+' '+'00:00:00',
+			"datemax": datemax+' '+'23:59:59',
 			"search_key": search_key
 		},
 		success: function(data){
@@ -312,7 +328,7 @@ $('#search_bt').click(function(){
 												<td><input type="checkbox" id="input_'+data.data[i].id+'"></td>\
 												<td>'+ data.data[i].id +'</td>\
 												<td>\
-													<u style="cursor:pointer" class="text-primary" onclick="member_show('+ "'"+data.data[i].user_name +"'"+','+"'"+'user_show.html'+"'"+','+'10001'+','+'360'+','+'400'+')">'+ data.data[i].user_name+'</u>\
+													<u style="cursor:pointer" class="text-primary" onclick="member_show('+ "'"+data.data[i].user_name +"'"+','+"'"+'user_show.html'+"'"+','+data.data[i].id+','+'360'+','+'400'+')">'+ data.data[i].user_name+'</u>\
 												</td>\
 												<td>'+ data.data[i].sex+'</td>\
 												<td>'+ data.data[i].phone_num+'</td>\

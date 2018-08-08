@@ -5,40 +5,38 @@
 	<img class="avatar size-XL l" src="__STATIC__/admin/static/h-ui/images/ucnter/avatar-default.jpg">
 	<dl style="margin-left:80px; color:#fff">
 		<dt>
-			<span class="f-18">张三</span>
-			<span class="pl-10 f-12">余额：40</span>
+			<span class="f-18 user_names"></span>
+			<!--<span class="pl-10 f-12 ">余额：40</span>-->
 		</dt>
-		<dd class="pt-10 f-12" style="margin-left:0">这家伙很懒，什么也没有留下</dd>
+		<dd class="pt-10 f-12 user_remark" style="margin-left:0"></dd>
 	</dl>
 </div>
 <div class="pd-20">
 	<table class="table">
+
 		<tbody>
 			<tr>
-				<th class="text-r" width="80">性别：</th>
-				<td>男</td>
+				<th class="text-r " width="80">性别：</th>
+				<td class="sex"></td>
 			</tr>
 			<tr>
 				<th class="text-r">手机：</th>
-				<td>13000000000</td>
+				<td class="phone"></td>
 			</tr>
 			<tr>
-				<th class="text-r">邮箱：</th>
-				<td>admin@mail.com</td>
+				<th class="text-r ">邮箱：</th>
+				<td class="email"></td>
 			</tr>
 			<tr>
-				<th class="text-r">地址：</th>
-				<td>北京市 海淀区</td>
+				<th class="text-r ">地址：</th>
+				<td class="city"></td>
 			</tr>
 			<tr>
-				<th class="text-r">注册时间：</th>
-				<td>2014.12.20</td>
-			</tr>
-			<tr>
-				<th class="text-r">积分：</th>
-				<td>330</td>
+				<th class="text-r ">注册时间：</th>
+				<td class="create_time"></td>
 			</tr>
 		</tbody>
+
 	</table>
 </div>
 {/block}
@@ -54,4 +52,65 @@
 <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
+<script>
+    function loadRegion(sel,type_id,selName,url){
+        jQuery("#"+selName+" option").each(function(){
+            jQuery(this).remove();
+        });
+        jQuery("<option value=0>请选择</option>").appendTo(jQuery("#"+selName));
+        if(jQuery("#"+sel).val()==0){
+            return;
+        }
+        jQuery.getJSON(url,{pid:jQuery("#"+sel).val(),type:type_id},
+            function(data){
+                if(data){
+                    jQuery.each(data,function(idx,item){
+                        jQuery("<option value="+item.id+">"+item.name+"</option>").appendTo(jQuery("#"+selName));
+                    });
+                }else{
+                    jQuery("<option value='0'>请选择</option>").appendTo(jQuery("#"+selName));
+                }
+            }
+        );
+    }
+</script>
+<script>
+    function timetrans(date){
+        var date = new Date(date*1000);//如果date为13位不需要乘1000
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+        var m = (date.getMinutes() <10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+        var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
+        return Y+M+D+h+m+s;
+    }
+
+	(function(){
+        $.ajax({
+            type: 'POST',
+            url: "{:url('admin/user/shows')}",
+            dataType: 'json',
+            success: function(data){
+                var create_time = timetrans(data.data.create_time);
+                $(".user_names").html(data.data.user_name);
+                if(data.data.remark == null){
+                    $(".remark").html("这家伙很懒，什么也没有留下");
+                }
+                if(data.data.remark){
+                    $(".remark").html(data.data.remark);
+                }
+                	$('.sex').html(data.data.sex);
+                    $(".phone").html(data.data.phone_num);
+                    $(".email").html(data.data.email);
+                    $(".city").html(data.data.city) ;
+                    $(".create_time").html(create_time);
+            },
+            error:function(data) {
+                alert('获取失败');
+            }
+        });
+	})()
+</script>
+
 {/block}

@@ -67,7 +67,20 @@
 					</select>
 				</span> 
 			</div> -->
-			<div id="province"></div>
+			<!--<div id="province"></div>-->
+				<select name="province" id="province" onchange="loadRegion('province',2,'city','{:url("admin/user/getRegion")}');">
+						<option value="0" selected>省份/直辖市</option>
+					{volist name="province" id="vo"}
+						<option value="{$vo.id}" >{$vo.name}</option>
+					{/volist}
+				</select>
+
+				<select name="city" id="city"  onchange="loadRegion('city',3,'town','{:url("admin/user/getRegion")}');">
+					<option value="0">市/县</option>
+				</select>
+				<select name="town" id="town">
+					<option value="0">镇/区</option>
+				</select>
 		</div>
 
 		<div class="row cl">
@@ -115,12 +128,14 @@
         var sex = $('.radio-box div.checked').siblings('label').html();
         var phone = $('#mobile').val();
         var email = $('#email').val();
-		var city = [];
+//		var city = [];
 		var remark = $('.textarea').val();
 		// 遍历 城市
-		for(var i = 0; i < 3; i++){
-			city.push($('#province select option:selected')[i].innerHTML);
-		}
+//		for(var i = 0; i < 3; i++){
+//			city.push($('#province select option:selected')[i].innerHTML);
+//		}
+		var city= $("#province  prevObject");
+		console.log(city);
 
         $.ajax({
             url: "{:url('admin/User/save')}",
@@ -141,6 +156,7 @@
                 console.log(data);
 //                if(data.code ==0) {
                   alert(data.msg);
+//                window.reload();
 //                  windows.location.herf ="admin/user/index";
 //                }
             },
@@ -198,6 +214,29 @@ $(function(){
 		}
 	});
 });
-</script> 
+</script>
+
+<script>
+    function loadRegion(sel,type_id,selName,url){
+        jQuery("#"+selName+" option").each(function(){
+            jQuery(this).remove();
+        });
+        jQuery("<option value=0>请选择</option>").appendTo(jQuery("#"+selName));
+        if(jQuery("#"+sel).val()==0){
+            return;
+        }
+        jQuery.getJSON(url,{pid:jQuery("#"+sel).val(),type:type_id},
+            function(data){
+                if(data){
+                    jQuery.each(data,function(idx,item){
+                        jQuery("<option value="+item.id+">"+item.name+"</option>").appendTo(jQuery("#"+selName));
+                    });
+                }else{
+                    jQuery("<option value='0'>请选择</option>").appendTo(jQuery("#"+selName));
+                }
+            }
+        );
+    }
+</script>
 <!--/请在上方写此页面业务相关的脚本-->
 {/block}

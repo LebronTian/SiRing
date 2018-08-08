@@ -24,23 +24,23 @@ class Login extends Controller{
     {
         if($_POST){
             $data = $_POST;
-            $user_name =$data['account'];
+            $user_mobile =$data['account'];
 
             $password =$data['passwd'];
 
-            if(empty($user_name)){
-                $this->error('用户名不能为空');
+            if(empty($user_mobile)){
+                $this->error('手机号不能为空');
             }
             if(empty($password)){
                 $this->error('密码不能为空');
             }
-            $res = Db::name('user')->field('password')->where('user_name',$user_name)->find();
+            $res = Db::name('user')->field('password')->where('phone_num',$user_mobile)->find();
             if(!$res)
             {
-                $this->error('用户名不存在');
+                $this->error('手机号不存在');
             }
             $datas=[
-                "user_name" => $user_name,
+                "phone_num" => $user_mobile,
                 "password" => md5($password),
             ];
             $res =Db::name('user')->where($datas)->find();
