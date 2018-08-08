@@ -1,30 +1,51 @@
 {extend name="layout"}
-
+{block name="css"}
+    <style>
+        .wrapper{
+            width: 500px;
+            height: 500px;
+            margin: 30px auto 0;
+        }
+        .wrapper form{
+            display: flex;
+            flex-direction: column;
+        }
+        .submit{
+            background-color: dodgerblue;
+            border: 0;
+            font-size: 16px;
+            color: #fff;
+            height: 30px;
+        }
+    </style>
+{/block}
 {block name="content"}
-<form id="CategoryAdd" action="{:url('admin/Category/updata')}" method="post">
-    {volist name="category" id="value"}
-    <label class="form-label col-xs-4 col-sm-3" id=""><span>商品分类名称</span></label>
-    <input type="text" name="name" value="{$value.name}" style="margin-bottom: 20px;"><br/>
-    <label><span>状态</span></label>
-    <select name="status">
-        <option value="1">启用</option>
-        <option value="0">停用</option>
-    </select><br/>
-    <label><span>父类分类</span></label>
-    {if !empty($goods_lists)}
-    <select name="pid" class="form-control" id="" style="margin-bottom: 20px;width: 80px;height:30px;">
-        <option value="0">顶级</option>
-        {volist name="goods_lists" id="values"}
-        <option value="{$values.id}">{$values.name}</option>
-        {/volist}
-    </select><br/>
-    {/if}
-    <label class=""><span>菜单排序</span></label>
-    <input type="text" name="sort_number" style="margin-bottom: 20px;" value="{$value.sort_number}"><br/>
-    <input type="hidden" name="id" value="{$value.id}">
-    <input type="submit" value="提交">
-    {/volist}
-</form>
+<div class="wrapper">
+        <form id="CategoryAdd" action="{:url('admin/Category/updata')}" method="post">
+            {volist name="category" id="value"}
+            <label id=""><span>商品分类名称</span></label>
+            <input type="text" name="name" value="{$value.name}"><br/>
+            <label><span>状态</span></label>
+            <select name="status">
+                <option value="1">启用</option>
+                <option value="0">停用</option>
+            </select><br/>
+            <label><span>父类分类</span></label>
+            {if !empty($goods_lists)}
+            <select name="pid" class="form-control" id="">
+                <option value="0">顶级</option>
+                {volist name="goods_lists" id="values"}
+                <option value="{$values.id}">{$values.name}</option>
+                {/volist}
+            </select><br/>
+            {/if}
+            <label class=""><span>菜单排序</span></label>
+            <input type="text" name="sort_number" value="{$value.sort_number}"><br/>
+            <input type="hidden" name="id" value="{$value.id}">
+            <input type="submit" class="submit" value="提交">
+            {/volist}
+        </form>
+</div>
 
 {/block}
 
