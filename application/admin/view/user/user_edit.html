@@ -147,6 +147,7 @@ $(function(){
         type: 'POST',
         dataType: 'json',
         success: function(data){
+			console.log(data)
 			// 设置名字
 			$('.username').val(data.data.user_name);
 			// 设置性别

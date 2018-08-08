@@ -107,6 +107,9 @@
 	/*用户-查看*/
     function member_show(title,url,id,w,h){
         layer_show(title,url,w,h);
+        $.ajax({
+            
+        })
     }
 	/*用户-停用*/
     function member_stop(obj,id){
@@ -312,7 +315,7 @@
 												<td><input type="checkbox" id="input_'+data.data[i].id+'"></td>\
 												<td>'+ data.data[i].id +'</td>\
 												<td>\
-													<u style="cursor:pointer" class="text-primary" onclick="member_show('+ "'"+data.data[i].user_name +"'"+','+"'"+'user_show.html'+"'"+','+'10001'+','+'360'+','+'400'+')">'+ data.data[i].user_name+'</u>\
+													<u style="cursor:pointer" class="text-primary" onclick="member_show('+ "'"+data.data[i].user_name +"'"+','+"'"+'user_show.html'+"'"+','+data.data[i].id+','+'360'+','+'400'+')">'+ data.data[i].user_name+'</u>\
 												</td>\
 												<td>'+ data.data[i].sex+'</td>\
 												<td>'+ data.data[i].phone_num+'</td>\
