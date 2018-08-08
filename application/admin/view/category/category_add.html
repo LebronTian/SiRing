@@ -17,21 +17,30 @@
             color: #fff;
             height: 30px;
         }
+        .input{
+            outline: none;
+            border: 1px solid #ccc;
+            padding: 4px 0 4px 4px;
+            font-size: 16px !important;
+        }
+        .selected{
+            height: 32px;
+        }
     </style>
 {/block}
 {block name="content"}
 <div class="wrapper">
     <form action="{:url('admin/Category/save')}" method="post">
         <label id=""><span>商品分类名称</span></label>
-        <input type="text" name="name" value=""><br>
+        <input type="text" name="name" value="" class="input"><br>
         <label><span>状态</span></label>
-        <select name="status">
+        <select name="status" class="selected">
             <option value="1">启用</option>
             <option value="0">停用</option>
         </select><br/>
         <label><span>父类分类</span></label>
         {if !empty($goods_list)}
-            <select name="pid" class="form-control" id="" >
+            <select name="pid" class="form-control selected" id="" >
                 <option value="0">顶级</option>
                 {volist name="goods_list" id="value"}
                 <option value="{$value.id}">{$value.name}</option>
@@ -39,7 +48,7 @@
             </select><br/>
         {/if}
         <label class=""><span>菜单排序</span></label>
-        <input type="text" name="sort_number"><br>
+        <input type="text" name="sort_number" class="input"><br>
         <input type="submit" class="submit" value="提交">
     </form>
 </div>

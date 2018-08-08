@@ -17,6 +17,15 @@
             color: #fff;
             height: 30px;
         }
+        .input{
+            outline: none;
+            border: 1px solid #ccc;
+            padding: 4px 0 4px 4px;
+            font-size: 16px !important;
+        }
+        .selected{
+            height: 32px;
+        }
     </style>
 {/block}
 {block name="content"}
@@ -24,15 +33,15 @@
         <form id="CategoryAdd" action="{:url('admin/Category/updata')}" method="post">
             {volist name="category" id="value"}
             <label id=""><span>商品分类名称</span></label>
-            <input type="text" name="name" value="{$value.name}"><br/>
+            <input type="text" name="name" value="{$value.name}" class="input"><br/>
             <label><span>状态</span></label>
-            <select name="status">
+            <select name="status" class="selected">
                 <option value="1">启用</option>
                 <option value="0">停用</option>
             </select><br/>
             <label><span>父类分类</span></label>
             {if !empty($goods_lists)}
-            <select name="pid" class="form-control" id="">
+            <select name="pid" class="form-control selected">
                 <option value="0">顶级</option>
                 {volist name="goods_lists" id="values"}
                 <option value="{$values.id}">{$values.name}</option>
@@ -40,8 +49,8 @@
             </select><br/>
             {/if}
             <label class=""><span>菜单排序</span></label>
-            <input type="text" name="sort_number" value="{$value.sort_number}"><br/>
-            <input type="hidden" name="id" value="{$value.id}">
+            <input type="text" name="sort_number" value="{$value.sort_number}"  class="input"><br/>
+            <input type="hidden" name="id" value="{$value.id}" class="input">
             <input type="submit" class="submit" value="提交">
             {/volist}
         </form>
