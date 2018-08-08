@@ -69,16 +69,24 @@
                     <input type="checkbox" class="ccheckall">
                     <a href="javascript:;" class="am-text-danger cdeleteall" style="margin-left:10px;color: #000"><span class="table-title">分类名称</span></a>
                 </th>
-                <th class="table-parent">父级分类</th>
-                <!-- <th class="table-image">图片</th> -->
+                <th class="table-parent">父级id</th>
                 <th class="table-order">排序</th>
                 <th class="table-status">状态</th>
-                <th><a href="/?_easy=shop.sp.catlist&amp;_u=sp.catlist&amp;_a=shop&amp;sort=1">创建时间</a></th>
                 <th class="table-set">操作</th>
             </tr>
             </thead>
             <tbody>
-            <tr class="am-danger " data-id="118"><td class="table-check am-text-truncate width200"><input type="checkbox" class="ccheck"><span>干果类 [118]</span></td><td>顶级</td><!-- <td><img src="?_a=upload&_u=index.out&uidm=17775349f" style="max-width:100px;max-height:100px;"></td> --><td>6</td><td><button data-status="1" class="cstatus am-btn am-btn-xs am-btn-danger">已禁用</button></td><td>2017-07-25 17:45:24</td><td><a href="?_a=shop&amp;_u=sp.addcat&amp;uid=118" target="_self" class="am-text-primary">编辑</a><a class="am-text-danger cdelete" data-id="118">删除</a><a class="am-text-danger">链接</a></td></tr><tr data-id="93"><td class="table-check am-text-truncate width200"><input type="checkbox" class="ccheck"><span>亚麻油 [93]</span></td><td>顶级</td><!-- <td><img src="" style="max-width:100px;max-height:100px;"></td> --><td>5</td><td><button data-status="0" class="cstatus am-btn am-btn-xs am-btn-success blue-self">已显示</button></td><td>2016-06-15 18:25:45</td><td><a href="?_a=shop&amp;_u=sp.addcat&amp;uid=93" target="_self" class="am-text-primary">编辑</a><a class="am-text-danger cdelete" data-id="93">删除</a><a class="am-text-danger">链接</a></td></tr><tr data-id="30"><td class="table-check am-text-truncate width200"><input type="checkbox" class="ccheck"><span>女装 [30]</span></td><td>顶级</td><!-- <td><img src="?_a=upload&_u=index.out&uidm=58451a1d" style="max-width:100px;max-height:100px;"></td> --><td>0</td><td><button data-status="0" class="cstatus am-btn am-btn-xs am-btn-success blue-self">已显示</button></td><td>2016-04-14 11:10:42</td><td><a href="?_a=shop&amp;_u=sp.addcat&amp;uid=30" target="_self" class="am-text-primary">编辑</a><a class="am-text-danger cdelete" data-id="30">删除</a><a class="am-text-danger">链接</a></td></tr><tr data-id="31"><td class="table-check am-text-truncate width200"><input type="checkbox" class="ccheck"><span>男装 [31]</span></td><td>顶级</td><!-- <td><img src="?_a=upload&_u=index.out&uidm=58582c9a" style="max-width:100px;max-height:100px;"></td> --><td>0</td><td><button data-status="0" class="cstatus am-btn am-btn-xs am-btn-success blue-self">已显示</button></td><td>2016-04-14 11:11:43</td><td><a href="?_a=shop&amp;_u=sp.addcat&amp;uid=31" target="_self" class="am-text-primary">编辑</a><a class="am-text-danger cdelete" data-id="31">删除</a><a class="am-text-danger">链接</a></td></tr><tr data-id="32"><td class="table-check am-text-truncate width200"><input type="checkbox" class="ccheck"><span>鞋靴 [32]</span></td><td>顶级</td><!-- <td><img src="?_a=upload&_u=index.out&uidm=177618f55" style="max-width:100px;max-height:100px;"></td> --><td>0</td><td><button data-status="0" class="cstatus am-btn am-btn-xs am-btn-success blue-self">已显示</button></td><td>2016-04-14 11:12:01</td><td><a href="?_a=shop&amp;_u=sp.addcat&amp;uid=32" target="_self" class="am-text-primary">编辑</a><a class="am-text-danger cdelete" data-id="32">删除</a><a class="am-text-danger">链接</a></td></tr><tr class="am-danger " data-id="33"><td class="table-check am-text-truncate width200"><input type="checkbox" class="ccheck"><span>箱包 [33]</span></td><td>顶级</td><!-- <td><img src="" style="max-width:100px;max-height:100px;"></td> --><td>0</td><td><button data-status="1" class="cstatus am-btn am-btn-xs am-btn-danger">已禁用</button></td><td>2016-04-14 11:12:06</td><td><a href="?_a=shop&amp;_u=sp.addcat&amp;uid=33" target="_self" class="am-text-primary">编辑</a><a class="am-text-danger cdelete" data-id="33">删除</a><a class="am-text-danger">链接</a></td></tr>	</tbody>
+            {volist name="category" id="value"}
+            <tr class="am-danger " data-id="118">
+                <td class="table-check am-text-truncate width200"><input type="checkbox" class="ccheck"><span>{$value.name}</span></td>
+                <td>{$value.pid}</td>
+                <td>{$value.sort_number}</td>
+                <td><button data-status="{$value.status}" class="cstatus am-btn am-btn-xs am-btn-danger">以启用</button>
+                <td><a href="{:url('admin/Category/edit',['id'=>$value.id])}" target="_self" class="am-text-primary">编辑</a>
+                    <a href="{:url('admin/Category/del',['id'=>$value.id])}" class="am-text-danger cdelete" data-id="118">删除</a>
+                </td>
+            </tr>
+            {/volist}
         </table>
     </div>
     <div class="am-u-sm-12 pl0 pr0 pro-btngroup-self">

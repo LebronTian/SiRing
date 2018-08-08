@@ -12,12 +12,14 @@ use think\Request;
 
 class Category extends Controller{
 
+
     /**
      * [商品分类显示]
      * 陈绪
      */
     public function index(){
-        return view("category_index");
+        $category = db("goods_type")->where("status","<>","0")->select();
+        return view("category_index",["category"=>$category]);
     }
 
     /**
@@ -25,32 +27,77 @@ class Category extends Controller{
      * 陈绪
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
-    public function add(Request $request){
-        if($request->isPost()){
-            $categroy_name = getSelectList("goods_type");
-            return ajax_success("获取成功",$categroy_name);
+    public function add($pid = 0){
+        $goods_cate = [];
+        $goods_list = [];
+        if($pid == 0){
+            $goods_list = getSelectList("goods_type");
+        }else{
+            $goods_cate = db("goods_type")->where("id",$pid)->field()->select();
         }
-        return view("category_add");
+        return view("category_add",["goods_list"=>$goods_list,"goods_cate"=>$goods_cate]);
     }
 
 
     /**
      * [商品入库]
      * 陈绪
-     * @param Request $request
-     * @return mixed|string
      */
     public function save(Request $request){
 
         if($request->isPost()){
             $data = $request->param();
             $bool = db("goods_type")->insert($data);
-            if ($bool){
-                return ajax_success("入库成功");
+            if($bool){
+                $this->success("添加成功",url("admin/Category/index"));
             }else{
-                return ajax_error("入库失败");
+                $this->error("添加失败",url("admin/Category/add"));
             }
+        }
+    }
 
+
+    /**
+     * [商品分组修改]
+     * [陈绪]
+     */
+    public function edit($pid=0,$id){
+        $category = db("goods_type")->where("id",$id)->select();
+        $category_name = db("goods_type")->where("id",$category[0]["pid"])->field("name,id")->select();
+        if($pid == 0){
+            $goods_list = getSelectList("goods_type");
+        }
+        return view("category_edit",["category"=>$category,"category_name"=>$category_name,"goods_lists"=>$goods_list]);
+    }
+
+
+    /**
+     * [商品分组更新]
+     * [陈绪]
+     * @param Request $request
+     * @param $id
+     */
+    public function updata(Request $request){
+        $data = $request->param();
+        $bool = db("goods_type")->where('id',$request->only(["id"])["id"])->update($data);
+        if ($bool){
+            $this->success("编辑成功",url("admin/Category/index"));
+        }else{
+            $this->error("编辑失败",url("admin/Category/edit"));
+        }
+    }
+
+
+    /**
+     * [商品分组删除]
+     * [陈绪]
+     */
+    public function del($id){
+        $bool = db("goods_type")->where("id",$id)->delete();
+        if($bool){
+            $this->success("删除成功",url("admin/Category/index"));
+        }else{
+            $this->error("删除失败",url("admin/Category/edit"));
         }
     }
 
