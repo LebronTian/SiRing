@@ -11,19 +11,19 @@
 			<i class="Hui-iconfont">&#xe665;</i> 搜用户
 		</button>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+	<div class="cl pd-5 bg-1 bk-gray mt-20">
 		<span class="l">
 			<a href="javascript:;" onclick="" class="btn btn-danger radius btn_del">
 				<i class="Hui-iconfont">&#xe6e2;</i> 批量删除
-			</a> 
+			</a>
 			<a href="javascript:;" onclick="member_add('添加用户','user_add.html','','510')" class="btn btn-primary radius">
 				<i class="Hui-iconfont">&#xe600;</i> 添加用户
 			</a>
 			<a href="javascript:;" onclick="member_add('城市管理','user_cityss.html','','510')" class="btn btn-primary radius">
 				<i class="Hui-iconfont">&#xe600;</i> 城市测试
 			</a>
-		</span> 
-		<span class="r">共有数据：<strong>88</strong> 条</span> 
+		</span>
+		<span class="r">共有数据：<strong>88</strong> 条</span>
 	</div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
@@ -61,7 +61,7 @@
 				<td class="td-manage">
                     <a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="停用">
                         <i class="Hui-iconfont">&#xe631;</i>
-                    </a> 
+                    </a>
                     <a title="编辑" href="javascript:;" onclick="member_edit('编辑','user_edit.html','4','','510')" class="ml-5" style="text-decoration:none">
                         <i class="Hui-iconfont">&#xe6df;</i>
                     </a>
@@ -79,14 +79,14 @@
 
 {block name="bottom"}
 <!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="__STATIC__/admin/static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="__STATIC__/admin/static/h-ui/js/H-ui.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="__STATIC__/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script> 
-<script type="text/javascript" src="__STATIC__/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__STATIC__/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -98,7 +98,7 @@ $(function(){
 		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
 		]
 	});
-	
+
 });
 /*用户-添加*/
 function member_add(title,url,w,h){
@@ -110,7 +110,7 @@ function member_show(title,url,id,w,h){
 }
 /*用户-停用*/
 function member_stop(obj,id){
-	var idNum = (obj.id).split('_'); 
+	var idNum = (obj.id).split('_');
 	layer.confirm('确认要停用吗？',function(index){
 		$.ajax({
 			type: 'POST',
@@ -130,7 +130,7 @@ function member_stop(obj,id){
 			error:function(data) {
 				console.log(data.msg);
 			},
-		});		
+		});
 	});
 }
 
@@ -181,7 +181,7 @@ function member_edit(title,url,id,w,h){
 }
 /*密码-修改*/
 function change_password(title,url,id,w,h){
-	layer_show(title,url,w,h);	
+	layer_show(title,url,w,h);
 }
 /*用户-删除*/
 function member_del(obj,id){
@@ -202,7 +202,7 @@ function member_del(obj,id){
 			error:function(data) {
 				console.log(data.msg);
 			},
-		});		
+		});
 	});
 }
 /*用户批量删除*/
@@ -235,7 +235,7 @@ $('.btn_del').click(function(){
 })
 /*搜用户*/
 $('#search_bt').click(function(){
-	var datemin = $('#datemin')[0].value; 
+	var datemin = $('#datemin')[0].value;
 	var datemax = $('#datemax')[0].value;
 	var search_key = $('#search_key').val();
 	$.ajax({
@@ -256,7 +256,7 @@ $('#search_bt').click(function(){
 		}
 	})
 })
-</script> 
+</script>
 <script>
     function timetrans(date){
         var date = new Date(date*1000);//如果date为13位不需要乘1000
@@ -320,9 +320,9 @@ $('#search_bt').click(function(){
 							$('#stopbtn_'+data.data[i].id).attr('title','启用');
 							$('#stopbtn_'+data.data[i].id).attr('onClick','member_start(this,10001)')
 						}
-						
+
 					}
-                    
+
                 },
                 error:function () {
                     console.log("错误");

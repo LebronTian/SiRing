@@ -81,6 +81,7 @@ Route::group("admin",[
     "goods_edit"=>"admin/Goods/edit",
     "goods_updata"=>"admin/Goods/updata",
     "goods_del"=>"admin/Goods/del",
+    "goods_search"=>"admin/Goods/search",
 
 
     /*商品分类*/
