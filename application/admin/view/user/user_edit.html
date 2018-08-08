@@ -164,16 +164,18 @@ $(function(){
 			$('.email').val(data.data.email);
 			// 设置城市
 			var allSelect = $('#province select');
-			console.log(allSelect)
+			// console.log(allSelect)
 			var oCity = data.data.city.split(',');
-			// console.log(oCity)
+			// console.log(oCity);
 			for(var i = 0; i < 3; i++){
-				for(var j = 1; j < allSelect[i].length; j++){
-					if(oCity[0] == allSelect[0][j].innerHTML){
-						allSelect[0][j].selected = true;
+				for(var j = 0; j < allSelect[i].length; j++){
+					if(oCity[i] == allSelect[i][j].innerHTML){
+						allSelect[i][j].selected = true;
 					}
 				}
-			}			
+			}
+			allSelect[1].innerHTML = '<option selected>'+oCity[1]+'</option>';
+			allSelect[2].innerHTML = '<option selected>'+oCity[2]+'</option>';
 			// 备注
 			$('.notes').val(data.data.remark);
 			
