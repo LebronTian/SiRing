@@ -135,25 +135,9 @@
 
 <div class="tab">
 	<button class="tablinks" onclick="openCity(event, 'tab1')" id="defaultOpen">热门推荐</button>
-	<button class="tablinks" onclick="openCity(event, 'tab2')">自营超市</button>
-	<button class="tablinks" onclick="openCity(event, 'tab3')">全球购</button>
-	<button class="tablinks" onclick="openCity(event, 'tab4')">男装</button>
-	<button class="tablinks" onclick="openCity(event, 'tab5')">女装</button>
-	<button class="tablinks" onclick="openCity(event, 'tab6')">男鞋</button>
-	<button class="tablinks" onclick="openCity(event, 'tab7')">女鞋</button>
-	<button class="tablinks" onclick="openCity(event, 'tab8')">内衣配饰</button>
-	<button class="tablinks" onclick="openCity(event, 'tab9')">箱包手袋</button>
-	<button class="tablinks" onclick="openCity(event, 'tab10')">美妆护品</button>
-	<button class="tablinks" onclick="openCity(event, 'tab11')">珠宝手表</button>
-	<button class="tablinks" onclick="openCity(event, 'tab12')">手机数码</button>
-	<button class="tablinks" onclick="openCity(event, 'tab13')">电脑办公</button>
-	<button class="tablinks" onclick="openCity(event, 'tab14')">家用电器</button>
-	<button class="tablinks" onclick="openCity(event, 'tab15')">食品生鲜</button>
-	<button class="tablinks" onclick="openCity(event, 'tab16')">酒水饮料</button>
-	<button class="tablinks" onclick="openCity(event, 'tab17')">母婴专场</button>
-	<button class="tablinks" onclick="openCity(event, 'tab18')">儿童玩具</button>
-	<button class="tablinks" onclick="openCity(event, 'tab19')">医疗保健</button>
-	<button class="tablinks" onclick="openCity(event, 'tab20')">家居厨卫</button>
+	{volist name="category" id="value"}
+	<button class="tablinks" onclick="openCity(event, 'tab2')">{$value.name}</button>
+	{/volist}
 </div>
 
 <div id="tab1" class="tabcontent">

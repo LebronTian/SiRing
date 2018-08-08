@@ -10,7 +10,7 @@ use think\Controller;
 class Images extends Controller{
 
     public function index(){
-        
+
     }
 
 }
