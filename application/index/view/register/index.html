@@ -4,7 +4,7 @@
     <meta name="Generator" content="ECSHOP v2.7.3" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>用户中心_鸿宇多用户商城  </title>
+    <title>用户中心_用户商城  </title>
     <meta name="Keywords" content="" />
     <meta name="Description" content="" />
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
@@ -12,70 +12,66 @@
     <link rel="stylesheet" type="text/css" href="__STATIC__/index/css/login.css"/>
 
 
-    <script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
-    <script type="text/javascript" src="__STATIC__/index/js/common.js"></script>
-    <script type="text/javascript" src="__STATIC__/index/js/utils.js"></script>
-    <script type="text/javascript" src="__STATIC__/index/js/register.js">
-    </script>
-    <script type="text/javascript" src="__STATIC__/index/js/transport.js"></script>
+    <!--<script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>-->
+    <!--<script type="text/javascript" src="__STATIC__/index/js/common.js"></script>-->
+    <!--<script type="text/javascript" src="__STATIC__/index/js/utils.js"></script>-->
+    <!--<script type="text/javascript" src="__STATIC__/index/js/register.js"></script>-->
+    <!--<script type="text/javascript" src="__STATIC__/index/js/transport.js"></script>-->
 </head>
 <body>
 <header id="header" class='header'>
-    <div class="h-left"><a href="javascript:history.back(-1)" class="back"></a></div>
+    <div class="h-left">
+        <a href="javascript:history.back(-1)" class="back"></a></div>
     <div class="h-mid">用户注册</div>
 </header>
 <div id="tbh5v0">
-    <script type="text/javascript">
 
-        $().ready(function(){
+    <!--<script type="text/javascript">-->
 
-            setCurrentForm($("#mobileForm"));
+        <!--$().ready(function(){-->
 
-            //判断点击验证码
-            var is_mob_log = true;
+<!--//            setCurrentForm($("#mobileForm"));-->
 
-            $("#mobileForm").find(".check-code-img").click();
+            <!--//判断点击验证码-->
+            <!--var is_mob_log = true;-->
+            <!--$("#mobileForm").find(".check-code-img").click();-->
+            <!--//登录切换-->
+            <!--$("#logRegTab li").bind("click", function () {-->
+                <!--if (this.id == "mob_log") {-->
 
-            //登录切换
-            $("#logRegTab li").bind("click", function () {
-                if (this.id == "mob_log") {
+                    <!--if(is_mob_log){-->
+                        <!--return;-->
+                    <!--}-->
+                    <!--is_mob_log = true;-->
+                    <!--$("#mob_log").removeClass("currl");-->
+                    <!--$("#acc_log").addClass("currr");-->
+                    <!--$("#phonearea").removeClass("hide");-->
+                    <!--$("#accountarea").addClass("hide");-->
 
-                    if(is_mob_log){
-                        return;
-                    }
+                    <!--setCurrentForm($("#mobileForm"));-->
 
-                    is_mob_log = true;
+                    <!--$("#mobileForm").find(".check-code-img").click();-->
+                <!--} else {-->
+                    <!--if(!is_mob_log){-->
+                        <!--return;-->
+                    <!--}-->
+                    <!--is_mob_log = false;-->
+                    <!--$("#acc_log").removeClass("currr");-->
+                    <!--$("#mob_log").addClass("currl");-->
+                    <!--$("#phonearea").addClass("hide");-->
+                    <!--$("#accountarea").removeClass("hide");-->
 
-                    $("#mob_log").removeClass("currl");
-                    $("#acc_log").addClass("currr");
-                    $("#phonearea").removeClass("hide");
-                    $("#accountarea").addClass("hide");
+                    <!--setCurrentForm($("#emailForm"));-->
 
-                    setCurrentForm($("#mobileForm"));
+                    <!--$("#emailForm").find(".check-code-img").click();-->
+                <!--}-->
+                <!--$(".btn_log").css("color","#FFFEFE");-->
 
-                    $("#mobileForm").find(".check-code-img").click();
-                } else {
+            <!--});-->
+        <!--});-->
+    <!--</script>-->
 
-                    if(!is_mob_log){
-                        return;
-                    }
 
-                    is_mob_log = false;
-
-                    $("#acc_log").removeClass("currr");
-                    $("#mob_log").addClass("currl");
-                    $("#phonearea").addClass("hide");
-                    $("#accountarea").removeClass("hide");
-
-                    setCurrentForm($("#emailForm"));
-
-                    $("#emailForm").find(".check-code-img").click();
-                }
-                $(".btn_log").css("color","#FFFEFE");
-
-            });
-        });
-    </script>
     <div class="log_reg_box">
         <ul class="tab" id="logRegTab">
             <li id="mob_log" class="curr" style="cursor:pointer;">
@@ -91,11 +87,11 @@
         </ul>
         <div id="logRegTabCon">
             <div class="log_reg_item" id="phonearea">
-                <form action="register.php" id="mobileForm" name="mobileForm" method="post">
+                <form action="" id="mobileForm" name="mobileForm" method="post">
                     <input type="hidden" id="register_type" name="register_type" value="mobile" />
 
                     <div class="field phone">
-                        <input type="text" id="mobile_phone" name="mobile_phone" placeholder="手机号" class="c-form-txt-normal" onblur="checkMobilePhone(this);" />
+                        <input type="text" id="mobile" name="mobile" placeholder="手机号" class="c-form-txt-normal" onblur="checkMobilePhone(this);" />
                         <div class="tips">
                             <span id="mobile_phone_notice"></span>
                         </div>
@@ -125,16 +121,16 @@
                             <input type="text" id="mobile_code" name="mobile_code" placeholder="手机验证码" />
                         </div>
                         <div class="codePhoto">
-                            <input id="zphone" type="button" value="获取手机验证码 " class="zphone" style="color:#FFF;cursor:pointer;" />
+                            <input id="zphone" type="button" value="获取手机验证码 " onclick="yzm()" class="zphone" style="color:#FFF;cursor:pointer;" />
                         </div>
                     </div>
-                    <input type="submit" id="btn_submit" name="Submit" class="btn_big1" value="注 册" />
+                    <input type="submit"  name="Submit" class="btn_big1" value="注 册" />
                     <input type="hidden" name="act" value="register" />
                     <input type="hidden" name="back_act" value="" />
                 </form>
             </div>
             <div class="log_reg_item hide" id="accountarea">
-                <form action="register.php" method="post" id="emailForm" name="emailForm" >
+                <form action="" method="post" id="emailForm" name="emailForm" >
                     <input type="hidden" id="register_type" name="register_type" value="email" />
                     <div class="field email">
                         <div class="st">
@@ -160,14 +156,6 @@
                             <span id="confirm_password_notice"> </span>
                         </div>
                     </div>
-                    <div class="field no">
-                        <!--<div class="ptxt st">-->
-                            <!--<input type="text" name="extend_field1" value="" placeholder="重点用户" id="extend_field_1" class="c-f-text" />-->
-                        <!--</div>-->
-                        <div class="tips">
-                            <span id="conform_password_notice"> </span>
-                        </div>
-                    </div>
                     <div class="yanzheng" style=" margin-top:0px;">
                         <div class="codeTxt">
                             <input type="text" id="email_code" name="email_code" placeholder="邮箱验证码"/></div>
@@ -177,7 +165,7 @@
                     </div>
 
                     <input type="checkbox" style="display: none" name="agreement" value="1" checked="checked" required />
-                    <input type="submit" id="btn_submit" name="Submit" class="btn_big1" style="cursor:pointer;" value="注 册" />
+                    <input type="submit" name="Submit" class="btn_big1" style="cursor:pointer;" value="注 册" />
                     <input type="hidden" name="act" value="register" />
                     <input type="hidden" name="back_act" value="" />
 
@@ -186,65 +174,19 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        var process_request = "正在处理您的请求...";
-        var username_empty = "- 用户名不能为空。";
-        var username_shorter = "- 用户名长度不能少于 3 个字符。";
-        var username_invalid = "- 用户名只能是由字母数字以及下划线组成。";
-        var password_empty = "- 登录密码不能为空。";
-        var password_shorter = "- 登录密码不能少于 6 个字符。";
-        var confirm_password_invalid = "- 两次输入密码不一致";
-        var email_empty = "- Email 为空";
-        var email_invalid = "- Email 不是合法的地址";
-        var agreement = "- 您没有接受协议";
-        var msn_invalid = "- msn地址不是一个有效的邮件地址";
-        var qq_invalid = "- QQ号码不是一个有效的号码";
-        var home_phone_invalid = "- 家庭电话不是一个有效号码";
-        var office_phone_invalid = "- 办公电话不是一个有效号码";
-        var mobile_phone_invalid = "- 手机号码不是一个有效号码";
-        var msg_un_blank = "* 用户名不能为空";
-        var msg_un_length = "* 用户名不得超过14个字符";
-        var msg_un_format = "* 用户名含有非法字符";
-        var msg_un_registered = "* 用户名已经存在,请重新输入";
-        var msg_can_rg = "* 可以注册";
-        var msg_email_blank = "* 邮件地址不能为空";
-        var msg_email_registered = "* 邮箱已存在";
-        var msg_email_format = "* 邮件地址不合法";
-        var msg_blank = "不能为空";
-        var no_select_question = "- 您没有完成密码提示问题的操作";
-        var passwd_balnk = "- 密码中不能包含空格";
-        var username_chana = "- 用户名不能有中文。";
-        var msg_uname_length = "- 用户名不能超过 20 个字符。";
-        var msg_un_chine = "* 用户名不能为中文";
-        var msg_mobile_phone_blank = "* 手机号码不能为空";
-        var msg_mobile_phone_registered = "* 手机号码已存在";
-        var msg_mobile_phone_format = "* 手机号码不是一个有效号码";
-        var msg_email_code_blank = "- 邮箱验证码不能为空";
-        var msg_mobile_phone_code_blank = "- 手机验证码不能为空";
-        var msg_captcha_blank = "- 验证码不能为空";
-        var msg_register_type_blank = "- 注册类型不能为空";
-        var username_exist = "用户名 %s 已经存在";
-        $().ready(function(){
 
-            $("#zemail").click(function(){
-                sendEmailCode($("#email"), $("#email_code"), $(this));
-            });
-
-            $("#zphone").click(function(){
-                sendMobileCode($("#mobile_phone"), $("#mobile_code"), $(this));
-            });
-
-            $("#emailForm").submit(function(){
-                return reg_by_email();
-            });
-
-            $("#mobileForm").submit(function(){
-                return reg_by_mobile();
-            });
-        });
-    </script>
     <div class="footer" >
-        <div class="links"  id="ECS_MEMBERZONE">           	<a href="login.html"><span>登录</span></a><a href="register.html"><span>注册</span></a><a href="#"><span>反馈</span></a><a href="javascript:window.scrollTo(0,0);"><span>回顶部</span></a>
+        <div class="links"  id="ECS_MEMBERZONE">
+            <a href="login.html">
+                <span>登录</span>
+            </a>
+
+            <a href="#">
+                <span>反馈</span>
+            </a>
+            <a href="javascript:window.scrollTo(0,0);">
+                 <span>回顶部</span>
+             </a>
         </div>
         <ul class="linkss" >
             <li>
@@ -253,62 +195,105 @@
                     <span >客户端</span></a></li>
             <li>
                 <a href="javascript:;"><i class="footerimg_2"></i><span class="gl">触屏版</span></a></li>
-            <li><a href="index.php?is_c=1" class="goDesktop"><i class="footerimg_3"></i><span>电脑版</span></a></li></ul>
+            <li><a href="" class="goDesktop"><i class="footerimg_3"></i><span>电脑版</span></a></li></ul>
         <p class="mf_o4">&copy; 2018-2018</p>
     </div>
+</div>
 
-</div>
-<script type="text/javascript">
-    var process_request = "正在处理您的请求...";
-    var username_empty = "- 用户名不能为空。";
-    var username_shorter = "- 用户名长度不能少于 3 个字符。";
-    var username_invalid = "- 用户名只能是由字母数字以及下划线组成。";
-    var password_empty = "- 登录密码不能为空。";
-    var password_shorter = "- 登录密码不能少于 6 个字符。";
-    var confirm_password_invalid = "- 两次输入密码不一致";
-    var email_empty = "- Email 为空";
-    var email_invalid = "- Email 不是合法的地址";
-    var agreement = "- 您没有接受协议";
-    var msn_invalid = "- msn地址不是一个有效的邮件地址";
-    var qq_invalid = "- QQ号码不是一个有效的号码";
-    var home_phone_invalid = "- 家庭电话不是一个有效号码";
-    var office_phone_invalid = "- 办公电话不是一个有效号码";
-    var mobile_phone_invalid = "- 手机号码不是一个有效号码";
-    var msg_un_blank = "* 用户名不能为空";
-    var msg_un_length = "* 用户名不得超过14个字符";
-    var msg_un_format = "* 用户名含有非法字符";
-    var msg_un_registered = "* 用户名已经存在,请重新输入";
-    var msg_can_rg = "* 可以注册";
-    var msg_email_blank = "* 邮件地址不能为空";
-    var msg_email_registered = "* 邮箱已存在";
-    var msg_email_format = "* 邮件地址不合法";
-    var msg_blank = "不能为空";
-    var no_select_question = "- 您没有完成密码提示问题的操作";
-    var passwd_balnk = "- 密码中不能包含空格";
-    var username_chana = "- 用户名不能有中文。";
-    var msg_uname_length = "- 用户名不能超过 20 个字符。";
-    var msg_un_chine = "* 用户名不能为中文";
-    var msg_mobile_phone_blank = "* 手机号码不能为空";
-    var msg_mobile_phone_registered = "* 手机号码已存在";
-    var msg_mobile_phone_format = "* 手机号码不是一个有效号码";
-    var msg_email_code_blank = "- 邮箱验证码不能为空";
-    var msg_mobile_phone_code_blank = "- 手机验证码不能为空";
-    var msg_captcha_blank = "- 验证码不能为空";
-    var msg_register_type_blank = "- 注册类型不能为空";
-    var username_exist = "用户名 %s 已经存在";
-</script>
-</div>
-<script type="text/javascript">
-    $(function(){
-        $('input[type=text],input[type=password]').bind({
-            focus:function(){
-                $(".global-nav").css("display",'none');
-            },
-            blur:function(){
-                $(".global-nav").css("display",'flex');
-            }
-        });
-    })
-</script>
+
+
+<!--<script>-->
+
+    <!--function isPoneAvailable(str) {-->
+        <!--var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;-->
+        <!--if (!myreg.test(str)) {-->
+            <!--alert('请输入有效的手机号码');-->
+            <!--return;-->
+        <!--}-->
+    <!--}-->
+    <!--function yzm() {-->
+        <!--var mobile = $("#mobile").val();-->
+        <!--if(!mobile){-->
+            <!--alert("手机号码不能为空");-->
+            <!--return;-->
+        <!--}-->
+        <!--isPoneAvailable(mobile);-->
+        <!--$.ajax({-->
+            <!--url:"{:url('index/Register/sendMobileCode')}",-->
+            <!--type:"POST", //GET-->
+            <!--async:false, //或true，异步请求-->
+            <!--timeout:2000,-->
+            <!--data:{'mobile':mobile},-->
+            <!--dataType:"json",-->
+            <!--success:function(data){-->
+                <!--console.log(data);-->
+            <!--},-->
+            <!--error:function () {-->
+                <!--console.log("错误");-->
+            <!--}-->
+        <!--})-->
+    <!--}-->
+<!--</script>-->
+
+
+
+<!--<script>-->
+<!--//    $('#btn_submit1').click(function () {-->
+<!--//        /*手机*/-->
+<!--//        var mobile_phone =$('#mobile').val();-->
+<!--//        var password = $('#password').val();-->
+<!--//        var confirm_password = $('#confirm_password').val();-->
+<!--//        var mobile_code = $('#mobile_code').val();-->
+<!--//-->
+<!--//            $.ajax({-->
+<!--//            url: "{:url('index/register/doRegByPhone')}",-->
+<!--//            type: 'POST',-->
+<!--//            async: false,-->
+<!--//            dataType: 'json',-->
+<!--//            data: {-->
+<!--//                "mobile_phone": mobile_phone,-->
+<!--//                "password":password,-->
+<!--//                "confirm_password":confirm_password,-->
+<!--//                "mobile_code":mobile_code,-->
+<!--//            },-->
+<!--//            success: function(data){-->
+<!--//                aler(data);-->
+<!--//                alert(data.msg);-->
+<!--//            },-->
+<!--//            error: function(data){-->
+<!--//                console.log('失败');-->
+<!--//            }-->
+<!--//        })-->
+<!--//    })-->
+
+
+    <!--$('#btn_submit2').click(function () {-->
+        <!--/*邮箱*/-->
+        <!--var password = $('#password').val();-->
+        <!--var confirm_password = $('#confirm_password').val();-->
+        <!--var email =$('#email').val();-->
+        <!--var email_code =$('#email_code').val();-->
+        <!--$.ajax({-->
+            <!--url: "{:url('index/register/doRegByEmail')}",-->
+            <!--type: 'POST',-->
+            <!--async: false,-->
+            <!--dataType: 'json',-->
+            <!--data: {-->
+                <!--"password":password,-->
+                <!--"confirm_password":confirm_password,-->
+                <!--"email_code":email_code,-->
+                <!--"email":email,-->
+            <!--},-->
+            <!--success: function(data){-->
+                <!--alert(data.msg);-->
+            <!--},-->
+            <!--error: function(data){-->
+                <!--console.log('失败');-->
+            <!--}-->
+        <!--})-->
+    <!--})-->
+
+<!--</script>-->
+
 </body>
 </html>

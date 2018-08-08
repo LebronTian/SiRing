@@ -745,91 +745,91 @@ function checkEmail(email, callback) {
  * @param callback
  *            回调函数：true-可以注册 false-不可以注册
  */
-function checkEmailExist(email, callback) {
+// function checkEmailExist(email, callback) {
+//
+//     var emailObj = null;
+//
+//     if (typeof (email) == 'object') {
+//         emailObj = $(email);
+//         email = emailObj.val();
+//     }
+//
+//     $.post('register.php?act=check_email_exist', {
+//         email: email
+//     }, function(result) {
+//         if (result == 'false') {
+//             document.getElementById('email_notice').innerHTML = msg_can_rg;
+//             document.getElementById('email_notice').style.color = '#093';
+//             // document.forms['formUser'].elements['Submit'].disabled = '';
+//
+//             $(currentForm).find("#btn_submit").removeAttr("disabled");
+//
+//             if ($.isFunction(callback)) {
+//                 callback(true);
+//             }
+//         } else {
+//             document.getElementById('email_notice').innerHTML = msg_email_registered;
+//             document.getElementById('email_notice').style.color = '#900';
+//             // document.forms['formUser'].elements['Submit'].disabled =
+//             // 'disabled';
+//
+//             $(currentForm).find("#btn_submit").attr("disabled", 'disabled');
+//
+//             if (emailObj != null) {
+//                 emailObj.focus();
+//             }
+//
+//             if ($.isFunction(callback)) {
+//                 callback(false);
+//             }
+//
+//         }
+//     }, 'text');
+// }
 
-    var emailObj = null;
-
-    if (typeof (email) == 'object') {
-        emailObj = $(email);
-        email = emailObj.val();
-    }
-
-    $.post('register.php?act=check_email_exist', {
-        email: email
-    }, function(result) {
-        if (result == 'false') {
-            document.getElementById('email_notice').innerHTML = msg_can_rg;
-            document.getElementById('email_notice').style.color = '#093';
-            // document.forms['formUser'].elements['Submit'].disabled = '';
-
-            $(currentForm).find("#btn_submit").removeAttr("disabled");
-
-            if ($.isFunction(callback)) {
-                callback(true);
-            }
-        } else {
-            document.getElementById('email_notice').innerHTML = msg_email_registered;
-            document.getElementById('email_notice').style.color = '#900';
-            // document.forms['formUser'].elements['Submit'].disabled =
-            // 'disabled';
-
-            $(currentForm).find("#btn_submit").attr("disabled", 'disabled');
-
-            if (emailObj != null) {
-                emailObj.focus();
-            }
-
-            if ($.isFunction(callback)) {
-                callback(false);
-            }
-
-        }
-    }, 'text');
-}
-
-function checkMobilePhone(mobile, callback) {
-    var submit_disabled = false;
-
-    var mobileObj = null;
-
-    if (typeof (mobile) == 'object') {
-        mobileObj = $(mobile);
-        mobile = mobileObj.val();
-    }
-
-    if (mobile == '') {
-        document.getElementById('mobile_phone_notice').innerHTML = msg_mobile_phone_blank;
-        document.getElementById('mobile_phone_notice').style.color = '#900';
-        submit_disabled = true;
-
-        if (mobileObj != null) {
-            mobileObj.focus();
-        }
-
-    } else if (!Utils.isMobile(mobile)) {
-        document.getElementById('mobile_phone_notice').innerHTML = msg_mobile_phone_format;
-        document.getElementById('mobile_phone_notice').style.color = '#900';
-        submit_disabled = true;
-
-        if (mobileObj != null) {
-            mobileObj.focus();
-        }
-    }
-
-    if (submit_disabled) {
-        // document.forms['formUser'].elements['Submit'].disabled = 'disabled';
-        $(currentForm).find("#btn_submit").attr("disabled", 'disabled');
-        return false;
-    }
-    // Ajax.call('user.php?act=check_mobile_phone', 'mobile_phone=' + mobileObj,
-    // check_mobile_phone_callback, 'GET', 'TEXT', true, true);
-
-    if (mobileObj == null) {
-        checkMobilePhoneExist(mobile, callback);
-    } else {
-        checkMobilePhoneExist(mobileObj, callback);
-    }
-}
+// function checkMobilePhone(mobile, callback) {
+//     var submit_disabled = false;
+//
+//     var mobileObj = null;
+//
+//     if (typeof (mobile) == 'object') {
+//         mobileObj = $(mobile);
+//         mobile = mobileObj.val();
+//     }
+//
+//     if (mobile == '') {
+//         document.getElementById('mobile_phone_notice').innerHTML = msg_mobile_phone_blank;
+//         document.getElementById('mobile_phone_notice').style.color = '#900';
+//         submit_disabled = true;
+//
+//         if (mobileObj != null) {
+//             mobileObj.focus();
+//         }
+//
+//     } else if (!Utils.isMobile(mobile)) {
+//         document.getElementById('mobile_phone_notice').innerHTML = msg_mobile_phone_format;
+//         document.getElementById('mobile_phone_notice').style.color = '#900';
+//         submit_disabled = true;
+//
+//         if (mobileObj != null) {
+//             mobileObj.focus();
+//         }
+//     }
+//
+//     if (submit_disabled) {
+//         // document.forms['formUser'].elements['Submit'].disabled = 'disabled';
+//         $(currentForm).find("#btn_submit").attr("disabled", 'disabled');
+//         return false;
+//     }
+//     // Ajax.call('user.php?act=check_mobile_phone', 'mobile_phone=' + mobileObj,
+//     // check_mobile_phone_callback, 'GET', 'TEXT', true, true);
+//
+//     // if (mobileObj == null) {
+//     //     checkMobilePhoneExist(mobile, callback);
+//     // } else {
+//     //     checkMobilePhoneExist(mobileObj, callback);
+//     // }
+// }
 
 /**
  * 检查手机号是否已经存在
@@ -837,57 +837,57 @@ function checkMobilePhone(mobile, callback) {
  * @param mobile
  * @param callback
  */
-var cur_mobile_phone = null;
-function checkMobilePhoneExist(mobile, callback) {
-    var mobileObj = null;
-
-    if (typeof (mobile) == 'object') {
-        mobileObj = $(mobile);
-        mobile = mobileObj.val();
-    }
-
-    if (mobile == cur_mobile_phone && !$.isFunction(callback)) {
-        if (mobileObj != null) {
-            mobileObj.focus();
-        }
-        return;
-    }
-
-    $.post('register.php?act=check_mobile_exist', {
-        mobile: mobile
-    }, function(result) {
-
-        if (result == 'false') {
-            document.getElementById('mobile_phone_notice').innerHTML = msg_can_rg;
-            document.getElementById('mobile_phone_notice').style.color = '#093';
-            // document.forms['formUser'].elements['Submit'].disabled = '';
-
-            $(currentForm).find("#btn_submit").removeAttr("disabled");
-
-            if ($.isFunction(callback)) {
-                callback(true);
-            }
-        } else {
-            document.getElementById('mobile_phone_notice').innerHTML = msg_mobile_phone_registered;
-            document.getElementById('mobile_phone_notice').style.color = '#900';
-            // document.forms['formUser'].elements['Submit'].disabled =
-            // 'disabled';
-
-            $(currentForm).find("#btn_submit").attr("disabled");
-
-            if (mobileObj != null) {
-                mobileObj.focus();
-            }
-
-            if ($.isFunction(callback)) {
-                callback(false);
-            }
-        }
-
-        cur_mobile_phone = mobile;
-
-    }, 'text');
-}
+// var cur_mobile_phone = null;
+// function checkMobilePhoneExist(mobile, callback) {
+//     var mobileObj = null;
+//
+//     if (typeof (mobile) == 'object') {
+//         mobileObj = $(mobile);
+//         mobile = mobileObj.val();
+//     }
+//
+//     if (mobile == cur_mobile_phone && !$.isFunction(callback)) {
+//         if (mobileObj != null) {
+//             mobileObj.focus();
+//         }
+//         return;
+//     }
+//
+//     // $.post('register.php?act=check_mobile_exist', {
+//     //     mobile: mobile
+//     // }, function(result) {
+//
+//         if (result == 'false') {
+//             document.getElementById('mobile_phone_notice').innerHTML = msg_can_rg;
+//             document.getElementById('mobile_phone_notice').style.color = '#093';
+//             // document.forms['formUser'].elements['Submit'].disabled = '';
+//
+//             $(currentForm).find("#btn_submit").removeAttr("disabled");
+//
+//             if ($.isFunction(callback)) {
+//                 callback(true);
+//             }
+//         } else {
+//             document.getElementById('mobile_phone_notice').innerHTML = msg_mobile_phone_registered;
+//             document.getElementById('mobile_phone_notice').style.color = '#900';
+//             // document.forms['formUser'].elements['Submit'].disabled =
+//             // 'disabled';
+//
+//             $(currentForm).find("#btn_submit").attr("disabled");
+//
+//             if (mobileObj != null) {
+//                 mobileObj.focus();
+//             }
+//
+//             if ($.isFunction(callback)) {
+//                 callback(false);
+//             }
+//         }
+//
+//         cur_mobile_phone = mobile;
+//
+//     }, 'text');
+// }
 
 /**
  * 发送邮箱验证码

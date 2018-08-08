@@ -22,40 +22,37 @@ class Login extends Controller{
      */
     public function login()
     {
-//        if($_POST){
-//            $data = input('post.');
-//            if(empty($data['account'])){
-//                $this->error('用户名不能为空');
-//            }
-//            if(empty($data['passwd'])){
-//                $this->error('密码不能为空');
-//            }
-//            if(empty($data['yzm'])){
-//                $this->error('验证码不能为空');
-//            }
-//            $create_time =date('Y-m-d H:i:s');
-//            $datas=[
-//                "user_name" => $data['account'],
-//                "password" => $data['passwd'],
-//                "create_time" =>$create_time,
-//                "status"=>1
-//            ];
-////            $name =Db::name('user')->field('user_name')->select();
-//           $res = Db::name('user')->insert($datas);
-//           if(!$res && $res == null){
-//               $this->error("注册失败");
-//           }
-//           if($res)
-//           {
-//               $this->success('注册成功',url('index/index/login'));
-//           }
-//
-//
-//
-//        }
+        if($_POST){
+            $data = $_POST;
+            $user_name =$data['account'];
 
+            $password =$data['passwd'];
 
-
+            if(empty($user_name)){
+                $this->error('用户名不能为空');
+            }
+            if(empty($password)){
+                $this->error('密码不能为空');
+            }
+            $res = Db::name('user')->field('password')->where('user_name',$user_name)->find();
+            if(!$res)
+            {
+                $this->error('用户名不存在');
+            }
+            $datas=[
+                "user_name" => $user_name,
+                "password" => md5($password),
+            ];
+            $res =Db::name('user')->where($datas)->find();
+           if(!$res && $res == null){
+               $this->error("密码错误");
+           }
+           if($res)
+           {
+               $_SESSION['user'] =$datas;
+               $this->success('登录成功',url('index/index/index'));
+           }
+        }
         return view('login');
     }
 
