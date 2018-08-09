@@ -2,7 +2,7 @@
 
 {block name="content"}
 <article class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="form-member-add">
+	<form action="{:url('admin/User/save')}" method="post" class="form form-horizontal" id="form-member-add">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -67,7 +67,21 @@
 					</select>
 				</span> 
 			</div> -->
-			<div id="province"></div>
+			<!--<div id="province"></div>-->
+				<select name="province" id="province" onchange="loadRegion('province',2,'city','{:url("admin/user/getRegion")}');">
+						<option value="0" selected>省份/直辖市</option>
+					{volist name="province" id="vo"}
+						<option value="{$vo.id}">{$vo.name}</option>
+					{/volist}
+				</select>
+
+				<select name="city" id="city"  onchange="loadRegion('city',3,'town','{:url("admin/user/getRegion")}');">
+					<option value="0">市/县</option>
+				</select>
+
+				<select name="town" id="town"  >
+					<option value="0">镇/区</option>
+				</select>
 		</div>
 
 		<div class="row cl">
@@ -110,17 +124,17 @@
 
 <script>
     $('#submit1').click(function(){
+
         var userName = $('#username').val();
         var passWord = $('#password').val();
         var sex = $('.radio-box div.checked').siblings('label').html();
         var phone = $('#mobile').val();
         var email = $('#email').val();
-		var city = [];
 		var remark = $('.textarea').val();
-		// 遍历 城市
-		for(var i = 0; i < 3; i++){
-			city.push($('#province select option:selected')[i].innerHTML);
-		}
+		//  城市
+		console.log($('#province option:selected').val())
+		console.log($('#city option:selected').val())
+		console.log($('#town option:selected').val())
 
         $.ajax({
             url: "{:url('admin/User/save')}",
@@ -141,6 +155,7 @@
                 console.log(data);
 //                if(data.code ==0) {
                   alert(data.msg);
+//                window.reload();
 //                  windows.location.herf ="admin/user/index";
 //                }
             },
@@ -148,11 +163,9 @@
                     console.log(data);
 
             }
-            
+
         })
     })
-
-	
 
 </script>
 
@@ -198,6 +211,31 @@ $(function(){
 		}
 	});
 });
-</script> 
+</script>
+
+<script>
+    function loadRegion(sel,type_id,selName,url){
+        jQuery("#"+selName+" option").each(function(){
+            jQuery(this).remove();
+        });
+        jQuery("<option value=0>请选择</option>").appendTo(jQuery("#"+selName));
+        if(jQuery("#"+sel).val()==0){
+            return;
+        }
+//        console.log(jQuery("#"+sel).val());
+        jQuery.getJSON(url,{pid:jQuery("#"+sel).val(),type:type_id},
+            function(data){
+                if(data){
+                    jQuery.each(data,function(idx,item){
+                        jQuery("<option value="+item.id+">"+item.name+"</option>").appendTo(jQuery("#"+selName));
+                    });
+
+                }else{
+                    jQuery("<option value='0'>请选择</option>").appendTo(jQuery("#"+selName));
+                }
+            }
+        );
+    }
+</script>
 <!--/请在上方写此页面业务相关的脚本-->
 {/block}

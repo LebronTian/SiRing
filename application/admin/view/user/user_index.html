@@ -89,45 +89,60 @@
 <script type="text/javascript" src="__STATIC__/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
-    $(function(){
-        $('.table-sort').dataTable({
-            "aaSorting": [[ 1, "desc" ]],//默认第几个排序
-            "bStateSave": true,//状态保存
-            "aoColumnDefs": [
-                //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-                {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
-            ]
-        });
 
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+		"bStateSave": true,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		]
+	});
+	
+});
+/*用户-添加*/
+function member_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*用户-查看*/
+function member_show(title,url,id,w,h){
+    $.ajax({
+        type: 'POST',
+        url: "{:url('admin/user/show')}",
+        dataType: 'json',
+        data: {
+            'id': id
+        },
+        success: function(data){
+            console.log('111');
+            console.log(data);
+            console.log('111');
+        },
+        error:function(data) {
+            console.log(data.msg);
+        },
     });
-	/*用户-添加*/
-    function member_add(title,url,w,h){
-        layer_show(title,url,w,h);
-    }
-	/*用户-查看*/
-    function member_show(title,url,id,w,h){
-        layer_show(title,url,w,h);
-        $.ajax({
-            
-        })
-    }
-	/*用户-停用*/
-    function member_stop(obj,id){
-        var idNum = (obj.id).split('_');
-        layer.confirm('确认要停用吗？',function(index){
-            $.ajax({
-                type: 'POST',
-                url: "{:url('admin/user/status')}",
-                dataType: 'json',
-                data: {
-                    'id': idNum[1]
-                },
-                success: function(data){
-                    alert(data.msg);
-                    $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
-                    $(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
-                    $(obj).remove();
-                    layer.msg('已停用!',{icon: 5,time:1000});
+    layer_show(title,url,w,h);
+}
+/*用户-停用*/
+function member_stop(obj,id){
+	var idNum = (obj.id).split('_'); 
+	layer.confirm('确认要停用吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: "{:url('admin/user/status')}",
+			dataType: 'json',
+			data: {
+				'id': idNum[1]
+			},
+			success: function(data){
+			    alert(data.msg);
+				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
+				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
+				$(obj).remove();
+				layer.msg('已停用!',{icon: 5,time:1000});
+
 //                window.location.reload();
                 },
                 error:function(data) {
@@ -156,135 +171,136 @@
                     layer.msg('已启用!',{icon: 6,time:1000});
 //                window.location.reload();
 
-                },
-                error:function(data) {
-                    console.log(data.msg);
-                },
-            });
-        });
-    }
-	/*用户-编辑*/
-    function member_edit(title,url,id,w,h){
-        layer_show(title,url,w,h);
-        $.ajax({
-            url: "{:url('admin/user/edit')}",
-            type: 'POST',
-            dataType: 'json',
-            async: false,
-            data: {
-                'id': id
-            },
-            success: function(data){
-                console.log(data)
-            },
-            error: function(data){
-                console.log('失败');
-            }
-        })
-    }
-	/*密码-修改*/
-    function change_password(title,url,id,w,h){
-        layer_show(title,url,w,h);
-    }
-	/*用户-删除*/
-    function member_del(obj,id){
-        var idNum = (obj.id).split('_');
-        layer.confirm('确认要删除吗？',function(index){
-            $.ajax({
-                type: 'POST',
-                url: "{:url('admin/user/del')}",
-                dataType: 'json',
-                data: {
-                    'id': idNum[1],
-                },
-                success: function(data){
-                    alert(data.msg);
-                    $(obj).parents("tr").remove();
-                    layer.msg('已删除!',{icon:1,time:1000});
-                },
-                error:function(data) {
-                    console.log(data.msg);
-                },
-            });
-        });
-    }
-	/*用户批量删除*/
-    $('.btn_del').click(function(){
-        // 被选中的input
-        var input_checked = $('.mytr input:checked');
-        var len_checked = input_checked.length;
-        // 存放被选中input的id
-        var id_checked = [];
-        for(var i = 0; i < len_checked; i++){
-            // 拆分被选中input中的id
-            id_checked.push(input_checked[i].id.split('_')[1]);
-            $(input_checked[i]).parents('tr').remove();
-        }
-        $.ajax({
-            type: 'POST',
-            url: "{:url('admin/user/dels')}",
-            dataType: 'json',
-            async: false,
-            data: {
-                'id': id_checked
-            },
-            success: function(data){
-                console.log(data);
-                alert(data.msg);
-            },
-            error: function(){
-                console.log('错误')
-            }
-        })
-    })
-	/*搜用户*/
-    // $('#search_bt').click(function(){
-    // 	var datemin = $('#datemin')[0].value;
-    // 	var datemax = $('#datemax')[0].value;
-    // 	var search_key = $('#search_key').val();
-    // 	$.ajax({
-    // 		url: "{:url('admin/user/search')}",
-    // 		type: "POST",
-    // 		dataType: 'json',
-    // 		async: false,
-    // 		data: {
-    // 			"datemin": datemin+' '+'00:00:00',
-    // 			"datemax": datemax+' '+'00:00:00',
-    // 			"search_key": search_key
-    // 		},
-    // 		success: function(data){
-    // 			// 存放data
-    // 			var data_arr = [];
-    // 			var data_len = data.data.length;
-    // 			// 存放页面显示的data
-    // 			var page_arr = [];
-    // 			var page_len = $('.sorting_1').length;
-    // 			var page = $('.sorting_1');
-    // 			console.log(page)
-    // 			for(var i = 0; i < data_len; i++){
-    // 				data_arr[data.data[i].id] = true;//将 data.data[i].id 中的元素值作为data_arr 中的键，值为true
-    // 			}
-    // 			for(var j = 0; j < page_len; j++){
-    // 				if(!data_arr[page[j].innerHTML]){
-    // 					page_arr.push(page[j].innerHTML);// 过滤两个数组中相同的元素
-    // 				}
-    // 			}
-    // 			for(var z = 0; z < page_arr.length; z++){
-    // 				for(var i = 0; i < page_len; i++){
-    // 					if(page[i].innerHTML == page_arr[z]){
-    // 						page[i].parentNode.style.display = 'none';
-    // 					}
-    // 				}
-    // 			}
-    // 			$('#count_number').html(page_len - page_arr.length);
-    // 			$('.dataTables_info').css('display','none');
-    // 		},
-    // 		error: function(){
-    // 			console.log('错误')
-    // 		}
-    // 	})
-    // })
-</script>
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});
+	});
+}
+/*用户-编辑*/
+function member_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+	$.ajax({
+		url: "{:url('admin/user/edit')}",
+		type: 'POST',
+		dataType: 'json',
+		async: false,
+		data: {
+			'id': id
+		},
+		success: function(data){
+			console.log(data)
+		},
+		error: function(data){
+			console.log('失败');
+		}
+	})
+}
+/*密码-修改*/
+function change_password(title,url,id,w,h){
+	layer_show(title,url,w,h);	
+}
+/*用户-删除*/
+function member_del(obj,id){
+	var idNum = (obj.id).split('_');
+	layer.confirm('确认要删除吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: "{:url('admin/user/del')}",
+			dataType: 'json',
+			data: {
+				'id': idNum[1],
+			},
+			success: function(data){
+			    alert(data.msg);
+				$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});		
+	});
+}
+/*用户批量删除*/
+$('.btn_del').click(function(){
+	// 被选中的input
+	var input_checked = $('.mytr input:checked');
+	var len_checked = input_checked.length;
+	// 存放被选中input的id
+	var id_checked = [];
+	for(var i = 0; i < len_checked; i++){
+		// 拆分被选中input中的id
+		id_checked.push(input_checked[i].id.split('_')[1]);
+		$(input_checked[i]).parents('tr').remove();
+	}
+	$.ajax({
+		type: 'POST',
+		url: "{:url('admin/user/dels')}",
+		dataType: 'json',
+		async: false,
+		data: {
+			'id': id_checked
+		},
+		success: function(data){
+			console.log(data);
+			alert(data.msg);
+		},
+		error: function(){
+			console.log('错误')
+		}
+	})
+})
+/*搜用户*/
+$('#search_bt').click(function(){
+	var datemin = $('#datemin')[0].value; 
+	var datemax = $('#datemax')[0].value;
+	var search_key = $('#search_key').val();
+	$.ajax({
+		url: "{:url('admin/user/search')}",
+		type: "POST",
+		dataType: 'json',
+		async: false,
+		data: {
+			"datemin": datemin+' '+'00:00:00',
+			"datemax": datemax+' '+'23:59:59',
+			"search_key": search_key
+		},
+		success: function(data){
+			// 存放data
+			var data_arr = [];
+			var data_len = data.data.length;
+			// 存放页面显示的data
+			var page_arr = [];
+			var page_len = $('.sorting_1').length;
+			var page = $('.sorting_1');
+			console.log(page)
+			for(var i = 0; i < data_len; i++){
+				data_arr[data.data[i].id] = true;//将 data.data[i].id 中的元素值作为data_arr 中的键，值为true
+			}
+			for(var j = 0; j < page_len; j++){
+				if(!data_arr[page[j].innerHTML]){
+					page_arr.push(page[j].innerHTML);// 过滤两个数组中相同的元素
+				}
+			}
+			for(var z = 0; z < page_arr.length; z++){
+				for(var i = 0; i < page_len; i++){
+					if(page[i].innerHTML == page_arr[z]){
+						page[i].parentNode.style.display = 'none';
+					}
+				}
+			}
+			$('#count_number').html(page_len - page_arr.length);
+			$('.dataTables_info').css('display','none');
+		},
+		error: function(){
+			console.log('错误')
+		}
+	})
+})
+</script> 
+
 <script>
     function timetrans(date){
         var date = new Date(date*1000);//如果date为13位不需要乘1000
@@ -307,9 +323,9 @@
                 dataType:"json",
                 success: (data) => {
                 console.log(data);
-        var len = data.data.length;
-        $('#count_number').html(len);
-        for(var i = 0; i < len; i++){
+        		var len = data.data.length;
+        		$('#count_number').html(len);
+        		for(var i = 0; i < len; i++){
             var time_create =timetrans(data.data[i].create_time);
             $('.tbody').append('<tr class="text-c mytr">\
 												<td><input type="checkbox" id="input_'+data.data[i].id+'"></td>\
@@ -352,7 +368,7 @@
 
         }
 
-    },
+   	 },
         error:function () {
             console.log("错误");
         }
