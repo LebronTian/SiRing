@@ -89,9 +89,29 @@ class Goods extends Controller{
     public function edit(Request $r,$id){
         $goods = db("goods")->where("id",$id)->select();
         $goods_type = db("goods_type")->where("id",$goods[0]["goods_type_id"])->field("name,id")->select();
-        return view("goods_edit",["goods"=>$goods,"goods_type"=>$goods_type]);
+        $goods_images = db("goods_images")->where("goods_id",$id)->select();
+        return view("goods_edit",["goods"=>$goods,"goods_type"=>$goods_type,"goods_images"=>$goods_images]);
     }
 
+
+    /**
+     * [图片删除]
+     * 陈绪
+     */
+    public function images(Request $request){
+        if($request->isPost()){
+            $id = $request->only(['id'])['id'];
+            $image_url = db("goods_images")->where("id",$id)->field("goods_images")->select();
+            unlink(ROOT_PATH . 'public' . DS . 'upload/'.$image_url[0]['goods_images']);
+            $bool = db("goods_images")->where("id",$id)->delete();
+            if($bool){
+                return ajax_success("删除成功");
+            }else{
+                return ajax_error("删除失败");
+            }
+        }
+        
+    }
 
     /**
      * [商品删除]
@@ -143,25 +163,21 @@ class Goods extends Controller{
             $goods_data["goods_status"] = $this->goods_status[0];
             $goods_data["create_time"] = time();
             $bool = db("goods")->where("id", $id)->update($goods_data);
-            if ($bool) {
-                $id = $request->only(["id"])["id"];
+            if($bool){
                 //取出图片在存到数据库
                 $goods_images = [];
+                $goodsid = db("goods")->getLastInsID();
                 $file = request()->file('goods_images');
-                foreach ($file as $value) {
+                foreach ($file as $value){
                     $info = $value->move(ROOT_PATH . 'public' . DS . 'upload');
-                    $goods_url = str_replace("\\", "/", $info->getSaveName());
-                    $goods_images[] = ["goods_images" => $goods_url];
+                    $goods_url = str_replace("\\","/",$info->getSaveName());
+                    $goods_images[] = ["goods_images"=>$goods_url,"goods_id"=>$goodsid];
                 }
-                foreach ($goods_images as $key=>$val){
-                    $booldata = Db::table("tb_goods_images")->where("goods_id",$id)->update($goods_images[$key]);
-
-                }
-
+                $booldata = model("goods_images")->saveAll($goods_images);
                 if($booldata){
                     $this->success("添加成功",url('admin/Goods/index'));
                 }else{
-                    $this->error("添加失败",url('admin/Goods/add'));
+                    $this->error("添加失败",url('admin/Goods/edit'));
                 }
             }
         }
