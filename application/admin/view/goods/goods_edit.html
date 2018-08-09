@@ -196,6 +196,24 @@
             </div>
         </div>
         <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">图片操作 </label>
+            <div class="formControls col-xs-8 col-sm-9" style="width:45%;">
+                <table>
+                    {volist name="goods_images" id="val"}
+                    <tr id="{$val.id}" style="display:inline-block; width:25%; height:25%; margin-right:5%;">
+
+                        <td>
+                            <img style="cursor:pointer;" width="160" height="160" src="__UPLOAD__/{$val.goods_images}" alt=""><br>
+                            <input type="hidden" class="imgId" value="{$val.id}">
+                            <a href="javascript:;" onclick="product_del(this,'{$val.id}')">图片删除</a>
+                        </td>
+
+                    </tr>
+                    {/volist}
+                </table>
+            </div>
+        </div>
+        <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">选择图片</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <a href="javascript:;" class="a-upload" style="width:21%;height:30px;">
@@ -272,6 +290,26 @@
                             }
                         })
                     }())
+                </script>
+                <script>
+                    function product_del(obj,id){
+                        layer.confirm('确认要删除吗？',function(index){
+                            $.ajax({
+                                type: 'POST',
+                                url: '{:url("admin/Goods/images")}',
+                                data:{"id":id},
+                                dataType:"json",
+                                success: function(data){
+                                    console.log(data);
+                                    $(obj).parents("tr").remove();
+                                    layer.msg('已删除!',{icon:1,time:1000});
+                                },
+                                error:function(data) {
+                                    console.log(data.msg);
+                                },
+                            });
+                        });
+                    }
                 </script>
                 <script type="text/javascript">
                     $(function() {
