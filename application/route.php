@@ -76,8 +76,8 @@ Route::group("",[
     "findpwd"=>"index/Findpwd/findpwd",
 
     /*晒单*/
-    "list_index"=>"index/GoodsList/index",
-    "list_particulars"=>"index/GoodsList/particulars",
+    "share_detail"=>"index/Share/share_detail",
+    "share_index"=>"index/Share/share_index",
 
 
 ]);
