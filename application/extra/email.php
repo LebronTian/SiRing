@@ -9,5 +9,6 @@
 return [
     'host'=>'smtp.163.com',
     'username'=>'18777531176@163.com',
+    //密钥
     'password'=>'1061525487jan'
 ];
