@@ -25,10 +25,38 @@ class Goods extends Controller{
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      * 陈绪
      */
-    public function index(){
-        $goods = db("goods")->where("goods_status","<>","0")->paginate(10);
-        $good_type_name = db("goods_type")->select();
-        return view("goods_index",["goods"=>$goods,"goods_type_name"=>$good_type_name]);
+    public function index(Request $request){
+        $datemins = $request->param("datemin");
+        $datemaxs = $request->param("datemax");
+        $search_keys = $request->param("search_key");
+        $search_bts = $request->param("search_bt");
+        $datemin = isset($datemins) ? $datemins : false;
+        $datemax = isset($datemaxs) ? $datemaxs : false;
+        $search_key = isset($search_keys) ? $search_keys : '%';
+        $search_bt = isset($search_bts) ? $search_bts : false;
+        if($request->isPost()) {
+            if ($datemin && $datemax) {
+               $good = db("goods")->where('create_time','>',strtotime($datemin))->where('create_time','<',strtotime($datemax))->paginate(5);
+            }
+
+            if ($search_key) {
+                $good = db("goods")->where("goods_name","like","%".$search_key."%")->paginate(5);
+
+            } else {
+                $good = db("goods")->paginate(5);
+            }
+
+            return view("goods_index", [
+                'good' => $good,
+                'search_key' => $search_key,
+                'datemax' => $datemax,
+                'datemin' => $datemin
+            ]);
+        }else{
+            $goods = db("goods")->paginate(10);
+            return view("goods_index",["goods"=>$goods]);
+        }
+
     }
 
     public function add(){
@@ -59,7 +87,7 @@ class Goods extends Controller{
            $show_images = $request->file("goods_show_images")->move(ROOT_PATH . 'public' . DS . 'uploads');
            $goods_data["goods_show_images"] = str_replace("\\","/",$show_images->getSaveName());
            $goods_data["goods_status"] = $this->goods_status[0];
-           $goods_data["create_time"] = date("Y-m-d:H:i:s",time());
+           $goods_data["create_time"] = time();
            $bool = db("goods")->insert($goods_data);
            if($bool){
                //取出图片在存到数据库
@@ -110,7 +138,7 @@ class Goods extends Controller{
                 return ajax_error("删除失败");
             }
         }
-        
+
     }
 
     /**
@@ -118,17 +146,21 @@ class Goods extends Controller{
      * 陈绪
      */
     public function del(Request $request){
-        if ($request->isPost()){
+        if ($request->isPost()) {
             $id = $request->only(["id"])["id"];
-            $id = explode(",",$id);
-            global $goods_images;
-            foreach ($id as $value){
-                $goods_images = db("goods")->where("id",$value)->join("tb_goods_images gi","gi.goods_id=".$value)->delete();
+            $image_url = db("goods_images")->where("goods_id", $id)->field("goods_images, id")->select();
+            $goods_images = db("goods")->where("id", $id)->select();
+            unlink(ROOT_PATH . 'public' . DS . 'uploads/'.$goods_images[0]['goods_show_images']);
+            foreach ($image_url as $value) {
+                unlink(ROOT_PATH . 'public' . DS . 'upload/' . $value['goods_images']);
+                db("goods_images")->where("id", $value['id'])->delete();
             }
-            if ($goods_images){
-                return ajax_success("删除成功");
-            }else{
+
+            $bool = db("goods")->where("id", $id)->delete();
+            if ($bool) {
                 return ajax_error("删除成功");
+            } else {
+                return ajax_error("删除失败");
             }
 
         }
@@ -171,7 +203,7 @@ class Goods extends Controller{
                 foreach ($file as $value){
                     $info = $value->move(ROOT_PATH . 'public' . DS . 'upload');
                     $goods_url = str_replace("\\","/",$info->getSaveName());
-                    $goods_images[] = ["goods_images"=>$goods_url,"goods_id"=>$goodsid];
+                    $goods_images[] = ["goods_images"=>$goods_url,"goods_id"=>$id];
                 }
                 $booldata = model("goods_images")->saveAll($goods_images);
                 if($booldata){
@@ -183,5 +215,7 @@ class Goods extends Controller{
         }
 
     }
+
+
 
 }
