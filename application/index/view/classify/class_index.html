@@ -113,7 +113,7 @@
 </head>
 <body style="background:#fff">
 <header class="aui-bar aui-bar-nav">
-	<a class="aui-pull-left aui-btn" href="index.html">
+	<a class="aui-pull-left aui-btn" onclick="javascript:history.back(-1);">
 		<span class="aui-iconfont aui-icon-left"></span>
 	</a>
 	<div class="aui-title" style="left:2rem; right: 2rem;">
@@ -128,32 +128,16 @@
 			<div class="aui-searchbar-btn" tapmode="">取消</div>
 		</div>
 	</div>
-	<a class="aui-pull-right aui-btn" href="chat.html">
+	<a class="aui-pull-right aui-btn" href="javascript:;">
 		<span class="aui-iconfont aui-icon-comment"></span>
 	</a>
 </header>
 
 <div class="tab">
 	<button class="tablinks" onclick="openCity(event, 'tab1')" id="defaultOpen">热门推荐</button>
-	<button class="tablinks" onclick="openCity(event, 'tab2')">自营超市</button>
-	<button class="tablinks" onclick="openCity(event, 'tab3')">全球购</button>
-	<button class="tablinks" onclick="openCity(event, 'tab4')">男装</button>
-	<button class="tablinks" onclick="openCity(event, 'tab5')">女装</button>
-	<button class="tablinks" onclick="openCity(event, 'tab6')">男鞋</button>
-	<button class="tablinks" onclick="openCity(event, 'tab7')">女鞋</button>
-	<button class="tablinks" onclick="openCity(event, 'tab8')">内衣配饰</button>
-	<button class="tablinks" onclick="openCity(event, 'tab9')">箱包手袋</button>
-	<button class="tablinks" onclick="openCity(event, 'tab10')">美妆护品</button>
-	<button class="tablinks" onclick="openCity(event, 'tab11')">珠宝手表</button>
-	<button class="tablinks" onclick="openCity(event, 'tab12')">手机数码</button>
-	<button class="tablinks" onclick="openCity(event, 'tab13')">电脑办公</button>
-	<button class="tablinks" onclick="openCity(event, 'tab14')">家用电器</button>
-	<button class="tablinks" onclick="openCity(event, 'tab15')">食品生鲜</button>
-	<button class="tablinks" onclick="openCity(event, 'tab16')">酒水饮料</button>
-	<button class="tablinks" onclick="openCity(event, 'tab17')">母婴专场</button>
-	<button class="tablinks" onclick="openCity(event, 'tab18')">儿童玩具</button>
-	<button class="tablinks" onclick="openCity(event, 'tab19')">医疗保健</button>
-	<button class="tablinks" onclick="openCity(event, 'tab20')">家居厨卫</button>
+	{volist name="category" id="value"}
+	<button class="tablinks" value="{$value.id}" onclick="openCity(event, 'tab2')">{$value.name}</button>
+	{/volist}
 </div>
 
 <div id="tab1" class="tabcontent">
@@ -165,19 +149,19 @@
 	</div>
 	<div class="aui-row aui-row-padded class-ui-text">
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-a.jpg">
 				<p>911大闸蟹</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-a.png">
 				<p>牛仔低至7折</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-b.jpg">
 				<p>领券享满减</p>
 			</a>
@@ -189,37 +173,37 @@
 	</div>
 	<div class="aui-row aui-row-padded class-ui-text">
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-2.jpg">
 				<p>笔记本</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-3.jpg">
 				<p>游戏本</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-4.jpg">
 				<p>平板电脑</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-5.jpg">
 				<p>显示器</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-6.jpg">
 				<p>鼠标键盘</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-7.jpg">
 				<p>单反相机</p>
 			</a>
@@ -236,19 +220,19 @@
 	</div>
 	<div class="aui-row aui-row-padded class-ui-text">
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-a.jpg">
 				<p>911大闸蟹</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-a.png">
 				<p>牛仔低至7折</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-b.jpg">
 				<p>领券享满减</p>
 			</a>
@@ -260,37 +244,37 @@
 	</div>
 	<div class="aui-row aui-row-padded class-ui-text">
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-2.jpg">
 				<p>笔记本</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-3.jpg">
 				<p>游戏本</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-4.jpg">
 				<p>平板电脑</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-5.jpg">
 				<p>显示器</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-6.jpg">
 				<p>鼠标键盘</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-7.jpg">
 				<p>单反相机</p>
 			</a>
@@ -307,61 +291,60 @@
 	</div>
 	<div class="aui-row aui-row-padded class-ui-text">
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-a.jpg">
 				<p>911大闸蟹</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-a.png">
 				<p>牛仔低至7折</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-b.jpg">
 				<p>领券享满减</p>
 			</a>
 		</div>
-
 	</div>
 	<div class="class-ui-title">
 		<h3>热门专场</h3>
 	</div>
 	<div class="aui-row aui-row-padded class-ui-text">
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-2.jpg">
 				<p>笔记本</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-3.jpg">
 				<p>游戏本</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-4.jpg">
 				<p>平板电脑</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-5.jpg">
 				<p>显示器</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-6.jpg">
 				<p>鼠标键盘</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="list.html">
+			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-7.jpg">
 				<p>单反相机</p>
 			</a>
@@ -369,92 +352,7 @@
 	</div>
 </div>
 
-<div id="tab4" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-
-<div id="tab5" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-
-<div id="tab6" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-
-<div id="tab7" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-
-<div id="tab8" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-<div id="tab9" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-<div id="tab10" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-<div id="tab11" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-<div id="tab12" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-<div id="tab13" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-
-<div id="tab14" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-<div id="tab15" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-
-<div id="tab16" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-
-<div id="tab17" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-
-
-<div id="tab18" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-<div id="tab19" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-
-
-<div id="tab20" class="tabcontent">
-	<h3>tab3</h3>
-</div>
-
-
-
-
-
-
-
-
+<script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
     function openCity(evt, cityName) {
         var i, tabcontent, tablinks;
@@ -472,6 +370,26 @@
 
     // 触发 id="defaultOpen" click 事件
     document.getElementById("defaultOpen").click();
+</script>
+<script>
+    $(".tablinks").click(function () {
+        var goods_type_id = $(this).val();
+        console.log(goods_type_id);
+        $.ajax({
+            type:"POST",
+            url:"{:url('index/Classify/show')}",
+            data:{"goods_type_id":goods_type_id},
+            async:false,
+            timeout:5000,
+            dataType:"json",
+            success:function (data) {
+                console.log(data);
+            },
+            error:function () {
+                console.log("错误");
+            }
+        })
+    })
 </script>
 </body>
 </html>

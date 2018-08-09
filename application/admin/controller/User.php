@@ -76,7 +76,6 @@ class User extends Controller{
      */
     public function add(){
         $province = Db::name('tree')->where (array('pid'=>1) )->select();
-        dump($province);
         $this->assign('province',$province);
         return view("user_add");
     }
@@ -89,6 +88,7 @@ class User extends Controller{
     public function save(){
         if($_POST){
             $data =input('post.');
+            dump($data);
             $username =$data['username'];
             if(empty($username)){
                 $this->error('用户名不能为空',url('admin/user/add'));
@@ -402,6 +402,13 @@ class User extends Controller{
         return view('user_rule');
     }
 
+    public function getRegion(){
+        $Region=Db::name("tree");
+        $map['pid']=$_REQUEST["pid"];
+        $map['type']=$_REQUEST["type"];
+        $list=$Region->where($map)->select();
+        echo json_encode($list);
+    }
 
 
 

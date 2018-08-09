@@ -29,7 +29,7 @@
 			content: "\e615";
 		}
 	</style>
-	<link rel="icon" type="image/x-icon" href="__STATIC__/index/favicon.ico">
+	<link rel="icon" type="__STATIC__/index/image/x-icon" href="__STATIC__/index/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="__STATIC__/index/css/aui.css"/>
 	<link rel="stylesheet" type="text/css" href="__STATIC__/index/css/aui-slide.css"/>
 	<link rel="stylesheet" type="text/css" href="__STATIC__/index/css/pop.css"/>
@@ -109,7 +109,7 @@
 	<li class=" media">
 		<a class="table-view-cell">
 			<div class="media-body-logo">
-				<img class="media-object pull-left" src="image/apple.jpg"/>
+				<img class="media-object pull-left" src="__STATIC__/index/image/apple.jpg"/>
 			</div>
 			<div class="media-body">
 				<h3 style="color:#555; padding-bottom:4px;">Apple产品专营店</h3>
@@ -174,7 +174,7 @@
 					</div>
 					<div class="aui-card-list-content-padded" style="font-size:12px; color:#666">
 						苹果7plus推荐购买128G，体验会更好，我下载的歌全是无损品质，每首20兆以上，照片APP也都不少，现在还有100G余量。苹果7/7plus暖屏很多，这是代工厂的原因 好评 好评！
-						<img src="image/sp1.jpg">
+						<img src="__STATIC__/index/image/sp1.jpg">
 					</div>
 					<div class="aui-card-list-footer aui-border-t aui-font-size-12">
 						<div>
@@ -227,35 +227,7 @@
 			</div>
 		</div>
 	</div>
-	<footer class="aui-bar aui-bar-tab aui-margin-t-15 aui-margin-b-15">
-		<div class="aui-bar-tab-item aui-padded-l-15 aui-padded-r-15" tapmode style="width: auto;">
-			<div class="search-input aui-font-size-14">请输入评论内容</div>
-		</div>
-		<div class="aui-bar-tab-item" tapmode style="width: 2.2rem;">
-			<i class="aui-iconfont aui-icon-comment"></i>
-		</div>
-		<div class="aui-bar-tab-item" tapmode style="width: 2.2rem;">
-			<i class="aui-iconfont aui-icon-star"></i>
-		</div>
-		<div class="aui-bar-tab-item" tapmode style="width: 2.2rem;">
-			<i class="aui-iconfont aui-icon-share"></i>
-		</div>
-	</footer>
 </section>
-<footer class="aui-bar aui-bar-tab aui-margin-t-15 aui-margin-b-15">
-	<div class="aui-bar-tab-item aui-padded-l-15 aui-padded-r-15" tapmode style="width: auto;">
-		<div class="search-input aui-font-size-14">请输入评论内容</div>
-	</div>
-	<div class="aui-bar-tab-item" tapmode style="width: 2.2rem;">
-		<i class="aui-iconfont aui-icon-comment"></i>
-	</div>
-	<div class="aui-bar-tab-item" tapmode style="width: 2.2rem;">
-		<i class="aui-iconfont aui-icon-star"></i>
-	</div>
-	<div class="aui-bar-tab-item" tapmode style="width: 2.2rem;">
-		<i class="aui-iconfont aui-icon-share"></i>
-	</div>
-</footer>
 <div class="wrap" id="wrap">
 	<ul class="tabClick">
 		<li class="active">商品介绍</li>
@@ -475,7 +447,7 @@
 </div>
 <div style="height:52px"></div>
 <!-- 弹出 -->
-<div class="flick-menu-mask" style=""></div>
+<div class="flick-menu-mask"></div>
 <div class="spec-menu">
 	<div class="spec-menu-content spec-menu-show" style="display: block;">
 		<div class="spec-menu-top bdr-b">
@@ -553,7 +525,7 @@
 				</div>
 			</div>
 			<!--延保start-->
-			<div class="warranty-wrap bdr-t" style="display: ;">
+			<div class="warranty-wrap bdr-t">
 				<div id="spec_yanbaoInfo" class="warranty-title">保障服务 </div>
 				<div id="spec_yanbaoItems"></div>
 			</div>
@@ -566,9 +538,8 @@
 	</div>
 </div>
 <!-- 弹出 -->
-
-<footer class="aui-bar aui-bar-tab aui-margin-t-15 t ">
-	<div class="aui-bar-tab-item aui-border-r" tapmode style="width: 3rem;">
+<footer class="aui-bar aui-bar-tab aui-margin-t-15  aui-border-t">
+	<div class="aui-bar-tab-item" tapmode style="width: 3rem;">
 		<i class="aui-iconfont aui-icon-comment aui-text-info"></i>
 		<div class="aui-bar-tab-label aui-text-info">咨询</div>
 	</div>
@@ -576,9 +547,9 @@
 		<i class="aui-iconfont aui-icon-star aui-text-warning"></i>
 		<div class="aui-bar-tab-label aui-text-warning">收藏</div>
 	</div>
-	<div class="aui-bar-tab-item aui-bg-danger aui-text-white" tapmode style="width: auto;">立即购买</div>
+	<div class="aui-bar-tab-item aui-bg-warning aui-text-white" tapmode style="width: auto;" onclick="javascript:location.href='cat_index';">加入购物车</div>
+	<div class="aui-bar-tab-item aui-bg-danger aui-text-white" tapmode style="width: auto;" onclick="javascript:location.href='cat_order';">立即购买</div>
 </footer>
-
 <script type="text/javascript" src="__STATIC__/index/js/index/api.js"></script>
 <script type="text/javascript" src="__STATIC__/index/js/index/aui-popup-new.js"></script>
 <script type="text/javascript" src="__STATIC__/index/js/index/aui-slide.js"></script>

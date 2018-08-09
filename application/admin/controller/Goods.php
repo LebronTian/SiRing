@@ -24,19 +24,13 @@ class Goods extends Controller{
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      * 陈绪
      */
-    public function index(Request $request){
-        if($request->isPost()){
-            $goods = db("goods")->alias("g")
-                     ->join("tb_goods_images gi","g.id=gi.goods_id")
-                     ->field("g.id, g.goods_name, g.goods_detail, gi.goods_images, g.goods_bottom_money, g.goods_status, g.goods_unit")
-                     ->select();
-            return ajax_success("获取成功",$goods);
-        }
-        return view("goods_index");
+    public function index(){
+        $goods = db("goods")->where("goods_status","<>","0")->paginate(10);
+        $good_type_name = db("goods_type")->select();
+        return view("goods_index",["goods"=>$goods,"goods_type_name"=>$good_type_name]);
     }
 
     public function add(){
-
         return view("goods_add");
 
     }
@@ -62,6 +56,8 @@ class Goods extends Controller{
                         "goods_abstract",
                         "goods_detail",
            ]);
+           $show_images = $request->file("goods_show_images")->move(ROOT_PATH . 'public' . DS . 'uploads');
+           $goods_data["goods_show_images"] = str_replace("\\","/",$show_images->getSaveName());
            $goods_data["goods_status"] = $this->goods_status[0];
            $bool = db("goods")->insert($goods_data);
            if($bool){

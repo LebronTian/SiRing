@@ -1,52 +1,61 @@
 {extend name="layout"}
-
+{block name="css"}
+    <style>
+        .wrapper{
+            width: 500px;
+            height: 500px;
+            margin: 30px auto 0;
+        }
+        .wrapper form{
+            display: flex;
+            flex-direction: column;
+        }
+        .submit{
+            background-color: dodgerblue;
+            border: 0;
+            font-size: 16px;
+            color: #fff;
+            height: 30px;
+        }
+        .input{
+            outline: none;
+            border: 1px solid #ccc;
+            padding: 4px 0 4px 4px;
+            font-size: 16px !important;
+        }
+        .selected{
+            height: 32px;
+        }
+    </style>
+{/block}
 {block name="content"}
-<form id="CategoryAdd">
-    <label class="form-label col-xs-4 col-sm-3" id=""><span>商品分类名称</span></label>
-    <input type="text" class="CategoryName" value="" style="margin-bottom: 20px;"><br/>
-    <label><span>状态</span></label>
-    <select class="Status">
-        <option value="1">启用</option>
-        <option value="0">停用</option>
-    </select><br/>
-    <label><span>父类分类</span></label>
-    <select class="pid">
-        <option value="0">顶级</option>
-    </select><br/>
-    <label class=""><span>菜单排序</span></label>
-    <input type="text" class="sort_number" style="margin-bottom: 20px;"><br/>
+<div class="wrapper">
+    <form action="{:url('admin/Category/save')}" method="post">
+        <label id=""><span>商品分类名称</span></label>
+        <input type="text" name="name" value="" class="input"><br>
+        <label><span>状态</span></label>
+        <select name="status" class="selected">
+            <option value="1">启用</option>
+            <option value="0">停用</option>
+        </select><br/>
+        <label><span>父类分类</span></label>
+        {if !empty($goods_list)}
+            <select name="pid" class="form-control selected" id="" >
+                <option value="0">顶级</option>
+                {volist name="goods_list" id="value"}
+                <option value="{$value.id}">{$value.name}</option>
+                {/volist}
+            </select><br/>
+        {/if}
+        <label class=""><span>菜单排序</span></label>
+        <input type="text" name="sort_number" class="input"><br>
+        <input type="submit" class="submit" value="提交">
+    </form>
+</div>
 
-</form>
-<button class="CategoryAdd">提交</button>
 {/block}
 
 
 {block name="bottom"}
-<script>
-    $(".CategoryAdd").click(function () {
-        var CategoryName = $(".CategoryName").val();
-        var Status = $(".Status").val();
-        var sort_number = $(".sort_number").val();
-        var pid = $(".pid").val();
-        $.ajax({
-            url:"{:url('admin/Category/add')}",
-            type:"POST",
-            async:false,
-            timeout:5000,
-            data:{
-                "name":CategoryName,
-                "status":Status,
-                "sort_number":sort_number,
-                "pid":pid
-            },
-            dataType:"json",
-            success:function (data) {
-                console.log(data);
-            },
-            error:function () {
-                console.log("错误");
-            }
-        })
-    })
-</script>
+
 {/block}

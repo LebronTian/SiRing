@@ -2,7 +2,7 @@
 
 {block name="content"}
 <div class="page-container">
-	<div class="text-c"> 日期范围：
+	<!-- <div class="text-c"> 日期范围：
 		<input type="date" id="datemin" class="input-text Wdate" style="width:140px;">
 		-
 		<input type="date" id="datemax" class="input-text Wdate" style="width:140px;">
@@ -10,24 +10,24 @@
 		<button type="submit" class="btn btn-success radius" id="search_bt" name="">
 			<i class="Hui-iconfont">&#xe665;</i> 搜用户
 		</button>
-	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+	</div> -->
+	<div class="cl pd-5 bg-1 bk-gray mt-20">
 		<span class="l">
 			<a href="javascript:;" onclick="" class="btn btn-danger radius btn_del">
 				<i class="Hui-iconfont">&#xe6e2;</i> 批量删除
-			</a> 
+			</a>
 			<a href="javascript:;" onclick="member_add('添加用户','user_add.html','','510')" class="btn btn-primary radius">
 				<i class="Hui-iconfont">&#xe600;</i> 添加用户
 			</a>
 			<a href="javascript:;" onclick="member_add('城市管理','user_cityss.html','','510')" class="btn btn-primary radius">
 				<i class="Hui-iconfont">&#xe600;</i> 城市测试
 			</a>
-		</span> 
+		</span>
 		<span class="r">共有数据：<strong id="count_number">0</strong> 条</span>
 	</div>
 	<div class="mt-20">
-	<table class="table table-border table-bordered table-hover table-bg table-sort">
-		<thead>
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" name="" value=""></th>
 				<th width="80">ID</th>
@@ -41,8 +41,8 @@
 				<th width="70">状态</th>
 				<th width="100">操作</th>
 			</tr>
-		</thead>
-		<tbody class="tbody">
+			</thead>
+			<tbody class="tbody">
 			<!-- <tr class="text-c">
 				<td><input type="checkbox" value="1" name=""></td>
 				<td>1</td>
@@ -61,7 +61,7 @@
 				<td class="td-manage">
                     <a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="停用">
                         <i class="Hui-iconfont">&#xe631;</i>
-                    </a> 
+                    </a>
                     <a title="编辑" href="javascript:;" onclick="member_edit('编辑','user_edit.html','4','','510')" class="ml-5" style="text-decoration:none">
                         <i class="Hui-iconfont">&#xe6df;</i>
                     </a>
@@ -70,8 +70,8 @@
                     </a>
                 </td>
 			</tr> -->
-		</tbody>
-	</table>
+			</tbody>
+		</table>
 	</div>
 </div>
 {/block}
@@ -79,16 +79,17 @@
 
 {block name="bottom"}
 <!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="__STATIC__/admin/static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="__STATIC__/admin/static/h-ui/js/H-ui.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="__STATIC__/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script> 
-<script type="text/javascript" src="__STATIC__/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__STATIC__/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
+
 $(function(){
 	$('.table-sort').dataTable({
 		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
@@ -141,32 +142,33 @@ function member_stop(obj,id){
 				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
 				$(obj).remove();
 				layer.msg('已停用!',{icon: 5,time:1000});
-//                window.location.reload();
-			},
-			error:function(data) {
-				console.log(data.msg);
-			},
-		});		
-	});
-}
 
-/*用户-启用*/
-function member_start(obj,id){
-	var idNum = (obj.id).split('_');
-	layer.confirm('确认要启用吗？',function(index){
-		$.ajax({
-			type: 'POST',
-			url: "{:url('admin/user/statu')}",
-			dataType: 'json',
-			data: {
-				'id': idNum[1]
-			},
-			success: function(data){
-			    alert(data.msg);
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
-				$(obj).remove();
-				layer.msg('已启用!',{icon: 6,time:1000});
+//                window.location.reload();
+                },
+                error:function(data) {
+                    console.log(data.msg);
+                },
+            });
+        });
+    }
+
+	/*用户-启用*/
+    function member_start(obj,id){
+        var idNum = (obj.id).split('_');
+        layer.confirm('确认要启用吗？',function(index){
+            $.ajax({
+                type: 'POST',
+                url: "{:url('admin/user/statu')}",
+                dataType: 'json',
+                data: {
+                    'id': idNum[1]
+                },
+                success: function(data){
+                    alert(data.msg);
+                    $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
+                    $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+                    $(obj).remove();
+                    layer.msg('已启用!',{icon: 6,time:1000});
 //                window.location.reload();
 
 			},
@@ -298,6 +300,7 @@ $('#search_bt').click(function(){
 	})
 })
 </script> 
+
 <script>
     function timetrans(date){
         var date = new Date(date*1000);//如果date为13位不需要乘1000
@@ -310,21 +313,21 @@ $('#search_bt').click(function(){
         return Y+M+D+h+m+s;
     }
 
-	(function(){
-            //  分类栏目，请求地址获取数据，插入select
-            $.ajax({
+    (function(){
+        //  分类栏目，请求地址获取数据，插入select
+        $.ajax({
                 url:"{:url('admin/user/index')}",
                 type:"POST",
                 async:false,
                 timeout:5000,
                 dataType:"json",
                 success: (data) => {
-                    console.log(data);
-                    var len = data.data.length;
-        			$('#count_number').html(len);
-					for(var i = 0; i < len; i++){
-					    var time_create =timetrans(data.data[i].create_time);
-						$('.tbody').append('<tr class="text-c mytr">\
+                console.log(data);
+        		var len = data.data.length;
+        		$('#count_number').html(len);
+        		for(var i = 0; i < len; i++){
+            var time_create =timetrans(data.data[i].create_time);
+            $('.tbody').append('<tr class="text-c mytr">\
 												<td><input type="checkbox" id="input_'+data.data[i].id+'"></td>\
 												<td>'+ data.data[i].id +'</td>\
 												<td>\
@@ -350,27 +353,27 @@ $('#search_bt').click(function(){
 													</a>\
 												</td>\
 											</tr>')
-						// 获取当前i值所代表的span
-						if(data.data[i].status == 1){
-							$('#mystatus'+data.data[i].id).html('已启用');
-							// $('#stop_btn'+data.data[i].id).children(i).attr('class','Hui-iconfont').html('&#xe631;');
-							// $('#stop_btn'+data.data[i].id).attr('title','停用');
-						}
-						if(data.data[i].status == 0){
-							$('#mystatus'+data.data[i].id).html('已停用').attr('class', 'label label-defaunt radius');
-							$('#stopbtn_'+data.data[i].id).children(i).attr('class','Hui-iconfont').html('&#xe6e1;');
-							$('#stopbtn_'+data.data[i].id).attr('title','启用');
-							$('#stopbtn_'+data.data[i].id).attr('onClick','member_start(this,10001)')
-						}
-						
-					}
-                    
-                },
-                error:function () {
-                    console.log("错误");
-                }
-            })
-	}())
+            // 获取当前i值所代表的span
+            if(data.data[i].status == 1){
+                $('#mystatus'+data.data[i].id).html('已启用');
+                // $('#stop_btn'+data.data[i].id).children(i).attr('class','Hui-iconfont').html('&#xe631;');
+                // $('#stop_btn'+data.data[i].id).attr('title','停用');
+            }
+            if(data.data[i].status == 0){
+                $('#mystatus'+data.data[i].id).html('已停用').attr('class', 'label label-defaunt radius');
+                $('#stopbtn_'+data.data[i].id).children(i).attr('class','Hui-iconfont').html('&#xe6e1;');
+                $('#stopbtn_'+data.data[i].id).attr('title','启用');
+                $('#stopbtn_'+data.data[i].id).attr('onClick','member_start(this,10001)')
+            }
+
+        }
+
+   	 },
+        error:function () {
+            console.log("错误");
+        }
+    })
+    }())
 </script>
 
 {/block}

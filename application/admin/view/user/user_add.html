@@ -2,7 +2,7 @@
 
 {block name="content"}
 <article class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="form-member-add">
+	<form action="{:url('admin/User/save')}" method="post" class="form form-horizontal" id="form-member-add">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -71,14 +71,15 @@
 				<select name="province" id="province" onchange="loadRegion('province',2,'city','{:url("admin/user/getRegion")}');">
 						<option value="0" selected>省份/直辖市</option>
 					{volist name="province" id="vo"}
-						<option value="{$vo.id}" >{$vo.name}</option>
+						<option value="{$vo.id}">{$vo.name}</option>
 					{/volist}
 				</select>
 
 				<select name="city" id="city"  onchange="loadRegion('city',3,'town','{:url("admin/user/getRegion")}');">
 					<option value="0">市/县</option>
 				</select>
-				<select name="town" id="town">
+
+				<select name="town" id="town"  >
 					<option value="0">镇/区</option>
 				</select>
 		</div>
@@ -123,18 +124,21 @@
 
 <script>
     $('#submit1').click(function(){
+
         var userName = $('#username').val();
         var passWord = $('#password').val();
         var sex = $('.radio-box div.checked').siblings('label').html();
         var phone = $('#mobile').val();
         var email = $('#email').val();
-//		var city = [];
 		var remark = $('.textarea').val();
-		// 遍历 城市
-//		for(var i = 0; i < 3; i++){
-//			city.push($('#province select option:selected')[i].innerHTML);
-//		}
-		var city= $("#province  prevObject");
+		//  城市
+
+            console.log($('#province').children('option:selected'));
+            console.log($('#city').children('option:selected'));
+            console.log($('#town').children('option:selected'));
+
+
+		var city= $("#province option");
 		console.log(city);
 
         $.ajax({
@@ -164,11 +168,9 @@
                     console.log(data);
 
             }
-            
+
         })
     })
-
-	
 
 </script>
 
@@ -225,12 +227,14 @@ $(function(){
         if(jQuery("#"+sel).val()==0){
             return;
         }
+//        console.log(jQuery("#"+sel).val());
         jQuery.getJSON(url,{pid:jQuery("#"+sel).val(),type:type_id},
             function(data){
                 if(data){
                     jQuery.each(data,function(idx,item){
                         jQuery("<option value="+item.id+">"+item.name+"</option>").appendTo(jQuery("#"+selName));
                     });
+
                 }else{
                     jQuery("<option value='0'>请选择</option>").appendTo(jQuery("#"+selName));
                 }
