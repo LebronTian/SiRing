@@ -132,14 +132,9 @@
         var email = $('#email').val();
 		var remark = $('.textarea').val();
 		//  城市
-
-            console.log($('#province').children('option:selected'));
-            console.log($('#city').children('option:selected'));
-            console.log($('#town').children('option:selected'));
-
-
-		var city= $("#province option");
-		console.log(city);
+		console.log($('#province option:selected').val())
+		console.log($('#city option:selected').val())
+		console.log($('#town option:selected').val())
 
         $.ajax({
             url: "{:url('admin/User/save')}",
