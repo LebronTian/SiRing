@@ -178,10 +178,10 @@
 		}
 	};
 	// 总页数
-	auiSlide.prototype.pageCount = function() {
-		var self = this;
-		return self.slideNodeList.length;
-	};
+	// auiSlide.prototype.pageCount = function() {
+	// 	var self = this;
+	// 	return self.slideNodeList.length;
+	// };
 	auiSlide.prototype.touchStart = function(event) {
 		touchStartTime = new Date() * 1;
 		firstTouchX = parseInt(event.changedTouches[0].pageX);

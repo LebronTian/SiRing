@@ -28,6 +28,7 @@ Route::group("",[
     /*分类*/
     "class_index"=>"index/Classify/index",
     "class_show"=>"index/Classify/show",
+    "class_particulars"=>"index/Classify/particulars",
 
 
     /*购物车*/
@@ -74,6 +75,11 @@ Route::group("",[
 
     /*找回密码页面*/
     "findpwd"=>"index/Findpwd/findpwd",
+
+    /*晒单*/
+    "share_detail"=>"index/Share/share_detail",
+    "share_index"=>"index/Share/share_index",
+
 
 ]);
 
@@ -128,6 +134,7 @@ Route::group("admin",[
     "goods_updata"=>"admin/Goods/updata",
     "goods_del"=>"admin/Goods/del",
     "goods_search"=>"admin/Goods/search",
+    "images_del"=>"admin/Goods/images",
 
 
     /*商品分类*/

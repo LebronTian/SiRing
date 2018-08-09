@@ -136,7 +136,7 @@
 <div class="tab">
 	<button class="tablinks" onclick="openCity(event, 'tab1')" id="defaultOpen">热门推荐</button>
 	{volist name="category" id="value"}
-	<button class="tablinks" value="{$value.id}" onclick="openCity(event, 'tab2')">{$value.name}</button>
+	<button class="tablinks" value="{$value.id}" onclick="openCity(event, 'tab{$value.id}')">{$value.name}</button>
 	{/volist}
 </div>
 
@@ -166,8 +166,8 @@
 				<p>领券享满减</p>
 			</a>
 		</div>
-
 	</div>
+
 	<div class="class-ui-title">
 		<h3>热门专场</h3>
 	</div>
@@ -211,165 +211,27 @@
 	</div>
 </div>
 
-<div id="tab2" class="tabcontent">
-	<div class="class-ui-ad">
-		<a href=""><img src="__STATIC__/index/image/class-1-1.jpg" alt=""></a>
-	</div>
-	<div class="class-ui-title">
-		<h3>专场推荐</h3>
-	</div>
-	<div class="aui-row aui-row-padded class-ui-text">
-		<div class="aui-col-xs-4">
-			<a href="cat_detail">
-				<img src="__STATIC__/index/image/class-a.jpg">
-				<p>911大闸蟹</p>
-			</a>
-		</div>
-		<div class="aui-col-xs-4">
-			<a href="cat_detail">
-				<img src="__STATIC__/index/image/class-a.png">
-				<p>牛仔低至7折</p>
-			</a>
-		</div>
-		<div class="aui-col-xs-4">
-			<a href="cat_detail">
-				<img src="__STATIC__/index/image/class-b.jpg">
-				<p>领券享满减</p>
-			</a>
-		</div>
-
-	</div>
-	<div class="class-ui-title">
-		<h3>热门专场</h3>
-	</div>
-	<div class="aui-row aui-row-padded class-ui-text">
-		<div class="aui-col-xs-4">
-			<a href="cat_detail">
-				<img src="__STATIC__/index/image/class-2.jpg">
-				<p>笔记本</p>
-			</a>
-		</div>
-		<div class="aui-col-xs-4">
-			<a href="cat_detail">
-				<img src="__STATIC__/index/image/class-3.jpg">
-				<p>游戏本</p>
-			</a>
-		</div>
-		<div class="aui-col-xs-4">
-			<a href="cat_detail">
-				<img src="__STATIC__/index/image/class-4.jpg">
-				<p>平板电脑</p>
-			</a>
-		</div>
-		<div class="aui-col-xs-4">
-			<a href="cat_detail">
-				<img src="__STATIC__/index/image/class-5.jpg">
-				<p>显示器</p>
-			</a>
-		</div>
-		<div class="aui-col-xs-4">
-			<a href="cat_detail">
-				<img src="__STATIC__/index/image/class-6.jpg">
-				<p>鼠标键盘</p>
-			</a>
-		</div>
-		<div class="aui-col-xs-4">
-			<a href="cat_detail">
-				<img src="__STATIC__/index/image/class-7.jpg">
-				<p>单反相机</p>
-			</a>
-		</div>
-	</div>
-</div>
-
-<div id="tab3" class="tabcontent">
-	<div class="class-ui-ad">
-		<a href=""><img src="__STATIC__/index/image/class-1-2.jpg" alt=""></a>
-	</div>
-	<div class="class-ui-title">
-		<h3>专场推荐</h3>
-	</div>
-	<div class="aui-row aui-row-padded class-ui-text">
-		<div class="aui-col-xs-4">
-			<a href="cat_detail">
-				<img src="__STATIC__/index/image/class-a.jpg">
-				<p>911大闸蟹</p>
-			</a>
-		</div>
-		<div class="aui-col-xs-4">
-			<a href="cat_detail">
-				<img src="__STATIC__/index/image/class-a.png">
-				<p>牛仔低至7折</p>
-			</a>
-		</div>
-		<div class="aui-col-xs-4">
-			<a href="cat_detail">
-				<img src="__STATIC__/index/image/class-b.jpg">
-				<p>领券享满减</p>
-			</a>
-		</div>
-	</div>
-	<div class="class-ui-title">
-		<h3>热门专场</h3>
-	</div>
-	<div class="aui-row aui-row-padded class-ui-text">
-		<div class="aui-col-xs-4">
-			<a href="cat_detail">
-				<img src="__STATIC__/index/image/class-2.jpg">
-				<p>笔记本</p>
-			</a>
-		</div>
-		<div class="aui-col-xs-4">
-			<a href="cat_detail">
-				<img src="__STATIC__/index/image/class-3.jpg">
-				<p>游戏本</p>
-			</a>
-		</div>
-		<div class="aui-col-xs-4">
-			<a href="cat_detail">
-				<img src="__STATIC__/index/image/class-4.jpg">
-				<p>平板电脑</p>
-			</a>
-		</div>
-		<div class="aui-col-xs-4">
-			<a href="cat_detail">
-				<img src="__STATIC__/index/image/class-5.jpg">
-				<p>显示器</p>
-			</a>
-		</div>
-		<div class="aui-col-xs-4">
-			<a href="cat_detail">
-				<img src="__STATIC__/index/image/class-6.jpg">
-				<p>鼠标键盘</p>
-			</a>
-		</div>
-		<div class="aui-col-xs-4">
-			<a href="cat_detail">
-				<img src="__STATIC__/index/image/class-7.jpg">
-				<p>单反相机</p>
-			</a>
-		</div>
-	</div>
-</div>
 
 <script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
     function openCity(evt, cityName) {
         var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
+		tabcontent = document.getElementsByClassName("tabcontent");
+		
+        // for (i = 0; i < tabcontent.length; i++) {
+        //     tabcontent[i].style.display = "none";
+		// }
+		// 当前点击的button 添加active类名
         tablinks = document.getElementsByClassName("tablinks");
         for (i = 0; i < tablinks.length; i++) {
             tablinks[i].className = tablinks[i].className.replace(" active", "");
         }
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
+        // document.getElementById(cityName).style.display = "block";
+		evt.currentTarget.className += " active";
     }
 
     // 触发 id="defaultOpen" click 事件
-    document.getElementById("defaultOpen").click();
+	document.getElementById("defaultOpen").click();
 </script>
 <script>
     $(".tablinks").click(function () {
@@ -378,18 +240,23 @@
         $.ajax({
             type:"POST",
             url:"{:url('index/Classify/show')}",
-            data:{"goods_type_id":goods_type_id},
+            data:{
+				"goods_type_id": goods_type_id
+			},
             async:false,
             timeout:5000,
             dataType:"json",
             success:function (data) {
-                console.log(data);
+				var len = $('#tab1 .aui-col-xs-4 img').length;
+				for(var i = 0; i < len; i++){
+					$('#tab1 .aui-col-xs-4 img')[i].src = "__UPLOADS__/" + data.data[0].goods_show_images;
+				}
             },
             error:function () {
                 console.log("错误");
             }
         })
-    })
+	})
 </script>
 </body>
 </html>
