@@ -311,7 +311,7 @@ h4 small,h5 small,h6 small {
 }
 img {
 	max-width: 100%;
-	display: block;
+	/* display: block; */
 }
 .aui-font-size-12 {
 	font-size: 0.6rem !important;

@@ -166,8 +166,8 @@
 				<p>领券享满减</p>
 			</a>
 		</div>
-
 	</div>
+
 	<div class="class-ui-title">
 		<h3>热门专场</h3>
 	</div>
@@ -365,11 +365,11 @@
             tablinks[i].className = tablinks[i].className.replace(" active", "");
         }
         document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
+		evt.currentTarget.className += " active";
     }
 
     // 触发 id="defaultOpen" click 事件
-    document.getElementById("defaultOpen").click();
+	document.getElementById("defaultOpen").click();
 </script>
 <script>
     $(".tablinks").click(function () {
@@ -378,18 +378,43 @@
         $.ajax({
             type:"POST",
             url:"{:url('index/Classify/show')}",
-            data:{"goods_type_id":goods_type_id},
+            data:{
+				"goods_type_id": goods_type_id
+			},
             async:false,
             timeout:5000,
             dataType:"json",
             success:function (data) {
-                console.log(data);
+				var len = $('#tab1 .aui-col-xs-4 img').length;
+				for(var i = 0; i < len; i++){
+				console.log($('#tab1 .aui-col-xs-4 img')[i].src)
+					$('#tab1 .aui-col-xs-4 img')[i].src = "__STATIC__/index/image/" + data.data[0].goods_show_images;
+				}
             },
             error:function () {
                 console.log("错误");
             }
         })
-    })
+	})
+	// $('.tablinks').click(function(){
+	// 	$.ajax({
+	// 		url: "{:url('index/Classify/show')}",
+	// 		dataType: 'json',
+	// 		type: 'POST',
+	// 		async: false,
+	// 		success: function(data){
+	// 			console.log(111)
+	// 			console.log(data)
+	// 			var len = $('#tab1 .aui-col-xs-4 img').length;
+	// 			for(var i = 0; i < len; i++){
+	// 				// $('#tab1 .aui-col-xs-4 img')[i].src = "__STATIC__/index/image/" + data.data[0].goods_show_images;
+	// 			}
+	// 		},
+	// 		error: function(){
+	// 			console.log('错误')
+	// 		}
+	// 	})
+	// })
 </script>
 </body>
 </html>
