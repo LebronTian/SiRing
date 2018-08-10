@@ -45,21 +45,23 @@
 	</a>
 </header>
 <div id="aui-slide2">
-	{volist name="goods" id="value"}
-		{volist name="goods_images" id="val"}
-		{if $value.id == $val.goods_id}
-		<div class="aui-slide-wrap">
-			<div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">
-				<img src="__UPLOAD__/{$val.goods_images}" alt="">
-			</div>
+	<div class="aui-slide-wrap">
+		<div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">
+			<img src="__STATIC__/index/image/sp1.jpg" alt="">
 		</div>
-		{/if}
-		{/volist}
-	{/volist}
-		<div class="aui-slide-page-wrap">
-			<!--分页容器-->
+		<div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">
+			<img src="__STATIC__/index/image/sp1.jpg" alt="">
 		</div>
-
+		<div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">
+			<img src="__STATIC__/index/image/sp1.jpg" alt="">
+		</div>
+		<div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">
+			<img src="__STATIC__/index/image/sp1.jpg" alt="">
+		</div>
+	</div>
+	<div class="aui-slide-page-wrap">
+		<!--分页容器-->
+	</div>
 </div>
 <div class="aui-title-text ">
 	<a href="#">

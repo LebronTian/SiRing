@@ -29,9 +29,15 @@ class  Cat extends  Controller{
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
     public function  detail(Request $request){
-        $goods = db("goods")->where("goods_status","<>","0")->where("id",$request->only(["id"])['id'])->select();
-        $goods_images = db("goods_images")->select();
-        return view('cat_detail',["goods"=>$goods,"goods_images"=>$goods_images]);
+        if ($request->isPost()){
+            $id = $request->only(['id']);
+            halt($id);
+            $goods = db("goods")->where("goods_status","<>","0")->where("id",$request->param('id'))->select();
+            $goods_images = db("goods_images")->select();
+            return ajax_success("获取成功",array("goods"=>$goods,"goods_images"=>$goods_images));
+        }
+
+        return view('cat_detail');
     }
 
     /**
