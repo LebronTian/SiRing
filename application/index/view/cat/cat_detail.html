@@ -828,7 +828,7 @@
     })
 
     function currentFun(index) {
-        console.log(index);
+        // console.log(index);
     }
     var slide2 = new auiSlide({
         container:document.getElementById("aui-slide2"),
@@ -854,6 +854,18 @@
     })
     // console.log(slide3.pageCount());
 
+	$.ajax({
+		url: '{:url("index/Cat/detail")}',
+		type: 'GET',
+		dataType: 'json',
+		async: false,
+		success: function(data){
+			console.log(data)
+		},
+		error: function(){
+			console.log('错误')
+		}
+	})
 </script>
 </body>
 </html>
