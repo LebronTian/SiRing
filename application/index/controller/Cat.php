@@ -30,10 +30,16 @@ class  Cat extends  Controller{
     public function  detail(Request $request){
         if ($request->isPost()){
             $id = $request->only(['id'])['id'];
-            halt($id);
-            $goods = db("goods")->where("goods_status","<>","0")->where("id",$request->param('id'))->select();
+            $goods = db("goods")->where("goods_status","<>","0")->where("id",$id)->select();
             $goods_images = db("goods_images")->select();
-            return ajax_success("获取成功",array("goods"=>$goods,"goods_images"=>$goods_images));
+            foreach ($goods as $key=>$value){
+                foreach ($goods_images as $val){
+                    if ($value['id'] == $val['goods_id']){
+                        $goods[$key]["goods_images"][] = $val["goods_images"];
+                    }
+                }
+            }
+            return ajax_success("获取成功",$goods);
         }
 
         return view('cat_detail');
