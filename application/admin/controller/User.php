@@ -88,7 +88,6 @@ class User extends Controller{
     public function save(){
         if($_POST){
             $data =input('post.');
-            dump($data);
             $username =$data['username'];
             if(empty($username)){
                 $this->error('用户名不能为空',url('admin/user/add'));
@@ -129,7 +128,11 @@ class User extends Controller{
             if($res_email){
                 $this->error('此邮箱已注册',url('admin/user/add'));
             }
-           $city =implode(',',$data['city']);
+//           $city =implode(',',$data['city']);
+            $city =$data['city'];
+            $province_id =$data['province_id'];
+            $city_id =$data['city_id'];
+            $town_id =$data['town_id'];
             $time = date('Y-m-d H:i:s');
             $times =strtotime($time);
             $datas =[
@@ -139,6 +142,9 @@ class User extends Controller{
                 'phone_num'=>$data['phone'],
                 'email'=>$data['email'],
                 'city'=>$city,
+                'province_id'=>$province_id,
+                'city_id'=>$city_id,
+                'town_id'=>$town_id,
                 'create_time'=> $times,
                 'remark'=>$data['remark'],
                 'status' => 1
@@ -307,6 +313,9 @@ class User extends Controller{
                     'phone_num'=>$phone,
                     'email'=>$email,
                     'city'=>$_POST['city'],
+                    'province_id'=>$_POST['province_id'],
+                    'city_id'=>$_POST['city_id'],
+                    'town_id'=>$_POST['town_id'],
                     'remark'=>$_POST['remark']
                 ];
                 if(!empty($data)){

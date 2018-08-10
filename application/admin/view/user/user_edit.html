@@ -46,20 +46,49 @@
 				<input type="file" multiple name="file-2" class="input-file">
 				</span> </div>
 		</div> -->
+		<!--<div class="row cl">-->
+			<!--<label class="form-label col-xs-4 col-sm-3">所在城市：</label>-->
+			<!--&lt;!&ndash; <div class="formControls col-xs-8 col-sm-9"> -->
+				<!--<span class="select-box">-->
+					<!--<select class="select" size="1" name="city">-->
+						<!--<option value="">请选择城市</option>-->
+						<!--<option value="1">北京</option>-->
+						<!--<option value="2">上海</option>-->
+						<!--<option value="3">广州</option>-->
+					<!--</select>-->
+				<!--</span> -->
+			<!--</div> &ndash;&gt;-->
+		<!---->
+		<!--</div>-->
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">所在城市：</label>
-			<!-- <div class="formControls col-xs-8 col-sm-9"> 
+			<!-- <div class="formControls col-xs-8 col-sm-9">
 				<span class="select-box">
 					<select class="select" size="1" name="city">
-						<option value="">请选择城市</option>
-						<option value="1">北京</option>
+						<option value="" selected>请选择城市</option>
+						<option value="1" >北京</option>
 						<option value="2">上海</option>
 						<option value="3">广州</option>
 					</select>
-				</span> 
+				</span>
 			</div> -->
-			<div id="province"></div>
+			<!--<div id="province"></div>-->
+			<select name="province" id="province" onchange="loadRegion('province',2,'city','{:url("admin/user/getRegion")}');">
+			<option value="0" selected>省份/直辖市</option>
+			{volist name="province" id="vo"}
+			<option value="{$vo.id}">{$vo.name}</option>
+			{/volist}
+			</select>
+
+			<select name="city" id="city"  onchange="loadRegion('city',3,'town','{:url("admin/user/getRegion")}');">
+			<option value="0">市/县</option>
+			</select>
+
+			<select name="town" id="town"  >
+				<option value="0">镇/区</option>
+			</select>
 		</div>
+
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">备注：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -147,7 +176,9 @@ $(function(){
         type: 'POST',
         dataType: 'json',
         success: function(data){
-			console.log(data)
+            console.log('1111');
+			console.log(data);
+            console.log('1111');
 			// 设置名字
 			$('.username').val(data.data.user_name);
 			// 设置性别
@@ -165,18 +196,21 @@ $(function(){
 			$('.email').val(data.data.email);
 			// 设置城市
 			var allSelect = $('#province select');
-			// console.log(allSelect)
+            $('#province option:selected').val(data.data.province_id);
+            $('#city option:selected').val(data.data.city_id);
+            $('#town option:selected').val(data.data.town_id);
+             console.log(allSelect)
 			var oCity = data.data.city.split(',');
 			// console.log(oCity);
 			for(var i = 0; i < 3; i++){
 				for(var j = 0; j < allSelect[i].length; j++){
-					if(oCity[i] == allSelect[i][j].innerHTML){
+					if(oCity[i] == allSelect[i][j].html()){
 						allSelect[i][j].selected = true;
 					}
 				}
 			}
-			allSelect[1].innerHTML = '<option selected>'+oCity[1]+'</option>';
-			allSelect[2].innerHTML = '<option selected>'+oCity[2]+'</option>';
+			allSelect[1].html = '<option selected>'+oCity[1]+'</option>';
+			allSelect[2].html = '<option selected>'+oCity[2]+'</option>';
 			// 备注
 			$('.notes').val(data.data.remark);
 			
@@ -191,7 +225,10 @@ $(function(){
 		var sex = $('.radio-box').children('div.checked').siblings()[0].innerHTML;
 		var mobile = $('.mobile').val();
 		var email = $('.email').val();
-		var city = $('.select option:selected')[0].innerHTML;
+		var city = $('.select option:selected')[0].html();
+        var province_id = $('#province option:selected').val();
+        var city_id = $('#city option:selected').val();
+        var town_id = $('#town option:selected').val();
 		var remark = $('.notes').val();
 		// alert(remark)
 //		 alert(sex)
@@ -205,6 +242,9 @@ $(function(){
 				"sex": sex,
 				"phone_num": mobile,
 				"email": email,
+                "province_id":province_id,
+                'city_id':city_id,
+                'town_id':town_id,
 				"city": city,
 				"remark": remark
 			},
@@ -220,6 +260,30 @@ $(function(){
 	})
 });
 
-</script> 
+</script>
+<script>
+    function loadRegion(sel,type_id,selName,url){
+        jQuery("#"+selName+" option").each(function(){
+            jQuery(this).remove();
+        });
+        jQuery("<option value=0>请选择</option>").appendTo(jQuery("#"+selName));
+        if(jQuery("#"+sel).val()==0){
+            return;
+        }
+//        console.log(jQuery("#"+sel).val());
+        jQuery.getJSON(url,{pid:jQuery("#"+sel).val(),type:type_id},
+            function(data){
+                if(data){
+                    jQuery.each(data,function(idx,item){
+                        jQuery("<option value="+item.id+">"+item.name+"</option>").appendTo(jQuery("#"+selName));
+                    });
+
+                }else{
+                    jQuery("<option value='0'>请选择</option>").appendTo(jQuery("#"+selName));
+                }
+            }
+        );
+    }
+</script>
 <!--/请在上方写此页面业务相关的脚本-->
 {/block}
