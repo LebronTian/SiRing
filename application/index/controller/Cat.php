@@ -29,7 +29,7 @@ class  Cat extends  Controller{
      */
     public function  detail(Request $request){
         if ($request->isPost()){
-            $id = $request->only(['id']);
+            $id = $request->only(['id'])['id'];
             halt($id);
             $goods = db("goods")->where("goods_status","<>","0")->where("id",$request->param('id'))->select();
             $goods_images = db("goods_images")->select();
