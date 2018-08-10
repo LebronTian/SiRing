@@ -33,8 +33,6 @@ Route::group("",[
 
     /*购物车*/
     "cat_index"=>"index/Cat/index",
-
-
     /*商品详情*/
     "cat_detail"=>"index/Cat/detail",
 

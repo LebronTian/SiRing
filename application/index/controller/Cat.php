@@ -8,26 +8,30 @@
 namespace  app\index\controller;
 
 use think\Controller;
+use think\Request;
 
 class  Cat extends  Controller{
+
     /**
-     **************李火生*******************
-     * @return \think\response\View
-     * 购物车首页
-     **************************************
+     * [商品显示]
+     * 陈绪
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
-    public  function  index(){
+    public  function  index(Request $request){
+
         return view('cat_index');
     }
 
     /**
-     **************李火生*******************
-     * @return \think\response\View
-     *订单详情
-     **************************************
+     * [商品详情]
+     * 陈绪
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
-    public function  detail(){
-        return view('cat_detail');
+    public function  detail(Request $request){
+        $goods = db("goods")->where("goods_status","<>","0")->where("id",$request->only(["id"])['id'])->select();
+        $goods_images = db("goods_images")->select();
+        return view('cat_detail',["goods"=>$goods,"goods_images"=>$goods_images]);
     }
 
     /**
