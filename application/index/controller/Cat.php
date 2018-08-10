@@ -28,7 +28,7 @@ class  Cat extends  Controller{
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
     public function  detail(Request $request){
-        if ($request->isPost()){
+        if ($request->param()){
             $id = $request->only(['id'])['id'];
             $goods = db("goods")->where("goods_status","<>","0")->where("id",$id)->select();
             $goods_images = db("goods_images")->select();
@@ -41,7 +41,6 @@ class  Cat extends  Controller{
             }
             return ajax_success("获取成功",$goods);
         }
-
         return view('cat_detail');
     }
 
