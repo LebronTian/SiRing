@@ -19,7 +19,8 @@ class  Classify extends  Controller{
      */
     public function  index(){
         $category = db("goods_type")->where("status","<>","0")->select();
-        return view('class_index',["category"=>$category]);
+        $goods = db("goods")->where("goods_status","<>","0")->select();
+        return view('class_index',["category"=>$category,"goods"=>$goods]);
     }
 
 
@@ -32,5 +33,6 @@ class  Classify extends  Controller{
             $goods = db("goods")->where("goods_type_id",$request->param("goods_type_id"))->select();
             return ajax_success("获取成功",$goods);
         }
+
     }
 }
