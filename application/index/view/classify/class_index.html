@@ -204,7 +204,7 @@
 				$('#tab1 .aui-col-xs-4 img').click(function(){
 						var img_id = $(this)[0].id.split('_')[1];
 						$.ajax({
-							url:"{:url('index/Cat/detail')}",
+							url:"{:url('index/Cat/ajax_id')}",
 							dataType: 'json',
 							type: 'POST',
 							data:{
