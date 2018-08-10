@@ -147,14 +147,14 @@
 	<div class="class-ui-title">
 		<h3>专场推荐</h3>
 	</div>
-	<div class="aui-row aui-row-padded class-ui-text">
-		<div class="aui-col-xs-4">
+	<div class="aui-row aui-row-padded class-ui-text" style="text-align: center;">
+		<!-- <div class="aui-col-xs-4">
 			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-a.jpg">
 				<p>911大闸蟹</p>
 			</a>
-		</div>
-		<div class="aui-col-xs-4">
+		</div> -->
+		<!-- <div class="aui-col-xs-4">
 			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-a.png">
 				<p>牛仔低至7折</p>
@@ -165,13 +165,13 @@
 				<img src="__STATIC__/index/image/class-b.jpg">
 				<p>领券享满减</p>
 			</a>
-		</div>
+		</div> -->
 	</div>
 
-	<div class="class-ui-title">
+	<!-- <div class="class-ui-title">
 		<h3>热门专场</h3>
-	</div>
-	<div class="aui-row aui-row-padded class-ui-text">
+	</div> -->
+	<!-- <div class="aui-row aui-row-padded class-ui-text">
 		<div class="aui-col-xs-4">
 			<a href="cat_detail">
 				<img src="__STATIC__/index/image/class-2.jpg">
@@ -208,7 +208,7 @@
 				<p>单反相机</p>
 			</a>
 		</div>
-	</div>
+	</div> -->
 </div>
 
 
@@ -246,13 +246,17 @@
             timeout:5000,
             dataType:"json",
             success:function (data) {
-                // console.log(data);
+                console.log(data);
 				// var len = $('#tab1 .aui-col-xs-4 img').length;
 				var len = data.data.length;
 				for(var i = 0; i < len; i++){
-					// console.log(data.data[0].goods_show_images)
-					$('#tab1 .aui-col-xs-4 img')[i].src = "__UPLOADS__/" + data.data[i].goods_show_images;
-					$('#tab1 .aui-col-xs-4 img')[i].id = "img_" + data.data[i].id;
+					$('.class-ui-text').append('<div class="aui-col-xs-4">\
+												<a href="cat_detail">\
+													<img src="__UPLOADS__/'+data.data[i].goods_show_images+'" id="img_"'+data.data[i].id+'>\
+													<p>'+data.data[i].goods_name+'</p>\
+												</a>\
+											</div>')
+					
 				}
             },
             error:function () {
