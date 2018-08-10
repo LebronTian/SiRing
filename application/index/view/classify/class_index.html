@@ -152,7 +152,6 @@
 	<div class="aui-row aui-row-padded class-ui-text">
 		
 	</div>
-
 </div>
 
 
@@ -201,30 +200,29 @@
 											</a>\
 										</div>')
 				}
-
+				// 用户点击 商品传值id
+				$('#tab1 .aui-col-xs-4 img').click(function(){
+						var img_id = $(this)[0].id.split('_')[1];
+						$.ajax({
+							url:"{:url('index/Cat/detail')}",
+							dataType: 'json',
+							type: 'POST',
+							data:{
+								"id": img_id
+							},
+							success: function(data){
+								console.log(data)
+							},
+							error: function(){
+								console.log('错误')
+							}
+						})
+					})
             },
             error:function () {
                 console.log("错误");
             }
         })
-	})
-	// 用户点击 商品传值id
-		$('#tab1 .aui-col-xs-4 img').click(function(){
-		var img_id = $(this)[0].id.split('_')[1];	
-		$.ajax({
-			url:"{:url('index/Cat/detail')}",
-			dataType: 'json',
-			type: 'POST',
-			data:{
-				"id": img_id
-			},
-			success: function(data){
-				console.log(data)
-			},
-			error: function(){
-				console.log('错误')
-			}
-		})
 	})
 </script>
 </body>
