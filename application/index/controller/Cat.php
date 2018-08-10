@@ -40,6 +40,11 @@ class  Cat extends  Controller{
         return view('cat_detail');
     }
 
+
+    /**
+     *
+     */
+
     /**
      **************李火生*******************
      * @return \think\response\View
