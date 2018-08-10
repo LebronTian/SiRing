@@ -249,7 +249,7 @@
                 console.log(data);
 				var len = $('#tab1 .aui-col-xs-4 img').length;
 				for(var i = 0; i < len; i++){
-					$('#tab1 .aui-col-xs-4 img')[i].src = "__UPLOADS__/" + data.data[0].goods_show_images;
+					$('#tab1 .aui-col-xs-4 img')[i].src = "__UPLOADS__/" + data.data[i].goods_show_images;
 				}
             },
             error:function () {
