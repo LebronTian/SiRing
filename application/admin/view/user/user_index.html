@@ -356,8 +356,6 @@ $('#search_bt').click(function(){
             // 获取当前i值所代表的span
             if(data.data[i].status == 1){
                 $('#mystatus'+data.data[i].id).html('已启用');
-                // $('#stop_btn'+data.data[i].id).children(i).attr('class','Hui-iconfont').html('&#xe631;');
-                // $('#stop_btn'+data.data[i].id).attr('title','停用');
             }
             if(data.data[i].status == 0){
                 $('#mystatus'+data.data[i].id).html('已停用').attr('class', 'label label-defaunt radius');
