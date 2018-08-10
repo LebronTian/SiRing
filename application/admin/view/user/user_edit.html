@@ -195,22 +195,13 @@ $(function(){
 			// 设置邮箱
 			$('.email').val(data.data.email);
 			// 设置城市
-			var allSelect = $('#province select');
             $('#province option:selected').val(data.data.province_id);
             $('#city option:selected').val(data.data.city_id);
             $('#town option:selected').val(data.data.town_id);
-             console.log(allSelect)
 			var oCity = data.data.city.split(',');
-			// console.log(oCity);
-			for(var i = 0; i < 3; i++){
-				for(var j = 0; j < allSelect[i].length; j++){
-					if(oCity[i] == allSelect[i][j].html()){
-						allSelect[i][j].selected = true;
-					}
-				}
-			}
-			allSelect[1].html = '<option selected>'+oCity[1]+'</option>';
-			allSelect[2].html = '<option selected>'+oCity[2]+'</option>';
+            $('#province option:selected').html(oCity[0]);
+            $('#city option:selected').html(oCity[1]);
+            $('#town option:selected').html(oCity[2]);
 			// 备注
 			$('.notes').val(data.data.remark);
 			
@@ -225,10 +216,15 @@ $(function(){
 		var sex = $('.radio-box').children('div.checked').siblings()[0].innerHTML;
 		var mobile = $('.mobile').val();
 		var email = $('.email').val();
-		var city = $('.select option:selected')[0].html();
+
+
         var province_id = $('#province option:selected').val();
         var city_id = $('#city option:selected').val();
         var town_id = $('#town option:selected').val();
+        var province_name = $('#province option:selected').html();
+        var city_name = $('#city option:selected').html();
+        var town_name = $('#town option:selected').html();
+        var city =province_name+','+city_name+','+town_name;
 		var remark = $('.notes').val();
 		// alert(remark)
 //		 alert(sex)
@@ -249,12 +245,10 @@ $(function(){
 				"remark": remark
 			},
 			success: function(data){
-//				console.log(data);
 				alert(data.msg);
 			},
 			error: function(data){
 				console.log('失败');
-//				alert(data.msg);
 			}
 		})
 	})

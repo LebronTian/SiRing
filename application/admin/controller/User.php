@@ -258,6 +258,8 @@ class User extends Controller{
      */
     public function edit(Request $request){
 
+        $province = Db::name('tree')->where (array('pid'=>1) )->select();
+        $this->assign('province',$province);
         if($request->isPost()){
             $id =$_POST['id'];
             $_SESSION['id'] =$id;
