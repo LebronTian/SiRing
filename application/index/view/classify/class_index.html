@@ -139,7 +139,6 @@
 	<button class="tablinks" value="{$value.id}" onclick="openCity(event, 'tab{$value.id}')">{$value.name}</button>
 	{/volist}
 </div>
-
 <div id="tab1" class="tabcontent">
 	<div class="class-ui-ad">
 		<a href="cat_detail"><img src="__STATIC__/index/image/class-1.jpg" alt=""></a>
@@ -148,8 +147,15 @@
 		<h3>专场推荐</h3>
 	</div>
 	<div class="aui-row aui-row-padded class-ui-text" style="text-align: center;">
+<<<<<<< HEAD
 		
 	</div>
+=======
+
+	</div>
+
+
+>>>>>>> 2d5cdff89e5eb9683bcb51edc05fa02d3780e817
 </div>
 
 
@@ -190,15 +196,18 @@
                 console.log(data);
 				// var len = $('#tab1 .aui-col-xs-4 img').length;
 				var len = data.data.length;
-				for(var i = 0; i < len; i++){
-					$('.class-ui-text').append('<div class="aui-col-xs-4">\
+				if(goods_type_id == data.data[0].goods_type_id){
+                    $('.class-ui-text').html("");
+                    for(var i = 0; i < len; i++){
+                        $('.class-ui-text').append('<div class="aui-col-xs-4">\
 												<a href="cat_detail">\
 													<img src="__UPLOADS__/'+data.data[i].goods_show_images+'" id="img_"'+data.data[i].id+'>\
 													<p>'+data.data[i].goods_name+'</p>\
 												</a>\
 											</div>')
-					
+                    }
 				}
+
             },
             error:function () {
                 console.log("错误");

@@ -217,5 +217,25 @@ class Goods extends Controller{
     }
 
 
+    /**
+     * [商品状态]
+     * 陈绪
+     */
+    public function status(Request $request){
+
+        if ($request->isPost()){
+            $goods_id = $request->only(['id'])['id'];
+            $goods_status["goods_status"] = $this->goods_status[1];
+            $bool = db("goods")->where("id",$goods_id)->update($goods_status);
+            if ($bool){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+
+    }
+
+
 
 }
