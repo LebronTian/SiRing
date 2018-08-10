@@ -139,7 +139,7 @@
 	<button class="tablinks" value="{$value.id}" onclick="openCity(event, 'tab{$value.id}')">{$value.name}</button>
 	{/volist}
 </div>
-<div id="tab1" class="tabcontent">
+<div id="tab1" class="tabcontent" style="text-align: center;">
 	<div class="class-ui-ad">
 		<a href="cat_detail"><img src="__STATIC__/index/image/class-1.jpg" alt=""></a>
 	</div>
@@ -187,18 +187,15 @@
             dataType:"json",
             success:function (data) {
                 console.log(data);
-				// var len = $('#tab1 .aui-col-xs-4 img').length;
 				var len = data.data.length;
-				if(goods_type_id == data.data[0].goods_type_id){
-                    $('.class-ui-text').html("");
-                    for(var i = 0; i < len; i++){
-                        $('.class-ui-text').append('<div class="aui-col-xs-4">\
-												<a href="cat_detail">\
-													<img src="__UPLOADS__/'+data.data[i].goods_show_images+'" id="img_"'+data.data[i].id+'>\
-													<p>'+data.data[i].goods_name+'</p>\
-												</a>\
-											</div>')
-                    }
+				$('.class-ui-text').html("");
+				for(var i = 0; i < len; i++){
+					$('.class-ui-text').append('<div class="aui-col-xs-4">\
+											<a href="javascript:;" id="a_'+data.data[i].id+'">\
+												<img src="__UPLOADS__/'+data.data[i].goods_show_images+'" id="img_"'+data.data[i].id+'>\
+												<p>'+data.data[i].goods_name+'</p>\
+											</a>\
+										</div>')
 				}
 
             },
@@ -207,10 +204,9 @@
             }
         })
 	})
-
 	// 用户点击 商品传值id
-	$('#tab1 .aui-col-xs-4 img').click(function(){
-		var img_id = $(this)[0].id.split('_')[1];		
+		$('#tab1 .aui-col-xs-4 img').click(function(){
+		var img_id = $(this)[0].id.split('_')[1];	
 		$.ajax({
 			url:"{:url('index/Cat/detail')}",
 			dataType: 'json',
