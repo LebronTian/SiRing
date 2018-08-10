@@ -132,10 +132,13 @@
         var email = $('#email').val();
 		var remark = $('.textarea').val();
 		//  城市
-		console.log($('#province option:selected').val())
-		console.log($('#city option:selected').val())
-		console.log($('#town option:selected').val())
-
+		var province_id = $('#province option:selected').val();
+		var city_id = $('#city option:selected').val();
+		var town_id = $('#town option:selected').val();
+		var province_name = $('#province option:selected').html();
+		var city_name = $('#city option:selected').html();
+		var town_name = $('#town option:selected').html();
+		var city =province_name+','+city_name+','+town_name;
         $.ajax({
             url: "{:url('admin/User/save')}",
             type: "POST",
@@ -149,6 +152,9 @@
                 "phone": phone,
                 "email": email,
                 "city": city,
+				"province_id":province_id,
+				'city_id':city_id,
+				'town_id':town_id,
                 "remark": remark
             },
             success: function(data){
