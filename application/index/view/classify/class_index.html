@@ -142,20 +142,20 @@
 
 <div id="tab1" class="tabcontent">
 	<div class="class-ui-ad">
-		<a href=""><img src="__STATIC__/index/image/class-1.jpg" alt=""></a>
+		<a href="cat_detail"><img src="__STATIC__/index/image/class-1.jpg" alt=""></a>
 	</div>
 	<div class="class-ui-title">
 		<h3>专场推荐</h3>
 	</div>
 	<div class="aui-row aui-row-padded class-ui-text">
 		<div class="aui-col-xs-4">
-			<a href="cat_detail">
+			<a href="javascript:;">
 				<img src="__STATIC__/index/image/class-a.jpg">
 				<p>911大闸蟹</p>
 			</a>
 		</div>
 		<div class="aui-col-xs-4">
-			<a href="cat_detail">
+			<a href="javascript:;">
 				<img src="__STATIC__/index/image/class-a.png">
 				<p>牛仔低至7折</p>
 			</a>
@@ -246,16 +246,38 @@
             timeout:5000,
             dataType:"json",
             success:function (data) {
-                console.log(data);
-				var len = $('#tab1 .aui-col-xs-4 img').length;
+                // console.log(data);
+				// var len = $('#tab1 .aui-col-xs-4 img').length;
+				var len = data.data.length;
 				for(var i = 0; i < len; i++){
+					// console.log(data.data[0].goods_show_images)
 					$('#tab1 .aui-col-xs-4 img')[i].src = "__UPLOADS__/" + data.data[i].goods_show_images;
+					$('#tab1 .aui-col-xs-4 img')[i].id = "img_" + data.data[i].id;
 				}
             },
             error:function () {
                 console.log("错误");
             }
         })
+	})
+
+	// 用户点击 商品传值id
+	$('#tab1 .aui-col-xs-4 img').click(function(){
+		var img_id = $(this)[0].id.split('_')[1];		
+		$.ajax({
+			url:"{:url('index/Cat/detail')}",
+			dataType: 'json',
+			type: 'POST',
+			data:{
+				"id": img_id
+			},
+			success: function(data){
+				console.log(data)
+			},
+			error: function(){
+				console.log('错误')
+			}
+		})
 	})
 </script>
 </body>
