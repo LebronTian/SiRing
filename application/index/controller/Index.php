@@ -16,17 +16,6 @@ class Index extends Controller
         return view("index");
     }
 
-    /**
-     **************李火生*******************
-     * @return \think\response\View
-     * 商品列表
-     **************************************
-     */
-    public function lists()
-    {
-        return view("lists");
-    }
-
 
 
 }
