@@ -43,17 +43,20 @@ class  Cat extends  Controller{
      */
     public function detail(Request $request)
     {
-        $id = Session::get("id");
-        $goods = db("goods")->where("goods_status","<>","0")->where("id",$id)->select();
-        $goods_images = db("goods_images")->select();
-        foreach ($goods as $key=>$value){
-            foreach ($goods_images as $val){
-                if ($value['id'] == $val['goods_id']){
-                    $goods[$key]["goods_images"][] = $val["goods_images"];
+        if ($request->isPost()) {
+            $id = Session::get("id");
+            $goods = db("goods")->where("goods_status", "<>", "0")->where("id", $id)->select();
+            $goods_images = db("goods_images")->select();
+            foreach ($goods as $key => $value) {
+                foreach ($goods_images as $val) {
+                    if ($value['id'] == $val['goods_id']) {
+                        $goods[$key]["goods_images"][] = $val["goods_images"];
+                    }
                 }
             }
+            return ajax_success("获取成功", $goods);
         }
-        return ajax_success("获取成功",$goods);
+        return view("cat_detail");
     }
 
 
