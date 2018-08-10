@@ -22,7 +22,7 @@ Route::group("",[
 
 
     /*商品列表*/
-    "index_lists"=>"index/Index/lists",
+    "cat_index"=>"index/Cat/index",
 
 
     /*分类*/
@@ -32,7 +32,9 @@ Route::group("",[
 
 
     /*购物车*/
-    "cat_index"=>"index/Cat/index",
+    "shopping_index"=>"index/Shopping/index",
+
+
     /*商品详情*/
     "cat_detail"=>"index/Cat/detail",
 

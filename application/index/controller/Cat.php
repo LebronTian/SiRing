@@ -19,7 +19,6 @@ class  Cat extends  Controller{
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
     public  function  index(Request $request){
-
         return view('cat_index');
     }
 
@@ -44,16 +43,6 @@ class  Cat extends  Controller{
     /**
      *
      */
-
-    /**
-     **************李火生*******************
-     * @return \think\response\View
-     * 确认订单订单
-     **************************************
-     */
-    public function order(){
-        return view('cat_order');
-    }
 
 
 }
