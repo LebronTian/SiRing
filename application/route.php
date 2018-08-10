@@ -42,7 +42,7 @@ Route::group("",[
 
 
     /*确认订单*/
-    "cat_order"=>"index/Cat/order",
+    "order_index"=>"index/Order/index",
 
 
     /*登录页面*/
