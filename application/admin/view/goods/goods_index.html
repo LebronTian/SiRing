@@ -409,11 +409,11 @@ function product_edit(title,url,id){
             var input_id = [];
             for(var i = 0; i < input_len; i++){
                 if(allInput[i].checked){
-                    input_id = $(allInput[i]).parents('td').siblings()[0].id.split('_')[1]
+                    input_id.push($(allInput[i]).parents('td').siblings()[0].id.split('_')[1])
                 }
             }
             $.ajax({
-                url: "{:url('')}",
+                url: "{:url('admin/Goods/batches')}",
                 type: "POST",
                 dataType: 'JSON',
                 async: false,
