@@ -178,12 +178,12 @@
 </script>
 <script>
     $(".tablinks").click(function () {
-        var goods_type_id = $(this).val();
+        var id = $(this).val();
         $.ajax({
             type:"POST",
             url:"{:url('index/Classify/show')}",
             data:{
-				"goods_type_id": goods_type_id
+				"id": id
 			},
             async:false,
             timeout:5000,
@@ -194,9 +194,9 @@
 				$('.class-ui-text').html("");
 				for(var i = 0; i < len; i++){
 					$('.class-ui-text').append('<div class="aui-col-xs-4">\
-											<a href="{:url("index/Cat/detail")}" id="a_'+data.data[i].id+'">\
-												<img src="__UPLOADS__/'+data.data[i].goods_show_images+'" id="img_'+data.data[i].id+'">\
-												<p>'+data.data[i].goods_name+'</p>\
+											<a href="{:url("index/Goods/detail")}" id="a_'+data.data[i].id+'">\
+												<img src="__TYPE__/'+data.data[i].type_images+'" id="img_'+data.data[i].id+'">\
+												<p>'+data.data[i].name+'</p>\
 											</a>\
 										</div>')
 				}
@@ -204,7 +204,7 @@
 				$('#tab1 .aui-col-xs-4 img').click(function(){
 						var img_id = $(this)[0].id.split('_')[1];
 						$.ajax({
-							url:"{:url('index/Cat/ajax_id')}",
+							url:"{:url('index/Goods/ajax_id')}",
 							dataType: 'json',
 							type: 'POST',
 							data:{

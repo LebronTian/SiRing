@@ -29,7 +29,7 @@ class  Classify extends  Controller{
      */
     public function show(Request $request){
         if ($request->isPost()){
-            $goods_type = db("goods_type")->where("id",$request->param("goods_type_id"))->select();
+            $goods_type = db("goods_type")->where("pid",$request->param("id"))->select();
             return ajax_success("获取成功",$goods_type);
         }
 
