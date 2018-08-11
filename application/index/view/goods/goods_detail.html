@@ -66,9 +66,7 @@
 <div class="aui-title-text ">
 	<a href="#">
 		<h2 class="goods_desc">
-			<!-- <i>
-				<img src="__STATIC__/index/image/l.png" alt="">
-			</i>
+			<!-- <i><img src="__STATIC__/index/image/l.png" alt=""></i>
 			<span>促销</span>
 			荣耀V9play全网通 标配版 3GB+32GB 幻夜黑 移动联通电信4G手机 双卡双待 -->
 		</h2>
@@ -426,7 +424,35 @@
 <script type="text/javascript" src="__STATIC__/index/js/index/aui-collapse.js"></script>
 <script src="__STATIC__/index/js/index/jquery.min.js"></script>
 <script src="__STATIC__/index/js/index/ratchet.min.js"></script>
-
+<script>
+	(function(){
+		$.ajax({
+			url: '{:url("index/Goods/detail")}',
+			type: 'POST',
+			dataType: 'JSON',
+			async: false,
+			success: function(data){
+				console.log(data)
+				var data = data.data[0];
+				// 轮播图
+				var img_len = data.goods_images.length;
+				for(var i = 0; i < img_len; i++){
+					$('.aui-slide-wrap').append('<div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">\
+													<img src="__UPLOAD__/'+data.goods_images[i]+'">\
+												</div>');
+				}
+				// 标题
+				$('.goods_desc').html('<i><img src="__STATIC__/index/image/l.png" alt=""></i>\
+										<span>促销</span>'+data.goods_name+'');
+				// 价格
+				$('.price').html('￥'+data.goods_bottom_money+'');
+			},
+			error: function(){
+				console.log('错误')
+			}
+		})
+	})()
+</script>
 <script charset="utf-8">
     window.onload = function() {
         var windowWidth = document.body.clientWidth;
@@ -626,17 +652,11 @@
                 }else{
                     $(".inputBorder",$parent).val(1);
                     $('.amount').html($num)
-
-
                 }
             });
 
         })
-
-
     })
-
-
 </script>
 <script type="text/javascript">
 
@@ -726,23 +746,5 @@
     // console.log(slide3.pageCount());
 	
 </script>
-
-<script>
-	(function(){
-		$.ajax({
-			url: '{:url("index/Cat/detail")}',
-			type: 'POST',
-			dataType: 'json',
-			async: false,
-			success: function(data){
-				console.log(data)
-			},
-			error: function(){
-				console.log('错误')
-			}
-		})
-	})()
-</script>
-
 </body>
 </html>
