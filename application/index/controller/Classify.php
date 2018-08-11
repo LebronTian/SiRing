@@ -18,9 +18,8 @@ class  Classify extends  Controller{
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
     public function  index(){
-        $category = db("goods_type")->where("status","<>","0")->select();
-        $goods = db("goods")->where("goods_status","<>","0")->select();
-        return view('class_index',["category"=>$category,"goods"=>$goods]);
+        $category = db("goods_type")->where("status","<>","0")->where("pid","0")->select();
+        return view('class_index',["category"=>$category]);
     }
 
 
