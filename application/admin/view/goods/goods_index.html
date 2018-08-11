@@ -401,12 +401,12 @@ function product_edit(title,url,id){
             }
         });
     })
-</script>>
+</script>
 <script>
         function datadel() {
             var allInput = $('.tbody').children().find('input');
             var input_len = allInput.length;
-            var input_id;
+            var input_id = [];
             for(var i = 0; i < input_len; i++){
                 if(allInput[i].checked){
                     input_id = $(allInput[i]).parents('td').siblings()[0].id.split('_')[1]

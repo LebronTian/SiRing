@@ -239,8 +239,10 @@ class Goods extends Controller{
      * 陈绪
      */
     public function batches(Request $request){
-        $ids = $request->param('id');
-        halt($ids);
+        if($request->isPost()){
+            $id = $request->only(["ids"])["ids"];
+            halt($id);
+        }
     }
 
 
