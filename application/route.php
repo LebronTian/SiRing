@@ -163,6 +163,20 @@ Route::group("admin",[
     "user_grade"=>"admin/User/grade",  //会员等级
     "user_rule"=>"admin/User/rule",  //会员规则
 
+
+
+    /*订单管理*/
+    "order_index"=>"admin/Order/index",
+    /*评价管理（未做）*/
+    "evaluation_management"=>"admin/Evaluation/management",
+    /*退款维权(未做)*/
+    "refund_rights"=>"admin/Refund/rights",
+
+
+
+
+
+
     /*测试页面*/
     "text"=>"admin/Text/index",
 ]);
