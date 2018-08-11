@@ -129,7 +129,7 @@
                 {volist name="good" id="value"}
                     <tr class="text-c va-m">
                         <td><input name="id" type="checkbox" id="ID" value="{$value.id}"></td>
-                        <td>{$value.id}</td>
+                        <td id="html">{$value.id}</td>
                         <td><img width="60" class="product-thumb" src="__UPLOADS__/{$value.goods_show_images}"></td>
                         <td class="text-l">
                             <a style="text-decoration:none" onClick="product_show('哥本哈根橡木地板','product-show.html','10001')" href="javascript:;">
@@ -164,8 +164,8 @@
                 {else }
                 {volist name="goods" id="value"}
                 <tr class="text-c va-m">
-                    <td><input name="" type="checkbox" value=""></td>
-                    <td>{$value.id}</td>
+                    <td><input name="" class="inputs" type="checkbox" value=""></td>
+                    <td id="ids_{$value.id}">{$value.id}</td>
                     <td><img width="60" class="product-thumb" src="__UPLOADS__/{$value.goods_show_images}"></td>
                     <td class="text-l">
                         <a style="text-decoration:none" onClick="product_show('哥本哈根橡木地板','product-show.html','10001')" href="javascript:;">
@@ -401,12 +401,12 @@ function product_edit(title,url,id){
             }
         });
     })
-</script>
+</script>>
 <script>
-        function datadel() {
-            var ids = $("#ID").val();
-            console.log(ids);
-        }
-</script>
+    function datadel() {
+        var allInput = $('.tbody').children().find('input');
+        console.log(allInput[0].selected)
+    }
 
+</script>
 {/block}
