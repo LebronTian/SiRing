@@ -426,33 +426,7 @@
 <script type="text/javascript" src="__STATIC__/index/js/index/aui-collapse.js"></script>
 <script src="__STATIC__/index/js/index/jquery.min.js"></script>
 <script src="__STATIC__/index/js/index/ratchet.min.js"></script>
-<script>
-		$.ajax({
-			url: '{:url("index/Cat/detail")}',
-			type: 'POST',
-			dataType: 'json',
-			async: false,
-			success: function(data){
-				console.log(data)
-				var data = data.data[0];
-				var img_len = data.goods_images.length;
-				// 循环轮播图
-				for(var i = 0; i < img_len; i++){
-					$('.aui-slide-wrap').append('<div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">\
-													<img src="__UPLOAD__/'+data.goods_images[i]+'" alt="">\
-												</div>')
-				}
-				// 商品描述
-				$('.goods_desc').html(data.goods_name)
-				// 商品价格
-				$('.price').html('￥'+data.goods_bottom_money+'')
 
-			},
-			error: function(){
-				console.log('错误')
-			}
-		})
-</script>
 <script charset="utf-8">
     window.onload = function() {
         var windowWidth = document.body.clientWidth;

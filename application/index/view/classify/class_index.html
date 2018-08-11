@@ -189,12 +189,12 @@
             timeout:5000,
             dataType:"json",
             success:function (data) {
-                // console.log(data);
+                 console.log(data);
 				var len = data.data.length;
 				$('.class-ui-text').html("");
 				for(var i = 0; i < len; i++){
 					$('.class-ui-text').append('<div class="aui-col-xs-4">\
-											<a href="{:url("index/Goods/detail")}" id="a_'+data.data[i].id+'">\
+											<a href="{:url("index/Goods/index")}" id="a_'+data.data[i].id+'">\
 												<img src="__TYPE__/'+data.data[i].type_images+'" id="img_'+data.data[i].id+'">\
 												<p>'+data.data[i].name+'</p>\
 											</a>\
@@ -203,6 +203,7 @@
 				// 用户点击 商品传值id
 				$('#tab1 .aui-col-xs-4 img').click(function(){
 						var img_id = $(this)[0].id.split('_')[1];
+						console.log(img_id);
 						$.ajax({
 							url:"{:url('index/Goods/ajax_id')}",
 							dataType: 'json',

@@ -20,6 +20,12 @@ class Goods extends  Controller{
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
     public  function  index(Request $request){
+        if ($request->isPost()){
+            $id = Session::get("id");
+            $goods_list = db("goods")->where("goods_type_id",$id)->select();
+            return ajax_success("获取成功",$goods_list);
+        }
+
         return view('goods_index');
     }
 
@@ -45,7 +51,7 @@ class Goods extends  Controller{
     {
         if ($request->isPost()) {
             $id = Session::get("id");
-            $goods = db("goods")->where("goods_status", "<>", "0")->where("id", $id)->select();
+            $goods = db("goods")->where("goods_status", "<>", "0")->where("goods_type_id", $id)->select();
             $goods_images = db("goods_images")->select();
             foreach ($goods as $key => $value) {
                 foreach ($goods_images as $val) {
@@ -54,6 +60,7 @@ class Goods extends  Controller{
                     }
                 }
             }
+            halt($goods);
             return ajax_success("获取成功", $goods);
         }
         return view("goods_detail");

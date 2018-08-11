@@ -390,9 +390,37 @@
 </div>
 </body>
 <script type="text/javascript" src="__STATIC__/index/js/index/aui-lazyload.js" ></script>
+<script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
     new auiLazyload({
         errorImage:'../image/error-img.png'
     });
+</script>
+<script>
+    $.ajax({
+        url: '{:url("index/Goods/index")}',
+        type: 'POST',
+        dataType: 'json',
+        async: false,
+        success: function(data){
+            console.log(data);
+            /*var data = data.data[0];
+             var img_len = data.goods_images.length;*/
+            // 循环轮播图
+            /*for(var i = 0; i < img_len; i++){
+             $('.aui-slide-wrap').append('<div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">\
+             <img src="__UPLOAD__/'+data.goods_images[i]+'" alt="">\
+             </div>')
+             }*/
+            // 商品描述
+            /*$('.goods_desc').html(data.goods_name)
+             // 商品价格
+             $('.price').html('￥'+data.goods_bottom_money+'')*/
+
+        },
+        error: function(){
+            console.log('错误')
+        }
+    })
 </script>
 </html>
