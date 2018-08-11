@@ -78,7 +78,6 @@ class Goods extends Controller{
                         "goods_place",
                         "goods_supplier",
                         "goods_unit",
-                        "goods_bazaar_money",
                         "goods_bottom_money",
                         "goods_keyword",
                         "goods_abstract",
@@ -184,7 +183,6 @@ class Goods extends Controller{
                 "goods_place",
                 "goods_supplier",
                 "goods_unit",
-                "goods_bazaar_money",
                 "goods_bottom_money",
                 "goods_keyword",
                 "goods_abstract",
@@ -234,6 +232,15 @@ class Goods extends Controller{
             }
         }
 
+    }
+
+    /**
+     * [商品批量删除]
+     * 陈绪
+     */
+    public function batches(Request $request){
+        $ids = $request->param('id');
+        halt($ids);
     }
 
 

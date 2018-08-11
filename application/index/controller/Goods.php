@@ -11,7 +11,7 @@ use think\Controller;
 use think\Request;
 use think\Session;
 
-class  Cat extends  Controller{
+class Goods extends  Controller{
 
     /**
      * [商品显示]
@@ -20,7 +20,7 @@ class  Cat extends  Controller{
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
     public  function  index(Request $request){
-        return view('cat_index');
+        return view('goods_index');
     }
 
     /**
@@ -56,7 +56,7 @@ class  Cat extends  Controller{
             }
             return ajax_success("获取成功", $goods);
         }
-        return view("cat_detail");
+        return view("goods_detail");
     }
 
 

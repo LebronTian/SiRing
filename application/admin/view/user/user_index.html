@@ -19,9 +19,6 @@
 			<a href="javascript:;" onclick="member_add('添加用户','user_add.html','','510')" class="btn btn-primary radius">
 				<i class="Hui-iconfont">&#xe600;</i> 添加用户
 			</a>
-			<a href="javascript:;" onclick="member_add('城市管理','user_cityss.html','','510')" class="btn btn-primary radius">
-				<i class="Hui-iconfont">&#xe600;</i> 城市测试
-			</a>
 		</span>
 		<span class="r">共有数据：<strong id="count_number">0</strong> 条</span>
 	</div>
@@ -115,9 +112,7 @@ function member_show(title,url,id,w,h){
             'id': id
         },
         success: function(data){
-            console.log('111');
-            console.log(data);
-            console.log('111');
+            console.log('成功');
         },
         error:function(data) {
             console.log(data.msg);
