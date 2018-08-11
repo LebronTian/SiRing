@@ -156,14 +156,25 @@ Route::group("admin",[
     "user_dels"=>"admin/User/dels",     //会员批量删除
     "user_status"=>"admin/User/status",     //会员软删除禁用
     "user_statu"=>"admin/User/statu",     //会员软删除启用
-    "user_cityss"=>"admin/User/cityss",  //会员等级
     "user_show"=>"admin/User/show",     //会员查看
     "user_shows"=>"admin/User/shows",     //会员查看
-    "getRegion"=>"admin/User/getRegion",     //地区
+    "getRegion"=>"admin/User/getRegion",     //三级地区
     "pass_edit"=>"admin/User/pass_edit",     //会员密码编辑
-
     "user_grade"=>"admin/User/grade",  //会员等级
-    "user_rule"=>"admin/User/rule",  //会员等级
+    "user_rule"=>"admin/User/rule",  //会员规则
+
+
+
+    /*订单管理*/
+    "order_index"=>"admin/Order/index",
+    /*评价管理（未做）*/
+    "evaluation_management"=>"admin/Evaluation/management",
+    /*退款维权(未做)*/
+    "refund_rights"=>"admin/Refund/rights",
+
+
+
+
 
 
     /*测试页面*/
