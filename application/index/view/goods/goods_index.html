@@ -54,7 +54,7 @@
             var len = data.length;
             for(var i = 0; i < len; i++){
                 $('.aui-media-list').append('<li class="aui-list-item">\
-                                                <a href="javascript:;">\
+                                                <a href="{:url("index/Goods/detail")}">\
                                                     <div class="aui-media-list-item-inner">\
                                                         <div class="aui-list-item-media" style="width:6rem">\
                                                             <img src="__UPLOADS__/'+data[i].goods_show_images+'" id="img_'+data[i].id+'">\
@@ -69,8 +69,7 @@
                                                 </a>\
                                             </li>')
             }
-            /*{:url("index/Goods/detail")}*/
-
+            // 发送id 商品列表
             $('.aui-list-item a').click(function(){
                 var list_img_id = $(this).children().find('img')[0].id.split('_')[1];
                 $.ajax({
@@ -79,7 +78,7 @@
                     dataType: 'JSON',
                     async: false,
                     data:{
-                        "id": list_img_id
+                        "goods_id": list_img_id
                     },
                     success: function(data){
                         console.log(data);
