@@ -393,25 +393,9 @@ class User extends Controller{
     }
 
 
-    /**
-     **************李火生*******************
-     * @return \think\response\View
-     * 会员等级
-     **************************************
-     */
-    public function grade(){
-        return view('user_grade');
-    }
 
-    /**
-     **************李火生*******************
-     * @return \think\response\View
-     * 会员等级规则
-     **************************************
-     */
-    public function rule(){
-        return view('user_rule');
-    }
+
+
 
     public function getRegion(){
         $Region=Db::name("tree");

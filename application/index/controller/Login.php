@@ -47,10 +47,15 @@ class Login extends Controller{
            if(!$res && $res == null){
                $this->error("密码错误");
            }
-           if($res)
-           {
-               $_SESSION['user'] =$datas;
-               $this->success('登录成功',url('index/index/index'));
+           if($res){
+               $res =Db::name('user')->where($datas)->where('status',1)->find();
+               if($res)
+               {
+                   $_SESSION['user'] =$datas;
+                   $this->success('登录成功',url('index/index/index'));
+               }else{
+                   $this->error('此用户已被管理员设置停用');
+               }
            }
         }
         return view('login');

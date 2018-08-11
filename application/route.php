@@ -161,8 +161,7 @@ Route::group("admin",[
     "user_shows"=>"admin/User/shows",     //会员查看
     "getRegion"=>"admin/User/getRegion",     //三级地区
     "pass_edit"=>"admin/User/pass_edit",     //会员密码编辑
-    "user_grade"=>"admin/User/grade",  //会员等级
-    "user_rule"=>"admin/User/rule",  //会员规则
+
 
 
 
@@ -172,10 +171,8 @@ Route::group("admin",[
     "evaluation_management"=>"admin/Evaluation/management",
     /*退款维权(未做)*/
     "refund_rights"=>"admin/Refund/rights",
-
-
-
-
+    /*晒单管理（未作）*/
+    'order_sunburn'=>"admin/Order/sunburn",
 
 
     /*测试页面*/
