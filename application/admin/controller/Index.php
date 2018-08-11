@@ -23,7 +23,6 @@ class Index extends Controller{
             $menu_list = Config::get("menu_list");
             return ajax_success("获取成功",$menu_list);
         }
-
         return view("index",["menu_list"=>Config::get("menu_list")]);
     }
 
