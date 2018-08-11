@@ -55,37 +55,6 @@ class Register extends  Controller{
 //        }
         public function index()
         {
-//            if($_POST){
-//                $data = input('post.');
-//                if(empty($data['account'])){
-//                    $this->error('用户名不能为空');
-//                }
-//                if(empty($data['passwd'])){
-//                    $this->error('密码不能为空');
-//                }
-//                if(empty($data['yzm'])){
-//                    $this->error('验证码不能为空');
-//                }
-//                $create_time =date('Y-m-d H:i:s');
-//                $datas=[
-//                    "user_name" => $data['account'],
-//                    "password" => $data['passwd'],
-//                    "create_time" =>$create_time,
-//                    "status"=>1
-//                ];
-//                $name =Db::name('user')->field('user_name')->where('user_name',$data['account'])->find();
-//                if(!empty($name)){
-//                    $this->error("此用户名已被使用");
-//                }
-//                $res = Db::name('user')->insert($datas);
-//                if(!$res && $res == null){
-//                    $this->error("注册失败");
-//                }
-//                if($res)
-//                {
-//                    $this->success('注册成功',url('index/login/login'));
-//                }
-//            }
                 return view('index');
         }
 
@@ -103,23 +72,23 @@ class Register extends  Controller{
                 $code = trim($_POST['mobile_code']);
                 $password =trim($_POST['password']);
                 $confirm_password =trim($_POST['confirm_password']);
+                $create_time =date('Y-m-d H:i:s');
 
                 if($password !==$confirm_password ){
-                    $this->error('两个密码不相同');
+                    $this->error('两次密码不相同');
                 }
                 if (strlen($mobile) != 11 || substr($mobile, 0, 1) != '1' || $code == '') {
                     $this->error("参数不正确");
                 }
-                if ($_SESSION['mobileCode'] != $code || $_SESSION['mobile'] != $mobile) {
+                if (session('mobileCode') != $code) {
                     $this->error("验证码不正确");
                 }
                 $data =[
                   'phone_num'=>$mobile,
-                    'password'=>$password
+                    'password'=>md5($password),
+                    'create_time'=>strtotime($create_time),
+                    "status"=>1
                 ];
-                unset($_SESSION['mobile']);
-                unset($_SESSION['mobileCode']);
-
                 $res =Db::name('user')->data($data)->insert();
                 if($res){
                     $this->success("注册成功",url('index/Login/login'));
@@ -156,6 +125,10 @@ class Register extends  Controller{
             //接受验证码的手机号码
             if ($request->isPost()) {
                 $mobile = $_POST["mobile"];
+              $res =  Db::name('user')->field('phone_num')->where('phone_num',$mobile)->select();
+              if($res){
+                  $this->error('此手机号已经注册');
+              }
                 $mobileCode = rand(100000, 999999);
                 $arr = json_decode($mobile, true);
                 $mobiles = strlen($arr);
@@ -163,8 +136,9 @@ class Register extends  Controller{
                     $this->error("手机号码不正确");
                 }
                 //存入session中
-                if (strlen($mobileCode) > 0) {
-                    $_SESSION['mobileCode'] = $mobileCode;
+                if (strlen($mobileCode)> 0) {
+                    session('mobileCode',$mobileCode);
+//                    $_SESSION['mobileCode'] = $mobileCode;
                     $_SESSION['mobile'] = $mobile;
                 }
                 $content = "尊敬的用户，您本次验证码为{$mobileCode}，十分钟内有效";
