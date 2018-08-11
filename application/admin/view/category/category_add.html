@@ -1,36 +1,37 @@
 {extend name="layout"}
 {block name="css"}
-    <style>
-        .wrapper{
-            width: 500px;
-            height: 500px;
-            margin: 30px auto 0;
-        }
-        .wrapper form{
-            display: flex;
-            flex-direction: column;
-        }
-        .submit{
-            background-color: dodgerblue;
-            border: 0;
-            font-size: 16px;
-            color: #fff;
-            height: 30px;
-        }
-        .input{
-            outline: none;
-            border: 1px solid #ccc;
-            padding: 4px 0 4px 4px;
-            font-size: 16px !important;
-        }
-        .selected{
-            height: 32px;
-        }
-    </style>
+<style>
+    .wrapper{
+        width: 500px;
+        height: 500px;
+        margin: 30px auto 0;
+    }
+    .wrapper form{
+        display: flex;
+        flex-direction: column;
+    }
+    .submit{
+        background-color: dodgerblue;
+        border: 0;
+        font-size: 16px;
+        color: #fff;
+        height: 30px;
+        margin-top: 20px;
+    }
+    .input{
+        outline: none;
+        border: 1px solid #ccc;
+        padding: 4px 0 4px 4px;
+        font-size: 16px !important;
+    }
+    .selected{
+        height: 32px;
+    }
+</style>
 {/block}
 {block name="content"}
 <div class="wrapper">
-    <form action="{:url('admin/Category/save')}" method="post">
+    <form action="{:url('admin/Category/save')}" method="post" enctype="multipart/form-data">
         <label id=""><span>商品分类名称</span></label>
         <input type="text" name="name" value="" class="input"><br>
         <label><span>状态</span></label>
@@ -49,6 +50,8 @@
         {/if}
         <label class=""><span>菜单排序</span></label>
         <input type="text" name="sort_number" class="input"><br>
+        <label class=""><span>商品分类图片</span></label>
+        <input type="file" name="type_images">
         <input type="submit" class="submit" value="提交">
     </form>
 </div>
