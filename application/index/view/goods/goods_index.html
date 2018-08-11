@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>手袋购物网</title>
+    <link rel="icon" type="image/x-icon" href="__STATIC__/index/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/css/aui.css" />
+</head>
+<body>
+<header class="aui-bar aui-bar-nav" id="aui-header">
+    <a class="aui-btn aui-pull-left" tapmode="" onclick="javascript:history.back(-1);">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">商品列表</div>
+</header>
+<div class="aui-content aui-margin-b-15">
+    <ul class="aui-list aui-media-list">
+        <!-- <li class="aui-list-item">
+            <a href='{:url("index/Goods/detail")}'>
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width:6rem">
+                        <img src="__STATIC__/index/image/demo/pa1.jpg" data-src="http://www.auicss.com/demo/image/1.jpg">
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title">[为你推荐]kaman抽屉式化妆品收纳盒大号创意护肤桌面收纳盒塑料口红置物架</div>
+                        </div>
+                        <div><span class="aui-margin-l-5">￥39.00</span></div>
+                    </div>
+                </div>
+            </a>
+        </li> -->
+    </ul>
+</div>
+</body>
+<script type="text/javascript" src="__STATIC__/index/js/index/aui-lazyload.js" ></script>
+<script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    new auiLazyload({
+        errorImage:'../image/error-img.png'
+    });
+</script>
+<script>
+    $.ajax({
+        url: '{:url("index/Goods/index")}',
+        type: 'POST',
+        dataType: 'json',
+        async: false,
+        success: function(data){
+            console.log(data);
+            var data = data.data;
+            var len = data.length;
+            for(var i = 0; i < len; i++){
+                $('.aui-media-list').append('<li class="aui-list-item">\
+                                                <a href="javascript:;">\
+                                                    <div class="aui-media-list-item-inner">\
+                                                        <div class="aui-list-item-media" style="width:6rem">\
+                                                            <img src="__UPLOADS__/'+data[i].goods_show_images+'" id="img_'+data[i].id+'">\
+                                                        </div>\
+                                                        <div class="aui-list-item-inner">\
+                                                            <div class="aui-list-item-text">\
+                                                                <div class="aui-list-item-title">'+data[i].goods_name+'</div>\
+                                                            </div>\
+                                                            <div><span class="aui-margin-l-5">￥'+data[i].goods_bottom_money+'</span></div>\
+                                                        </div>\
+                                                    </div>\
+                                                </a>\
+                                            </li>')
+            }
+            /*{:url("index/Goods/detail")}*/
+
+            $('.aui-list-item a').click(function(){
+                var list_img_id = $(this).children().find('img')[0].id.split('_')[1];
+                $.ajax({
+                    url: '{:url("index/Goods/goods_id")}',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    async: false,
+                    data:{
+                        "id": list_img_id
+                    },
+                    success: function(data){
+                        console.log(data);
+                    },
+                    error: function(){
+                        console.log('错误');
+                    }
+                    
+                })
+            })
+
+        },
+        error: function(){
+            console.log('错误')
+        }
+    })
+</script>
+</html>

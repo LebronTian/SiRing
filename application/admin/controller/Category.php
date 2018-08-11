@@ -7,8 +7,12 @@
  */
 
 namespace app\admin\controller;
+
+use think\console\Input;
 use think\Controller;
+use think\Db;
 use think\Request;
+use think\Image;
 
 class Category extends Controller{
 
@@ -40,13 +44,14 @@ class Category extends Controller{
 
 
     /**
-     * [商品入库]
+     * [商品分组入库]
      * 陈绪
      */
     public function save(Request $request){
-
         if($request->isPost()){
             $data = $request->param();
+            $show_images = $request->file("type_images")->move(ROOT_PATH . 'public' . DS . 'type');
+            $data["type_images"] = str_replace("\\","/",$show_images->getSaveName());
             $bool = db("goods_type")->insert($data);
             if($bool){
                 $this->success("添加成功",url("admin/Category/index"));
@@ -78,12 +83,16 @@ class Category extends Controller{
      * @param $id
      */
     public function updata(Request $request){
-        $data = $request->param();
-        $bool = db("goods_type")->where('id',$request->only(["id"])["id"])->update($data);
-        if ($bool){
-            $this->success("编辑成功",url("admin/Category/index"));
-        }else{
-            $this->error("编辑失败",url("admin/Category/edit"));
+        if($request->isPost()) {
+            $data = $request->only(["name", "status", "sort_number", "pid"]);
+            $show_images = $request->file("type_images")->move(ROOT_PATH . 'public' . DS . 'type');
+            $data["type_images"] = str_replace("\\", "/", $show_images->getSaveName());
+            $bool = db("goods_type")->where('id', $request->only(["id"])["id"])->update($data);
+            if ($bool) {
+                $this->success("编辑成功", url("admin/Category/index"));
+            } else {
+                $this->error("编辑失败", url("admin/Category/edit"));
+            }
         }
     }
 

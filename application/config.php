@@ -144,6 +144,7 @@ return [
         "__UPLOAD__"=>"/SiRing/public/upload",
         "__UPLOADS__"=>"/SiRing/public/uploads",
         "__UEDITOR__"=>"/SiRing/public/ueditor",
+        "__TYPE__"=>"/SiRing/public/type",
         "__INDEX__"=>"/SiRing/public/",
     ],
     // 默认跳转页面对应的模板文件
