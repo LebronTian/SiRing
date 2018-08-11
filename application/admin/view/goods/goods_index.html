@@ -164,7 +164,11 @@
                 {else }
                 {volist name="goods" id="value"}
                 <tr class="text-c va-m">
+<<<<<<< HEAD
                     <td><input name="" class="inputs" type="checkbox" value=""></td>
+=======
+                    <td><input name="" type="checkbox" value=""></td>
+>>>>>>> befb030f29619ebb41dc5ae30bee8cf07d9a6b4c
                     <td id="ids_{$value.id}">{$value.id}</td>
                     <td><img width="60" class="product-thumb" src="__UPLOADS__/{$value.goods_show_images}"></td>
                     <td class="text-l">
@@ -403,10 +407,30 @@ function product_edit(title,url,id){
     })
 </script>>
 <script>
-    function datadel() {
-        var allInput = $('.tbody').children().find('input');
-        console.log(allInput[0].selected)
-    }
-
+        function datadel() {
+            var allInput = $('.tbody').children().find('input');
+            var input_len = allInput.length;
+            var input_id;
+            for(var i = 0; i < input_len; i++){
+                if(allInput[i].checked){
+                    input_id = $(allInput[i]).parents('td').siblings()[0].id.split('_')[1]
+                }
+            }
+            $.ajax({
+                url: "{:url('')}",
+                type: "POST",
+                dataType: 'JSON',
+                async: false,
+                data: {
+                    "ids": input_id
+                },
+                success: function(data){
+                    console.log(data)
+                },
+                error: function(){
+                    console.log('错误');
+                }
+            })
+        }
 </script>
 {/block}

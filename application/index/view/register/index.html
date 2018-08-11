@@ -19,73 +19,27 @@
     <div class="h-mid">用户注册</div>
 </header>
 <div id="tbh5v0">
-    <!--<script type="text/javascript">-->
-
-    <!--$().ready(function(){-->
-
-    <!--setCurrentForm($("#mobileForm"));-->
-
-    <!--//判断点击验证码-->
-    <!--var is_mob_log = true;-->
-    <!--$("#mobileForm").find(".check-code-img").click();-->
-    <!--//登录切换-->
-    <!--$("#logRegTab li").bind("click", function () {-->
-    <!--if (this.id == "mob_log") {-->
-
-    <!--if(is_mob_log){-->
-    <!--return;-->
-    <!--}-->
-    <!--is_mob_log = true;-->
-    <!--$("#mob_log").removeClass("currl");-->
-    <!--$("#acc_log").addClass("currr");-->
-    <!--$("#phonearea").removeClass("hide");-->
-    <!--$("#accountarea").addClass("hide");-->
-
-    <!--setCurrentForm($("#mobileForm"));-->
-
-    <!--$("#mobileForm").find(".check-code-img").click();-->
-    <!--} else {-->
-    <!--if(!is_mob_log){-->
-    <!--return;-->
-    <!--}-->
-    <!--is_mob_log = false;-->
-    <!--$("#acc_log").removeClass("currr");-->
-    <!--$("#mob_log").addClass("currl");-->
-    <!--$("#phonearea").addClass("hide");-->
-    <!--$("#accountarea").removeClass("hide");-->
-
-    <!--setCurrentForm($("#emailForm"));-->
-
-    <!--$("#emailForm").find(".check-code-img").click();-->
-    <!--}-->
-    <!--$(".btn_log").css("color","#FFFEFE");-->
-
-    <!--});-->
-    <!--});-->
-    <!--</script>-->
-
-
     <div class="log_reg_box">
-        <ul class="tab" id="logRegTab">
-            <li id="mob_log" class="curr" style="cursor:pointer;">
-						<span>
-							<font>手机注册</font>
-						</span>
-            </li>
-            <li id="acc_log" class="curr currr" style="cursor:pointer;">
-						<span>
-							<font>邮箱注册</font>
-						</span>
-            </li>
-        </ul>
+        <!--<ul class="tab" id="logRegTab">-->
+            <!--<li id="mob_log" class="curr" style="cursor:pointer;">-->
+						<!--<span>-->
+							<!--<font>手机注册</font>-->
+						<!--</span>-->
+            <!--</li>-->
+            <!--&lt;!&ndash;<li id="acc_log" class="curr currr" style="cursor:pointer;">&ndash;&gt;-->
+						<!--&lt;!&ndash;<span>&ndash;&gt;-->
+							<!--&lt;!&ndash;<font>邮箱注册</font>&ndash;&gt;-->
+						<!--&lt;!&ndash;</span>&ndash;&gt;-->
+            <!--&lt;!&ndash;</li>&ndash;&gt;-->
+        <!--</ul>-->
         <div id="logRegTabCon">
             <div class="log_reg_item" id="phonearea">
-                <form action="" id="mobileForm" name="mobileForm" method="post">
+                <form action="{:url('index/register/doRegByPhone')}" id="mobileForm" name="mobileForm" method="post">
                     <input type="hidden" id="register_type" name="register_type" value="mobile"/>
 
                     <div class="field phone">
                         <input type="text" id="mobile" name="mobile" placeholder="手机号" class="c-form-txt-normal"
-                               onblur="checkMobilePhone(this);"/>
+                               />
                         <div class="tips">
                             <span id="mobile_phone_notice"></span>
                         </div>
@@ -105,9 +59,6 @@
                         </div>
                     </div>
                     <div class="field no">
-                        <!--<div class="ptxt st">-->
-                        <!--<input type="text" name="extend_field1" value="" placeholder="重点用户" id="extend_field_1" class="c-f-text" />-->
-                        <!--</div>-->
                         <div class="tips">
                             <span id="1_notice"> </span>
                         </div>
@@ -122,9 +73,11 @@
                         </div>
                     </div>
                     <input type="submit" name="Submit" class="btn_big1" value="注 册"/>
-                    <input type="hidden" name="act" value="register"/>
-                    <input type="hidden" name="back_act" value=""/>
+                    <!--<input type="hidden" name="act" value="register"/>-->
+                    <!--<input type="hidden" name="back_act" value=""/>-->
                 </form>
+
+
             </div>
             <div class="log_reg_item hide" id="accountarea">
                 <form action="" method="post" id="emailForm" name="emailForm">
@@ -149,8 +102,7 @@
                     </div>
                     <div class="field pwd">
                         <div>
-                            <input type="password" name="confirm_password" id="confirm_password"
-                                   onblur="check_confirm_password(this.value);" value="" placeholder="确认密码"
+                            <input type="password" name="confirm_password" id="confirm_password" value="" placeholder="确认密码"
                                    class="c-form-txt-normal">
                         </div>
                         <div class="tips">
@@ -170,8 +122,6 @@
                     <input type="submit" name="Submit" class="btn_big1" style="cursor:pointer;" value="注 册"/>
                     <input type="hidden" name="act" value="register"/>
                     <input type="hidden" name="back_act" value=""/>
-
-
                 </form>
             </div>
         </div>
@@ -182,24 +132,10 @@
             <a href="login.html">
                 <span>登录</span>
             </a>
-
             <a href="#">
                 <span>反馈</span>
             </a>
-            <a href="javascript:window.scrollTo(0,0);">
-                <span>回顶部</span>
-            </a>
         </div>
-        <ul class="linkss">
-            <li>
-                <a href="#">
-                    <i class="footerimg_1"></i>
-                    <span>客户端</span></a></li>
-            <li>
-                <a href="javascript:;"><i class="footerimg_2"></i><span class="gl">触屏版</span></a></li>
-            <li><a href="" class="goDesktop"><i class="footerimg_3"></i><span>电脑版</span></a></li>
-        </ul>
-        <p class="mf_o4">&copy; 2018-2018</p>
     </div>
 </div>
 <script>
@@ -228,7 +164,12 @@
             data: {'mobile': mobile},
             dataType: "json",
             success: function (data) {
-                console.log(data);
+                if(data.status==1){
+                    alert(data.info);
+                }
+                if(data.code==0){
+                    alert(data.msg);
+                }
             },
             error: function () {
                 console.log("错误");
@@ -236,61 +177,33 @@
         })
     }
 </script>
-<script>
-    $('#btn_submit1').click(function () {
-        /*手机*/
-        var mobile_phone = $('#mobile').val();
-        var password = $('#password').val();
-        var confirm_password = $('#confirm_password').val();
-        var mobile_code = $('#mobile_code').val();
 
-        $.ajax({
-            url: "{:url('index/register/doRegByPhone')}",
-            type: 'POST',
-            async: false,
-            dataType: 'json',
-            data: {
-                "mobile_phone": mobile_phone,
-                "password": password,
-                "confirm_password": confirm_password,
-                "mobile_code": mobile_code,
-            },
-            success: function (data) {
-                aler(data);
-                alert(data.msg);
-            },
-            error: function (data) {
-                console.log('失败');
-            }
-        })
-    })
-</script>
-<script>
-    $('#btn_submit2').click(function () {
-        /*邮箱*/
-        var password = $('#password').val();
-        var confirm_password = $('#confirm_password').val();
-        var email = $('#email').val();
-        var email_code = $('#email_code').val();
-        $.ajax({
-            url: "{:url('index/register/doRegByEmail')}",
-            type: 'POST',
-            async: false,
-            dataType: 'json',
-            data: {
-                "password": password,
-                "confirm_password": confirm_password,
-                "email_code": email_code,
-                "email": email,
-            },
-            success: function (data) {
-                alert(data.msg);
-            },
-            error: function (data) {
-                console.log('失败');
-            }
-        })
-    })
-</script>
+<!--<script>-->
+    <!--$('#btn_submit2').click(function () {-->
+        <!--/*邮箱*/-->
+        <!--var password = $('#password').val();-->
+        <!--var confirm_password = $('#confirm_password').val();-->
+        <!--var email = $('#email').val();-->
+        <!--var email_code = $('#email_code').val();-->
+        <!--$.ajax({-->
+            <!--url: "{:url('index/register/doRegByEmail')}",-->
+            <!--type: 'POST',-->
+            <!--async: false,-->
+            <!--dataType: 'json',-->
+            <!--data: {-->
+                <!--"password": password,-->
+                <!--"confirm_password": confirm_password,-->
+                <!--"email_code": email_code,-->
+                <!--"email": email,-->
+            <!--},-->
+            <!--success: function (data) {-->
+                <!--alert(data.msg);-->
+            <!--},-->
+            <!--error: function (data) {-->
+                <!--console.log('失败');-->
+            <!--}-->
+        <!--})-->
+    <!--})-->
+<!--</script>-->
 </body>
 </html>

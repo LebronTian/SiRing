@@ -23,8 +23,16 @@ class  Order extends  Controller{
     }
 
 
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 晒单
+     **************************************
+     */
+    public function sunburn(){
 
-
+        return view('order_sunburn');
+    }
 
 
 
