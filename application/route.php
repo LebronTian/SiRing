@@ -22,9 +22,9 @@ Route::group("",[
 
 
     /*商品列表*/
-    "cat_index"=>"index/Cat/index",
-    "cat_detail"=>"index/Cat/detail",
-    "cat_id"=>"index/Cat/ajax_id",
+    "goods_index"=>"index/Goods/index",
+    "goods_detail"=>"index/Goods/detail",
+    "goods_id"=>"index/Goods/ajax_id",
 
 
     /*分类*/

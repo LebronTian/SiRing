@@ -25,13 +25,13 @@ class  Classify extends  Controller{
 
 
     /**
-     * [商品显示]
+     * [商品分类显示]
      * 陈绪
      */
     public function show(Request $request){
         if ($request->isPost()){
-            $goods = db("goods")->where("goods_type_id",$request->param("goods_type_id"))->select();
-            return ajax_success("获取成功",$goods);
+            $goods_type = db("goods_type")->where("id",$request->param("goods_type_id"))->select();
+            return ajax_success("获取成功",$goods_type);
         }
 
     }
