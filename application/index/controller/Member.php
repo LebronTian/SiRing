@@ -9,7 +9,13 @@ namespace  app\index\controller;
 
 use think\Controller;
 
-class  Member extends  Controller{
+class  Member extends  Base {
+    /**
+     **************李火生*******************
+     * @return \think\response\View]
+     * 用户页面
+     **************************************
+     */
     public  function  index(){
         return view('member_index');
     }
