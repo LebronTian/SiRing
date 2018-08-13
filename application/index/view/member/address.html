@@ -52,20 +52,58 @@
 <body>
     <div class="wrapper">
         <div class="top">填写信息</div>
-        <input type="text" placeholder="收件人">
-        <input type="text" placeholder="联系电话">
-        <select name="" id="priv">
+        <input type="text" placeholder="收件人" class="addressee">
+        <input type="text" placeholder="联系电话" class="phone_num">
+        <select name="" id="prov"> 
             <option value="">请选择</option>
+            <option value="广东">广东</option>
+            <option value="湖南">湖南</option>
         </select>
         <select name="" id="city">
             <option value="">请选择</option>
+            <option value="">长沙</option>
+            <option value="">深圳</option>
         </select>
         <select name="" id="town">
             <option value="">请选择</option>
+            <option value="">111</option>
+            <option value="">222</option>
         </select>
-        <input type="text" placeholder="详细地址">
+        <input type="text" placeholder="详细地址" class="detail_add">
         <button href="javascript:;" class="confirm">确认</button>
         <button href="javascript:;" class="cancel">取消</button>
     </div>
 </body>
+
+<script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    $('.confirm').click(function(){
+        var addressee = $('.addressee').val();
+        var phone_num = $('.phone_num').val();
+        var province = $('#prov option:selected').html();
+        var city = $('#city option:selected').html();
+        var town = $('#town option:selected').html();
+        var detail_add = $('.detail_add').val();
+        $.ajax({
+            url: '{:url("admin/User/save")}',
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            data: {
+                'addressee': addressee,
+                'phone_num': phone_num,
+                'province': province,
+                'city': city,
+                'town': town,
+                'detail_add': detail_add
+            },
+            success: function(data){
+                console.log(data)
+            },
+            error: function(){
+                console.log('错误')
+            }
+        })
+    })
+</script>
 </html>
