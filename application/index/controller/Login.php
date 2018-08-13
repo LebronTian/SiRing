@@ -51,8 +51,8 @@ class Login extends Controller{
                $res =Db::name('user')->where($datas)->where('status',1)->find();
                if($res)
                {
-//                   $_SESSION['member'] =$datas;
-                   session('member',$datas);
+                   $_SESSION['member'] =$datas;
+//                   session('member',$datas);
                    $this->success('登录成功',url('index/index/index'));
                }else{
                    $this->error('此用户已被管理员设置停用');
@@ -68,7 +68,7 @@ class Login extends Controller{
      **************************************
      */
     public function logout(){
-        session('member',null);
+        Session('member',null);
         $this->success('退出成功',url('index/Login/login'));
     }
     /**
