@@ -44,7 +44,7 @@ Route::group("",[
 
     /*确认订单*/
     "order_index"=>"index/Order/index",
-
+    "common_id"=>"index/Order/common_id",
 
     /*登录页面*/
     "login"=>"index/Login/login",
@@ -135,6 +135,7 @@ Route::group("admin",[
     "images_del"=>"admin/Goods/images",
     "goods_status"=>"admin/Goods/status",
     "goods_batches"=>"admin/Goods/batches",
+    "goods_putaway"=>"admin/Goods/putaway",
 
 
     /*商品分类*/

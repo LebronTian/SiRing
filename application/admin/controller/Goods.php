@@ -13,13 +13,13 @@ use think\Controller;
 use think\Db;
 use think\Request;
 use think\Image;
+use app\admin\model\Good;
+use app\admin\model\GoodsImages;
+use think\Session;
 
 class Goods extends Controller{
 
-    protected $goods_status = [
-        0=>'1',
-        1=>'0'
-    ];
+    protected $goods_status = ["0","1"];
     /**
      * [商品列表]
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
@@ -223,15 +223,35 @@ class Goods extends Controller{
 
         if ($request->isPost()){
             $goods_id = $request->only(['id'])['id'];
-            $goods_status["goods_status"] = $this->goods_status[1];
+            $goods_status["goods_status"] = $this->goods_status[0];
             $bool = db("goods")->where("id",$goods_id)->update($goods_status);
             if ($bool){
-                return 1;
+                return ajax_success("更新成功");
             }else{
-                return 0;
+                return ajax_error("更新失败");
             }
         }
 
+    }
+
+
+    /**
+     * [商品上架]
+     * 陈绪
+     * @param Request $request
+     * @return
+     */
+    public function putaway(Request $request){
+        if ($request->isPost()){
+            $goods_id = $request->only(['id'])['id'];
+            $goods_status["goods_status"] = $this->goods_status[1];
+            $bool = db("goods")->where("id",$goods_id)->update($goods_status);
+            if ($bool){
+                return ajax_success("更新成功");
+            }else{
+                return ajax_error("更新失败");
+            }
+        }
     }
 
     /**
@@ -239,9 +259,24 @@ class Goods extends Controller{
      * 陈绪
      */
     public function batches(Request $request){
-        if($request->isPost()){
+        if($request->isPost()) {
             $id = $request->only(["ids"])["ids"];
-            halt($id);
+            foreach ($id as $value) {
+                $goods_url = db("goods")->where("id", $value)->select();
+                $goods_images = db("goods_images")->where("goods_id", $value)->select();
+                unlink(ROOT_PATH . 'public' . DS . 'uploads/'.$goods_url[0]['goods_show_images']);
+                foreach ($goods_images as $val) {
+                    unlink(ROOT_PATH . 'public' . DS . 'upload/' . $val['goods_images']);
+                    GoodsImages::destroy($val);
+                }
+                $bool = Good::destroy($value);
+            }
+            if ($bool) {
+                return ajax_success("删除成功");
+            } else {
+                return ajax_error("删除失败");
+            }
+
         }
     }
 
