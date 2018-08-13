@@ -19,4 +19,11 @@ class  Member extends  Base {
     public  function  index(){
         return view('member_index');
     }
+
+    public function  address(){
+        return view('address');
+    }
+
+
+
 }
