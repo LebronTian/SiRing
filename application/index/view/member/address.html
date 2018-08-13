@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>手袋购物网</title>
+    <style>
+        .wrapper{
+            width: 100%;
+        }
+        .top{
+            width: 100%;
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid #eee;
+        }
+        .wrapper input{
+            width: 96%;
+            height: 34px;
+            padding: 5px 0 5px 10px;
+            box-sizing: border-box;
+            margin-bottom: 14px;
+        }
+        .wrapper select{
+            width: 96%;
+            height: 34px;
+            margin-bottom: 14px;
+        }
+        .wrapper .confirm{
+            width: 96%;
+            height: 40px;
+            background-color:  rgba(102, 194, 10, 1);
+            border: 1px solid  rgba(102, 194, 0, 1);
+            border-radius: 5px;
+            color: #fff;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .wrapper .cancel{
+            width: 96%;
+            height: 40px;
+            background-color:  rgba(248, 84, 68, 1);
+            border: 1px solid  rgba(248, 84, 68, 1);
+            border-radius: 5px;
+            color: #fff;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="top">填写信息</div>
+        <input type="text" placeholder="收件人">
+        <input type="text" placeholder="联系电话">
+        <select name="" id="priv">
+            <option value="">请选择</option>
+        </select>
+        <select name="" id="city">
+            <option value="">请选择</option>
+        </select>
+        <select name="" id="town">
+            <option value="">请选择</option>
+        </select>
+        <input type="text" placeholder="详细地址">
+        <button href="javascript:;" class="confirm">确认</button>
+        <button href="javascript:;" class="cancel">取消</button>
+    </div>
+</body>
+</html>
