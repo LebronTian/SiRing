@@ -134,6 +134,7 @@ Route::group("admin",[
     "goods_del"=>"admin/Goods/del",
     "images_del"=>"admin/Goods/images",
     "goods_status"=>"admin/Goods/status",
+    "goods_batches"=>"admin/Goods/batches",
 
 
     /*商品分类*/

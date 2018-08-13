@@ -13,6 +13,8 @@ use think\Controller;
 use think\Db;
 use think\Request;
 use think\Image;
+use app\admin\model\Good;
+use app\admin\model\GoodsImages;
 
 class Goods extends Controller{
 
@@ -239,8 +241,25 @@ class Goods extends Controller{
      * 陈绪
      */
     public function batches(Request $request){
-        $ids = $request->param('id');
-        halt($ids);
+        if($request->isPost()) {
+            $id = $request->only(["ids"])["ids"];
+            foreach ($id as $value) {
+                $goods_url = db("goods")->where("id", $value)->select();
+                $goods_images = db("goods_images")->where("goods_id", $value)->select();
+                unlink(ROOT_PATH . 'public' . DS . 'uploads/'.$goods_url[0]['goods_show_images']);
+                foreach ($goods_images as $val) {
+                    unlink(ROOT_PATH . 'public' . DS . 'upload/' . $val['goods_images']);
+                    GoodsImages::destroy($val);
+                }
+                $bool = Good::destroy($value);
+            }
+            if ($bool) {
+                return ajax_success("删除成功");
+            } else {
+                return ajax_error("删除失败");
+            }
+
+        }
     }
 
 
