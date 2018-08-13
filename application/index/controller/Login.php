@@ -68,7 +68,7 @@ class Login extends Controller{
      **************************************
      */
     public function logout(){
-        session('member',null);
+        Session('member',null);
         $this->success('退出成功',url('index/Login/login'));
     }
     /**
