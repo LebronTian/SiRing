@@ -44,7 +44,7 @@ Route::group("",[
 
     /*确认订单*/
     "order_index"=>"index/Order/index",
-
+    "common_id"=>"index/Order/common_id",
 
     /*登录页面*/
     "login"=>"index/Login/login",

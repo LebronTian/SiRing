@@ -748,21 +748,17 @@
 </script>
 <script>
 	$("#buy_now").click(function () {
-        alert(121212);
         $.ajax({
-            url: '{:url("index/Order/common_id")}',
-            type: 'POST',
-            dataType: 'JSON',
-            async: false,
-            success: function(data){
-                alert(222);
-                location.href='order_index'
+            type:'POST',
+            url:'{:url("index/Order/common_id")}',
+            dataType:'JSON',
+            success:function(data){
                 console.log(data);
+                    location.href='order_index'
             },
-            error: function(data){
-                alert(333);
+            error: function(){
+                console.log('未登录');
                 window.location.href ="login";
-                console.log(data);
             }
 
         })
