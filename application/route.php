@@ -40,6 +40,7 @@ Route::group("",[
 
     /*我的页面*/
     "member_index"=>"index/Member/index",
+    /*收货地址*/
 
 
     /*确认订单*/

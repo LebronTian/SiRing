@@ -12,6 +12,7 @@ use think\Controller;
 class Findpwd extends Controller{
 
     public function findPwd(){
+
         return view('findPwd');
     }
 }
