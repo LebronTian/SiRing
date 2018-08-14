@@ -399,10 +399,6 @@
 			</div>
 			<!--延保end-->
 		</div>
-		<!--<div class="flick-menu-btn spec-menu-btn">-->
-			<!--<a class="yellow-color add_cart" id="add_cart_spec" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">加入购物车</a>-->
-			<!--<a class="red-color directorder" id="directorder_spec"  style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">立即购买</a>-->
-		<!--</div>-->
 	</div>
 </div>
 <!-- 弹出 -->
@@ -415,7 +411,7 @@
 		<i class="aui-iconfont aui-icon-star aui-text-warning"></i>
 		<div class="aui-bar-tab-label aui-text-warning">收藏</div>
 	</div>
-	<div class="aui-bar-tab-item aui-bg-warning aui-text-white" tapmode style="width: auto;" onclick="javascript:location.href='cat_index';">加入购物车</div>
+	<div class="aui-bar-tab-item aui-bg-warning aui-text-white" tapmode style="width: auto;" id="add_to_cart">加入购物车</div>
 	<div class="aui-bar-tab-item aui-bg-danger aui-text-white" tapmode style="width: auto;"  id="buy_now">立即购买</div>
 </footer>
 <script type="text/javascript" src="__STATIC__/index/js/index/api.js"></script>
@@ -444,6 +440,7 @@
 				// 标题
 				$('.goods_desc').html('<i><img src="__STATIC__/index/image/l.png" alt=""></i>\
 										<span>促销</span>'+data.goods_name+'');
+				$('.goods_desc')[0].id = "desc_" + data.id;
 				// 价格
 				$('.price').html('￥'+data.goods_bottom_money+'');
 			},
@@ -752,7 +749,7 @@
 	    /*商品名*/
 	    var goods_name = $('.goods_desc').html();
 	    /*价格*/
-	  var price =  $('.price').html();
+	  	var price =  $('.price').html();
 
         $.ajax({
             type:'POST',
@@ -766,6 +763,54 @@
             success:function(data){
                 console.log(data);
                     location.href='order_index'
+            },
+            error: function(){
+                console.log('未登录');
+                window.location.href ="login";
+            }
+
+        })
+    });
+	// 加入购物车
+	$("#buy_now").click(function () {
+	    /*商品名*/
+	    var goods_name = $('.goods_desc').html();
+	    /*价格*/
+	  	var price =  $('.price').html();
+
+        $.ajax({
+            type:'POST',
+            url:'{:url("index/Order/common_id")}',
+            dataType:'JSON',
+			data:{
+                "goods_name":goods_name,
+                "price":price
+			},
+
+            success:function(data){
+                console.log(data);
+                location.href='order_index'
+            },
+            error: function(){
+                console.log('未登录');
+                window.location.href ="login";
+            }
+
+        })
+    });
+	// 加入购物车
+	$("#add_to_cart").click(function(){
+		var myid = $('.goods_desc')[0].id.split('_')[1];
+        $.ajax({
+            type:'POST',
+            url:'{:url("index/Shopping/ajax_id")}',
+            dataType:'JSON',
+			data:{
+                'id':myid
+			},
+            success:function(data){
+                console.log(data);
+                location.href='cat_index';
             },
             error: function(){
                 console.log('未登录');

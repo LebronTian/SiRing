@@ -1,0 +1,38 @@
+{extend name="layout"}
+
+
+{block name="css"}
+
+<!--自定义内容-->
+
+
+{/block}
+
+
+{block name="content"}
+<form id="CategoryAdd" action="{:url('admin/Seckill/updata')}" method="post">
+    {volist name="seckill" id="value"}
+    <label class="form-label col-xs-4 col-sm-3"><span>商品id</span></label>
+    <input type="text" name="goods_id" style="margin-bottom: 20px;" value="{$value.goods_id}"><span>请到商品列表查找想要填写的商品id号</span><br/>
+    <label class="form-label col-xs-4 col-sm-3" ><span>开始秒杀</span></label>
+    <select name="status">
+        <option value="1">上架</option>
+        <option value="0">上架</option>
+    </select><br>
+    <label class="form-label col-xs-4 col-sm-3"><span>秒杀价格</span></label>
+    <input type="text" name="seckill_money" style="margin-bottom: 20px;" value="{$value.seckill_money}"><br/>
+    <input class="am-animation-slide-left am-field-valid" style="width: 16em ;" type="datetime-local" name="start_time"><br>
+    <small>秒杀开始时间</small><br>
+    <input class="am-animation-slide-left am-field-valid" style="width: 16em ;" type="datetime-local" name="over_time"><br>
+    <small>秒杀结束时间</small><br>
+    <input type="hidden" value="{$value.id}" name="id">
+    <input type="submit" value="提交">
+    {/volist}
+</form>
+
+{/block}
+
+
+{block name="bottom"}
+
+{/block}
