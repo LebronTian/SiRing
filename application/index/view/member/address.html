@@ -83,8 +83,9 @@
 
         <select name="town" id="town"  >
             <option value="0">镇/区</option>
+
         </select>
-        <input type="text" placeholder="详细地址">
+        <input type="text" placeholder="详细地址" class="detail_add">
         <button href="javascript:;" class="confirm">确认</button>
         <button href="javascript:;" class="cancel">取消</button>
         </form>
@@ -114,4 +115,36 @@
         }
     </script>
 </body>
+
+<script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    $('.confirm').click(function(){
+        var addressee = $('.addressee').val();
+        var phone_num = $('.phone_num').val();
+        var province = $('#prov option:selected').html();
+        var city = $('#city option:selected').html();
+        var town = $('#town option:selected').html();
+        var detail_add = $('.detail_add').val();
+        $.ajax({
+            url: '{:url("admin/User/save")}',
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            data: {
+                'addressee': addressee,
+                'phone_num': phone_num,
+                'province': province,
+                'city': city,
+                'town': town,
+                'detail_add': detail_add
+            },
+            success: function(data){
+                console.log(data)
+            },
+            error: function(){
+                console.log('错误')
+            }
+        })
+    })
+</script>
 </html>
