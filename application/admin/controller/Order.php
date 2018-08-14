@@ -21,22 +21,72 @@ class  Order extends  Controller{
      */
     public function index(){
         $data =Db::name('order')->order('create_time',"desc")->select();
-        $this->assign('data',$data);
+        if(!empty($data)){
+            $this->assign('data',$data);
+        }
         return view('order_index');
     }
-
     /**
      **************李火生*******************
      * @param Request $request
-     * 获取订单信息
+     * 模糊查询
      **************************************
      */
-    public function order_info(Request $request){
+    public function search(Request $request){
         if($request->isPost()){
-            $data =Db::name('order')->order('create_time',"desc")->select();
-//            return ajax_success('获取成功',$data);
+            $keywords =input('search_key');
+            $timemin  =strtotime(input('datemin'));
+            $timemax  =strtotime(input('datemax'));
+            if(empty($timemin)||empty($timemax)){
+                $condition = " `goods_name` like '%{$keywords}%' or `id` like '%{$keywords}%' or`user_id` like '%{$keywords}%'";
+                $res = Db::name("order")->where($condition)->select();
+                return ajax_success('成功',$res);
+            }
+            if(!empty($timemin)&&!empty($timemax)){
+                if(empty($keywords)){
+                    $condition = "create_time>{$timemin} and create_time< {$timemax}";
+                    $res = Db::name("order")->where($condition)->select();
+                    return ajax_success('成功',$res);
+                }
+                if(!empty($keywords)){
+                    $condition = " `goods_name` like '%{$keywords}%' or `id` like '%{$keywords}%' or`user_id` like '%{$keywords}%'";
+                    $conditions = "create_time>{$timemin} and create_time< {$timemax}";
+                    $res = Db::name("order")->where($condition)->where($conditions)->select();
+                    return ajax_success('成功',$res);
+                }else{
+                    return ajax_error('失败');
+                }
+
+            }
         }
     }
+
+
+    /**
+     **************李火生*******************
+     * 批量发货
+     **************************************
+     */
+    public function batch_delivery(Request $request){
+        if($request->isPost()){
+            $id =$_POST['id'];
+            if(is_array($id)){
+                $where ='id in('.implode(',',$id).')';
+            }else{
+                $where ='id='.$id;
+            }
+            $list =  Db::name('order')->where($where)->update(['status'=>3]);
+            if($list!==false)
+            {
+                $this->success('更新成功!');
+            }else{
+                $this->error('更新失败');
+            }
+        }
+    }
+
+
+
 
 
     /**

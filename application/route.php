@@ -169,11 +169,11 @@ Route::group("admin",[
     "getRegion"=>"admin/User/getRegion",     //三级地区
     "pass_edit"=>"admin/User/pass_edit",     //会员密码编辑
 
-
-
-
     /*订单管理*/
     "order_index"=>"admin/Order/index",
+    "order_search"=>"admin/Order/search",//模糊查询
+    "batch_delivery"=>"admin/Order/batch_delivery",//批量发货
+
     /*评价管理（未做）*/
     "evaluation_management"=>"admin/Evaluation/management",
     /*退款维权(未做)*/
