@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="__STATIC__/index/css/m-common.css">
     <link rel="stylesheet" href="__STATIC__/index/css/cart2main.css">
+    <script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
 
 </head>
 <body id="view">
@@ -23,11 +24,11 @@
         </header>
         <div class="cart-group">
             <div class="cart-group-item form-href delivery-lite-info"  onclick="javascript:location.href='{:url("index/Member/address")}'">
+
                     <h1>
                         <span>收货人: 福尔发</span>
                         <span>188****9193</span>
                     </h1>
-
                     <div>
                         <div><i></i></div>
                         <p>北京市北京市东城区全境北京市海淀区西三环北路43号中航广场1层</p>
@@ -37,16 +38,18 @@
         </div>
         <div class="cart-group">
             <div class="form-href details">
-                <img onerror="this.src='__STATIC__/index/images/ShoppingArea/Common/blankbg.gif'" src="__STATIC__/index/image/sp1.jpg">
+                <img class="goods_img_url" onerror="this.src='__STATIC__/index/images/ShoppingArea/Common/blankbg.gif'" src="__STATIC__/index/image/sp1.jpg">
                 <div>
-                    <p>Apple iPhone 6s Plus 32G 金色 移动联通电信4G 手机</p>
-                    <i>1</i>
+
+                    <p class="goods_name">{$data.goods_name}</p>
+                    <i class="order_num">1</i>
                     <div>
                                 <span class="price">
-                                    <b>￥3888</b>
-                                    <i>.00</i>
+                                    <b>￥</b>{$data.goods_bottom_money_one}<b></b>
+                                    <i>.{$data.goods_bottom_money_two}</i>
                                 </span>
                     </div>
+
                     <div class="goods-service">
                                 <span class="goods-service-item">
                                     <i class="goods-icon icon-tui"></i>
@@ -55,188 +58,16 @@
                     </div>
                 </div>
             </div>
-            <div class="delivery-intro">
-                <p>
-                            <span>
-                                <span>
-                                    苏宁配送<em>09-27 周三 09:00-14:00</em>
-                                    <i class="strategy-text">半日达</i>
-                                </span>
-                            </span>
-                    <i class="arr">可预约</i>
-                </p>
-                <div class="datechooser" style="display: none;">
-                    <div class="mask-transition"></div>
-                    <div class="chooser-transition">
-                        <h1>
-                            <a class="time-cancel">取消</a>
-                            <b></b>
-                            <a class="time-certain">确定</a>
-                        </h1>
-                        <div class="tab">
-                            <div>
-                                <span class="yyps activity">预约配送</span>
-                                <span class="zsd ">准时达</span>
-                            </div>
-                        </div>
-                        <div class="time">
-                            <div class="vs">
-                                <ul style="margin-top: 3.45rem;">
-                                    <li class="current">09-27 周三</li>
-                                    <li class="nxt1">09-28 周四</li>
-                                    <li class="nxt2">09-29 周五</li>
-                                    <li class="">09-30 周六</li>
-                                    <li class="">10-01 周日</li>
-                                    <li class="">10-02 周一</li>
-                                    <li class="">10-03 周二</li>
-                                </ul>
-                                <ul style="margin-top: 3.45rem;">
-                                    <li class="current">09:00-14:00</li>
-                                    <li class="nxt1">14:00-18:00</li>
-                                </ul>
-                            </div>
-                            <div class="linear"></div>
-                            <div class="ops">
-                                <ul name="d">
-                                    <li class="pre3"></li>
-                                    <li class="pre2"></li>
-                                    <li class="pre1"></li>
-                                    <li class="current"></li>
-                                    <li class="nxt1"></li>
-                                    <li class="nxt2"></li>
-                                    <li class="nxt3"></li>
-                                </ul>
-                                <ul name="t">
-                                    <li class="pre3"></li>
-                                    <li class="pre2"></li>
-                                    <li class="pre1"></li>
-                                    <li class="current"></li>
-                                    <li class="nxt1"></li>
-                                    <li class="nxt2"></li>
-                                    <li class="nxt3"></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="time" style="display: none;">
-                            <div class="vs">
-                                <ul style="margin-top: 3.45rem;">
-                                    <li class="current">09-27 周三</li>
-                                    <li class="nxt1">09-28 周四</li>
-                                    <li class="nxt2">09-29 周五</li>
-                                    <li class="">09-30 周六</li>
-                                    <li class="">10-01 周日</li>
-                                    <li class="">10-02 周一</li>
-                                    <li class="">10-03 周二</li>
-                                </ul>
-                                <ul style="margin-top: 3.45rem;">
-                                    <li class="current">09:00-11:00(加收运费￥3.00)</li>
-                                    <li class="nxt1">11:00-13:00(加收运费￥3.00)</li>
-                                    <li class="nxt2">13:00-15:00(加收运费￥3.00)</li>
-                                    <li class="">15:00-17:00(加收运费￥3.00)</li>
-                                    <li class="">17:00-19:00(加收运费￥3.00)</li>
-                                    <li class="">19:00-21:00(加收运费￥3.00)</li>
-                                </ul>
-                            </div>
-                            <div class="linear"></div>
-                            <div class="ops">
-                                <ul name="d">
-                                    <li class="pre3"></li>
-                                    <li class="pre2"></li>
-                                    <li class="pre1"></li>
-                                    <li class="current"></li>
-                                    <li class="nxt1"></li>
-                                    <li class="nxt2"></li>
-                                    <li class="nxt3"></li>
-                                </ul>
-                                <ul name="t">
-                                    <li class="pre3"></li>
-                                    <li class="pre2"></li>
-                                    <li class="pre1"></li>
-                                    <li class="current"></li>
-                                    <li class="nxt1"></li>
-                                    <li class="nxt2"></li>
-                                    <li class="nxt3"></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="zsd-text">
-                <i>支持准时达</i>
-                <em class="time-tips">准时达运费半价促销</em>
-            </div>
-            <div class="goods-return-chk">
-                <label>
-                    部分商品在特定条件下不支持7天无理由退货，确认购买
-                    <span class="tip">
-                                <i class="icon"></i>
-                            </span>
-                </label>
-                <div class="form-check">
-                    <label class="sn-switch">
-                        <input type="checkbox" class="checkbox-switch" checked="">
-                    </label>
-                </div>
-            </div>
         </div>
         <div class="cart-group">
             <div class="cart-group-item payment">
                 <label>支付方式</label>
                 <div class="form-href">
-                    <p>在线支付</p>
+                    <p>支付宝</p>
                 </div>
             </div>
         </div>
-        <div class="payment-popup-chooser payment-popup-chooser-transition" style="display: none;">
-            <div class="mask"></div>
-            <div class="content">
-                <ul>
-                    <li class="wbox">
-                        <div class="pay-type-icon pay-type-zxzf"></div>
-                        <input class="input-reset sn-checkbox opt-checkbox" type="radio" name="payGroup" id="ppc001" value="001">
-                        <label class="wbox-flex" for="ppc001">
-                            <span>在线支付</span>
-                            <p>支持苏宁支付、支付宝、快捷等多种在线支付</p>
-                        </label>
-                    </li>
-                    <li class="wbox">
-                        <div class="pay-type-icon pay-type-hdfkxj-sx"></div>
-                        <input type="radio" disabled="" class="input-reset sn-checkbox opt-checkbox">
-                        <label class="wbox-flex" for="ppc03">
-                            <span>货到付款-现金</span>
-                            <p>部分商品不支持货到付款</p>
-                        </label>
-                    </li>
-                    <li class="wbox">
-                        <div class="pay-type-icon pay-type-hdfksk-sx"></div>
-                        <input type="radio" disabled="" class="input-reset sn-checkbox opt-checkbox">
-                        <label class="wbox-flex" for="ppc04">
-                            <span>货到付款-刷卡</span>
-                            <p>部分商品不支持货到付款</p>
-                        </label>
-                    </li>
-                    <li class="wbox">
-                        <div class="pay-type-icon pay-type-md-sx"></div>
-                        <input type="radio" disabled="" class="input-reset sn-checkbox opt-checkbox">
-                        <label class="wbox-flex" for="ppc02">
-                            <span>苏宁门店支付</span>
-                            <p>部分商品不支持门店支付</p>
-                        </label>
-                    </li>
-                    <li class="wbox">
-                        <div class="pay-type-icon pay-type-smyfb-sx"></div>
-                        <input type="radio" disabled="" class="input-reset sn-checkbox opt-checkbox">
-                        <label class="wbox-flex" for="ppc12">
-                            <span>货到付款-苏宁金融扫码</span>
-                            <p class="promdesc">随机立减，最高免单</p>
-                            <p>部分商品不支持货到付款</p>
-                        </label>
-                    </li>
-                </ul>
-                <div>取消</div>
-            </div>
-        </div>
+
         <div class="cart-group">
             <div class="cart-group-item coupon">
                 <label>优惠券</label>
@@ -244,30 +75,6 @@
                     <span class="save-money">无可用</span>
                 </div>
             </div>
-            <div class="cart-group-item card">
-                <label>苏宁卡</label>
-                <div class="form-href">
-                    <span class="save-money">无可用</span>
-                </div>
-            </div>
-        </div>
-        <div class="cart-group">
-            <div class="cart-group-item invoice">
-                <label class="form-input-label">发票信息</label>
-                <div class="form-href">
-                    <p>
-                                <span>
-                                    纸质 <span>(明细)</span>
-                                    -
-                                </span>
-                        <span>福尔发</span>
-                    </p>
-                </div>
-            </div>
-            <p class="invoice-tip-tax">
-                <em></em>
-                <span>开具企业抬头发票须正确填写纳税人识别号，以免影响报销</span>
-            </p>
         </div>
         <div class="cart-group">
             <div class="cart-group-item">
@@ -276,8 +83,7 @@
                         <label>商品总额</label>
                         <div>
                                     <span class="price">
-                                        <b>￥3888</b>
-                                        <i>.00</i>
+                                        <b>￥{$data.goods_bottom_money}</b>
                                     </span>
                         </div>
                     </li>
@@ -286,8 +92,7 @@
                         <i id="showfareDetail"></i>
                         <div>
                                     <span class="price">
-                                        <b>+￥0</b>
-                                        <i>.00</i>
+                                        <b>+￥{$data.express_fee}</b>
                                     </span>
                         </div>
                     </li>
@@ -299,16 +104,51 @@
                 <p>
                     实付金额:
                     <span class="price">
-                                <b>￥3888</b>
-                                <i>.00</i>
+                        <b>￥</b>
+                                <b class="all_pay">{$data.all_money}</b>
                             </span>
                 </p>
             </div>
-            <a class="sn-btn sn-btn-assertive">提交订单</a>
+            <a class="sn-btn sn-btn-assertive" id="bt_order">提交订单</a>
             <a class="sn-btn sn-btn-dark" style="display: none;">提交订单</a>
         </footer>
     </section>
 </div>
+
+
+<script>
+    $("#bt_order").click(function () {
+        var goods_name =$('.goods_name').html();
+        var order_num =$('.order_num').html();
+        var all_pay =$('.all_pay').html();
+        $.ajax({
+            url: "{:url('index/Order/bt_order')}",
+            type: 'POST',
+            async: false,
+            dataType: 'json',
+            data: {
+                'goods_name':goods_name,
+                'order_num':order_num,
+                'all_pay':all_pay
+            },
+            success: function(data){
+                console.log(data);
+                alert(data.msg);
+            },
+            error: function(data){
+                console.log('失败');
+            }
+        })
+
+
+    });
+
+
+
+</script>
+
+
+
 
 </body>
 </html>

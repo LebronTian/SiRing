@@ -393,10 +393,11 @@ class User extends Controller{
     }
 
 
-
-
-
-
+    /**
+     **************李火生*******************
+     * 用于三级城市
+     **************************************
+     */
     public function getRegion(){
         $Region=Db::name("tree");
         $map['pid']=$_REQUEST["pid"];
