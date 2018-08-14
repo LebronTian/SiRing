@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>手袋购物网</title>
+    <style>
+        .wrapper{
+            width: 100%;
+        }
+        .top{
+            width: 100%;
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid #eee;
+        }
+        .wrapper input{
+            width: 96%;
+            height: 34px;
+            padding: 5px 0 5px 10px;
+            box-sizing: border-box;
+            margin-bottom: 14px;
+        }
+        .wrapper select{
+            width: 96%;
+            height: 34px;
+            margin-bottom: 14px;
+        }
+        .wrapper .confirm{
+            width: 96%;
+            height: 40px;
+            background-color:  rgba(102, 194, 10, 1);
+            border: 1px solid  rgba(102, 194, 0, 1);
+            border-radius: 5px;
+            color: #fff;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .wrapper .cancel{
+            width: 96%;
+            height: 40px;
+            background-color:  rgba(248, 84, 68, 1);
+            border: 1px solid  rgba(248, 84, 68, 1);
+            border-radius: 5px;
+            color: #fff;
+            font-size: 18px;
+        }
+    </style>
+    <!-- 三级城市控件 -->
+    <script type="text/javascript" src="__STATIC__/index/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/city/jquery.provincesCity.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/city/provincesData.js"></script>
+    <script>
+        $(function(){
+            $("#province").ProvinceCity()});
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <form action="" method="post" class="form form-horizontal" id="form-member-add">
+        <div class="top">填写信息</div>
+        <input type="text" placeholder="收件人">
+        <input type="text" placeholder="联系电话">
+        <!--<select name="" id="priv">-->
+            <!--<option value="">请选择</option>-->
+        <!--</select>-->
+        <!--<select name="" id="city">-->
+            <!--<option value="">请选择</option>-->
+        <!--</select>-->
+        <!--<select name="" id="town">-->
+            <!--<option value="">请选择</option>-->
+        <!--</select>-->
+        <select name="province" id="province" onchange="loadRegion('province',2,'city','{:url("index/Member/getRegions")}');">
+        <option value="0" selected>省份/直辖市</option>
+        <option value=""></option>
+        </select>
+
+        <select name="city" id="city"  onchange="loadRegion('city',3,'town','{:url("index/Member/getRegions")}');">
+        <option value="0">市/县</option>
+        </select>
+
+        <select name="town" id="town"  >
+            <option value="0">镇/区</option>
+
+        </select>
+        <input type="text" placeholder="详细地址" class="detail_add">
+        <button href="javascript:;" class="confirm">确认</button>
+        <button href="javascript:;" class="cancel">取消</button>
+        </form>
+    </div>
+
+    <script>
+        function loadRegion(sel,type_id,selName,url){
+            jQuery("#"+selName+" option").each(function(){
+                jQuery(this).remove();
+            });
+            jQuery("<option value=0>请选择</option>").appendTo(jQuery("#"+selName));
+            if(jQuery("#"+sel).val()==0){
+                return;
+            }
+            jQuery.getJSON(url,{pid:jQuery("#"+sel).val(),type:type_id},
+                function(data){
+                    if(data){
+                        jQuery.each(data,function(idx,item){
+                            jQuery("<option value="+item.id+">"+item.name+"</option>").appendTo(jQuery("#"+selName));
+                        });
+
+                    }else{
+                        jQuery("<option value='0'>请选择</option>").appendTo(jQuery("#"+selName));
+                    }
+                }
+            );
+        }
+    </script>
+</body>
+
+<script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    $('.confirm').click(function(){
+        var addressee = $('.addressee').val();
+        var phone_num = $('.phone_num').val();
+        var province = $('#prov option:selected').html();
+        var city = $('#city option:selected').html();
+        var town = $('#town option:selected').html();
+        var detail_add = $('.detail_add').val();
+        $.ajax({
+            url: '{:url("admin/User/save")}',
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            data: {
+                'addressee': addressee,
+                'phone_num': phone_num,
+                'province': province,
+                'city': city,
+                'town': town,
+                'detail_add': detail_add
+            },
+            success: function(data){
+                console.log(data)
+            },
+            error: function(){
+                console.log('错误')
+            }
+        })
+    })
+</script>
+<script>
+    function loadRegion(sel,type_id,selName,url){
+        jQuery("#"+selName+" option").each(function(){
+            jQuery(this).remove();
+        });
+        jQuery("<option value=0>请选择</option>").appendTo(jQuery("#"+selName));
+        if(jQuery("#"+sel).val()==0){
+            return;
+        }
+//        console.log(jQuery("#"+sel).val());
+        jQuery.getJSON(url,{pid:jQuery("#"+sel).val(),type:type_id},
+            function(data){
+                if(data){
+                    jQuery.each(data,function(idx,item){
+                        jQuery("<option value="+item.id+">"+item.name+"</option>").appendTo(jQuery("#"+selName));
+                    });
+
+                }else{
+                    jQuery("<option value='0'>请选择</option>").appendTo(jQuery("#"+selName));
+                }
+            }
+        );
+    }
+</script>
+</html>

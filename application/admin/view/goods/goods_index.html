@@ -444,6 +444,9 @@ function product_edit(title,url,id){
                 },
                 success: function(data){
                     console.log(data)
+                    if(data.status == 1){
+                        location.reload();
+                    }
                 },
                 error: function(){
                     console.log('错误');

@@ -40,11 +40,16 @@ Route::group("",[
 
     /*我的页面*/
     "member_index"=>"index/Member/index",
+    /*收货地址*/
+    "address"=>"index/Member/address",
+    /*三级城市*/
+    "getRegions"=>"index/Member/getRegions",
 
 
     /*确认订单*/
     "order_index"=>"index/Order/index",
     "common_id"=>"index/Order/common_id",
+    'bt_order'=>"index/Order/bt_order",//提交订单
 
     /*登录页面*/
     "login"=>"index/Login/login",

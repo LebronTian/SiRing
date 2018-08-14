@@ -8,6 +8,8 @@
 namespace  app\admin\controller;
 
 use think\Controller;
+use  think\Db;
+use think\Request;
 
 class  Order extends  Controller{
 
@@ -18,8 +20,22 @@ class  Order extends  Controller{
      **************************************
      */
     public function index(){
-
+        $data =Db::name('order')->order('create_time',"desc")->select();
+        $this->assign('data',$data);
         return view('order_index');
+    }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 获取订单信息
+     **************************************
+     */
+    public function order_info(Request $request){
+        if($request->isPost()){
+            $data =Db::name('order')->order('create_time',"desc")->select();
+//            return ajax_success('获取成功',$data);
+        }
     }
 
 
