@@ -90,11 +90,11 @@
         font-size: 16px;
         font-weight: normal;
     }
-    .refuse{
+    .myrefuse{
         background-color: #e6e6e6;
         color: #444444;
     }
-    .success{
+    .mysuccess{
         background-color: #5eb95e;
         color: #ffffff;
     }
@@ -106,13 +106,71 @@
         background-color: #f37b1d;
         color: #ffffff;
     }
+    .pop1{
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        width: 500px;
+        height: 200px;
+        background-color: #f8f8f8;
+        color: #000;
+        box-shadow: 0 5px 15px rgba(33,33,33,.5);
+    }
+    .pop1 .title{
+        width: 100%;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        border-bottom: 1px solid #f0f0f0;
+        margin-bottom: 20px;
+    }
+    .pop1 .express, .pop1 .express_num{
+        width: 70%;
+        margin: 0 auto;
+        margin-bottom: 10px;
+    }
+    .express span, .express_num span{
+        margin-right: 20px;
+    }
+    .express_num input{
+        width: 150px;
+        height: 30px;
+        padding: 5px 0 5px 8px;
+        box-sizing: border-box;
+        border: 1px solid #f0f0f0;
+    }
+    .pop1 .confirm, .pop1 .cancel{
+        width: 50%;
+        height: 45px;
+        cursor: pointer;
+        color: #0e90d2;
+        background-color: #f8f8f8;
+    }
+    .pop1 .confirm{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        border-right: 1px solid #dedede;
+    }
+    .pop1 .confirm:hover{
+        background-color: #f0f0f0;
+    }
+    .pop1 .cancel{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+    .pop1 .cancel:hover{
+        background-color: #f0f0f0;
+    }
 </style>
 {/block}
 
 
 
 {block name="content"}
-<div>
+<div style="position: relative;">
 
     <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 产品管理 <span class="c-gray en">&gt;</span> 产品列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
     <div class="page-container">
@@ -165,21 +223,32 @@
                     <th width="40">{$vo.pay_money}</th>
                     <td class="td-status">
                         <a value="btn_{$vo.status}" class="all_btn">{$vo.status}</a>
-                        <!--<span class="label label-success radius">1待付款</span>-->
-                        <!--<span class="label label-success radius">2待发货</span>-->
-                        <!--<span class="label label-success radius">3已发货</span>-->
-                        <!--<span class="label label-success radius">4待收货</span>-->
-                        <!--<span class="label label-success radius">5已完成</span>-->
-                        <!--<span class="label label-success radius">6待评价</span>-->
-                        <!--<span class="label label-success radius">7已评价</span>-->
-                        <!--<span class="label label-success radius">8待退款</span>-->
-                        <!--<span class="label label-success radius">0已取消</span>-->
                     </td>
                 </tr>
                 {/volist}
                 </tbody>
             </table>
         </div>
+    </div>
+    <!-- 未发货弹窗 -->
+    <div class="pop1" style="display: none;">
+        <p class="title">配送信息</p>
+        <div class="express">
+            <span>快递公司</span>
+            <select name="" id="">
+                <option value="EMS">EMS</option>
+                <option value="顺丰">顺丰</option>
+                <option value="中通">中通</option>
+                <option value="申通">申通</option>
+                <option value="圆通">圆通</option>
+            </select>
+        </div>
+        <div class="express_num">
+            <span>快递单号</span>
+            <input type="text">
+        </div>
+        <button class="confirm">确定</button>
+        <button class="cancel">取消</button>
     </div>
 </div>
 {/block}
@@ -191,7 +260,58 @@
 <script type="text/javascript" src="__STATIC__/admin/lib/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/static/h-ui/js/H-ui.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
-
+<script>
+    (function(){
+        var allA = $('.td-status a');
+        var len = $('.td-status a').length;
+        for(var i = 0; i < len; i++){
+            if(allA[i].innerHTML == 1){
+                $(allA[i]).addClass('pending_payment');
+                $(allA[i])[0].innerHTML = '待付款';
+            }else if(allA[i].innerHTML == 2){
+                $(allA[i]).addClass('pending_delivery');
+                $(allA[i])[0].innerHTML = '待发货';
+            }else if(allA[i].innerHTML == 3){
+                $(allA[i]).addClass('mysuccess');
+                $(allA[i])[0].innerHTML = '已发货';
+            }else if(allA[i].innerHTML == 4){
+                $(allA[i]).addClass('pending_delivery');
+                $(allA[i])[0].innerHTML = '待收货';
+            }else if(allA[i].innerHTML == 5){
+                $(allA[i]).addClass('mysuccess');
+                $(allA[i])[0].innerHTML = '已完成';
+            }else if(allA[i].innerHTML == 6){
+                $(allA[i]).addClass('pending_delivery');
+                $(allA[i])[0].innerHTML = '待评价';
+            }else if(allA[i].innerHTML == 7){
+                $(allA[i]).addClass('mysuccess');
+                $(allA[i])[0].innerHTML = '已评价';
+            }else if(allA[i].innerHTML == 8){
+                $(allA[i]).addClass('pending_delivery');
+                $(allA[i])[0].innerHTML = '待退款';
+            }else if(allA[i].innerHTML == 9){
+                $(allA[i]).addClass('pending_delivery');
+                $(allA[i])[0].innerHTML = '已退款';
+            }else if(allA[i].innerHTML == 0){
+                $(allA[i]).addClass('myrefuse');
+                $(allA[i])[0].innerHTML = '已取消';
+            }
+        }
+    })()
+    // 根据状态触发事件
+    $('.all_btn').click(function(){
+        if($(this)[0].innerHTML == '待发货'){
+            $('.pop1').css('display','block');
+        }
+    })
+    // 发货弹窗事件
+    $('.pop1 .cancel').click(function(){
+        $('.pop1').css('display','none');
+    })
+    $('.pop1 .confirm').click(function(){
+        $('.pop1').css('display','none'); 
+    })
+</script>
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="__STATIC__/admin/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
@@ -221,8 +341,7 @@
         });
 
     })
-
-
+    
 </script>
 
 
