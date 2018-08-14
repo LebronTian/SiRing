@@ -170,6 +170,26 @@ Route::group("admin",[
     "pass_edit"=>"admin/User/pass_edit",     //会员密码编辑
 
 
+    /*优惠券*/
+    "discount_index"=>"admin/Discount/index",
+
+
+    /*秒杀*/
+    "seckill_index"=>"admin/Seckill/index",
+    "seckill_add"=>"admin/Seckill/add",
+    "seckill_save"=>"admin/Seckill/save",
+    "seckill_edit"=>"admin/Seckill/edit",
+    "seckill_updata"=>"admin/Seckill/updata",
+    "seckill_del"=>"admin/Seckill/del",
+
+    /*拼团*/
+    "group_index"=>"admin/Group/index",
+
+
+    /*小程序二维码*/
+    "procedure_index"=>"admin/Procedure/index",
+
+
 
 
     /*订单管理*/
@@ -182,8 +202,8 @@ Route::group("admin",[
     'order_sunburn'=>"admin/Order/sunburn",
 
 
-    /*测试页面*/
-    "text"=>"admin/Text/index",
+    /*购物车*/
+    "shopping_index"=>"admin/Shopping/index",
 ]);
 
 
