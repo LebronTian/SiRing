@@ -17,4 +17,9 @@ class Shopping extends Controller{
         return view("index");
     }
 
+
+    /**
+     *
+     */
+
 }
