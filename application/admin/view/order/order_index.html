@@ -124,27 +124,30 @@
                 </tr>
                 </thead>
                 <tbody class="tbody">
+                {volist name="data" id="vo"}
                 <tr class="text-c va-m">
-                    <th width="40"><input name="ids" type="checkbox" value=""></th>
-                    <th width="40">123456</th>
-                    <th width="60">商品图片</th>
-                    <th width="12">苹果6</th>
-                    <th width="20">1</th>
-                    <th width="50">laowang <br>  187777531176  </th>
-                    <th width="100">2018-8-11 12:00:20</th>
-                    <th width="60">100</th>
+                    <th width="10"><input name="ids" type="checkbox" value="{$vo['id']}"></th>
+                    <th width="30">{$vo['id']}</th>
+                    <th width="50"><img src="__UPLOADS__/{$vo.goods_img}" alt="商品图片"></th>
+                    <th width="80">{$vo.goods_name}</th>
+                    <th width="20">{$vo.order_num}</th>
+                    <th width="40">laowang <br>  187777531176  </th>
+                    <th width="50">{$vo.create_time|date="Y-m-d H:i:s",###}</th>
+                    <th width="40">{$vo.pay_money}</th>
                     <td class="td-status">
-                        <span class="label label-success radius">待付款</span>
-                        <!--<span class="label label-success radius">待发货</span>-->
-                        <!--<span class="label label-success radius">已发货</span>-->
-                        <!--<span class="label label-success radius">待收货</span>-->
-                        <!--<span class="label label-success radius">已完成</span>-->
-                        <!--<span class="label label-success radius">待评价</span>-->
-                        <!--<span class="label label-success radius">已评价</span>-->
-                        <!--<span class="label label-success radius">待退款</span>-->
-                        <!--<span class="label label-success radius">已取消</span>-->
+                        <span class="label label-success radius">{$vo.status}</span>
+                        <!--<span class="label label-success radius">1待付款</span>-->
+                        <!--<span class="label label-success radius">2待发货</span>-->
+                        <!--<span class="label label-success radius">3已发货</span>-->
+                        <!--<span class="label label-success radius">4待收货</span>-->
+                        <!--<span class="label label-success radius">5已完成</span>-->
+                        <!--<span class="label label-success radius">6待评价</span>-->
+                        <!--<span class="label label-success radius">7已评价</span>-->
+                        <!--<span class="label label-success radius">8待退款</span>-->
+                        <!--<span class="label label-success radius">0已取消</span>-->
                     </td>
                 </tr>
+                {/volist}
                 </tbody>
             </table>
         </div>
