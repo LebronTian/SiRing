@@ -30,7 +30,7 @@ class Order extends Controller{
             $goods_bottom_money=$datas['goods_bottom_money'];
             $goods_bottom_money =(string)$goods_bottom_money;
             $arr=explode(".",$goods_bottom_money);
-            $express_fee =0.00;
+            $express_fee =13.00;
             /*总费用*/
             $all_money = $goods_bottom_money + $express_fee;
             $data =[
@@ -74,6 +74,7 @@ class Order extends Controller{
                    'pay_money'=>$data['all_pay'],
                    'status'=>1,
                    'goods_id'=>$commodity_id,
+                   'send_money'=>$data['express_fee']
                ];
                $res =Db::name('order')->data($datas)->insert();
                if($res){

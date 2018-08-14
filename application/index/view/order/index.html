@@ -92,7 +92,8 @@
                         <i id="showfareDetail"></i>
                         <div>
                                     <span class="price">
-                                        <b>+￥{$data.express_fee}</b>
+                                        <b>+￥</b>
+                                        <b class="express_fee">{$data.express_fee}</b>
                                     </span>
                         </div>
                     </li>
@@ -121,6 +122,7 @@
         var goods_name =$('.goods_name').html();
         var order_num =$('.order_num').html();
         var all_pay =$('.all_pay').html();
+        var express_fee =$(".express_fee").html();
         $.ajax({
             url: "{:url('index/Order/bt_order')}",
             type: 'POST',
@@ -129,7 +131,8 @@
             data: {
                 'goods_name':goods_name,
                 'order_num':order_num,
-                'all_pay':all_pay
+                'all_pay':all_pay,
+                'express_fee':express_fee
             },
             success: function(data){
                 console.log(data);

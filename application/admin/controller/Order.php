@@ -21,8 +21,14 @@ class  Order extends  Controller{
      */
     public function index(){
         $data =Db::name('order')->order('create_time',"desc")->select();
+//        $member_id =Db::name('order')->field('user_id')->order('create_time',"desc")->select();
+//        foreach ($member_id as $key =>  $val){
+//            $member_data = Db::name('user')->field('user_name,phone_num')->where('id',$val['user_id'])->find();
+//        }
+
         if(!empty($data)){
             $this->assign('data',$data);
+//            $this->assign('member_data',$member_data[]);
         }
         return view('order_index');
     }
