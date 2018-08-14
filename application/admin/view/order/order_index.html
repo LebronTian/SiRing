@@ -77,6 +77,35 @@
         background: rgba(0, 0, 0, 0.55);}
     .showImg{width: 400px; height: 500px; margin-top: 140px;}
 
+    .td-status a{
+        color: #fff;
+    }
+    .all_btn{
+        display: inline-block;
+        width: 70px;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: normal;
+    }
+    .refuse{
+        background-color: #e6e6e6;
+        color: #444444;
+    }
+    .success{
+        background-color: #5eb95e;
+        color: #ffffff;
+    }
+    .pending_delivery{
+        background-color: #dd514c;
+        color: #ffffff;
+    }
+    .pending_payment{
+        background-color: #f37b1d;
+        color: #ffffff;
+    }
 </style>
 {/block}
 
@@ -135,7 +164,7 @@
                     <th width="50">{$vo.create_time|date="Y-m-d H:i:s",###}</th>
                     <th width="40">{$vo.pay_money}</th>
                     <td class="td-status">
-                        <span class="label label-success radius">{$vo.status}</span>
+                        <a value="btn_{$vo.status}" class="all_btn">{$vo.status}</a>
                         <!--<span class="label label-success radius">1待付款</span>-->
                         <!--<span class="label label-success radius">2待发货</span>-->
                         <!--<span class="label label-success radius">3已发货</span>-->
