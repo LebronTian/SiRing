@@ -333,6 +333,26 @@
         <button class="payment myconfirm" onclick="myconfirm('pop5')">确认退款</button>
         <button class="cancel_pay mycancel" onclick="mycancel('pop5')">拒绝</button>
     </div>
+    <!-- 已发货弹窗 -->
+    <div class="pop pop5" style="display: none;">
+        <p class="title">快递单号</p>
+        <div class="express">
+            <span>快递公司</span>
+            <select name="" id="">
+                <option value="EMS">EMS</option>
+                <option value="顺丰">顺丰</option>
+                <option value="中通">中通</option>
+                <option value="申通">申通</option>
+                <option value="圆通">圆通</option>
+            </select>
+        </div>
+        <div class="express_num">
+            <span>快递单号</span>
+            <input type="text">
+        </div>
+        <button class="confirm myconfirm" onclick="myconfirm('pop5')">确定</button>
+        <button class="cancel mycancel" onclick="mycancel('pop5')">取消</button>
+    </div>
 </div>
 {/block}
 
