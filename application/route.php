@@ -37,6 +37,7 @@ Route::group("",[
     /*购物车*/
     "shopping_index"=>"index/Shopping/index",
     "shopping_id"=>"index/Shopping/ajax_id",
+    "shopping_option"=>"index/Shopping/option",
 
 
     /*我的页面*/
