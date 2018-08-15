@@ -273,9 +273,10 @@
             </table>
         </div>
     </div>
-    <!-- 未发货弹窗 -->
+    <!-- 待发货弹窗 -->
     <div class="pop pop1" style="display: none;">
         <p class="title">配送信息</p>
+        <span style="display: none" class="hidden_id"></span>
         <div class="express">
             <span>快递公司</span>
             <select name="" id="">
@@ -415,6 +416,7 @@
         if($(this)[0].innerHTML == '待发货'){
             $('.pop1').css('display','block');
             var order_id =$(this)[0].id.split('_')[1];
+            $('.hidden_id').html(order_id);
         }
         if($(this)[0].innerHTML == '待付款'){
             $('.pop2').css('display','block');
@@ -424,7 +426,7 @@
         if($(this)[0].innerHTML == '待收货'){
             $('.pop3').css('display','block');
             console.log($(this)[0].id.split('_')[1]);
-             var order_id =$(this)[0].id.split('_')[1];
+            var order_id =$(this)[0].id.split('_')[1];
         }
         if($(this)[0].innerHTML == '待评价'){
             $('.pop4').css('display','block');
