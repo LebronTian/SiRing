@@ -84,9 +84,9 @@ class  Order extends  Controller{
             $list =  Db::name('order')->where($where)->update(['status'=>3]);
             if($list!==false)
             {
-                $this->success('更新成功!');
+                $this->success('发货成功!');
             }else{
-                $this->error('更新失败');
+                $this->error('发货失败');
             }
         }
     }
