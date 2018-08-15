@@ -273,9 +273,10 @@
             </table>
         </div>
     </div>
-    <!-- 未发货弹窗 -->
+    <!-- 待发货弹窗 -->
     <div class="pop pop1" style="display: none;">
         <p class="title">配送信息</p>
+        <span style="display: none" class="hidden_id"></span>
         <div class="express">
             <span>快递公司</span>
             <select name="" id="express_type">
@@ -290,7 +291,7 @@
             <span>快递单号</span>
             <input type="text">
         </div>
-        <button class="confirm myconfirm" onclick="myconfirm('pop1')">确定</button>
+        <button class="confirm myconfirm" onclick="waiting_send()">确定</button>
         <button class="cancel mycancel" onclick="mycancel('pop1')">取消</button>
     </div>
     <!-- 待付款弹窗 -->
@@ -335,6 +336,26 @@
         </div>
         <button class="payment myconfirm" onclick="myconfirm('pop5')">确认退款</button>
         <button class="cancel_pay mycancel" onclick="mycancel('pop5')">拒绝</button>
+    </div>
+    <!-- 已发货弹窗 -->
+    <div class="pop pop5" style="display: none;">
+        <p class="title">快递单号</p>
+        <div class="express">
+            <span>快递公司</span>
+            <select name="" id="">
+                <option value="EMS">EMS</option>
+                <option value="顺丰">顺丰</option>
+                <option value="中通">中通</option>
+                <option value="申通">申通</option>
+                <option value="圆通">圆通</option>
+            </select>
+        </div>
+        <div class="express_num">
+            <span>快递单号</span>
+            <input type="text">
+        </div>
+        <button class="confirm myconfirm" onclick="myconfirm('pop5')">确定</button>
+        <button class="cancel mycancel" onclick="mycancel('pop5')">取消</button>
     </div>
 </div>
 {/block}
@@ -399,6 +420,7 @@
         if($(this)[0].innerHTML == '待发货'){
             $('.pop1').css('display','block');
             var order_id =$(this)[0].id.split('_')[1];
+            $('.hidden_id').html(order_id);
         }
         if($(this)[0].innerHTML == '待付款'){
             $('.pop2').css('display','block');
@@ -407,8 +429,10 @@
         }
         if($(this)[0].innerHTML == '待收货'){
             $('.pop3').css('display','block');
+
 //            console.log($(this)[0].id.split('_')[1]);
              var order_id =$(this)[0].id.split('_')[1];
+
         }
         if($(this)[0].innerHTML == '待评价'){
             $('.pop4').css('display','block');
@@ -478,15 +502,21 @@
 
     //待发货传值
     function waiting_send() {
+        var order_id =$('.hidden_id').html();
+        var express_type =$("#express_type").children('option:selected').val();
+        var express_num =$(".express_num").children('input').val();
         $.ajax({
             type:'POST',
-            url:'{:url("admin/Order/refuse")}',
+            url:'{:url("admin/Order/express_number")}',
             data:{
-                'order_id':order_id
+                'order_id':order_id,
+                'express_type':express_type,
+                'express_num':express_num
             },
             dataType: 'json',
             success: function(data){
                 console.log(data);
+                alert(data.msg);
             },
             error:function(data) {
                 console.log(data.msg);

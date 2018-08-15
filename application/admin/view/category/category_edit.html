@@ -30,7 +30,7 @@
 {/block}
 {block name="content"}
 <div class="wrapper">
-        <form id="CategoryAdd" action="{:url('admin/Category/updata')}" method="post">
+        <form id="CategoryAdd" action="{:url('admin/Category/updata')}" method="post" enctype="multipart/form-data">
             {volist name="category" id="value"}
             <label id=""><span>商品分类名称</span></label>
             <input type="text" name="name" value="{$value.name}" class="input"><br/>
