@@ -44,6 +44,8 @@ class Seckill extends Controller{
         $over_time = $request->only(["over_time"])["over_time"];
         $data["start_time"] = strtotime($start_time);
         $data["over_time"] = strtotime($over_time);
+        $show_images = $request->file("images")->move(ROOT_PATH . 'public' . DS . 'uploads');
+        $data["images"] = str_replace("\\", "/", $show_images->getSaveName());
         $bool = db("seckill")->insert($data);
         if ($bool){
             $this->success("入库成功",url("admin/Seckill/index"));
@@ -77,6 +79,8 @@ class Seckill extends Controller{
         $over_time = $request->only(["over_time"])["over_time"];
         $data["start_time"] = strtotime($start_time);
         $data["over_time"] = strtotime($over_time);
+        $show_images = $request->file("images")->move(ROOT_PATH . 'public' . DS . 'uploads');
+        $data["images"] = str_replace("\\", "/", $show_images->getSaveName());
         $bool = db("seckill")->where("id",$id)->update($data);
         if ($bool){
             $this->success("更新成功",url("admin/Seckill/index"));

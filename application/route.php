@@ -37,6 +37,7 @@ Route::group("",[
     /*购物车*/
     "shopping_index"=>"index/Shopping/index",
     "shopping_id"=>"index/Shopping/ajax_id",
+    "shopping_option"=>"index/Shopping/option",
 
 
     /*我的页面*/
@@ -51,6 +52,7 @@ Route::group("",[
     "order_index"=>"index/Order/index",
     "common_id"=>"index/Order/common_id",
     'bt_order'=>"index/Order/bt_order",//提交订单
+    'order_details'=>"index/Order/details",//订单详情
 
     /*登录页面*/
     "login"=>"index/Login/login",
@@ -198,6 +200,7 @@ Route::group("admin",[
     "order_index"=>"admin/Order/index",
     "order_search"=>"admin/Order/search",//模糊查询
     "batch_delivery"=>"admin/Order/batch_delivery",//批量发货
+    "pending_payment"=>"admin/Order/pending_payment",//代发货
 
     /*评价管理（未做）*/
     "evaluation_management"=>"admin/Evaluation/management",
