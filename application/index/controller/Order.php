@@ -22,7 +22,6 @@ class Order extends Controller{
      */
     public function index(){
         $commodity_id =Session::get('goods_id');
-//        dump($commodity_id);exit();
         if(!empty($commodity_id)){
             $datas =Db::name('goods')->where('id',$commodity_id)->find();
 //            $goods_name= $datas['goods_name'];
