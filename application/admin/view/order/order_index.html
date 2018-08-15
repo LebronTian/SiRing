@@ -240,7 +240,7 @@
             <table class="table table-border table-bordered table-bg table-hover table-sort">
                 <thead>
                 <tr class="text-c">
-                    <th width="40"><input name="ids" type="checkbox" value=""></th>
+                    <th width="40"><input name="ids" type="checkbox"></th>
                     <th width="40">订单号</th>
                     <th width="60">商品图片</th>
                     <th width="12">产品名称</th>
@@ -254,7 +254,7 @@
                 <tbody class="tbody">
                 {volist name="data" id="vo"}
                 <tr class="text-c va-m">
-                    <th width="10"><input name="ids" type="checkbox" value="{$vo['id']}"></th>
+                    <th width="10"><input name="ids" id="status_{$vo.status}" type="checkbox" value="{$vo['id']}"></th>
                     <th width="30">{$vo['id']}</th>
                     <th width="50"><img src="__UPLOADS__/{$vo.goods_img}" alt="商品图片"></th>
                     <th width="80">{$vo.goods_name}</th>
@@ -341,35 +341,6 @@
 <script type="text/javascript" src="__STATIC__/admin/static/h-ui/js/H-ui.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 <script>
-    // 批量发货传id
-    $('.btn-danger').click(function(){
-        var len = $('.va-m').find('input').length;
-        var allInput = $('.va-m').find('input');
-        var allId = [];
-        for(var i = 0; i < len; i++){
-            if(allInput[i].checked){
-                allId.push(allInput[i].value);
-            }
-        }
-        $.ajax({
-            url:'{:url("admin/Order/batch_delivery")}',
-            type: 'POST',
-            dataType: 'JSON',
-            async: false,
-            data: {
-                'id': allId
-            },
-            success: function(data){
-                console.log(data)
-            },
-            error: function(){
-                console.log('错误');
-            }
-        })
-        
-    })
-</script>
-<script>
     (function(){
         var allA = $('.td-status a');
         var len = $('.td-status a').length;
@@ -414,35 +385,20 @@
     $('.all_btn').click(function(){
         if($(this)[0].innerHTML == '待发货'){
             $('.pop1').css('display','block');
-            var myid = $(this)[0].id.split('_')[1];
-            myajax(myid)
         }
         if($(this)[0].innerHTML == '待付款'){
             $('.pop2').css('display','block');
-            console.log($(this)[0].id.split('_')[1])
         }
         if($(this)[0].innerHTML == '待收货'){
             $('.pop3').css('display','block');
-            console.log($(this)[0].id.split('_')[1])
         }
         if($(this)[0].innerHTML == '待评价'){
             $('.pop4').css('display','block');
-            console.log($(this)[0].id.split('_')[1])
         }
         if($(this)[0].innerHTML == '待退款'){
             $('.pop5').css('display','block');
-            console.log($(this)[0].id.split('_')[1])
         }
     })
-    // 传id
-    function myajax(index){
-        $.ajax({
-            url: '{}',
-            data: {
-                'id':index
-            }
-        })
-    }
     // 按钮事件  确认，取消
     function myconfirm(obj){
         $('.'+ obj +'').css('display', 'none');
@@ -451,6 +407,39 @@
         $('.'+ obj +'').css('display', 'none');
     }
 </script>
+<script>
+        // 批量发货传id
+        $('.btn-danger').click(function(){
+            var len = $('.va-m').find('input').length;
+            var allInput = $('.va-m').find('input');
+            var allA = $('.va-m').find('a');
+            var allId = [];
+            console.log(allInput);
+            for(var i = 0; i < len; i++){
+                if(allInput[i].checked){
+                    if(allInput[i].id.split('_')[1] == 2){
+                        allId.push(allInput[i].value);
+                    }
+                }
+            }
+            $.ajax({
+                url:'{:url("admin/Order/batch_delivery")}',
+                type: 'POST',
+                dataType: 'JSON',
+                async: false,
+                data: {
+                    'id': allId
+                },
+                success: function(data){
+                    console.log(data)
+                },
+                error: function(){
+                    console.log('错误');
+                }
+            })
+            
+        })
+    </script>
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="__STATIC__/admin/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
