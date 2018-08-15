@@ -77,6 +77,7 @@
         background: rgba(0, 0, 0, 0.55);}
     .showImg{width: 400px; height: 500px; margin-top: 140px;}
 
+    /* 状态值样式start */
     .td-status a{
         color: #fff;
     }
@@ -106,7 +107,10 @@
         background-color: #f37b1d;
         color: #ffffff;
     }
-    .pop1{
+    /* 状态值样式end */
+
+    /* 弹窗通用start */
+    .pop{
         position: fixed;
         left: 50%;
         top: 50%;
@@ -117,7 +121,7 @@
         color: #000;
         box-shadow: 0 5px 15px rgba(33,33,33,.5);
     }
-    .pop1 .title{
+    .pop .title{
         width: 100%;
         height: 50px;
         text-align: center;
@@ -125,6 +129,28 @@
         border-bottom: 1px solid #f0f0f0;
         margin-bottom: 20px;
     }
+    .pop .myconfirm, .pop .mycancel{
+        width: 50%;
+        height: 45px;
+        cursor: pointer;
+        color: #0e90d2;
+        background-color: #f8f8f8;
+    }
+    .pop .myconfirm{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        border-right: 1px solid #dedede;
+    }
+    .pop .mycancel{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+    .pop .myconfirm:hover, .pop .mycancel:hover{
+        background-color: #f0f0f0;
+    }
+    /* 弹窗通用end */
     .pop1 .express, .pop1 .express_num{
         width: 70%;
         margin: 0 auto;
@@ -140,29 +166,44 @@
         box-sizing: border-box;
         border: 1px solid #f0f0f0;
     }
-    .pop1 .confirm, .pop1 .cancel{
-        width: 50%;
-        height: 45px;
-        cursor: pointer;
-        color: #0e90d2;
-        background-color: #f8f8f8;
+    /* 待支付 */
+    .pop2{
+        height: 250px;
     }
-    .pop1 .confirm{
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        border-right: 1px solid #dedede;
+    .pop2 .order_info{
+        width: 60%;
+        margin: 0 auto;
     }
-    .pop1 .confirm:hover{
-        background-color: #f0f0f0;
+    .pop2 .order_info p{
+        font-size: 16px;
+        line-height: 24px;
+        margin-bottom: 7px;
     }
-    .pop1 .cancel{
-        position: absolute;
-        right: 0;
-        bottom: 0;
+    /* 待收货 */
+    .pop3{
+        height: 150px;
     }
-    .pop1 .cancel:hover{
-        background-color: #f0f0f0;
+    .pop3 .tips p{
+        font-size: 14px;
+        width: 100%;
+        text-align: center;
+    }
+    /* 待评价 */
+    .pop4 .content textarea{
+        height: 250px;
+        width: 100%;
+        height: 100px;
+        resize: none;
+        font-size: 16px;
+    }
+    /* 待退款 */
+    .pop5{
+        height: 150px;
+    }
+    .pop5 .tips p{
+        font-size: 16px;
+        line-height: 24px;
+        text-align: center;
     }
 </style>
 {/block}
@@ -231,7 +272,7 @@
         </div>
     </div>
     <!-- 未发货弹窗 -->
-    <div class="pop1" style="display: none;">
+    <div class="pop pop1" style="display: none;">
         <p class="title">配送信息</p>
         <div class="express">
             <span>快递公司</span>
@@ -247,8 +288,47 @@
             <span>快递单号</span>
             <input type="text">
         </div>
-        <button class="confirm">确定</button>
-        <button class="cancel">取消</button>
+        <button class="confirm myconfirm" onclick="myconfirm('pop1')">确定</button>
+        <button class="cancel mycancel" onclick="mycancel('pop1')">取消</button>
+    </div>
+    <!-- 待付款弹窗 -->
+    <div class="pop pop2" style="display: none;">
+        <p class="title">订单信息</p>
+        <div class="order_info">
+            <p>订单名称：<span>商品1</span></p>
+            <p>订单金额：<span>￥999</span></p>
+            <p>下单时间：<span>商品1</span></p>
+            <p>待付款方：<span>商品1</span></p>
+        </div>
+        <button class="payment myconfirm" onclick="myconfirm('pop2')">立即支付</button>
+        <button class="cancel_pay mycancel" onclick="mycancel('pop2')">取消</button>
+    </div>
+    <!-- 待收货弹窗 -->
+    <div class="pop pop3" style="display: none;">
+        <p class="title">确认收货</p>
+        <div class="tips">
+            <p>要确认收货吗？</p>
+        </div>
+        <button class="payment myconfirm" onclick="myconfirm('pop3')">确认收货</button>
+        <button class="cancel_pay mycancel" onclick="mycancel('pop3')">取消</button>
+    </div>
+    <!-- 待评价弹窗 -->
+    <div class="pop pop4" style="display: none;">
+        <p class="title">商品评价</p>
+        <div class="content">
+            <textarea name="" id="" cols="30" rows="10" autofocus></textarea>
+        </div>
+        <button class="evaluate myconfirm" onclick="myconfirm('pop4')">确认</button>
+        <button class="cancel_eval mycancel" onclick="mycancel('pop4')">取消</button>
+    </div>
+    <!-- 待退款弹窗 -->
+    <div class="pop pop5" style="display: none;">
+        <p class="title">确认退款</p>
+        <div class="tips">
+            <p>要确认退款吗？</p>
+        </div>
+        <button class="payment myconfirm" onclick="myconfirm('pop5')">确认退款</button>
+        <button class="cancel_pay mycancel" onclick="mycancel('pop5')">拒绝</button>
     </div>
 </div>
 {/block}
@@ -295,6 +375,9 @@
             }else if(allA[i].innerHTML == 0){
                 $(allA[i]).addClass('myrefuse');
                 $(allA[i])[0].innerHTML = '已取消';
+            }else if(allA[i].innerHTML == 10){
+                $(allA[i]).addClass('myrefuse');
+                $(allA[i])[0].innerHTML = '已收货';
             }
         }
     })()
@@ -303,14 +386,26 @@
         if($(this)[0].innerHTML == '待发货'){
             $('.pop1').css('display','block');
         }
+        if($(this)[0].innerHTML == '待付款'){
+            $('.pop2').css('display','block');
+        }
+        if($(this)[0].innerHTML == '待收货'){
+            $('.pop3').css('display','block');
+        }
+        if($(this)[0].innerHTML == '待评价'){
+            $('.pop4').css('display','block');
+        }
+        if($(this)[0].innerHTML == '待退款'){
+            $('.pop5').css('display','block');
+        }
     })
-    // 发货弹窗事件
-    $('.pop1 .cancel').click(function(){
-        $('.pop1').css('display','none');
-    })
-    $('.pop1 .confirm').click(function(){
-        $('.pop1').css('display','none');
-    })
+    // 按钮事件  确认，取消
+    function myconfirm(obj){
+        $('.'+ obj +'').css('display', 'none');
+    }
+    function mycancel(obj){
+        $('.'+ obj +'').css('display', 'none');
+    }
 </script>
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="__STATIC__/admin/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
