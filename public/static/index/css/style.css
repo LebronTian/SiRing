@@ -1,0 +1,35 @@
+.time_limit .limit_inner{
+    margin-bottom: 20px;
+}
+.limit_inner{
+    width: 96%;
+    margin: 0 auto;
+}
+.limit_inner .img_box{
+    width: 100%;
+}
+.limit_inner .img_box img{
+    width: 100%;
+    height: auto;
+}
+.limit_inner .limit_title{
+    color: #0f0f0f;
+}
+.limit_inner .limit_title span{
+    color: #757575;
+}
+.limit_inner .limit_num i{
+    width: 28px;
+    height: 16px;
+    text-align: center;
+    color: #fff;
+    background-color: #f34347;
+    border-radius: 1px;
+    margin-right: 4px;
+    box-sizing: border-box;
+    padding: 1px;
+    font-style: normal;
+}
+.limit_inner .limit_num{
+    color: #f34347;
+}
