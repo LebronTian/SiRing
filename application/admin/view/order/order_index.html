@@ -295,12 +295,15 @@
     <div class="pop pop2" style="display: none;">
         <p class="title">订单信息</p>
         <div class="order_info">
-            <p>订单名称：<span>商品1</span></p>
-            <p>订单金额：<span>￥999</span></p>
-            <p>下单时间：<span>商品1</span></p>
-            <p>待付款方：<span>商品1</span></p>
+            <p>订单名称：<span class="order_names"></span></p>
+            <p>订单金额：<span>￥</span><span class="order_moneys"></span></p>
+            <p>下单时间：<span class="order_create_time"></span></p>
+            <p>待付款方：<span class="order_harvester"></span></p>
+            <p>收获人信息：<span class="order_harvester"></span></p>
+            <p>收获人地址：<span class="order_harvest_address"></span></p>
+            <p>收获人号码：<span class="order_harvest_phone_num"></span></p>
         </div>
-        <button class="payment myconfirm" onclick="myconfirm('pop2')">立即支付</button>
+        <button class="payment myconfirm" onclick="myconfirm('pop2')">卖家拒绝订单</button>
         <button class="cancel_pay mycancel" onclick="mycancel('pop2')">取消</button>
     </div>
     <!-- 待收货弹窗 -->
@@ -385,23 +388,28 @@
     $('.all_btn').click(function(){
         if($(this)[0].innerHTML == '待发货'){
             $('.pop1').css('display','block');
-            console.log($(this)[0].id.split('_')[1])
+            var order_id =$(this)[0].id.split('_')[1];
+
         }
         if($(this)[0].innerHTML == '待付款'){
             $('.pop2').css('display','block');
-            console.log($(this)[0].id.split('_')[1])
+            var order_id =$(this)[0].id.split('_')[1];
+            pending_payment(order_id);
         }
         if($(this)[0].innerHTML == '待收货'){
             $('.pop3').css('display','block');
-            console.log($(this)[0].id.split('_')[1])
+            console.log($(this)[0].id.split('_')[1]);
+             var order_id =$(this)[0].id.split('_')[1];
         }
         if($(this)[0].innerHTML == '待评价'){
             $('.pop4').css('display','block');
-            console.log($(this)[0].id.split('_')[1])
+            console.log($(this)[0].id.split('_')[1]);
+            var order_id =$(this)[0].id.split('_')[1];
         }
         if($(this)[0].innerHTML == '待退款'){
             $('.pop5').css('display','block');
-            console.log($(this)[0].id.split('_')[1])
+            console.log($(this)[0].id.split('_')[1]); 
+            var order_id =$(this)[0].id.split('_')[1];
         }
     })
     // 按钮事件  确认，取消
@@ -411,6 +419,45 @@
     function mycancel(obj){
         $('.'+ obj +'').css('display', 'none');
     }
+
+    //点击待发货传order_id给后台修改状态值
+    function pending_payment(order_id) {
+        alert(order_id);
+        $.ajax({
+            type:'POST',
+            url:'{:url("admin/Order/pending_payment")}',
+            data:{
+                'order_id':order_id
+            },
+            dataType: 'json',
+            success: function(data){
+                console.log(data);
+                $(".order_names").html(data.data.goods_name);
+                $(".order_moneys").html(data.data.pay_money);
+                $(".order_create_time").html(data.data.create_time);
+                $(".order_harvester").html(data.data.harvester);
+                $(".order_harvest_address").html(data.data.harvest_address);
+                $(".order_harvest_phone_num").html(data.data.harvest_phone_num);
+            },
+            error:function(data) {
+                console.log(data.msg);
+            },
+        });
+    }
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 </script>
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="__STATIC__/admin/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
@@ -434,6 +481,7 @@
             dataType: 'json',
             success: function(data){
                 console.log(data);
+
             },
             error:function(data) {
                 console.log(data.msg);

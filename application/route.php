@@ -199,6 +199,7 @@ Route::group("admin",[
     "order_index"=>"admin/Order/index",
     "order_search"=>"admin/Order/search",//模糊查询
     "batch_delivery"=>"admin/Order/batch_delivery",//批量发货
+    "pending_payment"=>"admin/Order/pending_payment",//代发货
 
     /*评价管理（未做）*/
     "evaluation_management"=>"admin/Evaluation/management",
