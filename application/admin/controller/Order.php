@@ -92,8 +92,35 @@ class  Order extends  Controller{
     }
 
 
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 代付款页面显示
+     **************************************
+     */
+    public function pending_payment(Request $request){
+        if($request->isPost()){
+            $order_id =$_POST['order_id'];
+            if(!empty($order_id)){
+                $res =Db::name('order')->where('id',$order_id)->find();
+                if($res){
+                    return ajax_success('成功',$res);
+                }
+            }
+        }
+    }
 
-
+    public function refuse(Request $request){
+        if($request->isPost()){
+            $order_id =$_POST['order_id'];
+            if(!empty($order_id)){
+                $res = Db::name('order')->where('id',$order_id)->update(['status'=>0]);
+                if($res){
+                    return ajax_success('已拒绝',$res);
+                }
+            }
+        }
+    }
 
     /**
      **************李火生*******************
