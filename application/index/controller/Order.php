@@ -22,11 +22,12 @@ class Order extends Controller{
      */
     public function index(){
         $commodity_id =Session::get('goods_id');
+//        dump($commodity_id);exit();
         if(!empty($commodity_id)){
             $datas =Db::name('goods')->where('id',$commodity_id)->find();
-            $goods_name= $datas['goods_name'];
-            header("Content-Type:text/html; charset=utf-8");
-            $goods_name = iconv("utf-8", "utf-8", $goods_name);
+//            $goods_name= $datas['goods_name'];
+//            header("Content-Type:text/html; charset=utf-8");
+//            $goods_name = iconv("utf-8", "utf-8", $goods_name);
             $goods_bottom_money=$datas['goods_bottom_money'];
             $goods_bottom_money =(string)$goods_bottom_money;
             $arr=explode(".",$goods_bottom_money);
@@ -35,7 +36,7 @@ class Order extends Controller{
             $all_money = $goods_bottom_money + $express_fee;
             $data =[
                 'commodity_id'=>$commodity_id,
-                'goods_name'=>$goods_name,
+                'goods_name'=>$datas['goods_name'],
                 'goods_bottom_money'=>$goods_bottom_money,
                 'goods_bottom_money_one'=>$arr[0],
                 'goods_bottom_money_two'=>$arr[1],
