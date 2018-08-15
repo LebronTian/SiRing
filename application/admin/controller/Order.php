@@ -110,7 +110,17 @@ class  Order extends  Controller{
         }
     }
 
-
+    public function refuse(Request $request){
+        if($request->isPost()){
+            $order_id =$_POST['order_id'];
+            if(!empty($order_id)){
+                $res = Db::name('order')->where('id',$order_id)->update(['status'=>0]);
+                if($res){
+                    return ajax_success('已拒绝',$res);
+                }
+            }
+        }
+    }
 
     /**
      **************李火生*******************
