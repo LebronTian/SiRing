@@ -341,6 +341,35 @@
 <script type="text/javascript" src="__STATIC__/admin/static/h-ui/js/H-ui.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 <script>
+    // 批量发货传id
+    $('.btn-danger').click(function(){
+        var len = $('.va-m').find('input').length;
+        var allInput = $('.va-m').find('input');
+        var allId = [];
+        for(var i = 0; i < len; i++){
+            if(allInput[i].checked){
+                allId.push(allInput[i].value);
+            }
+        }
+        $.ajax({
+            url:'{:url("admin/Order/batch_delivery")}',
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            data: {
+                'id': allId
+            },
+            success: function(data){
+                console.log(data)
+            },
+            error: function(){
+                console.log('错误');
+            }
+        })
+        
+    })
+</script>
+<script>
     (function(){
         var allA = $('.td-status a');
         var len = $('.td-status a').length;
@@ -385,7 +414,8 @@
     $('.all_btn').click(function(){
         if($(this)[0].innerHTML == '待发货'){
             $('.pop1').css('display','block');
-            console.log($(this)[0].id.split('_')[1])
+            var myid = $(this)[0].id.split('_')[1];
+            myajax(myid)
         }
         if($(this)[0].innerHTML == '待付款'){
             $('.pop2').css('display','block');
@@ -404,6 +434,15 @@
             console.log($(this)[0].id.split('_')[1])
         }
     })
+    // 传id
+    function myajax(index){
+        $.ajax({
+            url: '{}',
+            data: {
+                'id':index
+            }
+        })
+    }
     // 按钮事件  确认，取消
     function myconfirm(obj){
         $('.'+ obj +'').css('display', 'none');
