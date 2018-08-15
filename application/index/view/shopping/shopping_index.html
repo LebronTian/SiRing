@@ -43,52 +43,28 @@
         </a>
     </div>
 </div>
-<form method="post" name="cart_form" target="_self" id="cart_form" action="">
+<form method="post" name="cart_form" target="_self" id="cart_form" action="{:url('index/Shopping/option')}">
     <!--list-->
     <div class="commodity_list_box">
         <div class="cart_top">
             <span>商品清单</span>
-            <p id="weights">总重量约25kg</p>
             <div class="clear"></div>
         </div>
         <!--商品列表-->
         <div class="commodity_box">
             <div class="commodity_list">
-                <!--店名信息-->
-                <div class="tite_tim select">
-                    <em aem="1" cart_id="84"></em>
-                    <span>Apple产品专营店</span>
-                    <div class="clear"></div>
-                </div>
                 <!--商品-->
+                {volist name="shopping" id="value"}
                 <ul class="commodity_list_term">
                     <li class="select">
                         <em aem="0" cart_id="84"></em>
-                        <img src="__STATIC__/index/image/sp1.jpg"/>
+                        <img src="__UPLOADS__/{$value.goods_images}"/>
                         <div class="div_center">
-                            <h4>新疆苹果</h4>
-                            <span>50斤</span>
+                            <h4>{$value.goods_name}</h4>
+                            <span>{$value.goods_unit}斤</span>
                             <p class="now_value">
                                 <i>￥</i>
-                                <b class="qu_su">123.00</b>
-                            </p>
-                        </div>
-                        <div class="div_right">
-                            <i onclick="reducew(this)">-</i>
-                            <span class="zi">1</span>
-                            <input type="hidden" value="84">
-                            <i onclick="plusw(this)">+</i>
-                        </div>
-                    </li>
-                    <li class="select">
-                        <em aem="0" cart_id="84"></em>
-                        <img src="__STATIC__/index/image/sp1.jpg"/>
-                        <div class="div_center">
-                            <h4>新疆苹果</h4>
-                            <span>50斤</span>
-                            <p class="now_value">
-                                <i>￥</i>
-                                <b class="qu_su">25.00</b>
+                                <b class="qu_su">{$value.money}</b>
                             </p>
                         </div>
                         <div class="div_right">
@@ -99,64 +75,7 @@
                         </div>
                     </li>
                 </ul>
-                <!--优惠信息-->
-                <div class="shop_ul_bottom account_info_box">
-                    <ul class="account_info">
-                        <li class="i_text">
-                            <span class="info_name xi_cu">包邮</span>
-                            <span class="info_name">商家包邮</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="commodity_box">
-            <div class="commodity_list">
-                <!--店名信息-->
-                <div class="tite_tim select">
-                    <em aem="1" cart_id="84"></em>
-                    <span>Apple产品专营店</span>
-                    <div class="clear"></div>
-                </div>
-                <!--商品-->
-                <ul class="commodity_list_term">
-                    <li class="select">
-                        <em aem="0" cart_id="84"></em>
-                        <img src="__STATIC__/index/image/sp1.jpg"/>
-                        <div class="div_center">
-                            <h4>新疆苹果</h4>
-                            <span>50斤</span>
-                            <p class="now_value">
-                                <i>￥</i>
-                                <b class="qu_su">210.00</b>
-                            </p>
-                        </div>
-                        <div class="div_right">
-                            <i onclick="reducew(this)">-</i>
-                            <span class="zi">1</span>
-                            <input type="hidden" value="84">
-                            <i onclick="plusw(this)">+</i>
-                        </div>
-                    </li>
-                    <li class="select">
-                        <em aem="0" cart_id="84"></em>
-                        <img src="__STATIC__/index/image/sp1.jpg"/>
-                        <div class="div_center">
-                            <h4>新疆苹果</h4>
-                            <span>50斤</span>
-                            <p class="now_value">
-                                <i>￥</i>
-                                <b class="qu_su">412.00</b>
-                            </p>
-                        </div>
-                        <div class="div_right">
-                            <i onclick="reducew(this)">-</i>
-                            <span class="zi">1</span>
-                            <input type="hidden" value="84">
-                            <i onclick="plusw(this)">+</i>
-                        </div>
-                    </li>
-                </ul>
+                {/volist}
                 <!--优惠信息-->
                 <div class="shop_ul_bottom account_info_box">
                     <ul class="account_info">

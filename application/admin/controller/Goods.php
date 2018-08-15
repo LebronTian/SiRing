@@ -82,6 +82,7 @@ class Goods extends Controller{
                         "goods_keyword",
                         "goods_abstract",
                         "goods_detail",
+                        "goods_num",
            ]);
            $show_images = $request->file("goods_show_images")->move(ROOT_PATH . 'public' . DS . 'uploads');
            $goods_data["goods_show_images"] = str_replace("\\","/",$show_images->getSaveName());
@@ -187,6 +188,7 @@ class Goods extends Controller{
                 "goods_keyword",
                 "goods_abstract",
                 "goods_detail",
+                "goods_num",
             ]);
             $show_images = $request->file("goods_show_images")->move(ROOT_PATH . 'public' . DS . 'uploads');
             $goods_data["goods_show_images"] = str_replace("\\", "/", $show_images->getSaveName());
