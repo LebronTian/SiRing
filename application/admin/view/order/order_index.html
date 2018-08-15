@@ -77,6 +77,7 @@
         background: rgba(0, 0, 0, 0.55);}
     .showImg{width: 400px; height: 500px; margin-top: 140px;}
 
+    /* 状态值样式start */
     .td-status a{
         color: #fff;
     }
@@ -90,11 +91,11 @@
         font-size: 16px;
         font-weight: normal;
     }
-    .refuse{
+    .myrefuse{
         background-color: #e6e6e6;
         color: #444444;
     }
-    .success{
+    .mysuccess{
         background-color: #5eb95e;
         color: #ffffff;
     }
@@ -106,13 +107,111 @@
         background-color: #f37b1d;
         color: #ffffff;
     }
+    /* 状态值样式end */
+
+    /* 弹窗通用start */
+    .pop{
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        width: 500px;
+        height: 200px;
+        background-color: #f8f8f8;
+        color: #000;
+        box-shadow: 0 5px 15px rgba(33,33,33,.5);
+    }
+    .pop .title{
+        width: 100%;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        border-bottom: 1px solid #f0f0f0;
+        margin-bottom: 20px;
+    }
+    .pop .myconfirm, .pop .mycancel{
+        width: 50%;
+        height: 45px;
+        cursor: pointer;
+        color: #0e90d2;
+        background-color: #f8f8f8;
+    }
+    .pop .myconfirm{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        border-right: 1px solid #dedede;
+    }
+    .pop .mycancel{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+    .pop .myconfirm:hover, .pop .mycancel:hover{
+        background-color: #f0f0f0;
+    }
+    /* 弹窗通用end */
+    .pop1 .express, .pop1 .express_num{
+        width: 70%;
+        margin: 0 auto;
+        margin-bottom: 10px;
+    }
+    .express span, .express_num span{
+        margin-right: 20px;
+    }
+    .express_num input{
+        width: 150px;
+        height: 30px;
+        padding: 5px 0 5px 8px;
+        box-sizing: border-box;
+        border: 1px solid #f0f0f0;
+    }
+    /* 待支付 */
+    .pop2{
+        height: 250px;
+    }
+    .pop2 .order_info{
+        width: 60%;
+        margin: 0 auto;
+    }
+    .pop2 .order_info p{
+        font-size: 16px;
+        line-height: 24px;
+        margin-bottom: 7px;
+    }
+    /* 待收货 */
+    .pop3{
+        height: 150px;
+    }
+    .pop3 .tips p{
+        font-size: 14px;
+        width: 100%;
+        text-align: center;
+    }
+    /* 待评价 */
+    .pop4 .content textarea{
+        height: 250px;
+        width: 100%;
+        height: 100px;
+        resize: none;
+        font-size: 16px;
+    }
+    /* 待退款 */
+    .pop5{
+        height: 150px;
+    }
+    .pop5 .tips p{
+        font-size: 16px;
+        line-height: 24px;
+        text-align: center;
+    }
 </style>
 {/block}
 
 
 
 {block name="content"}
-<div>
+<div style="position: relative;">
 
     <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 产品管理 <span class="c-gray en">&gt;</span> 产品列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
     <div class="page-container">
@@ -163,23 +262,73 @@
                     <th width="40">laowang <br>  187777531176  </th>
                     <th width="50">{$vo.create_time|date="Y-m-d H:i:s",###}</th>
                     <th width="40">{$vo.pay_money}</th>
-                    <td class="td-status">
-                        <a value="btn_{$vo.status}" class="all_btn">{$vo.status}</a>
-                        <!--<span class="label label-success radius">1待付款</span>-->
-                        <!--<span class="label label-success radius">2待发货</span>-->
-                        <!--<span class="label label-success radius">3已发货</span>-->
-                        <!--<span class="label label-success radius">4待收货</span>-->
-                        <!--<span class="label label-success radius">5已完成</span>-->
-                        <!--<span class="label label-success radius">6待评价</span>-->
-                        <!--<span class="label label-success radius">7已评价</span>-->
-                        <!--<span class="label label-success radius">8待退款</span>-->
-                        <!--<span class="label label-success radius">0已取消</span>-->
+                    <td class="td-status ">
+                        <a value="btn_{$vo.status}" class="all_btn" id="a_{$vo['id']}">{$vo.status}</a>
                     </td>
                 </tr>
                 {/volist}
                 </tbody>
             </table>
         </div>
+    </div>
+    <!-- 未发货弹窗 -->
+    <div class="pop pop1" style="display: none;">
+        <p class="title">配送信息</p>
+        <div class="express">
+            <span>快递公司</span>
+            <select name="" id="">
+                <option value="EMS">EMS</option>
+                <option value="顺丰">顺丰</option>
+                <option value="中通">中通</option>
+                <option value="申通">申通</option>
+                <option value="圆通">圆通</option>
+            </select>
+        </div>
+        <div class="express_num">
+            <span>快递单号</span>
+            <input type="text">
+        </div>
+        <button class="confirm myconfirm" onclick="myconfirm('pop1')">确定</button>
+        <button class="cancel mycancel" onclick="mycancel('pop1')">取消</button>
+    </div>
+    <!-- 待付款弹窗 -->
+    <div class="pop pop2" style="display: none;">
+        <p class="title">订单信息</p>
+        <div class="order_info">
+            <p>订单名称：<span>商品1</span></p>
+            <p>订单金额：<span>￥999</span></p>
+            <p>下单时间：<span>商品1</span></p>
+            <p>待付款方：<span>商品1</span></p>
+        </div>
+        <button class="payment myconfirm" onclick="myconfirm('pop2')">立即支付</button>
+        <button class="cancel_pay mycancel" onclick="mycancel('pop2')">取消</button>
+    </div>
+    <!-- 待收货弹窗 -->
+    <div class="pop pop3" style="display: none;">
+        <p class="title">确认收货</p>
+        <div class="tips">
+            <p>要确认收货吗？</p>
+        </div>
+        <button class="payment myconfirm" onclick="myconfirm('pop3')">确认收货</button>
+        <button class="cancel_pay mycancel" onclick="mycancel('pop3')">取消</button>
+    </div>
+    <!-- 待评价弹窗 -->
+    <div class="pop pop4" style="display: none;">
+        <p class="title">商品评价</p>
+        <div class="content">
+            <textarea name="" id="" cols="30" rows="10" autofocus></textarea>
+        </div>
+        <button class="evaluate myconfirm" onclick="myconfirm('pop4')">确认</button>
+        <button class="cancel_eval mycancel" onclick="mycancel('pop4')">取消</button>
+    </div>
+    <!-- 待退款弹窗 -->
+    <div class="pop pop5" style="display: none;">
+        <p class="title">确认退款</p>
+        <div class="tips">
+            <p>要确认退款吗？</p>
+        </div>
+        <button class="payment myconfirm" onclick="myconfirm('pop5')">确认退款</button>
+        <button class="cancel_pay mycancel" onclick="mycancel('pop5')">拒绝</button>
     </div>
 </div>
 {/block}
@@ -191,7 +340,78 @@
 <script type="text/javascript" src="__STATIC__/admin/lib/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/static/h-ui/js/H-ui.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
-
+<script>
+    (function(){
+        var allA = $('.td-status a');
+        var len = $('.td-status a').length;
+        for(var i = 0; i < len; i++){
+            if(allA[i].innerHTML == 1){
+                $(allA[i]).addClass('pending_payment');
+                $(allA[i])[0].innerHTML = '待付款';
+            }else if(allA[i].innerHTML == 2){
+                $(allA[i]).addClass('pending_delivery');
+                $(allA[i])[0].innerHTML = '待发货';
+            }else if(allA[i].innerHTML == 3){
+                $(allA[i]).addClass('mysuccess');
+                $(allA[i])[0].innerHTML = '已发货';
+            }else if(allA[i].innerHTML == 4){
+                $(allA[i]).addClass('pending_delivery');
+                $(allA[i])[0].innerHTML = '待收货';
+            }else if(allA[i].innerHTML == 5){
+                $(allA[i]).addClass('mysuccess');
+                $(allA[i])[0].innerHTML = '已完成';
+            }else if(allA[i].innerHTML == 6){
+                $(allA[i]).addClass('pending_delivery');
+                $(allA[i])[0].innerHTML = '待评价';
+            }else if(allA[i].innerHTML == 7){
+                $(allA[i]).addClass('mysuccess');
+                $(allA[i])[0].innerHTML = '已评价';
+            }else if(allA[i].innerHTML == 8){
+                $(allA[i]).addClass('pending_delivery');
+                $(allA[i])[0].innerHTML = '待退款';
+            }else if(allA[i].innerHTML == 9){
+                $(allA[i]).addClass('pending_delivery');
+                $(allA[i])[0].innerHTML = '已退款';
+            }else if(allA[i].innerHTML == 0){
+                $(allA[i]).addClass('myrefuse');
+                $(allA[i])[0].innerHTML = '已取消';
+            }else if(allA[i].innerHTML == 10){
+                $(allA[i]).addClass('myrefuse');
+                $(allA[i])[0].innerHTML = '已收货';
+            }
+        }
+    })()
+    // 根据状态触发事件
+    $('.all_btn').click(function(){
+        if($(this)[0].innerHTML == '待发货'){
+            $('.pop1').css('display','block');
+            console.log($(this)[0].id.split('_')[1])
+        }
+        if($(this)[0].innerHTML == '待付款'){
+            $('.pop2').css('display','block');
+            console.log($(this)[0].id.split('_')[1])
+        }
+        if($(this)[0].innerHTML == '待收货'){
+            $('.pop3').css('display','block');
+            console.log($(this)[0].id.split('_')[1])
+        }
+        if($(this)[0].innerHTML == '待评价'){
+            $('.pop4').css('display','block');
+            console.log($(this)[0].id.split('_')[1])
+        }
+        if($(this)[0].innerHTML == '待退款'){
+            $('.pop5').css('display','block');
+            console.log($(this)[0].id.split('_')[1])
+        }
+    })
+    // 按钮事件  确认，取消
+    function myconfirm(obj){
+        $('.'+ obj +'').css('display', 'none');
+    }
+    function mycancel(obj){
+        $('.'+ obj +'').css('display', 'none');
+    }
+</script>
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="__STATIC__/admin/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
@@ -221,8 +441,7 @@
         });
 
     })
-
-
+    
 </script>
 
 

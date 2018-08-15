@@ -75,7 +75,7 @@ class Goods extends  Controller{
                     }
                 }
             }
-            Session::delete("goods_id");
+//            Session::delete("goods_id");
             return ajax_success("获取成功", $goods);
         }
         return view("goods_detail");

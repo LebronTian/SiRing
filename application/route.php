@@ -52,6 +52,7 @@ Route::group("",[
     "order_index"=>"index/Order/index",
     "common_id"=>"index/Order/common_id",
     'bt_order'=>"index/Order/bt_order",//提交订单
+    'order_details'=>"index/Order/details",//订单详情
 
     /*登录页面*/
     "login"=>"index/Login/login",
