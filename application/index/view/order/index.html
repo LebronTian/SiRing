@@ -137,6 +137,7 @@
             success: function(data){
                 console.log(data);
                 alert(data.msg);
+                window.location.href ="{:url('index/Order/details')}";
             },
             error: function(data){
                 console.log('失败');

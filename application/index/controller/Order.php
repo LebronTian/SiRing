@@ -107,4 +107,10 @@ class Order extends Controller{
     }
 
 
+
+        public function details(){
+            return view('details');
+        }
+
+
 }
