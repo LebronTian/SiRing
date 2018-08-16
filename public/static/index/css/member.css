@@ -1,0 +1,42 @@
+.top_box{
+    width: 96%;
+    margin: 8px auto;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+    height: 21px;
+    box-sizing: border-box;
+    line-height: 21px;
+}
+.top_box a{
+    color: #aaa;
+    float: right;
+}
+.bottom_box{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 96%;
+    margin: 0 auto;
+    height: 48px;
+}
+.payment, .deliver, .take_deliver, .evalute{
+    text-align: center;
+    height: 45px;
+    font-size: 12px;
+    line-height: 16px;
+    width: 50px;
+}
+
+/* 我的订单 */
+.header{
+    width: 100%;
+}
+.banner{
+    background-color: #f34347;
+    border-bottom: 1px solid #f34347;
+    height: 44px;
+    box-sizing: border-box;
+}
+.banner a i{
+    
+}

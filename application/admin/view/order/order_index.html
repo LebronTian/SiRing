@@ -151,7 +151,7 @@
         background-color: #f0f0f0;
     }
     /* 弹窗通用end */
-    .pop1 .express, .pop1 .express_num{
+    .pop1 .express, .pop1 .express_num, .pop6 .express, .pop6 .express_num{
         width: 70%;
         margin: 0 auto;
         margin-bottom: 10px;
@@ -338,7 +338,7 @@
         <button class="cancel_pay mycancel" onclick="mycancel('pop5')">拒绝</button>
     </div>
     <!-- 已发货弹窗 -->
-    <div class="pop pop5" style="display: none;">
+    <div class="pop pop6" style="display: none;">
         <p class="title">快递单号</p>
         <div class="express">
             <span>快递公司</span>
@@ -354,8 +354,8 @@
             <span>快递单号</span>
             <input type="text">
         </div>
-        <button class="confirm myconfirm" onclick="myconfirm('pop5')">确定</button>
-        <button class="cancel mycancel" onclick="mycancel('pop5')">取消</button>
+        <button class="confirm myconfirm" onclick="myconfirm('pop6')">确定</button>
+        <button class="cancel mycancel" onclick="mycancel('pop6')">取消</button>
     </div>
 </div>
 {/block}
@@ -435,6 +435,11 @@
         }
         if($(this)[0].innerHTML == '待退款'){
             $('.pop5').css('display','block');
+            console.log($(this)[0].id.split('_')[1]); 
+            var order_id =$(this)[0].id.split('_')[1];
+        }
+        if($(this)[0].innerHTML == '已发货'){
+            $('.pop6').css('display','block');
             console.log($(this)[0].id.split('_')[1]); 
             var order_id =$(this)[0].id.split('_')[1];
         }
