@@ -219,9 +219,9 @@
     <div class="page-container">
         <form action="" method="post">
             <div class="text-c"> 日期范围：
-                <input type="date" name="datemin" class="input-text Wdate" id="datemin" style="width:140px;">
-                -
-                <input type="date" id="datemax" name="datemax" class="input-text Wdate" style="width:140px;">
+                <!--<input type="date" name="datemin" class="input-text Wdate" id="datemin" style="width:140px;">-->
+                 <!-- - -->
+                <!--<input type="date" id="datemax" name="datemax" class="input-text Wdate" style="width:140px;">-->
                 <input type="text" class="input-text" id="search_key" style="width:250px" placeholder="产品名称、订单id、用户id" name="search_key">
                 <button type="submit" class="btn btn-success radius bt_search" name="search_bt" >
                     <i class="Hui-iconfont">&#xe665;</i> 搜索产品
@@ -235,7 +235,7 @@
                 </a>
             </span>
             <span class="r">共有数据：
-                <strong>54</strong> 条
+                <strong>{$count}</strong> 条
             </span>
         </div>
         <div class="mt-20">
@@ -254,23 +254,25 @@
                 </tr>
                 </thead>
                 <tbody class="tbody">
-                {volist name="data" id="vo"}
-                <tr class="text-c va-m">
-                    <th width="10"><input name="ids" id="status_{$vo.status}" type="checkbox" value="{$vo['id']}"></th>
-                    <th width="30">{$vo['id']}</th>
-                    <th width="50"><img src="__UPLOADS__/{$vo.goods_img}" alt="商品图片"></th>
-                    <th width="80">{$vo.goods_name}</th>
-                    <th width="20">{$vo.order_num}</th>
-                    <th width="40">{$vo.tname}<br> {$vo.phone}  </th>
-                    <th width="50">{$vo.create_time|date="Y-m-d H:i:s",###}</th>
-                    <th width="40">{$vo.pay_money}</th>
-                    <td class="td-status ">
-                        <a value="btn_{$vo.status}" class="all_btn" id="a_{$vo['id']}">{$vo.status}</a>
-                    </td>
-                </tr>
-                {/volist}
+                    {volist name="data" id="vo"}
+                    <tr class="text-c va-m">
+                        <th width="10"><input name="ids" id="status_{$vo.status}" type="checkbox" value="{$vo['id']}"></th>
+                        <th width="30">{$vo['id']}</th>
+                        <th width="50"><img src="__UPLOADS__/{$vo.goods_img}" alt="商品图片"></th>
+                        <th width="80">{$vo.goods_name}</th>
+                        <th width="20">{$vo.order_num}</th>
+                        <th width="40">{$vo.tname}<br> {$vo.phone}  </th>
+                        <th width="50">{$vo.create_time|date="Y-m-d H:i:s",###}</th>
+                        <th width="40">{$vo.pay_money}</th>
+                        <td class="td-status ">
+                            <a value="btn_{$vo.status}" class="all_btn" id="a_{$vo['id']}">{$vo.status}</a>
+                        </td>
+                    </tr>
+                    {/volist}
+
                 </tbody>
             </table>
+            {$data->render()}
         </div>
     </div>
     <!-- 待发货弹窗 -->
@@ -591,15 +593,15 @@
 <script type="text/javascript" src="__STATIC__/admin/static/h-ui2/js/tp.js"></script>
 <script>
     $(".bt_search").click(function () {
-        var datemin = $('#datemin')[0].value;
-        var datemax = $('#datemax')[0].value;
+//        var datemin = $('#datemin')[0].value;
+//        var datemax = $('#datemax')[0].value;
         var search_key = $('#search_key').val();
         $.ajax({
             type:'POST',
             url:'{:url("admin/Order/search")}',
             data:{
-                "datemin": datemin+' '+'00:00:00',
-                "datemax": datemax+' '+'23:59:59',
+//                "datemin": datemin+' '+'00:00:00',
+//                "datemax": datemax+' '+'23:59:59',
                 "search_key": search_key
             },
             dataType: 'json',
@@ -608,7 +610,7 @@
 
             },
             error:function(data) {
-                console.log(data.msg);
+                console.log('shibai');
             },
         });
 
