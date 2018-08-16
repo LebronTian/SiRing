@@ -421,6 +421,7 @@
 <script src="__STATIC__/index/js/index/jquery.min.js"></script>
 <script src="__STATIC__/index/js/index/ratchet.min.js"></script>
 <script>
+	var xid;
 	(function(){
 		$.ajax({
 			url: '{:url("index/Goods/detail")}',
@@ -443,6 +444,7 @@
 				$('.goods_desc')[0].id = "desc_" + data.id;
 				// 价格
 				$('.price').html('￥'+data.goods_bottom_money+'');
+				xid = data.id;
 			},
 			error: function(){
 				console.log('错误')
@@ -771,7 +773,7 @@
 
         })
     });
-	// 加入购物车
+	// 立即购买
 	$("#buy_now").click(function () {
 	    /*商品名*/
 	    var goods_name = $('.goods_desc').html();
@@ -784,11 +786,13 @@
             dataType:'JSON',
 			data:{
                 "goods_name":goods_name,
-                "price":price
+                "price":price,
+				'id': xid
 			},
 
             success:function(data){
                 console.log(data);
+				console.log(xid);
                 location.href='order_index'
             },
             error: function(){

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>手袋购物网</title>
+    <link rel="stylesheet" href="__STATIC__/index/css/member.css">
+    <link rel="stylesheet" href="__STATIC__/index/css/aui.css">
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header_box">
+        <div class="bar bar-header">
+            <a class="back" onclick="javascript:history.back(-1);">
+                <i class="aui-iconfont aui-icon-left"></i>
+            </a>
+            <div id="title" class="h1 title">我的订单</div>
+        </div>
+    </div>
+    <div class="list_box">
+        <a href="javascript:;">全部</a>
+        <a href="javascript:;">待付款</a>
+        <a href="javascript:;">待发货</a>
+        <a href="javascript:;" class="active">待收货</a>
+        <a href="javascript:;">待评价</a>
+    </div>
+    <div class="order_box">
+        <ul class="order_ul">
+            <li class="order_li">
+                <a href='{:url("index/Goods/detail")}'>
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media" style="width:8rem; height: 90px;">
+                            <img src="__STATIC__/index/image/demo/pa1.jpg">
+                        </div>
+                        <div class="aui-list-item-inner">
+                            <p>交易完成</p>
+                            <div class="aui-list-item-text">
+                                <div class="aui-list-item-title">kaman抽屉式化妆品收纳盒大号创意护肤桌面收纳盒塑料口红置物架</div>
+                            </div>
+                            <div><span class="aui-margin-l-5">￥39.00</span></div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="order_li">
+                    <a href='{:url("index/Goods/detail")}'>
+                        <div class="aui-media-list-item-inner">
+                            <div class="aui-list-item-media" style="width:8rem; height: 90px;">
+                                <img src="__STATIC__/index/image/demo/pa1.jpg">
+                            </div>
+                            <div class="aui-list-item-inner">
+                                <p>交易完成</p>
+                                <div class="aui-list-item-text">
+                                    <div class="aui-list-item-title">kaman抽屉式化妆品收纳盒大号创意护肤桌面收纳盒塑料口红置物架</div>
+                                </div>
+                                <div><span class="aui-margin-l-5">￥39.00</span></div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+        </ul>
+    </div>
+</body>
+</html>

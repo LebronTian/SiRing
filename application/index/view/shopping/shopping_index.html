@@ -54,7 +54,6 @@
         <div class="commodity_box">
             <div class="commodity_list">
                 <!--商品-->
-
                 <ul class="commodity_list_term">
                     {volist name="shopping" id="value"}
                     <li class="select">
@@ -62,7 +61,6 @@
                         <img src="__UPLOADS__/{$value.goods_images}"/>
                         <div class="div_center">
                             <h4>{$value.goods_name}</h4>
-                            <span>{$value.goods_unit}斤</span>
                             <p class="now_value">
                                 <i>￥</i>
                                 <b class="qu_su">{$value.money}</b>
@@ -70,14 +68,13 @@
                         </div>
                         <div class="div_right">
                             <i onclick="reducew(this)">-</i>
-                            <span class="zi">1</span>
+                            <span class="zi">{$value.goods_unit}</span>
                             <input type="hidden" value="84">
                             <i onclick="plusw(this)">+</i>
                         </div>
                     </li>
                     {/volist}
                 </ul>
-
                 <!--优惠信息-->
                 <div class="shop_ul_bottom account_info_box">
                     <ul class="account_info">
@@ -111,11 +108,50 @@
             <dd>不含运费</dd>
         </dl>
         <input type="hidden" name="gcs" id="gcs"/>
-        <a class="settle_btn" href="cat_order" id="confirm_cart">去结算</a>
+        <a class="settle_btn" href="javascript:;" id="confirm_cart">去结算</a>
         <a class="settle_btn" href="javascript:void(0);" id="confirm_cart1" onclick="big_cart_remove()">删除</a>
     </div>
     <!-- end -->
 </form>
+<script>
+    $('#confirm_cart').click(function(){
+        var id_len = $('.commodity_list_term li').find('em.pitch_on').length;
+        var all_em = $('.commodity_list_term li').find('em.pitch_on');
+        // id 值
+        var id_arr = [];
+        for(var i = 0; i < id_len; i++){
+            id_arr.push(all_em[i].id)
+        }
+        // 总价
+        var total_price = $('#total_price').children('b')[0].innerHTML;
+        
+        // 数量
+        var num_len = $('em.pitch_on').siblings('div.div_right').children('.zi').length;
+        var all_num = $('em.pitch_on').siblings('div.div_right').children('.zi');
+        var num_arr = [];
+        for(var i = 0; i < num_len; i++){
+            num_arr.push(all_num[i].innerHTML);
+        }
+
+        $.ajax({
+            url: '{:url("index/Shopping/option")}',
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            data: {
+                'goods_unit': num_arr,
+                'money': total_price,
+                'id': id_arr
+            },
+            success: function(data){
+                console.log(data)
+            },
+            error: function(){
+                console.log('错误')
+            }
+        })
+    })
+</script>
 <script>
     var noX = 0;
     /* 没选中时点击加减计算数量  */
@@ -433,5 +469,6 @@
         $(".commodity_list .tite_tim > em.pitch_on").parents(".commodity_box").remove();
     }
 </script>
+
 </body>
 </html>
