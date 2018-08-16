@@ -58,8 +58,7 @@ Route::group("",[
     'order_wait_pay'=>"index/Order/wait_pay",//待支付
     'order_wait_deliver'=>"index/Order/wait_deliver",//待发货
     'order_take_deliver'=>"index/Order/take_deliver",//待收获
-    'order_evaluate'=>"index/Order/evaluate",//评价
-
+    'order_evaluate'=>"index/Order/evaluate",//待评价
 
     /*登录页面*/
     "login"=>"index/Login/login",
@@ -210,6 +209,7 @@ Route::group("admin",[
     "pending_payment"=>"admin/Order/pending_payment",//代发货
     'order_refuse'=>"admin/Order/refuse", //商家取消买家订单
     "express_number"=>"admin/Order/express_number",//商家手动填写快递单号
+    "order_deliver"=>"admin/Order/order_deliver", //已发货点击弹出的快递信息
 
     /*评价管理（未做）*/
     "evaluation_management"=>"admin/Evaluation/management",

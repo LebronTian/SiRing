@@ -20,15 +20,12 @@ class  Order extends  Controller{
      **************************************
      */
     public function index(){
-        $data =Db::name('order')->order('create_time',"desc")->select();
-//        $member_id =Db::name('order')->field('user_id')->order('create_time',"desc")->select();
-//        foreach ($member_id as $key =>  $val){
-//            $member_data = Db::name('user')->field('user_name,phone_num')->where('id',$val['user_id'])->find();
-//        }
-
+        $data=Db::table("tb_order")
+            ->field("tb_order.*,tb_user.user_name tname,tb_user.phone_num phone")
+            ->join("tb_user","tb_order.user_id=tb_user.id",'left')
+            ->select();
         if(!empty($data)){
             $this->assign('data',$data);
-//            $this->assign('member_data',$member_data[]);
         }
         return view('order_index');
     }
@@ -157,6 +154,24 @@ class  Order extends  Controller{
         }
 
     }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 已发货查看的快递信息
+     **************************************
+     */
+    public function order_deliver(Request $request){
+        if($request->isPost()){
+            $order_id =$_POST['order_id'];
+            $deliver_res =Db::name('order')->field('express_type,express_num')->where('id',$order_id)->find();
+          if($deliver_res){
+              return ajax_success('成功',$deliver_res);
+          }
+        }
+    }
+
+
 
     /**
      **************李火生*******************
