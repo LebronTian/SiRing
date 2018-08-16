@@ -54,8 +54,9 @@
         <div class="commodity_box">
             <div class="commodity_list">
                 <!--商品-->
-                {volist name="shopping" id="value"}
+
                 <ul class="commodity_list_term">
+                    {volist name="shopping" id="value"}
                     <li class="select">
                         <em aem="0" id="{$value.id}"></em>
                         <img src="__UPLOADS__/{$value.goods_images}"/>
@@ -74,8 +75,9 @@
                             <i onclick="plusw(this)">+</i>
                         </div>
                     </li>
+                    {/volist}
                 </ul>
-                {/volist}
+
                 <!--优惠信息-->
                 <div class="shop_ul_bottom account_info_box">
                     <ul class="account_info">

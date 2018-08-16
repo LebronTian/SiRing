@@ -39,7 +39,7 @@ class Seckill extends Controller{
      * 陈绪
      */
     public function save(Request $request){
-        $data = $request->only(["status","goods_id","seckill_money"]);
+        $data = $request->only(["status","goods_id","seckill_money","keyword","goods_num","residue_num"]);
         $start_time = $request->only(["start_time"])["start_time"];
         $over_time = $request->only(["over_time"])["over_time"];
         $data["start_time"] = strtotime($start_time);
@@ -74,7 +74,7 @@ class Seckill extends Controller{
      */
     public function updata(Request $request){
         $id = $request->only(["id"])['id'];
-        $data = $request->only(["status","goods_id","seckill_money"]);
+        $data = $request->only(["status","goods_id","seckill_money","keyword","goods_num","residue_num"]);
         $start_time = $request->only(["start_time"])["start_time"];
         $over_time = $request->only(["over_time"])["over_time"];
         $data["start_time"] = strtotime($start_time);
