@@ -5,7 +5,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta content="telephone=no" name="format-detection">
-    <title>结算信息</title>
+    <title>手袋购物网</title>
 
     <link rel="stylesheet" href="__STATIC__/index/css/m-common.css">
     <link rel="stylesheet" href="__STATIC__/index/css/cart2main.css">
@@ -24,37 +24,34 @@
         </header>
         <div class="cart-group">
             <div class="cart-group-item form-href delivery-lite-info"  onclick="javascript:location.href='{:url("index/Member/address")}'">
-
-                    <h1>
-                        <span>收货人: 福尔发</span>
-                        <span>188****9193</span>
-                    </h1>
-                    <div>
-                        <div><i></i></div>
-                        <p>北京市北京市东城区全境北京市海淀区西三环北路43号中航广场1层</p>
-                    </div>
-
+                <h1>
+                    <span>收货人: 福尔发</span>
+                    <span>188****9193</span>
+                </h1>
+                <div>
+                    <div><i></i></div>
+                    <p>北京市北京市东城区全境北京市海淀区西三环北路43号中航广场1层</p>
+                </div>
             </div>
         </div>
         <div class="cart-group">
             <div class="form-href details">
                 <img class="goods_img_url" onerror="this.src='__STATIC__/index/images/ShoppingArea/Common/blankbg.gif'" src="__STATIC__/index/image/sp1.jpg">
                 <div>
-
                     <p class="goods_name">{$data.goods_name}</p>
                     <i class="order_num">1</i>
                     <div>
-                                <span class="price">
-                                    <b>￥</b>{$data.goods_bottom_money_one}<b></b>
-                                    <i>.{$data.goods_bottom_money_two}</i>
-                                </span>
+                        <span class="price">
+                            <b>￥</b>{$data.goods_bottom_money_one}<b></b>
+                            <i>.{$data.goods_bottom_money_two}</i>
+                        </span>
                     </div>
 
                     <div class="goods-service">
-                                <span class="goods-service-item">
-                                    <i class="goods-icon icon-tui"></i>
-                                    <span class="goods-service-word goods-service-word-tui">7天无理由退货</span>
-                                </span>
+                        <span class="goods-service-item">
+                            <i class="goods-icon icon-tui"></i>
+                            <span class="goods-service-word goods-service-word-tui">7天无理由退货</span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -82,19 +79,19 @@
                     <li class="detail-item">
                         <label>商品总额</label>
                         <div>
-                                    <span class="price">
-                                        <b>￥{$data.goods_bottom_money}</b>
-                                    </span>
+                            <span class="price">
+                                <b>￥{$data.goods_bottom_money}</b>
+                            </span>
                         </div>
                     </li>
                     <li class="detail-item">
                         <label>运费</label>
                         <i id="showfareDetail"></i>
                         <div>
-                                    <span class="price">
-                                        <b>+￥</b>
-                                        <b class="express_fee">{$data.express_fee}</b>
-                                    </span>
+                            <span class="price">
+                                <b>+￥</b>
+                                <b class="express_fee">{$data.express_fee}</b>
+                            </span>
                         </div>
                     </li>
                 </ul>
@@ -106,8 +103,8 @@
                     实付金额:
                     <span class="price">
                         <b>￥</b>
-                                <b class="all_pay">{$data.all_money}</b>
-                            </span>
+                        <b class="all_pay">{$data.all_money}</b>
+                    </span>
                 </p>
             </div>
             <a class="sn-btn sn-btn-assertive" id="bt_order">提交订单</a>
@@ -115,7 +112,26 @@
         </footer>
     </section>
 </div>
-
+<div class="mask"></div>
+<!-- 支付弹窗 -->
+<div class="fadeIn">
+    <div class="head">
+        <div class="head_close">×</div>
+        <div class="head_title">确认付款</div>
+    </div>
+    <div class="middle_box">
+        <p class="price_p">￥<span>119</span></p>
+        <ul>
+            <li>
+                支付宝账号 <span>136******45</span>
+            </li>
+            <li>
+                付款方式 <span>余额宝&nbsp;&nbsp;&gt;</span>
+            </li>
+        </ul>
+    </div>
+    <button>立即付款</button>
+</div>
 
 <script>
     $("#bt_order").click(function () {
@@ -136,23 +152,21 @@
             },
             success: function(data){
                 console.log(data);
-                alert(data.msg);
-                window.location.href ="{:url('index/Order/details')}";
+                // alert(data.msg);
+                // window.location.href ="{:url('index/Order/details')}";
+                $('.fadeIn').animate({'bottom':'0'})
+                $('.mask').css('display','block')
             },
             error: function(data){
                 console.log('失败');
             }
         })
-
-
     });
-
-
-
+    $('.head_close').click(function(){
+        $('.fadeIn').animate({'bottom':'-100%'})
+        $('.mask').css('display','none')
+        window.location.href ="{:url('index/Order/details')}";
+    })
 </script>
-
-
-
-
 </body>
 </html>
