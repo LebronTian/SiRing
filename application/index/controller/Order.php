@@ -115,5 +115,17 @@ class Order extends Controller{
         public function myorder(){
             return view('myorder');
         }
+        public function wait_pay(){
+            return view('wait_pay');
+        }
+        public function wait_deliver(){
+            return view('wait_deliver');
+        }
+        public function take_deliver(){
+            return view('take_deliver');
+        }
+        public function evaluate(){
+            return view('evaluate');
+        }
 
 }

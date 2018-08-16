@@ -58,7 +58,13 @@ Route::group("",[
     "common_id"=>"index/Order/common_id",
     'bt_order'=>"index/Order/bt_order",//提交订单
     'order_details'=>"index/Order/details",//订单详情
-    'order_myorder'=>"index/Order/myorder",//订单详情
+
+    'order_myorder'=>"index/Order/myorder",//我的订单
+    'order_wait_pay'=>"index/Order/wait_pay",//待支付
+    'order_wait_deliver'=>"index/Order/wait_deliver",//待发货
+    'order_take_deliver'=>"index/Order/take_deliver",//待收获
+    'order_evaluate'=>"index/Order/evaluate",//评价
+
 
     /*登录页面*/
     "login"=>"index/Login/login",
