@@ -108,22 +108,62 @@ class Order extends Controller{
     }
 
 
-
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 订单详情页面
+     **************************************
+     */
         public function details(){
             return view('details');
         }
+
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 我的订单
+     **************************************
+     */
         public function myorder(){
             return view('myorder');
         }
+
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 待支付
+     **************************************
+     */
         public function wait_pay(){
             return view('wait_pay');
         }
+
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 代发货
+     **************************************
+     */
         public function wait_deliver(){
             return view('wait_deliver');
         }
+
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 待收货
+     **************************************
+     */
         public function take_deliver(){
             return view('take_deliver');
         }
+
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 待评价
+     **************************************
+     */
         public function evaluate(){
             return view('evaluate');
         }
