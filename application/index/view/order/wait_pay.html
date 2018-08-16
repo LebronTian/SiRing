@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>手袋购物网</title>
-    <link rel="stylesheet" href="__STATIC__/index/css/member.css">
     <link rel="stylesheet" href="__STATIC__/index/css/aui.css">
+    <link rel="stylesheet" href="__STATIC__/index/css/member.css">
     <style>
         body{
             margin: 0;
@@ -31,7 +31,7 @@
         <a href="{:url('index/Order/evaluate')}" >待评价</a>
     </div>
     <div class="order_box">
-        <!-- <ul class="order_ul">
+        <ul class="order_ul">
             <li class="order_li">
                 <a href='{:url("index/Goods/detail")}'>
                     <div class="aui-media-list-item-inner">
@@ -47,13 +47,48 @@
                         </div>
                     </div>
                 </a>
+                <a href="javascript:;" id="payment" class="public_btn mg_left5">付款</a>
+                <a href="javascript:;" id="cancel_order" class="cancel_order public_btn">取消订单</a>
             </li>
-        </ul> -->
+        </ul>
     </div>
-    <div class="null_box">
+    <div class="null_box" style="display: none">
         <img src="__STATIC__/index/image/icon/img14.png" width="128" height="128">
         <p class="p1">您还没有相关的订单</p>
         <p class="p2">可以去看看有哪些想买的</p>
     </div>
+    <!-- 弹窗遮罩 -->
+    <div class="mask"></div>
+    <!-- 支付弹窗 -->
+    <div class="fadeIn">
+        <div class="head">
+            <div class="head_close">×</div>
+            <div class="head_title">确认付款</div>
+        </div>
+        <div class="middle_box">
+            <p class="price_p">￥<span>119</span></p>
+            <ul>
+                <li>
+                    支付宝账号 <span>136******45</span>
+                </li>
+                <li>
+                    付款方式 <span>余额宝&nbsp;&nbsp;&gt;</span>
+                </li>
+            </ul>
+        </div>
+        <button>立即付款</button>
+    </div>
+
+<script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
+<script>
+    $('#payment').click(function(){
+        $('.fadeIn').animate({'bottom':'0'});
+        $('.mask').css('display', 'block');
+    })
+    $('.head_close').click(function(){
+        $('.fadeIn').animate({'bottom':'-100%'});
+        $('.mask').css('display', 'none');
+    })
+</script>
 </body>
 </html>
