@@ -84,9 +84,9 @@ class  Order extends  Controller{
             $list =  Db::name('order')->where($where)->update(['status'=>3]);
             if($list!==false)
             {
-                $this->success('更新成功!');
+                $this->success('发货成功!');
             }else{
-                $this->error('更新失败');
+                $this->error('发货失败');
             }
         }
     }
@@ -110,6 +110,12 @@ class  Order extends  Controller{
         }
     }
 
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 商家手动拒绝买家订单
+     **************************************
+     */
     public function refuse(Request $request){
         if($request->isPost()){
             $order_id =$_POST['order_id'];
@@ -120,6 +126,29 @@ class  Order extends  Controller{
                 }
             }
         }
+    }
+
+
+    public function express_number(Request $request){
+        if($request->isPost())
+        {
+            $order_id =$_POST['order_id'];
+            $express_type=$_POST['express_type'];
+            $express_num =$_POST['express_num'];
+            $data =[
+                'express_type'=>$express_type,
+                'express_num'=>$express_num
+            ];
+            if(!empty($express_num)){
+              $res =  Db::name("order")->where('id',$order_id)->update($data);
+              if($res){
+                  $this->success('添加快递信息成功');
+              }else{
+                  $this->error('失败');
+              }
+            }
+        }
+
     }
 
     /**

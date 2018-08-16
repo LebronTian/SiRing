@@ -279,19 +279,19 @@
         <span style="display: none" class="hidden_id"></span>
         <div class="express">
             <span>快递公司</span>
-            <select name="" id="">
-                <option value="EMS">EMS</option>
-                <option value="顺丰">顺丰</option>
-                <option value="中通">中通</option>
-                <option value="申通">申通</option>
-                <option value="圆通">圆通</option>
+            <select name="" id="express_type">
+                <!--<option value="EMS">EMS</option>-->
+                <option value="顺丰" selected>顺丰</option>
+                <!--<option value="中通">中通</option>-->
+                <!--<option value="申通">申通</option>-->
+                <!--<option value="圆通">圆通</option>-->
             </select>
         </div>
         <div class="express_num">
             <span>快递单号</span>
             <input type="text">
         </div>
-        <button class="confirm myconfirm" onclick="myconfirm('pop1')">确定</button>
+        <button class="confirm myconfirm" onclick="waiting_send()">确定</button>
         <button class="cancel mycancel" onclick="mycancel('pop1')">取消</button>
     </div>
     <!-- 待付款弹窗 -->
@@ -389,7 +389,7 @@
                 $(allA[i])[0].innerHTML = '待收货';
             }else if(allA[i].innerHTML == 5){
                 $(allA[i]).addClass('mysuccess');
-                $(allA[i])[0].innerHTML = '已完成';
+                $(allA[i])[0].innerHTML = '已收货';
             }else if(allA[i].innerHTML == 6){
                 $(allA[i]).addClass('pending_delivery');
                 $(allA[i])[0].innerHTML = '待评价';
@@ -402,13 +402,17 @@
             }else if(allA[i].innerHTML == 9){
                 $(allA[i]).addClass('pending_delivery');
                 $(allA[i])[0].innerHTML = '已退款';
-            }else if(allA[i].innerHTML == 0){
-                $(allA[i]).addClass('myrefuse');
-                $(allA[i])[0].innerHTML = '已取消';
             }else if(allA[i].innerHTML == 10){
                 $(allA[i]).addClass('myrefuse');
-                $(allA[i])[0].innerHTML = '已收货';
+                $(allA[i])[0].innerHTML = '已完成';
+            }else if(allA[i].innerHTML == 11){
+                $(allA[i]).addClass('myrefuse');
+                $(allA[i])[0].innerHTML = '买家取消';
+            }else if(allA[i].innerHTML == 0){
+                $(allA[i]).addClass('myrefuse');
+                $(allA[i])[0].innerHTML = '商家取消';
             }
+
         }
     })();
     // 根据状态触发事件
@@ -425,8 +429,10 @@
         }
         if($(this)[0].innerHTML == '待收货'){
             $('.pop3').css('display','block');
-            console.log($(this)[0].id.split('_')[1]);
-            var order_id =$(this)[0].id.split('_')[1];
+
+//            console.log($(this)[0].id.split('_')[1]);
+             var order_id =$(this)[0].id.split('_')[1];
+
         }
         if($(this)[0].innerHTML == '待评价'){
             $('.pop4').css('display','block');
@@ -452,7 +458,7 @@
         $('.'+ obj +'').css('display', 'none');
     }
 
-    //点击待发货传order_id给后台修改状态值
+    //点击待付款传order_id给后台修改状态值
     function pending_payment(order_id) {
         $.ajax({
             type:'POST',
@@ -499,6 +505,30 @@
         });
     }
 
+    //待发货传值
+    function waiting_send() {
+        var order_id =$('.hidden_id').html();
+        var express_type =$("#express_type").children('option:selected').val();
+        var express_num =$(".express_num").children('input').val();
+        $.ajax({
+            type:'POST',
+            url:'{:url("admin/Order/express_number")}',
+            data:{
+                'order_id':order_id,
+                'express_type':express_type,
+                'express_num':express_num
+            },
+            dataType: 'json',
+            success: function(data){
+                console.log(data);
+                alert(data.msg);
+            },
+            error:function(data) {
+                console.log(data.msg);
+            },
+        });
+    }
+
 
 </script>
 <script>
@@ -525,7 +555,8 @@
                     'id': allId
                 },
                 success: function(data){
-                    console.log(data)
+                    alert(data.msg);
+                    window.location.href="{:url('admin/Order/index')}";
                 },
                 error: function(){
                     console.log('错误');
@@ -539,7 +570,7 @@
 <script type="text/javascript" src="__STATIC__/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/laypage/1.2/laypage.js"></script>
-<script type="text/javascript" src="__STATIC__/admin/__STATIC__/admin/static/h-ui2/js/tp.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/static/h-ui2/js/tp.js"></script>
 <script>
     $(".bt_search").click(function () {
         var datemin = $('#datemin')[0].value;

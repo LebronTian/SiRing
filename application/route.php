@@ -203,6 +203,7 @@ Route::group("admin",[
     "batch_delivery"=>"admin/Order/batch_delivery",//批量发货
     "pending_payment"=>"admin/Order/pending_payment",//代发货
     'order_refuse'=>"admin/Order/refuse", //商家取消买家订单
+    "express_number"=>"admin/Order/express_number",//商家手动填写快递单号
 
     /*评价管理（未做）*/
     "evaluation_management"=>"admin/Evaluation/management",
