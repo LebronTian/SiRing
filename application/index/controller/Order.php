@@ -78,6 +78,7 @@ class Order extends Controller{
                ];
                $res =Db::name('order')->data($datas)->insert();
                if($res){
+                  Session::delete('goods_id');
                    $this->success('下单成功');
                }
                return ajax_success('获取成功',$data);
