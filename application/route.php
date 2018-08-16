@@ -40,6 +40,11 @@ Route::group("",[
     "shopping_option"=>"index/Shopping/option",
 
 
+    /*秒杀*/
+    "seckill_index"=>"index/Seckill/index",
+
+
+
     /*我的页面*/
     "member_index"=>"index/Member/index",
     /*收货地址*/
