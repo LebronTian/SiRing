@@ -208,11 +208,11 @@ class Order extends Base {
             if($request->isPost()){
                 $order_id =$_POST['order_id'];
                 if(!empty($order_id)){
-                    $res =Db::name('order')->where('id',$order_id)->update(['status',11]);
+                    $res =Db::name('order')->where('id',$order_id)->update(['status'=>11]);
                     if($res){
-                        return ajax_success('订单取消成功',$res);
+                        $this->success('订单取消成功');
                     }else{
-                        return ajax_error('订单取消失败');
+                        $this->error('订单取消失败');
                     }
                 }
             }
@@ -228,9 +228,9 @@ class Order extends Base {
             if ($request->isPost()){
                 $order_id =$_POST['order_id'];
                 if(!empty($order_id)){
-                    $res =Db::name('order')->where('id',$order_id)->update(['status',5]);
+                    $res =Db::name('order')->where('id',$order_id)->update(['status'=>5]);
                     if($res){
-                       $this->success('确认收货成功');
+                       $this->success('确认收货成功',url('take_deliver'));
                     }else{
                         $this->error('确认收货失败');
                     }
@@ -238,7 +238,17 @@ class Order extends Base {
             }
         }
 
+    /**
+     * 实时物流显示
+     */
+    public function logistics_information(Request $request){
+        if($request->isPost()){
+            $order_id =$_POST['order_id'];
+            dump($order_id);exit();
+            return view('logistics_information');
+        }
 
+    }
 
 
 }

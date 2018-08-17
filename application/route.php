@@ -66,6 +66,8 @@ Route::group("",[
     'order_evaluate'=>"index/Order/evaluate",//待评价
     'cancel_order'=>"index/Order/cancel_order",//买家取消订单
     'collect_goodss'=>"index/Order/collect_goods",//买家确认收货
+    'logistics_information'=>"index/Order/logistics_information",//实时物流信息
+    'logistics_information_id'=>"index/Order/logistics_information_id",//用来接收物流信息的id
 
     /*登录页面*/
     "login"=>"index/Login/login",
