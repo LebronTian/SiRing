@@ -7,6 +7,7 @@
  */
 namespace app\index\controller;
 use think\Controller;
+use think\Paginator;
 use think\Request;
 use think\Session;
 use think\Db;
@@ -71,8 +72,23 @@ class Shopping extends Controller{
      * [购物车存储]
      * 陈绪
      */
-    public function option(){
+    public function option(Request $request){
+        if($request->isPost()){
+            $id = $request->only(['id'])['id'];
+            $goods_unit = $request->only(['goods_unit'])['goods_unit'];
+            $money = $request->only(['money'])['money'];
+            foreach ($id as $key=>$val){
+                $bool = db("shopping")->where("id",$val)->update(['goods_unit'=>$goods_unit[$key]]);
+            }
+            //存储到购物车订单表中
+            if($bool){
+                $data['money'] = $money;
+                $data['shopping_id'] = implode(",",$id);
+                db("shopping_shop")->insert($data);
+            }
 
+            return ajax_success("获取成功",$bool);
+        }
     }
 
 
