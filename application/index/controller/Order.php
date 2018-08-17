@@ -115,6 +115,10 @@ class Order extends Controller{
      **************************************
      */
         public function details(){
+            $data =Db::name('order')->select();
+            if(!empty($data)){
+                $this->assign('data',$data);
+            }
             return view('details');
         }
 
@@ -125,6 +129,8 @@ class Order extends Controller{
      **************************************
      */
         public function myorder(){
+            $data =Db::name('order')->select();
+            $this->assign('data',$data);
             return view('myorder');
         }
 
