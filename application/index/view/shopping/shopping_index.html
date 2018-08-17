@@ -108,7 +108,7 @@
             <dd>不含运费</dd>
         </dl>
         <input type="hidden" name="gcs" id="gcs"/>
-        <a class="settle_btn" href="javascript:;" id="confirm_cart">去结算</a>
+        <a class="settle_btn Shopping" href="{:url('index/Order/index')}" id="confirm_cart">去结算</a>
         <a class="settle_btn" href="javascript:void(0);" id="confirm_cart1" onclick="big_cart_remove()">删除</a>
     </div>
     <!-- end -->
@@ -153,7 +153,7 @@
                 "seckill_money":seckill_money
             },
             success: function(data){
-                console.log(data)
+                console.log(data);
             },
             error: function(){
                 console.log('错误')
