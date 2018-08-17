@@ -165,7 +165,7 @@ class Order extends Controller{
      **************************************
      */
         public function take_deliver(){
-            $data =Db::name('order')->where('status',4)->select();
+            $data =Db::name('order')->where('status',3)->whereOr('status',4)->select();
             $this->assign('data',$data);
             return view('take_deliver');
         }
@@ -177,7 +177,7 @@ class Order extends Controller{
      **************************************
      */
         public function evaluate(){
-            $data =Db::name('order')->where('status',6)->select();
+            $data =Db::name('order')->where('status',5)->whereOr('status',6)->select();
             $this->assign('data',$data);
             return view('evaluate');
         }
