@@ -64,6 +64,8 @@ Route::group("",[
     'order_wait_deliver'=>"index/Order/wait_deliver",//待发货
     'order_take_deliver'=>"index/Order/take_deliver",//待收获
     'order_evaluate'=>"index/Order/evaluate",//待评价
+    'cancel_order'=>"index/Order/cancel_order",//买家取消订单
+    'confirm_collect_goods'=>"index/Order/confirm_collect_goods",//买家确认收货
 
     /*登录页面*/
     "login"=>"index/Login/login",

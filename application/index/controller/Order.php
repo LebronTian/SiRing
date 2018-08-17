@@ -86,8 +86,6 @@ class Order extends Controller{
         }
     }
 
-
-
     /**
      **************李火生*******************
      * 购买商品时候需要绑定的用户id
@@ -129,7 +127,7 @@ class Order extends Controller{
      **************************************
      */
         public function myorder(){
-            $data =Db::name('order')->select();
+            $data =Db::name('order')->order('create_time','desc')->select();
             $this->assign('data',$data);
             return view('myorder');
         }
@@ -141,7 +139,7 @@ class Order extends Controller{
      **************************************
      */
         public function wait_pay(){
-            $data =Db::name('order')->where('status',1)->select();
+            $data =Db::name('order')->where('status',1)->order('create_time','desc')->select();
             $this->assign('data',$data);
             return view('wait_pay');
         }
@@ -153,7 +151,7 @@ class Order extends Controller{
      **************************************
      */
         public function wait_deliver(){
-            $data =Db::name('order')->where('status',2)->select();
+            $data =Db::name('order')->where('status',2)->order('create_time','desc')->select();
             $this->assign('data',$data);
             return view('wait_deliver');
         }
@@ -165,7 +163,7 @@ class Order extends Controller{
      **************************************
      */
         public function take_deliver(){
-            $data =Db::name('order')->where('status',3)->whereOr('status',4)->select();
+            $data =Db::name('order')->where('status',3)->whereOr('status',4)->order('create_time','desc')->select();
             $this->assign('data',$data);
             return view('take_deliver');
         }
@@ -177,10 +175,51 @@ class Order extends Controller{
      **************************************
      */
         public function evaluate(){
-            $data =Db::name('order')->where('status',5)->whereOr('status',6)->select();
+            $data =Db::name('order')->where('status',5)->whereOr('status',6)->order('create_time','desc')->select();
             $this->assign('data',$data);
             return view('evaluate');
         }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 前端点击取消订单通过ajax发送一个order_id取消订单
+     **************************************
+     */
+        public function cancel_order(Request $request){
+            if($request->isPost()){
+                $order_id =$_POST['order_id'];
+                if(!empty($order_id)){
+                    $res =Db::name('order')->where('id',$order_id)->update(['status',11]);
+                    if($res){
+                        return ajax_success('订单取消成功',$res);
+                    }else{
+                        return ajax_error('订单取消失败');
+                    }
+                }
+            }
+        }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 买家确认收货
+     **************************************
+     */
+        public function confirm_collect_goods(Request $request){
+            if ($request->isPost()){
+                $order_id =$_POST['order_id'];
+                if(!empty($order_id)){
+                    $res =Db::name('order')->where('id',$order_id)->update(['status',5]);
+                    if($res){
+                        return ajax_success('确认收货成功',$res);
+                    }else{
+                        return ajax_error('确认收货失败');
+                    }
+                }
+            }
+        }
+
 
 
 

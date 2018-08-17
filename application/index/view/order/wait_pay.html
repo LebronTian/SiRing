@@ -30,6 +30,7 @@
         <a href="{:url('index/Order/take_deliver')}">待收货</a>
         <a href="{:url('index/Order/evaluate')}" >待评价</a>
     </div>
+    {if !empty($data)}
     <div class="order_box">
         <ul class="order_ul">
             {volist name="data" id="vo"}
@@ -37,7 +38,7 @@
                 <a href='{:url("index/Goods/detail")}'>
                     <div class="aui-media-list-item-inner">
                         <div class="aui-list-item-media" style="width:8rem; height: 90px;">
-                            <img src="__STATIC__/index/image/demo/pa1.jpg">
+                            <img src="__UPLOADS__/{$vo.goods_img}">
                         </div>
                         <div class="aui-list-item-inner">
                             <p class="status_p">{$vo.status}</p>
@@ -55,6 +56,7 @@
             {/volist}
         </ul>
     </div>
+    {/if}
     <div class="null_box" style="display: none">
         <img src="__STATIC__/index/image/icon/img14.png" width="128" height="128">
         <p class="p1">您还没有相关的订单</p>

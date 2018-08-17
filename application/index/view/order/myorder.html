@@ -30,8 +30,12 @@
     <a href="{:url('index/Order/take_deliver')}">待收货</a>
     <a href="{:url('index/Order/evaluate')}" >待评价</a>
 </div>
+{if !empty($data)}
 <div class="order_box">
     <ul class="order_ul">
+        {volist name="data" id="vo"}
+        <!--已完成-->
+        {if condition="($vo['status'] eq 7 )OR($vo['status'] eq 10 )"}
         <li class="order_li">
             <a href='{:url("index/Goods/detail")}'>
                 <div class="aui-media-list-item-inner">
@@ -49,11 +53,15 @@
                 </div>
             </a>
         </li>
+        {/if}
+
+        <!--待付款-->
+        {if condition="($vo['status'] eq 1)"}
         <li class="order_li">
             <a href='{:url("index/Goods/detail")}'>
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-media" style="width:8rem; height: 90px;">
-                        <img src="__STATIC__/index/image/demo/pa1.jpg">
+                        <img src="__UPLOADS__/{$vo.goods_img}">
                     </div>
                     <div class="aui-list-item-inner">
                         <p class="status_p">{$vo.status}</p>
@@ -68,6 +76,10 @@
             <a href="javascript:;" id="payment" class="public_btn mg_left5">付款</a>
             <a href="javascript:;" id="cancel_order" class="cancel_order public_btn">取消订单</a>
         </li>
+        {/if}
+
+        <!--待发货-->
+        {if condition="($vo['status'] eq 2)"}
         <li class="order_li">
             <a href='{:url("index/Goods/detail")}'>
                 <div class="aui-media-list-item-inner">
@@ -85,6 +97,9 @@
                 </div>
             </a>
         </li>
+        {/if}
+        <!--待收货-->
+        {if condition="($vo['status'] eq 3)OR($vo['status'] eq 4)"/}
         <li class="order_li">
             <a href='{:url("index/Goods/detail")}'>
                 <div class="aui-media-list-item-inner">
@@ -104,6 +119,9 @@
             <a href="javascript:;" id="confirm_deliver" class="public_btn mg_left5">确认收货</a>
             <a href="javascript:;" id="check_logistic" class="cancel_order public_btn ">查看物流</a>
         </li>
+        {/if}
+        <!--待评价-->
+        {if condition="($vo['status'] eq 5)OR ($vo['status'] eq 6)"/}
         <li class="order_li">
             <a href='{:url("index/Goods/detail")}'>
                 <div class="aui-media-list-item-inner">
@@ -121,8 +139,52 @@
             </a>
             <a href="javascript:;" id="confirm_deliver" class="public_btn mg_left5">评价商品</a>
         </li>
+        {/if}
+        <!--待退款-->
+        {if condition="($vo['status'] eq 8 )"}
+        <li class="order_li">
+            <a href='{:url("index/Goods/detail")}'>
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width:8rem; height: 90px;">
+                        <img src="__UPLOADS__/{$vo.goods_img}">
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <p class="status_p">{$vo.status}</p>
+                        <div class="aui-list-item-text">
+                            <div style="display: none">{$vo.id}</div>
+                            <div class="aui-list-item-title">{$vo.goods_name}</div>
+                        </div>
+                        <div class="all_cost">共<span>{$vo.order_num}</span>件商品 合计:￥<span>{$vo.pay_money}</span>(含运费:￥<span>{$vo.send_money}</span> )</div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        {/if}
+        <!--订单已取消-->
+        {if condition="($vo['status'] eq 9 )OR($vo['status'] eq 11 )OR($vo['status'] eq 0 )"}
+        <li class="order_li">
+            <a href='{:url("index/Goods/detail")}'>
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width:8rem; height: 90px;">
+                        <img src="__UPLOADS__/{$vo.goods_img}">
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <p class="status_p">{$vo.status}</p>
+                        <div class="aui-list-item-text">
+                            <div style="display: none">{$vo.id}</div>
+                            <div class="aui-list-item-title">{$vo.goods_name}</div>
+                        </div>
+                        <div class="all_cost">共<span>{$vo.order_num}</span>件商品 合计:￥<span>{$vo.pay_money}</span>(含运费:￥<span>{$vo.send_money}</span> )</div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        {/if}
+
+        {/volist}
     </ul>
 </div>
+{/if}
 <script src="__STATIC__/index/js/jquery.js"></script>
 <script>
 
@@ -136,5 +198,50 @@
     //     }
     // })()
 </script>
+<script>
+    (function(){
+        var status_len = $('.status_p').length;
+        var status_p = $('.status_p');
+        for(var i = 0; i < status_len; i++){
+            if(status_p[i].innerHTML == '1'){
+                status_p[i].innerHTML = '等待买家付款';
+            }
+            if(status_p[i].innerHTML == '2'){
+                status_p[i].innerHTML = '等待卖家发货';
+            }
+            if(status_p[i].innerHTML == '3'){
+                status_p[i].innerHTML = '卖家已发货';
+            }
+            if(status_p[i].innerHTML == '4'){
+                status_p[i].innerHTML = '卖家已发货';
+            }
+            if(status_p[i].innerHTML == '5'){
+                status_p[i].innerHTML = '交易成功';
+            }
+            if(status_p[i].innerHTML == '6'){
+                status_p[i].innerHTML = '交易成功';
+            }
+            if(status_p[i].innerHTML == '7'){
+                status_p[i].innerHTML = '已完成';
+            }
+            if(status_p[i].innerHTML == '8'){
+                status_p[i].innerHTML = '待退款';
+            }
+            if(status_p[i].innerHTML == '9'){
+                status_p[i].innerHTML = "订单已取消";
+            }
+            if(status_p[i].innerHTML == '10'){
+                status_p[i].innerHTML = '已完成';
+            }
+            if(status_p[i].innerHTML == '11'){
+                status_p[i].innerHTML = '订单已取消';
+            }
+            if(status_p[i].innerHTML == '0'){
+                status_p[i].innerHTML = '订单已取消';
+            }
+        }
+    })()
+</script>
+
 </body>
 </html>
