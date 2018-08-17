@@ -23,8 +23,10 @@ class  Order extends  Controller{
         $data=Db::table("tb_order")
             ->field("tb_order.*,tb_user.user_name tname,tb_user.phone_num phone")
             ->join("tb_user","tb_order.user_id=tb_user.id",'left')
-            ->select();
+            ->paginate(10);
+        $count =Db::name('order')->count();
         if(!empty($data)){
+            $this->assign('count',$count);
             $this->assign('data',$data);
         }
         return view('order_index');
@@ -38,29 +40,35 @@ class  Order extends  Controller{
     public function search(Request $request){
         if($request->isPost()){
             $keywords =input('search_key');
-            $timemin  =strtotime(input('datemin'));
-            $timemax  =strtotime(input('datemax'));
-            if(empty($timemin)||empty($timemax)){
+            if(!empty($keywords)){
                 $condition = " `goods_name` like '%{$keywords}%' or `id` like '%{$keywords}%' or`user_id` like '%{$keywords}%'";
                 $res = Db::name("order")->where($condition)->select();
                 return ajax_success('成功',$res);
             }
-            if(!empty($timemin)&&!empty($timemax)){
-                if(empty($keywords)){
-                    $condition = "create_time>{$timemin} and create_time< {$timemax}";
-                    $res = Db::name("order")->where($condition)->select();
-                    return ajax_success('成功',$res);
-                }
-                if(!empty($keywords)){
-                    $condition = " `goods_name` like '%{$keywords}%' or `id` like '%{$keywords}%' or`user_id` like '%{$keywords}%'";
-                    $conditions = "create_time>{$timemin} and create_time< {$timemax}";
-                    $res = Db::name("order")->where($condition)->where($conditions)->select();
-                    return ajax_success('成功',$res);
-                }else{
-                    return ajax_error('失败');
-                }
-
-            }
+//            $timemin  =strtotime(input('datemin'));
+//            $timemax  =strtotime(input('datemax'));
+//            if(empty($timemin)||empty($timemax)){
+//                $condition = " `goods_name` like '%{$keywords}%' or `id` like '%{$keywords}%' or`user_id` like '%{$keywords}%'";
+//                $res = Db::name("order")->where($condition)->select();
+//                dump($res);
+//                return ajax_success('成功',$res);
+//            }
+//            if(!empty($timemin)&&!empty($timemax)){
+//                if(empty($keywords)){
+//                    $condition = "create_time>{$timemin} and create_time< {$timemax}";
+//                    $res = Db::name("order")->where($condition)->select();
+//                    return ajax_success('成功',$res);
+//                }
+//                if(!empty($keywords)){
+//                    $condition = " `goods_name` like '%{$keywords}%' or `id` like '%{$keywords}%' or`user_id` like '%{$keywords}%'";
+//                    $conditions = "create_time>{$timemin} and create_time< {$timemax}";
+//                    $res = Db::name("order")->where($condition)->where($conditions)->select();
+//                    return ajax_success('成功',$res);
+//                }else{
+//                    return ajax_error('失败');
+//                }
+//
+//            }
         }
     }
 
