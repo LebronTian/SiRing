@@ -78,16 +78,15 @@ class Shopping extends Controller{
             $goods_unit = $request->only(['goods_unit'])['goods_unit'];
             $money = $request->only(['money'])['money'];
             foreach ($id as $key=>$val){
-                $bool = db("shopping")->where("id",$val)->update(['goods_unit'=>$goods_unit[$key]]);
+                db("shopping")->where("id",$val)->update(['goods_unit'=>$goods_unit[$key]]);
             }
             //存储到购物车订单表中
-            if($bool){
-                $data['money'] = $money;
-                $data['shopping_id'] = implode(",",$id);
-                db("shopping_shop")->insert($data);
-            }
-
-            return ajax_success("获取成功",$bool);
+            $data['money'] = $money;
+            $data['shopping_id'] = implode(",",$id);
+            db("shopping_shop")->insert($data);
+            $shopping_id['id'] = db("shopping_shop")->getLastInsID();
+            Session("shopping",$shopping_id);
+            return ajax_success("获取成功",$shopping_id);
         }
     }
 
