@@ -68,7 +68,8 @@
     margin: 0 auto;
 }
 .order_li{
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    height: 125px;
 }
 .aui-media-list-item-inner{
     display: flex;
