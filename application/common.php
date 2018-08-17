@@ -328,6 +328,7 @@ function kuaidi($com , $no){
     return json_decode(array_pop($result), true);
 }
 
+
 // curl 模拟 post 请求
 function curl_post($url,$post_data = array() , $header = false){
     $ch = curl_init(); //初始化curl
@@ -427,6 +428,11 @@ function _tree_sorts($arr){
         $arr[$key] = _tree_sorts($value);
     }
     return $arr;
+}
+
+function express($key,$customer,$com,$num){
+
+
 }
 
 

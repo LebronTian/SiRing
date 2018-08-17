@@ -32,38 +32,25 @@
     </div>
     <div class="order_box">
         <ul class="order_ul">
+            {volist name="data" id="vo"}
             <li class="order_li">
                 <a href='{:url("index/Goods/detail")}'>
                     <div class="aui-media-list-item-inner">
                         <div class="aui-list-item-media" style="width:8rem; height: 90px;">
-                            <img src="__STATIC__/index/image/demo/pa1.jpg">
+                            <img src="__UPLOADS__/{$vo.goods_img}">
                         </div>
                         <div class="aui-list-item-inner">
-                            <p>交易完成</p>
+                            <p>{$vo.status}交易完成</p>
                             <div class="aui-list-item-text">
-                                <div class="aui-list-item-title">kaman抽屉式化妆品收纳盒大号创意护肤桌面收纳盒塑料口红置物架</div>
+                                <div style="display: none">{$vo.id}</div>
+                                <div class="aui-list-item-title">{$vo.goods_name}</div>
                             </div>
-                            <div><span class="aui-margin-l-5">￥39.00</span></div>
+                            <div class="all_cost">共<span>{$vo.order_num}</span>件商品 合计:￥<span>{$vo.pay_money}</span>(含运费:￥<span>{$vo.send_money}</span> )</div>
                         </div>
                     </div>
                 </a>
             </li>
-            <li class="order_li">
-                    <a href='{:url("index/Goods/detail")}'>
-                        <div class="aui-media-list-item-inner">
-                            <div class="aui-list-item-media" style="width:8rem; height: 90px;">
-                                <img src="__STATIC__/index/image/demo/pa1.jpg">
-                            </div>
-                            <div class="aui-list-item-inner">
-                                <p>交易完成</p>
-                                <div class="aui-list-item-text">
-                                    <div class="aui-list-item-title">kaman抽屉式化妆品收纳盒大号创意护肤桌面收纳盒塑料口红置物架</div>
-                                </div>
-                                <div><span class="aui-margin-l-5">￥39.00</span></div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
+            {/volist}
         </ul>
     </div>
 </body>

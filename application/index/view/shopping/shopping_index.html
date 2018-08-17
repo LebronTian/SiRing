@@ -37,7 +37,7 @@
         <a class="back" onclick="javascript:history.back(-1);" style="padding-top:5px; display:inline-block; padding-left:10px;">
             <i class="aui-iconfont aui-icon-left" style="font-weight:800; color:#fff; font-size:20px;"></i>
         </a>
-        <div id="tite" class="h1 title" style=" width: 72%; margin: 0 auto; ">购物车</div>
+        <div id="tite" class="h1 title" style=" width: 60%; margin: 0 auto; ">购物车</div>
         <a class="rig_shai" id="rem_s" href="javascript:void(0)" style="margin-right: 2%;position: absolute; top: 5px; right: 3%;">
             <i class="aui-iconfont aui-icon-edit" style="font-weight:800; color:#fff; font-size:21px;"></i>
         </a>
@@ -474,6 +474,32 @@
 
     //删除
     function big_cart_remove() {
+            
+        // 购物车 删除商品
+        console.log(111)
+        var del_arr = [];
+        var all_len = $('em.pitch_on').length;
+        var del_id = $('em.pitch_on');
+        for(var i = 0; i < all_len; i++){
+            del_arr.push(del_id[i].id)
+        }
+        console.log(del_arr)
+        $.ajax({
+            url: '{:url("")}',
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            data: {
+                'del_id':del_arr
+            },
+            success: function(data){
+                console.log(data)
+            },
+            error: function(){
+                console.log('错误')
+            }
+        })
+
         $(".commodity_list_term .pitch_on").parent().remove();
         $(".commodity_list .tite_tim > em.pitch_on").parents(".commodity_box").remove();
     }
