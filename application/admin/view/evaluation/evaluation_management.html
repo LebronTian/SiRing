@@ -1,10 +1,252 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    这是评价界面
-</body>
-</html>
+{extend name="layout"}
+
+{block name="css"}
+<link rel="stylesheet" href="__STATIC__/index/css/mypop.css">
+<style>
+    .pagination{text-align:center;margin-top:20px;margin-bottom: 20px;}
+    .pagination li{margin:0px 10px; border:1px solid #e6e6e6;padding: 3px 8px;display: inline-block;}
+    .pagination .active{background-color: #dd1a20;color: #fff;}
+    .pagination .disabled{color:#aaa;}
+    .dept_select{min-width: 200px;}
+    .shade {
+        position: absolute;
+        display: none;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.55);
+    }
+
+    .shade div {
+        width: 300px;
+        height: 200px;
+        line-height: 200px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -100px;
+        margin-left: -150px;
+        background: white;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .a-upload {
+        padding: 4px 10px;
+        height: 20px;
+        line-height: 20px;
+        position: relative;
+        cursor: pointer;
+        color: #888;
+        background: #fafafa;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        overflow: hidden;
+        display: inline-block;
+        *display: inline;
+        *zoom: 1
+    }
+
+    .a-upload input {
+        position: absolute;
+        font-size: 100px;
+        right: 0;
+        top: 0;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        cursor: pointer
+    }
+
+    .a-upload:hover {
+        color: #444;
+        background: #eee;
+        border-color: #ccc;
+        text-decoration: none
+    }
+    .img_div{min-height: 100px; min-width: 100px;}
+    .isImg{width: 120px; height: 120px; position: relative; float: left; margin-left: 10px;}
+    .removeBtn{position: absolute; top: 0; right: 0; z-index: 11; border: 0px; border-radius: 50px; background: red; width: 22px; height: 22px; color: white;}
+    .shadeImg{position: absolute;
+        display: none;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 15;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.55);}
+    .showImg{width: 400px; height: 500px; margin-top: 140px;}
+</style>
+{/block}
+
+
+
+{block name="content"}
+<div style="position: relative;">
+
+    <nav class="breadcrumb">
+        <i class="Hui-iconfont">&#xe67f;</i> 首页 
+        <span class="c-gray en">&gt;</span> 订单管理 
+        <span class="c-gray en">&gt;</span> 评价管理 
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+            <i class="Hui-iconfont">&#xe68f;</i>
+        </a>
+    </nav>
+    <div class="page-container">
+        <form action="" method="post">
+            <div class="text-c"> 日期范围：
+                <!--<input type="date" name="datemin" class="input-text Wdate" id="datemin" style="width:140px;">-->
+                 <!-- - -->
+                <!--<input type="date" id="datemax" name="datemax" class="input-text Wdate" style="width:140px;">-->
+                <input type="text" class="input-text" id="search_key" style="width:250px" placeholder="产品名称、订单id、用户id" name="search_key">
+                <button type="submit" class="btn btn-success radius bt_search" name="search_bt" >
+                    <i class="Hui-iconfont">&#xe665;</i> 搜索产品
+                </button>
+            </div>
+        </form>
+        <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="l">
+                <a href="javascript:;" onclick="" class="btn btn-danger radius">
+                    <i class="Hui-iconfont"></i> 批量发货
+                </a>
+            </span>
+            <span class="r">共有数据：
+                <strong></strong> 条
+            </span>
+        </div>
+        <div class="mt-20">
+            <table class="table table-border table-bordered table-bg table-hover table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="40"><input name="ids" type="checkbox"></th>
+                    <th width="40">订单号</th>
+                    <th width="60">商品图片</th>
+                    <th width="12">产品名称</th>
+                    <th width="20">订单数量</th>
+                    <th width="50">买家信息</th>
+                    <th width="100">下单时间</th>
+                    <th width="60">实付金额</th>
+                    <th width="60">订单状态</th>
+                </tr>
+                </thead>
+                <tbody class="tbody">
+                    <tr class="text-c va-m">
+                        <th width="10"><input name="ids" id="" type="checkbox" value=""></th>
+                        <th width="30"></th>
+                        <th width="50"><img src="" alt="商品图片"></th>
+                        <th width="80"></th>
+                        <th width="20"></th>
+                        <th width="40"></th>
+                        <th width="50"></th>
+                        <th width="40"></th>
+                        <td class="td-status ">
+                            <a value="" class="all_btn" id=""></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- 待发货弹窗 -->
+    <div class="pop pop1" style="display: none;">
+        <p class="title">配送信息</p>
+        <span style="display: none" class="hidden_id"></span>
+        <div class="express">
+            <span>快递公司</span>
+            <select name="" id="express_type">
+                <!--<option value="EMS">EMS</option>-->
+                <option value="顺丰" selected>顺丰</option>
+                <!--<option value="中通">中通</option>-->
+                <!--<option value="申通">申通</option>-->
+                <!--<option value="圆通">圆通</option>-->
+            </select>
+        </div>
+        <div class="express_num">
+            <span>快递单号</span>
+            <input type="text">
+        </div>
+        <button class="confirm myconfirm" onclick="waiting_send()">确定</button>
+        <button class="cancel mycancel" onclick="mycancel('pop1')">取消</button>
+    </div>
+    <!-- 待付款弹窗 -->
+    <div class="pop pop2" style="display: none;">
+        <p class="title">订单信息</p>
+        <div class="order_info">
+            <p>订单号：<span class="order_ids"></span></p>
+            <p>订单名称：<span class="order_names"></span></p>
+            <p>订单金额：<span>￥</span><span class="order_moneys"></span></p>
+            <p>下单时间：<span class="order_create_time"></span></p>
+            <p>待付款方：<span class="order_harvester"></span></p>
+            <p>收获人信息：<span class="order_harvester"></span></p>
+            <p>收获人地址：<span class="order_harvest_address"></span></p>
+            <p>收获人号码：<span class="order_harvest_phone_num"></span></p>
+        </div>
+        <button class="payment myconfirm" onclick="order_refuse()">卖家拒绝订单</button>
+        <button class="cancel_pay mycancel" onclick="mycancel('pop2')">取消</button>
+    </div>
+    <!-- 待收货弹窗 -->
+    <div class="pop pop3" style="display: none;">
+        <p class="title">确认收货</p>
+        <div class="tips">
+            <p>要确认收货吗？</p>
+        </div>
+        <button class="payment myconfirm" onclick="myconfirm('pop3')">确认收货</button>
+        <button class="cancel_pay mycancel" onclick="mycancel('pop3')">取消</button>
+    </div>
+    <!-- 待评价弹窗 -->
+    <div class="pop pop4" style="display: none;">
+        <p class="title">商品评价</p>
+        <div class="content">
+            <textarea name="" id="" cols="30" rows="10" autofocus></textarea>
+        </div>
+        <button class="evaluate myconfirm" onclick="myconfirm('pop4')">确认</button>
+        <button class="cancel_eval mycancel" onclick="mycancel('pop4')">取消</button>
+    </div>
+    <!-- 待退款弹窗 -->
+    <div class="pop pop5" style="display: none;">
+        <p class="title">确认退款</p>
+        <div class="tips">
+            <p>要确认退款吗？</p>
+        </div>
+        <button class="payment myconfirm" onclick="myconfirm('pop5')">确认退款</button>
+        <button class="cancel_pay mycancel" onclick="mycancel('pop5')">拒绝</button>
+    </div>
+    <!-- 已发货弹窗 -->
+    <div class="pop pop6" style="display: none;">
+        <p class="title">快递单号</p>
+        <div class="express">
+            <span>快递公司</span>
+            <select name="" id="express_types">
+                <option value="顺丰" selected>顺丰</option>
+            </select>
+        </div>
+        <div class="express_nums">
+            <span>快递单号</span>
+            <input type="text">
+        </div>
+        <button class="confirm myconfirm" onclick="myconfirm('pop6')">确定</button>
+        <button class="cancel mycancel" onclick="mycancel('pop6')">取消</button>
+    </div>
+</div>
+{/block}
+
+
+{block name="bottom"}
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="__STATIC__/common/strtotime.js"></script>
+<!--/_footer 作为公共模版分离出去-->
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__STATIC__/admin/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/static/h-ui2/js/tp.js"></script>
+
+
+
+{/block}

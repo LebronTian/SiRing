@@ -333,11 +333,11 @@ input::-webkit-inner-spin-button,input::-webkit-outer-spin-button {
 .header-slider {
 	position: relative;
 	width: 100%;
-	overflow: hidden
+	overflow: hidden;
 }
 
 .header-slider-con {
-	overflow: hidden
+	overflow: hidden;
 }
 
 .header-slider-con:after {
@@ -346,14 +346,14 @@ input::-webkit-inner-spin-button,input::-webkit-outer-spin-button {
 	visibility: hidden;
 	clear: both;
 	height: 0;
-	content: ''
+	content: '';
 }
 
 .header-slider-item {
 	float: left;
 	overflow: hidden;
 	display: inline;
-	width: 100%
+	width: 100%;
 }
 
 .loading-position {
@@ -361,7 +361,7 @@ input::-webkit-inner-spin-button,input::-webkit-outer-spin-button {
 	top: 132px;
 	left: 50%;
 	margin-left: -44px;
-	margin-top: -14px
+	margin-top: -14px;
 }
 
 .cart-loading-icon {

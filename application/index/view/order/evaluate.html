@@ -30,48 +30,51 @@
         <a href="{:url('index/Order/take_deliver')}">待收货</a>
         <a href="{:url('index/Order/evaluate')}" class="active">待评价</a>
     </div>
+    {if !empty($data)}
     <div class="order_box">
         <ul class="order_ul">
+            {volist name="data" id="vo"}
             <li class="order_li">
                 <a href='{:url("index/Goods/detail")}'>
                     <div class="aui-media-list-item-inner">
                         <div class="aui-list-item-media" style="width:8rem; height: 90px;">
-                            <img src="__STATIC__/index/image/demo/pa1.jpg">
+                            <img src="__UPLOADS__/{$vo.goods_img}">
                         </div>
                         <div class="aui-list-item-inner">
-                            <p>交易成功</p>
+                            <p class="status_p">{$vo.status}</p>
                             <div class="aui-list-item-text">
-                                <div class="aui-list-item-title">kaman抽屉式化妆品收纳盒大号创意护肤桌面收纳盒塑料口红置物架</div>
+                                <div class="aui-list-item-title">{$vo.goods_name}</div>
                             </div>
-                            <div><span class="aui-margin-l-5">￥39.00</span></div>
+                            <div><span class="aui-margin-l-5">￥{$vo.pay_money}</span></div>
                         </div>
                     </div>
                 </a>
                 <a href="javascript:;" id="confirm_deliver" class="public_btn mg_left5">评价商品</a>
             </li>
-            <li class="order_li">
-                <a href='{:url("index/Goods/detail")}'>
-                    <div class="aui-media-list-item-inner">
-                        <div class="aui-list-item-media" style="width:8rem; height: 90px;">
-                            <img src="__STATIC__/index/image/demo/pa1.jpg">
-                        </div>
-                        <div class="aui-list-item-inner">
-                            <p>交易成功</p>
-                            <div class="aui-list-item-text">
-                                <div class="aui-list-item-title">kaman抽屉式化妆品收纳盒大号创意护肤桌面收纳盒塑料口红置物架</div>
-                            </div>
-                            <div><span class="aui-margin-l-5">￥39.00</span></div>
-                        </div>
-                    </div>
-                </a>
-                <a href="javascript:;" id="confirm_deliver" class="public_btn mg_left5">评价商品</a>
-            </li>
+            {/volist}
         </ul>
     </div>
+    {/if}
+
     <div class="null_box" style="display: none">
         <img src="__STATIC__/index/image/icon/img14.png" width="128" height="128">
         <p class="p1">您还没有相关的订单</p>
         <p class="p2">可以去看看有哪些想买的</p>
     </div>
+    <script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
+    <script>
+        (function(){
+            var status_len = $('.status_p').length;
+            var status_p = $('.status_p');
+            for(var i = 0; i < status_len; i++){
+                if(status_p[i].innerHTML == '5'){
+                    status_p[i].innerHTML = '卖家已发货';
+                }
+                if(status_p[i].innerHTML == '6'){
+                    status_p[i].innerHTML = '卖家已发货';
+                }
+            }
+        })()
+    </script>
 </body>
 </html>
