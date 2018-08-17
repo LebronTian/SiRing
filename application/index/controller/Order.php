@@ -12,7 +12,7 @@ use think\Request;
 use think\Session;
 
 
-class Order extends Controller{
+class Order extends Base {
 
     /**
      **************李火生*******************
@@ -127,7 +127,9 @@ class Order extends Controller{
      **************************************
      */
         public function myorder(){
-            $data =Db::name('order')->order('create_time','desc')->select();
+            $datas =session('member');
+            $member_id =Db::name('user')->field('id')->where('phone_num',$datas['phone_num'])->find();
+            $data =Db::name('order')->where('user_id',$member_id['id'])->order('create_time','desc')->select();
             $this->assign('data',$data);
             return view('myorder');
         }
@@ -139,7 +141,9 @@ class Order extends Controller{
      **************************************
      */
         public function wait_pay(){
-            $data =Db::name('order')->where('status',1)->order('create_time','desc')->select();
+            $datas =session('member');
+            $member_id =Db::name('user')->field('id')->where('phone_num',$datas['phone_num'])->find();
+            $data =Db::name('order')->where('status',1)->where('user_id',$member_id['id'])->order('create_time','desc')->select();
             $this->assign('data',$data);
             return view('wait_pay');
         }
@@ -151,7 +155,9 @@ class Order extends Controller{
      **************************************
      */
         public function wait_deliver(){
-            $data =Db::name('order')->where('status',2)->order('create_time','desc')->select();
+            $datas =session('member');
+            $member_id =Db::name('user')->field('id')->where('phone_num',$datas['phone_num'])->find();
+            $data =Db::name('order')->where('status',2)->where('user_id',$member_id['id'])->order('create_time','desc')->select();
             $this->assign('data',$data);
             return view('wait_deliver');
         }
@@ -163,7 +169,13 @@ class Order extends Controller{
      **************************************
      */
         public function take_deliver(){
-            $data =Db::name('order')->where('status',3)->whereOr('status',4)->order('create_time','desc')->select();
+            $datas =session('member');
+            $member_id =Db::name('user')->field('id')->where('phone_num',$datas['phone_num'])->find();
+            $data =Db::name('order')
+                ->where("status=3 or status=4")
+                ->where('user_id',$member_id['id'])
+                ->order('create_time','desc')
+                ->select();
             $this->assign('data',$data);
             return view('take_deliver');
         }
@@ -175,7 +187,13 @@ class Order extends Controller{
      **************************************
      */
         public function evaluate(){
-            $data =Db::name('order')->where('status',5)->whereOr('status',6)->order('create_time','desc')->select();
+            $datas =session('member');
+            $member_id =Db::name('user')->field('id')->where('phone_num',$datas['phone_num'])->find();
+            $data =Db::name('order')
+                ->where("status=5 or status=6")
+                ->where('user_id',$member_id['id'])
+                ->order('create_time','desc')
+                ->select();
             $this->assign('data',$data);
             return view('evaluate');
         }
@@ -206,15 +224,15 @@ class Order extends Controller{
      * 买家确认收货
      **************************************
      */
-        public function confirm_collect_goods(Request $request){
+        public function collect_goods(Request $request){
             if ($request->isPost()){
                 $order_id =$_POST['order_id'];
                 if(!empty($order_id)){
                     $res =Db::name('order')->where('id',$order_id)->update(['status',5]);
                     if($res){
-                        return ajax_success('确认收货成功',$res);
+                       $this->success('确认收货成功');
                     }else{
-                        return ajax_error('确认收货失败');
+                        $this->error('确认收货失败');
                     }
                 }
             }
