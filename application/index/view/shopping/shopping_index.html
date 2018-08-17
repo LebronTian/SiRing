@@ -133,6 +133,14 @@
             num_arr.push(all_num[i].innerHTML);
         }
 
+        // d单价
+        var seckill_money_len = $('em.pitch_on').siblings('div.div_center').children().find('.qu_su').length;
+        var all_seckill_money = $('em.pitch_on').siblings('div.div_center').children().find('.qu_su');
+        var seckill_money = [];
+        for(var i = 0; i < num_len; i++){
+            seckill_money.push(all_seckill_money[i].innerHTML);
+        }
+
         $.ajax({
             url: '{:url("index/Shopping/option")}',
             type: 'POST',
@@ -141,7 +149,8 @@
             data: {
                 'goods_unit': num_arr,
                 'money': total_price,
-                'id': id_arr
+                'id': id_arr,
+                "seckill_money":seckill_money
             },
             success: function(data){
                 console.log(data)

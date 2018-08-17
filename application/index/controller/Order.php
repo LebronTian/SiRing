@@ -115,6 +115,10 @@ class Order extends Controller{
      **************************************
      */
         public function details(){
+            $data =Db::name('order')->select();
+            if(!empty($data)){
+                $this->assign('data',$data);
+            }
             return view('details');
         }
 
@@ -125,6 +129,8 @@ class Order extends Controller{
      **************************************
      */
         public function myorder(){
+            $data =Db::name('order')->select();
+            $this->assign('data',$data);
             return view('myorder');
         }
 
@@ -135,6 +141,8 @@ class Order extends Controller{
      **************************************
      */
         public function wait_pay(){
+            $data =Db::name('order')->where('status',1)->select();
+            $this->assign('data',$data);
             return view('wait_pay');
         }
 
@@ -145,6 +153,8 @@ class Order extends Controller{
      **************************************
      */
         public function wait_deliver(){
+            $data =Db::name('order')->where('status',2)->select();
+            $this->assign('data',$data);
             return view('wait_deliver');
         }
 
@@ -155,6 +165,8 @@ class Order extends Controller{
      **************************************
      */
         public function take_deliver(){
+            $data =Db::name('order')->where('status',4)->select();
+            $this->assign('data',$data);
             return view('take_deliver');
         }
 
@@ -165,6 +177,8 @@ class Order extends Controller{
      **************************************
      */
         public function evaluate(){
+            $data =Db::name('order')->where('status',6)->select();
+            $this->assign('data',$data);
             return view('evaluate');
         }
 
