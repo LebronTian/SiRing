@@ -12,7 +12,7 @@ use think\Request;
 use think\Session;
 
 
-class Order extends Controller{
+class Order extends Base {
 
     /**
      **************李火生*******************
@@ -86,8 +86,6 @@ class Order extends Controller{
         }
     }
 
-
-
     /**
      **************李火生*******************
      * 购买商品时候需要绑定的用户id
@@ -129,7 +127,9 @@ class Order extends Controller{
      **************************************
      */
         public function myorder(){
-            $data =Db::name('order')->select();
+            $datas =session('member');
+            $member_id =Db::name('user')->field('id')->where('phone_num',$datas['phone_num'])->find();
+            $data =Db::name('order')->where('user_id',$member_id['id'])->order('create_time','desc')->select();
             $this->assign('data',$data);
             return view('myorder');
         }
@@ -141,7 +141,9 @@ class Order extends Controller{
      **************************************
      */
         public function wait_pay(){
-            $data =Db::name('order')->where('status',1)->select();
+            $datas =session('member');
+            $member_id =Db::name('user')->field('id')->where('phone_num',$datas['phone_num'])->find();
+            $data =Db::name('order')->where('status',1)->where('user_id',$member_id['id'])->order('create_time','desc')->select();
             $this->assign('data',$data);
             return view('wait_pay');
         }
@@ -153,7 +155,9 @@ class Order extends Controller{
      **************************************
      */
         public function wait_deliver(){
-            $data =Db::name('order')->where('status',2)->select();
+            $datas =session('member');
+            $member_id =Db::name('user')->field('id')->where('phone_num',$datas['phone_num'])->find();
+            $data =Db::name('order')->where('status',2)->where('user_id',$member_id['id'])->order('create_time','desc')->select();
             $this->assign('data',$data);
             return view('wait_deliver');
         }
@@ -165,7 +169,13 @@ class Order extends Controller{
      **************************************
      */
         public function take_deliver(){
-            $data =Db::name('order')->where('status',3)->whereOr('status',4)->select();
+            $datas =session('member');
+            $member_id =Db::name('user')->field('id')->where('phone_num',$datas['phone_num'])->find();
+            $data =Db::name('order')
+                ->where("status=3 or status=4")
+                ->where('user_id',$member_id['id'])
+                ->order('create_time','desc')
+                ->select();
             $this->assign('data',$data);
             return view('take_deliver');
         }
@@ -177,9 +187,68 @@ class Order extends Controller{
      **************************************
      */
         public function evaluate(){
-            $data =Db::name('order')->where('status',5)->whereOr('status',6)->select();
+            $datas =session('member');
+            $member_id =Db::name('user')->field('id')->where('phone_num',$datas['phone_num'])->find();
+            $data =Db::name('order')
+                ->where("status=5 or status=6")
+                ->where('user_id',$member_id['id'])
+                ->order('create_time','desc')
+                ->select();
             $this->assign('data',$data);
             return view('evaluate');
         }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 前端点击取消订单通过ajax发送一个order_id取消订单
+     **************************************
+     */
+        public function cancel_order(Request $request){
+            if($request->isPost()){
+                $order_id =$_POST['order_id'];
+                if(!empty($order_id)){
+                    $res =Db::name('order')->where('id',$order_id)->update(['status'=>11]);
+                    if($res){
+                        $this->success('订单取消成功');
+                    }else{
+                        $this->error('订单取消失败');
+                    }
+                }
+            }
+        }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 买家确认收货
+     **************************************
+     */
+        public function collect_goods(Request $request){
+            if ($request->isPost()){
+                $order_id =$_POST['order_id'];
+                if(!empty($order_id)){
+                    $res =Db::name('order')->where('id',$order_id)->update(['status'=>5]);
+                    if($res){
+                       $this->success('确认收货成功',url('take_deliver'));
+                    }else{
+                        $this->error('确认收货失败');
+                    }
+                }
+            }
+        }
+
+    /**
+     * 实时物流显示
+     */
+    public function logistics_information(Request $request){
+        if($request->isPost()){
+            $order_id =$_POST['order_id'];
+            dump($order_id);exit();
+            return view('logistics_information');
+        }
+
+    }
+
 
 }

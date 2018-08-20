@@ -15,126 +15,278 @@
     </style>
 </head>
 <body>
-    <div class="header_box">
-        <div class="bar bar-header">
-            <a class="back" onclick="javascript:history.back(-1);">
-                <i class="aui-iconfont aui-icon-left"></i>
+<div class="header_box">
+    <div class="bar bar-header">
+        <a class="back" onclick="javascript:history.back(-1);">
+            <i class="aui-iconfont aui-icon-left"></i>
+        </a>
+        <div id="title" class="h1 title">我的订单</div>
+    </div>
+</div>
+<div class="list_box">
+    <a href="{:url('index/Order/myorder')}" class="active">全部</a>
+    <a href="{:url('index/Order/wait_pay')}">待付款</a>
+    <a href="{:url('index/Order/wait_deliver')}">待发货</a>
+    <a href="{:url('index/Order/take_deliver')}">待收货</a>
+    <a href="{:url('index/Order/evaluate')}" >待评价</a>
+</div>
+{if !empty($data)}
+<div class="order_box">
+    <ul class="order_ul">
+        {volist name="data" id="vo"}
+        <!--已完成-->
+        {if condition="($vo['status'] eq 7 )OR($vo['status'] eq 10 )"}
+        <li class="order_li">
+            <a href='{:url("index/Goods/detail")}'>
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width:8rem; height: 90px;">
+                        <img src="__UPLOADS__/{$vo.goods_img}">
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <p class="status_p">{$vo.status}</p>
+                        <div class="aui-list-item-text">
+                            <div style="display: none">{$vo.id}</div>
+                            <div class="aui-list-item-title">{$vo.goods_name}</div>
+                        </div>
+                        <div class="all_cost">共<span>{$vo.order_num}</span>件商品 合计:￥<span>{$vo.pay_money}</span>(含运费:￥<span>{$vo.send_money}</span> )</div>
+                    </div>
+                </div>
             </a>
-            <div id="title" class="h1 title">我的订单</div>
-        </div>
-    </div>
-    <div class="list_box">
-        <a href="{:url('index/Order/myorder')}" class="active">全部</a>
-        <a href="{:url('index/Order/wait_pay')}">待付款</a>
-        <a href="{:url('index/Order/wait_deliver')}">待发货</a>
-        <a href="{:url('index/Order/take_deliver')}">待收货</a>
-        <a href="{:url('index/Order/evaluate')}" >待评价</a>
-    </div>
-    <div class="order_box">
-        <ul class="order_ul">
-            <li class="order_li">
-                <a href='{:url("index/Goods/detail")}'>
-                    <div class="aui-media-list-item-inner">
-                        <div class="aui-list-item-media" style="width:8rem; height: 90px;">
-                            <img src="__UPLOADS__/{$vo.goods_img}">
-                        </div>
-                        <div class="aui-list-item-inner">
-                            <p class="status_p">{$vo.status}</p>
-                            <div class="aui-list-item-text">
-                                <div style="display: none">{$vo.id}</div>
-                                <div class="aui-list-item-title">{$vo.goods_name}</div>
-                            </div>
-                            <div class="all_cost">共<span>{$vo.order_num}</span>件商品 合计:￥<span>{$vo.pay_money}</span>(含运费:￥<span>{$vo.send_money}</span> )</div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="order_li">
-                <a href='{:url("index/Goods/detail")}'>
-                    <div class="aui-media-list-item-inner">
-                        <div class="aui-list-item-media" style="width:8rem; height: 90px;">
-                            <img src="__STATIC__/index/image/demo/pa1.jpg">
-                        </div>
-                        <div class="aui-list-item-inner">
-                            <p class="status_p">{$vo.status}</p>
-                            <div class="aui-list-item-text">
-                                <div style="display: none">{$vo.id}</div>
-                                <div class="aui-list-item-title">{$vo.goods_name}</div>
-                            </div>
-                            <div><span class="aui-margin-l-5">￥{$vo.pay_money}</span></div>
-                        </div>
-                    </div>
-                </a>
-                <a href="javascript:;" id="payment" class="public_btn mg_left5">付款</a>
-                <a href="javascript:;" id="cancel_order" class="cancel_order public_btn">取消订单</a>
-            </li>
-            <li class="order_li">
-                <a href='{:url("index/Goods/detail")}'>
-                    <div class="aui-media-list-item-inner">
-                        <div class="aui-list-item-media" style="width:8rem; height: 90px;">
-                            <img src="__UPLOADS__/{$vo.goods_img}">
-                        </div>
-                        <div class="aui-list-item-inner">
-                            <p class="status_p">{$vo.status}</p>
-                            <div class="aui-list-item-text">
-                                <div style="display: none">{$vo.id}</div>
-                                <div class="aui-list-item-title">{$vo.goods_name}</div>
-                            </div>
-                            <div><span class="aui-margin-l-5">￥{$vo.pay_money}</span></div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="order_li">
-                <a href='{:url("index/Goods/detail")}'>
-                    <div class="aui-media-list-item-inner">
-                        <div class="aui-list-item-media" style="width:8rem; height: 90px;">
-                            <img src="__UPLOADS__/{$vo.goods_img}">
-                        </div>
-                        <div class="aui-list-item-inner">
-                            <p class="status_p">{$vo.status}</p>
-                            <div class="aui-list-item-text">
-                                <div style="display: none">{$vo.id}</div>
-                                <div class="aui-list-item-title">{$vo.goods_name}</div>
-                            </div>
-                            <div><span class="aui-margin-l-5">￥{$vo.pay_money}</span></div>
-                        </div>
-                    </div>
-                </a>
-                <a href="javascript:;" id="confirm_deliver" class="public_btn mg_left5">确认收货</a>
-                <a href="javascript:;" id="check_logistic" class="cancel_order public_btn ">查看物流</a>
-            </li>
-            <li class="order_li">
-                <a href='{:url("index/Goods/detail")}'>
-                    <div class="aui-media-list-item-inner">
-                        <div class="aui-list-item-media" style="width:8rem; height: 90px;">
-                            <img src="__UPLOADS__/{$vo.goods_img}">
-                        </div>
-                        <div class="aui-list-item-inner">
-                            <p class="status_p">{$vo.status}</p>
-                            <div class="aui-list-item-text">
-                                <div class="aui-list-item-title">{$vo.goods_name}</div>
-                            </div>
-                            <div><span class="aui-margin-l-5">￥{$vo.pay_money}</span></div>
-                        </div>
-                    </div>
-                </a>
-                <a href="javascript:;" id="confirm_deliver" class="public_btn mg_left5">评价商品</a>
-            </li>
-        </ul>
-    </div>
-    <script src="__STATIC__/index/js/jquery.js"></script>
-    <script>
+        </li>
+        {/if}
 
-        // (function(){
-        //     var status_len = $('.status_p').length;
-        //     var status_p = $('.status_p');
-        //     for(var i = 0; i < status_len; i++){
-        //         if(status_p[i].innerHTML == '1'){
-        //             status_p[i].innerHTML == ''
-        //         }
-        //     }
-        // })()
-    </script>
+        <!--待付款-->
+        {if condition="($vo['status'] eq 1)"}
+        <li class="order_li">
+            <a href='{:url("index/Goods/detail")}'>
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width:8rem; height: 90px;">
+                        <img src="__UPLOADS__/{$vo.goods_img}">
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <p class="status_p">{$vo.status}</p>
+                        <div class="aui-list-item-text">
+                            <div style="display: none">{$vo.id}</div>
+                            <div class="aui-list-item-title">{$vo.goods_name}</div>
+                        </div>
+                        <div><span class="aui-margin-l-5">￥{$vo.pay_money}</span></div>
+                    </div>
+                </div>
+            </a>
+            <a href="javascript:;" id="payment" class="public_btn mg_left5">付款</a>
+            <a href="javascript:;" id="cancel_order_{$vo.id}" class="cancel_order public_btn cancel_order">取消订单</a>
+        </li>
+        {/if}
+
+        <!--待发货-->
+        {if condition="($vo['status'] eq 2)"}
+        <li class="order_li">
+            <a href='{:url("index/Goods/detail")}'>
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width:8rem; height: 90px;">
+                        <img src="__UPLOADS__/{$vo.goods_img}">
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <p class="status_p">{$vo.status}</p>
+                        <div class="aui-list-item-text">
+                            <div style="display: none">{$vo.id}</div>
+                            <div class="aui-list-item-title">{$vo.goods_name}</div>
+                        </div>
+                        <div><span class="aui-margin-l-5">￥{$vo.pay_money}</span></div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        {/if}
+        <!--待收货-->
+        {if condition="($vo['status'] eq 3)OR($vo['status'] eq 4)"/}
+        <li class="order_li">
+            <a href='{:url("index/Goods/detail")}'>
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width:8rem; height: 90px;">
+                        <img src="__UPLOADS__/{$vo.goods_img}">
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <p class="status_p">{$vo.status}</p>
+                        <div class="aui-list-item-text">
+                            <div style="display: none">{$vo.id}</div>
+                            <div class="aui-list-item-title">{$vo.goods_name}</div>
+                        </div>
+                        <div><span class="aui-margin-l-5">￥{$vo.pay_money}</span></div>
+                    </div>
+                </div>
+            </a>
+            <a href="javascript:;" id="confirm_deliver_{$vo.id}" class="public_btn mg_left5 confirm_deliver">确认收货</a>
+            <a href="javascript:;" id="check_logistic" class="cancel_order public_btn ">查看物流</a>
+        </li>
+        {/if}
+        <!--待评价-->
+        {if condition="($vo['status'] eq 5)OR ($vo['status'] eq 6)"/}
+        <li class="order_li">
+            <a href='{:url("index/Goods/detail")}'>
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width:8rem; height: 90px;">
+                        <img src="__UPLOADS__/{$vo.goods_img}">
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <p class="status_p">{$vo.status}</p>
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title">{$vo.goods_name}</div>
+                        </div>
+                        <div><span class="aui-margin-l-5">￥{$vo.pay_money}</span></div>
+                    </div>
+                </div>
+            </a>
+            <a href="javascript:;" id="confirm_deliver" class="public_btn mg_left5">评价商品</a>
+        </li>
+        {/if}
+        <!--待退款-->
+        {if condition="($vo['status'] eq 8 )"}
+        <li class="order_li">
+            <a href='{:url("index/Goods/detail")}'>
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width:8rem; height: 90px;">
+                        <img src="__UPLOADS__/{$vo.goods_img}">
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <p class="status_p">{$vo.status}</p>
+                        <div class="aui-list-item-text">
+                            <div style="display: none">{$vo.id}</div>
+                            <div class="aui-list-item-title">{$vo.goods_name}</div>
+                        </div>
+                        <div class="all_cost">共<span>{$vo.order_num}</span>件商品 合计:￥<span>{$vo.pay_money}</span>(含运费:￥<span>{$vo.send_money}</span> )</div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        {/if}
+        <!--订单已取消-->
+        {if condition="($vo['status'] eq 9 )OR($vo['status'] eq 11 )OR($vo['status'] eq 0 )"}
+        <li class="order_li">
+            <a href='{:url("index/Goods/detail")}'>
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width:8rem; height: 90px;">
+                        <img src="__UPLOADS__/{$vo.goods_img}">
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <p class="status_p">{$vo.status}</p>
+                        <div class="aui-list-item-text">
+                            <div style="display: none">{$vo.id}</div>
+                            <div class="aui-list-item-title">{$vo.goods_name}</div>
+                        </div>
+                        <div class="all_cost">共<span>{$vo.order_num}</span>件商品 合计:￥<span>{$vo.pay_money}</span>(含运费:￥<span>{$vo.send_money}</span> )</div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        {/if}
+
+        {/volist}
+    </ul>
+</div>
+{/if}
+<script src="__STATIC__/index/js/jquery.js"></script>
+<script>
+
+    // (function(){
+    //     var status_len = $('.status_p').length;
+    //     var status_p = $('.status_p');
+    //     for(var i = 0; i < status_len; i++){
+    //         if(status_p[i].innerHTML == '1'){
+    //             status_p[i].innerHTML == ''
+    //         }
+    //     }
+    // })()
+</script>
+<script>
+    (function(){
+        var status_len = $('.status_p').length;
+        var status_p = $('.status_p');
+        for(var i = 0; i < status_len; i++){
+            if(status_p[i].innerHTML == '1'){
+                status_p[i].innerHTML = '等待买家付款';
+            }
+            if(status_p[i].innerHTML == '2'){
+                status_p[i].innerHTML = '等待卖家发货';
+            }
+            if(status_p[i].innerHTML == '3'){
+                status_p[i].innerHTML = '卖家已发货';
+            }
+            if(status_p[i].innerHTML == '4'){
+                status_p[i].innerHTML = '卖家已发货';
+            }
+            if(status_p[i].innerHTML == '5'){
+                status_p[i].innerHTML = '交易成功';
+            }
+            if(status_p[i].innerHTML == '6'){
+                status_p[i].innerHTML = '交易成功';
+            }
+            if(status_p[i].innerHTML == '7'){
+                status_p[i].innerHTML = '已完成';
+            }
+            if(status_p[i].innerHTML == '8'){
+                status_p[i].innerHTML = '待退款';
+            }
+            if(status_p[i].innerHTML == '9'){
+                status_p[i].innerHTML = "订单已取消";
+            }
+            if(status_p[i].innerHTML == '10'){
+                status_p[i].innerHTML = '已完成';
+            }
+            if(status_p[i].innerHTML == '11'){
+                status_p[i].innerHTML = '订单已取消';
+            }
+            if(status_p[i].innerHTML == '0'){
+                status_p[i].innerHTML = '订单已取消';
+            }
+        }
+    })()
+</script>
+
+<!--确认收货-->
+<script>
+    $(".confirm_deliver").click(function () {
+        var order_id = $(this)[0].id.split('_')[2];
+        $.ajax({
+            type:'POST',
+            url:'{:url("index/Order/collect_goods")}',
+            data:{
+                'order_id':order_id
+            },
+            dataType: 'json',
+            success: function(data){
+//                    console.log(data);
+                alert(data.msg);
+//                window.location.href ="{:url('index/Order/take_deliver')}"
+                location.reload();
+            },
+            error:function(data) {
+//                    console.log(data);
+                alert(data.msg);
+            },
+        });
+    });
+</script>
+<!--取消订单-->
+<script>
+    $(".cancel_order").click(function () {
+        var order_id = $(this)[0].id.split('_')[2];
+        $.ajax({
+            type:'POST',
+            url:'{:url("index/Order/cancel_order")}',
+            data:{
+                'order_id':order_id
+            },
+            dataType: 'json',
+            success: function(data){
+                alert(data.msg);
+                location.reload();
+            },
+            error:function(data) {
+                alert(data.msg);
+            },
+        });
+    });
+</script>
 </body>
 </html>

@@ -43,15 +43,16 @@
                         <div class="aui-list-item-inner">
                             <p class="status_p">{$vo.status}</p>
                             <div class="aui-list-item-text">
-                                <div style="display: none">{$vo.id}</div>
+                                <div style="display: none" class="order_id"></div>
                                 <div class="aui-list-item-title">{$vo.goods_name}</div>
                             </div>
                             <div><span class="aui-margin-l-5">￥{$vo.pay_money}</span></div>
                         </div>
                     </div>
                 </a>
-                <a href="javascript:;" id="confirm_deliver" class="public_btn mg_left5">确认收货</a>
-                <a href="javascript:;" id="check_logistic" class="cancel_order public_btn ">查看物流</a>
+                <a href="javascript:;" id="confirm_deliver_{$vo.id}" class="public_btn mg_left5 confirm_deliver">确认收货</a>
+                <a href="javascript:;" id="check_logistic_{$vo.id}" class="cancel_order public_btn check_logistic">查看物流</a>
+                <!--{:url('index/Order/logistics_information')}-->
             </li>
             {/volist}
         </ul>
@@ -77,5 +78,50 @@
             }
         })()
     </script>
+    <!--查看物流信息-->
+    <script>
+        $(".check_logistic").click(function () {
+            var order_id = $(this)[0].id.split('_')[2];
+            $.ajax({
+                type:'POST',
+                url:'{:url("index/Order/logistics_information_id")}',
+                data:{
+                    'order_id':order_id
+                },
+                dataType: 'json',
+                success: function(data){
+                    console.log(data);
+//                    alert(data.msg);
+//                    location.reload();
+                },
+                error:function(data) {
+                    console.log(data);
+//                    alert(data.msg);
+                },
+            });
+        });
+    </script>
+    <!--确认收货-->
+    <script>
+        $(".confirm_deliver").click(function () {
+            var order_id = $(this)[0].id.split('_')[2];
+            $.ajax({
+                type:'POST',
+                url:'{:url("index/Order/collect_goods")}',
+                data:{
+                    'order_id':order_id
+                },
+                dataType: 'json',
+                success: function(data){
+                    alert(data.msg);
+                    location.reload();
+                },
+                error:function(data) {
+                    alert(data.msg);
+                },
+            });
+        });
+    </script>
+
 </body>
 </html>
