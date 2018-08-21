@@ -78,7 +78,10 @@ class Admin extends Controller
      */
     public function updata(Request $request){
         $data = $request->param();
-        $bool = db("Admin")->where('id', $request->only("id")["id"])->update($data);
+        $data["passwd"] = md5($data["passwd"]);
+        $data["stime"] = date("Y-m-d H:i:s");
+        $id = $request->only(['id'])['id'];
+        $bool = db("Admin")->where('id', $id)->update($data);
         if ($bool){
             $this->success("编辑成功",url("admin/admin/index"));
         }else{

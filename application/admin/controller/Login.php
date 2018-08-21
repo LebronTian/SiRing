@@ -59,9 +59,9 @@ class Login extends Controller{
             if ($user_passwd != $userInfo[0]["passwd"]) {
                 $this->success("账户名不正确",url("admin/Login/index"));
             }else{
-                Session::set("user_id", $userInfo[0]["id"]);
+                Session("user_id", $userInfo[0]["id"]);
                 unset($userInfo->user_passwd);
-                Session::set("user_info", $userInfo);
+                Session("user_info", $userInfo);
                 $this->redirect(url("admin/index/index"));
             }
         }
