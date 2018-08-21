@@ -78,10 +78,10 @@ class Order extends Base {
                ];
                $res =Db::name('order')->data($datas)->insert();
                if($res){
-                  Session::delete('goods_id');
+//                  Session::delete('goods_id');
                    $this->success('下单成功');
                }
-               return ajax_success('获取成功',$data);
+               return ajax_success('获取成功',$datas);
            }
         }
     }
@@ -113,10 +113,14 @@ class Order extends Base {
      **************************************
      */
         public function details(){
-            $data =Db::name('order')->select();
-            if(!empty($data)){
-                $this->assign('data',$data);
-            }
+                $order_id = Session::get("order_id");
+                if(!empty($order_id)){
+                    $data=Db::table("tb_order")
+                        ->field("tb_order.*,tb_goods.goods_bottom_money goods_bottom_money")
+                        ->join("tb_goods","tb_order.goods_id=tb_goods.id and tb_order.id=$order_id",'left')
+                        ->find();
+                   $this->assign('data',$data);
+                }
             return view('details');
         }
 
@@ -126,6 +130,13 @@ class Order extends Base {
      * 我的订单
      **************************************
      */
+    public function ajax_id(Request $request){
+        if($request->isPost()){
+            $id = $request->only(["order_id"])['order_id'];
+            Session("order_id",$id);
+            return ajax_success("获取成功");
+        }
+    }
         public function myorder(){
             $datas =session('member');
             $member_id =Db::name('user')->field('id')->where('phone_num',$datas['phone_num'])->find();
@@ -242,12 +253,72 @@ class Order extends Base {
      * 实时物流显示
      */
     public function logistics_information(Request $request){
+        if ($request->isPost()) {
+            $order_id =$_POST['order_id'];
+            session('by_order_id',$order_id);
+            if(!empty($order_id)){
+              $this->success('成功','index/Order/logistics_information');
+            }
+        }
+            return view('logistics_information');
+
+    }
+
+    /**
+     **************李火生*******************
+     * 待收货查看物流传的order_Id
+     **************************************
+     */
+    public  function logistics_information_id(Request $request){
         if($request->isPost()){
             $order_id =$_POST['order_id'];
-            dump($order_id);exit();
-            return view('logistics_information');
+            session('by_order_id',$order_id);
+            if(!empty($order_id)){
+                $this->success('成功','index/Order/logistics_information');
+            }
         }
+    }
 
+
+    /**
+     **************李火生*******************
+     * 快递100接口
+     **************************************
+     */
+    public function interface_information(Request $request)
+    {
+        if ($request->isPost()) {
+            $order_id =Session::get('by_order_id');
+            if(!empty($order_id)) {
+                $express_num =Db::name('order')->field('express_num')->where('id',$order_id)->find();
+                if(!empty($express_num)) {
+                    $codes =$express_num['express_num'];
+                    //参数设置
+                    $post_data = array();
+                    $post_data["customer"] = '4C249BC13C74A7FE1ED2AAEACF722D34';
+                    $key = 'rBJvVnui5301';
+                    $post_data["param"] = '{"com":"yuantong","num":"' . $codes . '"}';
+
+                    $url = 'http://poll.kuaidi100.com/poll/query.do';
+                    $post_data["sign"] = md5($post_data["param"] . $key . $post_data["customer"]);
+                    $post_data["sign"] = strtoupper($post_data["sign"]);
+                    $o = "";
+                    foreach ($post_data as $k => $v) {
+                        $o .= "$k=" . urlencode($v) . "&";        //默认UTF-8编码格式
+                    }
+                    $post_data = substr($o, 0, -1);
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_POST, 1);
+                    curl_setopt($ch, CURLOPT_HEADER, 0);
+                    curl_setopt($ch, CURLOPT_URL, $url);
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+                    $result = curl_exec($ch);
+                    $data = str_replace("\"", '"', $result);
+                    $data = json_decode($data,true);
+                    session('by_order_id',null);
+                }
+            }
+        }
     }
 
 

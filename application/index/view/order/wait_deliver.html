@@ -35,7 +35,7 @@
         <ul class="order_ul">
             {volist name="data" id="vo"}
             <li class="order_li">
-                <a href='{:url("index/Goods/detail")}'>
+                <a  id="details_order_{$vo.id}" class="details_order">
                     <div class="aui-media-list-item-inner">
                         <div class="aui-list-item-media" style="width:8rem; height: 90px;">
                             <img src="__UPLOADS__/{$vo.goods_img}">
@@ -72,6 +72,28 @@
                 }
             }
         })()
+    </script>
+    <!--点进去订单详情-->
+    <script>
+        $(".details_order").click(function () {
+            var order_id = $(this)[0].id.split('_')[2];
+            alert(order_id);
+            $.ajax({
+                type:'POST',
+                url:'{:url("index/Order/ajax_id")}',
+                data:{
+                    'order_id':order_id
+                },
+                dataType: 'json',
+                success: function(data){
+                    console.log(data);
+                    window.location.href ="order_details";
+                },
+                error:function(data) {
+                    console.log("失败");
+                },
+            });
+        });
     </script>
 </body>
 </html>

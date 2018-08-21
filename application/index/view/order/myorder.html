@@ -37,7 +37,7 @@
         <!--已完成-->
         {if condition="($vo['status'] eq 7 )OR($vo['status'] eq 10 )"}
         <li class="order_li">
-            <a href='{:url("index/Goods/detail")}'>
+            <a  id="details_order_{$vo.id}" class="details_order">
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-media" style="width:8rem; height: 90px;">
                         <img src="__UPLOADS__/{$vo.goods_img}">
@@ -58,7 +58,7 @@
         <!--待付款-->
         {if condition="($vo['status'] eq 1)"}
         <li class="order_li">
-            <a href='{:url("index/Goods/detail")}'>
+            <a  id="details_order_{$vo.id}" class="details_order">
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-media" style="width:8rem; height: 90px;">
                         <img src="__UPLOADS__/{$vo.goods_img}">
@@ -81,7 +81,7 @@
         <!--待发货-->
         {if condition="($vo['status'] eq 2)"}
         <li class="order_li">
-            <a href='{:url("index/Goods/detail")}'>
+            <a  id="details_order_{$vo.id}" class="details_order">
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-media" style="width:8rem; height: 90px;">
                         <img src="__UPLOADS__/{$vo.goods_img}">
@@ -101,7 +101,7 @@
         <!--待收货-->
         {if condition="($vo['status'] eq 3)OR($vo['status'] eq 4)"/}
         <li class="order_li">
-            <a href='{:url("index/Goods/detail")}'>
+            <a  id="details_order_{$vo.id}" class="details_order">
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-media" style="width:8rem; height: 90px;">
                         <img src="__UPLOADS__/{$vo.goods_img}">
@@ -117,13 +117,13 @@
                 </div>
             </a>
             <a href="javascript:;" id="confirm_deliver_{$vo.id}" class="public_btn mg_left5 confirm_deliver">确认收货</a>
-            <a href="javascript:;" id="check_logistic" class="cancel_order public_btn ">查看物流</a>
+            <a href="javascript:;" id="check_logistic_{$vo.id}" class=" public_btn check_logistic" >查看物流</a>
         </li>
         {/if}
         <!--待评价-->
         {if condition="($vo['status'] eq 5)OR ($vo['status'] eq 6)"/}
         <li class="order_li">
-            <a href='{:url("index/Goods/detail")}'>
+            <a id="details_order_{$vo.id}" class="details_order">
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-media" style="width:8rem; height: 90px;">
                         <img src="__UPLOADS__/{$vo.goods_img}">
@@ -143,7 +143,7 @@
         <!--待退款-->
         {if condition="($vo['status'] eq 8 )"}
         <li class="order_li">
-            <a href='{:url("index/Goods/detail")}'>
+            <a  id="details_order_{$vo.id}" class="details_order">
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-media" style="width:8rem; height: 90px;">
                         <img src="__UPLOADS__/{$vo.goods_img}">
@@ -163,7 +163,7 @@
         <!--订单已取消-->
         {if condition="($vo['status'] eq 9 )OR($vo['status'] eq 11 )OR($vo['status'] eq 0 )"}
         <li class="order_li">
-            <a href='{:url("index/Goods/detail")}'>
+            <a  id="details_order_{$vo.id}" class="details_order">
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-media" style="width:8rem; height: 90px;">
                         <img src="__UPLOADS__/{$vo.goods_img}">
@@ -242,6 +242,28 @@
         }
     })()
 </script>
+<!--订单详情-->
+<script>
+    $(".details_order").click(function () {
+        var order_id = $(this)[0].id.split('_')[2];
+        alert(order_id);
+        $.ajax({
+            type:'POST',
+            url:'{:url("index/Order/ajax_id")}',
+            data:{
+                'order_id':order_id
+            },
+            dataType: 'json',
+            success: function(data){
+                    console.log(data);
+                window.location.href ="order_details";
+            },
+            error:function(data) {
+                    console.log("失败");
+            },
+        });
+    });
+</script>
 
 <!--确认收货-->
 <script>
@@ -288,5 +310,29 @@
         });
     });
 </script>
+
+<!--查看物流-->
+<script>
+    $(".check_logistic").click(function () {
+        var order_id = $(this)[0].id.split('_')[2];
+        alert(order_id);
+        $.ajax({
+            type:'POST',
+            url:'{:url("index/Order/logistics_information")}',
+            data:{
+                'order_id':order_id
+            },
+            dataType: 'json',
+            success: function(data){
+                console.log(data);
+                window.location.href="{:url('index/Order/logistics_information')}"
+            },
+            error:function(data) {
+                console.log("失败");
+            },
+        });
+    });
+</script>
+
 </body>
 </html>

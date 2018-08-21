@@ -35,15 +35,17 @@
             <div class="sn-nav-title of">订单详情</div>
             <div class="sn-nav-other"></div>
         </header>
+
+        {if !empty($data)}
         <div class="cart-group">
             <div class="cart-group-item delivery-lite-info"  onclick=''>
                 <h1>
-                    <span>收货人: 福尔发</span>
-                    <span>188****9193</span>
+                    <span>收货人: {$data.harvester}</span>
+                    <span>{$data.harvest_phone_num}</span>
                 </h1>
                 <div>
                     <div><i></i></div>
-                    <p>收货地址:<span>北京市北京市东城区全境北京市海淀区西三环北路43号中航广场1层</span></p>
+                    <p>收货地址:<span>{$data.harvest_address}</span></p>
                 </div>
             </div>
         </div>
@@ -51,11 +53,11 @@
             <div class="details">
                 <img class="goods_img_url" onerror="this.src='__STATIC__/index/images/ShoppingArea/Common/blankbg.gif'" src="__STATIC__/index/image/sp1.jpg">
                 <div>
-                    <p class="goods_name">99新 iphone x 64G白 移动4G ,联通4G，电信4G 国行</p>
-                    <i class="order_num">1</i>
+                    <p class="goods_name">{$data.goods_name}</p>
+                    <i class="order_num">{$data.order_num}</i>
                     <div>
                         <span class="price">
-                            <b>￥1111</b>
+                            <b>￥{$data.goods_bottom_money}</b>
                             <i></i>
                         </span>
                     </div>
@@ -89,26 +91,29 @@
             <div class="cart-group-item">
                 <ul class="detail">
                     <li class="detail-item">
-                        <label>商品总额</label>
-                        <div>
-                            <span class="price">
-                                <b>￥</b>
-                            </span>
-                        </div>
-                    </li>
-                    <li class="detail-item">
                         <label>运费</label>
                         <i id="showfareDetail"></i>
                         <div>
                             <span class="price">
-                                <b>+￥</b>
+                                <b>￥{$data.send_money}</b>
                                 <b class="express_fee"></b>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="detail-item">
+                        <label>商品总额</label>
+                        <div>
+                            <span class="price">
+                                <b>￥{$data.pay_money}</b>
                             </span>
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
+
+        {/if}
+
         <footer class="cart-footer">
             <a class="sn-btn sn-btn-assertive" id="cancel_order" >取消订单</a>
             <a class="sn-btn sn-btn-assertive" id="bt_order">付款</a>

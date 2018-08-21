@@ -51,6 +51,8 @@ Route::group("",[
     "address"=>"index/Member/address",
     /*三级城市*/
     "getRegions"=>"index/Member/getRegions",
+    /*收获人信息管理*/
+    'harvester_informations'=>"index/Member/harvester_informations",
 
 
     /*确认订单*/
@@ -58,6 +60,7 @@ Route::group("",[
     "common_id"=>"index/Order/common_id",
     'bt_order'=>"index/Order/bt_order",//提交订单
     'order_details'=>"index/Order/details",//订单详情
+    'order_id'=>"index/Order/ajax_id",//订单详情
 
     'order_myorder'=>"index/Order/myorder",//我的订单
     'order_wait_pay'=>"index/Order/wait_pay",//待支付
@@ -67,8 +70,9 @@ Route::group("",[
     'cancel_order'=>"index/Order/cancel_order",//买家取消订单
     'collect_goodss'=>"index/Order/collect_goods",//买家确认收货
     'logistics_information'=>"index/Order/logistics_information",//实时物流信息
+    'interface_information'=>"index/Order/interface_information", //快递100接口
     'logistics_information_id'=>"index/Order/logistics_information_id",//用来接收物流信息的id
-
+    'confirm_payment'=>"index/order/confirm_payment", //确定付款
     /*登录页面*/
     "login"=>"index/Login/login",
     "logout"=>"index/Login/logout",

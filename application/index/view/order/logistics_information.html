@@ -5,7 +5,25 @@
     <title>Title</title>
 </head>
 <body>
-这是物流显示页面
+这是物流信息
 
+<script src="__STATIC__/index/js/jquery.js"></script>
+<script>
+    (function () {
+        $.ajax({
+            type:'POST',
+            url:'{:url("index/Order/interface_information")}',
+            data:{
+            },
+            dataType: 'json',
+            success: function(data){
+                console.log(data);
+            },
+            error:function(data) {
+                console.log("失败");
+            },
+        });
+    })()
+</script>
 </body>
 </html>
