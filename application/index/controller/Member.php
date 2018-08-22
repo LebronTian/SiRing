@@ -52,11 +52,57 @@ class  Member extends  Base {
         echo json_encode($list);
     }
 
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 收货信息
+     **************************************
+     */
     public function  harvester_informations(Request $request){
         if($request->isPost()){
-            $data =$_POST;
-            if(!empty($data)){
-                return ajax_success('成功',$data);
+            $member =Session('member');
+            $member_id =Db::name('user')->field('id')->where('phone_num',$member['phone_num'])->find();
+            $data=$_POST;
+            $datas =[
+              'harvester'=>$data['harvester'],
+                'harvester_phone_num'=>$data['harvester_phone_num'],
+                'city'=>$data['city_information'],
+                'province_id'=>$data['province_id'],
+                'city_id'=>$data['city_id'],
+                'town_id'=>$data['town_id'],
+                'address'=>$data['address'],
+            ];
+            if(!$_POST['harvester']){
+                $this->error('收获人不能为空');
+            }
+            if(!$_POST['harvester_phone_num']){
+                $this->error('收获人手机号不能为空');
+            }
+            if(!$_POST['province']){
+                $this->error('省级地址不能为空');
+            }
+            if(!$_POST['city']){
+                $this->error('市级地址不能为空');
+            }
+            if(!$_POST['town']){
+                $this->error('县级地址不能为空');
+            }
+            if(!$_POST['address']){
+                $this->error('具体收货街道地址不能为空');
+            }
+            if(!empty($_POST['harvester'])&&
+                !empty($_POST['harvester_phone_num'])&&
+                !empty($_POST['province'])&&
+                !empty($_POST['city'])&&
+                !empty($_POST['town'])&&
+                !empty($_POST['harvester'])
+            ){
+                $res = Db::name('user')->where('id',$member_id['id'])->update($datas);
+                if($res){
+                    return ajax_success('成功',$res);
+                }
+            }else{
+                return ajax_error('失败');
             }
         }
     }

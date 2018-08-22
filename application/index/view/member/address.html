@@ -95,21 +95,19 @@
     <script>
         $('.confirm').click(function(){
             var harvester =$('.harvester').val();
-
             var harvester_phone_num =$('.harvester_phone_num').val();
-
-            var addressee = $('.addressee').val();
-            
             var phone_num = $('.phone_num').val();
-
-            var province = $('#prov option:selected').html();
-
+            var province = $('#province option:selected').html();
             var city = $('#city option:selected').html();
-
             var town = $('#town option:selected').html();
+            var province_id = $('#province option:selected').val();
+            var city_id = $('#city option:selected').val();
+            var town_id = $('#town option:selected').val();
+            var city_information =province+','+city+','+town;
 
+            console.log(town);
             var detail_add = $('.detail_add').val();
-
+            console.log(detail_add);
             $.ajax({
                 url: '{:url("index/Member/harvester_informations")}',
                 type: 'POST',
@@ -118,18 +116,29 @@
                 data: {
                     'harvester':harvester,
                     'harvester_phone_num':harvester_phone_num,
-                    'addressee': addressee,
                     'phone_num': phone_num,
                     'province': province,
                     'city': city,
                     'town': town,
-                    'detail_add': detail_add
+                    'address': detail_add,
+                    'province_id':province_id,
+                    'city_id':city_id,
+                    'town_id':town_id,
+                    'city_information':city_information
                 },
                 success: function(data){
-                    console.log(data)
+                    console.log(data);
+                    if(data.code ==0){
+                        alert(data.msg);
+                    }
+                    if(data.status==1){
+                        alert(data.info);
+                        window.location.href ="{:url('index/Order/index')}";
+                    }
                 },
-                error: function(){
-                    console.log('错误')
+                error: function(data){
+                    console.log(data);
+
                 }
             })
         })
