@@ -21,6 +21,19 @@ class Order extends Base {
      **************************************
      */
     public function index(){
+        $member =Session::get('member');
+        $member_information =Db::name('user')->field('harvester,harvester_phone_num,city,address')->where('phone_num',$member['phone_num'])->find();
+        $my_position =explode(",",$member_information['city']);
+//        header("Content-Type:text/html; charset=utf-8");
+//            $my_position = iconv("utf-8", "utf-8", $my_position[0]);
+//        dump($my_position[0]);exit();
+        $position = $my_position[0].$my_position[1].$my_position[2].$member_information['address'];
+        if(!empty($my_position)){
+            $this->assign('member_information',$member_information);
+        }
+        if(!empty($position)){
+            $this->assign('position',$position);
+        }
         $commodity_id =Session::get('goods_id');
         if(!empty($commodity_id)){
             $datas =Db::name('goods')->where('id',$commodity_id)->find();
