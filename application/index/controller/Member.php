@@ -35,12 +35,12 @@ class  Member extends  Base {
     public function address(Request $request){
         $province = Db::name('tree')->where (array('pid'=>1) )->select();
         $this->assign('province',$province);
-        if($request->isPost()){
-            $data =Session('member');
-            $member_id =Db::name('user')->field('id')->where('phone_num',$data['phone_num'])->find();
-            $data =Db::name('user')->where('id',$member_id)->find();
-            return ajax_success('获取成功',$data);
-        }
+        // if($request->isPost()){
+        //     $data =Session('member');
+        //     $member_id =Db::name('user')->field('id')->where('phone_num',$data['phone_num'])->find();
+        //     $data =Db::name('user')->where('id',$member_id)->find();
+        //     return ajax_success('获取成功',$data);
+        // }
         return view('address');
     }
 
@@ -106,6 +106,8 @@ class  Member extends  Base {
             }
         }
     }
-
+    public function  myadd(){
+        return view('myadd');
+    }
 
 }

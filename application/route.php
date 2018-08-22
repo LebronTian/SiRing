@@ -49,6 +49,8 @@ Route::group("",[
     "member_index"=>"index/Member/index",
     /*收货地址*/
     "address"=>"index/Member/address",
+    // 我的地址
+    "myadd"=>"index/Member/myadd",
     /*三级城市*/
     "getRegions"=>"index/Member/getRegions",
     /*收获人信息管理*/
@@ -62,6 +64,7 @@ Route::group("",[
     'order_details'=>"index/Order/details",//订单详情
     'order_id'=>"index/Order/ajax_id",//订单详情
 
+    'check_logistic'=>"index/Order/logistic",//查看物流
     'order_myorder'=>"index/Order/myorder",//我的订单
     'order_wait_pay'=>"index/Order/wait_pay",//待支付
     'order_wait_deliver'=>"index/Order/wait_deliver",//待发货
@@ -105,6 +108,9 @@ Route::group("",[
     /*晒单*/
     "share_detail"=>"index/Share/share_detail",
     "share_index"=>"index/Share/share_index",
+    // 追加评价
+    "evaluation"=>"index/Share/evaluation",
+
 
 
 ]);

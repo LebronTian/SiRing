@@ -200,3 +200,36 @@
     left: 0;
 	background-color: rgba(0, 0, 0, .3);
 }
+
+/* 查看物流信息 */
+.logistic_num_box{
+    width: 98%;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #555;
+    padding-left: 8px;
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.logistic_box{
+    width: 98%;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 14px;
+}
+.logistic_box li{
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    display: flex;
+}
+.logistic_box li:last-of-type{
+    border-bottom: none;
+}
