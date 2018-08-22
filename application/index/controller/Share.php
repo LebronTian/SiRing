@@ -29,5 +29,8 @@ class Share extends Controller{
     public function share_detail(){
         return view("share_detail");
     }
+    public function evaluation(){
+        return view("evaluation");
+    }
 
 }
