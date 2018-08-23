@@ -57,7 +57,7 @@
                     <li class="select">
                         <!-- 修改em的id，下面的点击事件也需要改 -->
                         <em aem="0" id="{$vo.id}"></em>
-                        <a href='{:url("index/Goods/detail")}'>
+                        <a  id="details_goods_{$vo.goods_id}" class="details_goods">
                             <div class="aui-media-list-item-inner">
                                 <div class="aui-list-item-media" style="width:5rem">
                                     <img src="__UPLOADS__/{$vo.goods_show_images}">
@@ -88,6 +88,30 @@
     </div>
     <!-- end -->
 </form>
+<!--点进去订单详情-->
+<script>
+    $(".details_goods").click(function () {
+        var goods_id = $(this)[0].id.split('_')[2];
+//        alert(goods_id);
+        $.ajax({
+            type:'POST',
+            url:'{:url("index/Goods/goods_id")}',
+            data:{
+                'goods_id':goods_id
+            },
+            dataType: 'json',
+            success: function(data){
+                console.log(data);
+                window.location.href ="goods_detail";
+            },
+            error:function(data) {
+                console.log("失败");
+            },
+        });
+    });
+</script>
+
+
 <script>
     $('#confirm_cart').click(function(){
         var id_len = $('.commodity_list_term li').find('em.pitch_on').length;

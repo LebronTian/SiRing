@@ -29,6 +29,13 @@ class Share extends Controller{
     public function share_detail(){
         return view("share_detail");
     }
+
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 追加评价
+     **************************************
+     */
     public function evaluation(){
         return view("evaluation");
     }
