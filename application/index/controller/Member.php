@@ -126,6 +126,9 @@ class  Member extends  Base {
         }
         return view('myadd');
     }
+    public function  collection(){
+        return view('collection');
+    }
 
     /**
      **************李火生*******************
