@@ -57,6 +57,8 @@ Route::group("",[
     "getRegions"=>"index/Member/getRegions",
     /*收获人信息管理*/
     'harvester_informations'=>"index/Member/harvester_informations",
+    /*收货人信息编辑查看*/
+    'get_address_informations'=>"index/Member/get_address_informations",
 
 
     /*确认订单*/
