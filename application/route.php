@@ -57,7 +57,8 @@ Route::group("",[
     'harvester_informations'=>"index/Member/harvester_informations",
     /*收货人信息编辑查看*/
     'get_address_informations'=>"index/Member/get_address_informations",
-
+    /*我的收藏*/
+    'my_collection'=>"index/Member/my_collection",
 
     /*确认订单*/
     "order_index"=>"index/Order/index",

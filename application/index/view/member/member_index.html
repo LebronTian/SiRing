@@ -96,7 +96,9 @@
                     <i class="aui-iconfont aui-icon-location aui-text-info"></i>
                 </div>
                 <div class="aui-list-item-inner aui-list-item-arrow">
-                    <div class="aui-list-item-title">管理收货地址</div>
+                    <a href="{:url('index/member/myadd')}">
+                        <div class="aui-list-item-title" >管理收货地址</div>
+                    </a>
                 </div>
             </li>
             <li class="aui-list-item">
@@ -104,7 +106,10 @@
                     <i class="aui-iconfont aui-icon-like aui-text-danger"></i>
                 </div>
                 <div class="aui-list-item-inner aui-list-item-arrow">
+                    <a href="{'index/member/my_collection'}">
                     <div class="aui-list-item-title">我的收藏</div>
+                    </a>
+
                 </div>
             </li>
             <!-- <li class="aui-list-item">
@@ -208,7 +213,7 @@
             <i class="aui-iconfont aui-icon-cart"></i>
             <div class="aui-bar-tab-label">购物车</div>
         </a>
-        <a class="aui-bar-tab-item aui-active" tapmode href="member.html">
+        <a class="aui-bar-tab-item aui-active" tapmode href="{:url('index/Member/index')}">
             <i class="aui-iconfont aui-icon-my thered"></i>
             <div class="aui-bar-tab-label thered">我的</div>
         </a>
