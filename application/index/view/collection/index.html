@@ -39,9 +39,7 @@
             <i class="aui-iconfont aui-icon-left" style="font-weight:800; color:#fff; font-size:20px;"></i>
         </a>
         <div id="tite" class="h1 title" style=" width: 60%; margin: 0 auto; ">宝贝收藏</div>
-        <a class="rig_shai" id="rem_s" href="javascript:void(0)" style="margin-right: 2%;position: absolute; top: 5px; right: 3%;">
-            <i class="aui-iconfont aui-icon-edit" style="font-weight:800; color:#fff; font-size:21px;"></i>
-        </a>
+        
     </div>
 </div>
 <form method="post" name="cart_form" target="_self" id="cart_form" action="{:url('index/Shopping/option')}">
@@ -364,27 +362,6 @@
         //将选择的放入到计算里面
         //$("#confirm_cart").html("结算("+num+")");
     }
-
-    /* 编辑商品  */
-    var topb = 0;
-    $("#rem_s").click(function() {
-        if (topb == 0) {
-            $(this).text("完成");
-            $("#confirm_cart1").show();
-
-            topb = 1;
-        } else {
-            topb = 0;
-            $(this).text("编辑");
-            $("#confirm_cart1").hide();
-            /* 删除 */
-            allThis.removeClass("pitch_on");
-            /* 取消所有选择  */
-            $("#all_pitch_on").removeClass("pitch_on");
-            /* 取消所有选择  */
-        }
-
-    });
     /* 加减  */
 
     function reducew(obj) {
@@ -438,18 +415,14 @@
 
     //删除
     function big_cart_remove() {
-
-        // 购物车 删除商品
-        console.log(111)
         var del_arr = [];
         var all_len = $('em.pitch_on').length;
         var del_id = $('em.pitch_on');
         for(var i = 0; i < all_len; i++){
             del_arr.push(del_id[i].id)
         }
-        console.log(del_arr)
         $.ajax({
-            url: '{:url("")}',
+            url: '{:url("index/Collection/del")}',
             type: 'POST',
             dataType: 'JSON',
             async: false,
