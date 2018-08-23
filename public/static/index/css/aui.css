@@ -881,6 +881,7 @@ input[type="search"]::-webkit-search-cancel-button {
     -webkit-align-items: center;
     		align-items: center;
 }
+.aui-list-item-text .aui-list-item-title,
 .aui-list .aui-list-item-title {
     font-size: 14px;
     position: relative;
@@ -892,10 +893,8 @@ input[type="search"]::-webkit-search-cancel-button {
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
-	word-break: break-word;
 	color: #232326;
-	margin-top: 5px;
-	line-height: 22px;
+	line-height: 20px;
 	margin-bottom: 3px;
 	padding: 0 4px;
 
@@ -3117,7 +3116,7 @@ div#shopping_cart { position: fixed; bottom: 7px; right: 2%; background: #aacc36
 .shop_ul_bottom.account_info_box:nth-last-child(1) { border-bottom: none; }
 .commodity_list .tite_tim { width: 90%; margin: 0 auto; padding: 12px 0; color: #333; font-size: 0.7rem; background: url(../images/weixin/jit_icon.png) no-repeat right center; background-size: 6px; }
 .commodity_list .tite_tim em { float: left; width: 20px; height: 20px; border: solid 1px #e6e6e6; border-radius: 50%; margin-right: 10px; }
-.commodity_list .commodity_list_term {margin-left: 20px;}
+.commodity_list .commodity_list_term {margin-left: 8px;}
 .commodity_list .commodity_list_term li { position: relative; overflow: hidden; padding: 12px 0; }
 .commodity_list .commodity_list_term li em { position: absolute; width: 20px; height: 20px; border: solid 1px #e6e6e6; border-radius: 50%; left: 0; top: 40px; }
 .commodity_list .commodity_list_term li img { width: 80px; height: 80px; max-width: 80px; max-height: 80px; float: left; margin-left: 28px; }

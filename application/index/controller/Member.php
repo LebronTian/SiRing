@@ -109,5 +109,8 @@ class  Member extends  Base {
     public function  myadd(){
         return view('myadd');
     }
+    public function  collection(){
+        return view('collection');
+    }
 
 }

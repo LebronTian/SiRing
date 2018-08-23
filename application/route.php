@@ -51,6 +51,8 @@ Route::group("",[
     "address"=>"index/Member/address",
     // 我的地址
     "myadd"=>"index/Member/myadd",
+    // 收藏
+    "collection"=>"index/Member/collection",
     /*三级城市*/
     "getRegions"=>"index/Member/getRegions",
     /*收获人信息管理*/
