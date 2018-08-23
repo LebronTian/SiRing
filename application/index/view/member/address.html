@@ -92,6 +92,36 @@
         <button href="javascript:;" class="confirm">确认</button>
         <button href="javascript:;" class="cancel">取消</button>
     </div>
+    <!--查看地址信息-->
+    <script>
+        (function () {
+            $.ajax({
+                url: "{:url('index/Member/get_address_informations')}",
+                type: 'POST',
+                dataType: 'json',
+                success: function(data){
+                    console.log(data);
+                    $('.harvester').val(data.data.harvester);
+                    $('.harvester_phone_num').val(data.data.harvester_phone_num);
+                    // 设置城市
+                    $('#province option:selected').val(data.data.province_id);
+                    $('#city option:selected').val(data.data.city_id);
+                    $('#town option:selected').val(data.data.town_id);
+                    var oCity = data.data.city.split(',');
+                    $('#province option:selected').html(oCity[0]);
+                    $('#city option:selected').html(oCity[1]);
+                    $('#town option:selected').html(oCity[2]);
+
+                    $('.detail_add').val(data.data.address);
+                    // 备注
+                },
+                error: function(){
+                    console.log('失败');
+                }
+            });
+        })();
+    </script>
+    <!--编辑保存-->
     <script>
         $('.confirm').click(function(){
             var harvester =$('.harvester').val();

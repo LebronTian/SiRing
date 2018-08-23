@@ -106,8 +106,33 @@ class  Member extends  Base {
             }
         }
     }
+
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 我的地址
+     **************************************
+     */
     public function  myadd(){
+
         return view('myadd');
+    }
+
+    public function  get_address_informations(Request $request){
+        if($request->isPost()){
+            $member =Session::get('member');
+            if(!empty($member)){
+                $member_id =Db::name('user')->field('id')->where('phone_num',$member['phone_num'])->find();
+                $datas =Db::name('user')->where('id',$member_id['id'])->find();
+                if(!empty($datas)){
+                    return ajax_success('成功',$datas);
+                }else{
+                    return ajax_error('失败');
+                }
+            }
+
+
+        }
     }
 
 }
