@@ -52,24 +52,29 @@
             <div class="commodity_list">
                 <!--商品-->
                 <ul class="commodity_list_term">
+                    {if !empty($data)}
+                    {volist name="data" id="vo"}
                     <li class="select">
                         <!-- 修改em的id，下面的点击事件也需要改 -->
-                        <em aem="0" id="circle_em" style="display: none"></em>
+                        <em aem="0" id="{$vo.id}"></em>
                         <a href='{:url("index/Goods/detail")}'>
                             <div class="aui-media-list-item-inner">
                                 <div class="aui-list-item-media" style="width:5rem">
-                                    <img src="__STATIC__/index/image/demo/pa1.jpg">
+                                    <img src="__UPLOADS__/{$vo.goods_show_images}">
                                 </div>
                                 <div class="aui-list-item-inner">
                                     <div class="aui-list-item-text">
-                                        <div class="aui-list-item-title">[为你推荐]kaman抽屉式化妆品收纳盒大号创意护肤桌面收纳盒塑料口红置物架</div>
+                                        <div class="aui-list-item-title">[为你推荐]{$vo.goods_name}</div>
                                     </div>
-                                    <div><span class="aui-margin-l-5">￥39.00</span></div>
+                                    <div><span class="aui-margin-l-5">￥{$vo.goods_bottom_money}</span></div>
                                 </div>
+
                             </div>
                         </a>
-                        <a href="javascript:alert('找相似');" class="check_detail">找相似</a>
+                        <!--<a href="javascript:alert('找相似');" class="check_detail">找相似</a>-->
                     </li>
+                    {/volist}
+                    {/if}
                 </ul>
             </div>
         </div>
@@ -79,7 +84,7 @@
     <!-- footer -->
     <div style="height:55px;"></div>
     <div class="settle_box">
-        <a class="settle_btn" href="javascript:void(0);" id="confirm_cart1" onclick="big_cart_remove()">删除</a>
+        <a class="settle_btn" style="display: block;" href="javascript:void(0);" id="confirm_cart1" onclick="big_cart_remove()">删除</a>
     </div>
     <!-- end -->
 </form>
@@ -94,7 +99,7 @@
         }
         // 总价
         var total_price = $('#total_price').children('b')[0].innerHTML;
-        
+
         // 数量
         var num_len = $('em.pitch_on').siblings('div.div_right').children('.zi').length;
         var all_num = $('em.pitch_on').siblings('div.div_right').children('.zi');
@@ -366,25 +371,17 @@
         if (topb == 0) {
             $(this).text("完成");
             $("#confirm_cart1").show();
-            $('#circle_em').show();
-            /* 删除 */
+
             topb = 1;
         } else {
             topb = 0;
             $(this).text("编辑");
-            $(".total_amount").show();
-            /* 合计  */
-            $("#confirm_cart").show();
-            /* 结算  */
             $("#confirm_cart1").hide();
             /* 删除 */
             allThis.removeClass("pitch_on");
             /* 取消所有选择  */
             $("#all_pitch_on").removeClass("pitch_on");
             /* 取消所有选择  */
-            $("#total_price b").text("0");
-            /*合计价格清零*/
-            $('#circle_em').hide();
         }
 
     });
@@ -441,7 +438,7 @@
 
     //删除
     function big_cart_remove() {
-            
+
         // 购物车 删除商品
         console.log(111)
         var del_arr = [];

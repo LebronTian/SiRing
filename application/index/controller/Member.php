@@ -126,9 +126,7 @@ class  Member extends  Base {
         }
         return view('myadd');
     }
-    public function  collection(){
-        return view('collection');
-    }
+
 
     /**
      **************李火生*******************
@@ -152,14 +150,5 @@ class  Member extends  Base {
         }
     }
 
-    /**
-     **************李火生*******************
-     * @return \think\response\View
-     * 我的收藏
-     **************************************
-     */
-    public function my_collection(){
-        return view('my_collection');
-    }
 
 }
