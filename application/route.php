@@ -72,6 +72,7 @@ Route::group("",[
     'order_wait_deliver'=>"index/Order/wait_deliver",//待发货
     'order_take_deliver'=>"index/Order/take_deliver",//待收获
     'order_evaluate'=>"index/Order/evaluate",//待评价
+    'refund'=>"index/Order/refund",//退款/售后
     'cancel_order'=>"index/Order/cancel_order",//买家取消订单
     'collect_goodss'=>"index/Order/collect_goods",//买家确认收货
     'logistics_information'=>"index/Order/logistics_information",//实时物流信息

@@ -19,7 +19,7 @@
     margin: 0 auto;
     height: 48px;
 }
-.payment, .deliver, .take_deliver, .evalute{
+.payment, .deliver, .take_deliver, .evalute, .refund{
     text-align: center;
     height: 45px;
     font-size: 12px;

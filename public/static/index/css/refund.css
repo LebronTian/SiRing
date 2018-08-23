@@ -1,0 +1,29 @@
+.check_detail{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    box-sizing: border-box;
+    border: 1px solid #f34347;
+    color: #f34347;
+    font-size: 12px;
+}
+.refund_text{
+    font-size: 12px;
+    color: #000;
+}
+.refund_text i{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 14px;
+    font-size: 11px;
+    color: #c50e11;
+    border: 1px solid #c50e11;
+    border-radius: 50%;
+    font-style: initial;
+    padding: 3px;
+}
