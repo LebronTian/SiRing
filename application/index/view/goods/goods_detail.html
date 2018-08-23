@@ -407,9 +407,9 @@
 		<i class="aui-iconfont aui-icon-comment aui-text-info"></i>
 		<div class="aui-bar-tab-label aui-text-info">咨询</div>
 	</div>
-	<div class="aui-bar-tab-item" tapmode style="width: 3rem;">
-		<i class="aui-iconfont aui-icon-star aui-text-warning"></i>
-		<div class="aui-bar-tab-label aui-text-warning">收藏</div>
+	<div class="aui-bar-tab-item collection_add" tapmode style="width: 3rem;">
+		<i class="aui-iconfont aui-icon-star star_info"></i>
+		<div class="aui-bar-tab-label star_info">收藏</div>
 	</div>
 	<div class="aui-bar-tab-item aui-bg-warning aui-text-white" tapmode style="width: auto;" id="add_to_cart">加入购物车</div>
 	<div class="aui-bar-tab-item aui-bg-danger aui-text-white" tapmode style="width: auto;"  id="buy_now">立即购买</div>
@@ -823,6 +823,37 @@
 
         })
     });
+	//收藏
+	var dataInfo;
+	$('.collection_add').click(function () {
+        $.ajax({
+            type:'POST',
+            url:'{:url("index/Collection/add")}',
+            dataType:'JSON',
+            data:{
+                'id': xid
+            },
+            success:function(data){
+                console.log(data);
+//                alert(data.info);
+				dataInfo = data.info;
+//                location.href='order_index'
+            },
+            error: function(){
+                console.log('未登录');
+                window.location.href ="login";
+            }
+
+        })
+    });
+	console.log(dataInfo);
+	(function(){
+        if(dataInfo == "收藏成功"){
+            $('.star_info').addClass('aui-text-warning');
+        }else {
+            $('.star_info').removeClass('aui-text-warning');
+        }
+	})()
 </script>
 </body>
 </html>

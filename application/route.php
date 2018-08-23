@@ -43,7 +43,10 @@ Route::group("",[
     /*秒杀*/
     "seckill_index"=>"index/Seckill/index",
 
-
+    /*我的收藏*/
+    "collection"=>"index/Collection/index",
+    /*添加收藏*/
+    "collection_add"=>"index/Collection/add",
 
     /*我的页面*/
     "member_index"=>"index/Member/index",
@@ -51,15 +54,12 @@ Route::group("",[
     "address"=>"index/Member/address",
     // 我的地址
     "myadd"=>"index/Member/myadd",
-    // 收藏
-    "collection"=>"index/Member/collection",
     /*三级城市*/
     "getRegions"=>"index/Member/getRegions",
     /*收获人信息管理*/
     'harvester_informations'=>"index/Member/harvester_informations",
     /*收货人信息编辑查看*/
     'get_address_informations'=>"index/Member/get_address_informations",
-
 
     /*确认订单*/
     "order_index"=>"index/Order/index",

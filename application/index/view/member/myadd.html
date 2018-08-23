@@ -18,18 +18,39 @@
         </div>
     </div>
     <div class="wrap">
+    {if !empty($member_information)}
         <div class="left">
             <div class="name_phone">
-                <span class="name_box">张学友</span>
+                <span class="name_box">{$member_information['harvester']}</span>
+                <span>{$member_information['harvester_phone_num']}</span>
+            </div>
+            <div class="addr_box">
+                {$position}
+            </div>
+        </div>
+    {/if}
+        {if empty($member_information)}
+        <div class="left">
+            <div class="name_phone">
+                <span class="name_box">XXX</span>
                 <span>136****4451</span>
             </div>
             <div class="addr_box">
-                广东省 深圳市 福田区 莲花街道 新闻路115号中电信息大厦1518
+                XX省 XX市 XX区 XXX街道 XXXXXXXX
             </div>
         </div>
+        {/if}
+
         <div class="right">
-            <a href="javascript:alert('编辑地址');">编辑</a>
+            <a href="{:url('index/Member/address')}">编辑</a>
         </div>
     </div>
+
+
+<!--我的收货地址-->
+    <script>
+    </script>
+
+
 </body>
 </html>

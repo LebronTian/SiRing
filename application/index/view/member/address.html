@@ -163,7 +163,7 @@
                     }
                     if(data.status==1){
                         alert(data.info);
-                        window.location.href ="{:url('index/Order/index')}";
+                        history.go(-1);
                     }
                 },
                 error: function(data){

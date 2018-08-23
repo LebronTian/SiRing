@@ -114,13 +114,26 @@ class  Member extends  Base {
      **************************************
      */
     public function  myadd(){
-
+        $member =Session::get('member');
+        if(!empty($member)){
+            $data = Db::name('user')->field('harvester,harvester_phone_num,city,address')->where('phone_num',$member['phone_num'])->find();
+            $my_position =explode(",",$data['city']);
+            $position = $my_position[0].$my_position[1].$my_position[2].$data['address'];
+            if(!empty($my_position)){
+                $this->assign('member_information',$data);
+                $this->assign('position',$position);
+            }
+        }
         return view('myadd');
     }
-    public function  collection(){
-        return view('collection');
-    }
 
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 获取收货人地址信息
+     **************************************
+     */
     public function  get_address_informations(Request $request){
         if($request->isPost()){
             $member =Session::get('member');
@@ -134,8 +147,8 @@ class  Member extends  Base {
                 }
             }
 
-
         }
     }
+
 
 }
