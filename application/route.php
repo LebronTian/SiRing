@@ -47,6 +47,8 @@ Route::group("",[
     "collection"=>"index/Collection/index",
     /*添加收藏*/
     "collection_add"=>"index/Collection/add",
+    /*删除收藏*/
+    "collection_del"=>"index/Collection/del",
 
     /*我的页面*/
     "member_index"=>"index/Member/index",

@@ -73,5 +73,27 @@ class  Collection extends Base{
         }
     }
 
-
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 删除收藏
+     **************************************
+     */
+    public function del(Request $request){
+        if($request->isPost()){
+            $id =$_POST['id'];
+            if(is_array($id)){
+                $where ='id in('.implode(',',$id).')';
+            }else{
+                $where ='id='.$id;
+            }
+            $list =  Db::name('collection')->where($where)->delete();
+            if($list!==false)
+            {
+                $this->success('删除成功!');
+            }else{
+                $this->error('删除失败');
+            }
+        }
+    }
 }
