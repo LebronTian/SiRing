@@ -57,7 +57,7 @@ class Login extends Controller{
             }
             $user_passwd = md5($passwd);
             if ($user_passwd != $userInfo[0]["passwd"]) {
-                $this->success("账户名不正确",url("admin/Login/index"));
+                $this->success("账户密码不正确",url("admin/Login/index"));
             }else{
                 Session("user_id", $userInfo[0]["id"]);
                 unset($userInfo->user_passwd);
