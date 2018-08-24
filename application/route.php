@@ -215,6 +215,8 @@ Route::group("admin",[
 
     /*优惠券*/
     "discount_index"=>"admin/Discount/index",
+    "discount_add"=>"admin/Discount/add",
+    "discount_save"=>"admin/Discount/save",
 
 
     /*秒杀*/
