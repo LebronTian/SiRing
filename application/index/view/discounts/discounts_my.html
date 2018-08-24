@@ -2,9 +2,110 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>手袋购物网</title>
+    <link rel="stylesheet" href="__STATIC__/index/css/member.css">
+    <link rel="stylesheet" href="__STATIC__/index/css/aui.css">
+    <link rel="stylesheet" href="__STATIC__/index/css/discount.css">
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
-    我的优惠券
+<div class="header_box">
+    <div class="bar bar-header">
+        <a class="back" href="member_index.html">
+            <i class="aui-iconfont aui-icon-left"></i>
+        </a>
+        <div id="title" class="h1 title">我的优惠券</div>
+    </div>
+</div>
+<div class="list_box">
+    <a href="javascript:;" class="not_used_a active">未使用</a>
+    <a href="javascript:;" class="used_a">已使用</a>
+    <a href="javascript:;" class="expired_a">已失效</a>
+</div>
+<div class="tab">
+    <!-- 没有优惠券的时候解除隐藏 -->
+    <div class="no_discount" style="display: none;">
+        <div class="no_discount_img">
+            <img src="__STATIC__/index/images/u141.png">
+        </div>
+        <p class="no_discount_text">当前没有优惠券可用</p>
+        <a href="javascript:alert('邀请好友拿优惠券');" class="invitation_a">邀请好友可免费领券>></a>
+    </div>
+    
+    <!-- 未使用 没有优惠券时隐藏-->
+    <div class="not_used" style="display: none;">
+        <div class="discount_img">
+            <ul>
+                <li>
+                    <img src="__STATIC__/index/images/u165.png">
+                    <p class="money_p">￥
+                        <span class="amount_of_money">55</span>
+                    </p>
+                    <p class="time_p">有效期:
+                        <span class="term_of_validity">2018.08.24</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- 已使用 -->
+    <div class="used" style="display: none;">
+        <div class="used_discount">
+            <ul>
+                <li>
+                    <img src="__STATIC__/index/images/u165.png">
+                    <p class="used_money_p">￥
+                        <span class="amount_of_money">55</span>
+                    </p>
+                    <p class="used_p">已使用</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- 已过期 -->
+    <div class="expired" style="display: block;">
+        <div class="expired_discount">
+            <ul>
+                <li>
+                    <img src="__STATIC__/index/images/u205.png">
+                    <p class="expired_money_p">￥
+                        <span class="amount_of_money">55</span>
+                    </p>
+                    <p class="expired_p">有效期:
+                        <span class="term_of_validity">2018.08.22-2018.08.23</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="__STATIC__/index/js/jquery.js"></script>
+<script>
+    function tab(obj, pop){
+        $(obj).addClass('active').siblings().removeClass('active');
+        console.log(pop);
+        $(pop).css('display','block').siblings('div').css('display','none');
+    }
+    $('.not_used_a').click(function(){
+        tab($(this),$('.tab .not_used'));
+    })
+    $('.used_a').click(function(){
+        tab($(this),$('.tab .used'));
+    })
+    $('.expired_a').click(function(){
+        tab($(this),$('.tab .expired'));
+    })
+
+</script>
 </body>
 </html>
