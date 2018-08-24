@@ -105,10 +105,6 @@ function ajax_success($msg = '提交成功',$data=array()){
     exit(json_encode($return,JSON_UNESCAPED_UNICODE));
 }
 
-function is_login(){
-
-}
-
 /**
  * 打印调试函数
  * @param mixed $var 打印的东西
@@ -383,10 +379,10 @@ function q($tip){
     }
 }
 
-/*function ajaxSuccess($msg = '操作成功',$url = '',$data = []){
+function ajaxSuccess($msg = '操作成功',$url = '',$data = []){
     $return = ['status'=>1,'url'=>$url,'data'=>$data,'info'=>$msg];
     return response()->json($return);
-}*/
+}
 
 function getSelectList($table , $pid = 0 ,&$result = [] , $spac = -2){
     $spac += 2;
@@ -430,9 +426,5 @@ function _tree_sorts($arr){
     return $arr;
 }
 
-function express($key,$customer,$com,$num){
-
-
-}
 
 

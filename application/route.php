@@ -103,6 +103,11 @@ Route::group("",[
     "share_index"=>"index/Share/share_index",
 
 
+    /*优惠券*/
+    "discounts_index"=>"index/Discounts/index",
+    "discounts_my"=>"index/Discounts/discounts_my",
+
+
 ]);
 
 /**
