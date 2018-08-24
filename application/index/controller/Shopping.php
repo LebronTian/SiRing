@@ -51,7 +51,6 @@ class Shopping extends Controller{
                         $bool = db("shopping")->where("goods_id",$goods_id)->update($shopping[0]);
                         return ajax_success("获取成功",$bool);
                     }
-
                 }
                 $data['goods_name'] = $goods['goods_name'];
                 $data['goods_images'] = $goods['goods_show_images'];

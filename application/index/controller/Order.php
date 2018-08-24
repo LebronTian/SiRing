@@ -308,7 +308,7 @@ class Order extends Base {
                 if($express_type =='顺丰'){
                     $express_types ="shunfeng";
                 }
-                if($express_type=="邮政"){
+                if($express_type=="EMS"){
                     $express_types="youzheng";
                 }
                 if($express_type=="圆通"){
