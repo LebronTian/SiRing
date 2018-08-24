@@ -282,11 +282,11 @@
         <div class="express">
             <span>快递公司</span>
             <select name="" id="express_type">
-                <!--<option value="EMS">EMS</option>-->
-                <option value="顺丰" selected>顺丰</option>
-                <!--<option value="中通">中通</option>-->
-                <!--<option value="申通">申通</option>-->
-                <!--<option value="圆通">圆通</option>-->
+                <option value="EMS">EMS</option>
+                <option value="顺丰">顺丰</option>
+                <option value="中通">中通</option>
+                <option value="申通">申通</option>
+                <option value="圆通">圆通</option>
             </select>
         </div>
         <div class="express_num">
@@ -345,7 +345,11 @@
         <div class="express">
             <span>快递公司</span>
             <select name="" id="express_types">
-                <option value="顺丰" selected>顺丰</option>
+                <option value="EMS">EMS</option>
+                <option value="顺丰">顺丰</option>
+                <option value="中通">中通</option>
+                <option value="申通">申通</option>
+                <option value="圆通">圆通</option>
             </select>
         </div>
         <div class="express_nums">
@@ -369,6 +373,8 @@
 <!--/_footer 作为公共模版分离出去-->
 
 <script>
+
+
     (function(){
         var allA = $('.td-status a');
         var len = $('.td-status a').length;
@@ -509,6 +515,7 @@
     function waiting_send() {
         var order_id =$('.hidden_id').html();
         var express_type =$("#express_type").children('option:selected').val();
+        console.log(express_type)
         var express_num =$(".express_num").children('input').val();
         $.ajax({
             type:'POST',
@@ -525,7 +532,7 @@
                 window.location.href ="{:url('admin/Order/index')}";
             },
             error:function(data) {
-                console.log(data.msg);
+                // console.log(data.msg);
             },
         });
     }
@@ -540,8 +547,15 @@
             },
             dataType: 'json',
             success: function(data){
-//                console.log(data);
-                $("#express_types").children('option:selected').val(data.data.express_type);
+               console.log(data);
+               console.log($('#express_types option'))
+               var len = $('#express_types option').length;
+               var yfh_option = $('#express_types option');
+               for(var i = 0; i < len; i++){
+                   if(yfh_option[i].innerHTML == data.data.express_type){
+                        yfh_option[i].selected = true;
+                   }
+               }
                 $(".express_nums").children('input').val(data.data.express_num);
             },
             error:function(data) {
