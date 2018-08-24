@@ -50,20 +50,6 @@
     </section>
 
     <section class="aui-content aui-grid aui-margin-b-15">
-        <!-- <div class="aui-row">
-            <div class="aui-col-xs-4 aui-border-r">
-                <big class="aui-text-warning">0.00<small> 元</small></big>
-                <div class="aui-gird-lable aui-font-size-12">余额</div>
-            </div>
-            <div class="aui-col-xs-4 aui-border-r">
-                <big class="aui-text-danger">0.00<small> 个</small></big>
-                <div class="aui-gird-lable aui-font-size-12">优惠</div>
-            </div>
-            <div class="aui-col-xs-4">
-                <big class="aui-text-success">0.00<small> 分</small></big>
-                <div class="aui-gird-lable aui-font-size-12">积分</div>
-            </div>
-        </div> -->
         <div class="order_icon_box">
             <div class="top_box">
                 <span>我的订单</span>
@@ -71,29 +57,35 @@
             </div>
             <div class="bottom_box">
                 <div class="payment">
-                    <a href="javascript:;">
+                    <a href="{:url('index/Order/wait_pay')}">
                         <img src="__STATIC__/index/image/icon/img9.png" width="24" height="24">
                         <p>待付款</p>
                     </a>
                 </div>
                 <div class="deliver">
-                    <a href="javascript:;">
+                    <a href="{:url('index/Order/wait_deliver')}">
                         <img src="__STATIC__/index/image/icon/img10.png" width="24" height="24">
                         <p>待发货</p>
                     </a>
                 </div>
                 <div class="take_deliver">
-                    <a href="javascript:;">
+                    <a href="{:url('index/Order/take_deliver')}">
                         <img src="__STATIC__/index/image/icon/img11.png" width="24" height="24">
                         <p>待收货</p>
                     </a>
                 </div>
                 <div class="evalute">
-                    <a href="javascript:;">
+                    <a href="{:url('index/Order/evaluate')}">
                         <img src="__STATIC__/index/image/icon/img12.png" width="24" height="24">
                         <p>待评价</p>
                     </a>
                 </div>
+                <!-- <div class="refund">
+                    <a href="{:url('index/Order/refund')}">
+                        <img src="__STATIC__/index/image/icon/img12.png" width="24" height="24">
+                        <p>退款/售后</p>
+                    </a>
+                </div> -->
             </div>
         </div>
     </section>
@@ -104,7 +96,9 @@
                     <i class="aui-iconfont aui-icon-location aui-text-info"></i>
                 </div>
                 <div class="aui-list-item-inner aui-list-item-arrow">
-                    <div class="aui-list-item-title">管理收货地址</div>
+                    <a href="{:url('index/member/myadd')}">
+                        <div class="aui-list-item-title" >管理收货地址</div>
+                    </a>
                 </div>
             </li>
             <li class="aui-list-item">
@@ -112,7 +106,10 @@
                     <i class="aui-iconfont aui-icon-like aui-text-danger"></i>
                 </div>
                 <div class="aui-list-item-inner aui-list-item-arrow">
+                    <a href="{:url('index/Collection/index')}">
                     <div class="aui-list-item-title">我的收藏</div>
+                    </a>
+
                 </div>
             </li>
             <!-- <li class="aui-list-item">
@@ -216,7 +213,7 @@
             <i class="aui-iconfont aui-icon-cart"></i>
             <div class="aui-bar-tab-label">购物车</div>
         </a>
-        <a class="aui-bar-tab-item aui-active" tapmode href="member.html">
+        <a class="aui-bar-tab-item aui-active" tapmode href="{:url('index/Member/index')}">
             <i class="aui-iconfont aui-icon-my thered"></i>
             <div class="aui-bar-tab-label thered">我的</div>
         </a>
@@ -265,7 +262,6 @@
         "pageStyle":'line',
         'dotPosition':'center'
     })
-    console.log(slide3.pageCount());
 </script>
 <script type="text/javascript">
     apiready = function(){

@@ -43,32 +43,46 @@ Route::group("",[
     /*秒杀*/
     "seckill_index"=>"index/Seckill/index",
 
-
+    /*我的收藏*/
+    "collection"=>"index/Collection/index",
+    /*添加收藏*/
+    "collection_add"=>"index/Collection/add",
+    /*删除收藏*/
+    "collection_del"=>"index/Collection/del",
 
     /*我的页面*/
     "member_index"=>"index/Member/index",
     /*收货地址*/
     "address"=>"index/Member/address",
+    // 我的地址
+    "myadd"=>"index/Member/myadd",
     /*三级城市*/
     "getRegions"=>"index/Member/getRegions",
-
+    /*收获人信息管理*/
+    'harvester_informations'=>"index/Member/harvester_informations",
+    /*收货人信息编辑查看*/
+    'get_address_informations'=>"index/Member/get_address_informations",
 
     /*确认订单*/
     "order_index"=>"index/Order/index",
     "common_id"=>"index/Order/common_id",
     'bt_order'=>"index/Order/bt_order",//提交订单
     'order_details'=>"index/Order/details",//订单详情
+    'order_id'=>"index/Order/ajax_id",//订单详情
 
+    'check_logistic'=>"index/Order/logistic",//查看物流
     'order_myorder'=>"index/Order/myorder",//我的订单
     'order_wait_pay'=>"index/Order/wait_pay",//待支付
     'order_wait_deliver'=>"index/Order/wait_deliver",//待发货
     'order_take_deliver'=>"index/Order/take_deliver",//待收获
     'order_evaluate'=>"index/Order/evaluate",//待评价
+    'refund'=>"index/Order/refund",//退款/售后
     'cancel_order'=>"index/Order/cancel_order",//买家取消订单
     'collect_goodss'=>"index/Order/collect_goods",//买家确认收货
     'logistics_information'=>"index/Order/logistics_information",//实时物流信息
+    'interface_information'=>"index/Order/interface_information", //快递100接口
     'logistics_information_id'=>"index/Order/logistics_information_id",//用来接收物流信息的id
-
+    'confirm_payment'=>"index/order/confirm_payment", //确定付款
     /*登录页面*/
     "login"=>"index/Login/login",
     "logout"=>"index/Login/logout",
@@ -101,6 +115,12 @@ Route::group("",[
     /*晒单*/
     "share_detail"=>"index/Share/share_detail",
     "share_index"=>"index/Share/share_index",
+    /*通过点击评价传一个order_id过去确定是哪个订单的评价*/
+    "evaluation_get_order_id"=>"index/Share/evaluation_get_order_id",
+    /*追加评价*/
+    "evaluation"=>"index/Share/evaluation",
+
+
 
 
     /*优惠券*/

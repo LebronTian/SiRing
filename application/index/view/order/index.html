@@ -13,9 +13,8 @@
 
 </head>
 <body id="view">
-<div id="mask-layer" style="display: block;">
+<div id="mask-layer">
     <section class="cart-page main">
-
         <header class="sn-nav">
             <div class="sn-nav-back">
                 <a class="sn-iconbtn" onclick="javascript:history.back(-1);">返回</a>
@@ -24,17 +23,33 @@
             <div class="sn-nav-other"></div>
         </header>
         <div class="cart-group">
-            <div class="cart-group-item form-href delivery-lite-info"  onclick="javascript:location.href='{:url("index/Member/address")}'">
-                <h1>
-                    <span>收货人: 福尔发</span>
-                    <span>188****9193</span>
-                </h1>
-                <div>
-                    <div><i></i></div>
-                    <p>北京市北京市东城区全境北京市海淀区西三环北路43号中航广场1层</p>
-                </div>
+
+                <div class="cart-group-item form-href delivery-lite-info"  onclick="javascript:location.href='{:url("index/Member/address")}'">
+            {if !empty($member_information)&&!empty($position)}
+                    <h1>
+                        <span>收货人: {$member_information['harvester']}</span>
+                        <span>{$member_information['harvester_phone_num']}</span>
+                    </h1>
+                    <div>
+                        <div><i></i></div>
+                        <p>{$position}</p>
+                    </div>
+            {/if}
+
+            {if empty($member_information) || empty($position)}
+
+            <h1>
+                <span>收货人: 福尔发</span>
+                <span>188****9193</span>
+            </h1>
+            <div>
+                <div><i></i></div>
+                <p>北京市北京市东城区全境北京市海淀区西三环北路43号中航广场1层</p>
             </div>
+            {/if}
+
         </div>
+
         <div class="cart-group">
             <div class="form-href details">
                 <img class="goods_img_url" onerror="this.src='__STATIC__/index/images/ShoppingArea/Common/blankbg.gif'" src="__STATIC__/index/image/sp1.jpg">
@@ -113,6 +128,7 @@
         </footer>
     </section>
 </div>
+
 <div class="mask"></div>
 <!-- 支付弹窗 -->
 <div class="fadeIn">
@@ -121,7 +137,7 @@
         <div class="head_title">确认付款</div>
     </div>
     <div class="middle_box">
-        <p class="price_p">￥<span>119</span></p>
+        <p class="price_p">￥<span>{$data.all_money}</span></p>
         <ul>
             <li>
                 支付宝账号 <span>136******45</span>
@@ -164,8 +180,8 @@
         })
     });
     $('.head_close').click(function(){
-        $('.fadeIn').animate({'bottom':'-100%'})
-        $('.mask').css('display','none')
+        $('.fadeIn').animate({'bottom':'-100%'});
+        $('.mask').css('display','none');
         window.location.href ="{:url('index/Order/details')}";
     })
 </script>

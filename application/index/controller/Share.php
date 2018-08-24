@@ -9,6 +9,10 @@
 namespace app\index\controller;
 
 use think\Controller;
+use think\Request;
+use think\Db;
+use think\Session;
+
 class Share extends Controller{
 
 
@@ -28,6 +32,38 @@ class Share extends Controller{
      */
     public function share_detail(){
         return view("share_detail");
+    }
+
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 追加评价
+     **************************************
+     */
+    public function evaluation(){
+       $evaluation_order_id = Session::get('evaluation_order_id');
+       if(!empty($evaluation_order_id)){
+           $res = Db::name('order')->where('id',$evaluation_order_id)->find();
+           $this->assign('res',$res);
+       }
+        return view("evaluation");
+    }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 获取需要评价的order_id
+     **************************************
+     */
+    public function evaluation_get_order_id(Request $request){
+        if($request->isPost()){
+            $order_id =$request->only(["order_id"])['order_id'];
+            if(!empty($order_id)){
+                    session('evaluation_order_id',$order_id);
+                    return ajax_success('成功',$order_id);
+            }
+
+        }
     }
 
 }
