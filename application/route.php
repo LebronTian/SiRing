@@ -117,8 +117,10 @@ Route::group("",[
     "share_index"=>"index/Share/share_index",
     /*通过点击评价传一个order_id过去确定是哪个订单的评价*/
     "evaluation_get_order_id"=>"index/Share/evaluation_get_order_id",
-    /*追加评价*/
+    /*评价页面*/
     "evaluation"=>"index/Share/evaluation",
+    /*添加评价*/
+    "evaluation_add"=>"index/Share/evaluation_add",
 
 
 

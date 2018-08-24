@@ -32,13 +32,13 @@
     {/if}
 
     <div class="text_box">
-        <textarea name="" id="" cols="30" rows="10" class="describe"></textarea>
+        <textarea name="" id="evaluation_content" cols="30" rows="10" class="describe"></textarea>
     </div>
     <div class="photo_wrap">
         <input type="hidden" id="picIndex" value="0">
             <div id='image-list' class="row image-list">
                 <div class="image-item space" onclick="showActionSheet()">添加图片</div>
-                <div class="image-up"></div>
+                <div class="image-up evaluation_images"></div>
             </div>
         </div>
     </div>
@@ -130,5 +130,25 @@
     	    );  
     	}
 </script>
+<!--发表评价-->
+    <script>
+        $(".evaluation_a").click(function () {
+           var evaluation_content = $("#evaluation_content").val();
+            $.ajax({
+                type:'POST',
+                url:'{:url("index/Share/evaluation_add")}',
+                data:{
+                    'evaluation_content':evaluation_content
+                },
+                dataType: 'json',
+                success: function(data){
+                    console.log(data);
+                },
+                error:function(data) {
+                    console.log("失败");
+                },
+            });
+        });
+    </script>
 </body>
 </html>
