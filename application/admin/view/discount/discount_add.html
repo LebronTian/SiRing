@@ -1,0 +1,55 @@
+{extend name="layout"}
+{block name="css"}
+
+<!--自定义内容-->
+
+
+{/block}
+
+
+{block name="content"}
+<form action="{:url('admin/Discount/save')}" method="post" enctype="multipart/form-data">
+    <label class="form-label col-xs-4 col-sm-3" id=""><span>优惠券名称</span></label>
+    <input type="text" name="discounts_name" value="" style="margin-bottom: 20px;"><br/>
+    <label class="form-label col-xs-4 col-sm-3">APP下载地址</label>
+    <input type="text" name="address" value="" style="margin-bottom: 20px;"><br/>
+    <label><span>有效日期</span></label>
+    <select name="over_time">
+        <option value="day">1日</option>
+        <option value="week">1周</option>
+        <option value="month">1月</option>
+        <option value="year">1年</option>
+    </select>
+    <br/>
+    <label class=""><span>优惠金额</span></label>
+    <input type="text" name="discounts_money" style="margin-bottom: 20px;">
+    <br/>
+    <label class=""><span>优惠券有效图片</span></label>
+    <input type="file" name="discounts_valid_images" style="margin-bottom: 20px;">
+    <br/>
+    <label class=""><span>优惠券失效图片图片</span></label>
+    <input type="file" name="discounts_failure_images" style="margin-bottom: 20px;">
+    <br/>
+    <label class=""><span>领取限制</span></label>
+    <input type="text" name="restriction" style="margin-bottom: 20px;">
+    <br/>
+    <label class=""><span>商品最低售价使用金额</span></label>
+    <input type="text" name="bottom_money" style="margin-bottom: 20px;">
+    <br/>
+    <label><span>优惠券状态</span></label>
+    <select name="status">
+        <option value="1">未使用</option>
+        <option value="2">已使用</option>
+        <option value="3">已失效</option>
+    </select>
+    <br/>
+    <input type="submit" value="提交">
+</form>
+
+<hr>
+{/block}
+
+
+{block name="bottom"}
+
+{/block}
