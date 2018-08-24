@@ -451,10 +451,11 @@
             dataType: 'JSON',
             async: false,
             data: {
-                'del_id':del_arr
+                'id':del_arr
             },
             success: function(data){
                 console.log(data)
+                alert()
             },
             error: function(){
                 console.log('错误')

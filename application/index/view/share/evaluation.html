@@ -14,20 +14,23 @@
             <a class="back" href="member_index.html">
                 <i class="aui-iconfont aui-icon-left"></i>
             </a>
-            <div id="title" class="h1 title">我的收货地址</div>
+            <div id="title" class="h1 title">我的评价</div>
             <a href="javascript:alert('发表评价');" class="evaluation_a">发表评价</a>
         </div>
     </div>
+    {if !empty($res)}
     <div class="goods_wrap">
         <div class="goods_inner_box">
             <div class="img_wrap">
-                <img src="__UPLOADS__/20180811/9c4587bd2f9d5832a2b7525b96f45c3e.jpg" alt="">
+                <img src="__UPLOADS__/{$res['goods_img']}" alt="">
             </div>
             <div class="goods_name">
-                <p>苹果iPhoneX50内存500T全面屏苹果iPhoneX50内存500T全面屏人脸解锁</p>
+                <p>{$res['goods_name']}</p>
             </div>
         </div>
     </div>
+    {/if}
+
     <div class="text_box">
         <textarea name="" id="" cols="30" rows="10" class="describe"></textarea>
     </div>

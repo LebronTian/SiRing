@@ -115,8 +115,11 @@ Route::group("",[
     /*晒单*/
     "share_detail"=>"index/Share/share_detail",
     "share_index"=>"index/Share/share_index",
-    // 追加评价
+    /*通过点击评价传一个order_id过去确定是哪个订单的评价*/
+    "evaluation_get_order_id"=>"index/Share/evaluation_get_order_id",
+    /*追加评价*/
     "evaluation"=>"index/Share/evaluation",
+
 
 
 

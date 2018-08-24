@@ -25,6 +25,7 @@ class  Collection extends Base{
             $data=Db::table("tb_collection")
                 ->field("tb_collection.*,tb_goods.goods_bottom_money goods_bottom_money,tb_goods.goods_name goods_name,tb_goods.goods_show_images goods_show_images")
                 ->join("tb_goods","tb_collection.goods_id=tb_goods.id and tb_collection.user_id=$member_id",'left')
+                ->order('id','desc')
                 ->select();
             if(!empty($data)){
                 $this->assign('data',$data);
