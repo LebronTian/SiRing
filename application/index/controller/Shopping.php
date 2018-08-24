@@ -12,15 +12,18 @@ use think\Request;
 use think\Session;
 use think\Db;
 use think\Cache;
+use app\index\controller\Base;
 
-class Shopping extends Controller{
+class Shopping extends Base {
 
     /**
      * 购物车
      * 陈绪
      */
     public function index(){
-        $shopping = db("shopping")->select();
+        $data = Session::get("member");
+        $user_id =Db::name('user')->field('id')->where('phone_num',$data['phone_num'])->find();
+        $shopping = db("shopping")->where("user_id",$user_id['id'])->select();
         return view("shopping_index",["shopping"=>$shopping]);
     }
 
@@ -35,7 +38,7 @@ class Shopping extends Controller{
             $user_id =Db::name('user')->field('id')->where('phone_num',$data['phone_num'])->find();
             unset($data);
             if(empty($user_id['id'])){
-                $this->redirect('index/Login/login');
+                return ajax_error("请登录");
             }
             if(!empty($user_id['id'])) {
                 //存入购物车
@@ -51,7 +54,6 @@ class Shopping extends Controller{
                         $bool = db("shopping")->where("goods_id",$goods_id)->update($shopping[0]);
                         return ajax_success("获取成功",$bool);
                     }
-
                 }
                 $data['goods_name'] = $goods['goods_name'];
                 $data['goods_images'] = $goods['goods_show_images'];
@@ -74,19 +76,28 @@ class Shopping extends Controller{
      */
     public function option(Request $request){
         if($request->isPost()){
-            $id = $request->only(['id'])['id'];
-            $goods_unit = $request->only(['goods_unit'])['goods_unit'];
-            $money = $request->only(['money'])['money'];
-            foreach ($id as $key=>$val){
-                db("shopping")->where("id",$val)->update(['goods_unit'=>$goods_unit[$key]]);
+            $data = Session::get("member");
+            $user_id =Db::name('user')->field('id')->where('phone_num',$data['phone_num'])->find();
+            unset($data);
+            if(empty($user_id['id'])){
+                $this->redirect('index/Login/login');
             }
-            //存储到购物车订单表中
-            $data['money'] = $money;
-            $data['shopping_id'] = implode(",",$id);
-            db("shopping_shop")->insert($data);
-            $shopping_id['id'] = db("shopping_shop")->getLastInsID();
-            Session("shopping",$shopping_id);
-            return ajax_success("获取成功",$shopping_id);
+            if(!empty($user_id['id'])){
+                $id = $request->only(['id'])['id'];
+                $goods_unit = $request->only(['goods_unit'])['goods_unit'];
+                $money = $request->only(['money'])['money'];
+                foreach ($id as $key => $val) {
+                    db("shopping")->where("id", $val)->update(['goods_unit' => $goods_unit[$key]]);
+                }
+                //存储到购物车订单表中
+                $data['money'] = $money;
+                $data['shopping_id'] = implode(",", $id);
+                $data['user_id'] = $user_id['id'];
+                db("shopping_shop")->insert($data);
+                $shopping_id['id'] = db("shopping_shop")->getLastInsID();
+                Session("shopping", $shopping_id);
+                return ajax_success("获取成功", $shopping_id);
+            }
         }
     }
 

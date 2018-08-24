@@ -1,4 +1,6 @@
 {extend name="layout"}
+
+
 {block name="css"}
 
 <!--自定义内容-->
@@ -7,36 +9,107 @@
 {/block}
 
 
-{block name="content"}
-<form id="CategoryAdd">
-    <label class="form-label col-xs-4 col-sm-3" id=""><span>商品分类名称</span></label>
-    <input type="text" class="CategoryName" value="" style="margin-bottom: 20px;"><br/>
-    <a href="{:url('admin/Goods/edit')}">商品编辑</a>
-    <label><span>状态</span></label>
-    <select class="Status">
-        <option value="1">启用</option>
-        <option value="0">停用</option>
-    </select><br/>
-    <label><span>父类分类</span></label>
-    <select class="pid">
-        <option value="0">顶级</option>
-    </select><br/>
-    <label class=""><span>菜单排序</span></label>
-    <input type="text" class="sort_number" style="margin-bottom: 20px;"><br/>
-    <input type="submit" value="提交">
-</form>
 
-<hr>
-<!--<a href=" http://sighttp.qq.com/cgi-bin/check?sigkey=ee8bdb91c04a9ae912a305a5a2461a0d8d68f24d5fff7f7484990ce0408fa282 "; target=_blank; onclick="var tempSrc=' http://sighttp.qq.com/wpa.js?rantime='+Math.random()+'&sigkey=ee8bdb91c04a9ae912a305a5a2461a0d8d68f24d5fff7f7484990ce0408fa282';var oldscript=document.getElementById('testJs');var newscript=document.createElement('script');newscript.setAttribute('type','text/javascript'); newscript.setAttribute('id', 'testJs');newscript.setAttribute('src',tempSrc);if(oldscript == null){document.body.appendChild(newscript);}else{oldscript.parentNode.replaceChild(newscript, oldscript);}return false;"><img border="0" SRC=' http://wpa.qq.com/pa?p=1:QQ 1061525487:41' alt="点击和我联系"></a>-->
-<!--<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1061525487&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:1061525487:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>-->
-<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1061525487&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:1061525487:53" alt="么么哒" title="么么哒"/></a>
-<!--财务QQ-->
-<a style="display:block;font-size: 30px;padding: 100px;" onclick="jia_qq(1061525487)"><img src="http://wpa.qq.com/pa?p=2:1061525487:51"></a>
-<!--//客服QQ-->
-<a style="display:block;font-size: 30px;padding: 100px;" onclick="jia_qq(25774545)"><img src="http://wpa.qq.com/pa?p=2:1061525487:51"></a>
+{block name="content"}
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 营销 <span class="c-gray en">&gt;</span> 秒杀 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="admin_add('添加优惠券','{:url("admin/Discount/add")}','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加优惠券</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+    <table class="table table-border table-bordered table-bg">
+        <thead>
+        <tr>
+            <th scope="col" colspan="9">优惠券列表</th>
+        </tr>
+        <tr class="text-c">
+            <th width="25"><input type="checkbox" name="" value=""></th>
+            <th width="40">商品图片</th>
+            <th width="150">价格</th>
+            <th width="90">分类</th>
+            <th width="150">goods_id</th>
+            <th>活动时间</th>
+            <th width="130">排序</th>
+            <th width="130">上架</th>
+            <th width="100">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr class="text-c">
+            <td><input type="checkbox" value="1" name=""></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+            <td class="td-manage"><a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','','1','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href='' onclick="if(!confirm('确定要删除吗？')) return false" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 {/block}
 
-
 {block name="bottom"}
+<script type="text/javascript">
+    /*
+     参数解释：
+     title	标题
+     url		请求的url
+     id		需要操作的数据id
+     w		弹出层宽度（缺省调默认值）
+     h		弹出层高度（缺省调默认值）
+     */
+    /*管理员-增加*/
+    function admin_add(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*管理员-删除*/
+    function admin_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.ajax({
+                type: 'POST',
+                url: '',
+                dataType: 'json',
+                success: function(data){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                },
+                error:function(data) {
+                    console.log(data.msg);
+                },
+            });
+        });
+    }
 
+    /*管理员-编辑*/
+    function admin_edit(title,url,id,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*管理员-停用*/
+    function admin_stop(obj,id){
+        layer.confirm('确认要停用吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+
+            $(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_start(this,id)" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+            $(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已禁用</span>');
+            $(obj).remove();
+            layer.msg('已停用!',{icon: 5,time:1000});
+        });
+    }
+
+    /*管理员-启用*/
+    function admin_start(obj,id){
+        layer.confirm('确认要启用吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+
+
+            $(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_stop(this,id)" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
+            $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+            $(obj).remove();
+            layer.msg('已启用!', {icon: 6,time:1000});
+        });
+    }
+</script>
 {/block}

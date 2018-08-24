@@ -83,6 +83,8 @@ Route::group("",[
     'interface_information'=>"index/Order/interface_information", //快递100接口
     'logistics_information_id'=>"index/Order/logistics_information_id",//用来接收物流信息的id
     'confirm_payment'=>"index/order/confirm_payment", //确定付款
+    /*TODO：支付测试*/
+    'order_pay_test'=>"index/order/order_pay_test",
     /*登录页面*/
     "login"=>"index/Login/login",
     "logout"=>"index/Login/logout",
@@ -121,8 +123,10 @@ Route::group("",[
     "evaluation"=>"index/Share/evaluation",
     /*添加评价*/
     "evaluation_add"=>"index/Share/evaluation_add",
-    /*调用摄像头测试*/
+    /*TODO:调用摄像头测试*/
     "evaluation_use"=>"index/Share/evaluation_use",
+
+
 
 
 
@@ -219,6 +223,8 @@ Route::group("admin",[
 
     /*优惠券*/
     "discount_index"=>"admin/Discount/index",
+    "discount_add"=>"admin/Discount/add",
+    "discount_save"=>"admin/Discount/save",
 
 
     /*秒杀*/
