@@ -121,6 +121,8 @@ Route::group("",[
     "evaluation"=>"index/Share/evaluation",
     /*添加评价*/
     "evaluation_add"=>"index/Share/evaluation_add",
+    /*调用摄像头测试*/
+    "evaluation_use"=>"index/Share/evaluation_use",
 
 
 

@@ -83,4 +83,8 @@ class Share extends Controller{
         }
     }
 
+    public function  evaluation_use(){
+        return view('evaluation_use');
+    }
+
 }
