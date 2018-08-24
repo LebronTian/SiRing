@@ -32,6 +32,7 @@
     width: 100%;
     text-align: center;
     line-height: 75px;
+    text-shadow: 1px 1px 1px #000;
 }
 .rule_box{
     margin-bottom: 40px;
@@ -61,4 +62,6 @@
     line-height: 30px;
     background-color: #ccc;
     outline: none;
+    box-shadow: 1px 1px 1px #aaa;
+    box-sizing: border-box;
 }
