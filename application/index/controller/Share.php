@@ -52,6 +52,24 @@ class Share extends Controller{
     /**
      **************李火生*******************
      * @param Request $request
+     * 发表评价
+     **************************************
+     */
+    public function  evaluation_add(Request $request){
+        if($request->isPost()){
+            $evaluation_order_id = Session::get('evaluation_order_id');
+            if(!empty($evaluation_order_id)){
+                $data =$_POST;
+                if(!empty($data)){
+                    return ajax_success('成功',$data);
+                }
+            }
+        }
+    }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
      * 获取需要评价的order_id
      **************************************
      */
@@ -62,8 +80,11 @@ class Share extends Controller{
                     session('evaluation_order_id',$order_id);
                     return ajax_success('成功',$order_id);
             }
-
         }
+    }
+
+    public function  evaluation_use(){
+        return view('evaluation_use');
     }
 
 }
