@@ -62,7 +62,8 @@ class Login extends Controller{
                 Session("user_id", $userInfo[0]["id"]);
                 unset($userInfo->user_passwd);
                 Session("user_info", $userInfo);
-                $this->redirect(url("admin/index/index"));
+               // $this->redirect(url("admin/index/index"));
+                $this->success("成功",url("admin/Index/index"));
             }
         }
     }
@@ -73,7 +74,7 @@ class Login extends Controller{
     public function logout(){
         Session::delete("user_id");
         Session::delete("user_info");
-        $this->redirect(url("admin/Login/index"));
+        $this->redirect(url("Login"));
     }
 
 
