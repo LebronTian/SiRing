@@ -230,6 +230,15 @@
     padding: 5px 10px;
     display: flex;
 }
+.logistic_box li span:first-of-type{
+    flex: 2;
+}
+.logistic_box li i{
+    flex: 1;
+}
+.logistic_box li span:last-of-type{
+    flex: 7;
+}
 .logistic_box li:last-of-type{
     border-bottom: none;
 }
