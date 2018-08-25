@@ -96,7 +96,6 @@ class Shopping extends Base {
                 db("shopping_shop")->insert($data);
                 $shopping_id['id'] = db("shopping_shop")->getLastInsID();
                 Session("shopping", $shopping_id);
-                dump($shopping_id);
                 return ajax_success("获取成功", $shopping_id);
             }
         }

@@ -22,12 +22,13 @@ class Order extends Base {
      */
     public function index(){
         $member =Session::get('member');
-        $member_information =Db::name('user')->field('harvester,harvester_phone_num,city,address')->where('phone_num',$member['phone_num'])->find();
-        $my_position =explode(",",$member_information['city']);
-//        header("Content-Type:text/html; charset=utf-8");
-//            $my_position = iconv("utf-8", "utf-8", $my_position[0]);
-//        dump($my_position[0]);exit();
-        $position = $my_position[0].$my_position[1].$my_position[2].$member_information['address'];
+        if(!empty($member)){
+            $member_information =Db::name('user')->field('harvester,harvester_phone_num,city,address')->where('phone_num',$member['phone_num'])->find();
+        }
+       if(!empty($member_information['city'])){
+           $my_position =explode(",",$member_information['city']);
+           $position = $my_position[0].$my_position[1].$my_position[2].$member_information['address'];
+       }
         if(!empty($my_position)){
             $this->assign('member_information',$member_information);
         }
@@ -43,7 +44,7 @@ class Order extends Base {
             $goods_bottom_money=$datas['goods_bottom_money'];
             $goods_bottom_money =(string)$goods_bottom_money;
             $arr=explode(".",$goods_bottom_money);
-            $express_fee =13.00;
+            $express_fee =0.00;
             /*总费用*/
             $all_money = $goods_bottom_money + $express_fee;
             $data =[
@@ -56,10 +57,10 @@ class Order extends Base {
                 'express_fee'=>$express_fee,
                 //总计
                 'all_money'=>$all_money
-
             ];
             $this->assign('data',$data);
         }
+
         return view("index");
     }
 
