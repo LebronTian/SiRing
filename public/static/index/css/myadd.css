@@ -111,13 +111,7 @@ html{
 .photo_wrap .visbile_box i{
     font-size: 1.2rem;
 }
-.img_box{
-    width: 80px;
-    height: 80px;
+.img_div{
     display: flex;
-}
-.img_box img{
-    width: 100%;
-    height: auto;
-    margin-right: 4px;
+    flex-wrap: wrap;
 }
