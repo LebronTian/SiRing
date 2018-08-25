@@ -194,8 +194,13 @@
                     /*
                         若规则全部通过则在此提交url到后台数据库
                         * */
-                    img_html = "<div class='isImg'><img src='" + objUrl + "' onclick='javascript:lookBigImg(this)' style='height: 100%; width: 100%;' /><a class='removeBtn' onclick='javascript:removeImg(this)'>×</a></div>";
-                    img_div.append(img_html);
+                    console.log()
+                    if($('.isImg').length == 5){
+                        alert('最多上传5张图片')
+                    }else{
+                        img_html = "<div class='isImg'><img src='" + objUrl + "' onclick='javascript:lookBigImg(this)' style='height: 100%; width: 100%;' /><a class='removeBtn' onclick='javascript:removeImg(this)'>×</a></div>";
+                        img_div.append(img_html);
+                    }
                 }
             }
             /*
