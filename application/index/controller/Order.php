@@ -303,52 +303,54 @@ class Order extends Base {
         if ($request->isPost()) {
             $order_id =Session::get('by_order_id');
             if(!empty($order_id)) {
-                $express_num =Db::name('order')->field('express_num')->where('id',$order_id)->find();
-                $express_type =Db::name('order')->field('express_type')->where('id',$order_id)->find();
-                if($express_type =='顺丰'){
-                    $express_types ="shunfeng";
-                }
-                if($express_type=="EMS"){
-                    $express_types="youzheng";
-                }
-                if($express_type=="圆通"){
-                    $express_types ="yuantong";
-                }
-                if($express_type=="申通"){
-                    $express_types ="shentong";
-                }
-                if($express_type=="中通"){
-                    $express_types ="zhongtong";
-                }
-
-
-                $express_name =$express_types;
-                if(!empty($express_num)) {
-                    $codes =$express_num['express_num'];
-                    //参数设置
-                    $post_data = array();
-                    $post_data["customer"] = '4C249BC13C74A7FE1ED2AAEACF722D34';
-                    $key = 'rBJvVnui5301';
-                    $post_data["param"] = '{"com":"'.$express_name.'","num":"' . $codes . '"}';
-
-                    $url = 'http://poll.kuaidi100.com/poll/query.do';
-                    $post_data["sign"] = md5($post_data["param"] . $key . $post_data["customer"]);
-                    $post_data["sign"] = strtoupper($post_data["sign"]);
-                    $o = "";
-                    foreach ($post_data as $k => $v) {
-                        $o .= "$k=" . urlencode($v) . "&";        //默认UTF-8编码格式
+                $express =Db::name('order')->field('express_num,express_type')->where('id',$order_id)->find();
+                if(!empty($express)){
+                    $express_type =$express['express_type'];
+                    $express_num =$express['express_num'];
+                    if($express_type =="顺丰"){
+                        $express_types ="shunfeng";
                     }
-                    $post_data = substr($o, 0, -1);
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_POST, 1);
-                    curl_setopt($ch, CURLOPT_HEADER, 0);
-                    curl_setopt($ch, CURLOPT_URL, $url);
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-                    $result = curl_exec($ch);
-                    $data = str_replace("\"", '"', $result);
-                    $data = json_decode($data,true);
-                    session('by_order_id',null);
+                    if($express_type=="EMS"){
+                        $express_types="ems";
+                    }
+                    if($express_type=="圆通"){
+                        $express_types ="yuantong";
+                    }
+                    if($express_type=="申通"){
+                        $express_types ="shentong";
+                    }
+                    if($express_type=="中通"){
+                        $express_types ="zhongtong";
+                    }
+
+                    if(!empty($express_num)) {
+                        $codes =$express_num;
+                        //参数设置
+                        $post_data = array();
+                        $post_data["customer"] = '4C249BC13C74A7FE1ED2AAEACF722D34';
+                        $key = 'rBJvVnui5301';
+                        $post_data["param"] = '{"com":"'.$express_types.'","num":"' . $codes . '"}';
+                        $url = 'http://poll.kuaidi100.com/poll/query.do';
+                        $post_data["sign"] = md5($post_data["param"] . $key . $post_data["customer"]);
+                        $post_data["sign"] = strtoupper($post_data["sign"]);
+                        $o = "";
+                        foreach ($post_data as $k => $v) {
+                            $o .= "$k=" . urlencode($v) . "&";        //默认UTF-8编码格式
+                        }
+                        $post_data = substr($o, 0, -1);
+                        $ch = curl_init();
+                        curl_setopt($ch, CURLOPT_POST, 1);
+                        curl_setopt($ch, CURLOPT_HEADER, 0);
+                        curl_setopt($ch, CURLOPT_URL, $url);
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+                        $result = curl_exec($ch);
+                        $data = str_replace("\"", '"', $result);
+                        $data = json_decode($data,true);
+                        session('by_order_id',null);
+                    }
                 }
+
+
             }
         }
     }
