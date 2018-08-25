@@ -1,4 +1,12 @@
 
+.html{
+    font-size: 20px;
+}
+@media(max-width:320px){
+    .html{
+        font-size: 10px;
+    }
+}
 .invitation{
     position: relative;
 }
@@ -10,7 +18,7 @@
     margin-left: -100px;
 }
 .code_box .invitation_code_text{
-    font-size: 35px;
+    font-size: 1.75em;
     width: 100%;
     text-align: center;
     padding-bottom: 0px;
@@ -26,7 +34,7 @@
     border-top: 1px solid #000;
 }
 .code_box .money{
-    font-size: 60px;
+    font-size: 3em;
     color: #ffff00;
     font-weight: 700;
     width: 100%;
