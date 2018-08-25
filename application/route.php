@@ -125,6 +125,10 @@ Route::group("",[
     "evaluation_add"=>"index/Share/evaluation_add",
     /*TODO:调用摄像头测试*/
     "evaluation_use"=>"index/Share/evaluation_use",
+    /**
+     * 图片
+     */
+    "evaluation_add_img"=>"index/Share/evaluation_add_img",
 
 
 

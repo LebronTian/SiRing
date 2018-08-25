@@ -67,6 +67,15 @@ class Share extends Controller{
         }
     }
 
+    public  function  evaluation_add_img(Request $request){
+        if($request->isPost()){
+            $file = request()->file('goods_images');
+            dump($file);exit();
+        }
+    }
+
+
+
     /**
      **************李火生*******************
      * @param Request $request
