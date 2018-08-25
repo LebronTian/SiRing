@@ -80,7 +80,7 @@
     <script>
         $(".details_order").click(function () {
             var order_id = $(this)[0].id.split('_')[2];
-            alert(order_id);
+            // alert(order_id);
             $.ajax({
                 type:'POST',
                 url:'{:url("index/Order/ajax_id")}',
@@ -102,7 +102,7 @@
     <script>
         $(".confirm_deliver").click(function () {
             var order_id = $(this)[0].id.split('_')[2];
-            alert(order_id);
+            // alert(order_id);
             $.ajax({
                 type:'POST',
                 url:'{:url("index/Share/evaluation_get_order_id")}',
