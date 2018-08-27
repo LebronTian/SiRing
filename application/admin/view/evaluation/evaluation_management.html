@@ -128,7 +128,7 @@
                     <th width="200">评价的图片</th>
                     <th width="100">评价时间</th>
                     <th width="60">状态</th>
-                    <th width="60">操作</th>
+
                 </tr>
                 </thead>
                 <tbody class="tbody">
@@ -144,9 +144,6 @@
                         <td width="200" class="evaluation_img">评价的图片</td>
                         <td width="100">{$vo.create_time|date='Y-m-d H:i:s',###}</td>
                         <td width="60">{$vo.status}</td>
-                        <td class="td-status ">
-                            <a value="" class="all_btn" id=""></a>
-                        </td>
                     </tr>
                     {/volist}
                     {/if}
@@ -160,11 +157,10 @@
     <p class="title">图片详情</p>
     <span style="display: none" class="hidden_id"></span>
     <div class="img_box" style="display:flex;flex-wrap: wrap">
-        <img src="__UPLOADS__/20180821/5311e2980ee9dababcbc36ac84cfad30.jpg" style="width:20%;height:20%;margin: 0 20px;">
-        <img src="__UPLOADS__/20180821/5311e2980ee9dababcbc36ac84cfad30.jpg" style="width:20%;height:20%;margin: 0 20px;">
-        <img src="__UPLOADS__/20180821/5311e2980ee9dababcbc36ac84cfad30.jpg" style="width:20%;height:20%;margin: 0 20px;">
-        <img src="__UPLOADS__/20180821/5311e2980ee9dababcbc36ac84cfad30.jpg" style="width:20%;height:20%;margin: 0 20px;">
-        <img src="__UPLOADS__/20180821/5311e2980ee9dababcbc36ac84cfad30.jpg" style="width:20%;height:20%;margin: 0 20px;">
+
+        <!--<img src="__UPLOADS__/20180821/5311e2980ee9dababcbc36ac84cfad30.jpg" style="width:20%;height:20%;margin: 0 20px;">-->
+        <!--<img src="__UPLOADS__/20180821/5311e2980ee9dababcbc36ac84cfad30.jpg" style="width:20%;height:20%;margin: 0 20px;">-->
+        <!--<img src="__UPLOAD__/20180827/cb484cbdf65bdb03b38a2e86a82684b0.png" style="width:20%;height:20%;margin: 0 20px;">-->
     </div>
     <button class="confirm myconfirm">确定</button>
     <button class="cancel mycancel">取消</button>
@@ -192,7 +188,7 @@
         $('.pop').css('display','block');
         var eva_id = $(this).siblings('td.eva_id')[0].innerHTML;
         $.ajax({
-            url: '{:url("")}',
+            url: '{:url("admin/Evaluation/evalution_imgs")}',
             dataType: 'JSON',
             type: 'POST',
             async: false,
@@ -201,6 +197,10 @@
             },
             success: function(data){
                 console.log(data)
+                var len = data.data.length;
+                for(var i = 0; i < len; i++){
+                    $('.img_box').append('<img src="__UPLOAD__/'+data.data[i].images+'" style="width:20%;height:20%;margin: 0 20px;">')
+                }
             },
             error: function(){
                 console.log('错误')

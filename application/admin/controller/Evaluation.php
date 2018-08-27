@@ -48,8 +48,10 @@ class  Evaluation extends  Controller{
                 if(!empty($data_id)){
                     $order_id =Db::name('evaluate')->field('order_id')->where('id',$data_id)->find();
                  if(!empty($order_id)){
-                    $img =Db::name('evaluate_images')->field('images')->where('evaluate_order_id',$order_id)->select();
-                    dump($img);
+                    $evaluate_imgs =Db::name('evaluate_images')->field('images')->where('evaluate_order_id',$order_id['order_id'])->select();
+                    if(!empty($evaluate_imgs)){
+                        return ajax_success('成功',$evaluate_imgs);
+                    }
                  }
                 }
             }
