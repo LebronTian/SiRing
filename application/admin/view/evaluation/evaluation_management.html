@@ -198,6 +198,7 @@
             success: function(data){
                 console.log(data)
                 var len = data.data.length;
+                $('.img_box').html('');
                 for(var i = 0; i < len; i++){
                     $('.img_box').append('<img src="__UPLOAD__/'+data.data[i].images+'" style="width:20%;height:20%;margin: 0 20px;">')
                 }
