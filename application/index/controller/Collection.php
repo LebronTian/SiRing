@@ -54,7 +54,7 @@ class  Collection extends Base{
                         $res = Db::name('collection')->where('user_id',$member_id)->where('goods_id',$goods_id)->delete();
                         if($res)
                         {
-                            return ajax_success('取消收藏成功',$see_status);
+                            return ajax_success('取消收藏成功');
                         }
                     }
                     /*当同一个商品被同一个人再次收藏的时候就变为取消收藏*/
