@@ -8,10 +8,12 @@
 
 namespace app\index\controller;
 
+use think\console\command\make\Model;
 use think\Controller;
 use think\Request;
 use think\Db;
 use think\Session;
+
 
 class Share extends Controller{
 
@@ -61,16 +63,57 @@ class Share extends Controller{
             if(!empty($evaluation_order_id)){
                 $data =$_POST;
                 if(!empty($data)){
-                    return ajax_success('成功',$data);
+                    $content = $data['evaluation_content'];
+                    if(!empty($content)){
+                        $member =Session::get('member');
+                        $user_id =Db::name('user')->field('id')->where('phone_num',$member['phone_num'])->find();
+                       $goods_id =Db::name('order')->field('goods_id')->where('id',$evaluation_order_id)->find();
+                       if(!empty($user_id)&&!empty($goods_id)){
+                           $datas = [
+                               'order_id'=> $evaluation_order_id,
+                               'evaluate_content'=>$content,
+                               'goods_id'=>$goods_id['goods_id'],
+                               'user_id'=>$user_id['id'],
+                               'create_time'=>time(),
+                               'status'=>0
+                           ];
+                           $res = Db::name('evaluate')->data($datas)->insert();
+                           $order_status_check =Db::name('order')->where('id',$evaluation_order_id)->update(['status'=>10]);
+                           if($res!==null &&$order_status_check !==null){
+                               return ajax_success('成功',$res);
+                           }
+                       }
+
+                    }
+
                 }
             }
         }
     }
 
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 图片获取
+     **************************************
+     */
     public  function  evaluation_add_img(Request $request){
         if($request->isPost()){
-            $file = request()->file('goods_images');
-            dump($file);exit();
+            $evaluation_order_id = Session::get('evaluation_order_id');
+            if(!empty($evaluation_order_id)){
+                $evaluation_images = [];
+                $file = $request->file('evaluation_images');
+                foreach ($file as $k=>$v){
+                    $info = $v->move(ROOT_PATH . 'public' . DS . 'upload');
+                    $evaluation_url = str_replace("\\","/",$info->getSaveName());
+                    $evaluation_images[] = ["images"=>$evaluation_url,"evaluate_id"=>$evaluation_order_id];
+                }
+              $res =  model('evaluate_images')->saveAll($evaluation_images);
+            if($res)
+            {
+                $this->success('评价成功',url('index/Order/evaluate'));
+            }
+            }
         }
     }
 

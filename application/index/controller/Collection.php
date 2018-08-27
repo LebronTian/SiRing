@@ -54,7 +54,7 @@ class  Collection extends Base{
                         $res = Db::name('collection')->where('user_id',$member_id)->where('goods_id',$goods_id)->delete();
                         if($res)
                         {
-                            return ajax_success('取消收藏成功');
+                            return ajax_success('取消收藏成功',$see_status);
                         }
                     }
                     /*当同一个商品被同一个人再次收藏的时候就变为取消收藏*/
@@ -62,10 +62,12 @@ class  Collection extends Base{
                         $data =[
                             'user_id'=>$member_id,
                             'goods_id'=>$goods_id,
+                            'status'=>1
                         ];
                         $res = Db::name('collection')->insert($data);
-                        if($res){
-                            return ajax_success('收藏成功',$res);
+                        $see_status = Db::name('collection')->field('status')->where($data)->find();
+                        if($res&&$see_status){
+                            return ajax_success('收藏成功',$see_status);
                         }
                     }
                 }
@@ -91,10 +93,46 @@ class  Collection extends Base{
             $list =  Db::name('collection')->where($where)->delete();
             if($list!==false)
             {
+
                 $this->success('删除成功!');
             }else{
                 $this->error('删除失败');
             }
         }
     }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 收藏样式返回的数据库状态值
+     **************************************
+     */
+    public function show_collection(Request $request){
+        if($request->isPost()){
+            $data = $_POST;
+            if(!empty($data)){
+                $goods_id = $data['id'];
+                $member = Session::get('member');
+                $member_data = Db::name('user')->field('id')->where('phone_num',$member['phone_num'])->find();
+                $member_id = $member_data['id'];
+                if(!empty($goods_id)&&!empty($member_id)){
+                    $data =[
+                        'user_id'=>$member_id,
+                        'goods_id'=>$goods_id,
+                        'status'=>1
+                    ];
+                    $see_status = Db::name('collection')->field('status')->where($data)->find();
+                    if($see_status){
+                        return ajax_success('成功',$see_status);
+                    }
+                }
+
+            }
+
+
+        }
+
+    }
+
+
 }
