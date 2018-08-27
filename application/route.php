@@ -87,13 +87,13 @@ Route::group("",[
     "login"=>"index/Login/login",
     "logout"=>"index/Login/logout",
 
-
     /*验证码*/
     "login_captcha"=>"index/Login/captchas",
 
 
     /*注册页面*/
     "register"=>"index/Register/index",
+    "register_code"=>"index/Register/code",
 
 
     /*短信注册*/

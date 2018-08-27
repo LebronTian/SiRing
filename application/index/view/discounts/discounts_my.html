@@ -42,49 +42,59 @@
     <!-- 未使用 没有优惠券时隐藏-->
     <div class="not_used" style="display: none;">
         <div class="discount_img">
+            {if !empty($discounts_data)}
+            {volist name="discounts_data" id="value"}
             <ul>
                 <li>
-                    <img src="__STATIC__/index/images/u165.png">
+                    <img src="__UPLOADS__/{$value.discounts_valid_images}">
                     <p class="money_p">￥
-                        <span class="amount_of_money">55</span>
+                        <span class="amount_of_money">{$value.discounts_money}</span>
                     </p>
                     <p class="time_p">有效期:
-                        <span class="term_of_validity">2018.08.24</span>
+                        <span class="term_of_validity">{$value.over_time|date='Y-m-d H:i:s',###}</span>
                     </p>
                 </li>
             </ul>
+            {/volist}
+            {/if}
         </div>
     </div>
-    
+
     <!-- 已使用 -->
     <div class="used" style="display: none;">
         <div class="used_discount">
+
             <ul>
                 <li>
-                    <img src="__STATIC__/index/images/u165.png">
+                    <img src="">
                     <p class="used_money_p">￥
-                        <span class="amount_of_money">55</span>
+                        <span class="amount_of_money">{$value.discounts_money}</span>
                     </p>
                     <p class="used_p">已使用</p>
                 </li>
             </ul>
+
         </div>
     </div>
-    
+
     <!-- 已过期 -->
     <div class="expired" style="display: block;">
         <div class="expired_discount">
+            {if !empty($discounts_status)}
+            {volist name="discounts_status" id="val"}
             <ul>
                 <li>
-                    <img src="__STATIC__/index/images/u205.png">
+                    <img src="__UPLOADS__/{$val.discounts_failure_images}">
                     <p class="expired_money_p">￥
-                        <span class="amount_of_money">55</span>
+                        <span class="amount_of_money">{$val.discounts_money}</span>
                     </p>
                     <p class="expired_p">有效期:
-                        <span class="term_of_validity">2018.08.22-2018.08.23</span>
+                        <span class="term_of_validity">{$val.over_time|date='Y-m-d H:i:s',###}</span>
                     </p>
                 </li>
             </ul>
+            {/volist}
+            {/if}
         </div>
     </div>
 </div>

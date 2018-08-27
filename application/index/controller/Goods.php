@@ -53,7 +53,7 @@ class Goods extends  Controller{
         if($request->isPost()){
             $goods_id = $request->only(["goods_id"])["goods_id"];
             Session("goods_id",$goods_id);
-            return ajax_success("获取成功");
+            return ajax_success("获取成功",$goods_id);
         }
     }
 
@@ -77,10 +77,8 @@ class Goods extends  Controller{
                             $goods[$key]['seckill_status'] = 1;
                             $goods[$key]['goods_bottom_money'] = $seckill['seckill_money'];
                         }
-
                     }
                 }
-
             }
             //Session::delete("goods_id");
             return ajax_success("获取成功", $goods);

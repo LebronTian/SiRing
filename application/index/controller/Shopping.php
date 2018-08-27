@@ -12,7 +12,6 @@ use think\Request;
 use think\Session;
 use think\Db;
 use think\Cache;
-use app\index\controller\Base;
 
 class Shopping extends Base {
 

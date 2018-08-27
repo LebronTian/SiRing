@@ -25,8 +25,8 @@ class Discount extends Controller{
      * 陈绪
      */
     public function index(){
-
-        return view("discount_index");
+        $discounts = db("discounts")->select();
+        return view("discount_index",['discounts'=>$discounts]);
 
     }
 

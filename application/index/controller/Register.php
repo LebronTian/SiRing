@@ -55,7 +55,9 @@ class Register extends  Controller{
 //        }
         public function index()
         {
-                return view('index');
+            $url = $_SERVER['REQUEST_URI'];
+            $number = strrchr($url,'8');
+            return view('index',['number'=>$number]);
         }
 
 
@@ -89,11 +91,20 @@ class Register extends  Controller{
                     'create_time'=>strtotime($create_time),
                     "status"=>1
                 ];
+                $invitation = $request->only(['invitation'])['invitation'];
                 $res =Db::name('user')->data($data)->insert();
-                if($res){
-                    $this->success("注册成功",url('index/Login/login'));
-                }else{
-                    $this->error('注册失败');
+                if(!empty($invitation)) {
+                    $data = [];
+                    $id = substr($invitation,3);
+                    $data['user_id'] = $id;
+                    $data['invitation'] = $invitation;
+                    $bool = db("discounts_user")->insert($data);
+                    if($bool){
+                        $this->success("注册成功",url('index/Login/login'));
+                    }
+
+                }else if($res){
+                    $this->success('注册成功',url('index/Login/login'));
                 }
 
 
