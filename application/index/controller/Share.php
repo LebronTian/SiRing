@@ -106,7 +106,7 @@ class Share extends Controller{
                 foreach ($file as $k=>$v){
                     $info = $v->move(ROOT_PATH . 'public' . DS . 'upload');
                     $evaluation_url = str_replace("\\","/",$info->getSaveName());
-                    $evaluation_images[] = ["images"=>$evaluation_url,"evaluate_id"=>$evaluation_order_id];
+                    $evaluation_images[] = ["images"=>$evaluation_url,"evaluation_order_id"=>$evaluation_order_id];
                 }
               $res =  model('evaluate_images')->saveAll($evaluation_images);
             if($res)

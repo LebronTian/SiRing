@@ -25,8 +25,12 @@ class  Evaluation extends  Controller{
             ->join("tb_goods","tb_evaluate.goods_id=tb_goods.id",'left')
             ->join("tb_user","tb_evaluate.user_id=tb_user.id",'left')
             ->select();
-       dump($data);
-        return view('evaluation_management');
+       if($data)
+       {
+           $this->assign('data',$data);
+       }
+
+       return view('evaluation_management');
     }
 
 

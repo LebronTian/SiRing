@@ -122,28 +122,34 @@
                     <th width="40"><input name="ids" type="checkbox"></th>
                     <th width="40">用户名</th>
                     <th width="60">评价商品</th>
-                    <th width="12">产品图片</th>
+                    <th width="100">产品图片</th>
                     <th width="20">订单号</th>
                     <th width="50">评价内容</th>
+                    <th width="200">评价的图片</th>
                     <th width="100">评价时间</th>
                     <th width="60">状态</th>
                     <th width="60">操作</th>
                 </tr>
                 </thead>
                 <tbody class="tbody">
+                    {if !empty($data)}
+                    {volist name="data" id="vo"}
                     <tr class="text-c va-m">
-                        <th width="10"><input name="ids" id="" type="checkbox" value=""></th>
-                        <th width="30"></th>
-                        <th width="50"></th>
-                        <th width="80"><img src="" alt="商品图片"></th>
-                        <th width="20"></th>
-                        <th width="40"></th>
-                        <th width="50"></th>
-                        <th width="40"></th>
+                        <th width="40"><input name="ids" id="" type="checkbox" value=""></th>
+                        <th width="40">{$vo.id}</th>
+                        <th width="60">{$vo.goods_name}</th>
+                        <th width="100"><img src="__UPLOADS__/{$vo.goods_show_images}" alt="商品图片"></th>
+                        <th width="20">{$vo.order_id}</th>
+                        <th width="50">{$vo.evaluate_content}</th>
+                        <th width="200">评价的图片</th>
+                        <th width="100">{$vo.create_time|date='Y-m-d H:i:s',###}</th>
+                        <th width="60">{$vo.status}</th>
                         <td class="td-status ">
                             <a value="" class="all_btn" id=""></a>
                         </td>
                     </tr>
+                    {/volist}
+                    {/if}
                 </tbody>
             </table>
         </div>
@@ -166,6 +172,7 @@
 <script type="text/javascript" src="__STATIC__/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/static/h-ui2/js/tp.js"></script>
+
 
 
 {/block}
