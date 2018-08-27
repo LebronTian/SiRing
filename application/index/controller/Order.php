@@ -22,12 +22,13 @@ class Order extends Base {
      */
     public function index(){
         $member =Session::get('member');
-        $member_information =Db::name('user')->field('harvester,harvester_phone_num,city,address')->where('phone_num',$member['phone_num'])->find();
-        $my_position =explode(",",$member_information['city']);
-//        header("Content-Type:text/html; charset=utf-8");
-//            $my_position = iconv("utf-8", "utf-8", $my_position[0]);
-//        dump($my_position[0]);exit();
-        $position = $my_position[0].$my_position[1].$my_position[2].$member_information['address'];
+        if(!empty($member)){
+            $member_information =Db::name('user')->field('harvester,harvester_phone_num,city,address')->where('phone_num',$member['phone_num'])->find();
+        }
+       if(!empty($member_information['city'])){
+           $my_position =explode(",",$member_information['city']);
+           $position = $my_position[0].$my_position[1].$my_position[2].$member_information['address'];
+       }
         if(!empty($my_position)){
             $this->assign('member_information',$member_information);
         }
@@ -43,7 +44,7 @@ class Order extends Base {
             $goods_bottom_money=$datas['goods_bottom_money'];
             $goods_bottom_money =(string)$goods_bottom_money;
             $arr=explode(".",$goods_bottom_money);
-            $express_fee =13.00;
+            $express_fee =0.00;
             /*总费用*/
             $all_money = $goods_bottom_money + $express_fee;
             $data =[
@@ -56,10 +57,10 @@ class Order extends Base {
                 'express_fee'=>$express_fee,
                 //总计
                 'all_money'=>$all_money
-
             ];
             $this->assign('data',$data);
         }
+
         return view("index");
     }
 
@@ -303,33 +304,54 @@ class Order extends Base {
         if ($request->isPost()) {
             $order_id =Session::get('by_order_id');
             if(!empty($order_id)) {
-                $express_num =Db::name('order')->field('express_num')->where('id',$order_id)->find();
-                if(!empty($express_num)) {
-                    $codes =$express_num['express_num'];
-                    //参数设置
-                    $post_data = array();
-                    $post_data["customer"] = '4C249BC13C74A7FE1ED2AAEACF722D34';
-                    $key = 'rBJvVnui5301';
-                    $post_data["param"] = '{"com":"yuantong","num":"' . $codes . '"}';
-
-                    $url = 'http://poll.kuaidi100.com/poll/query.do';
-                    $post_data["sign"] = md5($post_data["param"] . $key . $post_data["customer"]);
-                    $post_data["sign"] = strtoupper($post_data["sign"]);
-                    $o = "";
-                    foreach ($post_data as $k => $v) {
-                        $o .= "$k=" . urlencode($v) . "&";        //默认UTF-8编码格式
+                $express =Db::name('order')->field('express_num,express_type')->where('id',$order_id)->find();
+                if(!empty($express)){
+                    $express_type =$express['express_type'];
+                    $express_num =$express['express_num'];
+                    if($express_type =="顺丰"){
+                        $express_types ="shunfeng";
                     }
-                    $post_data = substr($o, 0, -1);
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_POST, 1);
-                    curl_setopt($ch, CURLOPT_HEADER, 0);
-                    curl_setopt($ch, CURLOPT_URL, $url);
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-                    $result = curl_exec($ch);
-                    $data = str_replace("\"", '"', $result);
-                    $data = json_decode($data,true);
-                    session('by_order_id',null);
+                    if($express_type=="EMS"){
+                        $express_types="ems";
+                    }
+                    if($express_type=="圆通"){
+                        $express_types ="yuantong";
+                    }
+                    if($express_type=="申通"){
+                        $express_types ="shentong";
+                    }
+                    if($express_type=="中通"){
+                        $express_types ="zhongtong";
+                    }
+
+                    if(!empty($express_num)) {
+                        $codes =$express_num;
+                        //参数设置
+                        $post_data = array();
+                        $post_data["customer"] = '4C249BC13C74A7FE1ED2AAEACF722D34';
+                        $key = 'rBJvVnui5301';
+                        $post_data["param"] = '{"com":"'.$express_types.'","num":"' . $codes . '"}';
+                        $url = 'http://poll.kuaidi100.com/poll/query.do';
+                        $post_data["sign"] = md5($post_data["param"] . $key . $post_data["customer"]);
+                        $post_data["sign"] = strtoupper($post_data["sign"]);
+                        $o = "";
+                        foreach ($post_data as $k => $v) {
+                            $o .= "$k=" . urlencode($v) . "&";        //默认UTF-8编码格式
+                        }
+                        $post_data = substr($o, 0, -1);
+                        $ch = curl_init();
+                        curl_setopt($ch, CURLOPT_POST, 1);
+                        curl_setopt($ch, CURLOPT_HEADER, 0);
+                        curl_setopt($ch, CURLOPT_URL, $url);
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+                        $result = curl_exec($ch);
+                        $data = str_replace("\"", '"', $result);
+                        $data = json_decode($data,true);
+                        session('by_order_id',null);
+                    }
                 }
+
+
             }
         }
     }
@@ -343,6 +365,100 @@ class Order extends Base {
      */
     public  function refund(Request $request){
         return view('refund');
+    }
+
+    public function order_pay_test()
+    {
+        $aop = new AopClient ();
+        $aop->gatewayUrl = 'https://openapi.alipay.com/gateway.do';
+        $aop->appId = 'your app_id';
+        $aop->rsaPrivateKey = '';
+        $aop->alipayrsaPublicKey='请填写支付宝公钥，一行字符串';
+        $aop->apiVersion = '1.0';
+        $aop->signType = 'RSA2';
+        $aop->postCharset='GBK';
+        $aop->format='json';
+        $request = new AlipayTradeWapPayRequest ();
+        $request->setBizContent("{" .
+            "\"body\":\"对一笔交易的具体描述信息。如果是多种商品，请将商品描述字符串累加传给body。\"," .
+            "\"subject\":\"大乐透\"," .
+            "\"out_trade_no\":\"70501111111S001111119\"," .
+            "\"timeout_express\":\"90m\"," .
+            "\"time_expire\":\"2016-12-31 10:05\"," .
+            "\"total_amount\":9.00," .
+            "\"seller_id\":\"2088102147948060\"," .
+            "\"auth_token\":\"appopenBb64d181d0146481ab6a762c00714cC27\"," .
+            "\"goods_type\":\"0\"," .
+            "\"passback_params\":\"merchantBizType%3d3C%26merchantBizNo%3d2016010101111\"," .
+            "\"quit_url\":\"http://www.taobao.com/product/113714.html\"," .
+            "\"product_code\":\"QUICK_WAP_WAY\"," .
+            "\"promo_params\":\"{\\\"storeIdType\\\":\\\"1\\\"}\"," .
+            "\"royalty_info\":{" .
+            "\"royalty_type\":\"ROYALTY\"," .
+            "        \"royalty_detail_infos\":[{" .
+            "          \"serial_no\":1," .
+            "\"trans_in_type\":\"userId\"," .
+            "\"batch_no\":\"123\"," .
+            "\"out_relation_id\":\"20131124001\"," .
+            "\"trans_out_type\":\"userId\"," .
+            "\"trans_out\":\"2088101126765726\"," .
+            "\"trans_in\":\"2088101126708402\"," .
+            "\"amount\":0.1," .
+            "\"desc\":\"分账测试1\"," .
+            "\"amount_percentage\":\"100\"" .
+            "          }]" .
+            "    }," .
+            "\"extend_params\":{" .
+            "\"sys_service_provider_id\":\"2088511833207846\"," .
+            "\"hb_fq_num\":\"3\"," .
+            "\"hb_fq_seller_percent\":\"100\"," .
+            "\"industry_reflux_info\":\"{\\\\\\\"scene_code\\\\\\\":\\\\\\\"metro_tradeorder\\\\\\\",\\\\\\\"channel\\\\\\\":\\\\\\\"xxxx\\\\\\\",\\\\\\\"scene_data\\\\\\\":{\\\\\\\"asset_name\\\\\\\":\\\\\\\"ALIPAY\\\\\\\"}}\"," .
+            "\"card_type\":\"S0JP0000\"" .
+            "    }," .
+            "\"sub_merchant\":{" .
+            "\"merchant_id\":\"19023454\"," .
+            "\"merchant_type\":\"alipay: 支付宝分配的间连商户编号, merchant: 商户端的间连商户编号\"" .
+            "    }," .
+            "\"enable_pay_channels\":\"pcredit,moneyFund,debitCardExpress\"," .
+            "\"disable_pay_channels\":\"pcredit,moneyFund,debitCardExpress\"," .
+            "\"store_id\":\"NJ_001\"," .
+            "\"settle_info\":{" .
+            "        \"settle_detail_infos\":[{" .
+            "          \"trans_in_type\":\"cardSerialNo\"," .
+            "\"trans_in\":\"A0001\"," .
+            "\"summary_dimension\":\"A0001\"," .
+            "\"amount\":0.1" .
+            "          }]" .
+            "    }," .
+            "\"invoice_info\":{" .
+            "\"key_info\":{" .
+            "\"is_support_invoice\":true," .
+            "\"invoice_merchant_name\":\"ABC|003\"," .
+            "\"tax_num\":\"1464888883494\"" .
+            "      }," .
+            "\"details\":\"[{\\\"code\\\":\\\"100294400\\\",\\\"name\\\":\\\"服饰\\\",\\\"num\\\":\\\"2\\\",\\\"sumPrice\\\":\\\"200.00\\\",\\\"taxRate\\\":\\\"6%\\\"}]\"" .
+            "    }," .
+            "\"specified_channel\":\"pcredit\"," .
+            "\"business_params\":\"{\\\"data\\\":\\\"123\\\"}\"," .
+            "\"ext_user_info\":{" .
+            "\"name\":\"李明\"," .
+            "\"mobile\":\"16587658765\"," .
+            "\"cert_type\":\"IDENTITY_CARD\"," .
+            "\"cert_no\":\"362334768769238881\"," .
+            "\"min_age\":\"18\"," .
+            "\"fix_buyer\":\"F\"," .
+            "\"need_check_info\":\"F\"" .
+            "    }" .
+            "  }");
+        $result = $aop->pageExecute ( $request);
+
+        $responseNode = str_replace(".", "_", $request->getApiMethodName()) . "_response";
+        $resultCode = $result->$responseNode->code;
+        if(!empty($resultCode)&&$resultCode == 10000){
+            echo "成功";
+        } else {
+            echo "失败";
+        }
     }
 
 

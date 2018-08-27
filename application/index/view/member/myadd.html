@@ -24,9 +24,12 @@
                 <span class="name_box">{$member_information['harvester']}</span>
                 <span>{$member_information['harvester_phone_num']}</span>
             </div>
+            {if !empty($position)}
             <div class="addr_box">
                 {$position}
             </div>
+            {/if}
+
         </div>
     {/if}
         {if empty($member_information)}

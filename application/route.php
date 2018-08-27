@@ -49,6 +49,8 @@ Route::group("",[
     "collection_add"=>"index/Collection/add",
     /*删除收藏*/
     "collection_del"=>"index/Collection/del",
+    /*收藏的样式改变需要返回一个状态值给页面*/
+    "show_collection"=>"index/Collection/show_collection",
 
     /*我的页面*/
     "member_index"=>"index/Member/index",
@@ -83,6 +85,8 @@ Route::group("",[
     'interface_information'=>"index/Order/interface_information", //快递100接口
     'logistics_information_id'=>"index/Order/logistics_information_id",//用来接收物流信息的id
     'confirm_payment'=>"index/order/confirm_payment", //确定付款
+    /*TODO：支付测试*/
+    'order_pay_test'=>"index/order/order_pay_test",
     /*登录页面*/
     "login"=>"index/Login/login",
     "logout"=>"index/Login/logout",
@@ -121,8 +125,14 @@ Route::group("",[
     "evaluation"=>"index/Share/evaluation",
     /*添加评价*/
     "evaluation_add"=>"index/Share/evaluation_add",
-    /*调用摄像头测试*/
+    /*TODO:调用摄像头测试*/
     "evaluation_use"=>"index/Share/evaluation_use",
+    /**
+     * 图片
+     */
+    "evaluation_add_img"=>"index/Share/evaluation_add_img",
+
+
 
 
 

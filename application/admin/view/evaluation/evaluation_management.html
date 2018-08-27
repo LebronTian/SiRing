@@ -108,7 +108,7 @@
         <div class="cl pd-5 bg-1 bk-gray mt-20">
             <span class="l">
                 <a href="javascript:;" onclick="" class="btn btn-danger radius">
-                    <i class="Hui-iconfont"></i> 批量发货
+                    <i class="Hui-iconfont"></i> 批量通过
                 </a>
             </span>
             <span class="r">共有数据：
@@ -120,113 +120,39 @@
                 <thead>
                 <tr class="text-c">
                     <th width="40"><input name="ids" type="checkbox"></th>
-                    <th width="40">订单号</th>
-                    <th width="60">商品图片</th>
-                    <th width="12">产品名称</th>
-                    <th width="20">订单数量</th>
-                    <th width="50">买家信息</th>
-                    <th width="100">下单时间</th>
-                    <th width="60">实付金额</th>
-                    <th width="60">订单状态</th>
+                    <th width="40">用户名</th>
+                    <th width="60">评价商品</th>
+                    <th width="100">产品图片</th>
+                    <th width="20">订单号</th>
+                    <th width="50">评价内容</th>
+                    <th width="200">评价的图片</th>
+                    <th width="100">评价时间</th>
+                    <th width="60">状态</th>
+                    <th width="60">操作</th>
                 </tr>
                 </thead>
                 <tbody class="tbody">
+                    {if !empty($data)}
+                    {volist name="data" id="vo"}
                     <tr class="text-c va-m">
-                        <th width="10"><input name="ids" id="" type="checkbox" value=""></th>
-                        <th width="30"></th>
-                        <th width="50"><img src="" alt="商品图片"></th>
-                        <th width="80"></th>
-                        <th width="20"></th>
-                        <th width="40"></th>
-                        <th width="50"></th>
-                        <th width="40"></th>
+                        <th width="40"><input name="ids" id="" type="checkbox" value=""></th>
+                        <th width="40">{$vo.id}</th>
+                        <th width="60">{$vo.goods_name}</th>
+                        <th width="100"><img src="__UPLOADS__/{$vo.goods_show_images}" alt="商品图片"></th>
+                        <th width="20">{$vo.order_id}</th>
+                        <th width="50">{$vo.evaluate_content}</th>
+                        <th width="200">评价的图片</th>
+                        <th width="100">{$vo.create_time|date='Y-m-d H:i:s',###}</th>
+                        <th width="60">{$vo.status}</th>
                         <td class="td-status ">
                             <a value="" class="all_btn" id=""></a>
                         </td>
                     </tr>
+                    {/volist}
+                    {/if}
                 </tbody>
             </table>
         </div>
-    </div>
-    <!-- 待发货弹窗 -->
-    <div class="pop pop1" style="display: none;">
-        <p class="title">配送信息</p>
-        <span style="display: none" class="hidden_id"></span>
-        <div class="express">
-            <span>快递公司</span>
-            <select name="" id="express_type">
-                <!--<option value="EMS">EMS</option>-->
-                <option value="顺丰" selected>顺丰</option>
-                <!--<option value="中通">中通</option>-->
-                <!--<option value="申通">申通</option>-->
-                <!--<option value="圆通">圆通</option>-->
-            </select>
-        </div>
-        <div class="express_num">
-            <span>快递单号</span>
-            <input type="text">
-        </div>
-        <button class="confirm myconfirm" onclick="waiting_send()">确定</button>
-        <button class="cancel mycancel" onclick="mycancel('pop1')">取消</button>
-    </div>
-    <!-- 待付款弹窗 -->
-    <div class="pop pop2" style="display: none;">
-        <p class="title">订单信息</p>
-        <div class="order_info">
-            <p>订单号：<span class="order_ids"></span></p>
-            <p>订单名称：<span class="order_names"></span></p>
-            <p>订单金额：<span>￥</span><span class="order_moneys"></span></p>
-            <p>下单时间：<span class="order_create_time"></span></p>
-            <p>待付款方：<span class="order_harvester"></span></p>
-            <p>收获人信息：<span class="order_harvester"></span></p>
-            <p>收获人地址：<span class="order_harvest_address"></span></p>
-            <p>收获人号码：<span class="order_harvest_phone_num"></span></p>
-        </div>
-        <button class="payment myconfirm" onclick="order_refuse()">卖家拒绝订单</button>
-        <button class="cancel_pay mycancel" onclick="mycancel('pop2')">取消</button>
-    </div>
-    <!-- 待收货弹窗 -->
-    <div class="pop pop3" style="display: none;">
-        <p class="title">确认收货</p>
-        <div class="tips">
-            <p>要确认收货吗？</p>
-        </div>
-        <button class="payment myconfirm" onclick="myconfirm('pop3')">确认收货</button>
-        <button class="cancel_pay mycancel" onclick="mycancel('pop3')">取消</button>
-    </div>
-    <!-- 待评价弹窗 -->
-    <div class="pop pop4" style="display: none;">
-        <p class="title">商品评价</p>
-        <div class="content">
-            <textarea name="" id="" cols="30" rows="10" autofocus></textarea>
-        </div>
-        <button class="evaluate myconfirm" onclick="myconfirm('pop4')">确认</button>
-        <button class="cancel_eval mycancel" onclick="mycancel('pop4')">取消</button>
-    </div>
-    <!-- 待退款弹窗 -->
-    <div class="pop pop5" style="display: none;">
-        <p class="title">确认退款</p>
-        <div class="tips">
-            <p>要确认退款吗？</p>
-        </div>
-        <button class="payment myconfirm" onclick="myconfirm('pop5')">确认退款</button>
-        <button class="cancel_pay mycancel" onclick="mycancel('pop5')">拒绝</button>
-    </div>
-    <!-- 已发货弹窗 -->
-    <div class="pop pop6" style="display: none;">
-        <p class="title">快递单号</p>
-        <div class="express">
-            <span>快递公司</span>
-            <select name="" id="express_types">
-                <option value="顺丰" selected>顺丰</option>
-            </select>
-        </div>
-        <div class="express_nums">
-            <span>快递单号</span>
-            <input type="text">
-        </div>
-        <button class="confirm myconfirm" onclick="myconfirm('pop6')">确定</button>
-        <button class="cancel mycancel" onclick="mycancel('pop6')">取消</button>
     </div>
 </div>
 {/block}
