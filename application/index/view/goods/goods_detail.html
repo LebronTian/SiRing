@@ -32,6 +32,7 @@
 	<link rel="icon" type="__STATIC__/index/image/x-icon" href="__STATIC__/index/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="__STATIC__/index/css/aui.css"/>
 	<link rel="stylesheet" type="text/css" href="__STATIC__/index/css/aui-slide.css"/>
+    <link rel="stylesheet" href="__STATIC__/index/css/seckill.css">
 	<link rel="stylesheet" type="text/css" href="__STATIC__/index/css/pop.css"/>
 </head>
 <body style="background:#fff">
@@ -72,6 +73,13 @@
 		</h2>
 	</a>
 	<div style="font-size:18px; font-weight:800; color:#f34347" class="price">￥1299.00
+	</div>
+	<div class="time_box" style="text-align:right;">
+		<span class="time_text">距开始</span>&nbsp;
+		<span class="day">0天</span>
+		<span class="hour">0</span> :
+		<span class="minutes">0</span> :
+		<span class="second">0</span>
 	</div>
 </div>
 <div class="div-border t-line"></div>
@@ -429,7 +437,7 @@
 			dataType: 'JSON',
 			async: false,
 			success: function(data){
-				 console.log(data)
+				console.log(data)
 				var data = data.data[0];
 				// 轮播图
 				var img_len = data.goods_images.length;
@@ -445,6 +453,45 @@
 				// 价格
 				$('.price').html('￥'+data.goods_bottom_money+'');
 				xid = data.id;
+			
+				// 活动开始时间
+				var start_time = data.start_time*1000;
+				// 活动结束时间
+				var over_time = data.over_time*1000;
+				// 倒计时函数
+				function count_down(obj){
+					// 获取当前时间
+					var curr_time = new Date().getTime();
+					// 时间差
+					var to_start = obj - curr_time;
+					// 剩余多少天，小时，分钟，秒
+					var Day = parseInt(to_start/1000/3600/24) < 10 ? '0'+parseInt(to_start/1000/3600/24) : parseInt(to_start/1000/3600/24);
+					var Hour = parseInt(to_start/1000/3600%24) < 10 ? '0'+parseInt(to_start/1000/3600%24) : parseInt(to_start/1000/3600%24);
+					var Minutes = parseInt(to_start/1000/60%60) < 10 ? '0'+parseInt(to_start/1000/60%60) : parseInt(to_start/1000/60%60);
+					var Second = parseInt(to_start/1000%60) < 10 ? '0'+parseInt(to_start/1000%60):  parseInt(to_start/1000%60);
+					// 渲染到页面上
+					$('.hour')[0].innerHTML = Hour;
+					$('.minutes')[0].innerHTML = Minutes;
+					$('.second')[0].innerHTML = Second;
+					// 如果天数不为0，显示标签
+					if(Day != 0){
+						$($('.day')[0]).css('display','inline-block');
+						$('.day')[0].innerHTML = Day + '天';
+					}
+				}
+				// 显示距离活动开始的时间
+				if(start_time - new Date().getTime() > 0){
+					$('.time_text')[0].innerHTML = '距开始';
+					setInterval(function(){
+						count_down(start_time);
+					},1000)
+				}else{
+					// 显示 距离活动结束的时间
+					$('.time_text')[0].innerHTML = '距结束';
+					setInterval(function(){
+						count_down(over_time);
+					},1000)
+				}
 			},
 			error: function(){
 				console.log('错误')
@@ -834,17 +881,15 @@
             },
             success:function(data){
                 console.log(data);
-                // location.href='order_index'
 				if(data.info == '收藏成功'){
 					$('.collection_add').children().addClass('aui-text-warning');
 				}else if(data.info == '取消收藏成功'){
 					$('.collection_add').children().removeClass('aui-text-warning');
 				}
-				dataInfo = data.info;
             },
             error: function(){
                 console.log('未登录');
-//                window.location.href ="login";
+                window.location.href ="login";
             }
 
         })
@@ -864,6 +909,9 @@
                 async: false,
                 success: function(data){
                    console.log(data);
+				   if(data.data.status != null && data.data.status == 1){
+					   $('.collection_add').children().addClass('aui-text-warning');
+				   }
                 },
                 error: function(){
                     console.log('未收藏')

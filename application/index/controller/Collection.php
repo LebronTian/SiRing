@@ -44,6 +44,7 @@ class  Collection extends Base{
         if($request->isPost()){
             $member = Session::get('member');
             if(!empty($member)){
+
                 $datas =$_POST;
                 if(!empty($datas)){
                     $member_data = Db::name('user')->field('id')->where('phone_num',$member['phone_num'])->find();
