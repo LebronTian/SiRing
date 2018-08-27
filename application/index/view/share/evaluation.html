@@ -109,7 +109,7 @@
                 <i class="aui-iconfont aui-icon-left"></i>
             </a>
             <div id="title" class="h1 title">我的评价</div>
-            <a href="javascript:;" class="evaluation_a">发表评价</a>
+
         </div>
     </div>
     {if !empty($res)}
@@ -129,13 +129,14 @@
         <textarea name="" id="evaluation_content" cols="30" rows="10" class="describe" placeholder="请输入您的评价"></textarea>
     </div>
     <div class="photo_wrap">
-        <form action="">
-            <input class="files" name="goods_images[]" id="myFile" type="file" hidden>
-            <div class="visible_box">
+        <form action="{:url('index/Share/evaluation_add_img')}" method="post" enctype="multipart/form-data">
+            <input class="files" name="evaluation_images[]" id="myFile" type="file" hidden multiple="multiple">
+            <div class="visible_box" >
                 <i class="aui-iconfont aui-icon-camera"></i>
                 <p>添加照片</p>
             </div> 
-            <div class="img_div"></div> 
+            <div class="img_div"></div>
+            <button type="submit" class="evaluation_a">发表评价</button>
         </form>
     </div>
 <script src="__STATIC__/index/js/jquery.js"></script>
@@ -157,6 +158,8 @@
             dataType: 'json',
             success: function(data){
                 console.log(data);
+                alert(data.info);
+                window.location.href ="{:url('index/Share/evaluation')}";
             },
             error:function(data) {
                 console.log("失败");
@@ -170,7 +173,7 @@
         var img_html;
         $("#myFile").change(function() {
             var img_div = $(".img_div");
-            var filepath = $("input[name='goods_images[]']").val();
+            var filepath = $("input[name='evaluation_images[]']").val();
             for(var i = 0; i < this.files.length; i++) {
                 objUrl = getObjectURL(this.files[i]);
                 // 

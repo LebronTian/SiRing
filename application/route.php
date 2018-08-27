@@ -49,6 +49,8 @@ Route::group("",[
     "collection_add"=>"index/Collection/add",
     /*删除收藏*/
     "collection_del"=>"index/Collection/del",
+    /*收藏的样式改变需要返回一个状态值给页面*/
+    "show_collection"=>"index/Collection/show_collection",
 
     /*我的页面*/
     "member_index"=>"index/Member/index",

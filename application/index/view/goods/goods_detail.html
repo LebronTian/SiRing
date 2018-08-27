@@ -850,5 +850,26 @@
         })
     });
 </script>
+
+<!--收藏按钮样式修改-->
+<script>
+        (function(){
+            $.ajax({
+                url: '{:url("index/Collection/show_collection")}',
+                type: 'POST',
+                dataType: 'JSON',
+				'data':{
+                    'id':xid
+				},
+                async: false,
+                success: function(data){
+                   console.log(data);
+                },
+                error: function(){
+                    console.log('未收藏')
+                }
+            })
+        })()
+</script>
 </body>
 </html>
