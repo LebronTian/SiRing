@@ -834,17 +834,14 @@
             },
             success:function(data){
                 console.log(data);
-                // location.href='order_index'
 				if(data.info == '收藏成功'){
 					$('.collection_add').children().addClass('aui-text-warning');
 				}else if(data.info == '取消收藏成功'){
 					$('.collection_add').children().removeClass('aui-text-warning');
 				}
-				dataInfo = data.info;
             },
             error: function(){
-                console.log('未登录');
-                window.location.href ="login";
+                console.log('未登录'); 
             }
 
         })
@@ -864,6 +861,9 @@
                 async: false,
                 success: function(data){
                    console.log(data);
+				   if(data.data.status != null && data.data.status == 1){
+					   $('.collection_add').children().addClass('aui-text-warning');
+				   }
                 },
                 error: function(){
                     console.log('未收藏')
