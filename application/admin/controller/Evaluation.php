@@ -9,6 +9,7 @@ namespace  app\admin\controller;
 
 use think\Controller;
 use think\Db;
+use think\Request;
 
 class  Evaluation extends  Controller{
 
@@ -31,6 +32,20 @@ class  Evaluation extends  Controller{
        }
 
        return view('evaluation_management');
+    }
+    public function evalution_imgs(Request $request){
+        if($request->isPost()){
+            $data = $_POST;
+            if(!empty($data)){
+                $data_id =$data['id'];
+                if(!empty($data_id)){
+                    $order_id =Db::name('evaluate')->field('order_id')->where('id',$data_id)->find();
+                 if(!empty($order_id)){
+
+                 }
+                }
+            }
+        }
     }
 
 

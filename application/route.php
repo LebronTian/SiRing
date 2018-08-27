@@ -263,6 +263,8 @@ Route::group("admin",[
 
     /*评价管理（未做）*/
     "evaluation_management"=>"admin/Evaluation/management",
+    /*客户评价图片*/
+    "evalution_imgs"=>"admin/Evaluation/evalution_imgs",
     /*退款维权(未做)*/
     "refund_rights"=>"admin/Refund/rights",
     /*晒单管理（未作）*/
