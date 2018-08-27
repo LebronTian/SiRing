@@ -31,16 +31,18 @@
 </div>
 <div class="tab">
     <!-- 没有优惠券的时候解除隐藏 -->
-    <div class="no_discount" style="display: none;">
+    {if empty($discounts_data)}
+    <div class="no_discount" style="display: block;">
         <div class="no_discount_img">
             <img src="__STATIC__/index/images/u141.png">
         </div>
         <p class="no_discount_text">当前没有优惠券可用</p>
-        <a href="javascript:alert('邀请好友拿优惠券');" class="invitation_a">邀请好友可免费领券>></a>
+        <a href="discounts_index" class="invitation_a">邀请好友可免费领券>></a>
     </div>
+    {/if}
     
     <!-- 未使用 没有优惠券时隐藏-->
-    <div class="not_used" style="display: none;">
+    <div class="not_used" style="display: block;">
         <div class="discount_img">
             {if !empty($discounts_data)}
             {volist name="discounts_data" id="value"}
@@ -78,7 +80,7 @@
     </div>
 
     <!-- 已过期 -->
-    <div class="expired" style="display: block;">
+    <div class="expired" style="display: none;">
         <div class="expired_discount">
             {if !empty($discounts_status)}
             {volist name="discounts_status" id="val"}
