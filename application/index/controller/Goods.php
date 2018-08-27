@@ -68,7 +68,7 @@ class Goods extends  Controller{
             $id = Session::get("goods_id");
             $goods = db("goods")->where("goods_status", "<>", "0")->where("id", $id)->select();
             $goods_images = db("goods_images")->select();
-            $seckill = db("seckill")->where("goods_id",$id)->field("seckill_money")->find();
+            $seckill = db("seckill")->where("goods_id",$id)->field("seckill_money,over_time,start_time")->find();
             foreach ($goods as $key => $value) {
                 foreach ($goods_images as $val) {
                     if ($value['id'] == $val['goods_id']) {
@@ -76,6 +76,8 @@ class Goods extends  Controller{
                         if(!empty($seckill)){
                             $goods[$key]['seckill_status'] = 1;
                             $goods[$key]['goods_bottom_money'] = $seckill['seckill_money'];
+                            $goods[$key]['start_time'] = $seckill['start_time'];
+                            $goods[$key]['over_time'] = $seckill['over_time'];
                         }
                     }
                 }
