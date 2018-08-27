@@ -135,15 +135,15 @@
                     {if !empty($data)}
                     {volist name="data" id="vo"}
                     <tr class="text-c va-m">
-                        <th width="40"><input name="ids" id="" type="checkbox" value=""></th>
-                        <th width="40">{$vo.id}</th>
-                        <th width="60">{$vo.goods_name}</th>
-                        <th width="100"><img src="__UPLOADS__/{$vo.goods_show_images}" alt="商品图片"></th>
-                        <th width="20">{$vo.order_id}</th>
-                        <th width="50">{$vo.evaluate_content}</th>
-                        <th width="200">评价的图片</th>
-                        <th width="100">{$vo.create_time|date='Y-m-d H:i:s',###}</th>
-                        <th width="60">{$vo.status}</th>
+                        <td width="40"><input name="ids" id="" type="checkbox" value=""></td>
+                        <td width="40" class="eva_id">{$vo.id}</td>
+                        <td width="60">{$vo.goods_name}</td>
+                        <td width="100"><img src="__UPLOADS__/{$vo.goods_show_images}" alt="商品图片"></td>
+                        <td width="20">{$vo.order_id}</td>
+                        <td width="50">{$vo.evaluate_content}</td>
+                        <td width="200" class="evaluation_img">评价的图片</td>
+                        <td width="100">{$vo.create_time|date='Y-m-d H:i:s',###}</td>
+                        <td width="60">{$vo.status}</td>
                         <td class="td-status ">
                             <a value="" class="all_btn" id=""></a>
                         </td>
@@ -155,6 +155,21 @@
         </div>
     </div>
 </div>
+<!-- 弹窗 -->
+<div class="pop" style="display: none; height: 330px;">
+    <p class="title">图片详情</p>
+    <span style="display: none" class="hidden_id"></span>
+    <div class="img_box" style="display:flex;flex-wrap: wrap">
+        <img src="__UPLOADS__/20180821/5311e2980ee9dababcbc36ac84cfad30.jpg" style="width:20%;height:20%;margin: 0 20px;">
+        <img src="__UPLOADS__/20180821/5311e2980ee9dababcbc36ac84cfad30.jpg" style="width:20%;height:20%;margin: 0 20px;">
+        <img src="__UPLOADS__/20180821/5311e2980ee9dababcbc36ac84cfad30.jpg" style="width:20%;height:20%;margin: 0 20px;">
+        <img src="__UPLOADS__/20180821/5311e2980ee9dababcbc36ac84cfad30.jpg" style="width:20%;height:20%;margin: 0 20px;">
+        <img src="__UPLOADS__/20180821/5311e2980ee9dababcbc36ac84cfad30.jpg" style="width:20%;height:20%;margin: 0 20px;">
+    </div>
+    <button class="confirm myconfirm">确定</button>
+    <button class="cancel mycancel">取消</button>
+</div>
+
 {/block}
 
 
@@ -172,7 +187,33 @@
 <script type="text/javascript" src="__STATIC__/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/static/h-ui2/js/tp.js"></script>
-
+<script>
+    $('.evaluation_img').click(function(){
+        $('.pop').css('display','block');
+        var eva_id = $(this).siblings('td.eva_id')[0].innerHTML;
+        $.ajax({
+            url: '{:url("")}',
+            dataType: 'JSON',
+            type: 'POST',
+            async: false,
+            data: {
+                'id':eva_id
+            },
+            success: function(data){
+                console.log(data)
+            },
+            error: function(){
+                console.log('错误')
+            }
+        })
+    })
+    $('.myconfirm').click(function(){
+        $('.pop').css('display','none');
+    })
+    $('.mycancel').click(function(){
+        $('.pop').css('display','none');
+    })
+</script>
 
 
 {/block}
