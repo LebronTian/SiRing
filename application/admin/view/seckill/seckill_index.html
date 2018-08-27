@@ -50,7 +50,14 @@
                     {$value.over_time|date='Y-m-d H:i',###}<br>
                 </td>
                 <td>{$val.sort_number}</td>
-                <td>{$value.status}</td>
+                <td>
+                    {if $value.status == 1}
+                    已上架
+                    {/if}
+                    {if $value.status == 0}
+                    已下架
+                    {/if}
+                </td>
                 {/if}
                 {/volist}
             <td class="td-manage"><a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','{:url("admin/Seckill/edit",["id"=>$value.id])}','1','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href='{:url("admin/Seckill/del",["id"=>$value.id])}' onclick="if(!confirm('确定要删除吗？')) return false" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>

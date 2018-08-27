@@ -19,7 +19,9 @@ class Seckill extends Controller{
      */
     public function index(Request $request){
         if ($request->isPost()){
-            $seckill = db("seckill")->select();
+            $time = time();
+            $seckill = db("seckill")->where("over_time",">",$time)->select();
+            db("seckill")->where("over_time","<",$time)->update(['status'=>0]);
             $goods = db("goods")->select();
             foreach ($seckill as $key=>$value){
                 foreach ($goods as $val){

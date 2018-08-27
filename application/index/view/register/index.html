@@ -72,56 +72,16 @@
                                    style="color:#FFF;cursor:pointer;"/>
                         </div>
                     </div>
-                    <input type="submit" name="Submit" class="btn_big1" value="注 册"/>
+                    <div class="field pwd">
+                        <input type="text" id="confirm_password" name="invitation" value="{$number}" placeholder="请输入邀请码(可以不填)"
+                               class="c-form-txt-normal"/>
+                        <div class="tips">
+                            <span id="confirm_password_notice"></span>
+                        </div>
+                    </div>
+                    <input type="submit" name="Submit" class="btn_big1 Invitations" value="注 册"/>
                     <!--<input type="hidden" name="act" value="register"/>-->
                     <!--<input type="hidden" name="back_act" value=""/>-->
-                </form>
-
-
-            </div>
-            <div class="log_reg_item hide" id="accountarea">
-                <form action="" method="post" id="emailForm" name="emailForm">
-                    <input type="hidden" id="register_type" name="register_type" value="email"/>
-                    <div class="field email">
-                        <div class="st">
-                            <input type="email" name="email" placeholder="邮箱地址" value="" class="c-form-txt-normal"
-                                   id="email" onblur=""/>
-                        </div>
-                        <div class="tips">
-                            <span id="email_notice"></span>
-                        </div>
-                    </div>
-                    <div class="field pwd">
-                        <div>
-                            <input type="password" name="password" id="password" onblur="" value="" placeholder="密码"
-                                   class="c-form-txt-normal"/>
-                        </div>
-                        <div class="tips">
-                            <span id="password_notice"> </span>
-                        </div>
-                    </div>
-                    <div class="field pwd">
-                        <div>
-                            <input type="password" name="confirm_password" id="confirm_password" value="" placeholder="确认密码"
-                                   class="c-form-txt-normal">
-                        </div>
-                        <div class="tips">
-                            <span id="confirm_password_notice"> </span>
-                        </div>
-                    </div>
-                    <div class="yanzheng" style=" margin-top:0px;">
-                        <div class="codeTxt">
-                            <input type="text" id="email_code" name="email_code" placeholder="邮箱验证码"/></div>
-                        <div class="codePhoto">
-                            <input id="zemail" type="button" value="获取邮箱验证码" class="zphone"
-                                   style="color:#FFF;cursor:pointer;"/>
-                        </div>
-                    </div>
-
-                    <input type="checkbox" style="display: none" name="agreement" value="1" checked="checked" required/>
-                    <input type="submit" name="Submit" class="btn_big1" style="cursor:pointer;" value="注 册"/>
-                    <input type="hidden" name="act" value="register"/>
-                    <input type="hidden" name="back_act" value=""/>
                 </form>
             </div>
         </div>
@@ -177,33 +137,5 @@
         })
     }
 </script>
-
-<!--<script>-->
-    <!--$('#btn_submit2').click(function () {-->
-        <!--/*邮箱*/-->
-        <!--var password = $('#password').val();-->
-        <!--var confirm_password = $('#confirm_password').val();-->
-        <!--var email = $('#email').val();-->
-        <!--var email_code = $('#email_code').val();-->
-        <!--$.ajax({-->
-            <!--url: "{:url('index/register/doRegByEmail')}",-->
-            <!--type: 'POST',-->
-            <!--async: false,-->
-            <!--dataType: 'json',-->
-            <!--data: {-->
-                <!--"password": password,-->
-                <!--"confirm_password": confirm_password,-->
-                <!--"email_code": email_code,-->
-                <!--"email": email,-->
-            <!--},-->
-            <!--success: function (data) {-->
-                <!--alert(data.msg);-->
-            <!--},-->
-            <!--error: function (data) {-->
-                <!--console.log('失败');-->
-            <!--}-->
-        <!--})-->
-    <!--})-->
-<!--</script>-->
 </body>
 </html>

@@ -28,7 +28,7 @@
     <img src="__STATIC__/index/images/u116.png">
     <div class="code_box">
         <p class="invitation_code_text">您的邀请码</p>
-        <p class="invitation_code">8u9t</p>
+        <p class="invitation_code">{$number}</p>
         <a href="javascript:alert('马上邀请');">
             <img src="__STATIC__/index/images/u117.png">
         </a>
@@ -41,9 +41,9 @@
         <ul>
             <li>
                 1、复制分享APP下载链接地址给好友
-                <div class="link_input">
-                    <input type="text">
-                    <a href="javascript:alert('复制链接');" class="copy_link">复制链接</a>
+                <div id="div" class="link_input">
+                    <input id="input" value="http://localhost/SiRing/public/register?d={$number}" readonly/>
+                    <button class="copy_link" onclick="copyUrl()">点击复制链接</button>
                 </div>
             </li>
             <li>
@@ -57,6 +57,14 @@
 </div>
 
 <script src="__STATIC__/index/js/jquery.js"></script>
+<script>
+    function copyUrl() {
+        var Url=document.getElementById("input");
+        Url.select(); // 选择对象
+        document.execCommand("Copy"); // 执行浏览器复制命令
+        alert("复制成功！");
+    }
+</script>
 
 </body>
 </html>

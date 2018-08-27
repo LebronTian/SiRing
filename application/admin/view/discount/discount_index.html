@@ -21,30 +21,39 @@
         </tr>
         <tr class="text-c">
             <th width="25"><input type="checkbox" name="" value=""></th>
-            <th width="40">商品图片</th>
-            <th width="150">价格</th>
-            <th width="90">分类</th>
-            <th width="150">goods_id</th>
+            <th width="150">优惠券名称</th>
+            <th width="150">优惠金额</th>
             <th>活动时间</th>
-            <th width="130">排序</th>
-            <th width="130">上架</th>
+            <th width="130">APP下载地址</th>
+            <th width="130">优惠券状态</th>
             <th width="100">操作</th>
         </tr>
         </thead>
         <tbody>
-
+        {volist name="discounts" id="value"}
         <tr class="text-c">
             <td><input type="checkbox" value="1" name=""></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-
+            <td>{$value.discounts_name}</td>
+            <td>{$value.discounts_money}</td>
+            <td>
+                {$value.start_time|date='Y-m-d H:i:s',###}<br>
+                {$value.over_time|date='Y-m-d H:i:s',###}<br>
+            </td>
+            <td>{$value.address}</td>
+            <td>
+                {if $value.status == 1}
+                未使用
+                {/if}
+                {if $value.status == 2}
+                已使用
+                {/if}
+                {if $value.status == 3}
+                已过期
+                {/if}
+            </td>
             <td class="td-manage"><a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','','1','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href='' onclick="if(!confirm('确定要删除吗？')) return false" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
         </tr>
+        {/volist}
         </tbody>
     </table>
 </div>
