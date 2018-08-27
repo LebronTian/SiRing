@@ -24,7 +24,14 @@ class Share extends Controller{
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
     public function share_index(){
-
+        $all_evaluation_data=Db::table("tb_evaluate")
+            ->field("tb_evaluate.*,tb_goods.goods_name goods_name,tb_goods.goods_show_images goods_show_images ,tb_user.phone_num phone_num")
+            ->join("tb_goods","tb_evaluate.goods_id=tb_goods.id",'left')
+            ->join("tb_user","tb_evaluate.user_id=tb_user.id",'left')
+            ->order('tb_evaluate.create_time','desc')
+            ->select();
+        dump($all_evaluation_data);
+        $this->assign("all_evaluation_data",$all_evaluation_data);
         return view("share_index");
     }
 
