@@ -33,6 +33,13 @@ class  Evaluation extends  Controller{
 
        return view('evaluation_management');
     }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 评价图片详情
+     **************************************
+     */
     public function evalution_imgs(Request $request){
         if($request->isPost()){
             $data = $_POST;
@@ -41,7 +48,8 @@ class  Evaluation extends  Controller{
                 if(!empty($data_id)){
                     $order_id =Db::name('evaluate')->field('order_id')->where('id',$data_id)->find();
                  if(!empty($order_id)){
-
+                    $img =Db::name('evaluate_images')->field('images')->where('evaluate_order_id',$order_id)->select();
+                    dump($img);
                  }
                 }
             }

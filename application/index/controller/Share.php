@@ -24,6 +24,7 @@ class Share extends Controller{
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
     public function share_index(){
+
         return view("share_index");
     }
 
@@ -138,6 +139,8 @@ class Share extends Controller{
     public function  evaluation_use(){
         return view('evaluation_use');
     }
+
+
 
 
 }
