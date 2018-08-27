@@ -196,21 +196,22 @@
             </div>
         </div>
         <div class="list_box">
-
+            {if !empty($all_evaluation_data)}
+            {volist name ="all_evaluation_data" id="vo"}
             <section class="list_view">
                 <div class="user_box">
                     <div class="user_img">
-                        <img src="./image/gril.jpg" alt="">
+                        <img src="__UPLOAD__/{$vo.goods_show_images}" alt="">
                     </div>
                     <div class="user_msg">
                         <div class="user_name">
-                            <span>136****3045</span>
+                            <span>{$vo.phone_num}</span>
                         </div>
-                        <span class="product_label">95新 OPPO R11 4G+64G玫瑰金</span>
+                        <span class="product_label">{$vo.goods_name}</span>
                     </div>
                 </div>
                 <div class="comment_box">
-                        用了10来天，不错，
+                        {$vo.evaluate_content}
                 </div>
                 <!-- 存放图片开始 -->
                 <div class="upload-img-view">
@@ -219,21 +220,18 @@
                 <!-- 存放图片结束 -->
                 <div class="list_footer">
                     <span class="time_box">
-                        2018-08-07 23:35:09
+                        {$vo.create_time|date='Y-m-d H:i:s',###}
                     </span>
                     <div class="operation">
-                        <a href="javascript:;">
-                            <img src="__STATIC__/index/images/like.png" alt="" width="10" height="10">
-                            <span>999</span>
-                        </a>
+
                         <a href="javascript:location.href='share_detail';">
-                            <img src="__STATIC__/index/images/comment.png" alt="" width="10" height="10">
-                            <span>999</span>
+                            <span>查看评论</span>
                         </a>
                     </div>
                 </div>
             </section>
-
+            {/volist}
+            {/if}
         </div>
     </div>
 
