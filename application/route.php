@@ -123,6 +123,8 @@ Route::group("",[
     'share_evaluation'=>"index/Share/share_evaluation",
     /*获取晒单的详细评价图片信息*/
     'get_evalution_imgs'=>"index/Share/get_evalution_imgs",
+    /*晒单页面下拉商品类别*/
+    'phone_type'=>"index/Share/phone_type",
 
     /*通过点击评价传一个order_id过去确定是哪个订单的评价*/
     "evaluation_get_order_id"=>"index/Share/evaluation_get_order_id",
@@ -130,8 +132,6 @@ Route::group("",[
     "evaluation"=>"index/Share/evaluation",
     /*添加评价*/
     "evaluation_add"=>"index/Share/evaluation_add",
-    /*TODO:调用摄像头测试*/
-    "evaluation_use"=>"index/Share/evaluation_use",
     /**
      * 图片
      */

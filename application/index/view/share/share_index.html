@@ -178,20 +178,15 @@
     <div class="wrapper">
         <div class="header_fixed">
             点击右边的按钮可以切换不同分类的晒单哦
-            <div class="select_box">
+            <div class="select_box select_phone_type">
                 <div class="select_btn">
                     全部
                     <span class="up">▴</span>
                     <span class="down upOrDown">▾</span>
                 </div>
-                <ul class="select_menu upOrDown">
+                <ul class="select_menu upOrDown ">
                     <li>全部</li>
                     <li>iPhone</li>
-                    <li>安卓</li>
-                    <li>平板</li>
-                    <li>笔记本</li>
-                    <li>手表</li>
-                    <li style="border: none">配件</li>
                 </ul>
             </div>
         </div>
@@ -269,6 +264,24 @@
                 },
             });
         });
+    </script>
+<!--点击获取手机品种类型-->
+    <script>
+           $('.select_phone_type').click(function () {
+               $.ajax({
+                   type:'POST',
+                   url:'{:url("index/Share/phone_type")}',
+                   data:{
+                   },
+                   dataType: 'json',
+                   success: function(data){
+                       console.log(data);
+                   },
+                   error:function(data) {
+                       console.log("失败");
+                   },
+               });
+           })
     </script>
 </body>
 </html>
