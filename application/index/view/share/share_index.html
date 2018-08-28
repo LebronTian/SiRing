@@ -193,7 +193,7 @@
             </div>
         </div>
         <div class="list_box">
-            {if !empty($all_evaluation_data)&& empty($data_val)}
+            {if !empty($all_evaluation_data)&& empty($phone_evaluation_data)}
                 {volist name ="all_evaluation_data" id="vo"}
                 <section class="list_view">
                 <div class="user_box">
@@ -234,8 +234,8 @@
                 {/volist}
             {/if}
 
-            {if empty($all_evaluation_data)&&!empty($data_val)}
-            {volist name ="all_evaluation_data" id="vo"}
+            {if empty($all_evaluation_data)&&!empty($phone_evaluation_data)}
+            {volist name ="aphone_evaluation_data" id="vo"}
             <section class="list_view">
                 <div class="user_box">
                     <div class="user_img">

@@ -48,7 +48,6 @@ class User extends Controller{
                     $condition = "create_time>{$timemin} and create_time< {$timemax}";
                     $res = Db::name("user")->where($condition)->select();
                     return ajax_success('成功',$res);
-
                 }
                 if(!empty($keywords)){
                     $condition = " `email` like '%{$keywords}%' or `user_name` like '%{$keywords}%' or `phone_num` like '%{$keywords}%' ";
