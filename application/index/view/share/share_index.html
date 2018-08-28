@@ -102,6 +102,9 @@
             padding: 10px 0;
             border-bottom: 1px solid #ccc;
         }
+        .select_menu li:last-of-type{
+            border-bottom: none;
+        }
         /* 评论区 */
         .list_box section{
             margin-bottom: 8px;
@@ -178,15 +181,14 @@
     <div class="wrapper">
         <div class="header_fixed">
             点击右边的按钮可以切换不同分类的晒单哦
-            <div class="select_box select_phone_type">
-                <div class="select_btn">
+            <div class="select_box">
+                <div class="select_btn select_phone_type">
                     全部
                     <span class="up">▴</span>
                     <span class="down upOrDown">▾</span>
                 </div>
-                <ul class="select_menu upOrDown ">
+                <ul class="select_menu upOrDown">
                     <li>全部</li>
-                    <li>iPhone</li>
                 </ul>
             </div>
         </div>
@@ -236,52 +238,74 @@
 
     {include file="template/footer" /}
     
-    <script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
-    <script>
-        $('.select_btn').click(function(){
-            $('.up').toggleClass('upOrDown').siblings('span').toggleClass('upOrDown');
-            $('.select_menu').toggleClass('upOrDown');
-        })
-    </script>
-        <!--查看评价信息-->
-    <script>
-        $(".see_evaluation").click(function () {
-            var see_evaluation_id = $(this)[0].id.split('_')[2];
-            // alert(see_evaluation_id);
+<script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
+<script>
+    $('.select_btn').click(function(){
+        $('.up').toggleClass('upOrDown').siblings('span').toggleClass('upOrDown');
+        $('.select_menu').toggleClass('upOrDown');
+    })
+</script>
+    <!--查看评价信息-->
+<script>
+    $(".see_evaluation").click(function () {
+        var see_evaluation_id = $(this)[0].id.split('_')[2];
+        // alert(see_evaluation_id);
+        $.ajax({
+            type:'POST',
+            url:'{:url("index/Share/share_evaluation")}',
+            data:{
+                'evaluation_id':see_evaluation_id
+            },
+            dataType: 'json',
+            success: function(data){
+                console.log(data);
+                window.location.href="{:url('index/Share/share_detail')}"
+            },
+            error:function(data) {
+                console.log("失败");
+            },
+        });
+    });
+</script>
+<!--点击获取手机品种类型-->
+<script>
+        $('.select_phone_type').click(function () {
             $.ajax({
                 type:'POST',
-                url:'{:url("index/Share/share_evaluation")}',
-                data:{
-                    'evaluation_id':see_evaluation_id
-                },
+                url:'{:url("index/Share/phone_type")}',
                 dataType: 'json',
                 success: function(data){
                     console.log(data);
-                    window.location.href="{:url('index/Share/share_detail')}"
+                    var len = data.data.length;
+                    $('.select_menu').html('');
+                    $('.select_menu').append('<li>全部</li>')
+                    for(var i = 1; i < len; i++){
+                        $('.select_menu').append('<li class="li_'+data.data[i].id+'">'+data.data[i].name+'</li>');
+                    }
                 },
                 error:function(data) {
                     console.log("失败");
                 },
             });
-        });
-    </script>
-<!--点击获取手机品种类型-->
-    <script>
-           $('.select_phone_type').click(function () {
-               $.ajax({
-                   type:'POST',
-                   url:'{:url("index/Share/phone_type")}',
-                   data:{
-                   },
-                   dataType: 'json',
-                   success: function(data){
-                       console.log(data);
-                   },
-                   error:function(data) {
-                       console.log("失败");
-                   },
-               });
-           })
-    </script>
+        })
+        // 利用事件委托获取id
+        $('.select_menu').click(function(e){
+            var id = e.target.className.split('_')[1];
+            $.ajax({
+                type:'POST',
+                url:'{:url("index/Share/get_phone_type_informations")}',
+                data:{
+                    'id':id
+                },
+                dataType: 'json',
+                success: function(data){
+                    console.log(data);
+                },
+                error:function(data) {
+                    console.log("失败");
+                },
+            });
+        })
+</script>
 </body>
 </html>
