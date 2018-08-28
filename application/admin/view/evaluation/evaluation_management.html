@@ -143,7 +143,9 @@
                         <td width="50">{$vo.evaluate_content}</td>
                         <td width="200" class="evaluation_img">评价的图片</td>
                         <td width="100">{$vo.create_time|date='Y-m-d H:i:s',###}</td>
-                        <td width="60">{$vo.status}</td>
+                        <td width="60">
+                            <a class="vo_status">{$vo.status}</a>
+                        </td>
                     </tr>
                     {/volist}
                     {/if}
@@ -153,19 +155,23 @@
     </div>
 </div>
 <!-- 弹窗 -->
-<div class="pop" style="display: none; height: 330px;">
+<div class="pop pop1" style="display: none; height: 330px;">
     <p class="title">图片详情</p>
     <span style="display: none" class="hidden_id"></span>
     <div class="img_box" style="display:flex;flex-wrap: wrap">
-
         <!--<img src="__UPLOADS__/20180821/5311e2980ee9dababcbc36ac84cfad30.jpg" style="width:20%;height:20%;margin: 0 20px;">-->
-        <!--<img src="__UPLOADS__/20180821/5311e2980ee9dababcbc36ac84cfad30.jpg" style="width:20%;height:20%;margin: 0 20px;">-->
-        <!--<img src="__UPLOAD__/20180827/cb484cbdf65bdb03b38a2e86a82684b0.png" style="width:20%;height:20%;margin: 0 20px;">-->
     </div>
     <button class="confirm myconfirm">确定</button>
     <button class="cancel mycancel">取消</button>
 </div>
-
+<div class="pop pop2" style="display: none;">
+    <p class="title">审核确认</p>
+    <div class="tips">
+        <p style="text-align:center">确认通过审核？</p>
+    </div>
+    <button class="myconfirm pass">通过</button>
+    <button class="mycancel unpass">不通过</button>
+</div>
 {/block}
 
 
@@ -185,7 +191,7 @@
 <script type="text/javascript" src="__STATIC__/admin/static/h-ui2/js/tp.js"></script>
 <script>
     $('.evaluation_img').click(function(){
-        $('.pop').css('display','block');
+        $('.pop1').css('display','block');
         var eva_id = $(this).siblings('td.eva_id')[0].innerHTML;
         $.ajax({
             url: '{:url("admin/Evaluation/evalution_imgs")}',
@@ -209,12 +215,62 @@
         })
     })
     $('.myconfirm').click(function(){
-        $('.pop').css('display','none');
+        $('.pop1').css('display','none');
     })
     $('.mycancel').click(function(){
-        $('.pop').css('display','none');
+        $('.pop1').css('display','none');
     })
 </script>
 
+<!-- 状态值 按钮 -->
+<script>
+    var len = $('.vo_status').length;
+    for(var i = 0; i < len; i++){
+        if($('.vo_status')[i].innerHTML == 0){
+            $('.vo_status')[i].innerHTML = '待审核';
+        }else if($('.vo_status')[i].innerHTML == 1){
+            $('.vo_status')[i].innerHTML = '已通过';
+        }else if($('.vo_status')[i].innerHTML == -1){
+            $('.vo_status')[i].innerHTML = '不通过';
+        }
+    }
+    // 如果为"待审核" 出弹窗
+    var evaluation_id;
+    $('.vo_status').click(function(){
+        if($(this)[0].innerHTML == '待审核'){
+            $('.pop2').css('display','block');
+        }
+        evaluation_id = $(this).parent().siblings('td.eva_id')[0].innerHTML;
+    })
+    function manage_eval(id,status){
+        $.ajax({
+            url: '{:url("admin/Evaluation/evalution_imgs")}',
+            dataType: 'JSON',
+            type: 'POST',
+            async: false,
+            data: {
+                'id':id,
+                'status': status
+            },
+            success: function(data){
+                console.log(data)
+            },
+            error: function(){
+                console.log('错误')
+            }
+        })
+    }
+    // 审核通过
+    $('.pass').click(function(){
+        $('.pop2').css('display','none');
+        manage_eval(evaluation_id,1)
+    })
+    // 审核不通过
+    $('.unpass').click(function(){
+        $('.pop2').css('display','none');
+        manage_eval(evaluation_id,-1)
+    })
+
+</script>
 
 {/block}
