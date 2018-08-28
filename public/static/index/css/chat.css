@@ -1,0 +1,60 @@
+
+/* 底部输入栏 */
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #eee;
+    z-index: 999;
+    padding: 10px;
+}
+.footer .input_box{
+    display: inline-block;
+    width: 78%;
+    height: 30px;
+    border-radius: 4px;
+    margin-left: 2px;
+    box-sizing: border-box;
+    padding: 3px;
+    background-color: #fff;
+}
+.footer .send{
+    float: right;
+    width: 20%;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border: 0;
+    background-color: #f34347;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 18px;
+}
+/* 信息显示 */
+.message_show{
+    overflow-y: scroll;
+}
+.atalk{
+    margin:10px; 
+ }
+ .atalk span{
+     display:inline-block;
+     background:#ffffff;
+     border-radius:5px;
+     color:#000;
+     padding:5px 10px;
+     font-size: 16px;
+ }
+ .btalk{
+     margin:10px;
+     text-align:right;
+ }
+ .btalk span{
+     display:inline-block;
+     background:#f34347;
+     border-radius:5px;
+     color:#fff;
+     padding:5px 10px;
+     font-size: 16px;
+ }

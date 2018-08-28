@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>手袋购物网</title>
     <link rel="stylesheet" href="__STATIC__/index/css/aui.css">
+    <link rel="stylesheet" href="__STATIC__/index/css/chat.css">
 </head>
 <body>
     <header class="aui-bar aui-bar-nav" id="aui-header">
@@ -14,5 +15,38 @@
         </a>
         <div class="aui-title">在线客服</div>
     </header>
+    <div class="message_show">
+        <div class="atalk"><span id="asay">A说：吃饭了吗？</span></div>
+        <div class="btalk"><span id="bsay">B说：还没呢，你呢？</span></div>
+    </div>
+    <div class="footer">
+        <input type="text" class="input_box">
+        <button class="send">发送</button>
+    </div>
+    <script src="__STATIC__/index/js/jquery.js"></script>
+    <script>
+        $('.send').click(function(){
+            var message = $('.input_box').val();
+            if($('.input_box').val() == ''){
+                return;
+            }
+            $('.message_show').append('<div class="btalk"><span id="bsay">'+message+'</span></div>')
+            $('.input_box').val('');
+            $.ajax({
+                url: '{:url("")}',
+                dataType: 'JSON',
+                type: 'POST',
+                data: {
+                    'message':message
+                },
+                success: function(data){
+                    console.log(data);
+                },
+                error: function(){
+                    console.log('错误');
+                }
+            })
+        })
+    </script>
 </body>
 </html>
