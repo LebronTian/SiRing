@@ -25,6 +25,7 @@ class  Evaluation extends  Controller{
             ->field("tb_evaluate.*,tb_goods.goods_name goods_name,tb_goods.goods_show_images goods_show_images ,tb_user.user_name user_name")
             ->join("tb_goods","tb_evaluate.goods_id=tb_goods.id",'left')
             ->join("tb_user","tb_evaluate.user_id=tb_user.id",'left')
+            ->order('tb_evaluate.create_time','desc')
             ->select();
        if($data)
        {

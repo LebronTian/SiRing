@@ -34,6 +34,12 @@ class Share extends Controller{
             ->order('tb_evaluate.create_time','desc')
             ->select();
         $this->assign("all_evaluation_data",$all_evaluation_data);
+        if(session::has('phone_evaluation_data')){
+            $phone_evaluation_data =Session::get('phone_evaluation_data');
+            dump($phone_evaluation_data);
+            $this->assign($phone_evaluation_data);
+        }
+
         return view("share_index");
     }
 
@@ -138,20 +144,21 @@ class Share extends Controller{
             $goods_type_id =$request->only(['id'])['id'];
             if(!empty($goods_type_id)){
                     $goods_id_data =Db::name('goods')->field('id')->where('goods_type_id',$goods_type_id)->select();
-//                    if(!empty($goods_id_data)){
-//                        if(is_array($goods_id_data)){
-//                            $where ='id in('.implode(',',$goods_id_data).')';
-//                        }else{
-//                            $where ='id='.$goods_id_data;
-//                        }
-//                        $list =  Db::name('evaluate')->where($where)->select();
-//                        dump($list);
-//                        return ajax_success('获取值成功了',$list);
-//                    }
-                    return ajax_success('获取值成功了',$goods_id_data);
-//                    $evaluate_show_data =Db::name('evaluate')->where('goods_id',$goods_id_data)->select();
-//                dump($evaluation_data);
-//                return ajax_success('成功获取信息',$evaluation_data);
+                    if(!empty($goods_id_data)){
+                        if(is_array($goods_id_data)){
+                            foreach ($goods_id_data as $key=>$v){
+                                $all_evaluation_data[]=Db::table("tb_evaluate")
+                                    ->field("tb_evaluate.*,tb_goods.goods_name goods_name,tb_goods.goods_show_images goods_show_images ,tb_user.phone_num phone_num")
+                                    ->join("tb_goods","tb_evaluate.goods_id=tb_goods.id",'left')
+                                    ->join("tb_user","tb_evaluate.user_id=tb_user.id",'left')
+                                    ->where('tb_evaluate.status',1)
+                                    ->where('tb_evaluate.goods_id',$v['id'])
+                                    ->order('tb_evaluate.create_time','desc')
+                                    ->select();
+                            }
+                            session('phone_evaluation_data',$all_evaluation_data);
+                        }
+                    }
             }
         }
     }
