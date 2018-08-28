@@ -51,6 +51,8 @@ class  Evaluation extends  Controller{
                     $evaluate_imgs =Db::name('evaluate_images')->field('images')->where('evaluate_order_id',$order_id['order_id'])->select();
                     if(!empty($evaluate_imgs)){
                         return ajax_success('成功',$evaluate_imgs);
+                    }else{
+                        return ajax_success('失败');
                     }
                  }
                 }
@@ -58,7 +60,60 @@ class  Evaluation extends  Controller{
         }
     }
 
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 评价审核
+     **************************************
+     */
+    public function evalution_examine(Request $request){
+        if($request->isPost()){
+            $evalution_id =$request->only(['id'])['id'];
+            $evalution_status =$request->only(['status'])['status'];
+            /*审核通过*/
+            if(!empty($evalution_id)&&$evalution_status ==1){
+                $res = Db::name('evaluate')->where('id',$evalution_id)->update(['status'=>1]);
+                if($res){
+                    return ajax_success('审核通过成功',$res);
+                }else{
+                    return ajax_error('审核失败');
+                }
+            }
+            /*审核不通过*/
+            if(!empty($evalution_id)&&$evalution_status ==-1){
+                $res = Db::name('evaluate')->where('id',$evalution_id)->update(['status'=>-1]);
+                if($res){
+                    return ajax_success('审核不通过成功',$res);
+                }else{
+                    return ajax_error('审核失败');
+                }
+            }
+        }
+    }
 
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 批量审核通过
+     **************************************
+     */
+    public function  evalution_all_check(Request $request){
+        if($request->isPost()){
+            $id =$_POST['id'];
+            if(is_array($id)){
+                $where ='id in('.implode(',',$id).')';
+            }else{
+                $where ='id='.$id;
+            }
+            $list =  Db::name('evaluate')->where($where)->update(['status'=>1]);
+            if($list!==false)
+            {
+                return ajax_success('审核成功');
+            }else{
+               return ajax_error('审核失败');
+            }
+        }
+    }
 
 
 }

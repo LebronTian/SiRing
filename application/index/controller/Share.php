@@ -114,6 +114,12 @@ class Share extends Controller{
         return view("evaluation");
     }
 
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 获取手机类型给前端铺数据
+     **************************************
+     */
     public function phone_type(Request $request){
         if($request->isPost()){
             $data = Db::name('goods_type')->select();
@@ -122,6 +128,19 @@ class Share extends Controller{
             }
         }
     }
+
+    /**
+     * 当我点击某一个手机类型的时候异步刷新铺数据
+     */
+    public function get_phone_type_informations(Request $request){
+        if($request->isPost()){
+            $data =$request->only(['id'])['id'];
+            if(!empty($data)){
+                return ajax_success('提交成功',$data);
+            }
+        }
+    }
+
 
     /***********************评价部分**********************************/
     /**
