@@ -196,20 +196,22 @@
             </div>
         </div>
         <div class="list_box">
-            <section class="list_view">
+            {if !empty($all_evaluation_data)}
+                {volist name ="all_evaluation_data" id="vo"}
+                <section class="list_view">
                 <div class="user_box">
                     <div class="user_img">
-                        <img src="./image/gril.jpg" alt="">
+                        <img src="__UPLOADS__/{$vo.goods_show_images}" alt="">
                     </div>
                     <div class="user_msg">
                         <div class="user_name">
-                            <span>136****3045</span>
+                            <span>{$vo.phone_num}</span>
                         </div>
-                        <span class="product_label">95新 OPPO R11 4G+64G玫瑰金</span>
+                        <span class="product_label">{$vo.goods_name}</span>
                     </div>
                 </div>
                 <div class="comment_box">
-                        用了10来天，不错，
+                        {$vo.evaluate_content}
                 </div>
                 <!-- 存放图片开始 -->
                 <div class="upload-img-view">
@@ -218,164 +220,22 @@
                 <!-- 存放图片结束 -->
                 <div class="list_footer">
                     <span class="time_box">
-                        2018-08-07 23:35:09
+                        {$vo.create_time|date='Y-m-d H:i:s',###}
                     </span>
                     <div class="operation">
-                        <a href="javascript:;">
-                            <img src="__STATIC__/index/images/like.png" alt="" width="10" height="10">
-                            <span>999</span>
+
+                        <!--<a href="javascript:location.href='share_detail';">-->
+                            <!--<span>查看评论</span>-->
+                        <!--</a>-->
+                        <a  id="see_evaluation_{$vo.id}" class="see_evaluation">
+                            <span>查看评论</span>
                         </a>
-                        <a href="javascript:location.href='share_detail';">
-                            <img src="__STATIC__/index/images/comment.png" alt="" width="10" height="10">
-                            <span>999</span>
-                        </a>
+
                     </div>
                 </div>
             </section>
-            <section class="list_view">
-                <div class="user_box">
-                    <div class="user_img">
-                        <img src="./image/gril.jpg" alt="">
-                    </div>
-                    <div class="user_msg">
-                        <div class="user_name">
-                            <span>136****3045</span>
-                        </div>
-                        <span class="product_label">95新 OPPO R11 4G+64G玫瑰金</span>
-                    </div>
-                </div>
-                <div class="comment_box">
-                        用了10来天，不错，
-                </div>
-                <!-- 存放图片开始 -->
-                <div class="upload-img-view">
-                    <ul data-index="0" class="list-img-box clearfix"></ul>
-                </div>
-                <!-- 存放图片结束 -->
-                <div class="list_footer">
-                    <span class="time_box">
-                        2018-08-07 23:35:09
-                    </span>
-                    <div class="operation">
-                        <a href="javascript:;">
-                            <img src="__STATIC__/index/images/like.png" alt="" width="10" height="10">
-                            <span>999</span>
-                        </a>
-                        <a href="javascript:location.href='share_detail';">
-                            <img src="__STATIC__/index/images/comment.png" alt="" width="10" height="10">
-                            <span>999</span>
-                        </a>
-                    </div>
-                </div>
-            </section>
-            <section class="list_view">
-                <div class="user_box">
-                    <div class="user_img">
-                        <img src="./image/gril.jpg" alt="">
-                    </div>
-                    <div class="user_msg">
-                        <div class="user_name">
-                            <span>136****3045</span>
-                        </div>
-                        <span class="product_label">95新 OPPO R11 4G+64G玫瑰金</span>
-                    </div>
-                </div>
-                <div class="comment_box">
-                        用了10来天，不错，
-                </div>
-                <!-- 存放图片开始 -->
-                <div class="upload-img-view">
-                    <ul data-index="0" class="list-img-box clearfix"></ul>
-                </div>
-                <!-- 存放图片结束 -->
-                <div class="list_footer">
-                    <span class="time_box">
-                        2018-08-07 23:35:09
-                    </span>
-                    <div class="operation">
-                        <a href="javascript:;">
-                            <img src="__STATIC__/index/images/like.png" alt="" width="10" height="10">
-                            <span>999</span>
-                        </a>
-                        <a href="javascript:location.href='share_detail';">
-                            <img src="__STATIC__/index/images/comment.png" alt="" width="10" height="10">
-                            <span>999</span>
-                        </a>
-                    </div>
-                </div>
-            </section>
-            <section class="list_view">
-                <div class="user_box">
-                    <div class="user_img">
-                        <img src="./image/gril.jpg" alt="">
-                    </div>
-                    <div class="user_msg">
-                        <div class="user_name">
-                            <span>136****3045</span>
-                        </div>
-                        <span class="product_label">95新 OPPO R11 4G+64G玫瑰金</span>
-                    </div>
-                </div>
-                <div class="comment_box">
-                        用了10来天，不错，
-                </div>
-                <!-- 存放图片开始 -->
-                <div class="upload-img-view">
-                    <ul data-index="0" class="list-img-box clearfix"></ul>
-                </div>
-                <!-- 存放图片结束 -->
-                <div class="list_footer">
-                    <span class="time_box">
-                        2018-08-07 23:35:09
-                    </span>
-                    <div class="operation">
-                        <a href="javascript:;">
-                            <img src="__STATIC__/index/images/like.png" alt="" width="10" height="10">
-                            <span>999</span>
-                        </a>
-                        <a href="javascript:location.href='share_detail';">
-                            <img src="__STATIC__/index/images/comment.png" alt="" width="10" height="10">
-                            <span>999</span>
-                        </a>
-                    </div>
-                </div>
-            </section>
-            <section class="list_view">
-                <div class="user_box">
-                    <div class="user_img">
-                        <img src="./image/gril.jpg" alt="">
-                    </div>
-                    <div class="user_msg">
-                        <div class="user_name">
-                            <span>136****3045</span>
-                        </div>
-                        <span class="product_label">95新 OPPO R11 4G+64G玫瑰金</span>
-                    </div>
-                </div>
-                <div class="comment_box">
-                        用了10来天，不错，
-                </div>
-                <!-- 存放图片开始 -->
-                <div class="upload-img-view">
-                    <ul data-index="0" class="list-img-box clearfix"></ul>
-                </div>
-                <!-- 存放图片结束 -->
-                <div class="list_footer">
-                    <span class="time_box">
-                        2018-08-07 23:35:09
-                    </span>
-                    <div class="operation">
-                        <a href="javascript:;">
-                            <img src="__STATIC__/index/images/like.png" alt="" width="10" height="10">
-                            <span>999</span>
-                        </a>
-                        <a href="javascript:location.href='share_detail';">
-                            <img src="__STATIC__/index/images/comment.png" alt="" width="10" height="10">
-                            <span>999</span>
-                        </a>
-                    </div>
-                </div>
-            </section>
+                {/volist}
+            {/if}
         </div>
     </div>
 
@@ -387,6 +247,28 @@
             $('.up').toggleClass('upOrDown').siblings('span').toggleClass('upOrDown');
             $('.select_menu').toggleClass('upOrDown');
         })
+    </script>
+        <!--查看评价信息-->
+    <script>
+        $(".see_evaluation").click(function () {
+            var see_evaluation_id = $(this)[0].id.split('_')[2];
+            alert(see_evaluation_id);
+            $.ajax({
+                type:'POST',
+                url:'{:url("index/Share/share_evaluation")}',
+                data:{
+                    'evaluation_id':see_evaluation_id
+                },
+                dataType: 'json',
+                success: function(data){
+                    console.log(data);
+                    window.location.href="{:url('index/Share/share_detail')}"
+                },
+                error:function(data) {
+                    console.log("失败");
+                },
+            });
+        });
     </script>
 </body>
 </html>
