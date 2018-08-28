@@ -176,66 +176,98 @@
     <div class="wrapper">
         <div class="list">
             <div class="list_box">
+                {if !empty($evaluation_data)}
                 <section class="list_view">
                     <div class="user_box">
                         <div class="user_img">
-                            <img src="./image/gril.jpg" alt="">
+                            <img src="__STATIC__/index/image/toux.jpg" alt="">
                         </div>
+
                         <div class="user_msg">
                             <div class="user_name">
-                                <span>136****3045</span>
+                                <span>{$evaluation_data.phone_num}</span>
                             </div>
-                            <span class="product_label">95新 OPPO R11 4G+64G玫瑰金</span>
+
+                                <span class="product_label">{$evaluation_data.goods_name}</span>
                         </div>
                     </div>
                     <div class="comment_box">
-                            用了10来天，不错，
+                        {$evaluation_data.evaluate_content}
                     </div>
                     <!-- 存放图片开始 -->
                     <div class="upload-img-view">
-                        <ul data-index="0" class="list-img-box clearfix"></ul>
+                        <ul data-index="0" class="list-img-box clearfix">
+                            <div class="img_box " style="display:flex;flex-wrap: wrap">
+
+                            </div>
+                        </ul>
                     </div>
                     <!-- 存放图片结束 -->
                     <div class="list_footer">
                         <span class="time_box">
-                            2018-08-07 23:35:09
+                            {$evaluation_data.create_time|date ='Y-m-d H:i:s',###}
                         </span>
-                        <div class="operation">
-                            <a href="javascript:;">
-                                <img src="./image/like.png" alt="" width="10px" height="10px">
-                                <span>999</span>
-                            </a>
-                            <a href="javascript:;">
-                                <img src="./image/comment.png" alt="" width="10px" height="10px">
-                                <span>999</span>
-                            </a>
-                        </div>
+                        <!--<div class="operation">-->
+                            <!--<a href="javascript:;">-->
+                                <!--<img src="./image/like.png" alt="" width="10px" height="10px">-->
+                                <!--<span>999</span>-->
+                            <!--</a>-->
+                            <!--<a href="javascript:;">-->
+                                <!--<img src="./image/comment.png" alt="" width="10px" height="10px">-->
+                                <!--<span>999</span>-->
+                            <!--</a>-->
+                        <!--</div>-->
                     </div>
                 </section>
-                <section class="comment_box">
-                    <div class="comment_title">
-                        全部留言（0）
-                    </div>
-                    <div class="comment_content">
-                        <div class="first_comment"></div>
-                        <div class="no_comment">
-                            <img src="./image/img1.png" width="72" height="72" alt="">
-                            <p>暂时还没有留言哦～</p>
-                        </div>
-                    </div>
-                    <div class="comment_input">
-                        <ul>
-                            <li>
-                                <input type="text" placeholder="发表留言">
-                            </li>
-                            <li>
-                                <a href="javascript:;" class="disabled">发表</a>
-                            </li>
-                        </ul>
-                    </div>
-                </section>
+                {/if}
+                <!--<section class="comment_box">-->
+                    <!--<div class="comment_title">-->
+                        <!--全部留言（0）-->
+                    <!--</div>-->
+                    <!--<div class="comment_content">-->
+                        <!--<div class="first_comment"></div>-->
+                        <!--<div class="no_comment">-->
+                            <!--<img src="./image/img1.png" width="72" height="72" alt="">-->
+                            <!--<p>暂时还没有留言哦～</p>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="comment_input">-->
+                        <!--<ul>-->
+                            <!--<li>-->
+                                <!--<input type="text" placeholder="发表留言">-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<a href="javascript:;" class="disabled">发表</a>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                <!--</section>-->
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
+    <!--获取晒单评价对应的图片的信息-->
+    <script>
+        function get_valuation_imagse() {
+            $.ajax({
+                type:'POST',
+                url:'{:url("index/Share/get_evalution_imgs")}',
+                data:{},
+                dataType: 'json',
+                success: function(data){
+                console.log(data);
+                    var len = data.data.length;
+                    $('.img_box').html('');
+                    for(var i = 0; i < len; i++){
+                        $('.img_box').append('<img src="__UPLOAD__/'+data.data[i].images+'" style="width:20%;height:20%;margin: 0 20px;">')
+                    }
+                },
+                error:function(data) {
+                    console.log("失败了");
+                },
+            });
+        }
+        get_valuation_imagse();
+    </script>
 </body>
 </html>

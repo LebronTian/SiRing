@@ -197,11 +197,11 @@
         </div>
         <div class="list_box">
             {if !empty($all_evaluation_data)}
-            {volist name ="all_evaluation_data" id="vo"}
-            <section class="list_view">
+                {volist name ="all_evaluation_data" id="vo"}
+                <section class="list_view">
                 <div class="user_box">
                     <div class="user_img">
-                        <img src="__UPLOAD__/{$vo.goods_show_images}" alt="">
+                        <img src="__UPLOADS__/{$vo.goods_show_images}" alt="">
                     </div>
                     <div class="user_msg">
                         <div class="user_name">
@@ -224,13 +224,17 @@
                     </span>
                     <div class="operation">
 
-                        <a href="javascript:location.href='share_detail';">
+                        <!--<a href="javascript:location.href='share_detail';">-->
+                            <!--<span>查看评论</span>-->
+                        <!--</a>-->
+                        <a  id="see_evaluation_{$vo.id}" class="see_evaluation">
                             <span>查看评论</span>
                         </a>
+
                     </div>
                 </div>
             </section>
-            {/volist}
+                {/volist}
             {/if}
         </div>
     </div>
@@ -243,6 +247,28 @@
             $('.up').toggleClass('upOrDown').siblings('span').toggleClass('upOrDown');
             $('.select_menu').toggleClass('upOrDown');
         })
+    </script>
+        <!--查看评价信息-->
+    <script>
+        $(".see_evaluation").click(function () {
+            var see_evaluation_id = $(this)[0].id.split('_')[2];
+            alert(see_evaluation_id);
+            $.ajax({
+                type:'POST',
+                url:'{:url("index/Share/share_evaluation")}',
+                data:{
+                    'evaluation_id':see_evaluation_id
+                },
+                dataType: 'json',
+                success: function(data){
+                    console.log(data);
+                    window.location.href="{:url('index/Share/share_detail')}"
+                },
+                error:function(data) {
+                    console.log("失败");
+                },
+            });
+        });
     </script>
 </body>
 </html>

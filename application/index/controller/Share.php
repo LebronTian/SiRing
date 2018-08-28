@@ -19,9 +19,10 @@ class Share extends Controller{
 
 
     /**
-     * [晒单首页]
-     * 陈绪
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
+     **************李火生*******************
+     * @return \think\response\View
+     * 晒单首页
+     **************************************
      */
     public function share_index(){
         $all_evaluation_data=Db::table("tb_evaluate")
@@ -30,28 +31,85 @@ class Share extends Controller{
             ->join("tb_user","tb_evaluate.user_id=tb_user.id",'left')
             ->order('tb_evaluate.create_time','desc')
             ->select();
-        dump($all_evaluation_data);
         $this->assign("all_evaluation_data",$all_evaluation_data);
         return view("share_index");
     }
 
 
     /**
+     **************李火生*******************
+     * @return \think\response\View
      * [晒单详情]
-     * 陈绪
+     **************************************
      */
     public function share_detail(){
+        $evaluation_id = Session::get('evalues_id');
+        $evaluation_data = Db::table("tb_evaluate")
+            ->field("tb_evaluate.*,tb_goods.goods_name goods_name,tb_goods.goods_show_images goods_show_images ,tb_user.phone_num phone_num")
+            ->join("tb_goods","tb_evaluate.goods_id=tb_goods.id",'left')
+            ->join("tb_user","tb_evaluate.user_id=tb_user.id",'left')
+            ->where('tb_evaluate.id',$evaluation_id)
+            ->find();
+        if(!empty($evaluation_data)){
+            $this->assign('evaluation_data',$evaluation_data);
+        }
         return view("share_detail");
     }
+
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 评价图片详情
+     **************************************
+     */
+    public function get_evalution_imgs(Request $request){
+        if($request->isPost()){
+            $evaluation_id = Session::get('evalues_id');
+            if(!empty( $evaluation_id)){
+                $data_id = $evaluation_id;
+                if(!empty($data_id)){
+                    $order_id =Db::name('evaluate')->field('order_id')->where('id',$data_id)->find();
+                    if(!empty($order_id)){
+                        $evaluate_imgs =Db::name('evaluate_images')->field('images')->where('evaluate_order_id',$order_id['order_id'])->select();
+                        if(!empty($evaluate_imgs)){
+                            return ajax_success('成功',$evaluate_imgs);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 晒单详情页获取id
+     **************************************
+     */
+    public function share_evaluation(Request $request){
+        if($request->isPost()){
+            $evaluation_id =$_POST['evaluation_id'];
+            if(!empty($evaluation_id)){
+                session('evalues_id',$evaluation_id);
+                return ajax_success('成功',$evaluation_id);
+            }
+        }
+    }
+
 
     /**
      **************李火生*******************
      * @return \think\response\View
-     * 追加评价
+     * 显示评价信息
      **************************************
      */
     public function evaluation(){
+
        $evaluation_order_id = Session::get('evaluation_order_id');
+//       $valuation_id = Session::get('');
        if(!empty($evaluation_order_id)){
            $res = Db::name('order')->where('id',$evaluation_order_id)->find();
            $this->assign('res',$res);
