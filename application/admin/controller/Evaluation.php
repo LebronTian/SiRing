@@ -58,7 +58,12 @@ class  Evaluation extends  Controller{
         }
     }
 
-
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 评价审核
+     **************************************
+     */
     public function evalution_examine(Request $request){
         if($request->isPost()){
             $evalution_id =$request->only(['id'])['id'];
@@ -84,6 +89,29 @@ class  Evaluation extends  Controller{
         }
     }
 
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 批量审核通过
+     **************************************
+     */
+    public function  evalution_all_check(Request $request){
+        if($request->isPost()){
+            $id =$_POST['id'];
+            if(is_array($id)){
+                $where ='id in('.implode(',',$id).')';
+            }else{
+                $where ='id='.$id;
+            }
+            $list =  Db::name('evaluate')->where($where)->update(['status'=>1]);
+            if($list!==false)
+            {
+                return ajax_success('审核成功');
+            }else{
+               return ajax_error('审核失败');
+            }
+        }
+    }
 
 
 }

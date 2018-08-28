@@ -292,14 +292,15 @@
         }
         $.ajax({
             type: 'POST',
-            url: "{:url('admin/user/dels')}",
+            url: "{:url('admin/Evaluation/evalution_all_check')}",
             dataType: 'JSON',
             async: false,
             data: {
                 'id': id_checked
             },
             success: function(data){
-                console.log(data);
+                alert(data.info);
+                location.reload();
             },
             error: function(){
                 console.log('错误')
