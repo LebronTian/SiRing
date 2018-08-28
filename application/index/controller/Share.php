@@ -17,6 +17,7 @@ use think\Session;
 
 class Share extends Controller{
 
+    /****************************晒单部分********************************************/
 
     /**
      **************李火生*******************
@@ -81,8 +82,6 @@ class Share extends Controller{
         }
     }
 
-
-
     /**
      **************李火生*******************
      * @param Request $request
@@ -107,9 +106,7 @@ class Share extends Controller{
      **************************************
      */
     public function evaluation(){
-
        $evaluation_order_id = Session::get('evaluation_order_id');
-//       $valuation_id = Session::get('');
        if(!empty($evaluation_order_id)){
            $res = Db::name('order')->where('id',$evaluation_order_id)->find();
            $this->assign('res',$res);
@@ -117,6 +114,16 @@ class Share extends Controller{
         return view("evaluation");
     }
 
+    public function phone_type(Request $request){
+        if($request->isPost()){
+            $data = Db::name('goods_type')->select();
+            if(!empty($data)){
+                return ajax_success('成功获取',$data);
+            }
+        }
+    }
+
+    /***********************评价部分**********************************/
     /**
      **************李火生*******************
      * @param Request $request
@@ -201,9 +208,6 @@ class Share extends Controller{
         }
     }
 
-    public function  evaluation_use(){
-        return view('evaluation_use');
-    }
 
 
 
