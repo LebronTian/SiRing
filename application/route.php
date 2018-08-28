@@ -125,6 +125,8 @@ Route::group("",[
     'get_evalution_imgs'=>"index/Share/get_evalution_imgs",
     /*晒单页面下拉商品类别*/
     'phone_type'=>"index/Share/phone_type",
+    /*晒单手机类型返回的数据点击发送一个id过来让我作为判断显示的条件*/
+    'get_phone_type_informations'=>"index/Share/get_phone_type_informations",
 
     /*通过点击评价传一个order_id过去确定是哪个订单的评价*/
     "evaluation_get_order_id"=>"index/Share/evaluation_get_order_id",
@@ -266,6 +268,9 @@ Route::group("admin",[
     "evaluation_management"=>"admin/Evaluation/management",
     /*客户评价图片*/
     "evalution_imgs"=>"admin/Evaluation/evalution_imgs",
+    /*评价审核操作*/
+    'evalution_examine'=>"admin/Evaluation/evalution_examine",
+
     /*退款维权(未做)*/
     "refund_rights"=>"admin/Refund/rights",
     /*晒单管理（未作）*/

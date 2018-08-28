@@ -246,7 +246,7 @@
     })
     function manage_eval(id,status){
         $.ajax({
-            url: '{:url("admin/Evaluation/evalution_imgs")}',
+            url: '{:url("admin/Evaluation/evalution_examine")}',
             dataType: 'JSON',
             type: 'POST',
             async: false,
@@ -255,10 +255,12 @@
                 'status': status
             },
             success: function(data){
-                console.log(data)
+                console.log(data);
+                alert(data.info);
+                location.reload();
             },
             error: function(){
-                console.log('错误')
+                console.log('审核失败')
             }
         })
     }

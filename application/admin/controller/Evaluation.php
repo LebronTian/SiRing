@@ -59,6 +59,31 @@ class  Evaluation extends  Controller{
     }
 
 
+    public function evalution_examine(Request $request){
+        if($request->isPost()){
+            $evalution_id =$request->only(['id'])['id'];
+            $evalution_status =$request->only(['status'])['status'];
+            /*审核通过*/
+            if(!empty($evalution_id)&&$evalution_status ==1){
+                $res = Db::name('evaluate')->where('id',$evalution_id)->update(['status'=>1]);
+                if($res){
+                    return ajax_success('审核通过成功',$res);
+                }else{
+                    return ajax_error('审核失败');
+                }
+            }
+            /*审核不通过*/
+            if(!empty($evalution_id)&&$evalution_status ==-1){
+                $res = Db::name('evaluate')->where('id',$evalution_id)->update(['status'=>-1]);
+                if($res){
+                    return ajax_success('审核不通过成功',$res);
+                }else{
+                    return ajax_error('审核失败');
+                }
+            }
+        }
+    }
+
 
 
 }
