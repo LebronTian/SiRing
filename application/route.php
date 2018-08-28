@@ -144,6 +144,8 @@ Route::group("",[
     "discounts_index"=>"index/Discounts/index",
     "discounts_my"=>"index/Discounts/discounts_my",
 
+    // 在线客服
+    "chat"=>"index/chat/chat"
 
 ]);
 
@@ -280,6 +282,7 @@ Route::group("admin",[
 
     /*购物车*/
     "shopping_index"=>"admin/Shopping/index",
+
 ]);
 
 
