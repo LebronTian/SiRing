@@ -249,7 +249,7 @@
 <script>
     $(".see_evaluation").click(function () {
         var see_evaluation_id = $(this)[0].id.split('_')[2];
-        // alert(see_evaluation_id);
+         alert(see_evaluation_id);
         $.ajax({
             type:'POST',
             url:'{:url("index/Share/share_evaluation")}',
