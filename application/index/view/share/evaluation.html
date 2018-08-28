@@ -174,17 +174,15 @@
         $("#myFile").change(function() {
             var img_div = $(".img_div");
             var filepath = $("input[name='evaluation_images[]']").val();
+            console.log(filepath)
             for(var i = 0; i < this.files.length; i++) {
                 objUrl = getObjectURL(this.files[i]);
                 // 
-                console.log(filepath)
                 var extStart = filepath.lastIndexOf(".");
                 // 获取图片后缀
                 var ext = filepath.substring(extStart, filepath.length).toUpperCase();
                 console.log(ext)
                 /*
-                    作者：z@qq.com
-                    时间：2016-12-10
                     描述：鉴定每个图片上传尾椎限制
                     * */
                 if(ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {
@@ -207,8 +205,6 @@
                 }
             }
             /*
-                作者：z@qq.com
-                时间：2016-12-10
                 描述：鉴定每个图片大小总和
                 * */
             var file_size = 0;
@@ -240,11 +236,7 @@
             //					}
             return true;
         });
-        /*
-            作者：z@qq.com
-            时间：2016-12-10
-            描述：鉴定每个浏览器上传图片url 目前没有合并到Ie
-            * */
+            // 描述：鉴定每个浏览器上传图片url 目前没有合并到Ie
         function getObjectURL(file) {
             var url = null;
             if(window.createObjectURL != undefined) { // basic

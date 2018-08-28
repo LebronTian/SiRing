@@ -100,15 +100,6 @@
 				<input type="text" class="input-text" name="sort_number" value="0" placeholder="" id="" style="width: 200px">
 			</div>
 		</div>
-		<!-- <div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">允许评论：</label>
-			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<div class="check-box">
-					<input type="checkbox" id="checkbox-1" style="width: 200px">
-					<label for="checkbox-1">&nbsp;</label>
-				</div>
-			</div>
-		</div> -->
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">产品规格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -121,12 +112,6 @@
 				<input type="text" id="" placeholder="" value="" class="input-text" name="goods_place" style="width: 200px">
 			</div>
 		</div>
-		<!-- <div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">材质：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" name="" id="" placeholder="" value="" class="input-text" style="width: 200px">
-			</div>
-		</div> -->
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">所属供应商：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -148,25 +133,6 @@
                 </span>
 			</div>
 		</div>
-		<!-- <div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">产品重量：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" name="" id="" placeholder="" value="" class="input-text" style="width:200px">
-				kg</div>
-		</div> -->
-		<!-- <div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">产品展示价格：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" name="" id="" placeholder="" value="" class="input-text" style="width:200px">
-				元</div>
-		</div> -->
-
-		<!-- <div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">成本价格：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" name="goods_bottom_money" id="" placeholder="" value="" class="input-text" style="width:200px">
-				元</div>
-		</div> -->
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">最低销售价格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -277,13 +243,12 @@
                         $("#myFile").change(function() {
                             var img_div = $(".img_div");
                             var filepath = $("input[name='goods_images[]']").val();
+                            console.log(filepath);
                             for(var i = 0; i < this.files.length; i++) {
                                 objUrl = getObjectURL(this.files[i]);
                                 var extStart = filepath.lastIndexOf(".");
                                 var ext = filepath.substring(extStart, filepath.length).toUpperCase();
 								/*
-								 作者：z@qq.com
-								 时间：2016-12-10
 								 描述：鉴定每个图片上传尾椎限制
 								 * */
                                 if(ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {
@@ -302,8 +267,6 @@
                                 }
                             }
 							/*
-							 作者：z@qq.com
-							 时间：2016-12-10
 							 描述：鉴定每个图片大小总和
 							 * */
                             var file_size = 0;
@@ -336,8 +299,6 @@
                             return true;
                         });
 						/*
-						 作者：z@qq.com
-						 时间：2016-12-10
 						 描述：鉴定每个浏览器上传图片url 目前没有合并到Ie
 						 * */
                         function getObjectURL(file) {
@@ -358,25 +319,6 @@
 					 * */
                     function removeImg(r){
                         $(r).parent().remove();
-                    }
-					/*
-					 描述：上传图片附带放大查看处理
-					 * */
-                    function lookBigImg(b){
-                        $(".shadeImg").fadeIn(500);
-                        $(".showImg").attr("src",$(b).attr("src"))
-                    }
-					/*
-					 描述：关闭弹出层
-					 * */
-                    function closeShade(){
-                        $(".shade").fadeOut(500);
-                    }
-					/*
-					 描述：关闭弹出层
-					 * */
-                    function closeShadeImg(){
-                        $(".shadeImg").fadeOut(500);
                     }
 				</script>
 				<script>
