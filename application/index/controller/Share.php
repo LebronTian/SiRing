@@ -30,6 +30,7 @@ class Share extends Controller{
             ->field("tb_evaluate.*,tb_goods.goods_name goods_name,tb_goods.goods_show_images goods_show_images ,tb_user.phone_num phone_num")
             ->join("tb_goods","tb_evaluate.goods_id=tb_goods.id",'left')
             ->join("tb_user","tb_evaluate.user_id=tb_user.id",'left')
+            ->where('tb_evaluate.status',1)
             ->order('tb_evaluate.create_time','desc')
             ->select();
         $this->assign("all_evaluation_data",$all_evaluation_data);
@@ -134,12 +135,21 @@ class Share extends Controller{
      */
     public function get_phone_type_informations(Request $request){
         if($request->isPost()){
-            $data =$request->only(['id'])['id'];
-            if(!empty($data)){
-                return ajax_success('提交成功',$data);
+            $goods_type_id =$request->only(['id'])['id'];
+            if(!empty($goods_type_id)){
+                    $goods_id_data =Db::name('goods')->field('id')->where('goods_type_id',$goods_type_id)->select();
+//
+                dump($goods_id_data);
+                 return ajax_success('获取值成功了',$goods_id_data);
+//                    $evaluate_show_data =Db::name('evaluate')->where('goods_id',$goods_id_data)->select();
+//                dump($evaluation_data);
+//                return ajax_success('成功获取信息',$evaluation_data);
             }
         }
     }
+
+
+
 
 
     /***********************评价部分**********************************/
@@ -198,9 +208,9 @@ class Share extends Controller{
                 foreach ($file as $k=>$v){
                     $info = $v->move(ROOT_PATH . 'public' . DS . 'upload');
                     $evaluation_url = str_replace("\\","/",$info->getSaveName());
-                    $evaluation_images[] = ["images"=>$evaluation_url,"evaluation_order_id"=>$evaluation_order_id];
+                    $evaluation_images[] = ["images"=>$evaluation_url,"evaluate_order_id"=>$evaluation_order_id];
                 }
-              $res =  model('evaluate_images')->saveAll($evaluation_images);
+              $res = model('evaluate_images')->saveAll($evaluation_images);
             if($res)
             {
                 $this->success('评价成功',url('index/Order/evaluate'));
