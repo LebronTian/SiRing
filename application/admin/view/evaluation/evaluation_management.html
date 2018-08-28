@@ -107,7 +107,7 @@
         </form>
         <div class="cl pd-5 bg-1 bk-gray mt-20">
             <span class="l">
-                <a href="javascript:;" onclick="" class="btn btn-danger radius">
+                <a href="javascript:;" class="btn btn-danger radius">
                     <i class="Hui-iconfont"></i> 批量通过
                 </a>
             </span>
@@ -135,7 +135,7 @@
                     {if !empty($data)}
                     {volist name="data" id="vo"}
                     <tr class="text-c va-m">
-                        <td width="40"><input name="ids" id="" type="checkbox" value=""></td>
+                        <td width="40"><input name="ids" type="checkbox" id="input_{$vo.id}"></td>
                         <td width="40" class="eva_id">{$vo.id}</td>
                         <td width="60">{$vo.goods_name}</td>
                         <td width="100"><img src="__UPLOADS__/{$vo.goods_show_images}" alt="商品图片"></td>
@@ -275,4 +275,34 @@
 
 </script>
 
+<!-- 批量通过 -->
+<script>
+    $('.btn-danger').click(function(){
+        // 被选中的input
+        var input_checked = $('.va-m input:checked');
+        var len_checked = input_checked.length;
+        console.log(input_checked)
+        // 存放被选中input的id
+        var id_checked = [];
+        for(var i = 0; i < len_checked; i++){
+            // 拆分被选中input中的id
+            id_checked.push(input_checked[i].id.split('_')[1]);
+        }
+        $.ajax({
+            type: 'POST',
+            url: "{:url('admin/user/dels')}",
+            dataType: 'JSON',
+            async: false,
+            data: {
+                'id': id_checked
+            },
+            success: function(data){
+                console.log(data);
+            },
+            error: function(){
+                console.log('错误')
+            }
+        })
+    })
+</script>
 {/block}
