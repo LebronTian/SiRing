@@ -138,9 +138,17 @@ class Share extends Controller{
             $goods_type_id =$request->only(['id'])['id'];
             if(!empty($goods_type_id)){
                     $goods_id_data =Db::name('goods')->field('id')->where('goods_type_id',$goods_type_id)->select();
-//
-                dump($goods_id_data);
-                 return ajax_success('获取值成功了',$goods_id_data);
+//                    if(!empty($goods_id_data)){
+//                        if(is_array($goods_id_data)){
+//                            $where ='id in('.implode(',',$goods_id_data).')';
+//                        }else{
+//                            $where ='id='.$goods_id_data;
+//                        }
+//                        $list =  Db::name('evaluate')->where($where)->select();
+//                        dump($list);
+//                        return ajax_success('获取值成功了',$list);
+//                    }
+                    return ajax_success('获取值成功了',$goods_id_data);
 //                    $evaluate_show_data =Db::name('evaluate')->where('goods_id',$goods_id_data)->select();
 //                dump($evaluation_data);
 //                return ajax_success('成功获取信息',$evaluation_data);
