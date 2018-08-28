@@ -193,7 +193,7 @@
             </div>
         </div>
         <div class="list_box">
-            {if !empty($all_evaluation_data)}
+            {if !empty($all_evaluation_data)&& empty($data_val)}
                 {volist name ="all_evaluation_data" id="vo"}
                 <section class="list_view">
                 <div class="user_box">
@@ -233,10 +233,72 @@
             </section>
                 {/volist}
             {/if}
+
+            {if empty($all_evaluation_data)&&!empty($data_val)}
+            {volist name ="all_evaluation_data" id="vo"}
+            <section class="list_view">
+                <div class="user_box">
+                    <div class="user_img">
+                        <img src="__UPLOADS__/{$vo.goods_show_images}" alt="">
+                    </div>
+                    <div class="user_msg">
+                        <div class="user_name">
+                            <span>{$vo.phone_num}</span>
+                        </div>
+                        <span class="product_label">{$vo.goods_name}</span>
+                    </div>
+                </div>
+                <div class="comment_box">
+                    {$vo.evaluate_content}
+                </div>
+                <!-- 存放图片开始 -->
+                <div class="upload-img-view">
+                    <ul data-index="0" class="list-img-box clearfix"></ul>
+                </div>
+                <!-- 存放图片结束 -->
+                <div class="list_footer">
+                    <span class="time_box">
+                        {$vo.create_time|date='Y-m-d H:i:s',###}
+                    </span>
+                    <div class="operation">
+
+                        <!--<a href="javascript:location.href='share_detail';">-->
+                        <!--<span>查看评论</span>-->
+                        <!--</a>-->
+                        <a  id="see_evaluation_{$vo.id}" class="see_evaluation">
+                            <span>查看评论</span>
+                        </a>
+
+                    </div>
+                </div>
+            </section>
+            {/volist}
+            {/if}
         </div>
     </div>
 
-    {include file="template/footer" /}
+    <footer class="aui-bar aui-bar-tab aui-bar-tab-cl aui-border-t" id="footer">
+        <a href="{:url('index/index/index')}" class="aui-bar-tab-item " tapmode>
+            <i class="aui-iconfont aui-icon-home"></i>
+            <div class="aui-bar-tab-label">首页</div>
+        </a>
+        <a class="aui-bar-tab-item" tapmode href="{:url('index/Classify/index')}">
+            <i class="aui-iconfont aui-icon-menu"></i>
+            <div class="aui-bar-tab-label">分类</div>
+        </a>
+        <a class="aui-bar-tab-item" tapmode href="{:url('index/Share/share_index')}">
+            <i class="aui-iconfont aui-icon-camera"></i>
+            <div class="aui-bar-tab-label">晒单</div>
+        </a>
+        <a class="aui-bar-tab-item" tapmode href="{:url('index/Shopping/index')}">
+            <i class="aui-iconfont aui-icon-cart"></i>
+            <div class="aui-bar-tab-label">购物车</div>
+        </a>
+        <a href="{:url('index/Member/index')}" class="aui-bar-tab-item" id="my" tapmode>
+            <i class="aui-iconfont aui-icon-my"></i>
+            <div class="aui-bar-tab-label">我的</div>
+        </a>
+    </footer>
     
 <script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
 <script>
