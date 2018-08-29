@@ -296,6 +296,8 @@ Route::group("admin",[
 
     /*聊天管理*/
     "chat_index"=>"admin/Chat/index",
+    /*后台获取用户发送过来的聊天信息*/
+    "all_information"=>"admin/Chat/all_information",
 
 ]);
 
