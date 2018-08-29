@@ -197,7 +197,7 @@ class  Member extends  Base {
                     $datas =[
                         'user_name'=>$data['name'],
                         'sex'=>$data['sex'],
-                        'email'=>$data['email']
+                        'email'=>$data['mail']
                     ];
                     $res =Db::name('user')->where('phone_num',$user_phone)->update($datas);
                     if($res){

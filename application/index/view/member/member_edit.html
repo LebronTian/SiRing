@@ -54,6 +54,9 @@
             font-size: 16px;
             color: #fff;
         }
+        .wrapper input{
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -104,7 +107,8 @@
                 'sex': sex
             },
             success: function(data){
-               console.log(data);
+               alert(data.info);
+               window.location.href ="{:url('index/Member/index')}"
             },
             error:function(data) {
                 console.log('错误');
@@ -122,9 +126,14 @@
                 data: {
                 },
                 success: function(data){
-                    console.log(data);
-                    $(".username").val(data.data.user_name);
+                    $(".user_name").val(data.data.user_name);
                     $(".email_information").val(data.data.email);
+                    console.log($('.sex select option'));
+                    for(var i = 0; i < 2; i++){
+                        if($('.sex select option')[i].innerHTML == data.data.sex){
+                            $('.sex select option')[i].selected = true;
+                        }
+                    }
                 },
                 error:function(data) {
                     console.log('错误');
