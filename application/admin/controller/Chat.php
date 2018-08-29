@@ -88,6 +88,30 @@ class  Chat extends Controller{
     /**
      **************李火生*******************
      * @param Request $request
+     * 批量删除
+     **************************************
+     */
+    public function chat_information_deletes(Request $request){
+        if($request->isPost()){
+            $id =$_POST['id'];
+            if(is_array($id)){
+                $where ='id in('.implode(',',$id).')';
+            }else{
+                $where ='id='.$id;
+            }
+            $list =  Db::name('chat')->where('id',$id)->delete();
+            if($list!==false)
+            {
+                $this->success('成功删除!');
+            }else{
+                $this->error('删除失败');
+            }
+        }
+    }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
      * 在未读中按下回复按钮进入回复页面把状态值改变为已读
      **************************************
      */
@@ -113,6 +137,5 @@ class  Chat extends Controller{
         return view('chat_window');
     }
 
-
-
+    
 }

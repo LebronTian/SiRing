@@ -293,7 +293,6 @@ Route::group("admin",[
 
     /*购物车*/
     "shopping_index"=>"admin/Shopping/index",
-
     /*聊天管理*/
     "chat_index"=>"admin/Chat/index",
     /*后台获取用户发送过来的聊天信息*/
@@ -304,11 +303,12 @@ Route::group("admin",[
     "unread_all_information"=>"admin/Chat/unread_all_information",
     /*后台聊天信息的删除*/
     "chat_information_del"=>"admin/Chat/chat_information_del",
+    /*批量删除*/
+    "chat_information_deletes"=>"admin/Chat/chat_information_deletes",
     /*未读中按下回复按钮进入回复页面把状态值改变为已读*/
     "reading_information"=>"admin/Chat/reading_information",
     /*后台客服跟用户的聊天界面*/
     "chat_window"=>"admin/Chat/chat_window",
-
 ]);
 
 
