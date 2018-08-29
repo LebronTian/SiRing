@@ -175,6 +175,13 @@
             border: 1px solid #cecece;
             color: #999;
         }
+        p.all{
+            display: inline-block;
+            font-size: 14px;
+            color: #fe6546;
+            line-height: 27px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -183,7 +190,7 @@
             点击右边的按钮可以切换不同分类的晒单哦
             <div class="select_box">
                 <div class="select_btn select_phone_type">
-                    全部
+                    <p class="all">全部</p>
                     <span class="up">▴</span>
                     <span class="down upOrDown">▾</span>
                 </div>
@@ -357,6 +364,8 @@
         // 利用事件委托获取id
         $('.select_menu').click(function(e){
             var id = e.target.className.split('_')[1];
+            $('.select_phone_type .all').html(e.target.innerHTML);
+            $('.select_menu').addClass('upOrDown')
             $.ajax({
                 type:'POST',
                 url:'{:url("index/Share/get_phone_type_informations")}',
@@ -366,7 +375,6 @@
                 dataType: 'json',
                 success: function(data){
                     console.log(data);
-                    location.reload();
                 },
                 error:function(data) {
                     console.log("失败");
