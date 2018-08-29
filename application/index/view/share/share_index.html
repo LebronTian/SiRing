@@ -427,26 +427,26 @@
 </script>
 <!--查看评价信息-->
 <script>
-    $('.see_evaluation').click(function(){
-        console.log(111)
-        var see_evaluation_id = $(this)[0].id.split('_')[2];
-            alert(see_evaluation_id);
-        $.ajax({
-            type:'POST',
-            url:'{:url("index/Share/share_evaluation")}',
-            data:{
-                'evaluation_id':see_evaluation_id
-            },
-            dataType: 'json',
-            success: function(data){
-                console.log(data);
-                window.location.href="{:url('index/Share/share_detail')}"
-            },
-            error:function(data) {
-                console.log("失败");
-            },
-        });
-    });
+    // $('.see_evaluation').click(function(){
+    //     console.log(111)
+    //     var see_evaluation_id = $(this)[0].id.split('_')[2];
+    //         alert(see_evaluation_id);
+    //     $.ajax({
+    //         type:'POST',
+    //         url:'{:url("index/Share/share_evaluation")}',
+    //         data:{
+    //             'evaluation_id':see_evaluation_id
+    //         },
+    //         dataType: 'json',
+    //         success: function(data){
+    //             console.log(data);
+    //             window.location.href="{:url('index/Share/share_detail')}"
+    //         },
+    //         error:function(data) {
+    //             console.log("失败");
+    //         },
+    //     });
+    // });
 </script>
 </body>
 </html>
