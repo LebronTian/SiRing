@@ -200,7 +200,7 @@
             </div>
         </div>
         <div class="list_box">
-                <section class="list_view">
+            <section class="list_view">
                 <div class="user_box">
                     <div class="user_img">
                         图片
@@ -226,15 +226,10 @@
                        时间
                     </span>
                     <div class="operation">
-
-                        <!--<a href="javascript:location.href='share_detail';">-->
-                            <!--<span>查看评论</span>-->
-                        <!--</a>-->
                         <!--这里你需要绑定一个id就是see_evaluation+一个回来的id-->
                         <a  id="see_evaluation_id" class="see_evaluation">
                             <span>查看评论</span>
                         </a>
-
                     </div>
                 </div>
             </section>
@@ -265,6 +260,7 @@
     </footer>
     
 <script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
+<!-- 筛选列表 切换类名 -->
 <script>
     $('.select_btn').click(function(){
         $('.up').toggleClass('upOrDown').siblings('span').toggleClass('upOrDown');
@@ -326,9 +322,16 @@
                 dataType: 'json',
                 success: function(data){
                     console.log(data);
-                    // location.reload();
                     $('.select_phone_type .all').html(e.target.innerHTML);
-                    $('.select_menu').addClass('upOrDown')
+                    $('.select_menu').addClass('upOrDown');
+                    var str = '<section class="list_view">';
+                    $.each(data.data,function(idx, val){
+                        console.log('第一次:'+idx,val)
+                        $.each(val,function(idx, val){
+                            console.log('第二次:'+idx,val)
+                        })
+                    })
+
                 },
                 error:function(data) {
                     console.log("失败");
