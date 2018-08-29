@@ -32,7 +32,7 @@ class Share extends Controller{
     /**
      **************李火生*******************
      * @param Request $request
-     * 所有的晒单信息
+     * 点击全部按钮时需要显示的所有的晒单信息
      **************************************
      */
         public function all_information(Request $request){
@@ -48,6 +48,25 @@ class Share extends Controller{
                         ->select();
                     return ajax_success('全部数据返回',$all_evaluation_data);
                 }
+            }
+        }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 一进入晒单页面需要显示的全部信息
+     **************************************
+     */
+        public function all_information_share(Request $request){
+            if($request->isPost()){
+                $all_evaluation_data=Db::table("tb_evaluate")
+                    ->field("tb_evaluate.*,tb_goods.goods_name goods_name,tb_goods.goods_show_images goods_show_images ,tb_user.phone_num phone_num")
+                    ->join("tb_goods","tb_evaluate.goods_id=tb_goods.id",'left')
+                    ->join("tb_user","tb_evaluate.user_id=tb_user.id",'left')
+                    ->where('tb_evaluate.status',1)
+                    ->order('tb_evaluate.create_time','desc')
+                    ->select();
+                return ajax_success('全部数据返回',$all_evaluation_data);
             }
         }
 

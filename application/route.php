@@ -122,7 +122,8 @@ Route::group("",[
     /*晒单*/
     "share_detail"=>"index/Share/share_detail",
     "share_index"=>"index/Share/share_index",
-    "all_information"=>"index/Share/all_information",//所有信息
+    "all_information"=>"index/Share/all_information",//点击全部的时候所有信息
+    "all_information_share"=>"index/Share/all_information_share",//一进晒单页面就显示所有信息
     /*晒单详情页面获取信息*/
     'share_evaluation'=>"index/Share/share_evaluation",
     /*获取晒单的详细评价图片信息*/
