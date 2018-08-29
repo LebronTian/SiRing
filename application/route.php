@@ -294,6 +294,9 @@ Route::group("admin",[
     /*购物车*/
     "shopping_index"=>"admin/Shopping/index",
 
+    /*聊天管理*/
+    "chat_index"=>"admin/Chat/index",
+
 ]);
 
 
