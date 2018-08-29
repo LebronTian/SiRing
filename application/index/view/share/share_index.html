@@ -195,17 +195,16 @@
                     <span class="down upOrDown">▾</span>
                 </div>
                 <ul class="select_menu upOrDown">
-                    <li>全部</li>
+                    <!-- <li>全部</li> -->
                 </ul>
             </div>
         </div>
         <div class="list_box">
-
                 <section class="list_view">
                 <div class="user_box">
                     <div class="user_img">
                         图片
-                        <img src="" alt="">
+                        <img src="">
                     </div>
                     <div class="user_msg">
                         <div class="user_name">
@@ -239,53 +238,6 @@
                     </div>
                 </div>
             </section>
-
-
-
-            <!--{if !empty($all_evaluation_data)&&!empty($phone_evaluation_data)}-->
-            <!--{volist name ="phone_evaluation_data" id="vo"}-->
-                <!--{volist name="$vo" id="value"}-->
-                <!--{$value.phone_num}-->
-
-                <!--<section class="list_view">-->
-                    <!--<div class="user_box">-->
-                        <!--<div class="user_img">-->
-                            <!--<img src="__UPLOADS__/{$value.goods_show_images}" alt="">-->
-                        <!--</div>-->
-                        <!--<div class="user_msg">-->
-                            <!--<div class="user_name">-->
-                                <!--<span>{$value.phone_num}</span>-->
-                            <!--</div>-->
-                            <!--<span class="product_label">{$value.goods_name}</span>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="comment_box">-->
-                        <!--{$value.evaluate_content}-->
-                    <!--</div>-->
-                    <!--&lt;!&ndash; 存放图片开始 &ndash;&gt;-->
-                    <!--<div class="upload-img-view">-->
-                        <!--<ul data-index="0" class="list-img-box clearfix"></ul>-->
-                    <!--</div>-->
-                    <!--&lt;!&ndash; 存放图片结束 &ndash;&gt;-->
-                    <!--<div class="list_footer">-->
-                        <!--<span class="time_box">-->
-                            <!--{$value.create_time|date='Y-m-d H:i:s',###}-->
-                        <!--</span>-->
-                        <!--<div class="operation">-->
-
-                            <!--&lt;!&ndash;<a href="javascript:location.href='share_detail';">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<span>查看评论</span>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                            <!--<a  id="see_evaluation_{$value.id}" class="see_evaluation">-->
-                                <!--<span>查看评论</span>-->
-                            <!--</a>-->
-
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</section>-->
-                <!--{/volist}-->
-            <!--{/volist}-->
-            <!--{/if}-->
         </div>
     </div>
 
@@ -352,7 +304,7 @@
                     console.log(data);
                     var len = data.data.length;
                     $('.select_menu').html('');
-                    $('.select_menu').append('<li>全部</li>')
+                    $('.select_menu').append('<li class="li_2">全部</li>')
                     for(var i = 1; i < len; i++){
                         $('.select_menu').append('<li class="li_'+data.data[i].id+'">'+data.data[i].name+'</li>');
                     }
@@ -365,8 +317,6 @@
         // 利用事件委托获取id
         $('.select_menu').click(function(e){
             var id = e.target.className.split('_')[1];
-            $('.select_phone_type .all').html(e.target.innerHTML);
-            $('.select_menu').addClass('upOrDown')
             $.ajax({
                 type:'POST',
                 url:'{:url("index/Share/get_phone_type_informations")}',
@@ -376,6 +326,9 @@
                 dataType: 'json',
                 success: function(data){
                     console.log(data);
+                    // location.reload();
+                    $('.select_phone_type .all').html(e.target.innerHTML);
+                    $('.select_menu').addClass('upOrDown')
                 },
                 error:function(data) {
                     console.log("失败");
