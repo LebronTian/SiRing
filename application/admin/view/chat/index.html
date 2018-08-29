@@ -394,7 +394,7 @@
     function chat_response(id){
         $.ajax({
             type: 'POST',
-            url: "{:url('admin/user/status')}",
+            url: "{:url('admin/Chat/admin_chat_push')}",
             dataType: 'json',
             data: {
                 'id': id
