@@ -153,9 +153,61 @@ class  Member extends  Base {
         }
     }
 
-
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 显示个人信息,如果没有则进行添加，有了则进行编辑
+     **************************************
+     */
     public function member_edit(){
         return view('member_edit');
+    }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 进入个人编辑信息，已经编辑过则进行修改
+     **************************************
+     */
+    public function get_member_information(Request $request){
+        if($request->isPost()){
+            $member =Session::get('member');
+            if(!empty($member)){
+                $data =Db::name('user')->where('phone_num',$member['phone_num'])->find();
+                if(!empty($data)){
+                    return ajax_success('成功数据',$data);
+                }
+            }
+        }
+    }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 编辑个人资料更新
+     **************************************
+     */
+    public function member_edit_active(Request $request){
+        if($request->isPost()){
+            $member =Session::get('member');
+            if(!empty($member)){
+                $user_phone =$member['phone_num'];
+                $data =$_POST;
+                if(!empty($data)){
+                    $datas =[
+                        'user_name'=>$data['name'],
+                        'sex'=>$data['sex'],
+                        'email'=>$data['email']
+                    ];
+                    $res =Db::name('user')->where('phone_num',$user_phone)->update($datas);
+                    if($res){
+                        return ajax_success('修改成功',$data);
+                    }
+
+                }
+            }
+
+        }
     }
 
 
