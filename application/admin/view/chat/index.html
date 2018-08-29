@@ -411,7 +411,9 @@
                 'content':cont
             },
             success: function(data){
-               console.log(data);
+               alert(data.info);
+               location.reload();
+
             },
             error:function(data) {
                 console.log('错误');
