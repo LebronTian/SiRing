@@ -74,7 +74,6 @@
 				批量删除
 			</a>
 		</span>
-        <span class="r">共有数据：<strong id="count_number">0</strong> 条</span>
     </div>
     <div class="mt-20">
         <table class="table table-border table-bordered table-hover table-bg table-sort">
@@ -141,6 +140,17 @@
 <script type="text/javascript" src="__STATIC__/admin/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript"> 
 
+    $(function(){
+        $('.table-sort').dataTable({
+            "aaSorting": [[ 1, "desc" ]],//默认第几个排序
+            "bStateSave": true,//状态保存
+            "aoColumnDefs": [
+                //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+                {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+            ]
+        });
+
+    });
     /*用户-添加*/
     function member_add(title,url,w,h){
         layer_show(title,url,w,h);
@@ -381,6 +391,7 @@
             },
         });
     })
+    
 </script>
 <script>
     $('.btn_del').click(function(){
@@ -412,7 +423,7 @@
     function chat_response(id,cont){
         $.ajax({
             type: 'POST',
-            url: "{:url('admin/user/status')}",
+            url: "{:url('admin/Chat/admin_chat_push')}",
             dataType: 'json',
             data: {
                 'id': id,

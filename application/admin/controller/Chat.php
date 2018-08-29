@@ -129,13 +129,29 @@ class  Chat extends Controller{
 
     /**
      **************李火生*******************
-     * @return \think\response\View
-     * 聊天界面
+     * @param Request $request
+     * 回复用户的聊天信息
      **************************************
      */
-    public function chat_window(){
-        return view('chat_window');
+    public function admin_chat_push(Request $request){
+        if($request->isPost()){
+            $chat_id = $request->only(['id'])['id'];
+            $admin_reply =$request->only(['id'])['id'];
+            if(!empty($cath_id)&&!empty($admin_reply)){
+                $data =[
+                  'chat_id'=>$chat_id,
+                    'reply_content'=>$admin_reply,
+                    'create_time'=>time()
+                ];
+                 Db::name('chat')->where('id',$chat_id)->update(['status=>1']);
+                $boll= Db::name('admin_chat_reply')->where('chat_id',$chat_id)->data($data)->insert();
+                if($boll){
+                    return ajax_success('回复信息成功',$data);
+                }
+            }
+        }
     }
+
 
 
 }

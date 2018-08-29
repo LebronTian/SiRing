@@ -63,7 +63,9 @@ class  Chat extends  Base {
      */
     public function chat_pull(Request $request){
         if($request->isPost()){
-            $data = Db::name('chat')->select();
+            $member =Session::get('member');
+            $member_id =Db::name('user')->field('id')->where('phone_num',$member['phone_num'])->find();
+            $data = Db::name('chat')->where('user_id',$member_id['id'])->order('create_time','desc')->select();
             return ajax_success('接收成功',$data);
         }
     }
