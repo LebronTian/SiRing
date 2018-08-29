@@ -200,22 +200,22 @@
             </div>
         </div>
         <div class="list_box">
-            {if !empty($all_evaluation_data)&& empty($phone_evaluation_data) && empey(:session('phone_evaluation_data')}
-                {volist name ="all_evaluation_data" id="vo"}
+
                 <section class="list_view">
                 <div class="user_box">
                     <div class="user_img">
-                        <img src="__UPLOADS__/{$vo.goods_show_images}" alt="">
+                        图片
+                        <img src="" alt="">
                     </div>
                     <div class="user_msg">
                         <div class="user_name">
-                            <span>{$vo.phone_num}</span>
+                            <span>电话号码</span>
                         </div>
-                        <span class="product_label">{$vo.goods_name}</span>
+                        <span class="product_label">商品名字</span>
                     </div>
                 </div>
                 <div class="comment_box">
-                        {$vo.evaluate_content}
+                        内容
                 </div>
                 <!-- 存放图片开始 -->
                 <div class="upload-img-view">
@@ -224,61 +224,68 @@
                 <!-- 存放图片结束 -->
                 <div class="list_footer">
                     <span class="time_box">
-                        {$vo.create_time|date='Y-m-d H:i:s',###}
+                       时间
                     </span>
                     <div class="operation">
 
                         <!--<a href="javascript:location.href='share_detail';">-->
                             <!--<span>查看评论</span>-->
                         <!--</a>-->
-                        <a  id="see_evaluation_{$vo.id}" class="see_evaluation">
+                        <!--这里你需要绑定一个id就是see_evaluation+一个回来的id-->
+                        <a  id="see_evaluation_id" class="see_evaluation">
                             <span>查看评论</span>
                         </a>
 
                     </div>
                 </div>
             </section>
-                {/volist}
-            {/if}
 
-            {if !empty($all_evaluation_data)&&!empty($phone_evaluation_data)}
-            {volist name ="phone_evaluation_data" id="vo"}
-                {volist name="$vo" id="value"}
-                {$value.phone_num}
-                <section class="list_view">
-                    <div class="user_box">
-                        <div class="user_img">
-                            <img src="__UPLOADS__/{$value.goods_show_images}" alt="">
-                        </div>
-                        <div class="user_msg">
-                            <div class="user_name">
-                                <span>{$value.phone_num}</span>
-                            </div>
-                            <span class="product_label">{$value.goods_name}</span>
-                        </div>
-                    </div>
-                    <div class="comment_box">
-                        {$value.evaluate_content}
-                    </div>
-                    <!-- 存放图片开始 -->
-                    <div class="upload-img-view">
-                        <ul data-index="0" class="list-img-box clearfix"></ul>
-                    </div>
-                    <!-- 存放图片结束 -->
-                    <div class="list_footer">
-                        <span class="time_box">
-                            {$value.create_time|date='Y-m-d H:i:s',###}
-                        </span>
-                        <div class="operation">
-                            <a  id="see_evaluation_{$value.id}" class="see_evaluation">
-                                <span>查看评论</span>
-                            </a>
-                        </div>
-                    </div>
-                </section>
-                {/volist}
-            {/volist}
-            {/if}
+
+
+            <!--{if !empty($all_evaluation_data)&&!empty($phone_evaluation_data)}-->
+            <!--{volist name ="phone_evaluation_data" id="vo"}-->
+                <!--{volist name="$vo" id="value"}-->
+                <!--{$value.phone_num}-->
+
+                <!--<section class="list_view">-->
+                    <!--<div class="user_box">-->
+                        <!--<div class="user_img">-->
+                            <!--<img src="__UPLOADS__/{$value.goods_show_images}" alt="">-->
+                        <!--</div>-->
+                        <!--<div class="user_msg">-->
+                            <!--<div class="user_name">-->
+                                <!--<span>{$value.phone_num}</span>-->
+                            <!--</div>-->
+                            <!--<span class="product_label">{$value.goods_name}</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="comment_box">-->
+                        <!--{$value.evaluate_content}-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; 存放图片开始 &ndash;&gt;-->
+                    <!--<div class="upload-img-view">-->
+                        <!--<ul data-index="0" class="list-img-box clearfix"></ul>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; 存放图片结束 &ndash;&gt;-->
+                    <!--<div class="list_footer">-->
+                        <!--<span class="time_box">-->
+                            <!--{$value.create_time|date='Y-m-d H:i:s',###}-->
+                        <!--</span>-->
+                        <!--<div class="operation">-->
+
+                            <!--&lt;!&ndash;<a href="javascript:location.href='share_detail';">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<span>查看评论</span>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                            <!--<a  id="see_evaluation_{$value.id}" class="see_evaluation">-->
+                                <!--<span>查看评论</span>-->
+                            <!--</a>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</section>-->
+                <!--{/volist}-->
+            <!--{/volist}-->
+            <!--{/if}-->
         </div>
     </div>
 
