@@ -302,6 +302,12 @@ Route::group("admin",[
     "read_all_information"=>"admin/Chat/read_all_information",
     /*后台获取用户发送过来的聊天信息（未读）*/
     "unread_all_information"=>"admin/Chat/unread_all_information",
+    /*后台聊天信息的删除*/
+    "chat_information_del"=>"admin/Chat/chat_information_del",
+    /*未读中按下回复按钮进入回复页面把状态值改变为已读*/
+    "reading_information"=>"admin/Chat/reading_information",
+    /*后台客服跟用户的聊天界面*/
+    "chat_window"=>"admin/Chat/chat_window",
 
 ]);
 
