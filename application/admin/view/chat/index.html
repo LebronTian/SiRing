@@ -309,6 +309,11 @@
                 })
                 $('.tbody').html('');
                 $('.tbody').append(str);
+
+                $('.response').click(function(){
+                    $('.pop1').css('display','block');
+                    chat_response_id = $(this).parents('td').siblings('td.chat_id')[0].innerHTML;
+                })
             },
             error:function(data) {
                 console.log("失败了");
@@ -345,7 +350,7 @@
                                     <span class="label label-success radius">'+val.status+'</span>\
                                 </td>\
                                 <td class="td-manage">\
-                                    <a title="回复" href="javascript:;" class="ml-5" style="text-decoration:none">\
+                                    <a title="回复" href="javascript:;" class="ml-5 response" style="text-decoration:none">\
                                         <i class="Hui-iconfont">&#xe6df;</i>\
                                     </a>\
                                     <a title="删除" href="javascript:;" onclick="" class="ml-5" style="text-decoration:none">\
@@ -356,6 +361,11 @@
                 })
                 $('.tbody').html('');
                 $('.tbody').append(str);
+
+                $('.response').click(function(){
+                    $('.pop1').css('display','block');
+                    chat_response_id = $(this).parents('td').siblings('td.chat_id')[0].innerHTML;
+                })
             },
             error:function(data) {
                 console.log("失败了");
@@ -391,13 +401,14 @@
 <!-- 回复信息 传值 -->
 <script>
     
-    function chat_response(id){
+    function chat_response(id,cont){
         $.ajax({
             type: 'POST',
             url: "{:url('admin/Chat/admin_chat_push')}",
             dataType: 'json',
             data: {
-                'id': id
+                'id': id,
+                'content':cont
             },
             success: function(data){
                console.log(data);
@@ -410,12 +421,13 @@
     // 确认
     $('.confirm').click(function(){
         $('.pop1').css('display','none');
-        chat_response(chat_response_id);
+        var response_cont = $('.mess_box textarea').val();
+        console.log(response_cont);
+        chat_response(chat_response_id,response_cont);
     })
     // 取消
     $('.cancel').click(function(){
         $('.pop1').css('display','none');
-        chat_response(chat_response_id);
     })
 
 </script>

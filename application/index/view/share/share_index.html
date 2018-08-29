@@ -332,7 +332,7 @@
                                                     <span class="time_box">'+timetrans(val.create_time)+'</span>\
                                                     <div class="operation">\
                                                         <!--这里你需要绑定一个id就是see_evaluation+一个回来的id-->\
-                                                        <a id="see_evaluation_'+val.order_id+'" class="see_evaluation">\
+                                                        <a id="see_evaluation_'+val.id+'" class="see_evaluation">\
                                                             <span>查看评论</span>\
                                                         </a>\
                                                     </div>\
@@ -356,7 +356,7 @@
                                             <div class="list_footer">\
                                                 <span class="time_box">'+timetrans(val.create_time)+'</span>\
                                                 <div class="operation">\
-                                                    <a id="see_evaluation_'+val.order_id+'" class="see_evaluation">\
+                                                    <a id="see_evaluation_'+val.id+'" class="see_evaluation">\
                                                         <span>查看评论</span>\
                                                     </a>\
                                                 </div>\
@@ -365,12 +365,31 @@
                             }
                             $('.list_box').html('');
                             $('.list_box').append(str);
+
+                            // 查看评价信息
+                            $('.see_evaluation').click(function(){
+                                var see_evaluation_id = $(this)[0].id.split('_')[2];
+                                $.ajax({
+                                    type:'POST',
+                                    url:'{:url("index/Share/share_evaluation")}',
+                                    data:{
+                                        'evaluation_id':see_evaluation_id
+                                    },
+                                    dataType: 'json',
+                                    success: function(data){
+                                        console.log(data);
+                                        window.location.href="{:url('index/Share/share_detail')}"
+                                    },
+                                    error:function(data) {
+                                        console.log("失败");
+                                    },
+                                });
+                            });
                         })
                     }else{
                         $('.list_box').html('');
                         return;
                     }
-                    
                 },
                 error:function(data) {
                     console.log("失败");
@@ -388,7 +407,7 @@
             },
             dataType: 'json',
             success: function(data){
-                // console.log(data);
+                console.log(data);
                 var str = '';
                 $.each(data.data,function(idx, val){
                     // console.log('第2次:'+idx,val)
@@ -409,7 +428,7 @@
                                     <span class="time_box">'+timetrans(val.create_time)+'</span>\
                                     <div class="operation">\
                                         <!--这里你需要绑定一个id就是see_evaluation+一个回来的id-->\
-                                        <a href="javascript:;" id="see_evaluation_'+val.order_id+'" class="see_evaluation">\
+                                        <a href="javascript:;" id="see_evaluation_'+val.id+'" class="see_evaluation">\
                                             <span>查看评论</span>\
                                         </a>\
                                     </div>\
@@ -418,6 +437,26 @@
                 })
                 $('.list_box').html('');
                 $('.list_box').append(str);
+
+                // 查看评价信息
+                $('.see_evaluation').click(function(){
+                    var see_evaluation_id = $(this)[0].id.split('_')[2];
+                    $.ajax({
+                        type:'POST',
+                        url:'{:url("index/Share/share_evaluation")}',
+                        data:{
+                            'evaluation_id':see_evaluation_id
+                        },
+                        dataType: 'json',
+                        success: function(data){
+                            console.log(data);
+                            window.location.href="{:url('index/Share/share_detail')}"
+                        },
+                        error:function(data) {
+                            console.log("失败");
+                        },
+                    });
+                });
             },
             error:function(data) {
                 console.log("失败");
@@ -425,28 +464,6 @@
         });
     })()
 </script>
-<!--查看评价信息-->
-<script>
-    // $('.see_evaluation').click(function(){
-    //     console.log(111)
-    //     var see_evaluation_id = $(this)[0].id.split('_')[2];
-    //         alert(see_evaluation_id);
-    //     $.ajax({
-    //         type:'POST',
-    //         url:'{:url("index/Share/share_evaluation")}',
-    //         data:{
-    //             'evaluation_id':see_evaluation_id
-    //         },
-    //         dataType: 'json',
-    //         success: function(data){
-    //             console.log(data);
-    //             window.location.href="{:url('index/Share/share_detail')}"
-    //         },
-    //         error:function(data) {
-    //             console.log("失败");
-    //         },
-    //     });
-    // });
-</script>
+
 </body>
 </html>
