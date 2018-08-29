@@ -307,8 +307,6 @@ Route::group("admin",[
     "chat_information_deletes"=>"admin/Chat/chat_information_deletes",
     /*未读中按下回复按钮进入回复页面把状态值改变为已读*/
     "reading_information"=>"admin/Chat/reading_information",
-    /*后台客服跟用户的聊天界面*/
-    "chat_window"=>"admin/Chat/chat_window",
 ]);
 
 
