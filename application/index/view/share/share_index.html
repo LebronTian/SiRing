@@ -200,7 +200,7 @@
             </div>
         </div>
         <div class="list_box">
-            {if !empty($all_evaluation_data)&& empty($phone_evaluation_data)}
+            {if !empty($all_evaluation_data)&& empty($phone_evaluation_data) && empey(:session('phone_evaluation_data')}
                 {volist name ="all_evaluation_data" id="vo"}
                 <section class="list_view">
                 <div class="user_box">

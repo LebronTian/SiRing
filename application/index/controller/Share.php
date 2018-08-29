@@ -158,9 +158,11 @@ class Share extends Controller{
                                     ->select();
                             }
                             session('phone_evaluation_data',$all_evaluation_data);
+
                         }
                     }
             }
+            return ajax_success('成功返回',$goods_type_id);
         }
     }
 
