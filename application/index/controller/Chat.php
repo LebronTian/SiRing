@@ -42,7 +42,7 @@ class  Chat extends  Base {
                         $data =[
                             'user_name'=>$user_data['user_name'],
                             'user_id'=>$user_data['id'],
-                            'phone_num'=>$user_data['phone_num'],
+                            'user_phone'=>$user_data['phone_num'],
                             'chat_content'=>$data_message,
                             'create_time'=>time(),
                         ];

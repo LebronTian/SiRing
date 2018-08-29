@@ -158,7 +158,6 @@ class Share extends Controller{
                                     ->select();
                             }
                             session('phone_evaluation_data',$all_evaluation_data);
-
                         }
                     }
             }

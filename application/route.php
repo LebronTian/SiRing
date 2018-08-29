@@ -54,6 +54,8 @@ Route::group("",[
 
     /*我的页面*/
     "member_index"=>"index/Member/index",
+    /*个人资料编辑*/
+    "member_edit"=>"index/member/member_edit",
     /*收货地址*/
     "address"=>"index/Member/address",
     // 我的地址
@@ -98,6 +100,7 @@ Route::group("",[
     /*注册页面*/
     "register"=>"index/Register/index",
     "register_code"=>"index/Register/code",
+
 
 
     /*短信注册*/

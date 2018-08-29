@@ -154,4 +154,9 @@ class  Member extends  Base {
     }
 
 
+    public function member_edit(){
+        return view('member_edit');
+    }
+
+
 }
