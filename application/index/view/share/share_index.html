@@ -245,7 +245,6 @@
             {volist name ="phone_evaluation_data" id="vo"}
                 {volist name="$vo" id="value"}
                 {$value.phone_num}
-
                 <section class="list_view">
                     <div class="user_box">
                         <div class="user_img">
@@ -271,14 +270,9 @@
                             {$value.create_time|date='Y-m-d H:i:s',###}
                         </span>
                         <div class="operation">
-
-                            <!--<a href="javascript:location.href='share_detail';">-->
-                            <!--<span>查看评论</span>-->
-                            <!--</a>-->
                             <a  id="see_evaluation_{$value.id}" class="see_evaluation">
                                 <span>查看评论</span>
                             </a>
-
                         </div>
                     </div>
                 </section>
@@ -364,8 +358,6 @@
         // 利用事件委托获取id
         $('.select_menu').click(function(e){
             var id = e.target.className.split('_')[1];
-            $('.select_phone_type .all').html(e.target.innerHTML);
-            $('.select_menu').addClass('upOrDown')
             $.ajax({
                 type:'POST',
                 url:'{:url("index/Share/get_phone_type_informations")}',
@@ -375,6 +367,9 @@
                 dataType: 'json',
                 success: function(data){
                     console.log(data);
+                    // location.reload();
+                    $('.select_phone_type .all').html(e.target.innerHTML);
+                    $('.select_menu').addClass('upOrDown')
                 },
                 error:function(data) {
                     console.log("失败");
