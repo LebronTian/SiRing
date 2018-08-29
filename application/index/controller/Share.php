@@ -26,23 +26,49 @@ class Share extends Controller{
      **************************************
      */
     public function share_index(){
-        $all_evaluation_data=Db::table("tb_evaluate")
-            ->field("tb_evaluate.*,tb_goods.goods_name goods_name,tb_goods.goods_show_images goods_show_images ,tb_user.phone_num phone_num")
-            ->join("tb_goods","tb_evaluate.goods_id=tb_goods.id",'left')
-            ->join("tb_user","tb_evaluate.user_id=tb_user.id",'left')
-            ->where('tb_evaluate.status',1)
-            ->order('tb_evaluate.create_time','desc')
-            ->select();
-        $this->assign("all_evaluation_data",$all_evaluation_data);
-        if(session::has('phone_evaluation_data')){
-            $phone_evaluation_data =Session::get('phone_evaluation_data');
-            //dump($phone_evaluation_data);
-            $this->assign('phone_evaluation_data',$phone_evaluation_data);
-            session('phone_evaluation_data',null);
-        }
-
         return view("share_index");
     }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 所有的晒单信息
+     **************************************
+     */
+        public function all_information(Request $request){
+            if($request->isPost()){
+                $get_id= $request->only(['id'])['id'];
+                if(!empty($get_id)&&$get_id==2){
+                    $all_evaluation_data=Db::table("tb_evaluate")
+                        ->field("tb_evaluate.*,tb_goods.goods_name goods_name,tb_goods.goods_show_images goods_show_images ,tb_user.phone_num phone_num")
+                        ->join("tb_goods","tb_evaluate.goods_id=tb_goods.id",'left')
+                        ->join("tb_user","tb_evaluate.user_id=tb_user.id",'left')
+                        ->where('tb_evaluate.status',1)
+                        ->order('tb_evaluate.create_time','desc')
+                        ->select();
+                    return ajax_success('全部数据返回',$all_evaluation_data);
+                }
+            }
+        }
+
+//    public function share_index(){
+//        $all_evaluation_data=Db::table("tb_evaluate")
+//            ->field("tb_evaluate.*,tb_goods.goods_name goods_name,tb_goods.goods_show_images goods_show_images ,tb_user.phone_num phone_num")
+//            ->join("tb_goods","tb_evaluate.goods_id=tb_goods.id",'left')
+//            ->join("tb_user","tb_evaluate.user_id=tb_user.id",'left')
+//            ->where('tb_evaluate.status',1)
+//            ->order('tb_evaluate.create_time','desc')
+//            ->select();
+//        $this->assign("all_evaluation_data",$all_evaluation_data);
+//        if(session::has('phone_evaluation_data')){
+//            $phone_evaluation_data =Session::get('phone_evaluation_data');
+//            //dump($phone_evaluation_data);
+//            $this->assign('phone_evaluation_data',$phone_evaluation_data);
+//            session('phone_evaluation_data',null);
+//        }
+//
+//        return view("share_index");
+//    }
 
 
     /**
@@ -157,11 +183,10 @@ class Share extends Controller{
                                     ->order('tb_evaluate.create_time','desc')
                                     ->select();
                             }
-                            session('phone_evaluation_data',$all_evaluation_data);
+                            return ajax_success('数据返回成功',$all_evaluation_data);
                         }
                     }
             }
-            return ajax_success('成功返回',$goods_type_id);
         }
     }
 
