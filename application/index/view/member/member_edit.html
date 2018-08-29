@@ -12,6 +12,48 @@
             margin: 0;
             padding: 0;
         }
+        .wrapper{
+            width: 100%;
+            padding: 10px;
+        }
+        .name, .mail, .sex{
+            width: 100%;
+            height: 35px;
+            border-bottom: 1px solid #dedede;
+            line-height: 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .name span, .mail span, .sex span{
+            font-size: 14px;
+        }
+        .name input, .mail input{
+            width: 80%;
+            height: 30px;
+            padding: 5px;
+            box-sizing: border-box;
+            font-size: 14px;
+            color: #ccc;
+            vertical-align: middle;
+        }
+        .sex select{
+            width: 80%;
+            height: 30px;
+            padding: 5px;
+            box-sizing: border-box;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+        .submit{
+            display: block;
+            width: 90%;
+            margin: 20px auto 0;
+            background-color: #f34347;
+            border: none;
+            font-size: 16px;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -24,10 +66,48 @@
         </div>
     </div>
     <div class="wrapper">
-        
+        <div class="name">
+            <span>用户名</span>
+            <input type="text" placeholder="输入用户名">
+        </div>
+        <div class="mail">
+            <span>邮箱</span>
+            <input type="text" placeholder="输入邮箱">
+        </div>
+        <div class="sex">
+            <span>性别</span>
+            <select name="" id="">
+                <option value="">男</option>
+                <option value="">女</option>
+            </select>
+        </div>
     </div>
+    <button class="submit">确认</button>
 
-    <script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
-
+<script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
+<script>
+    $('.submit').click(function(){
+        var name = $('.name input').val();
+        var mail = $('.mail input').val();
+        var sex = $('.sex select option:selected')[0].innerHTML;
+        console.log(name,mail,sex)
+        $.ajax({
+            type: 'POST',
+            url: "{:url('admin/Chat/admin_chat_push')}",
+            dataType: 'json',
+            data: {
+                'name': name,
+                'mail': mail,
+                'sex': sex
+            },
+            success: function(data){
+               console.log(data);
+            },
+            error:function(data) {
+                console.log('错误');
+            },
+        })
+    })
+</script>
 </body>
 </html>
