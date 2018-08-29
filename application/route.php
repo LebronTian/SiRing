@@ -144,8 +144,14 @@ Route::group("",[
     "discounts_index"=>"index/Discounts/index",
     "discounts_my"=>"index/Discounts/discounts_my",
 
-    // 在线客服
-    "chat"=>"index/chat/chat"
+    /*在线客服*/
+    "chat"=>"index/chat/chat",
+    /*用户发送信息*/
+    "chat_pull"=>"index/Chat/chat_push",
+    /*接收客服发送回来的信息*/
+    "chat_push"=>"index/Chat/chat_pull",
+
+
 
 ]);
 

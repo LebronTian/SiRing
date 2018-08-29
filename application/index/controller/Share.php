@@ -36,8 +36,9 @@ class Share extends Controller{
         $this->assign("all_evaluation_data",$all_evaluation_data);
         if(session::has('phone_evaluation_data')){
             $phone_evaluation_data =Session::get('phone_evaluation_data');
-            dump($phone_evaluation_data);
+            //dump($phone_evaluation_data);
             $this->assign('phone_evaluation_data',$phone_evaluation_data);
+            session('phone_evaluation_data',null);
         }
 
         return view("share_index");

@@ -234,44 +234,48 @@
                 {/volist}
             {/if}
 
-            {if empty($all_evaluation_data)&&!empty($phone_evaluation_data)}
-            {volist name ="aphone_evaluation_data" id="vo"}
-            <section class="list_view">
-                <div class="user_box">
-                    <div class="user_img">
-                        <img src="__UPLOADS__/{$vo.goods_show_images}" alt="">
-                    </div>
-                    <div class="user_msg">
-                        <div class="user_name">
-                            <span>{$vo.phone_num}</span>
+            {if !empty($all_evaluation_data)&&!empty($phone_evaluation_data)}
+            {volist name ="phone_evaluation_data" id="vo"}
+                {volist name="$vo" id="value"}
+                {$value.phone_num}
+
+                <section class="list_view">
+                    <div class="user_box">
+                        <div class="user_img">
+                            <img src="__UPLOADS__/{$value.goods_show_images}" alt="">
                         </div>
-                        <span class="product_label">{$vo.goods_name}</span>
+                        <div class="user_msg">
+                            <div class="user_name">
+                                <span>{$value.phone_num}</span>
+                            </div>
+                            <span class="product_label">{$value.goods_name}</span>
+                        </div>
                     </div>
-                </div>
-                <div class="comment_box">
-                    {$vo.evaluate_content}
-                </div>
-                <!-- 存放图片开始 -->
-                <div class="upload-img-view">
-                    <ul data-index="0" class="list-img-box clearfix"></ul>
-                </div>
-                <!-- 存放图片结束 -->
-                <div class="list_footer">
-                    <span class="time_box">
-                        {$vo.create_time|date='Y-m-d H:i:s',###}
-                    </span>
-                    <div class="operation">
-
-                        <!--<a href="javascript:location.href='share_detail';">-->
-                        <!--<span>查看评论</span>-->
-                        <!--</a>-->
-                        <a  id="see_evaluation_{$vo.id}" class="see_evaluation">
-                            <span>查看评论</span>
-                        </a>
-
+                    <div class="comment_box">
+                        {$value.evaluate_content}
                     </div>
-                </div>
-            </section>
+                    <!-- 存放图片开始 -->
+                    <div class="upload-img-view">
+                        <ul data-index="0" class="list-img-box clearfix"></ul>
+                    </div>
+                    <!-- 存放图片结束 -->
+                    <div class="list_footer">
+                        <span class="time_box">
+                            {$value.create_time|date='Y-m-d H:i:s',###}
+                        </span>
+                        <div class="operation">
+
+                            <!--<a href="javascript:location.href='share_detail';">-->
+                            <!--<span>查看评论</span>-->
+                            <!--</a>-->
+                            <a  id="see_evaluation_{$value.id}" class="see_evaluation">
+                                <span>查看评论</span>
+                            </a>
+
+                        </div>
+                    </div>
+                </section>
+                {/volist}
             {/volist}
             {/if}
         </div>
@@ -362,6 +366,7 @@
                 dataType: 'json',
                 success: function(data){
                     console.log(data);
+                    location.reload();
                 },
                 error:function(data) {
                     console.log("失败");
