@@ -111,7 +111,6 @@
     /*用户-删除*/
     function member_del(obj,id){
         // var idNum = (obj.id).split('_');
-        console.log($(obj).parents("tr"))
         $.ajax({
             url: "{:url('admin/Chat/chat_information_del')}",
             type: 'POST',
@@ -147,7 +146,6 @@
         $.ajax({
             type:'POST',
             url:'{:url("admin/Chat/all_information")}',
-            data:{},
             dataType: 'json',
             success: function(data){
                 console.log(data);
@@ -159,7 +157,7 @@
                         val.status = '已处理'
                     }
                     str += '<tr class="text-c">\
-                                <td><input type="checkbox" value="1" name=""></td>\
+                                <td><input type="checkbox" value="'+val.id+'" name=""></td>\
                                 <td>'+val.id+'</td>\
                                 <td>\
                                     <u style="cursor:pointer" class="text-primary">'+val.user_name+'</u>\
@@ -195,7 +193,6 @@
         $.ajax({
             type:'POST',
             url:'{:url("admin/Chat/read_all_information")}',
-            data:{},
             dataType: 'json',
             success: function(data){
                 console.log(data);
@@ -207,7 +204,7 @@
                         val.status = '已处理'
                     }
                     str += '<tr class="text-c">\
-                                <td><input type="checkbox" value="1" name=""></td>\
+                                <td><input type="checkbox" value="'+val.id+'" name=""></td>\
                                 <td>'+val.id+'</td>\
                                 <td>\
                                     <u style="cursor:pointer" class="text-primary">'+val.user_name+'</u>\
@@ -243,7 +240,6 @@
         $.ajax({
             type:'POST',
             url:'{:url("admin/Chat/unread_all_information")}',
-            data:{},
             dataType: 'json',
             success: function(data){
                 console.log(data);
@@ -255,7 +251,7 @@
                         val.status = '已处理'
                     }
                     str += '<tr class="text-c">\
-                                <td><input type="checkbox" value="1" name=""></td>\
+                                <td><input type="checkbox" value="'+val.id+'" name=""></td>\
                                 <td>'+val.id+'</td>\
                                 <td>\
                                     <u style="cursor:pointer" class="text-primary">'+val.user_name+'</u>\
@@ -285,7 +281,30 @@
         });
     })
 </script>
-
+<script>
+    $('.btn_del').click(function(){
+        var id_arr = [];
+        var checked_input = $('.text-c td').children('input:checked');
+        $.each(checked_input,function(idx,val){
+            id_arr.push(val.value);
+        })
+        $.ajax({
+            url: '{:url("admin/Chat/chat_information_deletes")}',
+            type: 'JSON',
+            dataType: 'POST',
+            async: false,
+            data: {
+                'id':id_arr
+            },
+            success: function(data){
+                console.log(data);
+            },
+            error: function(){
+                console.log('错误');
+            }
+        })
+    })
+</script>
 
 
 {/block}
