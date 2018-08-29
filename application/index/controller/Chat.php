@@ -45,6 +45,7 @@ class  Chat extends  Base {
                             'user_phone'=>$user_data['phone_num'],
                             'chat_content'=>$data_message,
                             'create_time'=>time(),
+                            'who_say'=>1
                         ];
                         $res =Db::name('chat')->data($data)->insert();
                         return ajax_success('发送成功',$res);
