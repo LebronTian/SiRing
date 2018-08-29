@@ -298,6 +298,10 @@ Route::group("admin",[
     "chat_index"=>"admin/Chat/index",
     /*后台获取用户发送过来的聊天信息*/
     "all_information"=>"admin/Chat/all_information",
+    /*后台获取用户发送过来的聊天信息(已读)*/
+    "read_all_information"=>"admin/Chat/read_all_information",
+    /*后台获取用户发送过来的聊天信息（未读）*/
+    "unread_all_information"=>"admin/Chat/unread_all_information",
 
 ]);
 

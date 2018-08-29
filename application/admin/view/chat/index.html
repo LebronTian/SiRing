@@ -4,13 +4,13 @@
 <div class="page-container">
     <div class="cl pd-5 bg-1 bk-gray mt-20">
 		<span class="l">
-			<a href="javascript:;" onclick="" class="btn btn-primary radius ">
+			<a href="{:url('admin/Chat/index')}"  class="btn btn-primary radius all_information">
                 全部
 			</a>
-			<a href="javascript:;" onclick="" class="btn btn-danger radius ">
+			<a href="javascript:;" onclick="" class="btn btn-danger radius unread_all_information">
                 未处理
 			</a>
-            <a href="javascript:;" onclick="" class="btn btn-primary radius">
+            <a href="javascript:;" onclick="" class="btn btn-primary radius read_all_information">
                 已处理
 			</a>
 		</span>
@@ -141,6 +141,41 @@
         });
     })()
 </script>
+<!--后台获取用户发送过来的聊天信息（已读）-->
+<script>
+    $(".read_all_information").click(function () {
+        $.ajax({
+            type:'POST',
+            url:'{:url("admin/Chat/read_all_information")}',
+            data:{},
+            dataType: 'json',
+            success: function(data){
+                console.log(data);
+            },
+            error:function(data) {
+                console.log("失败了");
+            },
+        });
+    })
+</script>
+<!--后台获取用户发送过来的聊天信息（未读）-->
+<script>
+    $(".unread_all_information").click(function () {
+        $.ajax({
+            type:'POST',
+            url:'{:url("admin/Chat/unread_all_information")}',
+            data:{},
+            dataType: 'json',
+            success: function(data){
+                console.log(data);
+            },
+            error:function(data) {
+                console.log("失败了");
+            },
+        });
+    })
+</script>
+
 
 
 {/block}

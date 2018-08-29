@@ -37,4 +37,36 @@ class  Chat extends Controller{
         }
     }
 
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 后台获取用户发送过来的聊天信息（已读）
+     **************************************
+     */
+    public function read_all_information(Request $request){
+        if($request->isPost()){
+            $res_data =Db::name('chat')->where('who_say',1)->where('status',1)->select();
+            if(!empty($res_data)){
+                return ajax_success('返回数据成功',$res_data);
+            }
+        }
+    }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 后台获取用户发送过来的聊天信息（未读）
+     **************************************
+     */
+    public function unread_all_information(Request $request){
+        if($request->isPost()){
+            $res_data =Db::name('chat')->where('who_say',1)->where('status',0)->select();
+            if(!empty($res_data)){
+                return ajax_success('返回数据成功',$res_data);
+            }
+        }
+    }
+
+
+
 }
