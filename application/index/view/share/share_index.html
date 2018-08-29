@@ -339,5 +339,25 @@
             });
         })
 </script>
+<!--已进入晒单页面显示的信息-->
+    <script>
+        function see_share_information() {
+                $.ajax({
+                    type:'POST',
+                    url:'{:url("index/Share/all_information_share")}',
+                    data:{
+                    },
+                    dataType: 'json',
+                    success: function(data){
+                        console.log(data);
+                    },
+                    error:function(data) {
+                        console.log("失败");
+                    },
+                });
+        }
+        see_share_information();
+    </script>
+
 </body>
 </html>
