@@ -401,15 +401,16 @@
             id_arr.push(val.value);
         })
         $.ajax({
-            url: '{:url("admin/Chat/chat_information_deletes")}',
-            type: 'JSON',
-            dataType: 'POST',
+            url: '{:url("admin/Chat/chat_deletes")}',
+            type: 'POST',
+            dataType: 'json',
             async: false,
             data: {
                 'id':id_arr
             },
             success: function(data){
-                console.log(data);
+                alert(data.msg);
+                location.reload();
             },
             error: function(){
                 console.log('错误');

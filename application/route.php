@@ -304,7 +304,7 @@ Route::group("admin",[
     /*后台聊天信息的删除*/
     "chat_information_del"=>"admin/Chat/chat_information_del",
     /*批量删除*/
-    "chat_information_deletes"=>"admin/Chat/chat_information_deletes",
+    "chat_information_deletes"=>"admin/Chat/chat_deletes",
     /*未读中按下回复按钮进入回复页面把状态值改变为已读*/
     "reading_information"=>"admin/Chat/reading_information",
     /*客服回复信息*/
