@@ -1,5 +1,62 @@
 {extend name="layout"}
 
+{block name="css"}
+<style>
+    .pop1{
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        width: 400px;
+        height: 300px;
+        background-color: #f8f8f8;
+        color: #000;
+        box-shadow:0 5px 15px rgba(33,33,33,.5);
+    }
+    .pop1 .title{
+        width: 100%;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    .pop1 .confirm{
+        width: 50%;
+        height: 45px;
+        cursor: pointer;
+        color: #0e90d2;
+        background-color: #f8f8f8;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        border-right: 1px solid #dedede;
+    }
+    .pop1 .confirm:hover{
+        background-color: #eee;
+    }
+    .pop1 .cancel{
+        width: 50%;
+        height: 45px;
+        cursor: pointer;
+        color: #0e90d2;
+        background-color: #f8f8f8;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+    .pop1 .cancel:hover{
+        background-color: #eee;
+    }
+    .mess_box textarea{
+        width: 100%;
+        padding:10px;
+        border: none;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+</style>
+{/block}
+
 {block name="content"}
 <div class="page-container">
     <div class="cl pd-5 bg-1 bk-gray mt-20">
@@ -46,7 +103,7 @@
                         <span class="label label-success radius">已处理</span>
                     </td>
                     <td class="td-manage">
-                        <a title="回复" href="javascript:;" onclick="" class="ml-5" style="text-decoration:none">
+                        <a title="回复" href="javascript:;" class="ml-5 response" style="text-decoration:none">
                             <i class="Hui-iconfont">&#xe6df;</i>
                         </a>
                         <a title="删除" href="javascript:;" onclick="" class="ml-5" style="text-decoration:none">
@@ -57,6 +114,14 @@
             </tbody>
         </table>
     </div>
+</div>
+<div class="pop1" style="display: none;">
+    <div class="title">回复信息</div>
+    <div class="mess_box">
+        <textarea name="" id="" cols="30" rows="10" placeholder="在这里回复信息..."></textarea>
+    </div>
+    <button class="confirm">确定</button>
+    <button class="cancel">取消</button>
 </div>
 {/block}
 
@@ -73,7 +138,7 @@
 <script type="text/javascript" src="__STATIC__/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/laypage/1.2/laypage.js"></script>
-<script type="text/javascript">
+<script type="text/javascript"> 
 
     $(function(){
         $('.table-sort').dataTable({
@@ -121,7 +186,6 @@
     /*用户-删除*/
     function member_del(obj,id){
         // var idNum = (obj.id).split('_');
-        console.log($(obj).parents("tr"))
         $.ajax({
             url: "{:url('admin/Chat/chat_information_del')}",
             type: 'POST',
@@ -153,14 +217,15 @@
         var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
         return Y+M+D+h+m+s;
     }
+
+    var chat_response_id;
     (function () {
         $.ajax({
             type:'POST',
             url:'{:url("admin/Chat/all_information")}',
-            data:{},
             dataType: 'json',
             success: function(data){
-                console.log(data);
+                // console.log(data);
                 var str = '';
                 $.each(data.data, function(idx, val){
                     if(val.status == 0){
@@ -169,8 +234,8 @@
                         val.status = '已处理'
                     }
                     str += '<tr class="text-c">\
-                                <td><input type="checkbox" value="1" name=""></td>\
-                                <td>'+val.id+'</td>\
+                                <td><input type="checkbox" value="'+val.id+'" name=""></td>\
+                                <td class="chat_id">'+val.id+'</td>\
                                 <td>\
                                     <u style="cursor:pointer" class="text-primary">'+val.user_name+'</u>\
                                 </td>\
@@ -181,7 +246,7 @@
                                     <span class="label label-success radius">'+val.status+'</span>\
                                 </td>\
                                 <td class="td-manage">\
-                                    <a title="回复" href="javascript:;" onclick="" class="ml-5" style="text-decoration:none">\
+                                    <a title="回复" href="javascript:;" class="ml-5 response">\
                                         <i class="Hui-iconfont">&#xe6df;</i>\
                                     </a>\
                                     <a title="删除" href="javascript:;" onclick="member_del(this,'+val.id+')" class="ml-5" style="text-decoration:none">\
@@ -192,6 +257,11 @@
                 })
                 $('.tbody').html('');
                 $('.tbody').append(str);
+
+                $('.response').click(function(){
+                    $('.pop1').css('display','block');
+                    chat_response_id = $(this).parents('td').siblings('td.chat_id')[0].innerHTML;
+                })
             },
             error:function(data) {
                 console.log("失败了");
@@ -205,10 +275,9 @@
         $.ajax({
             type:'POST',
             url:'{:url("admin/Chat/read_all_information")}',
-            data:{},
             dataType: 'json',
             success: function(data){
-                console.log(data);
+                // console.log(data);
                 var str = '';
                 $.each(data.data, function(idx, val){
                     if(val.status == 0){
@@ -217,8 +286,8 @@
                         val.status = '已处理'
                     }
                     str += '<tr class="text-c">\
-                                <td><input type="checkbox" value="1" name=""></td>\
-                                <td>'+val.id+'</td>\
+                                <td><input type="checkbox" value="'+val.id+'" name=""></td>\
+                                <td class="chat_id">'+val.id+'</td>\
                                 <td>\
                                     <u style="cursor:pointer" class="text-primary">'+val.user_name+'</u>\
                                 </td>\
@@ -229,7 +298,7 @@
                                     <span class="label label-success radius">'+val.status+'</span>\
                                 </td>\
                                 <td class="td-manage">\
-                                    <a title="回复" href="javascript:;" onclick="" class="ml-5" style="text-decoration:none">\
+                                    <a title="回复" href="javascript:;" class="ml-5 response" style="text-decoration:none">\
                                         <i class="Hui-iconfont">&#xe6df;</i>\
                                     </a>\
                                     <a title="删除" href="javascript:;" onclick="" class="ml-5" style="text-decoration:none">\
@@ -253,10 +322,9 @@
         $.ajax({
             type:'POST',
             url:'{:url("admin/Chat/unread_all_information")}',
-            data:{},
             dataType: 'json',
             success: function(data){
-                console.log(data);
+                // console.log(data);
                 var str = '';
                 $.each(data.data, function(idx, val){
                     if(val.status == 0){
@@ -265,8 +333,8 @@
                         val.status = '已处理'
                     }
                     str += '<tr class="text-c">\
-                                <td><input type="checkbox" value="1" name=""></td>\
-                                <td>'+val.id+'</td>\
+                                <td><input type="checkbox" value="'+val.id+'" name=""></td>\
+                                <td class="chat_id">'+val.id+'</td>\
                                 <td>\
                                     <u style="cursor:pointer" class="text-primary">'+val.user_name+'</u>\
                                 </td>\
@@ -277,7 +345,7 @@
                                     <span class="label label-success radius">'+val.status+'</span>\
                                 </td>\
                                 <td class="td-manage">\
-                                    <a title="回复" href="javascript:;" onclick="" class="ml-5" style="text-decoration:none">\
+                                    <a title="回复" href="javascript:;" class="ml-5" style="text-decoration:none">\
                                         <i class="Hui-iconfont">&#xe6df;</i>\
                                     </a>\
                                     <a title="删除" href="javascript:;" onclick="" class="ml-5" style="text-decoration:none">\
@@ -296,7 +364,59 @@
     })
     
 </script>
+<script>
+    $('.btn_del').click(function(){
+        var id_arr = [];
+        var checked_input = $('.text-c td').children('input:checked');
+        $.each(checked_input,function(idx,val){
+            id_arr.push(val.value);
+        })
+        $.ajax({
+            url: '{:url("admin/Chat/chat_information_deletes")}',
+            type: 'JSON',
+            dataType: 'POST',
+            async: false,
+            data: {
+                'id':id_arr
+            },
+            success: function(data){
+                console.log(data);
+            },
+            error: function(){
+                console.log('错误');
+            }
+        })
+    })
+</script>
+<!-- 回复信息 传值 -->
+<script>
+    
+    function chat_response(id){
+        $.ajax({
+            type: 'POST',
+            url: "{:url('admin/user/status')}",
+            dataType: 'json',
+            data: {
+                'id': id
+            },
+            success: function(data){
+               console.log(data);
+            },
+            error:function(data) {
+                console.log('错误');
+            },
+        })
+    }
+    // 确认
+    $('.confirm').click(function(){
+        $('.pop1').css('display','none');
+        chat_response(chat_response_id);
+    })
+    // 取消
+    $('.cancel').click(function(){
+        $('.pop1').css('display','none');
+        chat_response(chat_response_id);
+    })
 
-
-
+</script>
 {/block}
