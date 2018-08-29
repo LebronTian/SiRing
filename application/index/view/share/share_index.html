@@ -200,7 +200,7 @@
             </div>
         </div>
         <div class="list_box">
-            <section class="list_view">
+            <!-- <section class="list_view">
                 <div class="user_box">
                     <div class="user_img">
                         图片
@@ -213,26 +213,21 @@
                         <span class="product_label">商品名字</span>
                     </div>
                 </div>
-                <div class="comment_box">
-                        内容
-                </div>
-                <!-- 存放图片开始 -->
+                <div class="comment_box"></div>
                 <div class="upload-img-view">
                     <ul data-index="0" class="list-img-box clearfix"></ul>
                 </div>
-                <!-- 存放图片结束 -->
                 <div class="list_footer">
                     <span class="time_box">
                        时间
                     </span>
                     <div class="operation">
-                        <!--这里你需要绑定一个id就是see_evaluation+一个回来的id-->
                         <a  id="see_evaluation_id" class="see_evaluation">
                             <span>查看评论</span>
                         </a>
                     </div>
                 </div>
-            </section>
+            </section> -->
         </div>
     </div>
 
@@ -267,37 +262,25 @@
         $('.select_menu').toggleClass('upOrDown');
     })
 </script>
-    <!--查看评价信息-->
-<script>
-    $(".see_evaluation").click(function () {
-        var see_evaluation_id = $(this)[0].id.split('_')[2];
-         alert(see_evaluation_id);
-        $.ajax({
-            type:'POST',
-            url:'{:url("index/Share/share_evaluation")}',
-            data:{
-                'evaluation_id':see_evaluation_id
-            },
-            dataType: 'json',
-            success: function(data){
-                console.log(data);
-                window.location.href="{:url('index/Share/share_detail')}"
-            },
-            error:function(data) {
-                console.log("失败");
-            },
-        });
-    });
-</script>
 <!--点击获取手机品种类型-->
 <script>
+        function timetrans(date){
+            var date = new Date(date*1000);//如果date为13位不需要乘1000
+            var Y = date.getFullYear() + '-';
+            var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+            var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+            var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+            var m = (date.getMinutes() <10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+            var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
+            return Y+M+D+h+m+s;
+        }
         $('.select_phone_type').click(function () {
             $.ajax({
                 type:'POST',
                 url:'{:url("index/Share/phone_type")}',
                 dataType: 'json',
                 success: function(data){
-                    console.log(data);
+                    // console.log(data);
                     var len = data.data.length;
                     $('.select_menu').html('');
                     $('.select_menu').append('<li class="li_2">全部</li>')
@@ -324,14 +307,70 @@
                     console.log(data);
                     $('.select_phone_type .all').html(e.target.innerHTML);
                     $('.select_menu').addClass('upOrDown');
-                    var str = '<section class="list_view">';
-                    $.each(data.data,function(idx, val){
-                        console.log('第一次:'+idx,val)
-                        $.each(val,function(idx, val){
-                            console.log('第二次:'+idx,val)
+                    var str = '';
+                    if(data != null){
+                        // 第一次循环
+                        $.each(data.data,function(idx, val){
+                            // 第二次循环
+                            if(Array.isArray(val)){
+                                $.each(val,function(idx, val){
+                                    // console.log('第2次:'+idx,val)
+                                    str += '<section class="list_view">\
+                                                <div class="user_box">\
+                                                    <div class="user_img">\
+                                                        <img src="__UPLOADS__/'+val.goods_show_images+'">\
+                                                    </div>\
+                                                    <div class="user_msg">\
+                                                        <div class="user_name">\
+                                                            <span>'+val.phone_num+'</span>\
+                                                        </div>\
+                                                        <span class="product_label">'+val.goods_name+'</span>\
+                                                    </div>\
+                                                </div>\
+                                                <div class="comment_box">'+val.evaluate_content+'</div>\
+                                                <div class="list_footer">\
+                                                    <span class="time_box">'+timetrans(val.create_time)+'</span>\
+                                                    <div class="operation">\
+                                                        <!--这里你需要绑定一个id就是see_evaluation+一个回来的id-->\
+                                                        <a  id="see_evaluation_'+val.order_id+'" class="see_evaluation">\
+                                                            <span>查看评论</span>\
+                                                        </a>\
+                                                    </div>\
+                                                </div>\
+                                            </section>'
+                                })
+                            }else{
+                                str += '<section class="list_view">\
+                                            <div class="user_box">\
+                                                <div class="user_img">\
+                                                    <img src="__UPLOADS__/'+val.goods_show_images+'">\
+                                                </div>\
+                                                <div class="user_msg">\
+                                                    <div class="user_name">\
+                                                        <span>'+val.phone_num+'</span>\
+                                                    </div>\
+                                                    <span class="product_label">'+val.goods_name+'</span>\
+                                                </div>\
+                                            </div>\
+                                            <div class="comment_box">'+val.evaluate_content+'</div>\
+                                            <div class="list_footer">\
+                                                <span class="time_box">'+timetrans(val.create_time)+'</span>\
+                                                <div class="operation">\
+                                                    <a  id="see_evaluation_'+val.order_id+'" class="see_evaluation">\
+                                                        <span>查看评论</span>\
+                                                    </a>\
+                                                </div>\
+                                            </div>\
+                                        </section>'
+                            }
+                            $('.list_box').html('');
+                            $('.list_box').append(str);
                         })
-                    })
-
+                    }else{
+                        $('.list_box').html('');
+                        return;
+                    }
+                    
                 },
                 error:function(data) {
                     console.log("失败");
@@ -339,25 +378,76 @@
             });
         })
 </script>
-<!--已进入晒单页面显示的信息-->
-    <script>
-        function see_share_information() {
-                $.ajax({
-                    type:'POST',
-                    url:'{:url("index/Share/all_information_share")}',
-                    data:{
-                    },
-                    dataType: 'json',
-                    success: function(data){
-                        console.log(data);
-                    },
-                    error:function(data) {
-                        console.log("失败");
-                    },
-                });
-        }
-        see_share_information();
-    </script>
-
+<!--一进入晒单页面显示的信息-->
+<script>
+    function see_share_information() {
+            $.ajax({
+                type:'POST',
+                url:'{:url("index/Share/all_information_share")}',
+                data:{
+                },
+                dataType: 'json',
+                success: function(data){
+                    // console.log(data);
+                    var str = '';
+                    $.each(data.data,function(idx, val){
+                        // console.log('第2次:'+idx,val)
+                        str += '<section class="list_view">\
+                                    <div class="user_box">\
+                                        <div class="user_img">\
+                                            <img src="__UPLOADS__/'+val.goods_show_images+'">\
+                                        </div>\
+                                        <div class="user_msg">\
+                                            <div class="user_name">\
+                                                <span>'+val.phone_num+'</span>\
+                                            </div>\
+                                            <span class="product_label">'+val.goods_name+'</span>\
+                                        </div>\
+                                    </div>\
+                                    <div class="comment_box">'+val.evaluate_content+'</div>\
+                                    <div class="list_footer">\
+                                        <span class="time_box">'+timetrans(val.create_time)+'</span>\
+                                        <div class="operation">\
+                                            <!--这里你需要绑定一个id就是see_evaluation+一个回来的id-->\
+                                            <a  id="see_evaluation_'+val.order_id+'" class="see_evaluation">\
+                                                <span>查看评论</span>\
+                                            </a>\
+                                        </div>\
+                                    </div>\
+                                </section>'
+                    })
+                    $('.list_box').html('');
+                    $('.list_box').append(str);
+                },
+                error:function(data) {
+                    console.log("失败");
+                },
+            });
+    }
+    see_share_information();
+</script>
+<!--查看评价信息-->
+<script>
+    $('.see_evaluation').click(function () {
+        console.log(111)
+        var see_evaluation_id = $(this)[0].id.split('_')[2];
+            alert(see_evaluation_id);
+        $.ajax({
+            type:'POST',
+            url:'{:url("index/Share/share_evaluation")}',
+            data:{
+                'evaluation_id':see_evaluation_id
+            },
+            dataType: 'json',
+            success: function(data){
+                console.log(data);
+                window.location.href="{:url('index/Share/share_detail')}"
+            },
+            error:function(data) {
+                console.log("失败");
+            },
+        });
+    });
+</script>
 </body>
 </html>
