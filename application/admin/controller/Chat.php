@@ -99,7 +99,7 @@ class  Chat extends Controller{
             }else{
                 $where ='id='.$id;
             }
-            $list =  Db::name('chat')->where('id',$id)->delete();
+            $list =  Db::name('chat')->where($where)->delete();
             if($list!==false)
             {
                 $this->success('成功删除!');
