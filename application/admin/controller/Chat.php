@@ -118,7 +118,7 @@ class  Chat extends Controller{
     public function reading_information(Request $request){
         if($request->isPost()){
             $chat_id = $request->only(['id'])['id'];
-            if(!empty($cath_id)){
+            if(!empty($chat_id)){
                 $boll= Db::name('chat')->where('id',$chat_id)->update(['status=>1']);
                 if($boll){
                     return ajax_success('已读成功',$chat_id);
@@ -136,15 +136,15 @@ class  Chat extends Controller{
     public function admin_chat_push(Request $request){
         if($request->isPost()){
             $chat_id = $request->only(['id'])['id'];
-            $admin_reply =$request->only(['id'])['id'];
-            if(!empty($cath_id)&&!empty($admin_reply)){
+            $admin_reply =$request->only(['content'])['content'];
+            if(!empty($chat_id)&&!empty($admin_reply)){
                 $data =[
                   'chat_id'=>$chat_id,
                     'reply_content'=>$admin_reply,
                     'create_time'=>time()
                 ];
-                 Db::name('chat')->where('id',$chat_id)->update(['status=>1']);
-                $boll= Db::name('admin_chat_reply')->where('chat_id',$chat_id)->data($data)->insert();
+                Db::name('chat')->where('id',$chat_id)->update(['status'=>1]);
+                $boll= Db::name('admin_chat_reply')->data($data)->insert();
                 if($boll){
                     return ajax_success('回复信息成功',$data);
                 }
