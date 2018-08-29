@@ -390,13 +390,14 @@
 <!-- 回复信息 传值 -->
 <script>
     
-    function chat_response(id){
+    function chat_response(id,cont){
         $.ajax({
             type: 'POST',
             url: "{:url('admin/user/status')}",
             dataType: 'json',
             data: {
-                'id': id
+                'id': id,
+                'content':cont
             },
             success: function(data){
                console.log(data);
@@ -409,12 +410,13 @@
     // 确认
     $('.confirm').click(function(){
         $('.pop1').css('display','none');
-        chat_response(chat_response_id);
+        var response_cont = $('.mess_box textarea').val();
+        console.log(response_cont);
+        chat_response(chat_response_id,response_cont);
     })
     // 取消
     $('.cancel').click(function(){
         $('.pop1').css('display','none');
-        chat_response(chat_response_id);
     })
 
 </script>
