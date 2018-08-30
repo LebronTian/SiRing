@@ -54,6 +54,9 @@
             font-size: 16px;
             color: #fff;
         }
+        .wrapper input{
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -65,14 +68,15 @@
             <div id="title" class="h1 title">个人资料</div>
         </div>
     </div>
+
     <div class="wrapper">
         <div class="name">
             <span>用户名</span>
-            <input type="text" placeholder="输入用户名">
+            <input type="text" placeholder="输入用户名" value="" class="user_name">
         </div>
         <div class="mail">
             <span>邮箱</span>
-            <input type="text" placeholder="输入邮箱">
+            <input type="text" placeholder="输入邮箱" value="" class="email_information">
         </div>
         <div class="sex">
             <span>性别</span>
@@ -82,9 +86,11 @@
             </select>
         </div>
     </div>
+
     <button class="submit">确认</button>
 
 <script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
+    <!--个人信息进行更改-->
 <script>
     $('.submit').click(function(){
         var name = $('.name input').val();
@@ -93,7 +99,7 @@
         console.log(name,mail,sex)
         $.ajax({
             type: 'POST',
-            url: "{:url('admin/Chat/admin_chat_push')}",
+            url: "{:url('index/member/member_edit_active')}",
             dataType: 'json',
             data: {
                 'name': name,
@@ -101,7 +107,8 @@
                 'sex': sex
             },
             success: function(data){
-               console.log(data);
+               alert(data.info);
+               window.location.href ="{:url('index/Member/index')}"
             },
             error:function(data) {
                 console.log('错误');
@@ -109,5 +116,30 @@
         })
     })
 </script>
+    <!--获取个人信息-->
+    <script>
+        (function () {
+            $.ajax({
+                type: 'POST',
+                url: "{:url('index/member/get_member_information')}",
+                dataType: 'json',
+                data: {
+                },
+                success: function(data){
+                    $(".user_name").val(data.data.user_name);
+                    $(".email_information").val(data.data.email);
+                    console.log($('.sex select option'));
+                    for(var i = 0; i < 2; i++){
+                        if($('.sex select option')[i].innerHTML == data.data.sex){
+                            $('.sex select option')[i].selected = true;
+                        }
+                    }
+                },
+                error:function(data) {
+                    console.log('错误');
+                },
+            })
+        })()
+    </script>
 </body>
 </html>

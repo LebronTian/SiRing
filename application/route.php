@@ -54,8 +54,11 @@ Route::group("",[
 
     /*我的页面*/
     "member_index"=>"index/Member/index",
-    /*个人资料编辑*/
+    /*个人资料添加*/
     "member_edit"=>"index/member/member_edit",
+    "member_edit_active"=>"index/Member/member_edit_active",
+    /*如何有个人信息则进行编辑*/
+    "get_member_information"=>"index/Member/get_member_information",
     /*收货地址*/
     "address"=>"index/Member/address",
     // 我的地址
