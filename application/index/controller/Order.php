@@ -63,7 +63,6 @@ class Order extends Base {
 
         return view("index");
     }
-
     /**
      **************李火生*******************
      * @param Request $request
@@ -74,7 +73,11 @@ class Order extends Base {
         if($request->isPost()){
             $data =$_POST;
             $member_data =session('member');
-            $member_id =Db::name('user')->field('id')->where('phone_num',$member_data['phone_num'])->find();
+            $member =Db::name('user')->field('id,harvester,harvester_phone_num,city,address')->where('phone_num',$member_data['phone_num'])->find();
+            if(!empty($member['city'])){
+                $my_position =explode(",",$member['city']);
+                $position = $my_position[0].$my_position[1].$my_position[2].$member['address'];
+            }
             $commodity_id =Session::get('goods_id');
             $goods_data =Db::name('goods')->where('id',$commodity_id)->find();
             $create_time = time();
@@ -83,7 +86,10 @@ class Order extends Base {
                    'goods_img'=>$goods_data['goods_show_images'],
                    'goods_name'=>$data['goods_name'],
                    'order_num'=>$data['order_num'],
-                   'user_id'=>$member_id['id'],
+                   'user_id'=>$member['id'],
+                   'harvest_address'=>$member['harvester'],
+                   'harvest_phone_num'=>$member['harvester_phone_num'],
+                   'harvest_address'=>$position,
                    'create_time'=>$create_time,
                    'pay_money'=>$data['all_pay'],
                    'status'=>1,
@@ -92,10 +98,11 @@ class Order extends Base {
                ];
                $res =Db::name('order')->data($datas)->insert();
                if($res){
-//                  Session::delete('goods_id');
-                   $this->success('下单成功');
+                   //Session::delete('goods_id');
+//                   $this->success('下单成功');
+                   return ajax_success('下单成功',$datas);
                }
-               return ajax_success('获取成功',$datas);
+
            }
         }
     }
@@ -133,6 +140,7 @@ class Order extends Base {
                         ->field("tb_order.*,tb_goods.goods_bottom_money goods_bottom_money")
                         ->join("tb_goods","tb_order.goods_id=tb_goods.id and tb_order.id=$order_id",'left')
                         ->find();
+                   // dump($data);
                    $this->assign('data',$data);
                 }
             return view('details');
