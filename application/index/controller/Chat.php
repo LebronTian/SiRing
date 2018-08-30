@@ -66,11 +66,7 @@ class  Chat extends  Base {
             $member =Session::get('member');
             $member_id =Db::name('user')->field('id')->where('phone_num',$member['phone_num'])->find();
            if(!empty($member_id)){
-               $all_chat_data=Db::table("tb_chat")
-                   ->field("tb_chat.*,tb_admin_chat_reply.reply_content reply_content,tb_admin_chat_reply.create_time reply_create_time")
-                   ->join("tb_admin_chat_reply","tb_chat.id=tb_admin_chat_reply.chat_id",'left')
-                   ->where('tb_chat.user_id',$member_id['id'])
-                   ->select();
+               $all_chat_data=Db::name('chat')->where('user_id',$member_id['id'])->order('create_time','asc')->select();
                if(!empty($all_chat_data)){
                    return ajax_success('接收成功',$all_chat_data);
                }

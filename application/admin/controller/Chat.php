@@ -140,13 +140,16 @@ class  Chat extends Controller{
     public function admin_chat_push(Request $request){
         if($request->isPost()){
             $chat_id = $request->only(['id'])['id'];
+
             $admin_reply =$request->only(['content'])['content'];
             if(!empty($chat_id)&&!empty($admin_reply)){
+                $user_id =Db::name('chat')->field('user_id')->where('id',$chat_id)->find();
                 $data =[
-                  'chat_id'=>$chat_id,
+                    'chat_id'=>$chat_id,
                     'reply_content'=>$admin_reply,
                     'who_say'=>2,
-                    'create_time'=>time()
+                    'create_time'=>time(),
+                    'user_id'=>$user_id['user_id']
                 ];
                 Db::name('chat')->where('id',$chat_id)->update(['status'=>1]);
                 $boll= Db::name('chat')->data($data)->insert();
