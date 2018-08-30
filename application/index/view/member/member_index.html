@@ -42,8 +42,8 @@
 <body>
     <section class="aui-content user-info aui-text-center aui-margin-b-15">
         <input class="files" name="evaluation_images[]" id="myFile" type="file" hidden multiple="multiple">
+        <a href="javascript:;" class="visible_box"><img src="__STATIC__/index/image/toux.jpg" class="avatar aui-img-round"></a>
         <a href="{:url('index/member/member_edit')}">
-            <img src="__STATIC__/index/image/toux.jpg" class="avatar aui-img-round">
             <h2 class="aui-margin-t-15 member_name" style="color:#000;">小明<small><i class="aui-iconfont aui-icon-cert aui-text-danger"></i></small></h2>
         </a>
     </section>
@@ -159,6 +159,30 @@
 <script type="text/javascript" src="__STATIC__/index/js/index/aui-slide.js"></script>
 <script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
 <script type="text/javascript">
+    // 换头像
+     $('.visible_box').click(function(){
+        $('.files').click();
+        $.ajax({
+            url: '{:url("")}',
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            data: {
+                
+            },
+            success: function(data){
+                console.log(data);
+            },
+            error: function(){
+                console.log('错误')
+            }
+        })
+    })
+    $('#myFile').change(function(){
+        var filepath = $("input[name='evaluation_images[]']").val();
+    })
+    
+
     var slide = new auiSlide({
         container:document.getElementById("aui-slide"),
         // "width":300,
@@ -221,7 +245,7 @@
             },
             success: function (data) {
             console.log(data);
-            $('.member_name').html(data.data.user_name);
+            $('.member_name').innerText=data.data.user_name;
             },
             error: function (data) {
                 console.log('错误');

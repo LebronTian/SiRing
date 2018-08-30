@@ -96,6 +96,7 @@ Route::group("",[
     'order_pay_test'=>"index/order/order_pay_test",
     /*登录页面*/
     "login"=>"index/Login/login",
+    /*退出登录*/
     "logout"=>"index/Login/logout",
 
     /*验证码*/
