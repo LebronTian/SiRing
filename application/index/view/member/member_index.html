@@ -31,7 +31,7 @@
     <section class="aui-content user-info aui-text-center aui-margin-b-15">
         <a href="{:url('index/member/member_edit')}">
             <img src="__STATIC__/index/image/toux.jpg" class="avatar aui-img-round">
-            <h2 class="aui-margin-t-15">杂货铺的<small><i class="aui-iconfont aui-icon-cert aui-text-danger"></i></small></h2>
+            <h2 class="aui-margin-t-15 member_name">小明<small><i class="aui-iconfont aui-icon-cert aui-text-danger"></i></small></h2>
         </a>
     </section>
 
@@ -143,6 +143,7 @@
 <script type="text/javascript" src="__STATIC__/index/js/index/api.js" ></script>
 <script type="text/javascript" src="__STATIC__/index/js/index/aui-tab.js" ></script>
 <script type="text/javascript" src="__STATIC__/index/js/index/aui-slide.js"></script>
+<script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
 <script type="text/javascript">
     var slide = new auiSlide({
         container:document.getElementById("aui-slide"),
@@ -195,4 +196,26 @@
         }
     });
 </script>
+
+<script>
+    (function () {
+        $.ajax({
+            type: 'POST',
+            url: "{:url('index/member/get_user_information')}",
+            dataType: 'json',
+            data: {
+            },
+            success: function (data) {
+            console.log(data);
+            $('.member_name').html(data.data.user_name);
+            },
+            error: function (data) {
+                console.log('错误');
+            },
+        });
+    })()
+</script>
+
+
+
 </html>

@@ -23,6 +23,18 @@ class  Member extends  Base {
     public  function  index(){
         return view('member_index');
     }
+    public function get_user_information(Request $request){
+        if($request->isPost()){
+            $member = Session::get('member');
+            if(!empty($member)){
+                $res =Db::name('user')->where('phone_num',$member['phone_num'])->find();
+                if(!empty($res)){
+                    return ajax_success('成功获取',$res);
+                }
+            }
+
+        }
+    }
 
     /**
      **************李火生*******************
@@ -44,6 +56,11 @@ class  Member extends  Base {
         return view('address');
     }
 
+    /**
+     **************李火生*******************
+     * 三级城市
+     **************************************
+     */
     public function getRegions(){
         $Region=Db::name("tree");
         $map['pid']=$_REQUEST["pid"];

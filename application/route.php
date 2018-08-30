@@ -54,6 +54,8 @@ Route::group("",[
 
     /*我的页面*/
     "member_index"=>"index/Member/index",
+    /*我的页面的用户名信息*/
+    "get_user_information"=>"index/Member/get_user_information",
     /*个人资料添加*/
     "member_edit"=>"index/member/member_edit",
     "member_edit_active"=>"index/Member/member_edit_active",
