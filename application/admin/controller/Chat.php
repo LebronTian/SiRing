@@ -78,7 +78,7 @@ class  Chat extends Controller{
             $chat_id = $request->only(['id'])['id'];
             if(!empty($chat_id)){
                 $boll= Db::name('chat')->where('id',$chat_id)->delete();
-                $b =Db::name('admin_chat_reply')->where('chat_id',$chat_id)->delete();
+                Db::name('chat')->where('chat_id',$chat_id)->delete();
                 if($boll){
                     return ajax_success('删除成功',$chat_id);
                 }
@@ -103,7 +103,7 @@ class  Chat extends Controller{
                 $wheres ='chat_id='.$id;
             }
             $list =  Db::name('chat')->where($where)->delete();
-            $b =Db::name('admin_chat_reply')->where($wheres)->delete();
+            $b =Db::name('chat')->where($wheres)->delete();
             if($list!==false)
             {
                 $this->success('成功删除!');
