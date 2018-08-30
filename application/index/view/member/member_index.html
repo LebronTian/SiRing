@@ -24,14 +24,26 @@
             background-color: #ffffff;
             line-height: 1.2rem;
         }
-
+        .login_out{
+            display: block;
+            width: 90%;
+            margin: 20px auto 0;
+            background-color: #f34347;
+            border: none;
+            font-size: 16px;
+            color: #fff;
+            text-align: center;
+            height: 35px;
+            border-radius: 4px;
+            line-height: 35px;
+        }
     </style>
 </head>
 <body>
     <section class="aui-content user-info aui-text-center aui-margin-b-15">
         <a href="{:url('index/member/member_edit')}">
             <img src="__STATIC__/index/image/toux.jpg" class="avatar aui-img-round">
-            <h2 class="aui-margin-t-15 member_name">小明<small><i class="aui-iconfont aui-icon-cert aui-text-danger"></i></small></h2>
+            <h2 class="aui-margin-t-15 member_name" style="color:#000;">小明<small><i class="aui-iconfont aui-icon-cert aui-text-danger"></i></small></h2>
         </a>
     </section>
 
@@ -100,7 +112,7 @@
             </li>
             <li class="aui-list-item">
                 <div class="aui-list-item-label-icon">
-                    <i class="aui-iconfont aui-icon-like aui-text-danger"></i>
+                    <i class="aui-iconfont aui-icon-cert aui-text-danger"></i>
                 </div>
                 <div class="aui-list-item-inner aui-list-item-arrow">
                     <a href="{:url('index/Discounts/discounts_my')}" style="width: 100%;">
@@ -111,10 +123,11 @@
             </li>
         </ul>
     </section>
+    <a href="{:url('index/Login/logout')}" class="login_out">退出登录</a>
+    
     <div style="height:48px"></div>
-    <div id="demo" style="display:none">
+    <div id="demo" style="display:none"></div>
 
-    </div>
     <footer class="aui-bar aui-bar-tab aui-bar-tab-cl aui-border-t" id="footer">
         <a href="{:url('index/index/index')}" class="aui-bar-tab-item " tapmode>
             <i class="aui-iconfont aui-icon-home home"></i>
