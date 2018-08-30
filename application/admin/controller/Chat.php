@@ -145,10 +145,11 @@ class  Chat extends Controller{
                 $data =[
                   'chat_id'=>$chat_id,
                     'reply_content'=>$admin_reply,
+                    'who_say'=>2,
                     'create_time'=>time()
                 ];
                 Db::name('chat')->where('id',$chat_id)->update(['status'=>1]);
-                $boll= Db::name('admin_chat_reply')->data($data)->insert();
+                $boll= Db::name('chat')->data($data)->insert();
                 if($boll){
                     return ajax_success('回复信息成功',$data);
                 }
