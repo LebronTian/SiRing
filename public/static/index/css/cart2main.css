@@ -750,7 +750,9 @@
 
 .cart-page.main .cart-footer {
 	position: fixed;
-	display: -webkit-box;
+	display: flex;
+	align-items: center;
+	flex-direction: row-reverse;
 	left: 0;
 	bottom: 0;
 	width: 100%;
@@ -768,9 +770,9 @@
 }
 
 .cart-page.main .cart-footer>a {
-	width: 4.8rem;
-	height: 100%;
-	line-height: 2rem;
+	width: 4rem;
+	height: 1.5rem;
+	line-height: 1.5rem;
 	font-size: .6rem;
 	-webkit-border-radius: 0;
 	-moz-border-radius: 0;
