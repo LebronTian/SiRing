@@ -87,7 +87,7 @@ class Order extends Base {
                    'goods_name'=>$data['goods_name'],
                    'order_num'=>$data['order_num'],
                    'user_id'=>$member['id'],
-                   'harvest_address'=>$member['harvester'],
+                   'harvester'=>$member['harvester'],
                    'harvest_phone_num'=>$member['harvester_phone_num'],
                    'harvest_address'=>$position,
                    'create_time'=>$create_time,
@@ -96,11 +96,10 @@ class Order extends Base {
                    'goods_id'=>$commodity_id,
                    'send_money'=>$data['express_fee']
                ];
-               $res =Db::name('order')->data($datas)->insert();
+               $res =Db::name('order')->insertGetId($datas);
                if($res){
-                   //Session::delete('goods_id');
-//                   $this->success('下单成功');
-                   session('order_data',$datas);
+                   Session::delete('goods_id');
+                   session('order_id',$res);
                    return ajax_success('下单成功',$datas);
                }
 
@@ -135,34 +134,7 @@ class Order extends Base {
      **************************************
      */
         public function details(){
-            $order_data =Session::get('order_data');
-            if(!empty($order_data)){
-                $member_phone =Session::get('member');
-                $member = Db::name('user')->field('harvester,harvester_phone_num,address,city')->where('phone_num',$member_phone['phone_num'])->find();
-                if(!empty($member['city'])){
-                    $my_position =explode(",",$member['city']);
-                    $position = $my_position[0].$my_position[1].$my_position[2].$member['address'];
-                    $goods_bottom_money =$order_data['pay_money']-$order_data['send_money'];
-                    $data =[
-                        'goods_img'=>$order_data['goods_img'],
-                        'goods_name'=>$order_data['goods_name'],
-                        'order_num'=>$order_data['order_num'],
-                        'user_id'=>$order_data['user_id'],
-                        'pay_money'=>$order_data['pay_money'],
-                        'status'=>$order_data['status'],
-                        'goods_id'=>$order_data['goods_id'],
-                        'send_money'=>$order_data['send_money'],
-                        'harvester'=>$member['harvester'],
-                        'harvest_address'=>$position,
-                        'harvest_phone_num'=>$member['harvester_phone_num'],
-                        'goods_bottom_money'=>$goods_bottom_money,
-                    ];
-                    $this->assign('data',$data);
-                    session('order_data',null);
-                }
-
-            }
-                $order_id = Session::get("order_id");
+            $order_id = Session::get("order_id");
             if(!empty($order_id)){
                     $data=Db::table("tb_order")
                         ->field("tb_order.*,tb_goods.goods_bottom_money goods_bottom_money")
