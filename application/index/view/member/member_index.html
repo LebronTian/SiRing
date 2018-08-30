@@ -44,7 +44,7 @@
         <input class="files" name="evaluation_images[]" id="myFile" type="file" hidden multiple="multiple">
         <a href="javascript:;" class="visible_box"><img src="__STATIC__/index/image/toux.jpg" class="avatar aui-img-round"></a>
         <a href="{:url('index/member/member_edit')}">
-            <h2 class="aui-margin-t-15 member_name" style="color:#000;">小明<small><i class="aui-iconfont aui-icon-cert aui-text-danger"></i></small></h2>
+            <h2 class="aui-margin-t-15" style="color:#000;"><span class="member_name">小明</span> <small><i class="aui-iconfont aui-icon-cert aui-text-danger"></i></small></h2>
         </a>
     </section>
 
@@ -244,8 +244,8 @@
             data: {
             },
             success: function (data) {
-            console.log(data);
-            $('.member_name').innerText=data.data.user_name;
+                console.log(data);
+                $('.member_name')[0].innerText = data.data.user_name;
             },
             error: function (data) {
                 console.log('错误');
