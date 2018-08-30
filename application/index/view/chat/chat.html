@@ -58,10 +58,19 @@
                 dataType: 'JSON',
                 async: false,
                 type: 'POST',
-                data: {
-                },
                 success: function(data){
-                  console.log(data);
+                    console.log(data);
+                    var str = '';
+                    $.each(data.data, function(idx, val){
+                        if(val.reply_content != null){
+                            str += '<div class="btalk"><span id="bsay">'+val.chat_content+'</span></div>\
+                                    <div class="atalk"><span id="asay">'+val.reply_content+'</span></div>'
+                        }else{
+                            str += '<div class="btalk"><span id="bsay">'+val.chat_content+'</span></div>'
+                        }
+                    })
+                    $('.message_show').html('');
+                    $('.message_show').append(str);
                 },
                 error: function(){
                     console.log('错误');
