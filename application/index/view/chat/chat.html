@@ -63,11 +63,13 @@
                     var str = '';
                     if(data != null){
                         $.each(data.data, function(idx, val){
-                        if(val.reply_content != null){
+                            if(val.reply_content != null && val.chat_content != null){
                                 str += '<div class="btalk"><span class="bsay">'+val.chat_content+'</span></div>\
                                         <div class="atalk"><span class="asay">'+val.reply_content+'</span></div>'
-                            }else{
+                            }else if(val.reply_content == null){
                                 str += '<div class="btalk"><span class="bsay">'+val.chat_content+'</span></div>'
+                            }else if(val.chat_content == null){
+                                str += '<div class="atalk"><span class="asay">'+val.reply_content+'</span></div>'
                             }
                         })
                         $('.message_show').html('');
