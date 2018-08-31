@@ -33,7 +33,7 @@
     border-bottom: 2px solid #f34347;
 }
 .header_box, .header_box .bar-header{
-    background-color: #f34347;
+    background-color: #fff;
 }
 .header_box a{
     padding-top:5px; 
@@ -42,7 +42,7 @@
 }
 .header_box a i{
     font-weight:800;
-    color:#fff; 
+    color:#000; 
     font-size:20px;
 }
 .header_box .title{

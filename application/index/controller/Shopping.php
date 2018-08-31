@@ -51,7 +51,7 @@ class Shopping extends Base {
                         $shopping[$key]['goods_num'] = $value['goods_num']+1;
                         $shopping[$key]['money'] = array_sum($money);
                         $shopping[$key]['goods_unit'] = $value['goods_unit']+1;
-                        $bool = db("shopping")->where("goods_id",$goods_id)->update($shopping[$key]);
+                        $bool = db("shopping")->where("goods_id",$goods_id)->update($shopping[0]);
                         return ajax_success("获取成功",$bool);
                     }
                 }
