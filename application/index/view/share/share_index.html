@@ -412,7 +412,9 @@
                 var str = '';
                 var reg = /(\d{3})(\d{4})(\d{4})/;
                 $.each(data.data,function(idx, val){
-                    // console.log('第2次:'+idx,val)
+                    if(val.phone_num != null){
+                        val.phone_num = val.phone_num.replace(reg,'$1****$2');
+                    }
                     str += '<section class="list_view">\
                                 <div class="user_box">\
                                     <div class="user_img">\
@@ -420,7 +422,7 @@
                                     </div>\
                                     <div class="user_msg">\
                                         <div class="user_name">\
-                                            <span>'+val.phone_num.replace(reg,'$1****$2')+'</span>\
+                                            <span>'+val.phone_num+'</span>\
                                         </div>\
                                         <span class="product_label">'+val.goods_name+'</span>\
                                     </div>\
