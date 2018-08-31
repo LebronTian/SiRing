@@ -44,6 +44,7 @@ class Shopping extends Base {
                 $goods_id = $request->only(['id'])['id'];
                 $goods = db("goods")->where("id",$goods_id)->find();
                 $shopping = db("shopping")->select();
+
                 foreach ($shopping as $key=>$value){
                     if($goods_id == $value['goods_id']){
                         $money = array($value['money'],$goods['goods_bottom_money']);

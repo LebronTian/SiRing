@@ -70,7 +70,6 @@ class Goods extends  Controller{
             $goods_images = db("goods_images")->select();
             $seckill = db("seckill")->where("goods_id",$id)->field("seckill_money,over_time,start_time")->find();
             $time = time();
-            $over_time = db("seckill")->where("over_time","<",$time)->select();
             foreach ($goods as $key => $value) {
                 foreach ($goods_images as $val) {
                     if ($value['id'] == $val['goods_id']) {
@@ -81,11 +80,11 @@ class Goods extends  Controller{
                             $goods[$key]['start_time'] = $seckill['start_time'];
                             $goods[$key]['over_time'] = $seckill['over_time'];
                         }
-                        if(!empty($over_time)){
-                            $goods[$key]['start_time'] = "";
-                            $goods[$key]['over_time'] = "";
+                        if($time > $seckill['over_time']){
+                            unset($goods[$key]['start_time']);
+                            unset($goods[$key]['over_time']);
                             $goods[$key]['goods_bottom_money'] = $value['goods_bottom_money'];
-                            return ajax_error("获取成功",$goods);
+                            return ajax_error("失败",$goods);
                         }
                     }
                 }
