@@ -37,7 +37,7 @@
         <!--已完成-->
         {if condition="($vo['status'] eq 7 )OR($vo['status'] eq 10 )"}
         <li class="order_li">
-            <a  id="details_order_{$vo.id}" class="details_order">
+            <a  id="details_order_{$vo.id}_{$vo.status}" class="details_order">
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-media" style="width:8rem; height: 90px;">
                         <img src="__UPLOADS__/{$vo.goods_img}">
@@ -58,7 +58,7 @@
         <!--待付款-->
         {if condition="($vo['status'] eq 1)"}
         <li class="order_li">
-            <a  id="details_order_{$vo.id}" class="details_order">
+            <a  id="details_order_{$vo.id}_{$vo.status}" class="details_order">
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-media" style="width:8rem; height: 90px;">
                         <img src="__UPLOADS__/{$vo.goods_img}">
@@ -81,7 +81,7 @@
         <!--待发货-->
         {if condition="($vo['status'] eq 2)"}
         <li class="order_li">
-            <a  id="details_order_{$vo.id}" class="details_order">
+            <a  id="details_order_{$vo.id}_{$vo.status}" class="details_order">
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-media" style="width:8rem; height: 90px;">
                         <img src="__UPLOADS__/{$vo.goods_img}">
@@ -101,7 +101,7 @@
         <!--待收货-->
         {if condition="($vo['status'] eq 3)OR($vo['status'] eq 4)"/}
         <li class="order_li">
-            <a  id="details_order_{$vo.id}" class="details_order">
+            <a  id="details_order_{$vo.id}_{$vo.status}" class="details_order">
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-media" style="width:8rem; height: 90px;">
                         <img src="__UPLOADS__/{$vo.goods_img}">
@@ -123,7 +123,7 @@
         <!--待评价-->
         {if condition="($vo['status'] eq 5)OR ($vo['status'] eq 6)"/}
         <li class="order_li">
-            <a id="details_order_{$vo.id}" class="details_order">
+            <a id="details_order_{$vo.id}_{$vo.status}" class="details_order">
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-media" style="width:8rem; height: 90px;">
                         <img src="__UPLOADS__/{$vo.goods_img}">
@@ -137,13 +137,13 @@
                     </div>
                 </div>
             </a>
-            <a href="javascript:;" id="confirm_deliver" class="public_btn mg_left5">评价商品</a>
+            <a href="javascript:;" id="wait_evaluate_{$vo.id}" class="public_btn mg_left5 wait_evaluate">评价商品</a>
         </li>
         {/if}
         <!--待退款-->
         {if condition="($vo['status'] eq 8 )"}
         <li class="order_li">
-            <a  id="details_order_{$vo.id}" class="details_order">
+            <a  id="details_order_{$vo.id}_{$vo.status}" class="details_order">
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-media" style="width:8rem; height: 90px;">
                         <img src="__UPLOADS__/{$vo.goods_img}">
@@ -163,7 +163,7 @@
         <!--订单已取消-->
         {if condition="($vo['status'] eq 9 )OR($vo['status'] eq 11 )OR($vo['status'] eq 0 )"}
         <li class="order_li">
-            <a  id="details_order_{$vo.id}" class="details_order">
+            <a  id="details_order_{$vo.id}_{$vo.status}" class="details_order">
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-media" style="width:8rem; height: 90px;">
                         <img src="__UPLOADS__/{$vo.goods_img}">
@@ -246,6 +246,8 @@
 <script>
     $(".details_order").click(function () {
         var order_id = $(this)[0].id.split('_')[2];
+        var status = $(this)[0].id.split('_')[3];
+        alert(status);
         alert(order_id);
         $.ajax({
             type:'POST',
@@ -326,6 +328,28 @@
             success: function(data){
                 console.log(data);
                 window.location.href="{:url('index/Order/logistics_information')}"
+            },
+            error:function(data) {
+                console.log("失败");
+            },
+        });
+    });
+</script>
+<!--待评价-->
+<script>
+    $(".wait_evaluate").click(function () {
+        var order_id = $(this)[0].id.split('_')[2];
+        // alert(order_id);
+        $.ajax({
+            type:'POST',
+            url:'{:url("index/Share/evaluation_get_order_id")}',
+            data:{
+                'order_id':order_id
+            },
+            dataType: 'json',
+            success: function(data){
+                console.log(data);
+                window.location.href ="{:url('index/Share/evaluation')}";
             },
             error:function(data) {
                 console.log("失败");

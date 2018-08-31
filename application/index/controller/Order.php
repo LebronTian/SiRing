@@ -74,6 +74,9 @@ class Order extends Base {
             $data =$_POST;
             $member_data =session('member');
             $member =Db::name('user')->field('id,harvester,harvester_phone_num,city,address')->where('phone_num',$member_data['phone_num'])->find();
+            if(empty($member['harvester']) ||empty($member['harvester_phone_num']) || empty($member['city']) ||empty($member['address'])){
+                $this->error('请填写收货人信息');
+            }
             if(!empty($member['city'])){
                 $my_position =explode(",",$member['city']);
                 $position = $my_position[0].$my_position[1].$my_position[2].$member['address'];
@@ -141,7 +144,7 @@ class Order extends Base {
                         ->join("tb_goods","tb_order.goods_id=tb_goods.id and tb_order.id=$order_id",'left')
                         ->find();
                    $this->assign('data',$data);
-                   session('order_id',null);
+//                   session('order_id',null);
                 }
             return view('details');
         }
