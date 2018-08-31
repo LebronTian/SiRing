@@ -308,6 +308,7 @@
                     $('.select_phone_type .all').html(e.target.innerHTML);
                     $('.select_menu').addClass('upOrDown');
                     var str = '';
+                    var reg = /(\d{3})(\d{4})(\d{4})/;
                     if(data != null){
                         // 第一次循环
                         $.each(data.data,function(idx, val){
@@ -322,7 +323,7 @@
                                                     </div>\
                                                     <div class="user_msg">\
                                                         <div class="user_name">\
-                                                            <span>'+val.phone_num+'</span>\
+                                                            <span>'+val.phone_num.replace(reg,'$1****$2')+'</span>\
                                                         </div>\
                                                         <span class="product_label">'+val.goods_name+'</span>\
                                                     </div>\
@@ -347,7 +348,7 @@
                                                 </div>\
                                                 <div class="user_msg">\
                                                     <div class="user_name">\
-                                                        <span>'+val.phone_num+'</span>\
+                                                        <span>'+val.phone_num.replace(reg,'$1****$2')+'</span>\
                                                     </div>\
                                                     <span class="product_label">'+val.goods_name+'</span>\
                                                 </div>\
@@ -409,6 +410,7 @@
             success: function(data){
                 console.log(data);
                 var str = '';
+                var reg = /(\d{3})(\d{4})(\d{4})/;
                 $.each(data.data,function(idx, val){
                     // console.log('第2次:'+idx,val)
                     str += '<section class="list_view">\
@@ -418,7 +420,7 @@
                                     </div>\
                                     <div class="user_msg">\
                                         <div class="user_name">\
-                                            <span>'+val.phone_num+'</span>\
+                                            <span>'+val.phone_num.replace(reg,'$1****$2')+'</span>\
                                         </div>\
                                         <span class="product_label">'+val.goods_name+'</span>\
                                     </div>\

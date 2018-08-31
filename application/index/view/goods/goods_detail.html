@@ -450,12 +450,14 @@
 				$('.price').html('￥'+data.goods_bottom_money+'');
 				xid = data.id;
 				
+
 				if(data.start_time != undefined){
 					$('.time_box').css('display','block');
 					// 活动开始时间
 					var start_time = data.start_time*1000;
 					// 活动结束时间
 					var over_time = data.over_time*1000;
+
 					// 倒计时函数
 					function count_down(obj){
 						// 获取当前时间
