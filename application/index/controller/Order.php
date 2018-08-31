@@ -24,6 +24,7 @@ class Order extends Base {
         $member =Session::get('member');
         if(!empty($member)){
             $member_information =Db::name('user')->field('harvester,harvester_phone_num,city,address')->where('phone_num',$member['phone_num'])->find();
+            $user_id = db("user")->where('phone_num',$member['phone_num'])->field("id")->find();
         }
        if(!empty($member_information['city'])){
            $my_position =explode(",",$member_information['city']);

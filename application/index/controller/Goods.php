@@ -19,11 +19,11 @@ class Goods extends  Controller{
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
-    public  function  index(Request $request){
-        if ($request->isPost()){
+    public function index(Request $request){
+        if ($request->isPost()) {
             $id = Session::get("id");
-            $goods_list = db("goods")->where("goods_type_id",$id)->select();
-            return ajax_success("获取成功",$goods_list);
+            $goods_list = db("goods")->where("goods_type_id", $id)->select();
+            return ajax_success("获取成功", $goods_list);
         }
 
         return view('goods_index');
@@ -69,6 +69,7 @@ class Goods extends  Controller{
             $goods = db("goods")->where("goods_status", "<>", "0")->where("id", $id)->select();
             $goods_images = db("goods_images")->select();
             $seckill = db("seckill")->where("goods_id",$id)->field("seckill_money,over_time,start_time")->find();
+            $time = time();
             foreach ($goods as $key => $value) {
                 foreach ($goods_images as $val) {
                     if ($value['id'] == $val['goods_id']) {
@@ -78,6 +79,12 @@ class Goods extends  Controller{
                             $goods[$key]['goods_bottom_money'] = $seckill['seckill_money'];
                             $goods[$key]['start_time'] = $seckill['start_time'];
                             $goods[$key]['over_time'] = $seckill['over_time'];
+                        }
+                        if($time > $seckill['over_time']){
+                            unset($goods[$key]['start_time']);
+                            unset($goods[$key]['over_time']);
+                            $goods[$key]['goods_bottom_money'] = $value['goods_bottom_money'];
+                            return ajax_error("失败",$goods);
                         }
                     }
                 }

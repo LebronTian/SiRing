@@ -166,6 +166,12 @@ Route::group("",[
 
 
 
+    /*支付*/
+    "Alipay_index"=>"index/Alipay/aliPay",
+    "Alipay_pay_order"=>"index/Pay/pay_order",
+    "Alipay_pay_code"=>"index/Pay/pay_code",
+
+
 ]);
 
 /**
