@@ -129,27 +129,57 @@
     </section>
 </div>
 
-<div class="mask"></div>
+<div class="mask">
 <!-- 支付弹窗 -->
-<div class="fadeIn">
-    <div class="head">
-        <div class="head_close">×</div>
-        <div class="head_title">确认付款</div>
+<form action="{:url('index/Pay/pay_order')}" method=post target="_blank">
+    <div id="body" style="clear:left">
+        <dl class="content">
+            <dt>商户订单号
+                ：</dt>
+            <dd>
+                <input id="WIDout_trade_no" name="order" />
+            </dd>
+            <hr class="one_line">
+            <dt>订单名称
+                ：</dt>
+            <dd>
+                <input id="WIDsubject" name="order_name" />
+            </dd>
+            <hr class="one_line">
+            <dt>付款金额
+                ：</dt>
+            <dd>
+                <input id="WIDtotal_amount" name="order_money" />
+            </dd>
+            <hr class="one_line">
+            <dt></dt>
+            <dd id="btn-dd">
+                        <span class="new-btn-login-sp">
+                            <button class="new-btn-login" type="submit" style="text-align:center;">确 认</button>
+                        </span>
+                <span class="note-help">如果您点击“确认”按钮，即表示您同意该次的执行操作。</span>
+            </dd>
+        </dl>
     </div>
-    <div class="middle_box">
-        <p class="price_p">￥<span>{$data.all_money}</span></p>
-        <ul>
-            <li>
-                支付宝账号 <span>136******45</span>
-            </li>
-            <li>
-                付款方式 <span>余额宝&nbsp;&nbsp;&gt;</span>
-            </li>
-        </ul>
-    </div>
-    <button>立即付款</button>
+</form>
 </div>
 
+<!--<body onload="tijiao()">
+<form action="https://openapi.alipay.com/gateway.do" method="POST" id="form1">
+    <input name="subject" type="hidden" value="mafia-r@163.com" />
+    <input name="out_trade_no" type="hidden" value="100.00" />
+    <input id="timeout_express" name="title" type="hidden" value="赞助码代码（李雷博客）" />
+    <input name="total_amount" type="hidden" value="请填写您在本站的用户名或您的联系方式，以便李雷答谢。" />
+    <input name="product_code" type="image" value="转账" />
+</form>
+
+<script type="text/javascript">
+    function tijiao(){
+        document.getElementById('form1').submit();
+    }
+
+</script>
+</body>-->
 <script>
     $("#bt_order").click(function () {
         var goods_name =$('.goods_name').html();
