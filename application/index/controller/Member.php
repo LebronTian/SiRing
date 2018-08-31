@@ -227,5 +227,32 @@ class  Member extends  Base {
         }
     }
 
+    /**
+     *
+     */
+    public  function  user_add_img(Request $request){
+        if($request->isPost()){
+            $data =$request->param('evaluation_images');
+            dump($data);
+        }
+//            $member =Session::get('member');
+//            if(!empty($member)){
+//                $member_phone_num =$member['phone_num'];
+////                $evaluation_images = [];
+//                $file = $request->file('evaluation_images');
+////                foreach ($file as $k=>$v){
+////                    $info = $v->move(ROOT_PATH . 'public' . DS . 'upload');
+////                    $evaluation_url = str_replace("\\","/",$info->getSaveName());
+////                    $evaluation_images[] = ["images"=>$evaluation_url];
+////                }
+////                $res = model('evaluate_images')->saveAll($evaluation_images);
+////                if($res)
+////                {
+////                    $this->success('评价成功',url('index/Order/evaluate'));
+////                }
+//            }
+//        }
+    }
+
 
 }

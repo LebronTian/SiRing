@@ -61,6 +61,8 @@ Route::group("",[
     "member_edit_active"=>"index/Member/member_edit_active",
     /*如何有个人信息则进行编辑*/
     "get_member_information"=>"index/Member/get_member_information",
+    /*TODO:个人头像上传(未实现)*/
+    "user_add_img"=>"index/Member/user_add_img",
     /*收货地址*/
     "address"=>"index/Member/address",
     // 我的地址
