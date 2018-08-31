@@ -51,10 +51,11 @@ class Shopping extends Base {
                         $shopping[$key]['goods_num'] = $value['goods_num']+1;
                         $shopping[$key]['money'] = array_sum($money);
                         $shopping[$key]['goods_unit'] = $value['goods_unit']+1;
-                        $bool = db("shopping")->where("goods_id",$goods_id)->update($shopping[0]);
+                        $bool = db("shopping")->where("goods_id",$goods_id)->update($shopping[$key]);
                         return ajax_success("获取成功",$bool);
                     }
                 }
+
                 $data['goods_name'] = $goods['goods_name'];
                 $data['goods_images'] = $goods['goods_show_images'];
                 $data['money'] = $goods['goods_bottom_money'];
@@ -62,8 +63,8 @@ class Shopping extends Base {
                 $data['user_id'] = $user_id['id'];
                 $data['goods_id'] = $goods['id'];
                 $data['goods_num'] = 1;
-                db("shopping")->insert($data);
-                return ajax_success("获取成功", $data);
+                $bool = db("shopping")->insert($data);
+                return ajax_success("获取成功", $bool);
             }
         }
     }
