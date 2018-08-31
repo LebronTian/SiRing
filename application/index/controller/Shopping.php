@@ -35,6 +35,7 @@ class Shopping extends Base {
         if ($request->isPost()){
             $data = Session::get("member");
             $user_id =Db::name('user')->field('id')->where('phone_num',$data['phone_num'])->find();
+
             unset($data);
             if(empty($user_id['id'])){
                 return ajax_error("请登录");
@@ -42,20 +43,20 @@ class Shopping extends Base {
             if(!empty($user_id['id'])) {
                 //存入购物车
                 $goods_id = $request->only(['id'])['id'];
+                $goods_id = intval($goods_id);
                 $goods = db("goods")->where("id",$goods_id)->find();
-                $shopping = db("shopping")->select();
-
-                foreach ($shopping as $key=>$value){
-                    if($goods_id == $value['goods_id']){
-                        $money = array($value['money'],$goods['goods_bottom_money']);
-                        $shopping[$key]['goods_num'] = $value['goods_num']+1;
+                $shopping = db("shopping")->where("user_id",$user_id['id'])->where("goods_id", $goods_id)->select();
+                foreach ($shopping as $key=>$value) {
+                    if (in_array($goods_id,$value)) {
+                        $money = array($value['money'], $goods['goods_bottom_money']);
+                        $shopping[$key]['goods_num'] = $value['goods_num'] + 1;
                         $shopping[$key]['money'] = array_sum($money);
-                        $shopping[$key]['goods_unit'] = $value['goods_unit']+1;
-                        $bool = db("shopping")->where("goods_id",$goods_id)->update($shopping[$key]);
-                        return ajax_success("获取成功",$bool);
+                        $shopping[$key]['goods_unit'] = $value['goods_unit'] + 1;
+                        unset($shopping[$key]['id']);
+                        $bool = db("shopping")->where("goods_id", $goods_id)->where("user_id",$user_id['id'])->update($shopping[0]);
+                        return ajax_success("成功", $bool);
                     }
                 }
-
                 $data['goods_name'] = $goods['goods_name'];
                 $data['goods_images'] = $goods['goods_show_images'];
                 $data['money'] = $goods['goods_bottom_money'];
