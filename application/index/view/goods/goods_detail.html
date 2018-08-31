@@ -795,32 +795,6 @@
 </script>
 <!--获取陪同商品订单一起过来的用户id-->
 <script>
-	$("#buy_now").click(function () {
-	    /*商品名*/
-	    var goods_name = $('.goods_desc').html();
-	    /*价格*/
-	  	var price =  $('.price').html();
-
-        $.ajax({
-            type:'POST',
-            url:'{:url("index/Order/common_id")}',
-            dataType:'JSON',
-			data:{
-                "goods_name":goods_name,
-                "price":price
-			},
-
-            success:function(data){
-                console.log(data);
-                    location.href='order_index'
-            },
-            error: function(){
-                console.log('未登录');
-                window.location.href ="login";
-            }
-
-        })
-    });
 	// 立即购买
 	$("#buy_now").click(function () {
 	    /*商品名*/
@@ -837,13 +811,12 @@
                 "price":price,
 				'id': xid
 			},
-
             success:function(data){
                 console.log(data);
 				console.log(xid);
                 location.href='order_index'
             },
-            error: function(){
+            error: function(data){
                 console.log('未登录');
                 window.location.href ="login";
             }

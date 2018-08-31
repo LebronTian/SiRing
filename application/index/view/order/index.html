@@ -202,10 +202,13 @@
             },
             success: function(data){
                 console.log(data);
-                // alert(data.msg);
+                if(data.code==0){
+                    alert(data.msg);
+                }else {
+                    $('.fadeIn').animate({'bottom':'0'});
+                    $('.mask').css('display','block');
+                }
                 // window.location.href ="{:url('index/Order/details')}";
-                $('.fadeIn').animate({'bottom':'0'})
-                $('.mask').css('display','block')
             },
             error: function(data){
                 console.log('失败');
