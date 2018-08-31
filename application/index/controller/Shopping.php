@@ -44,6 +44,7 @@ class Shopping extends Base {
                 $goods_id = $request->only(['id'])['id'];
                 $goods = db("goods")->where("id",$goods_id)->find();
                 $shopping = db("shopping")->select();
+
                 foreach ($shopping as $key=>$value){
                     if($goods_id == $value['goods_id']){
                         $money = array($value['money'],$goods['goods_bottom_money']);
@@ -54,6 +55,7 @@ class Shopping extends Base {
                         return ajax_success("获取成功",$bool);
                     }
                 }
+
                 $data['goods_name'] = $goods['goods_name'];
                 $data['goods_images'] = $goods['goods_show_images'];
                 $data['money'] = $goods['goods_bottom_money'];
@@ -61,8 +63,8 @@ class Shopping extends Base {
                 $data['user_id'] = $user_id['id'];
                 $data['goods_id'] = $goods['id'];
                 $data['goods_num'] = 1;
-                db("shopping")->insert($data);
-                return ajax_success("获取成功", $data);
+                $bool = db("shopping")->insert($data);
+                return ajax_success("获取成功", $bool);
             }
         }
     }
