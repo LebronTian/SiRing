@@ -50,6 +50,7 @@
 
         </div>
 
+        {if !empty($data)}
         <div class="cart-group">
             <div class="form-href details">
                 <img class="goods_img_url" onerror="this.src='__STATIC__/index/images/ShoppingArea/Common/blankbg.gif'" src="__STATIC__/index/image/sp1.jpg">
@@ -113,7 +114,9 @@
                 </ul>
             </div>
         </div>
+
         <footer class="cart-footer">
+            <a class="sn-btn sn-btn-assertive" id="bt_order">提交订单</a>
             <div>
                 <p>
                     实付金额:
@@ -123,8 +126,7 @@
                     </span>
                 </p>
             </div>
-            <a class="sn-btn sn-btn-assertive" id="bt_order">提交订单</a>
-            <a class="sn-btn sn-btn-dark" style="display: none;">提交订单</a>
+            <!--<a class="sn-btn sn-btn-dark" style="display: none;">提交订单</a>-->
         </footer>
     </section>
 </div>
@@ -163,6 +165,7 @@
     </div>
 </form>
 </div>
+{/if}
 
 <!--<body onload="tijiao()">
 <form action="https://openapi.alipay.com/gateway.do" method="POST" id="form1">

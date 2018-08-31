@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>手袋购物网</title>
+    <link rel="stylesheet" href="__STATIC__/index/css/aui.css">
+    <link rel="stylesheet" href="__STATIC__/index/css/chat.css">
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="aui-header">
+        <a class="aui-btn aui-pull-left" tapmode="" onclick="javascript:history.back(-1);">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">在线客服</div>
+    </header>
+    <div class="message_show">
+        <!-- <div class="atalk"><span id="asay">A说：吃饭了吗？</span></div>
+        <div class="btalk"><span id="bsay">B说：还没呢，你呢？</span></div> -->
+    </div>
+    <div class="footer">
+        <input type="text" class="input_box">
+        <button class="send">发送</button>
+    </div>
+    <script src="__STATIC__/index/js/jquery.js"></script>
+    <!--发送信息-->
+    <script>
+        $('.send').click(function(){
+            var message = $('.input_box').val();
+            if($('.input_box').val() == ''){
+                return;
+            }
+            $('.message_show').append('<div class="btalk"><span id="bsay">'+message+'</span></div>')
+            $('.input_box').val('');
+            $.ajax({
+                url: '{:url("index/Chat/chat_push")}',
+                dataType: 'JSON',
+                async: false,
+                type: 'POST',
+                data: {
+                    'message':message
+                },
+                success: function(data){
+                    console.log(data);
+                },
+                error: function(){
+                    console.log('错误');
+                }
+            })
+        })
+    </script>
+    <!--接收信息-->
+    <script>
+        (function () {
+            $.ajax({
+                url: '{:url("index/Chat/chat_pull")}',
+                dataType: 'JSON',
+                async: false,
+                type: 'POST',
+                success: function(data){
+                    console.log(data);
+                    var str = '';
+                    if(data != null){
+                        $.each(data.data, function(idx, val){
+                            if(val.reply_content != null && val.chat_content != null){
+                                str += '<div class="btalk"><span class="bsay">'+val.chat_content+'</span></div>\
+                                        <div class="atalk"><span class="asay">'+val.reply_content+'</span></div>'
+                            }else if(val.reply_content == null){
+                                str += '<div class="btalk"><span class="bsay">'+val.chat_content+'</span></div>'
+                            }else if(val.chat_content == null){
+                                str += '<div class="atalk"><span class="asay">'+val.reply_content+'</span></div>'
+                            }
+                        })
+                        $('.message_show').html('');
+                        $('.message_show').append(str);
+                    }
+                },
+                error: function(){
+                    console.log('错误');
+                }
+            })
+        })()
+    </script>
+</body>
+</html>

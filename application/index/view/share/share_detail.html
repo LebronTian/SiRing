@@ -196,11 +196,11 @@
                     </div>
                     <!-- 存放图片开始 -->
                     <div class="upload-img-view">
-                        <ul data-index="0" class="list-img-box clearfix">
+                        <!-- <ul data-index="0" class="list-img-box clearfix"> -->
                             <div class="img_box " style="display:flex;flex-wrap: wrap">
 
                             </div>
-                        </ul>
+                        <!-- </ul> -->
                     </div>
                     <!-- 存放图片结束 -->
                     <div class="list_footer">
@@ -255,11 +255,13 @@
                 data:{},
                 dataType: 'json',
                 success: function(data){
-                console.log(data);
-                    var len = data.data.length;
-                    $('.img_box').html('');
-                    for(var i = 0; i < len; i++){
-                        $('.img_box').append('<img src="__UPLOAD__/'+data.data[i].images+'" style="width:20%;height:20%;margin: 0 20px;">')
+                    console.log(data);
+                    if(data != null){
+                        var len = data.data.length;
+                        $('.img_box').html('');
+                        for(var i = 0; i < len; i++){
+                            $('.img_box').append('<img src="__UPLOAD__/'+data.data[i].images+'" style="width:30%;height:30%;margin: 10px 5px 10px;">')
+                        }
                     }
                 },
                 error:function(data) {

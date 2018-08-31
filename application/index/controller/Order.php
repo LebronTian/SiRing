@@ -64,7 +64,6 @@ class Order extends Base {
 
         return view("index");
     }
-
     /**
      **************李火生*******************
      * @param Request $request
@@ -75,7 +74,11 @@ class Order extends Base {
         if($request->isPost()){
             $data =$_POST;
             $member_data =session('member');
-            $member_id =Db::name('user')->field('id')->where('phone_num',$member_data['phone_num'])->find();
+            $member =Db::name('user')->field('id,harvester,harvester_phone_num,city,address')->where('phone_num',$member_data['phone_num'])->find();
+            if(!empty($member['city'])){
+                $my_position =explode(",",$member['city']);
+                $position = $my_position[0].$my_position[1].$my_position[2].$member['address'];
+            }
             $commodity_id =Session::get('goods_id');
             $goods_data =Db::name('goods')->where('id',$commodity_id)->find();
             $create_time = time();
@@ -84,19 +87,23 @@ class Order extends Base {
                    'goods_img'=>$goods_data['goods_show_images'],
                    'goods_name'=>$data['goods_name'],
                    'order_num'=>$data['order_num'],
-                   'user_id'=>$member_id['id'],
+                   'user_id'=>$member['id'],
+                   'harvester'=>$member['harvester'],
+                   'harvest_phone_num'=>$member['harvester_phone_num'],
+                   'harvest_address'=>$position,
                    'create_time'=>$create_time,
                    'pay_money'=>$data['all_pay'],
                    'status'=>1,
                    'goods_id'=>$commodity_id,
                    'send_money'=>$data['express_fee']
                ];
-               $res =Db::name('order')->data($datas)->insert();
+               $res =Db::name('order')->insertGetId($datas);
                if($res){
-//                  Session::delete('goods_id');
-                   $this->success('下单成功');
+                   Session::delete('goods_id');
+                   session('order_id',$res);
+                   return ajax_success('下单成功',$datas);
                }
-               return ajax_success('获取成功',$datas);
+
            }
         }
     }
@@ -128,13 +135,14 @@ class Order extends Base {
      **************************************
      */
         public function details(){
-                $order_id = Session::get("order_id");
-                if(!empty($order_id)){
+            $order_id = Session::get("order_id");
+            if(!empty($order_id)){
                     $data=Db::table("tb_order")
                         ->field("tb_order.*,tb_goods.goods_bottom_money goods_bottom_money")
                         ->join("tb_goods","tb_order.goods_id=tb_goods.id and tb_order.id=$order_id",'left')
                         ->find();
                    $this->assign('data',$data);
+                   session('order_id',null);
                 }
             return view('details');
         }
@@ -152,6 +160,13 @@ class Order extends Base {
             return ajax_success("获取成功");
         }
     }
+
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 我的订单
+     **************************************
+     */
         public function myorder(){
             $datas =session('member');
             $member_id =Db::name('user')->field('id')->where('phone_num',$datas['phone_num'])->find();

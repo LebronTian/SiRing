@@ -17,6 +17,7 @@ use think\Session;
 
 class Share extends Controller{
 
+    /****************************晒单部分********************************************/
 
     /**
      **************李火生*******************
@@ -25,15 +26,68 @@ class Share extends Controller{
      **************************************
      */
     public function share_index(){
-        $all_evaluation_data=Db::table("tb_evaluate")
-            ->field("tb_evaluate.*,tb_goods.goods_name goods_name,tb_goods.goods_show_images goods_show_images ,tb_user.phone_num phone_num")
-            ->join("tb_goods","tb_evaluate.goods_id=tb_goods.id",'left')
-            ->join("tb_user","tb_evaluate.user_id=tb_user.id",'left')
-            ->order('tb_evaluate.create_time','desc')
-            ->select();
-        $this->assign("all_evaluation_data",$all_evaluation_data);
         return view("share_index");
     }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 点击全部按钮时需要显示的所有的晒单信息
+     **************************************
+     */
+        public function all_information(Request $request){
+            if($request->isPost()){
+                $get_id= $request->only(['id'])['id'];
+                if(!empty($get_id)&&$get_id==2){
+                    $all_evaluation_data=Db::table("tb_evaluate")
+                        ->field("tb_evaluate.*,tb_goods.goods_name goods_name,tb_goods.goods_show_images goods_show_images ,tb_user.phone_num phone_num")
+                        ->join("tb_goods","tb_evaluate.goods_id=tb_goods.id",'left')
+                        ->join("tb_user","tb_evaluate.user_id=tb_user.id",'left')
+                        ->where('tb_evaluate.status',1)
+                        ->order('tb_evaluate.create_time','desc')
+                        ->select();
+                    return ajax_success('全部数据返回',$all_evaluation_data);
+                }
+            }
+        }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 一进入晒单页面需要显示的全部信息
+     **************************************
+     */
+        public function all_information_share(Request $request){
+            if($request->isPost()){
+                $all_evaluation_data=Db::table("tb_evaluate")
+                    ->field("tb_evaluate.*,tb_goods.goods_name goods_name,tb_goods.goods_show_images goods_show_images ,tb_user.phone_num phone_num")
+                    ->join("tb_goods","tb_evaluate.goods_id=tb_goods.id",'left')
+                    ->join("tb_user","tb_evaluate.user_id=tb_user.id",'left')
+                    ->where('tb_evaluate.status',1)
+                    ->order('tb_evaluate.create_time','desc')
+                    ->select();
+                return ajax_success('全部数据返回',$all_evaluation_data);
+            }
+        }
+
+//    public function share_index(){
+//        $all_evaluation_data=Db::table("tb_evaluate")
+//            ->field("tb_evaluate.*,tb_goods.goods_name goods_name,tb_goods.goods_show_images goods_show_images ,tb_user.phone_num phone_num")
+//            ->join("tb_goods","tb_evaluate.goods_id=tb_goods.id",'left')
+//            ->join("tb_user","tb_evaluate.user_id=tb_user.id",'left')
+//            ->where('tb_evaluate.status',1)
+//            ->order('tb_evaluate.create_time','desc')
+//            ->select();
+//        $this->assign("all_evaluation_data",$all_evaluation_data);
+//        if(session::has('phone_evaluation_data')){
+//            $phone_evaluation_data =Session::get('phone_evaluation_data');
+//            //dump($phone_evaluation_data);
+//            $this->assign('phone_evaluation_data',$phone_evaluation_data);
+//            session('phone_evaluation_data',null);
+//        }
+//
+//        return view("share_index");
+//    }
 
 
     /**
@@ -81,8 +135,6 @@ class Share extends Controller{
         }
     }
 
-
-
     /**
      **************李火生*******************
      * @param Request $request
@@ -107,9 +159,7 @@ class Share extends Controller{
      **************************************
      */
     public function evaluation(){
-
        $evaluation_order_id = Session::get('evaluation_order_id');
-//       $valuation_id = Session::get('');
        if(!empty($evaluation_order_id)){
            $res = Db::name('order')->where('id',$evaluation_order_id)->find();
            $this->assign('res',$res);
@@ -117,6 +167,63 @@ class Share extends Controller{
         return view("evaluation");
     }
 
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 获取手机类型给前端铺数据
+     **************************************
+     */
+    public function phone_type(Request $request){
+        if($request->isPost()){
+            $data = Db::name('goods_type')->select();
+            if(!empty($data)){
+                return ajax_success('成功获取',$data);
+            }
+        }
+    }
+
+    /**
+     * 当我点击某一个手机类型的时候异步刷新铺数据
+     */
+    public function get_phone_type_informations(Request $request){
+        if($request->isPost()){
+            $goods_type_id =$request->only(['id'])['id'];
+            if(!empty($goods_type_id)&&($goods_type_id>2)){
+                    $goods_id_data =Db::name('goods')->field('id')->where('goods_type_id',$goods_type_id)->select();
+                    if(!empty($goods_id_data)){
+                        if(is_array($goods_id_data)){
+                            foreach ($goods_id_data as $key=>$v){
+                                $all_evaluation_data[]=Db::table("tb_evaluate")
+                                    ->field("tb_evaluate.*,tb_goods.goods_name goods_name,tb_goods.goods_show_images goods_show_images ,tb_user.phone_num phone_num")
+                                    ->join("tb_goods","tb_evaluate.goods_id=tb_goods.id",'left')
+                                    ->join("tb_user","tb_evaluate.user_id=tb_user.id",'left')
+                                    ->where('tb_evaluate.status',1)
+                                    ->where('tb_evaluate.goods_id',$v['id'])
+                                    ->order('tb_evaluate.create_time','desc')
+                                    ->select();
+                            }
+                            return ajax_success('数据返回成功',$all_evaluation_data);
+                        }
+                    }
+            }
+            if(!empty($goods_type_id)&&($goods_type_id==2)){
+                $all_evaluation_data=Db::table("tb_evaluate")
+                    ->field("tb_evaluate.*,tb_goods.goods_name goods_name,tb_goods.goods_show_images goods_show_images ,tb_user.phone_num phone_num")
+                    ->join("tb_goods","tb_evaluate.goods_id=tb_goods.id",'left')
+                    ->join("tb_user","tb_evaluate.user_id=tb_user.id",'left')
+                    ->where('tb_evaluate.status',1)
+                    ->order('tb_evaluate.create_time','desc')
+                    ->select();
+                return ajax_success('全部数据返回',$all_evaluation_data);
+            }
+        }
+    }
+
+
+
+
+
+    /***********************评价部分**********************************/
     /**
      **************李火生*******************
      * @param Request $request
@@ -172,9 +279,9 @@ class Share extends Controller{
                 foreach ($file as $k=>$v){
                     $info = $v->move(ROOT_PATH . 'public' . DS . 'upload');
                     $evaluation_url = str_replace("\\","/",$info->getSaveName());
-                    $evaluation_images[] = ["images"=>$evaluation_url,"evaluation_order_id"=>$evaluation_order_id];
+                    $evaluation_images[] = ["images"=>$evaluation_url,"evaluate_order_id"=>$evaluation_order_id];
                 }
-              $res =  model('evaluate_images')->saveAll($evaluation_images);
+              $res = model('evaluate_images')->saveAll($evaluation_images);
             if($res)
             {
                 $this->success('评价成功',url('index/Order/evaluate'));
@@ -201,9 +308,6 @@ class Share extends Controller{
         }
     }
 
-    public function  evaluation_use(){
-        return view('evaluation_use');
-    }
 
 
 

@@ -54,6 +54,15 @@ Route::group("",[
 
     /*我的页面*/
     "member_index"=>"index/Member/index",
+    /*我的页面的用户名信息*/
+    "get_user_information"=>"index/Member/get_user_information",
+    /*个人资料添加*/
+    "member_edit"=>"index/member/member_edit",
+    "member_edit_active"=>"index/Member/member_edit_active",
+    /*如何有个人信息则进行编辑*/
+    "get_member_information"=>"index/Member/get_member_information",
+    /*TODO:个人头像上传(未实现)*/
+    "user_add_img"=>"index/Member/user_add_img",
     /*收货地址*/
     "address"=>"index/Member/address",
     // 我的地址
@@ -89,6 +98,7 @@ Route::group("",[
     'order_pay_test'=>"index/order/order_pay_test",
     /*登录页面*/
     "login"=>"index/Login/login",
+    /*退出登录*/
     "logout"=>"index/Login/logout",
 
     /*验证码*/
@@ -98,6 +108,7 @@ Route::group("",[
     /*注册页面*/
     "register"=>"index/Register/index",
     "register_code"=>"index/Register/code",
+
 
 
     /*短信注册*/
@@ -119,10 +130,16 @@ Route::group("",[
     /*晒单*/
     "share_detail"=>"index/Share/share_detail",
     "share_index"=>"index/Share/share_index",
+    "all_information"=>"index/Share/all_information",//点击全部的时候所有信息
+    "all_information_share"=>"index/Share/all_information_share",//一进晒单页面就显示所有信息
     /*晒单详情页面获取信息*/
     'share_evaluation'=>"index/Share/share_evaluation",
     /*获取晒单的详细评价图片信息*/
     'get_evalution_imgs'=>"index/Share/get_evalution_imgs",
+    /*晒单页面下拉商品类别*/
+    'phone_type'=>"index/Share/phone_type",
+    /*晒单手机类型返回的数据点击发送一个id过来让我作为判断显示的条件*/
+    'get_phone_type_informations'=>"index/Share/get_phone_type_informations",
 
     /*通过点击评价传一个order_id过去确定是哪个订单的评价*/
     "evaluation_get_order_id"=>"index/Share/evaluation_get_order_id",
@@ -130,8 +147,6 @@ Route::group("",[
     "evaluation"=>"index/Share/evaluation",
     /*添加评价*/
     "evaluation_add"=>"index/Share/evaluation_add",
-    /*TODO:调用摄像头测试*/
-    "evaluation_use"=>"index/Share/evaluation_use",
     /**
      * 图片
      */
@@ -141,6 +156,14 @@ Route::group("",[
     /*优惠券*/
     "discounts_index"=>"index/Discounts/index",
     "discounts_my"=>"index/Discounts/discounts_my",
+
+    /*在线客服*/
+    "chat"=>"index/chat/chat",
+    /*用户发送信息*/
+    "chat_pull"=>"index/Chat/chat_push",
+    /*接收客服发送回来的信息*/
+    "chat_push"=>"index/Chat/chat_pull",
+
 
 
     /*支付*/
@@ -272,6 +295,10 @@ Route::group("admin",[
     "evaluation_management"=>"admin/Evaluation/management",
     /*客户评价图片*/
     "evalution_imgs"=>"admin/Evaluation/evalution_imgs",
+    /*评价审核操作*/
+    'evalution_examine'=>"admin/Evaluation/evalution_examine",
+    /*批量审核通过操作*/
+    'evalution_all_check'=>"admin/Evaluation/evalution_all_check",
     /*退款维权(未做)*/
     "refund_rights"=>"admin/Refund/rights",
     /*晒单管理（未作）*/
@@ -280,6 +307,22 @@ Route::group("admin",[
 
     /*购物车*/
     "shopping_index"=>"admin/Shopping/index",
+    /*聊天管理*/
+    "chat_index"=>"admin/Chat/index",
+    /*后台获取用户发送过来的聊天信息*/
+    "all_information"=>"admin/Chat/all_information",
+    /*后台获取用户发送过来的聊天信息(已读)*/
+    "read_all_information"=>"admin/Chat/read_all_information",
+    /*后台获取用户发送过来的聊天信息（未读）*/
+    "unread_all_information"=>"admin/Chat/unread_all_information",
+    /*后台聊天信息的删除*/
+    "chat_information_del"=>"admin/Chat/chat_information_del",
+    /*批量删除*/
+    "chat_information_deletes"=>"admin/Chat/chat_deletes",
+    /*未读中按下回复按钮进入回复页面把状态值改变为已读*/
+    "reading_information"=>"admin/Chat/reading_information",
+    /*客服回复信息*/
+    "admin_chat_push"=>"admin/Chat/admin_chat_push",
 ]);
 
 

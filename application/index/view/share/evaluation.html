@@ -98,7 +98,16 @@
             text-align: center;
             background: rgba(0, 0, 0, 0.55);}
         .showImg{width: 400px; height: 500px; margin-top: 140px;}
-
+        
+        .evaluation_a{
+            background-color: transparent;
+            color: #fff;
+            position: absolute;
+            top: 7px;
+            right: 0;
+            border: 0;
+            font-size: 16px;
+        }
     </style>
 </head>
 
@@ -159,7 +168,7 @@
             success: function(data){
                 console.log(data);
                 alert(data.info);
-                window.location.href ="{:url('index/Share/evaluation')}";
+                window.location.href ="{:url('index/Order/evaluate')}";
             },
             error:function(data) {
                 console.log("失败");
@@ -174,17 +183,15 @@
         $("#myFile").change(function() {
             var img_div = $(".img_div");
             var filepath = $("input[name='evaluation_images[]']").val();
+            console.log(filepath)
             for(var i = 0; i < this.files.length; i++) {
                 objUrl = getObjectURL(this.files[i]);
                 // 
-                console.log(filepath)
                 var extStart = filepath.lastIndexOf(".");
                 // 获取图片后缀
                 var ext = filepath.substring(extStart, filepath.length).toUpperCase();
                 console.log(ext)
                 /*
-                    作者：z@qq.com
-                    时间：2016-12-10
                     描述：鉴定每个图片上传尾椎限制
                     * */
                 if(ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {
@@ -197,9 +204,8 @@
                     /*
                         若规则全部通过则在此提交url到后台数据库
                         * */
-                    console.log()
                     if($('.isImg').length == 5){
-                        alert('最多上传5张图片')
+                        alert('最多上传5张图片');
                     }else{
                         img_html = "<div class='isImg'><img src='" + objUrl + "' onclick='javascript:lookBigImg(this)' style='height: 100%; width: 100%;' /><a class='removeBtn' onclick='javascript:removeImg(this)'>×</a></div>";
                         img_div.append(img_html);
@@ -207,8 +213,6 @@
                 }
             }
             /*
-                作者：z@qq.com
-                时间：2016-12-10
                 描述：鉴定每个图片大小总和
                 * */
             var file_size = 0;
@@ -240,11 +244,7 @@
             //					}
             return true;
         });
-        /*
-            作者：z@qq.com
-            时间：2016-12-10
-            描述：鉴定每个浏览器上传图片url 目前没有合并到Ie
-            * */
+            // 描述：鉴定每个浏览器上传图片url 目前没有合并到Ie
         function getObjectURL(file) {
             var url = null;
             if(window.createObjectURL != undefined) { // basic
@@ -264,25 +264,6 @@
     function removeImg(r){
         $(r).parent().remove();
     }
-    /*
-        描述：上传图片附带放大查看处理
-        * */
-    function lookBigImg(b){
-        $(".shadeImg").fadeIn(500);
-        $(".showImg").attr("src",$(b).attr("src"))
-    }
-    /*
-        描述：关闭弹出层
-        * */
-    // function closeShade(){
-    //     $(".shade").fadeOut(500);
-    // }
-    /*
-        描述：关闭弹出层
-        * */
-    // function closeShadeImg(){
-    //     $(".shadeImg").fadeOut(500);
-    // }
 </script>
 </body>
 </html>

@@ -102,6 +102,9 @@
             padding: 10px 0;
             border-bottom: 1px solid #ccc;
         }
+        .select_menu li:last-of-type{
+            border-bottom: none;
+        }
         /* 评论区 */
         .list_box section{
             margin-bottom: 8px;
@@ -172,6 +175,13 @@
             border: 1px solid #cecece;
             color: #999;
         }
+        p.all{
+            display: inline-block;
+            font-size: 14px;
+            color: #fe6546;
+            line-height: 27px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -179,96 +189,283 @@
         <div class="header_fixed">
             点击右边的按钮可以切换不同分类的晒单哦
             <div class="select_box">
-                <div class="select_btn">
-                    全部
+                <div class="select_btn select_phone_type">
+                    <p class="all">全部</p>
                     <span class="up">▴</span>
                     <span class="down upOrDown">▾</span>
                 </div>
                 <ul class="select_menu upOrDown">
-                    <li>全部</li>
-                    <li>iPhone</li>
-                    <li>安卓</li>
-                    <li>平板</li>
-                    <li>笔记本</li>
-                    <li>手表</li>
-                    <li style="border: none">配件</li>
+                    <!-- <li>全部</li> -->
                 </ul>
             </div>
         </div>
         <div class="list_box">
-            {if !empty($all_evaluation_data)}
-                {volist name ="all_evaluation_data" id="vo"}
-                <section class="list_view">
+            <!-- <section class="list_view">
                 <div class="user_box">
                     <div class="user_img">
-                        <img src="__UPLOADS__/{$vo.goods_show_images}" alt="">
+                        图片
+                        <img src="">
                     </div>
                     <div class="user_msg">
                         <div class="user_name">
-                            <span>{$vo.phone_num}</span>
+                            <span>电话号码</span>
                         </div>
-                        <span class="product_label">{$vo.goods_name}</span>
+                        <span class="product_label">商品名字</span>
                     </div>
                 </div>
-                <div class="comment_box">
-                        {$vo.evaluate_content}
-                </div>
-                <!-- 存放图片开始 -->
+                <div class="comment_box"></div>
                 <div class="upload-img-view">
                     <ul data-index="0" class="list-img-box clearfix"></ul>
                 </div>
-                <!-- 存放图片结束 -->
                 <div class="list_footer">
                     <span class="time_box">
-                        {$vo.create_time|date='Y-m-d H:i:s',###}
+                       时间
                     </span>
                     <div class="operation">
-
-                        <!--<a href="javascript:location.href='share_detail';">-->
-                            <!--<span>查看评论</span>-->
-                        <!--</a>-->
-                        <a  id="see_evaluation_{$vo.id}" class="see_evaluation">
+                        <a  id="see_evaluation_id" class="see_evaluation">
                             <span>查看评论</span>
                         </a>
-
                     </div>
                 </div>
-            </section>
-                {/volist}
-            {/if}
+            </section> -->
         </div>
     </div>
 
-    {include file="template/footer" /}
+    <footer class="aui-bar aui-bar-tab aui-bar-tab-cl aui-border-t" id="footer">
+        <a href="{:url('index/index/index')}" class="aui-bar-tab-item " tapmode>
+            <i class="aui-iconfont aui-icon-home"></i>
+            <div class="aui-bar-tab-label">首页</div>
+        </a>
+        <a class="aui-bar-tab-item" tapmode href="{:url('index/Classify/index')}">
+            <i class="aui-iconfont aui-icon-menu"></i>
+            <div class="aui-bar-tab-label">分类</div>
+        </a>
+        <a class="aui-bar-tab-item" tapmode href="{:url('index/Share/share_index')}">
+            <i class="aui-iconfont aui-icon-camera" style="color:#f34347;"></i>
+            <div class="aui-bar-tab-label" style="color:#f34347;">晒单</div>
+        </a>
+        <a class="aui-bar-tab-item" tapmode href="{:url('index/Shopping/index')}">
+            <i class="aui-iconfont aui-icon-cart"></i>
+            <div class="aui-bar-tab-label">购物车</div>
+        </a>
+        <a href="{:url('index/Member/index')}" class="aui-bar-tab-item" id="my" tapmode>
+            <i class="aui-iconfont aui-icon-my"></i>
+            <div class="aui-bar-tab-label">我的</div>
+        </a>
+    </footer>
     
-    <script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
-    <script>
-        $('.select_btn').click(function(){
-            $('.up').toggleClass('upOrDown').siblings('span').toggleClass('upOrDown');
-            $('.select_menu').toggleClass('upOrDown');
-        })
-    </script>
-        <!--查看评价信息-->
-    <script>
-        $(".see_evaluation").click(function () {
-            var see_evaluation_id = $(this)[0].id.split('_')[2];
-            alert(see_evaluation_id);
+<script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
+<!-- 筛选列表 切换类名 -->
+<script>
+    $('.select_btn').click(function(){
+        $('.up').toggleClass('upOrDown').siblings('span').toggleClass('upOrDown');
+        $('.select_menu').toggleClass('upOrDown');
+    })
+</script>
+<!--点击获取手机品种类型-->
+<script>
+        function timetrans(date){
+            var date = new Date(date*1000);//如果date为13位不需要乘1000
+            var Y = date.getFullYear() + '-';
+            var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+            var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+            var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+            var m = (date.getMinutes() <10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+            var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
+            return Y+M+D+h+m+s;
+        }
+        $('.select_phone_type').click(function () {
             $.ajax({
                 type:'POST',
-                url:'{:url("index/Share/share_evaluation")}',
-                data:{
-                    'evaluation_id':see_evaluation_id
-                },
+                url:'{:url("index/Share/phone_type")}',
                 dataType: 'json',
                 success: function(data){
-                    console.log(data);
-                    window.location.href="{:url('index/Share/share_detail')}"
+                    // console.log(data);
+                    var len = data.data.length;
+                    $('.select_menu').html('');
+                    $('.select_menu').append('<li class="li_2">全部</li>')
+                    for(var i = 1; i < len; i++){
+                        $('.select_menu').append('<li class="li_'+data.data[i].id+'">'+data.data[i].name+'</li>');
+                    }
                 },
                 error:function(data) {
                     console.log("失败");
                 },
             });
+        })
+        // 利用事件委托获取id
+        $('.select_menu').click(function(e){
+            var id = e.target.className.split('_')[1];
+            $.ajax({
+                type:'POST',
+                url:'{:url("index/Share/get_phone_type_informations")}',
+                data:{
+                    'id':id
+                },
+                dataType: 'json',
+                success: function(data){
+                    console.log(data);
+                    $('.select_phone_type .all').html(e.target.innerHTML);
+                    $('.select_menu').addClass('upOrDown');
+                    var str = '';
+                    var reg = /(\d{3})(\d{4})(\d{4})/;
+                    if(data != null){
+                        // 第一次循环
+                        $.each(data.data,function(idx, val){
+                            // 第二次循环
+                            if(Array.isArray(val)){
+                                $.each(val,function(idx, val){
+                                    // console.log('第2次:'+idx,val)
+                                    str += '<section class="list_view">\
+                                                <div class="user_box">\
+                                                    <div class="user_img">\
+                                                        <img src="__UPLOADS__/'+val.goods_show_images+'">\
+                                                    </div>\
+                                                    <div class="user_msg">\
+                                                        <div class="user_name">\
+                                                            <span>'+val.phone_num.replace(reg,'$1****$2')+'</span>\
+                                                        </div>\
+                                                        <span class="product_label">'+val.goods_name+'</span>\
+                                                    </div>\
+                                                </div>\
+                                                <div class="comment_box">'+val.evaluate_content+'</div>\
+                                                <div class="list_footer">\
+                                                    <span class="time_box">'+timetrans(val.create_time)+'</span>\
+                                                    <div class="operation">\
+                                                        <!--这里你需要绑定一个id就是see_evaluation+一个回来的id-->\
+                                                        <a id="see_evaluation_'+val.id+'" class="see_evaluation">\
+                                                            <span>查看评论</span>\
+                                                        </a>\
+                                                    </div>\
+                                                </div>\
+                                            </section>'
+                                })
+                            }else{
+                                str += '<section class="list_view">\
+                                            <div class="user_box">\
+                                                <div class="user_img">\
+                                                    <img src="__UPLOADS__/'+val.goods_show_images+'">\
+                                                </div>\
+                                                <div class="user_msg">\
+                                                    <div class="user_name">\
+                                                        <span>'+val.phone_num.replace(reg,'$1****$2')+'</span>\
+                                                    </div>\
+                                                    <span class="product_label">'+val.goods_name+'</span>\
+                                                </div>\
+                                            </div>\
+                                            <div class="comment_box">'+val.evaluate_content+'</div>\
+                                            <div class="list_footer">\
+                                                <span class="time_box">'+timetrans(val.create_time)+'</span>\
+                                                <div class="operation">\
+                                                    <a id="see_evaluation_'+val.id+'" class="see_evaluation">\
+                                                        <span>查看评论</span>\
+                                                    </a>\
+                                                </div>\
+                                            </div>\
+                                        </section>'
+                            }
+                            $('.list_box').html('');
+                            $('.list_box').append(str);
+
+                            // 查看评价信息
+                            $('.see_evaluation').click(function(){
+                                var see_evaluation_id = $(this)[0].id.split('_')[2];
+                                $.ajax({
+                                    type:'POST',
+                                    url:'{:url("index/Share/share_evaluation")}',
+                                    data:{
+                                        'evaluation_id':see_evaluation_id
+                                    },
+                                    dataType: 'json',
+                                    success: function(data){
+                                        console.log(data);
+                                        window.location.href="{:url('index/Share/share_detail')}"
+                                    },
+                                    error:function(data) {
+                                        console.log("失败");
+                                    },
+                                });
+                            });
+                        })
+                    }else{
+                        $('.list_box').html('');
+                        return;
+                    }
+                },
+                error:function(data) {
+                    console.log("失败");
+                },
+            });
+        })
+</script>
+<!--一进入晒单页面显示的信息-->
+<script>
+    (function(){
+        $.ajax({
+            type:'POST',
+            url:'{:url("index/Share/all_information_share")}',
+            data:{
+            },
+            dataType: 'json',
+            success: function(data){
+                console.log(data);
+                var str = '';
+                var reg = /(\d{3})(\d{4})(\d{4})/;
+                $.each(data.data,function(idx, val){
+                    // console.log('第2次:'+idx,val)
+                    str += '<section class="list_view">\
+                                <div class="user_box">\
+                                    <div class="user_img">\
+                                        <img src="__UPLOADS__/'+val.goods_show_images+'">\
+                                    </div>\
+                                    <div class="user_msg">\
+                                        <div class="user_name">\
+                                            <span>'+val.phone_num.replace(reg,'$1****$2')+'</span>\
+                                        </div>\
+                                        <span class="product_label">'+val.goods_name+'</span>\
+                                    </div>\
+                                </div>\
+                                <div class="comment_box">'+val.evaluate_content+'</div>\
+                                <div class="list_footer">\
+                                    <span class="time_box">'+timetrans(val.create_time)+'</span>\
+                                    <div class="operation">\
+                                        <!--这里你需要绑定一个id就是see_evaluation+一个回来的id-->\
+                                        <a href="javascript:;" id="see_evaluation_'+val.id+'" class="see_evaluation">\
+                                            <span>查看评论</span>\
+                                        </a>\
+                                    </div>\
+                                </div>\
+                            </section>'
+                })
+                $('.list_box').html('');
+                $('.list_box').append(str);
+
+                // 查看评价信息
+                $('.see_evaluation').click(function(){
+                    var see_evaluation_id = $(this)[0].id.split('_')[2];
+                    $.ajax({
+                        type:'POST',
+                        url:'{:url("index/Share/share_evaluation")}',
+                        data:{
+                            'evaluation_id':see_evaluation_id
+                        },
+                        dataType: 'json',
+                        success: function(data){
+                            console.log(data);
+                            window.location.href="{:url('index/Share/share_detail')}"
+                        },
+                        error:function(data) {
+                            console.log("失败");
+                        },
+                    });
+                });
+            },
+            error:function(data) {
+                console.log("失败");
+            },
         });
-    </script>
+    })()
+</script>
+
 </body>
 </html>

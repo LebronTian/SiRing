@@ -4,36 +4,67 @@
 {block name="css"}
 
 <!--自定义内容-->
-
+<style>
+        .wrapper label{
+            display: inline-block;
+            width: 200px !important;
+            text-align: right;
+            padding-right: 15px;
+            box-sizing: border-box;
+        }
+        .wrapper form label span{
+            display: inline-block;
+            text-align: center;
+        }
+        .wrapper form input.submit{
+            margin: 20px 0 0 110px;
+            width: 200px;
+            height: 30px;
+            border: 0;
+            background-color:rgb(0, 158, 250);
+            cursor: pointer;
+            color: #fff;
+            font-size: 16px;
+            line-height: 30px;
+            text-align: center;
+        }
+        .wrapper form input.submit:hover{
+            background-color:rgb(27, 169, 252);
+        }
+    </style>
 
 {/block}
 
 
 {block name="content"}
-<form id="CategoryAdd" action="{:url('admin/Seckill/save')}" method="post" enctype="multipart/form-data">
-    <label class="form-label col-xs-4 col-sm-3"><span>商品id</span></label>
-    <input type="text" name="goods_id" style="margin-bottom: 20px;"><span>请到商品列表查找想要填写的商品id号</span><br/>
-    <label class="form-label col-xs-4 col-sm-3" ><span>开始秒杀</span></label>
-    <select name="status">
-        <option value="1">上架</option>
-        <option value="0">下架</option>
-    </select><br>
-    <label class="form-label col-xs-4 col-sm-3"><span>秒杀价格</span></label>
-    <input type="text" name="seckill_money" style="margin-bottom: 20px;"><br/>
-    <input class="am-animation-slide-left am-field-valid" style="width: 16em ;" type="datetime-local" name="start_time"><br>
-    <small>秒杀开始时间</small><br>
-    <input class="am-animation-slide-left am-field-valid" style="width: 16em ;" type="datetime-local" name="over_time"><br>
-    <small>秒杀结束时间</small><br>
-    <label class="form-label col-xs-4 col-sm-3"><span>秒杀图片</span></label>
-    <input type="file" name="images"><br>
-    <label class="form-label col-xs-4 col-sm-3"><span>关键词</span></label>
-    <input type="text" name="keyword" placeholder="请输入不超过20个字的关键字"><br>
-    <label class="form-label col-xs-4 col-sm-3"><span>库存</span></label>
-    <input type="text" name="goods_num"><br>
-    <label class="form-label col-xs-4 col-sm-3"><span>剩余库存</span></label>
-    <input type="text" name="residue_num"><br>
-    <input type="submit" value="提交">
-</form>
+<div class="wrapper">
+    <form id="CategoryAdd" action="{:url('admin/Seckill/save')}" method="post" enctype="multipart/form-data">
+        <label class="form-label col-xs-4 col-sm-3"><span>商品id</span></label>
+        <input type="text" name="goods_id" style="margin-bottom: 20px;display: inline-block;vertical-align: top;"><span>请到商品列表查找想要填写的商品id号</span><br/>
+        <label class="form-label col-xs-4 col-sm-3" ><span>开始秒杀</span></label>
+        <select name="status">
+            <option value="1">上架</option>
+            <option value="0">下架</option>
+        </select><br>
+        <label class="form-label col-xs-4 col-sm-3"><span>秒杀价格</span></label>
+        <input type="text" name="seckill_money" style="margin: 20px 0;"><br/>
+        <label class="form-label col-xs-4 col-sm-3"><span>秒杀开始时间</span></label>
+        <input class="am-animation-slide-left am-field-valid" style="width: 16em ;" type="datetime-local" name="start_time"><br>
+        <!-- <small>秒杀开始时间</small><br> -->
+        <label class="form-label col-xs-4 col-sm-3"><span>秒杀结束时间</span></label>
+        <input class="am-animation-slide-left am-field-valid" style="width: 16em; margin: 20px 0;" type="datetime-local" name="over_time"><br>
+        <!-- <small>秒杀结束时间</small><br> -->
+        <label class="form-label col-xs-4 col-sm-3"><span>秒杀图片</span></label>
+        <input type="file" name="images"><br>
+        <label class="form-label col-xs-4 col-sm-3"><span>关键词</span></label>
+        <input type="text" name="keyword" style="margin:20px 0;" placeholder="请输入不超过20个字的关键字"><br>
+        <label class="form-label col-xs-4 col-sm-3"><span>库存</span></label>
+        <input type="text" name="goods_num"><br>
+        <label class="form-label col-xs-4 col-sm-3"><span>剩余库存</span></label>
+        <input type="text" name="residue_num" style="margin-top:20px;"><br>
+        <input type="submit" class="submit" value="提交">
+    </form>
+</div>
 
 {/block}
 

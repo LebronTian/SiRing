@@ -11,18 +11,10 @@
     <link rel="stylesheet" href="__STATIC__/index/css/cart2main.css">
     <style>
         #cancel_order, #bt_order{
-            border-radius: 48px;
+            border-radius: 5px;
+            margin-right: 10px;
         }
-        #cancel_order{
-            position: absolute;
-            right: 125px;
-            top: 0;
-        }
-        #bt_order{
-            position: absolute;
-            right: 0;
-            top: 0;
-        }
+        
     </style>
 </head>
 <body id="view">
@@ -35,6 +27,7 @@
             <div class="sn-nav-title of">订单详情</div>
             <div class="sn-nav-other"></div>
         </header>
+
 
         {if !empty($data)}
         <div class="cart-group">
@@ -51,7 +44,7 @@
         </div>
         <div class="cart-group">
             <div class="details">
-                <img class="goods_img_url" onerror="this.src='__STATIC__/index/images/ShoppingArea/Common/blankbg.gif'" src="__STATIC__/index/image/sp1.jpg">
+                <img class="goods_img_url"  src="__UPLOADS__/{$data.goods_img}">
                 <div>
                     <p class="goods_name">{$data.goods_name}</p>
                     <i class="order_num">{$data.order_num}</i>
@@ -115,8 +108,8 @@
         {/if}
 
         <footer class="cart-footer">
-            <a class="sn-btn sn-btn-assertive" id="cancel_order" >取消订单</a>
             <a class="sn-btn sn-btn-assertive" id="bt_order">付款</a>
+            <a class="sn-btn sn-btn-assertive" id="cancel_order" >取消订单</a>
         </footer>
     </section>
 </div>
