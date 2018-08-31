@@ -12,7 +12,7 @@
 			background: transparent;
 		}
 		.aui-bar-nav .aui-searchbar-input {
-			background-color: #ffffff;
+			background-color: #eee;
 		}
 		.aui-bar-light .aui-searchbar-input {
 			background-color: #f5f5f5;
@@ -52,7 +52,7 @@
 			</div>
 		</div>
 		<a class="aui-pull-right aui-btn" href="{:url('index/chat/chat')}">
-			<span class="aui-iconfont aui-icon-comment"></span>
+			<span class="aui-iconfont aui-icon-comment" style="color:#000;"></span>
 		</a>
 	</header>	
 	<div id="aui-slide2">
@@ -213,6 +213,7 @@
             timeout:5000,
             dataType:"json",
             success:function (data) {
+				console.log(data)
 				$('.goodsdetail_ul_box').append('<li class="aui-list-item">\
 												<a href="{:url("index/Goods/index")}">\
 													<div class="aui-media-list-item-inner">\

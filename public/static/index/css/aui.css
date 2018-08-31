@@ -1443,7 +1443,8 @@ input[type="search"]::-webkit-search-cancel-button {
 .aui-bar-nav {
 	top: 0;
 	line-height: 2.25rem;
-	background-color: #f34347;
+	background-color: #fff;
+	border-bottom: 1px solid #ccc;
 	color: #ffffff;
 }
 .aui-title a {
@@ -1463,6 +1464,7 @@ input[type="search"]::-webkit-search-cancel-button {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	z-index: 2;
+	color: #000;
 }
 .aui-bar-nav a {
 	color: #ffffff;
@@ -1531,7 +1533,7 @@ input[type="search"]::-webkit-search-cancel-button {
 	line-height: 1.25rem;
 	padding: 0;
 	margin: 0;
-	color: #ffffff;
+	color: #000000;
 }
 .aui-bar-light {
 	color: #03a9f4;
@@ -1853,7 +1855,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 .aui-searchbar-input {
     margin: 0 0.5rem;
-	background-color: #ffffff;
+	background-color: #eeeeee;
     border-radius: 0.25rem;
     height: 1.4rem;
     line-height: 1.4rem;
@@ -3169,7 +3171,7 @@ div#shopping_cart { position: fixed; bottom: 7px; right: 2%; background: #aacc36
 }
 
 .bar-header .title {
-	color: #fff ;
+	color: #000 ;
 	border-bottom: none;
 	font-size: 19px;
 }
@@ -3215,7 +3217,6 @@ a.rig_shai {
 }
 
 .rig_shai i {
-	background: url(../images/weixin/shaixuan_icon.png) no-repeat right center;
 	padding: 4px 10px;
 	background-size: 15px;
 }
