@@ -66,6 +66,7 @@ class Share extends Controller{
                     ->where('tb_evaluate.status',1)
                     ->order('tb_evaluate.create_time','desc')
                     ->select();
+
                 return ajax_success('全部数据返回',$all_evaluation_data);
             }
         }
