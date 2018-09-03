@@ -49,14 +49,11 @@ class Goods extends  Controller{
      * @param Request $request
      * @return view
      */
-    public function goods_id(Request $request,$id){
+    public function goods_id(Request $request){
         if($request->isPost()){
             $goods_id = $request->only(["goods_id"])["goods_id"];
             Session("goods_id",$goods_id);
             return ajax_success("获取成功",$goods_id);
-        }
-        if($request->isGet()){
-            session("goods_id",$id);
         }
     }
 
@@ -102,9 +99,9 @@ class Goods extends  Controller{
                 }
             }
         }
-        
         return view("goods_detail");
     }
+
 
 
 

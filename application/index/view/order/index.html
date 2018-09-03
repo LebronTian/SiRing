@@ -59,7 +59,8 @@
                     <i class="order_num">1</i>
                     <div>
                         <span class="price">
-                            <b>￥</b>{$data.goods_bottom_money}<b></b>
+                            <b>￥</b>
+                            <b class="unit_price">{$data.goods_bottom_money}</b>
                         </span>
                     </div>
 
@@ -134,9 +135,92 @@
             </div>
             <!--<a class="sn-btn sn-btn-dark" style="display: none;">提交订单</a>-->
         </footer>
+        {/if}
+
+        {if !empty($list)}
+            {volist name="list" id ="vo"}
+        <div class="cart-group">
+            <div class="form-href details">
+                <img class="goods_img_url" onerror="this.src='__UPLOADS__/{$vo.goods_images}'" src="__UPLOADS__/{$vo.goods_images}">
+                <div>
+                    <p class="goods_name">{$vo.goods_name}</p>
+                    <i class="order_num">{$vo.goods_unit}</i>
+                    <div>
+                        <span class="price">
+                            <b>￥</b>
+                            <b class="unit_price">{$vo.money}</b>
+                        </span>
+                    </div>
+
+                    <div class="goods-service">
+                        <span class="goods-service-item">
+                            <i class="goods-icon icon-tui"></i>
+                            <span class="goods-service-word goods-service-word-tui">7天无理由退货</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+            {/volist}
+        <div class="cart-group">
+            <div class="cart-group-item payment">
+                <label>支付方式</label>
+                <div class="form-href">
+                    <p>支付宝</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-group">
+            <div class="cart-group-item coupon">
+                <label>优惠券</label>
+                <div class="form-href">
+                    <span class="save-money">无可用</span>
+                </div>
+            </div>
+        </div>
+        <div class="cart-group">
+            <div class="cart-group-item">
+                <ul class="detail">
+                    <li class="detail-item">
+                        <label>商品总额</label>
+                        <div>
+                            <span class="price">
+                                <b>￥{$all_money}</b>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="detail-item">
+                        <label>运费</label>
+                        <i id="showfareDetail"></i>
+                        <div>
+                            <span class="price">
+                                <b>+￥</b>
+                                <b class="express_fee">0</b>
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <footer class="cart-footer">
+            <a class="sn-btn sn-btn-assertive" id="bt_order">提交订单</a>
+            <div>
+                <p>
+                    实付金额:
+                    <span class="price">
+                        <b>￥</b>
+                        <b class="all_pay">{$all_money}</b>
+                    </span>
+                </p>
+            </div>
+            <!--<a class="sn-btn sn-btn-dark" style="display: none;">提交订单</a>-->
+        </footer>
+
+        {/if}
     </section>
 </div>
-
 <div class="mask">
 <!-- 支付弹窗 -->
     <form name=alipayment action='{:url("index/Alipay/aliPay")}' method=post target="_blank">
@@ -176,30 +260,42 @@
         </div>
     </form>
 </div>
-{/if}
+<div class="fadeIn">
+    <div class="head">
+        <div class="head_close">×</div>
+        <div class="head_title">确认付款</div>
+    </div>
+    <div class="middle_box">
+        <p class="price_p">￥<span></span></p>
+        <ul>
+            <li>
+                支付宝账号 <span>136******45</span>
+            </li>
+            <li>
+                付款方式 <span>余额宝&nbsp;&nbsp;&gt;</span>
+            </li>
+        </ul>
+    </div>
+    <button>立即付款</button>
+</div>
 
-<!--<body onload="tijiao()">
-<form action="https://openapi.alipay.com/gateway.do" method="POST" id="form1">
-    <input name="subject" type="hidden" value="mafia-r@163.com" />
-    <input name="out_trade_no" type="hidden" value="100.00" />
-    <input id="timeout_express" name="title" type="hidden" value="赞助码代码（李雷博客）" />
-    <input name="total_amount" type="hidden" value="请填写您在本站的用户名或您的联系方式，以便李雷答谢。" />
-    <input name="product_code" type="image" value="转账" />
-</form>
-
-<script type="text/javascript">
-    function tijiao(){
-        document.getElementById('form1').submit();
-    }
-
-</script>
-</body>-->
 <script>
     $("#bt_order").click(function () {
-        var goods_name =$('.goods_name').html();
-        var order_num =$('.order_num').html();
+
+        var goods_name = [],
+            order_num = [],
+            unit_price = [];
+        var length = $('.details').length;
+        for(var i = 0; i < length; i++){
+            goods_name.push($('.goods_name')[i].innerHTML);
+            order_num.push($('.order_num')[i].innerHTML);
+            unit_price.push($('.unit_price')[i].innerHTML);
+        }
+
         var all_pay =$('.all_pay').html();
+//        alert(all_pay);
         var express_fee =$(".express_fee").html();
+//        alert(express_fee);
         $.ajax({
             url: "{:url('index/Order/bt_order')}",
             type: 'POST',
@@ -209,7 +305,9 @@
                 'goods_name':goods_name,
                 'order_num':order_num,
                 'all_pay':all_pay,
-                'express_fee':express_fee
+                'express_fee':express_fee,
+                'unit_price': unit_price
+
             },
             success: function(data){
                 if(data.code==0){
@@ -223,7 +321,6 @@
                     $('.fadeIn').animate({'bottom':'0'});
                     $('.mask').css('display','block');
                 }
-                // window.location.href ="{:url('index/Order/details')}";
             },
             error: function(data){
                 console.log('失败');
