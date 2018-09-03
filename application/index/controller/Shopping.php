@@ -6,12 +6,9 @@
  * Time: 15:43
  */
 namespace app\index\controller;
-use think\Controller;
-use think\Paginator;
 use think\Request;
 use think\Session;
 use think\Db;
-use think\Cache;
 
 class Shopping extends Base {
 
@@ -99,6 +96,22 @@ class Shopping extends Base {
                 $shopping_id['id'] = db("shopping_shop")->getLastInsID();
                 Session("shopping", $shopping_id);
                 return ajax_success("获取成功", $shopping_id);
+            }
+        }
+    }
+
+
+
+    public function batch(Request $r){
+        if($r->isPost()){
+            $id = $r->only(['id']);
+            foreach ($id as $value){
+                $bool = \app\index\model\Shopping::destroy($value);
+            }
+            if($bool){
+                return ajax_success("删除成功",$bool);
+            }else{
+                return ajax_error("删除失败");
             }
         }
     }

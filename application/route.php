@@ -38,6 +38,7 @@ Route::group("",[
     "shopping_index"=>"index/Shopping/index",
     "shopping_id"=>"index/Shopping/ajax_id",
     "shopping_option"=>"index/Shopping/option",
+    "shopping_batch"=>"index/Shopping/batch",
 
 
     /*秒杀*/
@@ -168,8 +169,7 @@ Route::group("",[
 
     /*支付*/
     "Alipay_index"=>"index/Alipay/aliPay",
-    "Alipay_pay_order"=>"index/Pay/pay_order",
-    "Alipay_pay_code"=>"index/Pay/pay_code",
+    "Alipay_index"=>"index/Alipay/aliPay",
 
 
 ]);

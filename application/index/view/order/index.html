@@ -59,8 +59,7 @@
                     <i class="order_num">1</i>
                     <div>
                         <span class="price">
-                            <b>￥</b>{$data.goods_bottom_money_one}<b></b>
-                            <i>.{$data.goods_bottom_money_two}</i>
+                            <b>￥</b>{$data.goods_bottom_money}<b></b>
                         </span>
                     </div>
 
@@ -133,37 +132,42 @@
 
 <div class="mask">
 <!-- 支付弹窗 -->
-<form action="{:url('index/Pay/pay_order')}" method=post target="_blank">
-    <div id="body" style="clear:left">
-        <dl class="content">
-            <dt>商户订单号
-                ：</dt>
-            <dd>
-                <input id="WIDout_trade_no" name="order" />
-            </dd>
-            <hr class="one_line">
-            <dt>订单名称
-                ：</dt>
-            <dd>
-                <input id="WIDsubject" name="order_name" />
-            </dd>
-            <hr class="one_line">
-            <dt>付款金额
-                ：</dt>
-            <dd>
-                <input id="WIDtotal_amount" name="order_money" />
-            </dd>
-            <hr class="one_line">
-            <dt></dt>
-            <dd id="btn-dd">
+    <form name=alipayment action='{:url("index/Alipay/aliPay")}' method=post target="_blank">
+        <div id="body" style="clear:left">
+            <dl class="content">
+                <dt>商户订单号
+                    ：</dt>
+                <dd>
+                    <input id="WIDout_trade_no" name="WIDout_trade_no" />
+                </dd>
+                <hr class="one_line">
+                <dt>订单名称
+                    ：</dt>
+                <dd>
+                    <input id="WIDsubject" name="WIDsubject" />
+                </dd>
+                <hr class="one_line">
+                <dt>付款金额
+                    ：</dt>
+                <dd>
+                    <input id="WIDtotal_amount" name="WIDtotal_amount" />
+                </dd>
+                <hr class="one_line">
+                <dt>商品描述：</dt>
+                <dd>
+                    <input id="WIDbody" name="WIDbody" />
+                </dd>
+                <hr class="one_line">
+                <dt></dt>
+                <dd id="btn-dd">
                         <span class="new-btn-login-sp">
                             <button class="new-btn-login" type="submit" style="text-align:center;">确 认</button>
                         </span>
-                <span class="note-help">如果您点击“确认”按钮，即表示您同意该次的执行操作。</span>
-            </dd>
-        </dl>
-    </div>
-</form>
+                    <span class="note-help">如果您点击“确认”按钮，即表示您同意该次的执行操作。</span>
+                </dd>
+            </dl>
+        </div>
+    </form>
 </div>
 {/if}
 
@@ -201,10 +205,14 @@
                 'express_fee':express_fee
             },
             success: function(data){
-                console.log(data);
                 if(data.code==0){
                     alert(data.msg);
                 }else {
+                    console.log(data);
+                    $("#WIDout_trade_no").val(data.data.order_information_number);
+                    $("#WIDbody").val(data.data.goods_name);
+                    $("#WIDsubject").val(data.data.goods_name);
+                    $("#WIDtotal_amount").val(data.data.pay_money);
                     $('.fadeIn').animate({'bottom':'0'});
                     $('.mask').css('display','block');
                 }
