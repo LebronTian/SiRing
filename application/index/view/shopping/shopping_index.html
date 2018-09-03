@@ -405,7 +405,7 @@
             topb = 1;
         } else {
             topb = 0;
-            $(this).text("编辑");
+            $(this).html('<i class="aui-iconfont aui-icon-edit" style="font-weight:800; color:#000; font-size:21px;"></i>');
             $(".total_amount").show();
             /* 合计  */
             $("#confirm_cart").show();
@@ -475,7 +475,6 @@
 
     //删除
     function big_cart_remove() {
-            
         // 购物车 删除商品
         console.log(111)
         var del_arr = [];
@@ -486,7 +485,7 @@
         }
         console.log(del_arr)
         $.ajax({
-            url: '{:url("")}',
+            url: '{:url("index/Shopping/batch")}',
             type: 'POST',
             dataType: 'JSON',
             async: false,
