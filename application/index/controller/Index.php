@@ -15,7 +15,8 @@ class Index extends Controller
     {
         $goods_type = db("goods_type")->where("pid","0")->select();
         $seckill = db("seckill")->select();
-        return view("index",['goods_type'=>$goods_type,"seckill"=>$seckill]);
+        $goods = db("goods")->where("goods_status",1)->select();
+        return view("index",['goods_type'=>$goods_type,"seckill"=>$seckill,"goods"=>$goods]);
     }
 
 

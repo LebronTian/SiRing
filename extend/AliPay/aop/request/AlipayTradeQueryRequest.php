@@ -5,7 +5,6 @@
  * @author auto create
  * @since 1.0, 2016-11-09 21:53:21
  */
-namespace Alipay\aop\request;
 class AlipayTradeQueryRequest
 {
 	/** 
