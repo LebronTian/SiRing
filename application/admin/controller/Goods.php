@@ -266,10 +266,10 @@ class Goods extends Controller{
             foreach ($id as $value) {
                 $goods_url = db("goods")->where("id", $value)->select();
                 $goods_images = db("goods_images")->where("goods_id", $value)->select();
-                unlink(ROOT_PATH . 'public' . DS . 'uploads/'.$goods_url[0]['goods_show_images']);
+                //unlink(ROOT_PATH . 'public' . DS . 'uploads/'.$goods_url[0]['goods_show_images']);
                 foreach ($goods_images as $val) {
-                    unlink(ROOT_PATH . 'public' . DS . 'upload/' . $val['goods_images']);
-                    GoodsImages::destroy($val);
+                    //unlink(ROOT_PATH . 'public' . DS . 'upload/' . $val['goods_images']);
+                    GoodsImages::destroy($val['id']);
                 }
                 $bool = Good::destroy($value);
             }
