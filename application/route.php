@@ -169,7 +169,7 @@ Route::group("",[
 
     /*支付*/
     "Alipay_index"=>"index/Alipay/aliPay",
-    "Alipay_index"=>"index/Alipay/aliPay",
+    "Alipay_pay_code"=>"index/Alipay/pay_code",
 
 
 ]);

@@ -76,6 +76,14 @@ class AliPay extends Controller
 
     public function pay_code(){
 
+        if ($_POST['trade_status'] == 'TRADE_SUCCESS') {//如果支付成功
+            //===============修改订单状态===========================//
+            $orderSn = $_POST['out_trade_no'];//获取订单号
+            $bool = db("order")->where("order_information_number",$orderSn)->update(["status"=>2]);//修改订单状态
+            if($bool){
+                $this->redirect("index/index/index");
+            }
+        }
     }
 
 }
