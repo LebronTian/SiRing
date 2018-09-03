@@ -38,6 +38,7 @@ Route::group("",[
     "shopping_index"=>"index/Shopping/index",
     "shopping_id"=>"index/Shopping/ajax_id",
     "shopping_option"=>"index/Shopping/option",
+    "shopping_batch"=>"index/Shopping/batch",
 
 
     /*秒杀*/
