@@ -36,12 +36,11 @@ class Order extends Base {
         if(!empty($position)){
             $this->assign('position',$position);
         }
+        //直接从买入过来
         $commodity_id =Session::get('goods_id');
         if(!empty($commodity_id)){
             $datas =Db::name('goods')->where('id',$commodity_id)->find();
             $goods_bottom_money=$datas['goods_bottom_money'];
-            $goods_bottom_money =(string)$goods_bottom_money;
-            $arr=explode(".",$goods_bottom_money);
             $express_fee =0.00;
             /*总费用*/
             $all_money = $goods_bottom_money + $express_fee;
@@ -49,8 +48,6 @@ class Order extends Base {
                 'commodity_id'=>$commodity_id,
                 'goods_name'=>$datas['goods_name'],
                 'goods_bottom_money'=>$goods_bottom_money,
-                'goods_bottom_money_one'=>$arr[0],
-                'goods_bottom_money_two'=>$arr[1],
                 //运费
                 'express_fee'=>$express_fee,
                 //总计
@@ -58,6 +55,12 @@ class Order extends Base {
             ];
             $this->assign('data',$data);
         }
+        //从购物车过来
+        $shopping_id =Session::get('shopping');
+
+
+
+
 
         return view("index");
     }
@@ -100,7 +103,7 @@ class Order extends Base {
                ];
                $res =Db::name('order')->insertGetId($datas);
                if($res){
-//                   Session::delete('goods_id');
+                   Session::delete('goods_id');
                    session('order_id',$res);
                    return ajax_success('下单成功',$datas);
                }
