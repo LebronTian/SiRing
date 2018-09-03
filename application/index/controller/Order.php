@@ -156,12 +156,11 @@ class Order extends Base {
                         ];
                         dump($datas);
                         $res =Db::name('order')->insert($datas);
-
-                    }
-                    if($res){
+                       if($res){
                         Session::delete('goods_id');
                         session('order_id',$res);
-                        return ajax_success('下单成功',$datas);
+//                        return ajax_success('下单成功',$datas);
+                    }
                     }
 
                 }
