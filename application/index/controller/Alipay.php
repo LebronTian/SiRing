@@ -74,9 +74,11 @@ class AliPay extends Controller
     }
 
 
-
+    /**
+     * 回调，更新订单数据
+     * @param Request $request
+     */
     public function pay_code(Request $request){
-
         if($request->isGet()){
             $data['status'] = 2;
             $bool = db("order")->where("order_information_number",$_GET['out_trade_no'])->update($data);

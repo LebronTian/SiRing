@@ -24,6 +24,7 @@ Route::group("",[
     /*商品列表*/
     "goods_index"=>"index/Goods/index",
     "goods_detail"=>"index/Goods/detail",
+    "goods_list"=>"index/Goods/list",
     "goods_id"=>"index/Goods/ajax_id",
     "particulars_id"=>"index/Goods/goods_id",
 

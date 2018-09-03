@@ -36,6 +36,11 @@ class Order extends Base {
         if(!empty($position)){
             $this->assign('position',$position);
         }
+        $discounts_id = db("discounts_user")->where("user_id",$user_id['id'])->field("discounts_id")->find();
+        $discounts = db("discounts")->where("id",$discounts_id['discounts_id'])->find();
+        if($discounts['status'] == 1){
+            $this->assign("discounts",$discounts);
+        }
         //直接从买入过来
         $commodity_id =Session::get('goods_id');
         if(!empty($commodity_id)){
@@ -43,7 +48,7 @@ class Order extends Base {
             $goods_bottom_money=$datas['goods_bottom_money'];
             $express_fee =0.00;
             /*总费用*/
-            $all_money = $goods_bottom_money + $express_fee;
+            $all_money = $goods_bottom_money + $express_fee - $discounts['discounts_money'];
             $data =[
                 'commodity_id'=>$commodity_id,
                 'goods_name'=>$datas['goods_name'],
@@ -57,9 +62,6 @@ class Order extends Base {
         }
         //从购物车过来
         $shopping_id =Session::get('shopping');
-
-
-
 
 
         return view("index");
