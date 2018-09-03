@@ -493,6 +493,22 @@
 						},1000)
 					}
 				}
+				$.ajax({
+					url: '{:url("index/Order/common_id")}',
+					type: 'POST',
+					dataType: 'JSON',
+					async: false,
+					data: {
+						'data': data
+					},
+					success: function(data){
+						console.log(111)
+						console.log(data);
+					},
+					error: function(){
+						console.log('错误');
+					}
+				})
 			},
 			error: function(){
 				console.log('错误')
@@ -813,8 +829,7 @@
 			},
             success:function(data){
                 console.log(data);
-				console.log(xid);
-                location.href='order_index'
+                // location.href='order_index'
             },
             error: function(data){
                 console.log('未登录');

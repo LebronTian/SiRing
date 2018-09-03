@@ -2288,11 +2288,6 @@ input[type="search"]::-webkit-search-cancel-button {
     text-align: center;
     font-size: 0.7rem;
 }
-/*折叠菜单*/
-.aui-collapse-header.aui-active {
-    /*background: #ececec;*/
-	/* 临时 注释掉 */
-}
 .aui-collapse .aui-list-item:active{
     background: #ececec;
 }
@@ -2778,15 +2773,11 @@ input[type="search"]::-webkit-search-cancel-button {
 	position:relative;
 }
 
-.aui-title-text a{
-
-}
-
 .aui-title-text a i{
 	margin-top:2px;
 	width:30px;
 	height:16px;
-	display:inline-block;
+	/* display:inline-block; */
 	float:left;
 
 }
@@ -2811,7 +2802,7 @@ input[type="search"]::-webkit-search-cancel-button {
 	color:#fff;
 	border-radius:2px;
 	font-weight:100;
-	display:inline-block;
+	/* display:inline-block; */
 	float:left;
 	margin-left:4px;
 	margin-right:4px;
@@ -3089,7 +3080,7 @@ img {
 
 .account_info li .info_name {
 	color: #9a9a9a;
-	float: left;
+	/* float: left; */
 	display: inline-block;
 	margin-right: 5%;
 	color: #333;
