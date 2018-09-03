@@ -3,6 +3,7 @@
 namespace app\index\controller;
 use think\Controller;
 use think\Loader;
+use think\Request;
 
 class AliPay extends Controller
 {
@@ -74,14 +75,13 @@ class AliPay extends Controller
 
 
 
-    public function pay_code(){
+    public function pay_code(Request $request){
 
-        if ($_POST['trade_status'] == 'TRADE_SUCCESS') {//如果支付成功
-            //===============修改订单状态===========================//
-            $orderSn = $_POST['out_trade_no'];//获取订单号
-            $bool = db("order")->where("order_information_number",$orderSn)->update(["status"=>2]);//修改订单状态
+        if($request->isGet()){
+            $data['status'] = 2;
+            $bool = db("order")->where("order_information_number",$_GET['out_trade_no'])->update($data);
             if($bool){
-                $this->redirect("index/index/index");
+                $this->redirect(url("index/index/index"));
             }
         }
     }

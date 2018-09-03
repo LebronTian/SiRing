@@ -6,6 +6,7 @@
  * Time: 15:43
  */
 namespace app\index\controller;
+use app\index\model\Shoppings;
 use think\Request;
 use think\Session;
 use think\Db;
@@ -104,9 +105,9 @@ class Shopping extends Base {
 
     public function batch(Request $r){
         if($r->isPost()){
-            $id = $r->only(['id']);
+            $id = $r->only(['del_id']);
             foreach ($id as $value){
-                $bool = \app\index\model\Shopping::destroy($value);
+                $bool = Shoppings::destroy($value);
             }
             if($bool){
                 return ajax_success("删除成功",$bool);
