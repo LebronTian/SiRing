@@ -104,5 +104,4 @@ class Goods extends  Controller{
 
 
 
-
 }

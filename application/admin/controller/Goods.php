@@ -54,7 +54,7 @@ class Goods extends Controller{
             ]);
         }else{
             $goods = db("goods")->paginate(10);
-            return view("goods_index",["goods"=>$goods,"total"=>db("goods")->count()]);
+            return view("goods_index",["goods"=>$goods]);
         }
 
     }
