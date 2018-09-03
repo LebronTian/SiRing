@@ -140,8 +140,8 @@ class Order extends Base {
                     if(!empty($data)){
                         $datas =[
                             'goods_img'=>$v['goods_images'],
-                            'goods_name'=>$data['goods_name'],
-                            'order_num'=>$data['order_num'],
+                            'goods_name'=>$data['goods_name'][$k],
+                            'order_num'=>$data['order_num'][$k],
                             'user_id'=>$member['id'],
                             'harvester'=>$member['harvester'],
                             'harvest_phone_num'=>$member['harvester_phone_num'],
@@ -155,13 +155,15 @@ class Order extends Base {
                             'shopping_shop_id'=>$v['id']
                         ];
                         dump($datas);
-//                        $res =Db::name('order')->insert($datas);
-//                        if($res){
-//                            Session::delete('goods_id');
-//                            session('order_id',$res);
-//                            return ajax_success('下单成功',$datas);
-//                        }
+                        $res =Db::name('order')->insert($datas);
+
                     }
+                    if($res){
+                        Session::delete('goods_id');
+                        session('order_id',$res);
+                        return ajax_success('下单成功',$datas);
+                    }
+
                 }
             }
 
