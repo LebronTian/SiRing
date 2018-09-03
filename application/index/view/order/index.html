@@ -59,7 +59,8 @@
                     <i class="order_num">1</i>
                     <div>
                         <span class="price">
-                            <b>￥</b>{$data.goods_bottom_money}<b></b>
+                            <b>￥</b>
+                            <b>{$data.goods_bottom_money}</b>
                         </span>
                     </div>
 
@@ -139,7 +140,8 @@
                     <i class="order_num">{$vo.goods_unit}</i>
                     <div>
                         <span class="price">
-                            <b>￥</b>{$vo.money}<b></b>
+                            <b>￥</b>
+                            <b class="unit_price">{$vo.money}</b>
                         </span>
                     </div>
 
@@ -272,10 +274,16 @@
 <script>
     $("#bt_order").click(function () {
 
-        var goods_name =$('.goods_name').html();
-//        alert(goods_name);
-        var order_num =$('.order_num').html();
-//        alert(order_num);
+        var goods_name = [],
+            order_num = [],
+            unit_price = [];
+        var length = $('.details').length;
+        for(var i = 0; i < length; i++){
+            goods_name.push($('.goods_name')[i].innerHTML);
+            order_num.push($('.order_num')[i].innerHTML);
+            unit_price.push($('.unit_price')[i].innerHTML);
+        }
+
         var all_pay =$('.all_pay').html();
 //        alert(all_pay);
         var express_fee =$(".express_fee").html();
@@ -289,7 +297,9 @@
                 'goods_name':goods_name,
                 'order_num':order_num,
                 'all_pay':all_pay,
-                'express_fee':express_fee
+                'express_fee':express_fee,
+                'unit_price': unit_price
+
             },
             success: function(data){
                 if(data.code==0){
