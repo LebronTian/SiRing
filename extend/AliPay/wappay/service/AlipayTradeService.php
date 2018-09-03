@@ -7,7 +7,10 @@
  * 以下代码只是为了方便商户测试而提供的样例代码，商户可以根据自己网站的需要，按照技术文档编写,并非一定要使用该代码。
  */
 
-use think\Loader;
+namespace Alipay\wappay\service;
+
+require_once dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'./../../AopSdk.php';
+require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'./../../config.php';
 class AlipayTradeService {
 
 	//支付宝网关地址
@@ -34,7 +37,6 @@ class AlipayTradeService {
 	public $signtype = "RSA";
 
 	function __construct($alipay_config){
-        Loader::import('AliPay\config.php', EXTEND_PATH);
 		$this->gateway_url = $alipay_config['gatewayUrl'];
 		$this->appid = $alipay_config['app_id'];
 		$this->private_key = $alipay_config['merchant_private_key'];
@@ -76,7 +78,7 @@ class AlipayTradeService {
 		//打印业务参数
 		$this->writeLog($biz_content);
 	
-		$request = new AlipayTradeWapPayRequest();
+		$request = new \Alipay\aop\request\AlipayTradeWapPayRequest();
 	
 		$request->setNotifyUrl($notify_url);
 		$request->setReturnUrl($return_url);
@@ -90,7 +92,7 @@ class AlipayTradeService {
 
 	 function aopclientRequestExecute($request,$ispage=false) {
 
-		$aop = new AopClient ();
+		$aop = new \Alipay\aop\AopClient ();
 		$aop->gatewayUrl = $this->gateway_url;
 		$aop->appId = $this->appid;
 		$aop->rsaPrivateKey =  $this->private_key;
@@ -125,7 +127,7 @@ class AlipayTradeService {
 		$biz_content=$builder->getBizContent();
 		//打印业务参数
 		$this->writeLog($biz_content);
-		$request = new AlipayTradeQueryRequest();
+		$request = new \AlipayTradeQueryRequest();
 		$request->setBizContent ( $biz_content );
 
 		// 首先调用支付api

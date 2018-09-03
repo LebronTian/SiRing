@@ -70,11 +70,10 @@ class Goods extends  Controller{
             $goods_images = db("goods_images")->select();
             $seckill = db("seckill")->where("goods_id",$id)->field("seckill_money,over_time,start_time")->find();
             $time = time();
-            foreach ($goods as $key => $value) {
-                foreach ($goods_images as $val) {
-                    if ($value['id'] == $val['goods_id']) {
-                        $goods[$key]["goods_images"][] = $val["goods_images"];
-                        if(!empty($seckill)){
+            if(!empty($seckill)){
+                foreach ($goods as $key => $value) {
+                    foreach ($goods_images as $val) {
+                        if ($value['id'] == $val['goods_id']) {
                             $goods[$key]['seckill_status'] = 1;
                             $goods[$key]['goods_bottom_money'] = $seckill['seckill_money'];
                             $goods[$key]['start_time'] = $seckill['start_time'];
@@ -84,13 +83,23 @@ class Goods extends  Controller{
                             unset($goods[$key]['start_time']);
                             unset($goods[$key]['over_time']);
                             $goods[$key]['goods_bottom_money'] = $value['goods_bottom_money'];
-                            return ajax_error("失败",$goods);
                         }
                     }
+                    return ajax_success("获取成功",$goods);
+                }
+            }else{
+                foreach ($goods as $key => $value) {
+                    foreach ($goods_images as $val) {
+                        if ($value['id'] == $val['goods_id']) {
+                            $goods[$key]["goods_images"][] = $val["goods_images"];
+                        }
+                    }
+                    return ajax_success("成功", $goods);
                 }
             }
-            //Session::delete("goods_id");
-            return ajax_success("获取成功", $goods);
+
+
+
         }
         return view("goods_detail");
     }
