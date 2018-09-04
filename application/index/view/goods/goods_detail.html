@@ -448,8 +448,6 @@
 				// 价格
 				$('.price').html('￥'+data.goods_bottom_money+'');
 				xid = data.id;
-				
-
 				if(data.start_time != undefined){
 					$('.time_box').css('display','block');
 					// 活动开始时间
@@ -492,22 +490,22 @@
 						},1000)
 					}
 				}
-				$.ajax({
-					url: '{:url("index/Order/common_id")}',
-					type: 'POST',
-					dataType: 'JSON',
-					async: false,
-					data: {
-						'data': data
-					},
-					success: function(data){
-						console.log(111)
-						console.log(data);
-					},
-					error: function(){
-						console.log('错误');
-					}
-				})
+//				$.ajax({
+//					url: '{:url("index/Order/common_id")}',
+//					type: 'POST',
+//					dataType: 'JSON',
+//					async: false,
+//					data: {
+//						'data': data
+//					},
+//					success: function(data){
+//						console.log(111)
+//						console.log(data);
+//					},
+//					error: function(){
+//						console.log('错误');
+//					}
+//				})
 			},
 			error: function(){
 				console.log('错误')
@@ -848,7 +846,7 @@
                 'id':myid
 			},
             success:function(data){
-                console.log(data);
+//                console.log(data);
                 location.href='shopping_index';
             },
             error: function(){
@@ -868,7 +866,7 @@
                 'id': xid
             },
             success:function(data){
-                console.log(data);
+//                console.log(data);
 				if(data.info == '收藏成功'){
 					$('.collection_add').children().addClass('aui-text-warning');
 				}else if(data.info == '取消收藏成功'){
@@ -896,7 +894,7 @@
 				},
                 async: false,
                 success: function(data){
-                   console.log(data);
+//                   console.log(data);
 				   if(data.data.status != null && data.data.status == 1){
 					   $('.collection_add').children().addClass('aui-text-warning');
 				   }
