@@ -4145,7 +4145,7 @@
 
 .addCoupon-box {
 	width: 13rem;
-//height: 7.6rem;
+    height: 7.6rem;
 	background: #fff;
 	left: 50%;
 	position: absolute;
@@ -4191,7 +4191,7 @@
 
 .addCoupon-box .card-coupon-input-password .errorMsg {
 	line-height: .96rem;
-//height: .96rem;
+	height: .96rem;
 	min-height: .96rem
 }
 
@@ -4929,7 +4929,7 @@
 .fadeIn .middle_box .price_p span{
 	display: inline-block;
 	text-align: right;
-	width: 42%;
+	width: 50%;
 }
 #WIDtotal_amount{
 	font-size: 28px;
