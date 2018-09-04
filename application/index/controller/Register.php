@@ -56,8 +56,9 @@ class Register extends  Controller{
         public function index()
         {
             $url = $_SERVER['REQUEST_URI'];
-            $number = strrchr($url,'8');
-            return view('index',['number'=>$number]);
+            $number = strrchr($url,'=');
+            $numbers = substr($number,1);
+            return view('index',['number'=>$numbers]);
         }
 
 

@@ -55,10 +55,10 @@ class Order extends Base {
             /*正常流程*/
             if(empty($seckill_money)){
                 $goods_bottom_money=$datas['goods_bottom_money'];
-                $all_money = $goods_bottom_money + $express_fee- $discounts['discounts_money'];
+                $all_money = $goods_bottom_money + $express_fee - (float)$discounts['discounts_money'];
             }
             /*总费用*/
-//            $all_money = $goods_bottom_money + $express_fee - $discounts['discounts_money'];
+
             $data =[
                 'commodity_id'=>$commodity_id,
                 'goods_name'=>$datas['goods_name'],
