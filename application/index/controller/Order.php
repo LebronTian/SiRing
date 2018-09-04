@@ -40,10 +40,19 @@ class Order extends Base {
         $commodity_id =Session::get('goods_id');
         if(!empty($commodity_id)){
             $datas =Db::name('goods')->where('id',$commodity_id)->find();
-            $goods_bottom_money=$datas['goods_bottom_money'];
             $express_fee =0.00;
+            /*促销*/
+            $seckill_money =Db::name('seckill')->field('seckill_money')->where('goods_id',$commodity_id)->find();
+            if(!empty($seckill_money)){
+                $goods_bottom_money =$seckill_money['seckill_money'];
+                $all_money = $goods_bottom_money + $express_fee;
+            }
+            /*正常流程*/
+            if(empty($seckill_money)){
+                $goods_bottom_money=$datas['goods_bottom_money'];
+                $all_money = $goods_bottom_money + $express_fee;
+            }
             /*总费用*/
-            $all_money = $goods_bottom_money + $express_fee;
             $data =[
                 'commodity_id'=>$commodity_id,
                 'goods_name'=>$datas['goods_name'],
@@ -55,7 +64,6 @@ class Order extends Base {
             ];
             $this->assign('data',$data);
         };
-
         //从购物车过来
         $shopping_id =Session::get('shopping');
         if(!empty($shopping_id)){
@@ -70,10 +78,6 @@ class Order extends Base {
             $this->assign('list',$list);
             $this->assign('all_money',$shopping['money']);
         }
-
-
-
-
         return view("index");
     }
     /**
@@ -82,91 +86,92 @@ class Order extends Base {
      * 提交订单
      **************************************
      */
-    public function  bt_order(Request $request){
-        if($request->isPost()){
-            $data =$_POST;
-            $member_data =session('member');
-            $member =Db::name('user')->field('id,harvester,harvester_phone_num,city,address')->where('phone_num',$member_data['phone_num'])->find();
-            if(empty($member['harvester']) ||empty($member['harvester_phone_num']) || empty($member['city']) ||empty($member['address'])){
+    public function  bt_order(Request $request)
+    {
+        if ($request->isPost()) {
+            $data = $_POST;
+            $member_data = session('member');
+            $member = Db::name('user')->field('id,harvester,harvester_phone_num,city,address')->where('phone_num', $member_data['phone_num'])->find();
+            if (empty($member['harvester']) || empty($member['harvester_phone_num']) || empty($member['city']) || empty($member['address'])) {
                 $this->error('请填写收货人信息');
             }
-            if(!empty($member['city'])){
-                $my_position =explode(",",$member['city']);
-                $position = $my_position[0].$my_position[1].$my_position[2].$member['address'];
+            if (!empty($member['city'])) {
+                $my_position = explode(",", $member['city']);
+                $position = $my_position[0] . $my_position[1] . $my_position[2] . $member['address'];
             }
-
             //从点击买入一步步过来
-            $commodity_id =Session::get('goods_id');
-            if(!empty($commodity_id)){
-                $goods_data =Db::name('goods')->where('id',$commodity_id)->find();
+            $commodity_id = Session::get('goods_id');
+            if (!empty($commodity_id)) {
+                Session::delete('shopping');
+                $goods_data = Db::name('goods')->where('id', $commodity_id)->find();
                 $create_time = time();
-                if(!empty($data)){
-                    $datas =[
-                        'goods_img'=>$goods_data['goods_show_images'],
-                        'goods_name'=>$data['goods_name'],
-                        'order_num'=>$data['order_num'],
-                        'user_id'=>$member['id'],
-                        'harvester'=>$member['harvester'],
-                        'harvest_phone_num'=>$member['harvester_phone_num'],
-                        'harvest_address'=>$position,
-                        'create_time'=>$create_time,
-                        'pay_money'=>$data['all_pay'],
-                        'status'=>1,
-                        'goods_id'=>$commodity_id,
-                        'send_money'=>$data['express_fee'],
-                        'order_information_number'=>$create_time.$member['id'],//时间戳+用户id构成订单号
+                if (!empty($data)) {
+                    $datas = [
+                        'goods_img' => $goods_data['goods_show_images'],
+                        'goods_name' => $data['goods_name'][0],
+                        'order_num' => $data['order_num'][0],
+                        'user_id' => $member['id'],
+                        'harvester' => $member['harvester'],
+                        'harvest_phone_num' => $member['harvester_phone_num'],
+                        'harvest_address' => $position,
+                        'create_time' => $create_time,
+                        'pay_money' => $data['all_pay'],
+                        'status' => 1,
+                        'goods_id' => $commodity_id,
+                        'send_money' => $data['express_fee'],
+                        'order_information_number' => $create_time . $member['id'],//时间戳+用户id构成订单号
                     ];
-                    $res =Db::name('order')->insertGetId($datas);
-                    if($res){
+                    $res = Db::name('order')->insertGetId($datas);
+                    if ($res) {
                         Session::delete('goods_id');
-                        session('order_id',$res);
-                        return ajax_success('下单成功',$datas);
+                        session('order_id', $res);
+                        return ajax_success('下单成功', $datas);
                     }
-            }
-           }
-           //从购物车过来的
-            $shopping_id =Session::get('shopping');
-            if(!empty($shopping_id)){
-                $shopping =Db::name('shopping_shop')->where('id',$shopping_id['id'])->find();
-                $shop_id =explode(',',$shopping['shopping_id']);
-                if(is_array($shop_id)){
-                    $where ='id in('.implode(',',$shop_id).')';
-                }else{
-                    $where ='id='.$shop_id;
                 }
-                $list =  Db::name('shopping')->where($where)->select();
+            }
+            //从购物车过来的
+            $shopping_id = Session::get('shopping');
+            if (!empty($shopping_id)) {
+                Session::delete('goods_id');
+                $shopping = Db::name('shopping_shop')->where('id', $shopping_id['id'])->find();
+                $shop_id = explode(',', $shopping['shopping_id']);
+                if (is_array($shop_id)) {
+                    $where = 'id in(' . implode(',', $shop_id) . ')';
+                } else {
+                    $where = 'id=' . $shop_id;
+                }
+                $list = Db::name('shopping')->where($where)->select();
                 $create_time = time();
-                foreach ($list as $k=>$v){
-                    if(!empty($data)){
-                        $datas =[
-                            'goods_img'=>$v['goods_images'],
-                            'goods_name'=>$data['goods_name'][$k],
-                            'order_num'=>$data['order_num'][$k],
-                            'user_id'=>$member['id'],
-                            'harvester'=>$member['harvester'],
-                            'harvest_phone_num'=>$member['harvester_phone_num'],
-                            'harvest_address'=>$position,
-                            'create_time'=>$create_time,
-                            'pay_money'=>$data['all_pay'],
-                            'status'=>1,
-                            'goods_id'=>$v['goods_id'],
-                            'send_money'=>$data['express_fee'],
-                            'order_information_number'=>$create_time.$member['id'],//时间戳+用户id构成订单号
-                            'shopping_shop_id'=>$v['id']
+                foreach ($list as $k => $v) {
+                    if (!empty($data)) {
+                        $datas = [
+                            'goods_img' => $v['goods_images'],
+                            'goods_name' => $data['goods_name'][$k],
+                            'order_num' => $data['order_num'][$k],
+                            'user_id' => $member['id'],
+                            'harvester' => $member['harvester'],
+                            'harvest_phone_num' => $member['harvester_phone_num'],
+                            'harvest_address' => $position,
+                            'create_time' => $create_time,
+                            'pay_money' => $data['all_pay'],
+                            'status' => 1,
+                            'goods_id' => $v['goods_id'],
+                            'send_money' => $data['express_fee'],
+                            'order_information_number' => $create_time . $member['id'],//时间戳+用户id构成订单号
+                            'shopping_shop_id' => $v['id']
                         ];
-                        dump($datas);
-                        $res =Db::name('order')->insert($datas);
-                       if($res){
-                        Session::delete('goods_id');
-                        session('order_id',$res);
-//                        return ajax_success('下单成功',$datas);
+//                        dump($datas);
+                        $res =Db::name('order')->insertGetId($datas);
+                        session('order_id', $res);
                     }
-                    }
-
                 }
+                if ($res) {
+                    Session::delete('shopping');
+                    return ajax_success('下单成功', $datas);
+                }
+
+
             }
-
-
         }
     }
 
@@ -176,6 +181,7 @@ class Order extends Base {
      **************************************
      */
         public function  common_id(Request $request){
+
             if($request->isPost()){
                 $data =session('member');
                     $member_id =Db::name('user')->field('id')->where('phone_num',$data['phone_num'])->find();
