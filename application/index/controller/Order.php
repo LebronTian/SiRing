@@ -236,7 +236,7 @@ class Order extends Base {
     public function ajax_id(Request $request){
         if($request->isPost()){
             $id = $request->only(["order_id"])['order_id'];
-//            Session("order_id",$id);
+            Session("order_id",$id);
             return ajax_success("获取成功",$id);
         }
     }
