@@ -27,7 +27,15 @@
 		}
 
 		.aui-grid .aui-row-img-wt i { width:38px; height:38px; display:inline-block; margin:0 auto}
-
+		.img_box2{
+			width: 170px;
+			height: 110px;
+			overflow: hidden;
+		}
+		.img_box2 img{
+			max-width: 100%;
+			height: auto;
+		}
 	</style>
 	<link rel="stylesheet" href="__STATIC__/index/css/aui-flex.css">
 	<link rel="stylesheet" href="__STATIC__/index/css/aui-slide.css">
@@ -124,49 +132,17 @@
 	<div class="aui-card-list-content-padded aui-border-b aui-border-t">
 		<div class="aui-bj1"><a href="#"></a></div>
 		<div class="aui-row aui-row-padded aui-zdy-text">
+			{volist name="goods" id="v"}
 			<div class="aui-col-xs-6">
-				<a href="{:url('index/Goods/index')}">
-					<img src="__STATIC__/index/image/demo/ad2.jpg">
-					<p>[为你推荐]kaman抽屉式化妆品收纳盒大号创意护肤桌面收纳盒塑料口红置物架</p>
-					<span class="aui-margin-l-5">￥39.00</span>
+				<a href="javascript:;" id="{$v.id}" class="Href">
+					<div class="img_box2">
+						<img src="__UPLOADS__/{$v.goods_show_images}">
+					</div>
+					<p>{$v.goods_name}</p>
+					<span class="aui-margin-l-5">￥{$v.goods_bottom_money}</span>
 				</a>
 			</div>
-			<div class="aui-col-xs-6">
-				<a href="goods_detail">
-					<img src="__STATIC__/index/image/demo/ad3.jpg">
-					<p>[为你推荐]蚊帐三开门1.2m床坐床式拉链1.5m床蒙古包1.8m米床双人床家用蚊帐</p>
-					<span class="aui-margin-l-5">￥199.00</span>
-				</a>
-			</div>
-			<div class="aui-col-xs-6">
-				<a href="goods_detail">
-					<img src="__STATIC__/index/image/demo/ad4.jpg">
-					<p>[为你推荐]纯棉床裙式床罩三件套单件蕾丝边保护床套1.5米1.8m双人2.0m床群</p>
-					<span class="aui-margin-l-5">￥169.00</span>
-				</a>
-			</div>
-			<div class="aui-col-xs-6">
-				<a href="goods_detail">
-					<img src="__STATIC__/index/image/demo/ad5.jpg">
-					<p>[为你推荐]可爱卡通脏衣篓儿童玩具收纳桶布艺脏衣服收纳筐衣物换洗衣服篮子</p>
-					<span class="aui-margin-l-5">￥39.00</span>
-				</a>
-			</div>
-			<div class="aui-col-xs-6">
-				<a href="goods_detail">
-					<img src="__STATIC__/index/image/demo/ad6.jpg">
-					<p>美丽俏佳人力荐 蜗牛补水保湿面膜20片 温和补水 呵护肌肤</p>
-					<span class="aui-margin-l-5">￥99.00</span>
-				</a>
-			</div>
-			<div class="aui-col-xs-6">
-				<a href="goods_detail">
-					<img src="__STATIC__/index/image/demo/ad7.jpg">
-					<p>[为你推荐]【佳彩天颜】diy数字油画卡通动漫动物手工绘油彩填色装饰画麋鹿</p>
-					<span class="aui-margin-l-5">￥299.00</span>
-				</a>
-			</div>
-
+			{/volist}
 		</div>
 	</div>
 
@@ -201,6 +177,26 @@
 <script type="text/javascript" src="__STATIC__/index/js/index/aui-tab.js" ></script>
 <script type="text/javascript" src="__STATIC__/index/js/index/aui-slide.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script>
+	$(".Href").click(function () {
+		var goods_id = $(this)[0].id;
+		$.ajax({
+			type:"POST",
+			url:"{:url('index/Goods/goods_id')}",
+			data:{"goods_id":goods_id},
+			dataType:"json",
+			success:function (data) {
+				//console.log(data);
+				if(data.status == 1){
+				    location.href = "goods_detail";
+				}
+            },
+			error:function (data) {
+				console.log("错误");
+            }
+		});
+    })
+</script>
 <script>
     (function(){
         $.ajax({
