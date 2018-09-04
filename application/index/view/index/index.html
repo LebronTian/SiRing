@@ -27,7 +27,15 @@
 		}
 
 		.aui-grid .aui-row-img-wt i { width:38px; height:38px; display:inline-block; margin:0 auto}
-
+		.img_box2{
+			width: 170px;
+			height: 110px;
+			overflow: hidden;
+		}
+		.img_box2 img{
+			max-width: 100%;
+			height: auto;
+		}
 	</style>
 	<link rel="stylesheet" href="__STATIC__/index/css/aui-flex.css">
 	<link rel="stylesheet" href="__STATIC__/index/css/aui-slide.css">
@@ -127,7 +135,9 @@
 			{volist name="goods" id="v"}
 			<div class="aui-col-xs-6">
 				<a href="javascript:;" id="{$v.id}" class="Href">
-					<img src="__UPLOADS__/{$v.goods_show_images}">
+					<div class="img_box2">
+						<img src="__UPLOADS__/{$v.goods_show_images}">
+					</div>
 					<p>{$v.goods_name}</p>
 					<span class="aui-margin-l-5">￥{$v.goods_bottom_money}</span>
 				</a>
