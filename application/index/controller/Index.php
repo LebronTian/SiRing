@@ -18,7 +18,4 @@ class Index extends Controller
         return view("index",['goods_type'=>$goods_type,"seckill"=>$seckill]);
     }
 
-
-
-
 }

@@ -32,20 +32,21 @@ class Discounts extends Base{
      * 陈绪
      */
     public function discounts_my(){
-
         //取出表中user_id数量为两条的字段名
         $user_id = db("discounts_user")->field("user_id,count('user_id') tot")->having("tot =2")->group("user_id")->select();
-        if($user_id[0]['tot'] = 2) {
-            $discounts_id = db("discounts")->field("id")->find();
-            db("discounts_user")->where("user_id",$user_id[0]['user_id'])->update(['discounts_id'=>$discounts_id['id']]);
-
+        if(!empty($user_id)) {
+            if ($user_id[0]['tot'] == 2) {
+                $discounts_id = db("discounts")->field("id")->find();
+                db("discounts_user")->where("user_id", $user_id[0]['user_id'])->update(['discounts_id' => $discounts_id['id']]);
+                $discounts_data = db("discounts")->where("id",$discounts_id['id'])->select();
+                $this->assign("discounts_data",$discounts_data);
+            }
         }
-        $discounts_data = db("discounts")->where("id",$discounts_id['id'])->select();
         $time = time();
         db("discounts")->where("over_time","<",$time)->update(['status'=>3]);
         $discounts_status = db("discounts")->where("status","3")->select();
         //差优惠券以使用的状态
-        return view("discounts_my",['discounts_data'=>$discounts_data,"discounts_status"=>$discounts_status]);
+        return view("discounts_my",["discounts_status"=>$discounts_status]);
     }
 
 }

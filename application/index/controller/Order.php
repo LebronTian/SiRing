@@ -48,7 +48,7 @@ class Order extends Base {
             $goods_bottom_money=$datas['goods_bottom_money'];
             $express_fee =0.00;
             /*总费用*/
-            $all_money = $goods_bottom_money + $express_fee - $discounts['discounts_money'];
+            $all_money = $goods_bottom_money + $express_fee - (float)$discounts['discounts_money'];
             $data =[
                 'commodity_id'=>$commodity_id,
                 'goods_name'=>$datas['goods_name'],
