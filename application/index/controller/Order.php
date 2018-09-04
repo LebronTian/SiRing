@@ -26,6 +26,11 @@ class Order extends Base {
             $member_information =Db::name('user')->field('harvester,harvester_phone_num,city,address')->where('phone_num',$member['phone_num'])->find();
             $user_id = db("user")->where('phone_num',$member['phone_num'])->field("id")->find();
         }
+        $discounts_id = db("discounts_user")->where("user_id",$user_id['id'])->field("discounts_id")->find();
+        $discounts = db("discounts")->where("id",$discounts_id['discounts_id'])->find();
+        if($discounts['status'] == 1){
+            $this->assign("discounts",$discounts);
+        }
        if(!empty($member_information['city'])){
            $my_position =explode(",",$member_information['city']);
            $position = $my_position[0].$my_position[1].$my_position[2].$member_information['address'];
@@ -45,14 +50,15 @@ class Order extends Base {
             $seckill_money =Db::name('seckill')->field('seckill_money')->where('goods_id',$commodity_id)->find();
             if(!empty($seckill_money)){
                 $goods_bottom_money =$seckill_money['seckill_money'];
-                $all_money = $goods_bottom_money + $express_fee;
+                $all_money = $goods_bottom_money + $express_fee- $discounts['discounts_money'];
             }
             /*正常流程*/
             if(empty($seckill_money)){
                 $goods_bottom_money=$datas['goods_bottom_money'];
-                $all_money = $goods_bottom_money + $express_fee;
+                $all_money = $goods_bottom_money + $express_fee- $discounts['discounts_money'];
             }
             /*总费用*/
+//            $all_money = $goods_bottom_money + $express_fee - $discounts['discounts_money'];
             $data =[
                 'commodity_id'=>$commodity_id,
                 'goods_name'=>$datas['goods_name'],
@@ -102,7 +108,9 @@ class Order extends Base {
             //从点击买入一步步过来
             $commodity_id = Session::get('goods_id');
             if (!empty($commodity_id)) {
+
                 Session::delete('shopping');
+
                 $goods_data = Db::name('goods')->where('id', $commodity_id)->find();
                 $create_time = time();
                 if (!empty($data)) {
@@ -110,6 +118,8 @@ class Order extends Base {
                         'goods_img' => $goods_data['goods_show_images'],
                         'goods_name' => $data['goods_name'][0],
                         'order_num' => $data['order_num'][0],
+                        'goods_name' => $data['goods_name'],
+                        'order_num' => $data['order_num'],
                         'user_id' => $member['id'],
                         'harvester' => $member['harvester'],
                         'harvest_phone_num' => $member['harvester_phone_num'],
@@ -167,6 +177,7 @@ class Order extends Base {
                 }
                 if ($res) {
                     Session::delete('shopping');
+                    Session::delete('goods_id');
                     return ajax_success('下单成功', $datas);
                 }
 

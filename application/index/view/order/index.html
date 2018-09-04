@@ -166,10 +166,17 @@
 
         <div class="cart-group">
             <div class="cart-group-item coupon">
+                {if empty($discounts)}
                 <label>优惠券</label>
                 <div class="form-href">
                     <span class="save-money">无可用</span>
                 </div>
+                {else /}
+                <label>优惠券</label>
+                <div class="form-href">
+                    <span class="save-money">{$discounts.discounts_name}</span>
+                </div>
+                {/if}
             </div>
         </div>
         <div class="cart-group">

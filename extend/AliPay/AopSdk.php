@@ -15,7 +15,8 @@
  */
 if (!defined("AOP_SDK_WORK_DIR"))
 {
-	define("AOP_SDK_WORK_DIR", "/tmp/");
+	//define("AOP_SDK_WORK_DIR", "/tmp/");
+	define("AOP_SDK_WORK_DIR", "D:/www/SiRing/tmp/");
 }
 /**
  * 是否处于开发模式
