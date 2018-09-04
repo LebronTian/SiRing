@@ -223,7 +223,7 @@
 </div>
 <div class="mask">
 <!-- 支付弹窗 -->
-    <form name=alipayment action='{:url("index/Alipay/aliPay")}' method=post target="_blank">
+    <!-- <form name=alipayment action='{:url("index/Alipay/aliPay")}' method=post target="_blank">
         <div id="body" style="clear:left">
             <dl class="content">
                 <dt>商户订单号
@@ -258,26 +258,35 @@
                 </dd>
             </dl>
         </div>
-    </form>
+    </form> -->
 </div>
-
-
-<!--<body onload="tijiao()">
-<form action="https://openapi.alipay.com/gateway.do" method="POST" id="form1">
-    <input name="subject" type="hidden" value="mafia-r@163.com" />
-    <input name="out_trade_no" type="hidden" value="100.00" />
-    <input id="timeout_express" name="title" type="hidden" value="赞助码代码（李雷博客）" />
-    <input name="total_amount" type="hidden" value="请填写您在本站的用户名或您的联系方式，以便李雷答谢。" />
-    <input name="product_code" type="image" value="转账" />
+<form name=alipayment action='{:url("index/Alipay/aliPay")}' method=post target="_blank">
+    <div id="body" class="fadeIn">
+        <div class="head">
+            <div class="head_close">×</div>
+            <div class="head_title">确认付款</div>
+        </div>
+        <div class="middle_box">
+            <div class="price_p">
+                <span>￥</span>
+                <input id="WIDtotal_amount" name="WIDtotal_amount">
+            </div>
+            <ul class="content">
+                <li>
+                    商户订单号: <input id="WIDout_trade_no" name="WIDout_trade_no">
+                </li>
+                <li>
+                    订单名称: <input id="WIDsubject" name="WIDsubject">
+                </li>
+                <li>
+                    商品描述: <input id="WIDbody" name="WIDbody">
+                </li>
+            </ul>
+        </div>
+        <button class="new-btn-login" type="submit" style="text-align:center;">立即付款</button>
+    </div>
 </form>
 
-<script type="text/javascript">
-    function tijiao(){
-        document.getElementById('form1').submit();
-    }
-
-</script>
-</body>-->
 <script>
     $("#bt_order").click(function () {
 
@@ -292,9 +301,8 @@
         }
 
         var all_pay =$('.all_pay').html();
-//        alert(all_pay);
         var express_fee =$(".express_fee").html();
-//        alert(express_fee);
+
         $.ajax({
             url: "{:url('index/Order/bt_order')}",
             type: 'POST',
