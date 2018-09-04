@@ -215,6 +215,7 @@ class Order extends Base {
      */
         public function details(){
             $order_id = Session::get("order_id");
+            dump($order_id);
             if(!empty($order_id)){
                     $data=Db::table("tb_order")
                         ->field("tb_order.*,tb_goods.goods_bottom_money goods_bottom_money")
@@ -235,8 +236,8 @@ class Order extends Base {
     public function ajax_id(Request $request){
         if($request->isPost()){
             $id = $request->only(["order_id"])['order_id'];
-            Session("order_id",$id);
-            return ajax_success("获取成功");
+//            Session("order_id",$id);
+            return ajax_success("获取成功",$id);
         }
     }
 
