@@ -27,7 +27,7 @@ class Order extends Base {
             $user_id = db("user")->where('phone_num',$member['phone_num'])->field("id")->find();
         }
         $discounts_id = db("discounts_user")->where("user_id",$user_id['id'])->field("discounts_id")->find();
-        $discounts = db("discounts")->where("id",$discounts_id['discounts_id'])->find();
+        $discounts = db("discounts")->where("id",$discounts_id['discounts_id'])->where('status',1)->find();
         if($discounts['status'] == 1){
             $this->assign("discounts",$discounts);
         }
@@ -118,8 +118,6 @@ class Order extends Base {
                         'goods_img' => $goods_data['goods_show_images'],
                         'goods_name' => $data['goods_name'][0],
                         'order_num' => $data['order_num'][0],
-                        'goods_name' => $data['goods_name'],
-                        'order_num' => $data['order_num'],
                         'user_id' => $member['id'],
                         'harvester' => $member['harvester'],
                         'harvest_phone_num' => $member['harvester_phone_num'],
@@ -135,6 +133,10 @@ class Order extends Base {
                     if ($res) {
                         Session::delete('goods_id');
                         session('order_id', $res);
+                        $discounts =  Db::name('discounts_user')->field('discounts_id')->where('user_id',$member['id'])->find();
+                        if(!empty($discounts)){
+                            $bools =Db::name('discounts')->where('id',$discounts['discounts_id'])->update(['status'=>2]);
+                        }
                         return ajax_success('下单成功', $datas);
                     }
                 }
@@ -214,16 +216,38 @@ class Order extends Base {
      **************************************
      */
         public function details(){
-            $order_id = Session::get("order_id");
-            dump($order_id);
-            if(!empty($order_id)){
+            /*判断来自于购物订单列表*/
+            $order_from_shop_id = Session::get("order_id");
+            if(!empty($order_from_shop_id)){
+                $order_id =$order_from_shop_id;
+                if(!empty($order_id)){
+                    session('order_id_from_myorder',null);
+                    dump($order_id);
                     $data=Db::table("tb_order")
                         ->field("tb_order.*,tb_goods.goods_bottom_money goods_bottom_money")
                         ->join("tb_goods","tb_order.goods_id=tb_goods.id and tb_order.id=$order_id",'left')
                         ->find();
-                   $this->assign('data',$data);
-//                   session('order_id',null);
+                    dump($data);
+                    $this->assign('data',$data);
                 }
+
+            }
+            /*判断来自于我的订单列表点击订单详情*/
+            $order_from_myorder_bt =Session::get('order_id_from_myorder');
+            if(!empty($order_from_myorder_bt)){
+                $order_id =$order_from_myorder_bt;
+                if(!empty($order_id)){
+                    session('order_id',null);
+                    dump($order_id);
+                    $data=Db::table("tb_order")
+                        ->field("tb_order.*,tb_goods.goods_bottom_money goods_bottom_money")
+                        ->join("tb_goods","tb_order.goods_id=tb_goods.id and tb_order.id=$order_id",'left')
+                        ->find();
+                    dump($data);
+                    $this->assign('data',$data);
+
+                }
+            }
             return view('details');
         }
 
@@ -236,7 +260,7 @@ class Order extends Base {
     public function ajax_id(Request $request){
         if($request->isPost()){
             $id = $request->only(["order_id"])['order_id'];
-            Session("order_id",$id);
+            Session("order_id_from_myorder",$id);
             return ajax_success("获取成功",$id);
         }
     }
