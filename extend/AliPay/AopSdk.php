@@ -15,8 +15,13 @@
  */
 if (!defined("AOP_SDK_WORK_DIR"))
 {
-	//define("AOP_SDK_WORK_DIR", "/tmp/");
-	define("AOP_SDK_WORK_DIR", "D:/www/SiRing/tmp/");
+
+    $dirname = "../tmp";
+    if(!is_dir($dirname)){
+        mkdir($dirname,777);
+        define("AOP_SDK_WORK_DIR", $dirname);
+    }
+
 }
 /**
  * 是否处于开发模式
