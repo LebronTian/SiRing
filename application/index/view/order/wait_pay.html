@@ -165,7 +165,7 @@
         $('.payment').click(function(){
             var id = $(this)[0].id.split('_')[1];
             $.ajax({
-                url: "{:url('index/Order/bt_order')}",
+                url: "{:url('index/Order/read_order_to_pay')}",
                 type: 'POST',
                 async: false,
                 dataType: 'json',

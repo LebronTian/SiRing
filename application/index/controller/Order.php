@@ -218,6 +218,7 @@ class Order extends Base {
             /*判断来自于购物订单列表*/
             $order_from_shop_id = Session::get("order_id");
             if(!empty($order_from_shop_id)){
+                /*先通过查找订单编号*/
                 $order_id =$order_from_shop_id;
                 if(!empty($order_id)){
                     /*先清除之前的*/
@@ -262,7 +263,7 @@ class Order extends Base {
     /**
      **************李火生*******************
      * @return \think\response\View
-     * 我的订单
+     * 我的订单显示
      **************************************
      */
         public function myorder(){
