@@ -259,6 +259,8 @@ Route::group("admin",[
     "discount_index"=>"admin/Discount/index",
     "discount_add"=>"admin/Discount/add",
     "discount_save"=>"admin/Discount/save",
+    "discount_edit"=>"admin/Discount/edit",
+    "discount_updata"=>"admin/Discount/updata",
 
 
     /*秒杀*/
