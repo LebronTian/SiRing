@@ -108,9 +108,7 @@ class Order extends Base {
             //从点击买入一步步过来
             $commodity_id = Session::get('goods_id');
             if (!empty($commodity_id)) {
-
-                Session::delete('shopping');
-
+//                Session::delete('shopping');
                 $goods_data = Db::name('goods')->where('id', $commodity_id)->find();
                 $create_time = time();
                 if (!empty($data)) {
@@ -131,7 +129,7 @@ class Order extends Base {
                     ];
                     $res = Db::name('order')->insertGetId($datas);
                     if ($res) {
-                        Session::delete('goods_id');
+//                        Session::delete('goods_id');
                         session('order_id', $res);
                         $discounts =  Db::name('discounts_user')->field('discounts_id')->where('user_id',$member['id'])->find();
                         if(!empty($discounts)){
@@ -144,7 +142,7 @@ class Order extends Base {
             //从购物车过来的
             $shopping_id = Session::get('shopping');
             if (!empty($shopping_id)) {
-                Session::delete('goods_id');
+//                Session::delete('goods_id');
                 $shopping = Db::name('shopping_shop')->where('id', $shopping_id['id'])->find();
                 $shop_id = explode(',', $shopping['shopping_id']);
                 if (is_array($shop_id)) {
@@ -178,8 +176,8 @@ class Order extends Base {
                     }
                 }
                 if ($res) {
-                    Session::delete('shopping');
-                    Session::delete('goods_id');
+//                    Session::delete('shopping');
+//                    Session::delete('goods_id');
                     return ajax_success('下单成功', $datas);
                 }
 
@@ -221,13 +219,13 @@ class Order extends Base {
             if(!empty($order_from_shop_id)){
                 $order_id =$order_from_shop_id;
                 if(!empty($order_id)){
-                    session('order_id_from_myorder',null);
-                    dump($order_id);
+                    /*先清除之前的*/
                     $data=Db::table("tb_order")
                         ->field("tb_order.*,tb_goods.goods_bottom_money goods_bottom_money")
-                        ->join("tb_goods","tb_order.goods_id=tb_goods.id and tb_order.id=$order_id",'left')
+                        ->join("tb_goods","tb_order.goods_id=tb_goods.id",'left')
+                        ->where('tb_order.id',$order_id)
                         ->find();
-                    dump($data);
+                    session('order_id',null);
                     $this->assign('data',$data);
                 }
 
@@ -235,19 +233,15 @@ class Order extends Base {
             /*判断来自于我的订单列表点击订单详情*/
             $order_from_myorder_bt =Session::get('order_id_from_myorder');
             if(!empty($order_from_myorder_bt)){
-                $order_id =$order_from_myorder_bt;
-                if(!empty($order_id)){
-                    session('order_id',null);
-                    dump($order_id);
                     $data=Db::table("tb_order")
                         ->field("tb_order.*,tb_goods.goods_bottom_money goods_bottom_money")
-                        ->join("tb_goods","tb_order.goods_id=tb_goods.id and tb_order.id=$order_id",'left')
+                        ->join("tb_goods","tb_order.goods_id=tb_goods.id",'left')
+                        ->where('tb_order.id',$order_from_myorder_bt)
                         ->find();
-                    dump($data);
                     $this->assign('data',$data);
-
-                }
+                    session('order_id_from_myorder',null);
             }
+
             return view('details');
         }
 

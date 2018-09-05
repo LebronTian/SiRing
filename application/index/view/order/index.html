@@ -252,7 +252,6 @@
 
 <script>
     $("#bt_order").click(function () {
-
         var goods_name = [],
             order_num = [],
             unit_price = [];
@@ -262,7 +261,6 @@
             order_num.push($('.order_num')[i].innerHTML);
             unit_price.push($('.unit_price')[i].innerHTML);
         }
-
         var all_pay =$('.all_pay').html();
         var express_fee =$(".express_fee").html();
 
@@ -277,7 +275,6 @@
                 'all_pay':all_pay,
                 'express_fee':express_fee,
                 'unit_price': unit_price
-
             },
             success: function(data){
                 if(data.code==0){
