@@ -106,14 +106,31 @@
             </div>
         </div>
 
-        {/if}
+
 
         <footer class="cart-footer">
-            <a class="sn-btn sn-btn-assertive" id="bt_order">付款</a>
-            <a class="sn-btn sn-btn-assertive" id="cancel_order" >取消订单</a>
+            <a class="sn-btn sn-btn-assertive bt_order" id="bt_order_{$data.id}">付款</a>
+            <a class="sn-btn sn-btn-assertive cancel_order" id="cancel_order_{$data.id}" >取消订单</a>
         </footer>
+
+        {/if}
     </section>
+
 </div>
 <script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
+
+<script>
+   <!--付款-->
+    $('.bt_order').click(function () {
+
+    });
+    //取消订单
+    $('.cancel_order').click(function () {
+
+    });
+
+
+</script>
+
 </body>
 </html>

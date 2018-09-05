@@ -95,8 +95,6 @@ Route::group("",[
     'interface_information'=>"index/Order/interface_information", //快递100接口
     'logistics_information_id'=>"index/Order/logistics_information_id",//用来接收物流信息的id
     'confirm_payment'=>"index/order/confirm_payment", //确定付款
-    /*TODO：支付测试*/
-    'order_pay_test'=>"index/order/order_pay_test",
     /*登录页面*/
     "login"=>"index/Login/login",
     /*退出登录*/
