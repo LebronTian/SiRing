@@ -108,7 +108,7 @@ class Order extends Base {
             //从点击买入一步步过来
             $commodity_id = Session::get('goods_id');
             if (!empty($commodity_id)) {
-//                Session::delete('shopping');
+                Session::delete('shopping');
                 $goods_data = Db::name('goods')->where('id', $commodity_id)->find();
                 $create_time = time();
                 if (!empty($data)) {
@@ -129,7 +129,7 @@ class Order extends Base {
                     ];
                     $res = Db::name('order')->insertGetId($datas);
                     if ($res) {
-//                        Session::delete('goods_id');
+                        Session::delete('goods_id');
                         session('order_id', $res);
                         $discounts =  Db::name('discounts_user')->field('discounts_id')->where('user_id',$member['id'])->find();
                         if(!empty($discounts)){
@@ -142,7 +142,7 @@ class Order extends Base {
             //从购物车过来的
             $shopping_id = Session::get('shopping');
             if (!empty($shopping_id)) {
-//                Session::delete('goods_id');
+                Session::delete('goods_id');
                 $shopping = Db::name('shopping_shop')->where('id', $shopping_id['id'])->find();
                 $shop_id = explode(',', $shopping['shopping_id']);
                 if (is_array($shop_id)) {
@@ -170,14 +170,15 @@ class Order extends Base {
                             'order_information_number' => $create_time . $member['id'],//时间戳+用户id构成订单号
                             'shopping_shop_id' => $v['id']
                         ];
-//                        dump($datas);
                         $res =Db::name('order')->insertGetId($datas);
                         session('order_id', $res);
+                        /*下单成功对购物车里面对应的商品进行删除*/
+                        dump($res);exit();
+
                     }
                 }
                 if ($res) {
-//                    Session::delete('shopping');
-//                    Session::delete('goods_id');
+                    Session::delete('shopping');
                     return ajax_success('下单成功', $datas);
                 }
 
@@ -241,7 +242,6 @@ class Order extends Base {
                     $this->assign('data',$data);
                     session('order_id_from_myorder',null);
             }
-
             return view('details');
         }
 
@@ -479,6 +479,23 @@ class Order extends Base {
      */
     public  function refund(Request $request){
         return view('refund');
+    }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 我的待支付订单点击支付返回数据
+     **************************************
+     */
+    public function  read_order_to_pay(Request $request){
+        if($request->isPost()){
+            $data_id =$request->only(['id'])['id'];
+            if(!empty($data_id)){
+                $data = Db::name('order')->where('id',$data_id)->find();
+                return ajax_success('成功返回',$data);
+            }
+
+        }
     }
 
 

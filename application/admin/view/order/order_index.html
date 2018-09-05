@@ -243,13 +243,14 @@
                 <thead>
                 <tr class="text-c">
                     <th width="40"><input name="ids" type="checkbox"></th>
-                    <th width="40">订单号</th>
+                    <th width="40">排序号</th>
                     <th width="60">商品图片</th>
                     <th width="12">产品名称</th>
                     <th width="20">订单数量</th>
                     <th width="50">买家信息</th>
                     <th width="100">下单时间</th>
                     <th width="60">实付金额</th>
+                    <th width="60">订单编号</th>
                     <th width="60">订单状态</th>
                 </tr>
                 </thead>
@@ -264,6 +265,7 @@
                         <th width="40">{$vo.tname}<br> {$vo.phone}  </th>
                         <th width="50">{$vo.create_time|date="Y-m-d H:i:s",###}</th>
                         <th width="40">{$vo.pay_money}</th>
+                        <th width="40">{$vo.order_information_number}</th>
                         <td class="td-status ">
                             <a value="btn_{$vo.status}" class="all_btn" id="a_{$vo['id']}">{$vo.status}</a>
                         </td>
