@@ -165,15 +165,19 @@
     $('.bt_order').click(function () {
         var id =  $(this)[0].id.split('_')[2];
         $.ajax({
-            url: '{:url("index/Order/cancel_order")}',
+            url: '{:url("index/Order/order_to_pay_by_number")}',
             dataType: 'JSON',
             type: 'POST',
             async: false,
             data: {
-                'order_id': id
+                'id': id
             },
             success: function(data){
                 console.log(data);
+                $("#WIDout_trade_no").val(data.data.order_information_number);
+                $("#WIDbody").val(data.data.goods_name);
+                $("#WIDsubject").val(data.data.goods_name);
+                $("#WIDtotal_amount").val(data.data.pay_money);
                 $('.fadeIn').animate({'bottom':'0'});
                 $('.mask').css('display','block');
             },
