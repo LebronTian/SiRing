@@ -140,26 +140,30 @@
         for(var i = 0; i < num_len; i++){
             seckill_money.push(all_seckill_money[i].innerHTML);
         }
-
-        $.ajax({
-            url: '{:url("index/Shopping/option")}',
-            type: 'POST',
-            dataType: 'JSON',
-            async: false,
-            data: {
-                'goods_unit': num_arr,
-                'money': total_price,
-                'id': id_arr,
-                "seckill_money":seckill_money
-            },
-            success: function(data){
-                console.log(data);
-                window.location.href ="{:url('index/Order/index')}";
-            },
-            error: function(){
-                location.href="login";
-            }
-        })
+        if($('em.pitch_on').length != 0){
+            $.ajax({
+                url: '{:url("index/Shopping/option")}',
+                type: 'POST',
+                dataType: 'JSON',
+                async: false,
+                data: {
+                    'goods_unit': num_arr,
+                    'money': total_price,
+                    'id': id_arr,
+                    "seckill_money":seckill_money
+                },
+                success: function(data){
+                    console.log(data);
+                    window.location.href ="{:url('index/Order/index')}";
+                },
+                error: function(){
+                    location.href="login";
+                }
+            })
+        }else{
+            alert('未选中商品!')
+        }
+       
     })
 </script>
 <script>

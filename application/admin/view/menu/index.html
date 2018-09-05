@@ -88,7 +88,7 @@
             <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜权限节点</button>
         </form>
     </div>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="admin_permission_add('添加权限节点','{:url("admin/menu/add")}','','310')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加权限节点</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="admin_permission_add('添加权限节点','{:url("admin/menu/add")}',document.body.clientWidth,document.body.clientHeight)" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加权限节点</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
     <table class="table table-border table-bordered table-bg">
         <thead>
         <tr>
@@ -111,7 +111,7 @@
             <td>{$value.name}</td>
             <td>{$value.url}</td>
             <td>{$value.pid}</td>
-            <td><a title="编辑" href="javascript:;" onclick="admin_permission_edit('角色编辑','{:url("admin/menu/edit",["id"=>$value.id])}','1','','310')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除"  href="{:url('admin/menu/del',['id'=>$value.id])}" onclick="if(!confirm('确定要删除吗？')) return false" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+            <td><a title="编辑" href="javascript:;" onclick="admin_permission_edit('角色编辑','{:url("admin/menu/edit",["id"=>$value.id])}','1',document.body.clientWidth,document.body.clientHeight)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除"  href="{:url('admin/menu/del',['id'=>$value.id])}" onclick="if(!confirm('确定要删除吗？')) return false" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
         </tr>
         {/volist}
         </tbody>

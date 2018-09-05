@@ -7,7 +7,7 @@
         <input type="text" class="input-text" style="width:250px" placeholder="输入管理员名称" id="" name="">
         <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
     </div>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="admin_add('添加管理员','{:url("admin/admin/add")}','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加管理员</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="admin_add('添加管理员','{:url("admin/admin/add")}',document.body.clientWidth,document.body.clientHeight)" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加管理员</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
     <table class="table table-border table-bordered table-bg">
         <thead>
         <tr>
@@ -39,7 +39,7 @@
             {if $value.id == 2}
             <td class="td-manage"><a style="text-decoration:none" onClick="admin_stop(this,'10001')" href="javascript:layer.msg('禁止操作管理员',{icon:0,time:1000});" title="禁用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:layer.msg('禁止操作管理员',{icon:0,time:1000});" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:layer.msg('禁止操作管理员',{icon:0,time:1000});" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
             {else}
-            <td class="td-manage"><a style="text-decoration:none" onClick="admin_stop(this,'10001')" href="javascript:;" title="禁用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','{:url("admin/admin/edit",["id"=>$value.id])}','1','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="{:url('admin/admin/del',['id'=>$value.id])}" onclick="if(!confirm('确定要删除吗？')) return false" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+            <td class="td-manage"><a style="text-decoration:none" onClick="admin_stop(this,'10001')" href="javascript:;" title="禁用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','{:url("admin/admin/edit",["id"=>$value.id])}','1',document.body.clientWidth,document.body.clientHeight)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="{:url('admin/admin/del',['id'=>$value.id])}" onclick="if(!confirm('确定要删除吗？')) return false" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
             {/if}
         </tr>
         </tbody>

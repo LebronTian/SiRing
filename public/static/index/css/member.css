@@ -66,10 +66,11 @@
 .order_ul{
     width: 96%;
     margin: 0 auto;
+    height: 86vh;
+    overflow-y: scroll;
 }
 .order_li{
     margin-bottom: 5px;
-    height: 125px;
 }
 .aui-media-list-item-inner{
     display: flex;
@@ -124,7 +125,11 @@
     width: 80px;
     text-align: center;
 }
-
+.clearfix::after{
+    display: block;
+    content: '';
+    clear: both;
+}
 /* 遮罩 + 弹窗 */
 .fadeIn{
 	position: fixed;
