@@ -135,6 +135,7 @@ class Order extends Base {
                         if(!empty($discounts)){
                             $bools =Db::name('discounts')->where('id',$discounts['discounts_id'])->update(['status'=>2]);
                         }
+                        Session::delete('goods_id');
                         return ajax_success('下单成功', $datas);
                     }
                 }
@@ -171,14 +172,16 @@ class Order extends Base {
                             'shopping_shop_id' => $v['id']
                         ];
                         $res =Db::name('order')->insertGetId($datas);
-                        session('order_id', $res);
+//                        session('order_id', $res);
                         /*下单成功对购物车里面对应的商品进行删除*/
-                        dump($res);exit();
 
                     }
+
                 }
                 if ($res) {
                     Session::delete('shopping');
+                    Db::name('shopping')->where($where)->delete();
+                    Db::name('shopping_shop')->where('id',$shopping_id['id'])->delete();
                     return ajax_success('下单成功', $datas);
                 }
 
@@ -216,37 +219,58 @@ class Order extends Base {
      */
         public function details(){
             /*判断来自于购物订单列表*/
-            $order_from_shop_id = Session::get("order_id");
+            $order_from_shop_id = Session::get("save_order_information_number");
             if(!empty($order_from_shop_id)){
+                session('order_id_from_myorder',null);
                 /*先通过查找订单编号*/
-                $order_information_id =Db::name('order')->where('id',$order_from_shop_id)->find();
-//                $order_id =$order_from_shop_id;
+//                $order_information_id =Db::name('order')->field('order_information_number')->where('id',$order_from_shop_id)->find();
+//                $order_id =$order_information_id['order_information_number'];
+                $order_id =$order_from_shop_id;
                 if(!empty($order_id)){
                     /*先清除之前的*/
-                    session('order_id_from_myorder',null);
                     $data=Db::table("tb_order")
                         ->field("tb_order.*,tb_goods.goods_bottom_money goods_bottom_money")
                         ->join("tb_goods","tb_order.goods_id=tb_goods.id",'left')
-                        ->where('tb_order.id',$order_id)
-                        ->find();
-                    session('order_id',null);
+                        ->where('tb_order.order_information_number',$order_id)
+                        ->select();
+                    $datas =Db::name('order')->where('order_information_number',$order_id)->find();
                     $this->assign('data',$data);
+                    $this->assign('datas',$datas);
+                    session('save_order_information_number',null);
                 }
 
             }
             /*判断来自于我的订单列表点击订单详情*/
             $order_from_myorder_bt =Session::get('order_id_from_myorder');
             if(!empty($order_from_myorder_bt)){
-                session('order_id',null);
+                $order_information_id =Db::name('order')->field('order_information_number')->where('id',$order_from_myorder_bt)->find();
+                $order_id =$order_information_id['order_information_number'];
                     $data=Db::table("tb_order")
                         ->field("tb_order.*,tb_goods.goods_bottom_money goods_bottom_money")
                         ->join("tb_goods","tb_order.goods_id=tb_goods.id",'left')
-                        ->where('tb_order.id',$order_from_myorder_bt)
-                        ->find();
-                    $this->assign('data',$data);
+                        ->where('tb_order.order_information_number',$order_id)
+                        ->select();
+                $datas =Db::name('order')->where('order_information_number',$order_id)->find();
+                $this->assign('data',$data);
+                $this->assign('datas',$datas);
                     session('order_id_from_myorder',null);
             }
             return view('details');
+        }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     **************************************
+     */
+        public function save_order_information_number(Request $request){
+            if($request->isPost()){
+                $save_order_information_number =$request->only(['order_informartion_number'])['order_informartion_number'];
+                if(!empty($save_order_information_number)){
+                    session('save_order_information_number',$save_order_information_number);
+                    return ajax_success('成功');
+                }
+            }
         }
 
     /**

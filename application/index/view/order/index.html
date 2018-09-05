@@ -297,7 +297,24 @@
     $('.head_close').click(function(){
         $('.fadeIn').animate({'bottom':'-100%'});
         $('.mask').css('display','none');
-        window.location.href ="{:url('index/Order/details')}";
+       var order_informartion_number = $("#WIDout_trade_no").val();
+        $.ajax({
+            url: "{:url('index/Order/save_order_information_number')}",
+            type: 'POST',
+            async: false,
+            dataType: 'json',
+            data: {
+                'order_informartion_number':order_informartion_number,
+            },
+            success: function(data){
+                console.log(data);
+                window.location.href ="{:url('index/Order/details')}";
+            },
+            error: function(data){
+                console.log('失败');
+            }
+        })
+
     })
 </script>
 </body>
