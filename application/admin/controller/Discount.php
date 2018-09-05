@@ -102,4 +102,23 @@ class Discount extends Controller{
 
     }
 
+
+
+
+    /**
+     * [优惠券删除]
+     * 陈绪
+     */
+    public function del($id){
+        $discounts = db("discounts")->where("id",$id)->find();
+        $bool = db("discounts")->where("id",$id)->delete();
+        if($bool){
+            unlink(ROOT_PATH . 'public' . DS . 'uploads/'.$discounts['discounts_valid_images']);
+            unlink(ROOT_PATH . 'public' . DS . 'uploads/'.$discounts['discounts_failure_images']);
+            $this->success("删除成功",url("admin/Discount/index"));
+        }else{
+            $this->error("删除失败",url("admin/Discount/index"));
+        }
+    }
+
 }
