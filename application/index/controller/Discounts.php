@@ -36,8 +36,11 @@ class Discounts extends Base{
         $user_id = db("discounts_user")->field("user_id,count('user_id') tot")->having("tot =2")->group("user_id")->select();
         if(!empty($user_id)) {
             if ($user_id[0]['tot'] == 2) {
-                $discounts_id = db("discounts")->field("id")->find();
-                db("discounts_user")->where("user_id", $user_id[0]['user_id'])->update(['discounts_id' => $discounts_id['id']]);
+                $discounts_id = db("discounts")->where("status",1)->field("id")->find();
+                $bool = db("discounts_user")->where("user_id", $user_id[0]['user_id'])->update(['discounts_id' => $discounts_id['id']]);
+                if($bool){
+                    db("discounts")->where("id",$discounts_id['id'])->update(["user_id"=>$user_id[0]['user_id']]);
+                }
                 $discounts_data = db("discounts")->where("id",$discounts_id['id'])->select();
                 $this->assign("discounts_data",$discounts_data);
             }
