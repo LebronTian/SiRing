@@ -43,7 +43,9 @@ class Order extends Base {
         }
         //直接从买入过来
         $commodity_id =Session::get('goods_id');
-        if(!empty($commodity_id)){
+        $shopping_id =Session::get('shopping');
+        if(!empty($commodity_id)&&empty($shopping_id)){
+            session('shopping',null);
             $datas =Db::name('goods')->where('id',$commodity_id)->find();
             $express_fee =0.00;
             /*促销*/
@@ -58,7 +60,6 @@ class Order extends Base {
                 $all_money = $goods_bottom_money + $express_fee - (float)$discounts['discounts_money'];
             }
             /*总费用*/
-
             $data =[
                 'commodity_id'=>$commodity_id,
                 'goods_name'=>$datas['goods_name'],
@@ -71,8 +72,9 @@ class Order extends Base {
             $this->assign('data',$data);
         };
         //从购物车过来
-        $shopping_id =Session::get('shopping');
+//        $shopping_id =Session::get('shopping');
         if(!empty($shopping_id)){
+            session('goods_id',null);
            $shopping =Db::name('shopping_shop')->where('id',$shopping_id['id'])->find();
            $shop_id =explode(',',$shopping['shopping_id']);
             if(is_array($shop_id)){
@@ -135,7 +137,7 @@ class Order extends Base {
                         if(!empty($discounts)){
                             $bools =Db::name('discounts')->where('id',$discounts['discounts_id'])->update(['status'=>2]);
                         }
-                        Session::delete('goods_id');
+
                         return ajax_success('下单成功', $datas);
                     }
                 }
@@ -256,6 +258,25 @@ class Order extends Base {
                     session('order_id_from_myorder',null);
             }
             return view('details');
+        }
+
+    /**
+     **************李火生*******************
+     * 订单详情页的取消按钮
+     **************************************
+     */
+        public function order_detail_del(Request $request){
+            if($request->isPost()){
+                $order_information_number =$request->only(['order_detail_del'])['order_detail_del'];
+                if(!empty($order_information_number)){
+                    $res =Db::name('order')->where('order_information_number',$order_information_number)->update(['status'=>11]);
+                    if($res){
+                        $this->success('订单取消成功');
+                    }else{
+                        $this->error('订单取消失败');
+                    }
+                }
+            }
         }
 
     /**

@@ -110,8 +110,8 @@
                 </div>
             </div>
             <footer class="cart-footer">
-                <a class="sn-btn sn-btn-assertive bt_order" id="bt_order_{$datas.id}" style="display:none;">付款</a>
-                <a class="sn-btn sn-btn-assertive cancel_order" id="cancel_order_{$datas.id}" style="display:none;">取消订单</a>
+                <a class="sn-btn sn-btn-assertive bt_order" id="bt_order_{$datas.order_information_number}" style="display:none;">付款</a>
+                <a class="sn-btn sn-btn-assertive cancel_order" id="cancel_order_{$datas.order_information_number}" style="display:none;">取消订单</a>
             </footer>
         {/if}
 
@@ -185,16 +185,19 @@
     //取消订单
     $('.cancel_order').click(function () {
         var id =  $(this)[0].id.split('_')[2];
+
         $.ajax({
-            url: '{:url("index/Order/cancel_order")}',
+            url: '{:url("index/Order/order_detail_del")}',
             dataType: 'JSON',
             type: 'POST',
             async: false,
             data: {
-                'order_id': id
+                'order_detail_del': id
             },
             success: function(data){
-                console.log(data);
+//                console.log(data);
+                alert('取消成功');
+                window.location.href="{:url('index/Order/wait_pay')}";
             },
             error: function(){
                 console.log('错误');

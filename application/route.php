@@ -83,6 +83,7 @@ Route::group("",[
     'order_id'=>"index/Order/ajax_id",//订单详情
     'read_order_to_pay'=>"index/Order/read_order_to_pay",//我的订单待支付支付返回值
     'save_order_information_number'=>'index/Order/save_order_information_number',//保存来自于取消支付宝付款
+    'order_detail_del'=>'index/Order/order_detail_del', //订单详情页面的取消按钮
     'check_logistic'=>"index/Order/logistic",//查看物流
     'order_myorder'=>"index/Order/myorder",//我的订单
     'order_wait_pay'=>"index/Order/wait_pay",//待支付
