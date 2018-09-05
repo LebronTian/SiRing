@@ -263,6 +263,7 @@ Route::group("admin",[
     "discount_save"=>"admin/Discount/save",
     "discount_edit"=>"admin/Discount/edit",
     "discount_updata"=>"admin/Discount/updata",
+    "discount_del"=>"admin/Discount/del",
 
 
     /*秒杀*/
@@ -326,5 +327,7 @@ Route::group("admin",[
     /*客服回复信息*/
     "admin_chat_push"=>"admin/Chat/admin_chat_push",
 ]);
+
+Route::miss("public/miss");
 
 
