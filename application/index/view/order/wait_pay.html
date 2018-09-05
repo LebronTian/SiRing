@@ -165,7 +165,7 @@
         $('.payment').click(function(){
             var id = $(this)[0].id.split('_')[1];
             $.ajax({
-                url: "{:url('index/Order/bt_order')}",
+                url: "{:url('index/Order/read_order_to_pay')}",
                 type: 'POST',
                 async: false,
                 dataType: 'json',
@@ -174,22 +174,22 @@
                 },
                 success: function(data){
                     console.log(data);
-                    // if(data.code==0){
-                    //     alert(data.msg);
-                    // }else {
-                    //     console.log(data);
-                    //     $("#WIDout_trade_no").val(data.data.order_information_number);
-                    //     $("#WIDbody").val(data.data.goods_name);
-                    //     $("#WIDsubject").val(data.data.goods_name);
-                    //     $("#WIDtotal_amount").val(data.data.pay_money);
-                    //     $('.fadeIn').animate({'bottom':'0'});
-                    //     $('.mask').css('display','block');
-                    // }
+                    $("#WIDout_trade_no").val(data.data.order_information_number);
+                    $("#WIDbody").val(data.data.goods_name);
+                    $("#WIDsubject").val(data.data.goods_name);
+                    $("#WIDtotal_amount").val(data.data.pay_money);
+                    $('.fadeIn').animate({'bottom':'0'});
+                    $('.mask').css('display','block');
                 },
                 error: function(data){
                     console.log('失败');
                 }
             })
+        })
+        // 取消付款 关闭按钮
+        $('.head_close').click(function(){
+            $('.fadeIn').animate({'bottom':'-100%'});
+            $('.mask').css('display','none');
         })
     </script>
 </body>

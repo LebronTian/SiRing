@@ -81,6 +81,7 @@ Route::group("",[
     'bt_order'=>"index/Order/bt_order",//提交订单
     'order_details'=>"index/Order/details",//订单详情
     'order_id'=>"index/Order/ajax_id",//订单详情
+    'read_order_to_pay'=>"index/Order/read_order_to_pay",//我的订单待支付支付返回值
 
     'check_logistic'=>"index/Order/logistic",//查看物流
     'order_myorder'=>"index/Order/myorder",//我的订单

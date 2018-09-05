@@ -10,11 +10,10 @@
     <link rel="stylesheet" href="__STATIC__/index/css/m-common.css">
     <link rel="stylesheet" href="__STATIC__/index/css/cart2main.css">
     <style>
-        #cancel_order, #bt_order{
-            border-radius: 5px;
+        .cancel_order, .bt_order{
+            border-radius: 5px !important;
             margin-right: 10px;
         }
-        
     </style>
 </head>
 <body id="view">
@@ -30,6 +29,7 @@
 
 
         {if !empty($data)}
+
         <div class="cart-group">
             <div class="cart-group-item delivery-lite-info"  onclick=''>
                 <h1>
@@ -106,36 +106,100 @@
             </div>
         </div>
         <footer class="cart-footer">
-            <a class="sn-btn sn-btn-assertive bt_order_{$data.id}" id="bt_order" style="display:none;">付款</a>
-            <a class="sn-btn sn-btn-assertive cancel_order_{$data.id}" id="cancel_order" style="display:none;">取消订单</a>
+            <a class="sn-btn sn-btn-assertive bt_order" id="bt_order_{$data.id}" style="display:none;">付款</a>
+            <a class="sn-btn sn-btn-assertive cancel_order" id="cancel_order_{$data.id}" style="display:none;">取消订单</a>
         </footer>
         {/if}
     </section>
-
 </div>
+
+<div class="mask"></div>
+<!-- 支付弹窗 -->
+<form name=alipayment action='{:url("index/Alipay/aliPay")}' method=post target="_blank">
+    <div id="body" class="fadeIn">
+        <div class="head">
+            <div class="head_close">×</div>
+            <div class="head_title">确认付款</div>
+        </div>
+        <div class="middle_box">
+            <div class="price_p">
+                <span>￥</span>
+                <input id="WIDtotal_amount" name="WIDtotal_amount">
+            </div>
+            <ul class="content">
+                <li>
+                    商户订单号: <input id="WIDout_trade_no" name="WIDout_trade_no">
+                </li>
+                <li>
+                    订单名称: <input id="WIDsubject" name="WIDsubject">
+                </li>
+                <li>
+                    商品描述: <input id="WIDbody" name="WIDbody">
+                </li>
+            </ul>
+        </div>
+        <button class="new-btn-login" type="submit" style="text-align:center;">立即付款</button>
+    </div>
+</form>
+
 <script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
 <!-- 判断order_status 隐藏按钮 -->
 <script>
-    console.log($('#bt_order'))
     if($('#order_status')[0] != undefined){
         var order_status = $('#order_status')[0].className.split('_')[2];
         if(order_status == 1){
-            $('#bt_order').css('display','inline-block');
-            $('#cancel_order').css('display','inline-block');
+            $('.bt_order').css('display','inline-block');
+            $('.cancel_order').css('display','inline-block');
         }
     } 
 </script>
 
-
 <script>
     //付款
     $('.bt_order').click(function () {
-
+        var id =  $(this)[0].id.split('_')[2];
+        $.ajax({
+            url: '{:url("index/Order/cancel_order")}',
+            dataType: 'JSON',
+            type: 'POST',
+            async: false,
+            data: {
+                'order_id': id
+            },
+            success: function(data){
+                console.log(data);
+                $('.fadeIn').animate({'bottom':'0'});
+                $('.mask').css('display','block');
+            },
+            error: function(){
+                console.log('错误');
+            }
+        })
     });
     //取消订单
     $('.cancel_order').click(function () {
-
+        var id =  $(this)[0].id.split('_')[2];
+        $.ajax({
+            url: '{:url("index/Order/cancel_order")}',
+            dataType: 'JSON',
+            type: 'POST',
+            async: false,
+            data: {
+                'order_id': id
+            },
+            success: function(data){
+                console.log(data);
+            },
+            error: function(){
+                console.log('错误');
+            }
+        })
     });
+    // 取消付款 关闭按钮
+    $('.head_close').click(function(){
+        $('.fadeIn').animate({'bottom':'-100%'});
+        $('.mask').css('display','none');
+    })
 </script>
 </body>
 </html>
