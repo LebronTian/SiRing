@@ -219,9 +219,11 @@ class Order extends Base {
             $order_from_shop_id = Session::get("order_id");
             if(!empty($order_from_shop_id)){
                 /*先通过查找订单编号*/
-                $order_id =$order_from_shop_id;
+                $order_information_id =Db::name('order')->where('id',$order_from_shop_id)->find();
+//                $order_id =$order_from_shop_id;
                 if(!empty($order_id)){
                     /*先清除之前的*/
+                    session('order_id_from_myorder',null);
                     $data=Db::table("tb_order")
                         ->field("tb_order.*,tb_goods.goods_bottom_money goods_bottom_money")
                         ->join("tb_goods","tb_order.goods_id=tb_goods.id",'left')
@@ -235,6 +237,7 @@ class Order extends Base {
             /*判断来自于我的订单列表点击订单详情*/
             $order_from_myorder_bt =Session::get('order_id_from_myorder');
             if(!empty($order_from_myorder_bt)){
+                session('order_id',null);
                     $data=Db::table("tb_order")
                         ->field("tb_order.*,tb_goods.goods_bottom_money goods_bottom_money")
                         ->join("tb_goods","tb_order.goods_id=tb_goods.id",'left')
