@@ -305,7 +305,7 @@ h4 small,h5 small,h6 small {
 }
 img {
 	max-width: 100%;
-	/* display: block; */
+	height: auto;
 }
 .aui-font-size-12 {
 	font-size: 0.6rem !important;
@@ -2961,10 +2961,6 @@ form, fieldset, legend, input, button, textarea, p, blockquote,select,option {
 	font-family: "黑体",Arial;
 }
 
-img {
-	-ms-interpolation-mode: bicubic;
-	max-width: 100%;
-}
 
 /*防止windows缩放图片时，图像失真*/
 /*组合商品结束*/

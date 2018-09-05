@@ -187,7 +187,7 @@
 </div>
 {/if}
     <!-- 弹窗遮罩 -->
-    <div class="mask"></div>
+    <div class="mask" style="position:absolute;"></div>
     <!-- 支付弹窗 -->
     <form name=alipayment action='{:url("index/Alipay/aliPay")}' method=post target="_blank">
         <div id="body" class="fadeIn">
@@ -391,36 +391,17 @@
 <!-- 付款 -->
 <script>
 
-    $(".payment").click(function () {
-        var goods_name = [],
-            order_num = [],
-            unit_price = [];
-        // var id = $(this)[0].id.split('_')[1];
-        var length = $('.details').length;
-        for(var i = 0; i < length; i++){
-            goods_name.push($('.goods_name')[i].innerHTML);
-            order_num.push($('.order_num')[i].innerHTML);
-            unit_price.push($('.unit_price')[i].innerHTML);
-        }
-        var all_pay =$('.all_pay').html();
-        var express_fee =$(".express_fee").html();
-
-        $.ajax({
-            url: "{:url('index/Order/bt_order')}",
-            type: 'POST',
-            async: false,
-            dataType: 'json',
-            data: {
-                'goods_name':goods_name,
-                'order_num':order_num,
-                'all_pay':all_pay,
-                'express_fee':express_fee,
-                'unit_price': unit_price
-            },
-            success: function(data){
-                if(data.code==0){
-                    alert(data.msg);
-                }else {
+    $('.payment').click(function(){
+            var id = $(this)[0].id.split('_')[1];
+            $.ajax({
+                url: "{:url('index/Order/read_order_to_pay')}",
+                type: 'POST',
+                async: false,
+                dataType: 'json',
+                data: {
+                    'id':id
+                },
+                success: function(data){
                     console.log(data);
                     $("#WIDout_trade_no").val(data.data.order_information_number);
                     $("#WIDbody").val(data.data.goods_name);
@@ -428,13 +409,12 @@
                     $("#WIDtotal_amount").val(data.data.pay_money);
                     $('.fadeIn').animate({'bottom':'0'});
                     $('.mask').css('display','block');
+                },
+                error: function(data){
+                    console.log('失败');
                 }
-            },
-            error: function(data){
-                console.log('失败');
-            }
+            })
         })
-    });
     // 取消付款 关闭按钮
     $('.head_close').click(function(){
         $('.fadeIn').animate({'bottom':'-100%'});
