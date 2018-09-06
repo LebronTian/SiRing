@@ -21,7 +21,7 @@
     <section class="cart-page main">
         <header class="sn-nav">
             <div class="sn-nav-back">
-                <a class="sn-iconbtn" onclick="javascript:history.back(-1);">返回</a>
+                <a class="sn-iconbtn" onclick="{:url('index/Order/wait_pay')}">返回</a>
             </div>
             <div class="sn-nav-title of">订单详情</div>
             <div class="sn-nav-other"></div>
@@ -67,7 +67,6 @@
             </div>
         {/volist}
         {/if}
-
             <div class="cart-group">
                 <div class="cart-group-item payment">
                     <label>支付方式</label>
