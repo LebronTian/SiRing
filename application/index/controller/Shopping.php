@@ -47,7 +47,6 @@ class Shopping extends Base {
                 foreach ($shopping as $key=>$value) {
                     if (in_array($goods_id,$value)) {
                         $money = array($value['money'], $goods['goods_bottom_money']);
-                        $shopping[$key]['goods_num'] = $value['goods_num'] + 1;
                         $shopping[$key]['money'] = array_sum($money);
                         $shopping[$key]['goods_unit'] = $value['goods_unit'] + 1;
                         unset($shopping[$key]['id']);
@@ -58,10 +57,9 @@ class Shopping extends Base {
                 $data['goods_name'] = $goods['goods_name'];
                 $data['goods_images'] = $goods['goods_show_images'];
                 $data['money'] = $goods['goods_bottom_money'];
-                $data['goods_unit'] = $goods['goods_unit'];
+                $data['goods_unit'] = 1;
                 $data['user_id'] = $user_id['id'];
                 $data['goods_id'] = $goods['id'];
-                $data['goods_num'] = 1;
                 $bool = db("shopping")->insert($data);
                 return ajax_success("获取成功", $bool);
             }

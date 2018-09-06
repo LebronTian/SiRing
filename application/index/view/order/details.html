@@ -21,7 +21,7 @@
     <section class="cart-page main">
         <header class="sn-nav">
             <div class="sn-nav-back">
-                <a class="sn-iconbtn" onclick="{:url('index/Order/wait_pay')}">返回</a>
+                <a class="sn-iconbtn" href="{:url('index/Order/wait_pay')}">返回</a>
             </div>
             <div class="sn-nav-title of">订单详情</div>
             <div class="sn-nav-other"></div>
@@ -113,11 +113,9 @@
                 <a class="sn-btn sn-btn-assertive cancel_order" id="cancel_order_{$datas.order_information_number}" style="display:none;">取消订单</a>
             </footer>
         {/if}
-
 <!--来自多个商品-->
     </section>
 </div>
-
 <div class="mask"></div>
 <!-- 支付弹窗 -->
 <form name=alipayment action='{:url("index/Alipay/aliPay")}' method=post target="_blank">
@@ -146,7 +144,6 @@
         <button class="new-btn-login" type="submit" style="text-align:center;">立即付款</button>
     </div>
 </form>
-
 <script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
 <!-- 判断order_status 隐藏按钮 -->
 <script>
@@ -158,7 +155,6 @@
         }
     } 
 </script>
-
 <script>
     //付款
     $('.bt_order').click(function () {
@@ -187,7 +183,6 @@
     //取消订单
     $('.cancel_order').click(function () {
         var id =  $(this)[0].id.split('_')[2];
-
         $.ajax({
             url: '{:url("index/Order/order_detail_del")}',
             dataType: 'JSON',
@@ -197,7 +192,6 @@
                 'order_detail_del': id
             },
             success: function(data){
-//                console.log(data);
                 alert('取消成功');
                 window.location.href="{:url('index/Order/wait_pay')}";
             },

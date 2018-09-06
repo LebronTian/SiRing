@@ -33,15 +33,17 @@ class Discounts extends Base{
      */
     public function discounts_my(){
         //取出表中user_id数量为两条的字段名
-        $user_id = db("discounts_user")->field("user_id,count('user_id') tot")->having("tot =2")->group("user_id")->select();
+        $user_id = db("discounts_user")->where("discounts_id",null)->field("user_id,count('user_id') tot")->having("tot =2")->group("user_id")->find();
+        $user = Session::get("member");
+        $user = db("user")->where("phone_num",$user['phone_num'])->find();
         if(!empty($user_id)) {
-            if ($user_id[0]['tot'] == 2) {
-                $discounts_id = db("discounts")->where("status",1)->field("id")->find();
-                $bool = db("discounts_user")->where("user_id", $user_id[0]['user_id'])->update(['discounts_id' => $discounts_id['id']]);
-                if($bool){
-                    db("discounts")->where("id",$discounts_id['id'])->update(["user_id"=>$user_id[0]['user_id']]);
+            if ($user_id['tot'] == 2) {
+                $discounts_id = db("discounts")->where("status",1)->where("user_id",null)->field("id")->find();
+                $bool = db("discounts_user")->where("user_id", $user['id'])->update(['discounts_id' => $discounts_id['id']]);
+                if($bool == true){
+                    db("discounts")->where("id",$discounts_id['id'])->update(["user_id"=>$user_id['user_id']]);
                 }
-                $discounts_data = db("discounts")->where("id",$discounts_id['id'])->select();
+                $discounts_data = db("discounts")->where("id",$discounts_id['id'])->where("user_id",$user_id["user_id"])->select();
                 $this->assign("discounts_data",$discounts_data);
             }
         }
