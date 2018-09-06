@@ -13,7 +13,7 @@ class Index extends Controller
 
     public function index()
     {
-        $goods_type = db("goods_type")->where("pid","0")->select();
+        $goods_type = db("goods_type")->where("pid","0")->order("sort_number")->select();
         $seckill = db("seckill")->select();
         $goods = db("goods")->where("goods_status",1)->select();
         return view("index",['goods_type'=>$goods_type,"seckill"=>$seckill,"goods"=>$goods]);
