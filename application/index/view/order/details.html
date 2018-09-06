@@ -162,26 +162,30 @@
 
 <script>
     //付款
-    $('.bt_order').click(function () {
-        var id =  $(this)[0].id.split('_')[2];
-        $.ajax({
-            url: '{:url("index/Order/cancel_order")}',
-            dataType: 'JSON',
-            type: 'POST',
-            async: false,
-            data: {
-                'order_id': id
-            },
-            success: function(data){
-                console.log(data);
-                $('.fadeIn').animate({'bottom':'0'});
-                $('.mask').css('display','block');
-            },
-            error: function(){
-                console.log('错误');
-            }
+    $('.bt_order').click(function(){
+            var id = $(this)[0].id.split('_')[1];
+            $.ajax({
+                url: "{:url('index/Order/read_order_to_pay')}",
+                type: 'POST',
+                async: false,
+                dataType: 'json',
+                data: {
+                    'id':id
+                },
+                success: function(data){
+                    console.log(data);
+                    $("#WIDout_trade_no").val(data.data.order_information_number);
+                    $("#WIDbody").val(data.data.goods_name);
+                    $("#WIDsubject").val(data.data.goods_name);
+                    $("#WIDtotal_amount").val(data.data.pay_money);
+                    $('.fadeIn').animate({'bottom':'0'});
+                    $('.mask').css('display','block');
+                },
+                error: function(data){
+                    console.log('失败');
+                }
+            })
         })
-    });
     //取消订单
     $('.cancel_order').click(function () {
         var id =  $(this)[0].id.split('_')[2];
