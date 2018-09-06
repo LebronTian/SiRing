@@ -547,6 +547,17 @@ class Order extends Base {
         }
     }
 
+    public function order_to_pay_by_number(Request $request){
+        if($request->isPost()){
+            $order_numbers =$request->only(['id'])['id'];
+            if(!empty($order_numbers)){
+                $data = Db::name('order')->where('order_information_number',$order_numbers)->find();
+                return ajax_success('成功返回数据',$data);
+            }
+
+        }
+    }
+
 
 
 

@@ -21,7 +21,7 @@
     <section class="cart-page main">
         <header class="sn-nav">
             <div class="sn-nav-back">
-                <a class="sn-iconbtn" onclick="javascript:history.back(-1);">返回</a>
+                <a class="sn-iconbtn" onclick="{:url('index/Order/wait_pay')}">返回</a>
             </div>
             <div class="sn-nav-title of">订单详情</div>
             <div class="sn-nav-other"></div>
@@ -67,7 +67,6 @@
             </div>
         {/volist}
         {/if}
-
             <div class="cart-group">
                 <div class="cart-group-item payment">
                     <label>支付方式</label>
@@ -162,29 +161,28 @@
 
 <script>
     //付款
-    $('.bt_order').click(function(){
-            var id = $(this)[0].id.split('_')[1];
-            $.ajax({
-                url: "{:url('index/Order/read_order_to_pay')}",
-                type: 'POST',
-                async: false,
-                dataType: 'json',
-                data: {
-                    'id':id
-                },
-                success: function(data){
-                    console.log(data);
-                    $("#WIDout_trade_no").val(data.data.order_information_number);
-                    $("#WIDbody").val(data.data.goods_name);
-                    $("#WIDsubject").val(data.data.goods_name);
-                    $("#WIDtotal_amount").val(data.data.pay_money);
-                    $('.fadeIn').animate({'bottom':'0'});
-                    $('.mask').css('display','block');
-                },
-                error: function(data){
-                    console.log('失败');
-                }
-            })
+    $('.bt_order').click(function () {
+        var id =  $(this)[0].id.split('_')[2];
+        $.ajax({
+            url: '{:url("index/Order/order_to_pay_by_number")}',
+            dataType: 'JSON',
+            type: 'POST',
+            async: false,
+            data: {
+                'id': id
+            },
+            success: function(data){
+                console.log(data);
+                $("#WIDout_trade_no").val(data.data.order_information_number);
+                $("#WIDbody").val(data.data.goods_name);
+                $("#WIDsubject").val(data.data.goods_name);
+                $("#WIDtotal_amount").val(data.data.pay_money);
+                $('.fadeIn').animate({'bottom':'0'});
+                $('.mask').css('display','block');
+            },
+            error: function(){
+                console.log('错误');
+            }
         })
     //取消订单
     $('.cancel_order').click(function () {
