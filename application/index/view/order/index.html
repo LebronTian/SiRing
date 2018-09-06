@@ -23,17 +23,16 @@
             <div class="sn-nav-other"></div>
         </header>
         <div class="cart-group">
-
                 <div class="cart-group-item form-href delivery-lite-info"  onclick="javascript:location.href='{:url("index/Member/address")}'">
             {if !empty($member_information)&&!empty($position)}
-                    <h1>
-                        <span>收货人: {$member_information['harvester']}</span>
-                        <span>{$member_information['harvester_phone_num']}</span>
-                    </h1>
-                    <div>
-                        <div><i></i></div>
-                        <p>{$position}</p>
-                    </div>
+                <h1>
+                    <span>收货人: {$member_information['harvester']}</span>
+                    <span>{$member_information['harvester_phone_num']}</span>
+                </h1>
+                <div>
+                    <div><i></i></div>
+                    <p>{$position}</p>
+                </div>
             {/if}
 
             {if empty($member_information) || empty($position)}
