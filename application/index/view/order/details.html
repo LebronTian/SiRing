@@ -21,98 +21,101 @@
     <section class="cart-page main">
         <header class="sn-nav">
             <div class="sn-nav-back">
-                <a class="sn-iconbtn" onclick="javascript:history.back(-1);">返回</a>
+                <a class="sn-iconbtn" href="{:url('index/Order/wait_pay')}">返回</a>
             </div>
             <div class="sn-nav-title of">订单详情</div>
             <div class="sn-nav-other"></div>
         </header>
 
-
-        {if !empty($data)}
-
+            {if !empty($datas)}
         <div class="cart-group">
             <div class="cart-group-item delivery-lite-info"  onclick=''>
                 <h1>
-                    <span>收货人: {$data.harvester}</span>
-                    <span>{$data.harvest_phone_num}</span>
+                    <span>收货人: {$datas.harvester}</span>
+                    <span>{$datas.harvest_phone_num}</span>
                 </h1>
                 <div>
                     <div><i></i></div>
-                    <p>收货地址:<span>{$data.harvest_address}</span></p>
+                    <p>收货地址:<span>{$datas.harvest_address}</span></p>
                 </div>
             </div>
         </div>
-        <div class="cart-group">
-            <div class="details">
-                <img class="goods_img_url"  src="__UPLOADS__/{$data.goods_img}">
-                <div>
-                    <p id="order_status" class="order_status_{$data.status}" hidden>111</p>
-                    <p class="goods_name">{$data.goods_name}</p>
-                    <i class="order_num">{$data.order_num}</i>
-                    <div>
-                        <span class="price">
-                            <b>￥{$data.goods_bottom_money}</b>
-                            <i></i>
-                        </span>
-                    </div>
-                    <div class="goods-service">
-                        <span class="goods-service-item">
-                            <i class="goods-icon icon-tui"></i>
-                            <span class="goods-service-word goods-service-word-tui">7天无理由退货</span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="cart-group">
-            <div class="cart-group-item payment">
-                <label>支付方式</label>
-                <div class="form-href">
-                    <p>支付宝</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="cart-group">
-            <div class="cart-group-item coupon">
-                <label>优惠券</label>
-                <div class="form-href">
-                    <span class="save-money">无可用</span>
-                </div>
-            </div>
-        </div>
-        <div class="cart-group">
-            <div class="cart-group-item">
-                <ul class="detail">
-                    <li class="detail-item">
-                        <label>运费</label>
-                        <i id="showfareDetail"></i>
-                        <div>
-                            <span class="price">
-                                <b>￥{$data.send_money}</b>
-                                <b class="express_fee"></b>
-                            </span>
-                        </div>
-                    </li>
-                    <li class="detail-item">
-                        <label>商品总额</label>
-                        <div>
-                            <span class="price">
-                                <b>￥{$data.pay_money}</b>
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <footer class="cart-footer">
-            <a class="sn-btn sn-btn-assertive bt_order" id="bt_order_{$data.id}" style="display:none;">付款</a>
-            <a class="sn-btn sn-btn-assertive cancel_order" id="cancel_order_{$data.id}" style="display:none;">取消订单</a>
-        </footer>
         {/if}
+        {if !empty($data)}
+            {volist name ="data" id="vo"}
+            <div class="cart-group">
+                <div class="details">
+                    <img class="goods_img_url"  src="__UPLOADS__/{$vo.goods_img}">
+                    <div>
+                        <p id="order_status" class="order_status_{$vo.status}" hidden>111</p>
+                        <p class="goods_name">{$vo.goods_name}</p>
+                        <i class="order_num">{$vo.order_num}</i>
+                        <div>
+                            <span class="price">
+                                <b>￥{$vo.goods_bottom_money}</b>
+                                <i></i>
+                            </span>
+                        </div>
+                        <div class="goods-service">
+                            <span class="goods-service-item">
+                                <i class="goods-icon icon-tui"></i>
+                                <span class="goods-service-word goods-service-word-tui">7天无理由退货</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {/volist}
+        {/if}
+            <div class="cart-group">
+                <div class="cart-group-item payment">
+                    <label>支付方式</label>
+                    <div class="form-href">
+                        <p>支付宝</p>
+                    </div>
+                </div>
+            </div>
+            <div class="cart-group">
+                <div class="cart-group-item coupon">
+                    <label>优惠券</label>
+                    <div class="form-href">
+                        <span class="save-money">无可用</span>
+                    </div>
+                </div>
+            </div>
+        {if !empty($datas)}
+            <div class="cart-group">
+                <div class="cart-group-item">
+                    <ul class="detail">
+                        <li class="detail-item">
+                            <label>运费</label>
+                            <i id="showfareDetail"></i>
+                            <div>
+                                <span class="price">
+                                    <b>￥{$datas.send_money}</b>
+                                    <b class="express_fee"></b>
+                                </span>
+                            </div>
+                        </li>
+                        <li class="detail-item">
+                            <label>商品总额</label>
+                            <div>
+                                <span class="price">
+                                    <b>￥{$datas.pay_money}</b>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <footer class="cart-footer">
+                <a class="sn-btn sn-btn-assertive bt_order" id="bt_order_{$datas.order_information_number}" style="display:none;">付款</a>
+                <a class="sn-btn sn-btn-assertive cancel_order" id="cancel_order_{$datas.order_information_number}" style="display:none;">取消订单</a>
+            </footer>
+        {/if}
+<!--来自多个商品-->
     </section>
 </div>
-
 <div class="mask"></div>
 <!-- 支付弹窗 -->
 <form name=alipayment action='{:url("index/Alipay/aliPay")}' method=post target="_blank">
@@ -141,7 +144,6 @@
         <button class="new-btn-login" type="submit" style="text-align:center;">立即付款</button>
     </div>
 </form>
-
 <script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
 <!-- 判断order_status 隐藏按钮 -->
 <script>
@@ -153,21 +155,24 @@
         }
     } 
 </script>
-
 <script>
     //付款
     $('.bt_order').click(function () {
         var id =  $(this)[0].id.split('_')[2];
         $.ajax({
-            url: '{:url("index/Order/cancel_order")}',
+            url: '{:url("index/Order/order_to_pay_by_number")}',
             dataType: 'JSON',
             type: 'POST',
             async: false,
             data: {
-                'order_id': id
+                'id': id
             },
             success: function(data){
                 console.log(data);
+                $("#WIDout_trade_no").val(data.data.order_information_number);
+                $("#WIDbody").val(data.data.goods_name);
+                $("#WIDsubject").val(data.data.goods_name);
+                $("#WIDtotal_amount").val(data.data.pay_money);
                 $('.fadeIn').animate({'bottom':'0'});
                 $('.mask').css('display','block');
             },
@@ -175,20 +180,20 @@
                 console.log('错误');
             }
         })
-    });
     //取消订单
     $('.cancel_order').click(function () {
         var id =  $(this)[0].id.split('_')[2];
         $.ajax({
-            url: '{:url("index/Order/cancel_order")}',
+            url: '{:url("index/Order/order_detail_del")}',
             dataType: 'JSON',
             type: 'POST',
             async: false,
             data: {
-                'order_id': id
+                'order_detail_del': id
             },
             success: function(data){
-                console.log(data);
+                alert('取消成功');
+                window.location.href="{:url('index/Order/wait_pay')}";
             },
             error: function(){
                 console.log('错误');

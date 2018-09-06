@@ -44,6 +44,7 @@ Route::group("",[
     /*秒杀*/
     "seckill_index"=>"index/Seckill/index",
 
+
     /*我的收藏*/
     "collection"=>"index/Collection/index",
     /*添加收藏*/
@@ -53,6 +54,8 @@ Route::group("",[
     /*收藏的样式改变需要返回一个状态值给页面*/
     "show_collection"=>"index/Collection/show_collection",
 
+
+
     /*我的页面*/
     "member_index"=>"index/Member/index",
     /*我的页面的用户名信息*/
@@ -60,7 +63,7 @@ Route::group("",[
     /*个人资料添加*/
     "member_edit"=>"index/member/member_edit",
     "member_edit_active"=>"index/Member/member_edit_active",
-    /*如何有个人信息则进行编辑*/
+    /*如果有个人信息则进行编辑*/
     "get_member_information"=>"index/Member/get_member_information",
     /*TODO:个人头像上传(未实现)*/
     "user_add_img"=>"index/Member/user_add_img",
@@ -75,13 +78,21 @@ Route::group("",[
     /*收货人信息编辑查看*/
     'get_address_informations'=>"index/Member/get_address_informations",
 
+
+
     /*确认订单*/
     "order_index"=>"index/Order/index",
     "common_id"=>"index/Order/common_id",
     'bt_order'=>"index/Order/bt_order",//提交订单
+
+
     'order_details'=>"index/Order/details",//订单详情
     'order_id'=>"index/Order/ajax_id",//订单详情
     'read_order_to_pay'=>"index/Order/read_order_to_pay",//我的订单待支付支付返回值
+    'save_order_information_number'=>'index/Order/save_order_information_number',//保存来自于取消支付宝付款
+    'order_detail_del'=>'index/Order/order_detail_del', //订单详情页面的取消按钮
+    'order_to_pay_by_number'=>'index/Order/order_to_pay_by_number', //订单详情页面的付款按钮
+
 
     'check_logistic'=>"index/Order/logistic",//查看物流
     'order_myorder'=>"index/Order/myorder",//我的订单
@@ -96,6 +107,8 @@ Route::group("",[
     'interface_information'=>"index/Order/interface_information", //快递100接口
     'logistics_information_id'=>"index/Order/logistics_information_id",//用来接收物流信息的id
     'confirm_payment'=>"index/order/confirm_payment", //确定付款
+
+
     /*登录页面*/
     "login"=>"index/Login/login",
     /*退出登录*/
@@ -110,14 +123,12 @@ Route::group("",[
     "register_code"=>"index/Register/code",
 
 
-
     /*短信注册*/
     "doreg_phone" =>"index/Register/doRegByPhone",
 
 
     /*手机验证码*/
     "send_mobile_code"=>"index/Register/sendMobileCode",
-
 
     /*邮箱注册*/
     "doreg_email" =>"index/Register/doRegByEmail",
@@ -126,6 +137,7 @@ Route::group("",[
 
     /*找回密码页面*/
     "findpwd"=>"index/Findpwd/findpwd",
+    'find_password_by_phone'=>"index/findpwd/find_password_by_phone",//用于操作手机找回密码
 
     /*晒单*/
     "share_detail"=>"index/Share/share_detail",

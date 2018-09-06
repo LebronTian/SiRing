@@ -33,14 +33,13 @@
 
 <div id="tbh5v0">
     <div class="find">
-
         <section class="innercontent">
-            <form action="" method="post" id="fpForm" name="fpForm" class="c-form login-form">
+            <form action="{:url('index/Findpwd/findpwd')}" method="post" id="fpForm" name="fpForm" class="c-form login-form">
                 <div class="yonghu">
-                    <input type="text" id="u_name" name="u_name" placeholder="请输入用户名/邮箱/手机号" value="" />
+                    <input type="text" id="u_name" name="u_name" placeholder="请输入用户手机号" value="" />
                 </div>
                 <div class="submit-btn">
-                    <input type="button" id="btn_submit" class="btn_big1" value="下一步" />
+                    <input type="button" id="btn_submit" class="btn_big1" value="提交" />
                     <input type="hidden" name="act" value="check_username" />
                 </div>
             </form>
@@ -57,7 +56,7 @@
                         }
                     },
                     messages: {
-                        u_name: "请输入您的用户名/邮箱/已验证的手机",
+                        u_name: "请输入您的手机",
                         captcha: {
                             required: "验证码不能为空",
                             max: "验证码格式不正确"
@@ -140,27 +139,7 @@
 <div style="height:50px; line-height:50px; clear:both;"></div>
 <div class="v_nav">
     <div class="vf_nav">
-        <ul>
-            <li> <a href="./">
-                <i class="vf_1"></i>
-                <span>首页</span></a></li>
-            <li><a href="http://wpa.qq.com/msgrd?v=3&uin=1527200768&site=qq&menu=yes" target="_blank">
-                <i class="vf_2"></i>
-                <span>客服</span></a></li>
-            <li><a href="catalog.php">
-                <i class="vf_3"></i>
-                <span>分类</span></a></li>
-            <li>
-                <a href="flow.php">
-                    <em class="global-nav__nav-shop-cart-num" id="ECS_CARTINFO" style="right:9px;"> 0 </em>
-                    <i class="vf_4"></i>
-                    <span>购物车</span>
 
-                </a></li>
-            <li><a href="user.php">
-                <i class="vf_5"></i>
-                <span>我的</span></a></li>
-        </ul>
     </div>
 </div>
 
@@ -178,6 +157,12 @@
             }
         });
     })
+</script>
+
+<!--提交按钮，把手机号发送出去收密码-->
+<script>
+
+
 </script>
 </body>
 </html>
