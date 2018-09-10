@@ -3,6 +3,7 @@
 namespace app\index\controller;
 use think\Controller;
 use think\Loader;
+use think\Paginator;
 use think\Request;
 
 class AliPay extends Controller
@@ -74,15 +75,48 @@ class AliPay extends Controller
     }
 
 
-
+    /**
+     * [回调修改数据]
+     * 陈绪
+     * @param Request
+     */
     public function pay_code(Request $request){
 
         if($request->isGet()){
             $data['status'] = 2;
-            $bool = db("order")->where("order_information_number",$_GET['out_trade_no'])->update($data);
-            if($bool){
-                $this->redirect(url("index/index/index"));
+            if(!empty($_GET['out_trade_no'])){
+                $shopping_goods = db("order")->where("order_information_number",$_GET["out_trade_no"])->field("goods_id,shopping_shop_id,order_num")->select();
+                $goods = db("goods")->where("id",$shopping_goods[0]['goods_id'])->field("goods_num")->find();
+                $goods_num = $goods['goods_num'] - 1;
+                $seckill = db("seckill")->where("goods_id",$shopping_goods[0]['goods_id'])->find();
+                if(empty($shopping_goods[0]["shopping_shop_id"])){
+                    db("goods")->where("id",$shopping_goods[0]['goods_id'])->update(["goods_num"=>$goods_num]);
+                }
+                //秒杀提交订单   秒杀剩余库存修改
+                if(!empty($seckill["residue_num"])){
+                    $seckill_num = $seckill["residue_num"] - 1;
+                    db("seckill")->where("goods_id",$shopping_goods[0]['goods_id'])->update(["residue_num"=>$seckill_num]);
+                }
+                //第一次秒杀提交订单
+                if(!empty($seckill["goods_num"])){
+                    $seckill_num = $seckill["goods_num"] - 1;
+                    db("seckill")->where("goods_id",$shopping_goods[0]['goods_id'])->update(["residue_num"=>$seckill_num]);
+                }
+                //购物车提交订单
+                foreach ($shopping_goods as $key=>$value){
+                    $goods_shopping_num = db("goods")->where("id",$value["goods_id"])->field("goods_num")->find();
+                    if(!empty($value["shopping_shop_id"])){
+                        $shopping_goods_num[] = $goods_shopping_num["goods_num"] - $value["order_num"];
+                        db("goods")->where("id",$value["goods_id"])->update(["goods_num"=>$shopping_goods_num[$key]]);
+                    }
+                }
+
+                $bool = db("order")->where("order_information_number",$_GET['out_trade_no'])->update($data);
+                if($bool){
+                    $this->redirect(url("index/index/index"));
+                }
             }
+
         }
     }
 

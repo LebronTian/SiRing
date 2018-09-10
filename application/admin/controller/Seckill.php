@@ -39,11 +39,14 @@ class Seckill extends Controller{
      * 陈绪
      */
     public function save(Request $request){
-        $data = $request->only(["status","goods_id","seckill_money","keyword","goods_num","residue_num"]);
+        $goods_id = $request->only(['goods_id'])['goods_id'];
+        $data = $request->only(["status","seckill_money","keyword"]);
         $start_time = $request->only(["start_time"])["start_time"];
         $over_time = $request->only(["over_time"])["over_time"];
+        $data['goods_id'] = $goods_id;
         $data["start_time"] = strtotime($start_time);
         $data["over_time"] = strtotime($over_time);
+        $data['goods_num'] = $request->only(['goods_num'])['goods_num'];
         $show_images = $request->file("images")->move(ROOT_PATH . 'public' . DS . 'uploads');
         $data["images"] = str_replace("\\", "/", $show_images->getSaveName());
         $bool = db("seckill")->insert($data);
@@ -52,7 +55,6 @@ class Seckill extends Controller{
         }else{
             $this->success("入库失败",url("admin/Seckill/add"));
         }
-
     }
 
 
