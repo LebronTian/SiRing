@@ -111,6 +111,12 @@ class Category extends Controller{
     }
 
 
+    /**
+     * [商品分组ajax显示]
+     * 陈绪
+     * @param int $pid
+     * @return
+     */
     public function ajax_add($pid = 0){
         $goods_cate = [];
         $goods_list = [];

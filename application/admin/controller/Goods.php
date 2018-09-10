@@ -42,7 +42,7 @@ class Goods extends Controller{
             if ($search_key) {
                 $good = db("goods")->where("goods_name","like","%".$search_key."%")->paginate(5);
 
-            } else {
+            }else {
                 $good = db("goods")->paginate(5);
             }
 
@@ -255,6 +255,8 @@ class Goods extends Controller{
             }
         }
     }
+
+
 
     /**
      * [商品批量删除]

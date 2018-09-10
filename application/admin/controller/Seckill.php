@@ -40,13 +40,13 @@ class Seckill extends Controller{
      */
     public function save(Request $request){
         $goods_id = $request->only(['goods_id'])['goods_id'];
-        $goods_num = db('goods')->where("id",$goods_id)->field("goods_num")->find();
-        halt($goods_num);
-        $data = $request->only(["status","seckill_money","keyword","goods_num","residue_num"]);
+        $data = $request->only(["status","seckill_money","keyword"]);
         $start_time = $request->only(["start_time"])["start_time"];
         $over_time = $request->only(["over_time"])["over_time"];
+        $data['goods_id'] = $goods_id;
         $data["start_time"] = strtotime($start_time);
         $data["over_time"] = strtotime($over_time);
+        $data['goods_num'] = $request->only(['goods_num'])['goods_num'];
         $show_images = $request->file("images")->move(ROOT_PATH . 'public' . DS . 'uploads');
         $data["images"] = str_replace("\\", "/", $show_images->getSaveName());
         $bool = db("seckill")->insert($data);

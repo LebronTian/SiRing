@@ -17,7 +17,7 @@ class  Classify extends  Controller{
      * [商品分类]
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
-    public function  index(){
+    public function index(){
         $category = db("goods_type")->where("status","<>","0")->where("pid","0")->select();
         return view('class_index',["category"=>$category]);
     }

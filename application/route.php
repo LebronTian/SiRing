@@ -250,6 +250,7 @@ Route::group("admin",[
     "category_updata"=>"admin/Category/updata",
     "category_ajax"=>"admin/Category/ajax_add",
 
+
     /*会员管理*/
     "user_index"=>"admin/User/index", //会员概况
     "user_search"=>"admin/User/search", //会员搜索
