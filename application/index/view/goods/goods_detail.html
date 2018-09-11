@@ -34,6 +34,7 @@
 	<link rel="stylesheet" type="text/css" href="__STATIC__/index/css/aui-slide.css"/>
     <link rel="stylesheet" href="__STATIC__/index/css/seckill.css">
 	<link rel="stylesheet" type="text/css" href="__STATIC__/index/css/pop.css"/>
+	<link rel="stylesheet" href="__STATIC__/index/css/swiper-4.3.5.min.css">
 </head>
 <body style="background:#fff">
 <header class="aui-bar aui-bar-nav">
@@ -46,19 +47,14 @@
 	</a>
 </header>
 <div id="aui-slide2">
-	<div class="aui-slide-wrap">
-		<!-- <div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">
-			<img src="__STATIC__/index/image/sp1.jpg" alt="">
+	<div class="aui-slide-wrap" style="height:100%;">
+		<div class="swiper-container" style="height:100%;">
+			<div class="swiper-wrapper">
+				
+			</div>
+			<!-- 如果需要分页器 -->
+			<div class="swiper-pagination"></div>
 		</div>
-		<div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">
-			<img src="__STATIC__/index/image/sp1.jpg" alt="">
-		</div>
-		<div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">
-			<img src="__STATIC__/index/image/sp1.jpg" alt="">
-		</div>
-		<div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">
-			<img src="__STATIC__/index/image/sp1.jpg" alt="">
-		</div> -->
 	</div>
 	<div class="aui-slide-page-wrap">
 		<!--分页容器-->
@@ -119,13 +115,6 @@
 		<div class="tabBox">
 			<div class="tabList">
 				<div style="margin-top:10px;">
-					<img src="__STATIC__/index/image/sspp2.jpg" alt="">
-					<img src="__STATIC__/index/image/sspp1.jpg" alt="">
-					<img src="__STATIC__/index/image/sspp3.jpg" alt="">
-					<img src="__STATIC__/index/image/sspp4.jpg" alt="">
-					<img src="__STATIC__/index/image/sspp5.jpg" alt="">
-					<img src="__STATIC__/index/image/sspp6.jpg" alt="">
-
 				</div>
 			</div>
 			<div class="tabList">
@@ -418,6 +407,7 @@
 	<div class="aui-bar-tab-item aui-bg-warning aui-text-white" tapmode style="width: auto;" id="add_to_cart">加入购物车</div>
 	<div class="aui-bar-tab-item aui-bg-danger aui-text-white" tapmode style="width: auto;"  id="buy_now">立即购买</div>
 </footer>
+<script src="__STATIC__/index/js/swiper-4.3.5.min.js"></script>
 <script type="text/javascript" src="__STATIC__/index/js/index/api.js"></script>
 <script type="text/javascript" src="__STATIC__/index/js/index/aui-popup-new.js"></script>
 <script type="text/javascript" src="__STATIC__/index/js/index/aui-slide.js"></script>
@@ -438,9 +428,8 @@
 				// 轮播图
 				var img_len = data.goods_images.length;
 				for(var i = 0; i < img_len; i++){
-					$('.aui-slide-wrap').append('<div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">\
-													<img src="__UPLOAD__/'+data.goods_images[i]+'">\
-												</div>');
+					$('.swiper-wrapper').append('<div class="swiper-slide"><img src="__UPLOAD__/'+data.goods_images[i]+'"></div>');
+												
 				}
 				// 标题
 				$('.goods_desc').html('<span>促销</span>'+data.goods_name+'');
@@ -584,18 +573,7 @@
             tar = touch.pageX;
             tabBox.style.webkitTransition = 'all 0s ease-in-out';
             tabBox.style.transition = 'all 0s ease-in-out';
-        }
-        ;//滑动
-        //        function chmove(ev){
-        //            var stars = wrap.querySelector('.active').start;
-        //            ev.preventDefault;
-        //            var touch = ev.touches[0];
-        //            var distance = touch.pageX-tar;
-        //            dist = distance;
-        //            init.touchs(tabBox,windowWidth,tar,distance,endX);
-        //            init.lineAnme(lineDiv,-dist/tabLi.length-endX/4);
-        //        };
-        //离开
+        };
         function chend(ev) {
             var str = tabBox.style.transform;
             var strs = JSON.stringify(str.split(",", 1));
@@ -649,8 +627,6 @@
     }
 </script>
 <script type="text/javascript">
-
-
     $(function () {
         $(".clickwn").click(function () {
             $(".flick-menu-mask").show();
@@ -765,44 +741,37 @@
 
 </script>
 <script type="text/javascript">
-
-    var slide = new auiSlide({
-        container:document.getElementById("aui-slide"),
-        // "width":300,
-        "height":260,
-        "speed":300,
-        "pageShow":true,
-        "pageStyle":'dot',
-        "loop":true,
-        'dotPosition':'center',
-        currentPage:currentFun
-    })
-
-    function currentFun(index) {
-        // console.log(index);
-    }
+	 var mySwiper = new Swiper ('.swiper-container', {
+        direction: 'horizontal',
+        loop: true,
+        // autoplay: true,
+        delay: 3000,
+        // 如果需要分页器
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        // 如果需要滚动条
+        scrollbar: {
+            el: '.swiper-scrollbar',
+        },
+    });
     var slide2 = new auiSlide({
         container:document.getElementById("aui-slide2"),
         // "width":300,
         "height":290,
-        "speed":300,
-        "autoPlay":4000, //自动播放
-        "pageShow":true,
-        "loop":true,
-        "pageStyle":'dot',
-        'dotPosition':'center'
+        "speed":300
     })
-    var slide3 = new auiSlide({
-        container:document.getElementById("aui-slide3"),
-        // "width":300,
-        "height":240,
-        "speed":500,
-        "autoPlay": 3000, //自动播放
-        "loop":true,
-        "pageShow":true,
-        "pageStyle":'line',
-        'dotPosition':'center'
-    })
+    // var slide3 = new auiSlide({
+    //     container:document.getElementById("aui-slide3"),
+    //     // "width":300,
+    //     "height":240,
+    //     "speed":500,
+    //     "autoPlay": 3000, //自动播放
+    //     "loop":true,
+    //     "pageShow":true,
+    //     "pageStyle":'line',
+    //     'dotPosition':'center'
+    // })
     // console.log(slide3.pageCount());
 	
 </script>
