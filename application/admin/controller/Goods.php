@@ -71,23 +71,18 @@ class Goods extends Controller{
     public function save(Request $request){
        if ($request->isPost()){
            $goods_data = $request->only([
-                        "goods_name",
-                        "sort_number",
-                        "goods_type_id",
-                        "goods_specification",
-                        "goods_place",
-                        "goods_supplier",
-                        "goods_unit",
-                        "goods_bottom_money",
-                        "goods_keyword",
-                        "goods_abstract",
-                        "goods_detail",
-                        "goods_num",
+                           "goods_name",
+                           "sort_number",
+                           "goods_type_id",
+                           "goods_bottom_money",
+                           "goods_num"
            ]);
+           $goods_data["goods_number"] = "GB".date("YmdHis").uniqid().$request->only(["goods_number"])["goods_number"];
            $show_images = $request->file("goods_show_images")->move(ROOT_PATH . 'public' . DS . 'uploads');
            $goods_data["goods_show_images"] = str_replace("\\","/",$show_images->getSaveName());
            $goods_data["goods_status"] = $this->goods_status[0];
            $goods_data["create_time"] = time();
+           halt($goods_data);
            $bool = db("goods")->insert($goods_data);
            if($bool){
                //取出图片在存到数据库
@@ -101,9 +96,9 @@ class Goods extends Controller{
                }
                $booldata = model("goods_images")->saveAll($goods_images);
                if($booldata){
-                   $this->success("添加成功",url('admin/Goods/index'));
+                   $this->redirect(url('admin/Goods/index'));
                }else{
-                   $this->error("添加失败",url('admin/Goods/add'));
+                   $this->redirect(url('admin/Goods/add'));
                }
            }
        }
@@ -180,16 +175,10 @@ class Goods extends Controller{
                 "goods_name",
                 "sort_number",
                 "goods_type_id",
-                "goods_specification",
-                "goods_place",
-                "goods_supplier",
-                "goods_unit",
                 "goods_bottom_money",
-                "goods_keyword",
-                "goods_abstract",
-                "goods_detail",
                 "goods_num",
             ]);
+            $goods_data["goods_number"] = "GB".$request->only(["goods_number"])["goods_number"];
             $show_images = $request->file("goods_show_images")->move(ROOT_PATH . 'public' . DS . 'uploads');
             $goods_data["goods_show_images"] = str_replace("\\", "/", $show_images->getSaveName());
             $goods_data["goods_status"] = $this->goods_status[0];
@@ -207,9 +196,9 @@ class Goods extends Controller{
                 }
                 $booldata = model("goods_images")->saveAll($goods_images);
                 if($booldata){
-                    $this->success("添加成功",url('admin/Goods/index'));
+                    $this->redirect(url('admin/Goods/index'));
                 }else{
-                    $this->error("添加失败",url('admin/Goods/edit'));
+                    $this->redirect(url('admin/Goods/edit'));
                 }
             }
         }

@@ -43,9 +43,9 @@ class Admin extends Controller
         $boolData = model("Admin")->sSave($data);
 
         if($boolData){
-            $this->success("添加成功",url("admin/admin/index"));
+            $this->redirect(url("admin/admin/index"));
         }else{
-            $this->error("添加失败",url("admin/admin/add"));
+            $this->redirect(url("admin/admin/add"));
         }
     }
 
@@ -56,9 +56,9 @@ class Admin extends Controller
     public function del($id){
         $bool = model("Admin")->where("id",$id)->delete();
         if($bool){
-            $this->success("删除成功",url("admin/admin/index"));
+            $this->redirect(url("admin/admin/index"));
         }else{
-            $this->error("删除失败",url("admin/admin/index"));
+            $this->error(url("admin/admin/index"));
         }
     }
 

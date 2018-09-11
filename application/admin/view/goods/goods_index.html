@@ -117,8 +117,7 @@
                         <th width="40"><input name="ids" type="checkbox" value=""></th>
                         <th width="40">ID</th>
                         <th width="60">商品图片</th>
-                        <th width="100">产品名称</th>
-                        <th>描述</th>
+                        <th>产品名称</th>
                         <th width="100">单价</th>
                         <th width="60">发布状态</th>
                         <th width="100">操作</th>
@@ -133,13 +132,11 @@
                         <td><img width="60" class="product-thumb" src="__UPLOADS__/{$value.goods_show_images}"></td>
                         <td class="text-l">
                             <a style="text-decoration:none" onClick="product_show('哥本哈根橡木地板','product-show.html','10001')" href="javascript:;">
-                                <img title="国内品牌" src="__STATIC__/admin/static/h-ui.admin/images/cn.gif">
                                 <b class="text-success">{$value.goods_name}</b>
                             </a>
                         </td>
-                        <td class="text-l" >{$value.goods_abstract}</td>
                         <td>
-                            <span class="price">{$value.goods_bottom_money}</span> 元/平米
+                            <span class="price">{$value.goods_bottom_money}</span> 元
                         </td>
                         <td class="td-status">
                             {if $value.goods_status == 1}
@@ -169,13 +166,11 @@
                     <td><img width="60" class="product-thumb" src="__UPLOADS__/{$value.goods_show_images}"></td>
                     <td class="text-l">
                         <a style="text-decoration:none" onClick="product_show('哥本哈根橡木地板','product-show.html','10001')" href="javascript:;">
-                            <img title="国内品牌" src="__STATIC__/admin/static/h-ui.admin/images/cn.gif">
                             <b class="text-success">{$value.goods_name}</b>
                         </a>
                     </td>
-                    <td class="text-l" >{$value.goods_abstract}</td>
                     <td>
-                        <span class="price">{$value.goods_bottom_money}</span> 元/平米
+                        <span class="price">{$value.goods_bottom_money}</span> 元
                     </td>
                     <td class="td-status">
                         {if $value.goods_status == 1}
