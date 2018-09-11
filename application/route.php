@@ -211,6 +211,8 @@ Route::group("admin",[
     "admin_edit"=>"admin/admin/edit",
     "admin_updata"=>"admin/admin/updata",
 
+
+
     /*菜单列表*/
     "menu_index"=>"admin/menu/index",
     "menu_add"=>"admin/menu/add",
@@ -276,6 +278,7 @@ Route::group("admin",[
     "discount_edit"=>"admin/Discount/edit",
     "discount_updata"=>"admin/Discount/updata",
     "discount_del"=>"admin/Discount/del",
+    "discount_batches"=>"admin/Discount/batches",
 
 
     /*秒杀*/
@@ -285,6 +288,7 @@ Route::group("admin",[
     "seckill_edit"=>"admin/Seckill/edit",
     "seckill_updata"=>"admin/Seckill/updata",
     "seckill_del"=>"admin/Seckill/del",
+    "seckill_batches"=>"admin/Seckill/batches",
 
     /*拼团*/
     "group_index"=>"admin/Group/index",

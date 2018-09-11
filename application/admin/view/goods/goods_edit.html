@@ -128,13 +128,11 @@
                 <table>
                     {volist name="goods_images" id="val"}
                     <tr id="{$val.id}" style="display:inline-block; width:25%; height:25%; margin-right:5%;">
-
                         <td>
                             <img style="cursor:pointer;" width="160" height="160" src="__UPLOAD__/{$val.goods_images}" alt=""><br>
                             <input type="hidden" class="imgId" value="{$val.id}">
                             <a href="javascript:;" onclick="product_del(this,'{$val.id}')">图片删除</a>
                         </td>
-
                     </tr>
                     {/volist}
                 </table>

@@ -13,7 +13,7 @@
 {block name="content"}
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 营销 <span class="c-gray en">&gt;</span> 秒杀 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="admin_add('添加优惠券','{:url("admin/Discount/add")}',document.body.clientWidth,document.body.clientHeight)" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加优惠券</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a href="javascript:;" onclick="admin_add('添加优惠券','{:url("admin/Discount/add")}',document.body.clientWidth,document.body.clientHeight)" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加优惠券</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
     <table class="table table-border table-bordered table-bg">
         <thead>
         <tr>
@@ -21,6 +21,7 @@
         </tr>
         <tr class="text-c">
             <th width="25"><input type="checkbox" name="" value=""></th>
+            <th>优惠券id</th>
             <th width="150">优惠券名称</th>
             <th width="150">优惠金额</th>
             <th>活动时间</th>
@@ -119,6 +120,38 @@
             $(obj).remove();
             layer.msg('已启用!', {icon: 6,time:1000});
         });
+    }
+</script>
+<script>
+    function datadel() {
+        var allInput = $('.tbody').children().find('input');
+
+        var input_len = allInput.length;
+        var input_id = [];
+        for(var i = 0; i < input_len; i++){
+            if(allInput[i].checked){
+                input_id.push($(allInput[i]).parents('td').siblings()[0].id)
+            }
+        }
+        console.log(input_id);
+        $.ajax({
+            url: "{:url('admin/Discount/batches')}",
+            type: "POST",
+            dataType: 'JSON',
+            async: false,
+            data: {
+                "ids": input_id
+            },
+            success: function(data){
+                console.log(data)
+                if(data.status == 1){
+                    location.reload();
+                }
+            },
+            error: function(){
+                console.log('错误');
+            }
+        })
     }
 </script>
 {/block}
