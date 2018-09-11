@@ -9,6 +9,7 @@
 namespace app\admin\controller;
 use think\Controller;
 use think\Request;
+use app\admin\model\Seckills;
 
 class Seckill extends Controller{
 
@@ -106,6 +107,30 @@ class Seckill extends Controller{
             $this->success("删除失败",url("admin/Seckill/index"));
         }
     }
+
+
+
+    /**
+     * [秒杀商品批量删除]
+     * 陈绪
+     */
+    public function batches(Request $request){
+        if($request->isPost()) {
+            $id = $request->only(["ids"])["ids"];
+            foreach ($id as $key=>$value) {
+                $seckill_images = db("seckill")->where("id", $value)->field("images")->find();
+                $bool = Seckills::destroy($value);
+                unlink(ROOT_PATH . 'public' . DS . 'uploads/' . $seckill_images["images"]);
+            }
+            if ($bool) {
+                return ajax_success("删除成功");
+            } else {
+                return ajax_error("删除失败");
+            }
+
+        }
+    }
+
 
 
 }

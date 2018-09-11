@@ -21,6 +21,7 @@
         </tr>
         <tr class="text-c">
             <th width="25"><input type="checkbox" name="" value=""></th>
+            <th>秒杀商品id</th>
             <th width="40">商品图片</th>
             <th width="150">价格</th>
             <th width="90">分类</th>
@@ -31,10 +32,11 @@
             <th width="100">操作</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="tbody">
         {volist name="seckill" id="value"}
         <tr class="text-c">
             <td><input type="checkbox" value="1" name=""></td>
+            <td id="{$value.id}">{$value.id}</td>
                 {volist name="goods" id="val"}
                 {if $val.id == $value.goods_id}
                 <td><img src="__UPLOADS__/{$value.images}"></td>
@@ -128,6 +130,38 @@
             $(obj).remove();
             layer.msg('已启用!', {icon: 6,time:1000});
         });
+    }
+</script>
+<script>
+    function datadel() {
+        var allInput = $('.tbody').children().find('input');
+
+        var input_len = allInput.length;
+        var input_id = [];
+        for(var i = 0; i < input_len; i++){
+            if(allInput[i].checked){
+                input_id.push($(allInput[i]).parents('td').siblings()[0].id)
+            }
+        }
+        console.log(input_id);
+        $.ajax({
+            url: "{:url('admin/Seckill/batches')}",
+            type: "POST",
+            dataType: 'JSON',
+            async: false,
+            data: {
+                "ids": input_id
+            },
+            success: function(data){
+                console.log(data)
+                if(data.status == 1){
+                    location.reload();
+                }
+            },
+            error: function(){
+                console.log('错误');
+            }
+        })
     }
 </script>
 {/block}
