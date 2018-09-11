@@ -190,7 +190,7 @@ $(document).ready(function () {
         }
     }
 
-    $(".catList-yhc").catList(catListData)
+    // $(".catList-yhc").catList(catListData);
 
 });
 
