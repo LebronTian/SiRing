@@ -317,7 +317,7 @@
             <label class="form-label col-xs-4 col-sm-2">商品展示缩略图</label>
             <div class="formControls col-xs-8 col-sm-9" style="margin-top: 5px">
                 <a href="javascript:;" class="a-upload" style="width:20%;">
-                    <input type="file" name="goods_show_images" id="myFile6" multiple="multiple"/><span>上传缩略图</span>
+                    <input type="file" name="goods_show_images" id="myFile6"/><span>上传缩略图</span>
                 </a>
                 <div class="img_div6"></div>
 
@@ -473,11 +473,15 @@
                     /*
                         若规则全部通过则在此提交url到后台数据库
                         * */
-                    img_html = "<div class='isImg'>\
+                    if($('.isImg').length == 1){
+                        alert('最多上传一张图片')
+                    }else{
+                        img_html = "<div class='isImg'>\
                                     <img src='" + objUrl + "' onclick='javascript:lookBigImg(this)' style='height: 100%; width: 100%;' />\
                                     <button class='removeBtn' onclick='javascript:removeImg(this)'>x</button>\
                                 </div>";
-                    img_div.append(img_html);
+                        img_div.append(img_html);
+                    }
                 }
             }
             /*
@@ -540,12 +544,15 @@
                     /*
                         若规则全部通过则在此提交url到后台数据库
                         * */
-                    img_html = "<div class='isImg'>\
+                    if($('.isImg').length == 1){
+                        alert('最多上传一张图片')
+                    }else{
+                        img_html = "<div class='isImg'>\
                                     <img src='" + objUrl + "' onclick='javascript:lookBigImg(this)' style='height: 100%; width: 100%;' />\
                                     <button class='removeBtn' onclick='javascript:removeImg(this)'>x</button>\
                                 </div>";
-                    img_div.append(img_html);
-                }
+                        img_div.append(img_html);
+                    }
             }
             /*
                 描述：鉴定每个图片大小总和
@@ -607,11 +614,15 @@
                     /*
                         若规则全部通过则在此提交url到后台数据库
                         * */
-                    img_html = "<div class='isImg'>\
+                    if($('.isImg').length == 1){
+                        alert('最多上传一张图片')
+                    }else{
+                        img_html = "<div class='isImg'>\
                                     <img src='" + objUrl + "' onclick='javascript:lookBigImg(this)' style='height: 100%; width: 100%;' />\
                                     <button class='removeBtn' onclick='javascript:removeImg(this)'>x</button>\
                                 </div>";
-                    img_div.append(img_html);
+                        img_div.append(img_html);
+                    }
                 }
             }
             /*
@@ -675,9 +686,9 @@
                         若规则全部通过则在此提交url到后台数据库
                         * */
                     img_html = "<div class='isImg'>\
-                                    <img src='" + objUrl + "' onclick='javascript:lookBigImg(this)' style='height: 100%; width: 100%;' />\
-                                    <button class='removeBtn' onclick='javascript:removeImg(this)'>x</button>\
-                                </div>";
+                                <img src='" + objUrl + "' onclick='javascript:lookBigImg(this)' style='height: 100%; width: 100%;' />\
+                                <button class='removeBtn' onclick='javascript:removeImg(this)'>x</button>\
+                            </div>";
                     img_div.append(img_html);
                 }
             }
@@ -741,11 +752,15 @@
                     /*
                         若规则全部通过则在此提交url到后台数据库
                         * */
-                    img_html = "<div class='isImg'>\
+                    if($('.isImg').length == 1){
+                        alert('最多上传一张图片')
+                    }else{
+                        img_html = "<div class='isImg'>\
                                     <img src='" + objUrl + "' onclick='javascript:lookBigImg(this)' style='height: 100%; width: 100%;' />\
                                     <button class='removeBtn' onclick='javascript:removeImg(this)'>x</button>\
                                 </div>";
-                    img_div.append(img_html);
+                        img_div.append(img_html);
+                    }
                 }
             }
             /*
