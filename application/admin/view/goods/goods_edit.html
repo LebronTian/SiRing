@@ -179,7 +179,7 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">商品售价</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" name="" placeholder="请输入" class="input-text" style="width:200px">元
+                <input type="text" name="goods_new_money" value="{$value.goods_new_money}" class="input-text" style="width:200px">元
             </div>
         </div>
 
@@ -196,12 +196,14 @@
             <div class="formControls col-xs-8 col-sm-9" style="width:45%;">
                 <table>
                     {volist name="goods_images" id="val"}
-                    <tr id="{$val.id}" style="display:inline-block; width:25%; height:25%; margin-right:5%;">
+                    <tr style="display:inline-block; width:25%; height:25%; margin-right:5%;">
+                        {if $val.goods_quality_img == null}
                         <td>
                             <img style="cursor:pointer;" width="160" height="160" src="__UPLOAD__/{$val.goods_images}" alt=""><br>
                             <input type="hidden" class="imgId" value="{$val.id}">
-                            <a href="javascript:;" onclick="product_del(this,'{$val.id}')">图片删除</a>
+                            <a href="javascript:;" onclick="product_dels(this,'{$val.id}')">图片删除</a>
                         </td>
+                        {/if}
                     </tr>
                     {/volist}
                 </table>
@@ -234,28 +236,26 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">赠送配件说明</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" name="goods_num" placeholder="不超过20字" class="input-text" style="width: 400px">
+                <input type="text" name="goods_num" placeholder="不超过20字" value="{$value.goods_parts}" class="input-text" style="width: 400px">
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-2">说明小图</label>
                 <div class="formControls col-xs-8 col-sm-9" style="width:45%;">
                     <table>
-                        {volist name="goods_images" id="val"}
-                        <tr id="{$val.id}" style="display:inline-block; width:25%; height:25%; margin-right:5%;">
+                        <tr id="{$value.id}" style="display:inline-block; width:25%; height:25%; margin-right:5%;">
                             <td>
-                                <img style="cursor:pointer;" width="160" height="160" src="__UPLOAD__/{$val.goods_images}" alt=""><br>
-                                <input type="hidden" class="imgId" value="{$val.id}">
-                                <a href="javascript:;" onclick="product_del(this,'{$val.id}')">图片删除</a>
+                                <img style="cursor:pointer;" width="160" height="160" src="__UPLOADS__/{$value.goods_parts_img}" alt=""><br>
+                                <input type="hidden" class="imgId" value="{$value.id}">
+                                <a href="javascript:;" onclick="product_del(this,'{$value.id}')">图片删除</a>
                             </td>
                         </tr>
-                        {/volist}
                     </table>
                 </div>
             </div>
             <label class="form-label col-xs-4 col-sm-2">选择图片</label>
             <div class="formControls col-xs-8 col-sm-9" style="margin-top: 5px">
                 <a href="javascript:;" class="a-upload" style="width:20%;">
-                    <input type="file" name="goods_parts_img[]" id="myFile2" multiple="multiple"/><span>上传配件说明小图</span>
+                    <input type="file" name="goods_parts_img" id="myFile2"/><span>上传配件说明小图</span>
                 </a>
                 <div class="img_div2"></div>
 
@@ -274,22 +274,20 @@
                 <label class="form-label col-xs-4 col-sm-2">说明大图</label>
                 <div class="formControls col-xs-8 col-sm-9" style="width:45%;">
                     <table>
-                        {volist name="goods_images" id="val"}
-                        <tr id="{$val.id}" style="display:inline-block; width:25%; height:25%; margin-right:5%;">
+                        <tr style="display:inline-block; width:25%; height:25%; margin-right:5%;">
                             <td>
-                                <img style="cursor:pointer;" width="160" height="160" src="__UPLOAD__/{$val.goods_images}" alt=""><br>
-                                <input type="hidden" class="imgId" value="{$val.id}">
-                                <a href="javascript:;" onclick="product_del(this,'{$val.id}')">图片删除</a>
+                                <img style="cursor:pointer;" width="160" height="160" src="__UPLOADS__/{$value.goods_parts_big_img}" alt=""><br>
+                                <input type="hidden" class="imgId" value="{$value.id}">
+                                <a href="javascript:;" onclick="product_del(this,'{$value.id}')">图片删除</a>
                             </td>
                         </tr>
-                        {/volist}
                     </table>
                 </div>
             </div>
             <label class="form-label col-xs-4 col-sm-2">选择图片</label>
             <div class="formControls col-xs-8 col-sm-9" style="margin-top: 5px;">
                 <a href="javascript:;" class="a-upload" style="width:20%;">
-                    <input type="file" name="goods_parts_big_img[]" id="myFile3" multiple="multiple"/><span>上传配件说明大图</span>
+                    <input type="file" name="goods_parts_big_img" id="myFile3"/><span>上传配件说明大图</span>
                 </a>
                 <div class="img_div3"></div>
 
@@ -311,15 +309,13 @@
             <label class="form-label col-xs-4 col-sm-2">规格</label>
             <div class="formControls col-xs-8 col-sm-9" style="width:45%;">
                 <table>
-                    {volist name="goods_images" id="val"}
-                    <tr id="{$val.id}" style="display:inline-block; width:25%; height:25%; margin-right:5%;">
+                    <tr style="display:inline-block; width:25%; height:25%; margin-right:5%;">
                         <td>
-                            <img style="cursor:pointer;" width="160" height="160" src="__UPLOAD__/{$val.goods_images}" alt=""><br>
-                            <input type="hidden" class="imgId" value="{$val.id}">
-                            <a href="javascript:;" onclick="product_del(this,'{$val.id}')">图片删除</a>
+                            <img style="cursor:pointer;" width="160" height="160" src="__UPLOADS__/{$value.goods_spec_img}" alt=""><br>
+                            <input type="hidden" class="imgId" value="{$value.id}">
+                            <a href="javascript:;" onclick="product_del(this,'{$value.id}')">图片删除</a>
                         </td>
                     </tr>
-                    {/volist}
                 </table>
             </div>
         </div>
@@ -328,7 +324,7 @@
             <div class="formControls col-xs-8 col-sm-9">
                 <div class="formControls col-xs-8 col-sm-9">
                     <a href="javascript:;" class="a-upload" style="width:30%;">
-                        <input type="file" name="goods_spec_img[]" id="myFile4" multiple="multiple"/><span>上传配件说明小图</span>
+                        <input type="file" name="goods_spec_img" id="myFile4"/><span>上传配件说明小图</span>
                     </a>
                     <div class="img_div4"></div>
     
@@ -350,20 +346,22 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">质检报告</label>
             <div class="formControls col-xs-8 col-sm-9">
-                IMEI号&nbsp;&nbsp;<input type="text" name="goods_num" class="input-text" style="width: 300px">
+                IMEI号&nbsp;&nbsp;<input type="text" name="goods_num" value="{$value.goods_number}" class="input-text" style="width: 300px">
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-2">质检报告</label>
                 <div class="formControls col-xs-8 col-sm-9" style="width:45%;">
                     <table>
-                        {volist name="goods_images" id="val"}
-                        <tr id="{$val.id}" style="display:inline-block; width:25%; height:25%; margin-right:5%;">
+                        {volist name="goods_images" id="v"}
+                        {if $v.goods_images == null}
+                        <tr style="display:inline-block; width:25%; height:25%; margin-right:5%;">
                             <td>
-                                <img style="cursor:pointer;" width="160" height="160" src="__UPLOAD__/{$val.goods_images}" alt=""><br>
-                                <input type="hidden" class="imgId" value="{$val.id}">
-                                <a href="javascript:;" onclick="product_del(this,'{$val.id}')">图片删除</a>
+                                <img style="cursor:pointer;" width="160" height="160" src="__UPLOAD__/{$v.goods_quality_img}" alt=""><br>
+                                <input type="hidden" class="imgId" value="{$v.id}">
+                                <a href="javascript:;" onclick="product_dels(this,'{$v.id}')">图片删除</a>
                             </td>
                         </tr>
+                        {/if}
                         {/volist}
                     </table>
                 </div>
@@ -393,16 +391,14 @@
             <label class="form-label col-xs-4 col-sm-2">缩略图</label>
             <div class="formControls col-xs-8 col-sm-9" style="width:45%;">
                 <table>
-                    {volist name="goods_images" id="val"}
-                    <tr id="{$val.id}" style="display:inline-block; width:25%; height:25%; margin-right:5%;">
+                    <tr style="display:inline-block; width:25%; height:25%; margin-right:5%;">
                         <td>
-                            <img style="cursor:pointer;" width="160" height="160" src="__UPLOAD__/{$val.goods_images}" alt=""><br>
+                            <img style="cursor:pointer;" width="160" height="160" src="__UPLOADS__/{$value.goods_show_images}" alt=""><br>
                             <input type="hidden" class="imgId" value="{$val.id}">
-                            <a href="javascript:;" onclick="product_del(this,'{$val.id}')">图片删除</a>
+                            <a href="javascript:;" onclick="product_del(this,'{$value.id}')">图片删除</a>
                         </td>
 
                     </tr>
-                    {/volist}
                 </table>
             </div>
         </div>
@@ -430,8 +426,8 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">状态</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input name="sj" type="radio"><span>暂不上架</span>
-                <input name="sj" type="radio"><span>立即上架</span>
+                <input name="goods_status" type="radio" value="0"><span>暂不上架</span>
+                <input name="goods_status" type="radio" value="1"><span>立即上架</span>
             </div>
         </div>
 
@@ -480,6 +476,26 @@
             }
         })
     }())
+</script>
+<script>
+    function product_dels(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.ajax({
+                type: 'POST',
+                url: '{:url("admin/Goods/images")}',
+                data:{"id":id},
+                dataType:"json",
+                success: function(data){
+                    console.log(data);
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                },
+                error:function(data) {
+                    console.log(data.msg);
+                },
+            });
+        });
+    }
 </script>
 <script>
     function product_del(obj,id){
@@ -580,7 +596,7 @@
         var img_html;
         $("#myFile2").change(function() {
             var img_div = $(".img_div2");
-            var filepath = $("input[name='goods_parts_img[]']").val();
+            var filepath = $("input[name='goods_parts_img']").val();
             for(var i = 0; i < this.files.length; i++) {
                 objUrl = getObjectURL(this.files[i]);
                 var extStart = filepath.lastIndexOf(".");
@@ -647,7 +663,7 @@
         var img_html;
         $("#myFile3").change(function() {
             var img_div = $(".img_div3");
-            var filepath = $("input[name='goods_parts_big_img[]']").val();
+            var filepath = $("input[name='goods_parts_big_img']").val();
             for(var i = 0; i < this.files.length; i++) {
                 objUrl = getObjectURL(this.files[i]);
                 var extStart = filepath.lastIndexOf(".");
@@ -714,7 +730,7 @@
         var img_html;
         $("#myFile4").change(function() {
             var img_div = $(".img_div4");
-            var filepath = $("input[name='goods_spec_img[]']").val();
+            var filepath = $("input[name='goods_spec_img']").val();
             for(var i = 0; i < this.files.length; i++) {
                 objUrl = getObjectURL(this.files[i]);
                 var extStart = filepath.lastIndexOf(".");
