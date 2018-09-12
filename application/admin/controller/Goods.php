@@ -67,75 +67,63 @@ class Goods extends Controller{
      * 陈绪
      * @param Request $request
      */
-    public function save(Request $request){
-       if ($request->isPost()){
-           $goods_data = $request->only([
-                           "goods_name",
-                           "sort_number",
-                           "goods_type_id",
-                           "goods_new_money",
-                           "goods_parts",
-                           "goods_status",
-                           "goods_bottom_money",
-                           "goods_num"
-           ]);
-           $sign = $request->only(["goods_sign"])["goods_sign"];
-           $goods_data["goods_sign"] = implode(",",$sign);
-           $goods_data["goods_number"] = "GB".date("YmdHis").uniqid().$request->only(["goods_number"])["goods_number"];
-           //图片添加
-           $show_images = $request->file("goods_show_images");
-           $show_image = $show_images->move(ROOT_PATH . 'public' . DS . 'uploads');
-           $goods_data["goods_show_images"] = str_replace("\\","/",$show_image->getSaveName());
-           $goods_data["create_time"] = time();
-           $bool = db("goods")->insert($goods_data);
-           if($bool){
-               //取出图片在存到数据库
-               $goods_images = [];
-               $goodsid = db("goods")->getLastInsID();
+    public function save(Request $request)
+    {
+        if ($request->isPost()) {
+            $goods_data = $request->only([
+                "goods_name",
+                "sort_number",
+                "goods_type_id",
+                "goods_new_money",
+                "goods_parts",
+                "goods_status",
+                "goods_bottom_money",
+                "goods_num"
+            ]);
+            $sign = $request->only(["goods_sign"])["goods_sign"];
+            $goods_data["goods_sign"] = implode(",", $sign);
+            $goods_data["goods_number"] = "GB" . date("YmdHis") . uniqid() . $request->only(["goods_number"])["goods_number"];
+            //图片添加
+            $show_images = $request->file("goods_show_images");
+            $show_image = $show_images->move(ROOT_PATH . 'public' . DS . 'uploads');
+            $goods_data["goods_show_images"] = str_replace("\\", "/", $show_image->getSaveName());
 
-               $file = request()->file('goods_images');
-               foreach ($file as $key=>$value){
-                   $info = $value->move(ROOT_PATH . 'public' . DS . 'upload');
-                   $goods_url = str_replace("\\","/",$info->getSaveName());
-                   $goods_images[] = ["goods_images"=>$goods_url,"goods_id"=>$goodsid];
-               }
+            $goods_parts_big_img = $request->file("goods_parts_big_img")->move(ROOT_PATH . 'public' . DS . 'uploads');
+            $goods_data["goods_parts_big_img"] = str_replace("\\", "/", $goods_parts_big_img->getSaveName());
 
-               $goods_quality_img = $request->file("goods_quality_img");
-               foreach ($goods_quality_img as $val){
-                   $goods_quality_imgs = $val->move(ROOT_PATH . 'public' . DS . 'upload');
-                   $goods_quality_imgs_url = str_replace("\\","/",$goods_quality_imgs->getSaveName());
-                   $goods_images[] = ["goods_quality_img"=>$goods_quality_imgs_url,"goods_id"=>$goodsid];
-               }
+            $goods_spec_img = $request->file("goods_spec_img")->move(ROOT_PATH . 'public' . DS . 'uploads');
+            $goods_data["goods_spec_img"] = str_replace("\\", "/", $goods_spec_img->getSaveName());
 
-               $goods_parts_img = $request->file("goods_parts_img");
-               foreach ($goods_parts_img as $v){
-                   $goods_parts_imgs = $v->move(ROOT_PATH . 'public' . DS . 'upload');
-                   $goods_parts_img_url = str_replace("\\","/",$goods_parts_imgs->getSaveName());
-                   $goods_images[] =["goods_parts_img"=>$goods_parts_img_url,"goods_id"=>$goodsid];
-               }
+            $goods_parts_img = $request->file("goods_parts_img")->move(ROOT_PATH . 'public' . DS . 'uploads');
+            $goods_data["goods_parts_img"] = str_replace("\\", "/", $goods_parts_img->getSaveName());
 
-               $goods_parts_big_img = $request->file("goods_parts_big_img");
-               foreach ($goods_parts_big_img as $big){
-                   $goods_parts_big_imgs = $big->move(ROOT_PATH . 'public' . DS . 'upload');
-                   $goods_parts_big_imgs_url = str_replace("\\","/",$goods_parts_big_imgs->getSaveName());
-                   $goods_images[] = ["goods_parts_big_img"=>$goods_parts_big_imgs_url,"goods_id"=>$goodsid];
-               }
+            $goods_data["create_time"] = time();
+            $bool = db("goods")->insert($goods_data);
+            if ($bool) {
+                //取出图片在存到数据库
+                $goods_images = [];
+                $goodsid = db("goods")->getLastInsID();
+                $file = request()->file('goods_images');
+                foreach ($file as $key => $value) {
+                    $info = $value->move(ROOT_PATH . 'public' . DS . 'upload');
+                    $goods_url = str_replace("\\", "/", $info->getSaveName());
+                    $goods_images[] = ["goods_images" => $goods_url, "goods_id" => $goodsid];
+                }
 
-               $goods_spec_img = $request->file("goods_spec_img");
-               foreach ($goods_spec_img as $spec){
-                   $goods_spec_imgs = $spec->move(ROOT_PATH . 'public' . DS . 'upload');
-                   $goods_spec_imgs_url = str_replace("\\","/",$goods_spec_imgs->getSaveName());
-                   $goods_images[] = ["goods_spec_img"=>$goods_spec_imgs_url,"goods_id"=>$goodsid];
-               }
-
-               $booldata = model("goods_images")->saveAll($goods_images,false);
-               if($booldata){
-                   $this->redirect(url('admin/Goods/index'));
-               }else{
-                   $this->redirect(url('admin/Goods/add'));
-               }
-           }
-       }
+                $goods_quality_img = $request->file("goods_quality_img");
+                foreach ($goods_quality_img as $val) {
+                    $goods_quality_imgs = $val->move(ROOT_PATH . 'public' . DS . 'upload');
+                    $goods_quality_imgs_url = str_replace("\\", "/", $goods_quality_imgs->getSaveName());
+                    $goods_images[] = ["goods_quality_img" => $goods_quality_imgs_url, "goods_id" => $goodsid];
+                }
+                $booldata = model("goods_images")->saveAll($goods_images);
+                if ($booldata) {
+                    $this->redirect(url('admin/Goods/index'));
+                } else {
+                    $this->redirect(url('admin/Goods/add'));
+                }
+            }
+        }
     }
 
 

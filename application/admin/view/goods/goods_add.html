@@ -234,7 +234,7 @@
                 <label class="form-label col-xs-4 col-sm-2">配件小图</label>
                 <div class="formControls col-xs-8 col-sm-9" style="margin-top: 5px">
                     <a href="javascript:;" class="a-upload" style="width:20%;">
-                        <input type="file" name="goods_parts_img[]" id="myFile2" multiple="multiple"/><span>上传配件说明小图</span>
+                        <input type="file" name="goods_parts_img" id="myFile2"/><span>上传配件说明小图</span>
                     </a>
                     <div class="img_div2"></div>
     
@@ -252,7 +252,7 @@
                 <label class="form-label col-xs-4 col-sm-2">配件大图</label>
                 <div class="formControls col-xs-8 col-sm-9" style="margin-top: 5px;">
                     <a href="javascript:;" class="a-upload" style="width:20%;">
-                        <input type="file" name="goods_parts_big_img[]" id="myFile3" multiple="multiple"/><span>上传配件说明大图</span>
+                        <input type="file" name="goods_parts_big_img" id="myFile3"/><span>上传配件说明大图</span>
                     </a>
                     <div class="img_div3"></div>
     
@@ -275,7 +275,7 @@
             <div class="formControls col-xs-8 col-sm-9">
                 <div class="formControls col-xs-8 col-sm-9">
                     <a href="javascript:;" class="a-upload" style="width:30%;">
-                        <input type="file" name="goods_spec_img[]" id="myFile4" multiple="multiple"/><span>上传配件说明小图</span>
+                        <input type="file" name="goods_spec_img" id="myFile4" /><span>上传配件说明小图</span>
                     </a>
                     <div class="img_div4"></div>
     
@@ -460,7 +460,7 @@
         var img_html;
         $("#myFile2").change(function() {
             var img_div = $(".img_div2");
-            var filepath = $("input[name='goods_parts_img[]']").val();
+            var filepath = $("input[name='goods_parts_img']").val();
             for(var i = 0; i < this.files.length; i++) {
                 objUrl = getObjectURL(this.files[i]);
                 var extStart = filepath.lastIndexOf(".");
@@ -531,7 +531,7 @@
         var img_html;
         $("#myFile3").change(function() {
             var img_div = $(".img_div3");
-            var filepath = $("input[name='goods_parts_big_img[]']").val();
+            var filepath = $("input[name='goods_parts_big_img']").val();
             for(var i = 0; i < this.files.length; i++) {
                 objUrl = getObjectURL(this.files[i]);
                 var extStart = filepath.lastIndexOf(".");
@@ -602,7 +602,7 @@
         var img_html;
         $("#myFile4").change(function() {
             var img_div = $(".img_div4");
-            var filepath = $("input[name='goods_spec_img[]']").val();
+            var filepath = $("input[name='goods_spec_img']").val();
             for(var i = 0; i < this.files.length; i++) {
                 objUrl = getObjectURL(this.files[i]);
                 var extStart = filepath.lastIndexOf(".");
