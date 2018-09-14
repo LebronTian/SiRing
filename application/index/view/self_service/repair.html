@@ -78,19 +78,39 @@
         </div>
         <div class="name_price">
             <p class="name_info">{$value.goods_name}</p>
-            <p class="price">￥{$value.order_money}</p>
+            <!-- <p class="price">￥{$value.order_money}</p> -->
         </div>
     </div>
     <div class="total_price">
         <p>共计<span class="num_span">{$value.order_num}</span>件商品 合计:￥<span class="price_span">{$value.order_money}</span></p>
     </div>
     <div class="repair_btn">
-        <a href="repair_desc">申请售后</a>
+        <!-- <a href="repair_desc" id="sqsh">申请售后</a> -->
+        <a href="repair_desc" id="sqsh_{$value.id}">申请售后</a>
     </div>
     {/volist}
 </div>
 
 <script src="__STATIC__/index/js/jquery.js"></script>
-
+<script>
+    $('.sqsh').click(function(){
+        var id  = $(this)[0].id.split('_')[1];
+        $.ajax({
+            url: '{:url()}',
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            data: {
+                'id': id
+            },
+            success: function(data){
+                console.log(data)
+            },
+            error: function(){
+                console.log('错误')
+            }
+        })
+    })
+</script>
 </body>
 </html>
