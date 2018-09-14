@@ -1437,7 +1437,7 @@ input[type="search"]::-webkit-search-cancel-button {
 	left: 0;
 	z-index: 10;
 	width: 100%;
-	min-height: 2.25rem;
+	/* min-height: 2.25rem; */
 	font-size: 0.9rem;
 	text-align: center;
 	display: table;
@@ -1575,7 +1575,7 @@ input[type="search"]::-webkit-search-cancel-button {
 	display: table-cell;
 	position: relative;
     width: 25%;
-    height: 2.5rem;
+    /* height: 2.5rem; */
     text-align: center;
     vertical-align: middle;
 	font-size:14px;

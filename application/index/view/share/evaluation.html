@@ -97,11 +97,14 @@
             z-index: 15;
             text-align: center;
             background: rgba(0, 0, 0, 0.55);}
-        .showImg{width: 400px; height: 500px; margin-top: 140px;}
+        .showImg{
+            width: 400px; 
+            height: 500px; 
+            margin-top: 140px;
+        }
         
         .evaluation_a{
             background-color: transparent;
-            color: #fff;
             position: absolute;
             top: 7px;
             right: 0;
@@ -232,16 +235,6 @@
             /*
                 描述：鉴定每个图片宽高 以后会做优化 多个图片的宽高 暂时隐藏掉 想看效果可以取消注释就行
                 * */
-            //					var img = new Image();
-            //					img.src = objUrl;
-            //					img.onload = function() {
-            //						if (img.width > 100 && img.height > 100) {
-            //							alert("图片宽高不能大于一百");
-            //							$("#myFile").val("");
-            //							$(".img_div").html("");
-            //							return false;
-            //						}
-            //					}
             return true;
         });
             // 描述：鉴定每个浏览器上传图片url 目前没有合并到Ie

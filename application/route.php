@@ -110,7 +110,12 @@ Route::group("",[
 
 
     'service_index'=>"index/self_service/index", //自助服务
-    'repair_index'=>"index/self_service/repair", //自助服务
+    'repair_index'=>"index/self_service/repair", //售后维修
+    'repair_desc'=>"index/self_service/repair_desc", //问题描述
+    'successful_sub'=>"index/self_service/successful_sub", //提交成功
+    'processing'=>"index/self_service/processing", //处理中
+    'evaluations'=>"index/self_service/evaluation", //待评价
+    'detail_info'=>"index/self_service/detail_info", //服务单详情
 
 
     /*登录页面*/

@@ -19,4 +19,24 @@ class  SelfService extends  Controller{
     public function repair(){
         return view('repair');
     }
+    // 问题描述
+    public function repair_desc(){
+        return view('repair_desc');
+    }
+    // 提交成功
+     public function successful_sub(){
+        return view('successful_sub');
+    }
+    // 处理中
+    public function processing(){
+        return view('processing');
+    }
+    // 评价
+    public function evaluation(){
+        return view('evaluation');
+    }
+    // 服务单详情
+    public function detail_info(){
+        return view('detail_info');
+    }
 }
