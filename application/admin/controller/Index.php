@@ -19,10 +19,7 @@ class Index extends Controller{
      * 陈绪
      */
     public function index(Request $request){
-        if($request->isPost()){
-            $menu_list = Config::get("menu_list");
-            return ajax_success("获取成功",$menu_list);
-        }
+        $menu_list = Config::get("menu_list");
         return view("index",["menu_list"=>Config::get("menu_list")]);
     }
 

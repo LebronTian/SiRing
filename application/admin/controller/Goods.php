@@ -19,6 +19,7 @@ use think\Session;
 
 class Goods extends Controller{
 
+    public $goods_status = [0,1];
     /**
      * [商品列表]
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
@@ -146,8 +147,14 @@ class Goods extends Controller{
     public function images(Request $request){
         if($request->isPost()){
             $id = $request->only(['id'])['id'];
-            $image_url = db("goods_images")->where("id",$id)->field("goods_images")->select();
-            unlink(ROOT_PATH . 'public' . DS . 'upload/'.$image_url[0]['goods_images']);
+            $image_url = db("goods_images")->where("id",$id)->field("goods_images,goods_quality_img")->find();
+            if($image_url['goods_images'] != null){
+                unlink(ROOT_PATH . 'public' . DS . 'upload/'.$image_url['goods_images']);
+            }
+
+            if($image_url['goods_quality_img'] != null){
+                unlink(ROOT_PATH . 'public' . DS . 'upload/'.$image_url['goods_quality_img']);
+            }
             $bool = db("goods_images")->where("id",$id)->delete();
             if($bool){
                 return ajax_success("删除成功");
@@ -155,7 +162,6 @@ class Goods extends Controller{
                 return ajax_error("删除失败");
             }
         }
-
     }
 
     /**
@@ -165,21 +171,27 @@ class Goods extends Controller{
     public function del(Request $request){
         if ($request->isPost()) {
             $id = $request->only(["id"])["id"];
-            $image_url = db("goods_images")->where("goods_id", $id)->field("goods_images, id")->select();
+            $image_url = db("goods_images")->where("goods_id", $id)->field("goods_images,goods_quality_img,id")->select();
             $goods_images = db("goods")->where("id", $id)->select();
-            unlink(ROOT_PATH . 'public' . DS . 'uploads/'.$goods_images[0]['goods_show_images']);
+            unlink(ROOT_PATH . 'public' . DS . 'uploads/' . $goods_images[0]['goods_show_images']);
+            unlink(ROOT_PATH . 'public' . DS . 'uploads/' . $goods_images[0]['goods_parts_big_img']);
+            unlink(ROOT_PATH . 'public' . DS . 'uploads/' . $goods_images[0]['goods_spec_img']);
+            unlink(ROOT_PATH . 'public' . DS . 'uploads/' . $goods_images[0]['goods_parts_img']);
             foreach ($image_url as $value) {
-                unlink(ROOT_PATH . 'public' . DS . 'upload/' . $value['goods_images']);
+                if ($value['goods_images'] != null) {
+                    unlink(ROOT_PATH . 'public' . DS . 'upload/' . $value['goods_images']);
+                }
+                if ($value['goods_quality_img'] != null) {
+                    unlink(ROOT_PATH . 'public' . DS . 'upload/' . $value['goods_quality_img']);
+                }
                 db("goods_images")->where("id", $value['id'])->delete();
             }
-
             $bool = db("goods")->where("id", $id)->delete();
             if ($bool) {
                 return ajax_error("删除成功");
             } else {
                 return ajax_error("删除失败");
             }
-
         }
     }
 
@@ -197,13 +209,29 @@ class Goods extends Controller{
                 "goods_name",
                 "sort_number",
                 "goods_type_id",
+                "goods_new_money",
+                "goods_parts",
+                "goods_status",
                 "goods_bottom_money",
-                "goods_num",
+                "goods_num"
             ]);
-            $goods_data["goods_number"] = "GB".$request->only(["goods_number"])["goods_number"];
-            $show_images = $request->file("goods_show_images")->move(ROOT_PATH . 'public' . DS . 'uploads');
-            $goods_data["goods_show_images"] = str_replace("\\", "/", $show_images->getSaveName());
-            $goods_data["goods_status"] = $this->goods_status[0];
+            $sign = $request->only(["goods_sign"])["goods_sign"];
+            $goods_data["goods_sign"] = implode(",", $sign);
+            $goods_data["goods_number"] = "GB" . date("YmdHis") . uniqid() . $request->only(["goods_number"])["goods_number"];
+            //图片添加
+            $show_images = $request->file("goods_show_images");
+            $show_image = $show_images->move(ROOT_PATH . 'public' . DS . 'uploads');
+            $goods_data["goods_show_images"] = str_replace("\\", "/", $show_image->getSaveName());
+
+            $goods_parts_big_img = $request->file("goods_parts_big_img")->move(ROOT_PATH . 'public' . DS . 'uploads');
+            $goods_data["goods_parts_big_img"] = str_replace("\\", "/", $goods_parts_big_img->getSaveName());
+
+            $goods_spec_img = $request->file("goods_spec_img")->move(ROOT_PATH . 'public' . DS . 'uploads');
+            $goods_data["goods_spec_img"] = str_replace("\\", "/", $goods_spec_img->getSaveName());
+
+            $goods_parts_img = $request->file("goods_parts_img")->move(ROOT_PATH . 'public' . DS . 'uploads');
+            $goods_data["goods_parts_img"] = str_replace("\\", "/", $goods_parts_img->getSaveName());
+
             $goods_data["create_time"] = time();
             $bool = db("goods")->where("id", $id)->update($goods_data);
             if($bool){
@@ -211,16 +239,23 @@ class Goods extends Controller{
                 $goods_images = [];
                 $goodsid = db("goods")->getLastInsID();
                 $file = request()->file('goods_images');
-                foreach ($file as $value){
+                foreach ($file as $key => $value) {
                     $info = $value->move(ROOT_PATH . 'public' . DS . 'upload');
-                    $goods_url = str_replace("\\","/",$info->getSaveName());
-                    $goods_images[] = ["goods_images"=>$goods_url,"goods_id"=>$id];
+                    $goods_url = str_replace("\\", "/", $info->getSaveName());
+                    $goods_images[] = ["goods_images" => $goods_url, "goods_id" => $goodsid];
+                }
+
+                $goods_quality_img = $request->file("goods_quality_img");
+                foreach ($goods_quality_img as $val) {
+                    $goods_quality_imgs = $val->move(ROOT_PATH . 'public' . DS . 'upload');
+                    $goods_quality_imgs_url = str_replace("\\", "/", $goods_quality_imgs->getSaveName());
+                    $goods_images[] = ["goods_quality_img" => $goods_quality_imgs_url, "goods_id" => $goodsid];
                 }
                 $booldata = model("goods_images")->saveAll($goods_images);
-                if($booldata){
+                if ($booldata) {
                     $this->redirect(url('admin/Goods/index'));
-                }else{
-                    $this->redirect(url('admin/Goods/edit'));
+                } else {
+                    $this->redirect(url('admin/Goods/add'));
                 }
             }
         }
@@ -277,11 +312,21 @@ class Goods extends Controller{
         if($request->isPost()) {
             $id = $request->only(["ids"])["ids"];
             foreach ($id as $value) {
-                $goods_url = db("goods")->where("id", $value)->select();
+                $goods_url = db("goods")->where("id", $value)->find();
                 $goods_images = db("goods_images")->where("goods_id", $value)->select();
-                //unlink(ROOT_PATH . 'public' . DS . 'uploads/'.$goods_url[0]['goods_show_images']);
+                if($goods_url['goods_show_images'] != null){
+                    unlink(ROOT_PATH . 'public' . DS . 'uploads/' . $goods_url['goods_show_images']);
+                    unlink(ROOT_PATH . 'public' . DS . 'uploads/' . $goods_url['goods_parts_big_img']);
+                    unlink(ROOT_PATH . 'public' . DS . 'uploads/' . $goods_url['goods_spec_img']);
+                    unlink(ROOT_PATH . 'public' . DS . 'uploads/' . $goods_url['goods_parts_img']);
+                }
                 foreach ($goods_images as $val) {
-                    //unlink(ROOT_PATH . 'public' . DS . 'upload/' . $val['goods_images']);
+                    if ($val['goods_images'] != null) {
+                        unlink(ROOT_PATH . 'public' . DS . 'upload/' . $val['goods_images']);
+                    }
+                    if ($val['goods_quality_img'] != null) {
+                        unlink(ROOT_PATH . 'public' . DS . 'upload/' . $val['goods_quality_img']);
+                    }
                     GoodsImages::destroy($val['id']);
                 }
                 $bool = Good::destroy($value);

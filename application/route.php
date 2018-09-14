@@ -246,6 +246,7 @@ Route::group("admin",[
     "goods_updata"=>"admin/Goods/updata",
     "goods_del"=>"admin/Goods/del",
     "images_del"=>"admin/Goods/images",
+    "images_dels"=>"admin/Goods/image",
     "goods_status"=>"admin/Goods/status",
     "goods_batches"=>"admin/Goods/batches",
     "goods_putaway"=>"admin/Goods/putaway",
@@ -277,6 +278,7 @@ Route::group("admin",[
     "user_shows"=>"admin/User/shows",     //会员查看
     "getRegion"=>"admin/User/getRegion",     //三级地区
     "pass_edit"=>"admin/User/pass_edit",     //会员密码编辑
+
 
 
     /*优惠券*/
@@ -332,8 +334,6 @@ Route::group("admin",[
     'order_sunburn'=>"admin/Order/sunburn",
 
 
-    /*购物车*/
-    "shopping_index"=>"admin/Shopping/index",
     /*聊天管理*/
     "chat_index"=>"admin/Chat/index",
     /*后台获取用户发送过来的聊天信息*/
@@ -350,6 +350,31 @@ Route::group("admin",[
     "reading_information"=>"admin/Chat/reading_information",
     /*客服回复信息*/
     "admin_chat_push"=>"admin/Chat/admin_chat_push",
+
+
+    /*内容管理*/
+    "content_index"=>"admin/Content/index",
+    "content_add"=>"admin/Content/add",
+    "content_save"=>"admin/Content/save",
+    "content_edit"=>"admin/Content/edit",
+    "content_del"=>"admin/Content/del",
+    "content_updata"=>"admin/Content/updata",
+
+
+    /*常见问题*/
+    "issue_index"=>"admin/Issue/index",
+    "issue_add"=>"admin/Issue/add",
+    "issue_save"=>"admin/Issue/save",
+    "issue_edit"=>"admin/Issue/edit",
+    "issue_del"=>"admin/Issue/del",
+    "issue_updata"=>"admin/Issue/updata",
+    "issue_status"=>"admin/Issue/status",
+    "issue_putaway"=>"admin/Issue/putaway",
+
+
+    /*客户中心*/
+    "client_index"=>"admin/Client/index"
+
 ]);
 
 Route::miss("public/miss");
