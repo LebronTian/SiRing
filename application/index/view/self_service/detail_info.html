@@ -45,15 +45,111 @@
 <div class="wrapper">
     <div class="title_bg">
         <p class="repair_status">待审核</p>
-        <div class="bar_box">
-            <div class="status_bar"></div>
-            <img src="__STATIC__/index/image/icon/jd.png">
+        <div class="status_bar">
+            <div class="status_bar_gray"></div>
+            <div class="true_div">
+                <span class="one" style="display:block;"></span>
+                <span class="two"></span>
+                <span class="three"></span>
+                <span class="four"></span>
+                <span class="five"></span>
+            </div>
+            <div class="bar_div"></div>
         </div>
+        <div class="progress">
+            <span>提交申请</span>
+            <span>嘎嘎亮审核</span>
+            <span>嘎嘎亮收货</span>
+            <span>嘎嘎亮处理</span>
+            <span>完成</span>
+        </div>
+    </div>
+    <div class="float_inner">
+        <div class="count_down">
+            <p>
+                <span class="cont">您的服务单已申请成功，待售后审核中</span><br>预计
+                <span class="time">08小时19分51秒</span>内为您
+                <span class="status">审核</span>
+            </p>
+        </div>
+        <div class="comm_record">
+            <a href="javascript:;">
+                <p class="title">沟通记录</p>
+                <p class="user_desc">问题描述：<span>有点卡有点有点卡有点卡有点卡有点卡有点卡卡有点卡有点卡有点卡</span></p>
+            </a>
+        </div>
+        <div class="goods_info">
+            <p class="title">商品信息</p>
+            <div class="goods_info_box">
+                <div class="goods_img">
+                    <img src="__STATIC__/index/image/icon/rp.jpg">
+                </div>
+                <div class="name_price">
+                    <p class="name_info">95新 iPhoneX 256G黑色 其他版本 三网4G 其他版本 三网4G其他版本 三网4G</p>
+                    <p class="price">单价￥<span>1299.00</span> &nbsp;&nbsp;申请数量:<span class="num">1</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="user_detail_info">
+            <div class="repair_info">
+                <div class="service_num">
+                    服务单号：<span>15465412</span>
+                    <span class="copy">复制</span>
+                </div>
+                <div class="apply_time">
+                    申请时间：<span>018-09-14 13:46:23</span>
+                </div>
+                <div class="service_type">
+                    服务类型：<span>维修</span>
+                </div>
+                <div class="apply_reason">
+                    申请原因：<span>其他</span>
+                </div>
+            </div>
+            <div class="addr_info">
+                <div class="return_goods">
+                    商品退回：<span>客户送货</span>
+                </div>
+                <div class="accept_addr">
+                    收货地址：<span>广东深圳福田区新闻路中电信息大厦东座1518</span>
+                </div>
+            </div>
+            <div class="user_info">
+                <div class="user_name">
+                    联系人：&nbsp;&nbsp;&nbsp;<span>刘德华</span>
+                </div>
+                <div class="user_phone">
+                    联系电话：<span>136****3045</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="operation">
+        <a href="javascript:;" id="qxsq">取消申请</a>
+        <a href="javascript:;">修改申请</a>
+    </div>
+</div>
+<!-- 弹窗 遮罩 -->
+<div class="mask" id="mask"></div>
+<div class="pop" id="pop1">
+    <div class="cont">确定要取消本次售后申请吗?</div>
+    <div class="btn_div">
+        <a href="javascript:hide_pop(0);" class="cancel">取消</a>
+        <a href="javascript:hide_pop(1);" class="confirm">确定</a>
     </div>
 </div>
 
-
 <script src="__STATIC__/index/js/jquery.js"></script>
-
+<script>
+    $('#qxsq').click(function(){
+        $('#pop1').show();
+        $('#mask').show();
+    })
+    function hide_pop(status){
+        $('#pop1').hide();
+        $('#mask').hide();
+        console.log(status);
+    }
+</script>
 </body>
 </html>
