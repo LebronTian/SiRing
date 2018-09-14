@@ -14,9 +14,9 @@ class Role extends Controller
         $role_lists = db("role")->select();
         foreach($role_lists as $key=>$value){
             $role_lists[$key]["parse_status"] = $this->role_status[$value["status"]];
-            if($value["pid"] != 0){
-                $rs = db("role")->where("pid","id")->field("name")->select();
-                $role_lists[$key]["parent_depart_name"] = $rs[0]["name"];
+            if($value["pid"]){
+                $rs = db("role")->where("id",$value['pid'])->field("name")->find();
+                $role_lists[$key]["parent_depart_name"] = $rs["name"];
             }
         }
         //halt($role_lists);
