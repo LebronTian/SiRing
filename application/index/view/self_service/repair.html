@@ -67,25 +67,27 @@
 </div>
 
 <div class="goods_content">
+    {volist name="serve" id="value"}
     <div class="time_status">
-        <div class="take_time">2018-09-10 11:42:00</div>
+        <div class="take_time">{$value.create_time|date='Y-m-d H:i',###}</div>
         <div class="goods_status">确认收货</div>
     </div>
     <div class="goods_info">
         <div class="goods_img">
-            <img src="__STATIC__/index/image/icon/rp.jpg">
+            <img src="__UPLOADS__/{$value.images}">
         </div>
         <div class="name_price">
-            <p class="name_info">95新 iPhoneX 256G黑色 其他版本 三网4G</p>
-            <p class="price">￥1299.00</p>
+            <p class="name_info">{$value.goods_name}</p>
+            <p class="price">￥{$value.order_money}</p>
         </div>
     </div>
     <div class="total_price">
-        <p>共计<span class="num_span">1</span>件商品 合计:￥<span class="price_span">1299.00</span></p>
+        <p>共计<span class="num_span">{$value.order_num}</span>件商品 合计:￥<span class="price_span">{$value.order_money}</span></p>
     </div>
     <div class="repair_btn">
         <a href="repair_desc">申请售后</a>
     </div>
+    {/volist}
 </div>
 
 <script src="__STATIC__/index/js/jquery.js"></script>

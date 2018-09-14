@@ -108,6 +108,7 @@ Route::group("",[
     'logistics_information_id'=>"index/Order/logistics_information_id",//用来接收物流信息的id
     'confirm_payment'=>"index/order/confirm_payment", //确定付款
 
+
     'service_index'=>"index/self_service/index", //自助服务
     'repair_index'=>"index/self_service/repair", //售后维修
     'repair_desc'=>"index/self_service/repair_desc", //问题描述
