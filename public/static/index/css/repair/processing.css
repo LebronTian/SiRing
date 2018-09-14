@@ -1,0 +1,125 @@
+.repair_goods{
+    width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+}
+.top{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 10px;
+}
+.top .service_num{
+    font-size: 12px;
+    color: #556;
+}
+.top p{
+    font-size: 14px;
+    font-weight: bold;
+    color: #233;
+}
+.mid{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+.mid .goods_img{
+    flex: 3;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+}
+.mid .name_price{
+    flex: 7;
+    margin-left: 10px;
+}
+.mid .goods_img img{
+    width: 100%;
+    height: 100%;
+}
+.mid .name_price .name_info{
+    width: 100%;
+    font-size: 14px;
+    color: #000;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    padding-top: 8px;
+}
+.mid .name_price .price{
+    text-align: right;
+    font-size: 13px;
+    color: #f00;
+}
+.bot{
+    width: 100%;
+    height: 36px;
+    text-align: right;
+    line-height: 34px;
+}
+.bot a{
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #999;
+    border-radius: 15px;
+    font-size: 12px;
+    color: #444;
+}
+.pop{
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -70%);
+    width: 300px;
+    height: 150px;
+    background-color: #fff;
+    border-radius: 20px; 
+    overflow: hidden;
+}
+.pop .cont{
+    height: 90;
+    text-align: center;
+    line-height: 90px;
+}
+.pop .btn_div{
+    height: 60px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.pop .btn_div a{
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    line-height: 60px;
+    border-top: 1px solid #ccc;
+    box-sizing: border-box;
+    color: #666;
+}
+.pop .btn_div a.cancel{
+    border-right: 1px solid #ccc;
+}
+.pop .btn_div a.confirm{
+    background-color: rgba(255, 48, 34, 0.966);
+    color: #fff;
+}
+.mask{
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .5);
+}

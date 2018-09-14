@@ -75,6 +75,7 @@
 .aui-media-list-item-inner{
     display: flex;
     align-items: center;
+    justify-content: space-around;
 }
 .aui-list-item-inner{
     margin-left: 8px;

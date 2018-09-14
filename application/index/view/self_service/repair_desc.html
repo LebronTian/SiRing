@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自助服务</title>
+    <link rel="stylesheet" href="__STATIC__/index/css/aui.css">
+    <link rel="stylesheet" href="__STATIC__/index/css/repair/repair_desc.css">
+    <style>
+        body, html{
+            margin: 0;
+            padding: 0;
+        }
+        p, div, a, button, input, form, textarea{
+            font-family: "微软雅黑", Arial, Helvetica, sans-serif !important;
+        }
+        .header_box, .header_box .bar-header{
+            background-color: #fff;
+        }
+        .header_box a{
+            padding-top:5px; 
+            display:inline-block; 
+            padding-left:10px;
+        }
+        .header_box a i{
+            font-weight:800;
+            color:#000; 
+            font-size:20px;
+        }
+        .header_box .title{
+            width: 60%;
+        }
+    </style>
+</head>
+<body>
+<div class="header_box">
+    <div class="bar bar-header">
+        <a class="back" href="javascript:history.back(-1);">
+            <i class="aui-iconfont aui-icon-left"></i>
+        </a>
+        <div id="title" class="h1 title">售后维修</div>
+    </div>
+</div>
+<div class="wrapper">
+    <div class="goods_div">
+        <div class="goods_info">
+            <div class="goods_img">
+                <img src="__STATIC__/index/image/icon/rp.jpg">
+            </div>
+            <div class="name_price">
+                <p class="name_info">95新 iPhoneX 256G黑色 其他版本 三网4G</p>
+                <p class="price">￥1299.00</p>
+            </div>
+        </div>
+        <div class="apply_reason">
+            <div class="apply_reason_title">
+                <p>申请原因</p>
+                <span>商品故障</span>
+            </div>
+            <div class="apply_reason_tip">
+                <p>请您描述问题并上传商品图片</p>
+            </div>
+        </div>
+        <div class="reason_desc">
+            <p>问题描述</p>
+            <div class="desc_cont">
+                <textarea placeholder="请描述申请售后服务的具体原因，可上传最多5张图片哦~" id="desc_cont" cols="30" rows="10"></textarea>
+            </div>
+            <div class="photo_wrap">
+                <form action="{:url('index/Share/evaluation_add_img')}" method="post" enctype="multipart/form-data">
+                    <input class="files" name="evaluation_images[]" id="myFile" type="file" hidden multiple="multiple">
+                    <div class="visible_box" >
+                        <i class="aui-iconfont aui-icon-camera"></i>
+                        <p>添加照片</p>
+                    </div> 
+                    <div class="img_div"></div>
+                </form>
+            </div>
+        </div>
+        <div class="address_box">
+            <div class="return_way">
+                <p>退货方式</p>
+                <span>快递至嘎嘎亮</span>
+            </div>
+            <a href="javascript:;">
+                <div class="receive">
+                    <p class="title">收货地址<span>(该地址是嘎嘎亮回寄给您的地址)</span></p>
+                    <p class="user_addr">广东深圳福田新闻路中电信息大厦东座1518</p>
+                </div>
+            </a>
+        </div>
+        <p class="bottom_tip">提交服务单后，售后专员可能与您电话沟通，请保持手机畅通</p>
+    </div>
+    
+</div>
+<div class="flow_bottom">
+    <a href="successful_sub">提交</a>
+</div>
+
+<div class="mask"></div>
+<div id="body" class="fadeIn">
+    <div class="head">
+        <div class="head_close">×</div>
+        <div class="head_title">申请原因</div>
+    </div>
+    <div class="middle_box">
+        <div class="goods_num"">
+            <p>申请数量</p>
+            <input type="text">
+        </div>
+        <div class="goods_fault">
+            <p>商品故障</p>
+            <input name="fault" type="radio">
+        </div>
+        <div class="order_fault">
+            <p>其他</p>
+            <input name="fault" type="radio">
+        </div>
+        <div class="textarea_div">
+            <textarea name="" id="" cols="30" rows="10" placeholder="请描述商品详情"></textarea>
+        </div>
+    </div>
+    <button class="confirm" type="submit">确定</button>
+</div>
+
+<script src="__STATIC__/index/js/jquery.js"></script>
+<script>
+    (function(){
+        $('.mask').show();
+        $('.fadeIn').show();
+    })()
+    var reason = 0;
+    var desc = '';
+    $('.goods_fault input').change(function(){
+        $('.textarea_div').hide();
+        reason = '商品故障';
+    })
+    // 故障原因选择
+    $('.order_fault input').change(function(){
+        $('.textarea_div').show();
+        reason = '其他';
+    })
+    // 文本域 失去焦点 赋值
+    $('.textarea_div textarea').blur(function(){
+        desc = $(this).val();
+    })
+    $('.confirm').click(function(){
+        if(reason == 0){
+            alert('未选择原因');
+        }else{
+            $('.fadeIn').css('display','none');
+            $('.mask').css('display','none');
+            console.log(reason, desc);
+        }
+    })
+    // 申请原因弹窗
+    $('.head_close').click(function(){
+        $('.fadeIn').css('display','none');
+        $('.mask').css('display','none');
+    })
+
+    // 触发上传图片
+    $('.visible_box').click(function(){
+        $('.files').click();
+    })
+</script>
+<!-- 上传图片 -->
+<script type="text/javascript">
+    $(function() {
+        var objUrl;
+        var img_html;
+        $("#myFile").change(function() {
+            var img_div = $(".img_div");
+            var filepath = $("input[name='evaluation_images[]']").val();
+            console.log(filepath)
+            for(var i = 0; i < this.files.length; i++) {
+                objUrl = getObjectURL(this.files[i]);
+                // 
+                var extStart = filepath.lastIndexOf(".");
+                // 获取图片后缀
+                var ext = filepath.substring(extStart, filepath.length).toUpperCase();
+                console.log(ext)
+                /*
+                    描述：鉴定每个图片上传尾椎限制
+                    * */
+                if(ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {
+                    $(".shade").fadeIn(500);
+                    $(".text_span").text("图片限于bmp,png,gif,jpeg,jpg格式");
+                    this.value = "";
+                    $(".img_div").html("");
+                    return false;
+                } else {
+                    /*
+                        若规则全部通过则在此提交url到后台数据库
+                        * */
+                    if($('.isImg').length == 5){
+                        alert('最多上传5张图片');
+                    }else{
+                        img_html = "<div class='isImg'><img src='" + objUrl + "' onclick='javascript:lookBigImg(this)' style='height: 100%; width: 100%;' /><a class='removeBtn' onclick='javascript:removeImg(this)'>×</a></div>";
+                        img_div.append(img_html);
+                    }
+                }
+            }
+            /*
+                描述：鉴定每个图片大小总和
+                * */
+            var file_size = 0;
+            var all_size = 0;
+            for(j = 0; j < this.files.length; j++) {
+                file_size = this.files[j].size;
+                all_size = all_size + this.files[j].size;
+                var size = all_size / 1024;
+                if(size > 5000) {
+                    $(".shade").fadeIn(5000);
+                    $(".text_span").text("上传的图片大小不能超过1000k！");
+                    this.value = "";
+                    $(".img_div").html("");
+                    return false;
+                }
+            }
+            /*
+                描述：鉴定每个图片宽高 以后会做优化 多个图片的宽高 暂时隐藏掉 想看效果可以取消注释就行
+                * */
+            return true;
+        });
+            // 描述：鉴定每个浏览器上传图片url 目前没有合并到Ie
+        function getObjectURL(file) {
+            var url = null;
+            if(window.createObjectURL != undefined) { // basic
+                url = window.createObjectURL(file);
+            } else if(window.URL != undefined) { // mozilla(firefox)
+                url = window.URL.createObjectURL(file);
+            } else if(window.webkitURL != undefined) { // webkit or chrome
+                url = window.webkitURL.createObjectURL(file);
+            }
+            //console.log(url);
+            return url;
+        }
+    });
+    /*
+        描述：上传图片附带删除 在此地方可以加上一个ajax进行提交到后台进行删除
+        * */
+    function removeImg(r){
+        $(r).parent().remove();
+    }
+</script>
+</body>
+</html>

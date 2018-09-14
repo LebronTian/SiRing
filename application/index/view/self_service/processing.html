@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>自助服务</title>
+    <title>售后维修</title>
     <link rel="stylesheet" href="__STATIC__/index/css/aui.css">
-    <link rel="stylesheet" href="__STATIC__/index/css/repair/self-service.css">
+    <link rel="stylesheet" href="__STATIC__/index/css/repair/processing.css">
     <style>
         body, html{
             margin: 0;
@@ -61,34 +61,53 @@
     </div>
 </div>
 <div class="list_box">
-    <a href="{:url('index/self_service/repair')}" class="active">售后申请</a>
-    <a href="{:url('index/self_service/processing')}">处理中</a>
+    <a href="{:url('index/self_service/repair')}">售后申请</a>
+    <a href="{:url('index/self_service/processing')}" class="active">处理中</a>
     <a href="{:url('index/self_service/evaluation')}">待评价</a>
 </div>
-
-<div class="goods_content">
-    <div class="time_status">
-        <div class="take_time">2018-09-10 11:42:00</div>
-        <div class="goods_status">确认收货</div>
-    </div>
-    <div class="goods_info">
-        <div class="goods_img">
-            <img src="__STATIC__/index/image/icon/rp.jpg">
+<div class="wrapper">
+    <div class="repair_goods">
+        <div class="top">
+            <div class="service_num">服务单号：<span>476331193</span></div>
+            <p>维修</p>
         </div>
-        <div class="name_price">
-            <p class="name_info">95新 iPhoneX 256G黑色 其他版本 三网4G</p>
-            <p class="price">￥1299.00</p>
+        <a href="detail_info">
+            <div class="mid">
+                <div class="goods_img">
+                    <img src="__STATIC__/index/image/icon/rp.jpg">
+                </div>
+                <div class="name_price">
+                    <p class="name_info">95新 iPhoneX 256G黑色 其他版本 三网4G</p>
+                    <p class="price">审核中</p>
+                </div>
+            </div>
+        </a>
+        <div class="bot">
+            <a href="javascript:;" id="qxsq">取消申请</a>
+            <a href="repair_desc">修改服务单</a>
         </div>
     </div>
-    <div class="total_price">
-        <p>共计<span class="num_span">1</span>件商品 合计:￥<span class="price_span">1299.00</span></p>
-    </div>
-    <div class="repair_btn">
-        <a href="repair_desc">申请售后</a>
+</div>
+<div class="mask" id="mask"></div>
+<div class="pop" id="pop1">
+    <div class="cont">确定要取消本次售后申请吗?</div>
+    <div class="btn_div">
+        <a href="javascript:hide_pop(0);" class="cancel">取消</a>
+        <a href="javascript:hide_pop(1);" class="confirm">确定</a>
     </div>
 </div>
 
 <script src="__STATIC__/index/js/jquery.js"></script>
-
+<script>
+    $('#qxsq').click(function(){
+        $('#pop1').show();
+        $('#mask').show();
+    })
+    function hide_pop(status){
+        $('#pop1').hide();
+        $('#mask').hide();
+        console.log(status);
+    }
+</script>
 </body>
 </html>

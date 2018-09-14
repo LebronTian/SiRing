@@ -34,7 +34,7 @@
 <body>
 <div class="header_box" style="background:#fff">
     <div class="bar bar-header" style="background:#fff">
-        <a class="back" onclick="javascript:history.back(-1);" style="padding-top:5px; display:inline-block; padding-left:10px;">
+        <a class="back" onclick="history.back(-1);" style="padding-top:5px; display:inline-block; padding-left:10px;">
             <i class="aui-iconfont aui-icon-left" style="font-weight:800; color:#000; font-size:20px;"></i>
         </a>
         <div id="tite" class="h1 title" style=" width: 60%; margin: 0 auto; ">购物车</div>
@@ -114,6 +114,10 @@
     <!-- end -->
 </form>
 <script>
+    console.log(sessionStorage)
+    var prevUrl2 = document.referrer;
+    sessionStorage.setItem('prevUrl2', prevUrl2);
+
     $('#confirm_cart').click(function(){
         var id_len = $('.commodity_list_term li').find('em.pitch_on').length;
         var all_em = $('.commodity_list_term li').find('em.pitch_on');
@@ -358,7 +362,6 @@
 
     });
     /* 底部全选  */
-
     var bot = 0;
     $("#all_pitch_on").click(function() {
         if (bot == 0) {
