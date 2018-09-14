@@ -37,7 +37,7 @@ class  SelfService extends  Controller{
                 $serve[$key]["images"] = $goods["goods_show_images"];
                 $serve[$key]["goods_name"] = $value["goods_name"];
                 $serve[$key]["user_id"] = $value["user_id"];
-                $serve[$key]["status"] = $value["status"];
+                $serve[$key]["id"] = $value['id'];
                 $serve[$key]["order_money"] = $value["pay_money"];
                 $serve[$key]["order_num"] = $value["order_num"];
                 $serve[$key]["create_time"] = $value["create_time"];
