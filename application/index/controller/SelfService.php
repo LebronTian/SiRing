@@ -29,15 +29,19 @@ class  SelfService extends  Controller{
     public function repair(){
         $data = Session::get("member");
         $user_id =db("user")->field('id')->where('phone_num',$data['phone_num'])->find();
-        $order = db("order")->where("status",">=",5)->where("status","<=",7)->where("user_id",$user_id["id"])->whereOr("status",10)->field("goods_name,goods_id,order_num,pay_money,create_time")->select();
+        $order = db("order")->where("status",">=",5)->where("status","<=",7)->whereOr("status",10)->select();
         $serve = [];
         foreach ($order as $key=>$value){
-            $goods = db("goods")->where("id",$value["goods_id"])->field("goods_show_images")->find();
-            $serve[$key]["images"] = $goods["goods_show_images"];
-            $serve[$key]["goods_name"] = $value["goods_name"];
-            $serve[$key]["order_money"] = $value["pay_money"];
-            $serve[$key]["order_num"] = $value["order_num"];
-            $serve[$key]["create_time"] = $value["create_time"];
+            if($user_id["id"] == $value["user_id"]) {
+                $goods = db("goods")->where("id", $value["goods_id"])->field("goods_show_images")->find();
+                $serve[$key]["images"] = $goods["goods_show_images"];
+                $serve[$key]["goods_name"] = $value["goods_name"];
+                $serve[$key]["user_id"] = $value["user_id"];
+                $serve[$key]["status"] = $value["status"];
+                $serve[$key]["order_money"] = $value["pay_money"];
+                $serve[$key]["order_num"] = $value["order_num"];
+                $serve[$key]["create_time"] = $value["create_time"];
+            }
         }
         return view('repair',["serve"=>$serve]);
     }
