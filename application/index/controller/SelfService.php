@@ -87,8 +87,9 @@ class  SelfService extends  Controller{
      */
      public function successful_sub(Request $request){
          if($request->isPost()){
+             $data = $request->only(["goods_img"]);
             $serve_img = $request->file("serve_img");
-            halt($serve_img);
+            halt($data);
          }
          return view('successful_sub');
     }

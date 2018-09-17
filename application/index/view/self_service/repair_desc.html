@@ -43,56 +43,55 @@
     </div>
 </div>
 <div class="wrapper">
-    <div class="goods_div">
-        <div class="goods_info">
-            <div class="goods_img">
-                <img src="__STATIC__/index/image/icon/rp.jpg">
+    <form action="" id="form">
+        <div class="goods_div">
+            <div class="goods_info">
+                <div class="goods_img">
+                    <img src="__STATIC__/index/image/icon/rp.jpg" name="goods_img">
+                </div>
+                <div class="name_price">
+                    <p class="name_info" name="name_info">95新 iPhoneX 256G黑色 其他版本 三网4G</p>
+                    <p class="price" name="price">￥1299.00</p>
+                </div>
             </div>
-            <div class="name_price">
-                <p class="name_info">95新 iPhoneX 256G黑色 其他版本 三网4G</p>
-                <p class="price">￥1299.00</p>
+            <div class="apply_reason">
+                <div class="apply_reason_title">
+                    <p>申请原因</p>
+                    <span name="reason">商品故障</span>
+                </div>
+                <div class="apply_reason_tip">
+                    <p>请您描述问题并上传商品图片</p>
+                </div>
             </div>
-        </div>
-        <div class="apply_reason">
-            <div class="apply_reason_title">
-                <p>申请原因</p>
-                <span>商品故障</span>
-            </div>
-            <div class="apply_reason_tip">
-                <p>请您描述问题并上传商品图片</p>
-            </div>
-        </div>
-        <div class="reason_desc">
-            <p>问题描述</p>
-            <div class="desc_cont">
-                <textarea placeholder="请描述申请售后服务的具体原因，可上传最多5张图片哦~" id="desc_cont" cols="30" rows="10"></textarea>
-            </div>
-            <div class="photo_wrap">
-                <form id="form">
-                    <input class="files" name="evaluation_images[]" id="myFile" type="file" hidden multiple="multiple">
+            <div class="reason_desc">
+                <p>问题描述</p>
+                <div class="desc_cont">
+                    <textarea name="textarea" placeholder="请描述申请售后服务的具体原因，可上传最多5张图片哦~" id="desc_cont" cols="30" rows="10"></textarea>
+                </div>
+                <div class="photo_wrap">
+                    <input class="files" name="serve_img[]" id="myFile" type="file" hidden multiple="multiple">
                     <div class="visible_box" >
                         <i class="aui-iconfont aui-icon-camera"></i>
                         <p>添加照片</p>
                     </div> 
                     <div class="img_div"></div>
-                </form>
-            </div>
-        </div>
-        <div class="address_box">
-            <div class="return_way">
-                <p>退货方式</p>
-                <span>快递至嘎嘎亮</span>
-            </div>
-            <a href="javascript:;">
-                <div class="receive">
-                    <p class="title">收货地址<span>(该地址是嘎嘎亮回寄给您的地址)</span></p>
-                    <p class="user_addr">广东深圳福田新闻路中电信息大厦东座1518</p>
                 </div>
-            </a>
+            </div>
+            <div class="address_box">
+                <div class="return_way">
+                    <p>退货方式</p>
+                    <span>快递至嘎嘎亮</span>
+                </div>
+                <a href="javascript:;">
+                    <div class="receive">
+                        <p class="title">收货地址<span>(该地址是嘎嘎亮回寄给您的地址)</span></p>
+                        <p class="user_addr" name="user_addr">广东深圳福田新闻路中电信息大厦东座1518</p>
+                    </div>
+                </a>
+            </div>
+            <p class="bottom_tip">提交服务单后，售后专员可能与您电话沟通，请保持手机畅通</p>
         </div>
-        <p class="bottom_tip">提交服务单后，售后专员可能与您电话沟通，请保持手机畅通</p>
-    </div>
-    
+    </form>
 </div>
 <div class="flow_bottom">
     <a href="#" id="tj">提交</a>
@@ -232,9 +231,17 @@
         var reason = $('.apply_reason_title span')[0].innerHTML;
         var desc = $('.desc_cont textarea').val();
         var user_addr = $('.user_addr')[0].innerHTML;
-        var formData = new FormData($('#form'));
-        formData.append('file', $('#form :file')[0].files);
-        
+        var formData = new FormData();
+        for(var i = 0; i < $('#myFile')[0].files.length; i++){
+            formData.append('serve_img[]', $('#myFile')[0].files[i]);
+        }
+        formData.append('goods_img', goods_img);
+        formData.append('name_info', name_info);
+        formData.append('price', price);
+        formData.append('reason', reason);
+        formData.append('textarea', desc);
+        formData.append('user_addr', user_addr);
+
         $.ajax({
             url: '{:url("index/self_service/successful_sub")}',
             type: 'POST',
@@ -242,9 +249,7 @@
             async: false,
             processData: false,
             contentType: false,
-            data: {
-                'serve_img': formData
-            },
+            data: formData,
             success: function(data){
                 console.log(data);
             },
@@ -261,7 +266,7 @@
         var img_html;
         $("#myFile").change(function() {
             var img_div = $(".img_div");
-            var filepath = $("input[name='evaluation_images[]']").val();
+            var filepath = $("input[name='serve_img[]']").val();
             // console.log(filepath)
             for(var i = 0; i < this.files.length; i++) {
                 objUrl = getObjectURL(this.files[i]);
