@@ -58,6 +58,18 @@ class  SelfService extends  Controller{
     }
 
 
+
+    /**
+     * 问题描述
+     * 陈绪
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
+     */
+    public function repair_ajax(){
+        return view('repair_desc');
+    }
+
+
+
     /**
      * 提交成功
      * 陈绪

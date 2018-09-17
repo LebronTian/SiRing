@@ -86,7 +86,7 @@
     </div>
     <div class="repair_btn">
         <!-- <a href="repair_desc" id="sqsh">申请售后</a> -->
-        <a href="repair_desc" id="sqsh_{$value.id}">申请售后</a>
+        <a href="#" id="sqsh_{$value.id}" class="sqsh">申请售后</a>
     </div>
     {/volist}
 </div>
@@ -96,7 +96,7 @@
     $('.sqsh').click(function(){
         var id  = $(this)[0].id.split('_')[1];
         $.ajax({
-            url: '{:url()}',
+            url: '{:url("index/self_service/repair_ajax")}',
             type: 'POST',
             dataType: 'JSON',
             async: false,

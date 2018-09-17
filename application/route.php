@@ -116,6 +116,7 @@ Route::group("",[
     'processing'=>"index/self_service/processing", //处理中
     'evaluations'=>"index/self_service/evaluation", //待评价
     'detail_info'=>"index/self_service/detail_info", //服务单详情
+    'detail_ajax'=>"index/self_service/repair_ajax", //获取售后商品信息
 
 
     /*登录页面*/
