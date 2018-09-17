@@ -44,6 +44,12 @@ class  SelfService extends  Controller{
                 $serve[$key]["create_time"] = $value["create_time"];
             }
         }
+        $serve_id = db("serve")->select();
+        foreach ($serve_id as $key=>$val){
+            if($val["order_id"] == $serve[$key]['id']){
+                unset($serve[$key]);
+            }
+        }
         return view('repair',["serve"=>$serve]);
     }
 
