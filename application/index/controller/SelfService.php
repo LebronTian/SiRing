@@ -57,7 +57,7 @@ class  SelfService extends  Controller{
     public function repair_desc(Request $request){
         if($request->isPost()){
             $id = Session::get("order_id");
-            $order = db("order")->where("id",$id)->field("id,order_num,goods_id,goods_img,user_id,goods_name,harvest_address,harvester,harvest_phone_num")->find();
+            $order = db("order")->where("id",$id)->field("id,order_num,goods_id,goods_img,user_id,goods_name,harvest_address,harvester,harvest_phone_num,pay_money")->find();
             return ajax_success("获取成功",$order);
         }
         return view('repair_desc');
@@ -85,8 +85,12 @@ class  SelfService extends  Controller{
      * 陈绪
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
-     public function successful_sub(){
-        return view('successful_sub');
+     public function successful_sub(Request $request){
+         if($request->isPost()){
+            $serve_img = $request->file("serve_img");
+            halt($serve_img);
+         }
+         return view('successful_sub');
     }
 
 
