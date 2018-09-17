@@ -90,6 +90,12 @@
                     </div>
                 </a>
             </div>
+            <div class="user_and_phone">
+                <div class="user">
+                    <p class="contact">联系人：<span>刘德华</span></p>
+                    <p class="phone_num">联系电话：<span>136****3045</span></p>
+                </div>
+            </div>
             <p class="bottom_tip">提交服务单后，售后专员可能与您电话沟通，请保持手机畅通</p>
         </div>
     </form>
@@ -173,7 +179,6 @@
     $('.textarea_div textarea').blur(function(){
         desc = $(this).val();
     })
-    
     $.ajax({
         url: '{:url("index/self_service/repair_desc")}',
         type: 'POST',
@@ -181,6 +186,7 @@
         async: 'false',
         success: function(data){
             console.log(data);
+            order_id = data.data.id;
             $('.confirm').click(function(){
                 var goods_num = $('.goods_num input').val();
                 if( goods_num == ''){
@@ -215,11 +221,14 @@
                 $('.desc_cont textarea').html(desc);
                 $('.buy_apply_num span:last').html($('.goods_num input').val())
             })
+            var reg = /(\d{3})(\d{4})(\d{4})/;
             $('.goods_img img')[0].src = '__UPLOADS__/'+data.data.goods_img;
             $('.name_info').html(data.data.goods_name);
             $('.price span').html(data.data.pay_money);
             $('.user_addr').html(data.data.harvest_address);
             $('.buy_apply_num span:first').html(data.data.order_num);
+            $('.contact span').html(data.data.harvester);
+            $('.phone_num span').html(data.data.harvest_phone_num.replace(reg, '$1****$2'))
         },
         error: function(){
             console.log('错误');
@@ -234,16 +243,21 @@
         var reason = $('.apply_reason_title span')[0].innerHTML;
         var desc = $('.desc_cont textarea').val();
         var user_addr = $('.user_addr')[0].innerHTML;
+        var harvest_phone_num = $('.phone_num span')[0].innerHTML;
+        var harvester = $('.contact span')[0].innerHTML;
         var formData = new FormData();
         for(var i = 0; i < $('#myFile')[0].files.length; i++){
             formData.append('serve_img[]', $('#myFile')[0].files[i]);
         }
         formData.append('goods_img', goods_img);
-        formData.append('name_info', name_info);
-        formData.append('price', price);
+        formData.append('goods_name', name_info);
+        formData.append('order_money', price);
         formData.append('reason', reason);
-        formData.append('textarea', desc);
-        formData.append('user_addr', user_addr);
+        formData.append('serve_describe', desc);
+        formData.append('harvest_address', user_addr);
+        formData.append('harvest_phone_num', harvest_phone_num);
+        formData.append('harvester', harvester);
+        formData.append('order_id', order_id);
 
         $.ajax({
             url: '{:url("index/self_service/successful_sub")}',
