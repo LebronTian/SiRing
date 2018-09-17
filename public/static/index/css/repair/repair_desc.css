@@ -1,4 +1,3 @@
-
 .mask{
 	display: none;
     height: 100vh;
@@ -132,6 +131,9 @@
     text-align: right;
     font-size: 13px;
     color: #000;
+}
+.goods_info .buy_apply_num{
+    text-align: right;
 }
 .apply_reason,
 .reason_desc{

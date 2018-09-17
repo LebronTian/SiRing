@@ -51,7 +51,8 @@
                 </div>
                 <div class="name_price">
                     <p class="name_info" name="name_info">95新 iPhoneX 256G黑色 其他版本 三网4G</p>
-                    <p class="price" name="price">￥1299.00</p>
+                    <p class="price" name="price">价格：<span>￥1299.00</span></p>
+                    <p class="buy_apply_num">购买数量：<span>0</span>&nbsp;&nbsp;申请数量：<span>0</span></p>
                 </div>
             </div>
             <div class="apply_reason">
@@ -212,11 +213,13 @@
                 }
                 $('.apply_reason_title span').html(reason);
                 $('.desc_cont textarea').html(desc);
+                $('.buy_apply_num span:last').html($('.goods_num input').val())
             })
             $('.goods_img img')[0].src = '__UPLOADS__/'+data.data.goods_img;
             $('.name_info').html(data.data.goods_name);
-            $('.price').html(data.data.pay_money);
+            $('.price span').html(data.data.pay_money);
             $('.user_addr').html(data.data.harvest_address);
+            $('.buy_apply_num span:first').html(data.data.order_num);
         },
         error: function(){
             console.log('错误');
@@ -227,7 +230,7 @@
     $('#tj').click(function(){
         var goods_img = $('.goods_img img')[0].src;
         var name_info = $('.name_info')[0].innerHTML;
-        var price = $('.price')[0].innerHTML;
+        var price = $('.price span')[0].innerHTML;
         var reason = $('.apply_reason_title span')[0].innerHTML;
         var desc = $('.desc_cont textarea').val();
         var user_addr = $('.user_addr')[0].innerHTML;
