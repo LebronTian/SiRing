@@ -57,7 +57,7 @@ class  SelfService extends  Controller{
     public function repair_desc(Request $request){
         if($request->isPost()){
             $id = Session::get("order_id");
-            $order = db("order")->where("id",$id)->field("id,order_num,goods_id,goods_img,user_id,goods_name,harvest_address,harvester,harvest_phone_num")->find();
+            $order = db("order")->where("id",$id)->field("id,order_num,goods_id,goods_img,user_id,goods_name,harvest_address,harvester,harvest_phone_num,pay_money")->find();
             return ajax_success("获取成功",$order);
         }
         return view('repair_desc');

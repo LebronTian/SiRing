@@ -68,7 +68,7 @@
                 <textarea placeholder="请描述申请售后服务的具体原因，可上传最多5张图片哦~" id="desc_cont" cols="30" rows="10"></textarea>
             </div>
             <div class="photo_wrap">
-                <form action="{:url('index/Share/evaluation_add_img')}" method="post" enctype="multipart/form-data">
+                <form id="form">
                     <input class="files" name="evaluation_images[]" id="myFile" type="file" hidden multiple="multiple">
                     <div class="visible_box" >
                         <i class="aui-iconfont aui-icon-camera"></i>
@@ -95,7 +95,8 @@
     
 </div>
 <div class="flow_bottom">
-    <a href="successful_sub">提交</a>
+    <a href="#" id="tj">提交</a>
+    <!-- <a href="successful_sub" id="tj">提交</a> -->
 </div>
 
 <div class="mask"></div>
@@ -129,7 +130,7 @@
     (function(){
         $('.mask').show();
         $('.fadeIn').show();
-
+        // 弹窗显示，禁止页面上下滚动
         if($('.fadeIn').css('display') == 'block'){
             $('html').css({
                 'overflow': 'hidden',
@@ -144,7 +145,19 @@
         }
     })()
 
-    
+    // 申请原因弹窗
+    $('.head_close').click(function(){
+        $('.fadeIn').css('display','none');
+        $('.mask').css('display','none');
+    })
+
+    // 触发上传图片
+    $('.visible_box').click(function(){
+        $('.files').click();
+    })
+</script>
+<!-- 用户填写售后信息 -->
+<script>
     var reason = 0;
     var desc = '';
     $('.goods_fault input').change(function(){
@@ -160,36 +173,85 @@
     $('.textarea_div textarea').blur(function(){
         desc = $(this).val();
     })
-    $('.confirm').click(function(){
-        if(reason == 0){
-            alert('未选择原因');
-        }else{
-            $('.fadeIn').css('display','none');
-            $('.mask').css('display','none');
-            console.log(reason, desc);
-            if($('.fadeIn').css('display') == 'none'){
-                $('html').css({
-                    'overflow': 'auto',
-                    'position': 'initial',
-                    'height': 'auto'
-                });
-                $('body').css({
-                    'overflow': 'auto',
-                    'position': 'initial',
-                    'height': 'auto'
-                })
-            }
+    
+    $.ajax({
+        url: '{:url("index/self_service/repair_desc")}',
+        type: 'POST',
+        dataType: 'JSON',
+        async: 'false',
+        success: function(data){
+            console.log(data);
+            $('.confirm').click(function(){
+                var goods_num = $('.goods_num input').val();
+                if( goods_num == ''){
+                    alert('未填写申请数量');
+                }else if( goods_num > data.data.order_num){
+                    alert('填写数量大于购买数量');
+                }else{
+                    if(reason == 0){
+                        alert('未选择原因');
+                    }else if(reason == '其他' && desc == ''){
+                        alert('请描述商品详情');
+                    }else{
+                        $('.fadeIn').css('display','none');
+                        $('.mask').css('display','none');
+                        console.log(reason, desc);
+                        // 弹窗消失  页面可以上下滚动
+                        if($('.fadeIn').css('display') == 'none'){
+                            $('html').css({
+                                'overflow': 'auto',
+                                'position': 'initial',
+                                'height': 'auto'
+                            });
+                            $('body').css({
+                                'overflow': 'auto',
+                                'position': 'initial',
+                                'height': 'auto'
+                            })
+                        }
+                    }
+                }
+                $('.apply_reason_title span').html(reason);
+                $('.desc_cont textarea').html(desc);
+            })
+            $('.goods_img img')[0].src = '__UPLOADS__/'+data.data.goods_img;
+            $('.name_info').html(data.data.goods_name);
+            $('.price').html(data.data.pay_money);
+            $('.user_addr').html(data.data.harvest_address);
+        },
+        error: function(){
+            console.log('错误');
         }
     })
-    // 申请原因弹窗
-    $('.head_close').click(function(){
-        $('.fadeIn').css('display','none');
-        $('.mask').css('display','none');
-    })
-
-    // 触发上传图片
-    $('.visible_box').click(function(){
-        $('.files').click();
+</script>
+<script>
+    $('#tj').click(function(){
+        var goods_img = $('.goods_img img')[0].src;
+        var name_info = $('.name_info')[0].innerHTML;
+        var price = $('.price')[0].innerHTML;
+        var reason = $('.apply_reason_title span')[0].innerHTML;
+        var desc = $('.desc_cont textarea').val();
+        var user_addr = $('.user_addr')[0].innerHTML;
+        var formData = new FormData($('#form'));
+        formData.append('file', $('#form :file')[0].files);
+        
+        $.ajax({
+            url: '{:url("index/self_service/successful_sub")}',
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            processData: false,
+            contentType: false,
+            data: {
+                'serve_img': formData
+            },
+            success: function(data){
+                console.log(data);
+            },
+            error: function(){
+                console.log('错误');
+            }
+        })
     })
 </script>
 <!-- 上传图片 -->
@@ -200,14 +262,14 @@
         $("#myFile").change(function() {
             var img_div = $(".img_div");
             var filepath = $("input[name='evaluation_images[]']").val();
-            console.log(filepath)
+            // console.log(filepath)
             for(var i = 0; i < this.files.length; i++) {
                 objUrl = getObjectURL(this.files[i]);
                 // 
                 var extStart = filepath.lastIndexOf(".");
                 // 获取图片后缀
                 var ext = filepath.substring(extStart, filepath.length).toUpperCase();
-                console.log(ext)
+                // console.log(ext)
                 /*
                     描述：鉴定每个图片上传尾椎限制
                     * */
