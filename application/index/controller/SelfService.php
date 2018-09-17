@@ -95,6 +95,7 @@ class  SelfService extends  Controller{
          if($request->isPost()){
             $serve_data = $request->param();
             $serve_data["status"] = 1;
+            $serve_data["serve_num"] = "SN".date("YmdHis").uniqid();
             $bool = db("serve")->insert($serve_data);
             if($bool){
                 $serve_image = [];
@@ -118,12 +119,15 @@ class  SelfService extends  Controller{
 
 
     /**
-     * 提交成功
+     * 处理中
      * 陈绪
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
     public function processing(){
-        return view('processing');
+
+        $serve = db("serve")->where("status",1)->select();
+        return view('processing',["serve"=>$serve]);
+
     }
 
 
