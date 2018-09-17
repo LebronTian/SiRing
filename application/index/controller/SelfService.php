@@ -88,7 +88,24 @@ class  SelfService extends  Controller{
      public function successful_sub(Request $request){
          if($request->isPost()){
             $serve_data = $request->param();
-            halt($serve_data);
+            $serve_data["status"] = 1;
+            $bool = db("serve")->insert($serve_data);
+            if($bool){
+                $serve_image = [];
+                $serve_img = $request->file("serve_img");
+                $serve_id = db("serve")->getLastInsID();
+                foreach ($serve_img as $value){
+                    $info = $value->move(ROOT_PATH . 'public' . DS . 'upload');
+                    $serve_url = str_replace("\\", "/", $info->getSaveName());
+                    $serve_image[] = ["serve_img" => $serve_url, "serve_id" => $serve_id];
+                }
+                $booldata = model("serve_images")->saveAll($serve_image);
+                if($booldata){
+                    return ajax_success("入库成功");
+                }else{
+                    return ajax_error("入库成功");
+                }
+            }
          }
          return view('successful_sub');
     }
