@@ -85,8 +85,12 @@ class  SelfService extends  Controller{
      * 陈绪
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
-     public function successful_sub(){
-        return view('successful_sub');
+     public function successful_sub(Request $request){
+         if($request->isPost()){
+            $serve_img = $request->file("serve_img");
+            halt($serve_img);
+         }
+         return view('successful_sub');
     }
 
 
