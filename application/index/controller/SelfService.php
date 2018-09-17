@@ -7,6 +7,7 @@
  */
 namespace  app\index\controller;
 use think\Controller;
+use think\Request;
 use think\Session;
 
 class  SelfService extends  Controller{
@@ -53,7 +54,12 @@ class  SelfService extends  Controller{
      * 陈绪
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
-    public function repair_desc(){
+    public function repair_desc(Request $request){
+        if($request->isPost()){
+            $id = Session::get("order_id");
+            $order = db("order")->where("id",$id)->field("id,order_num,goods_id,goods_img,user_id,goods_name,harvest_address,harvester,harvest_phone_num")->find();
+            return ajax_success("获取成功",$order);
+        }
         return view('repair_desc');
     }
 
@@ -64,8 +70,12 @@ class  SelfService extends  Controller{
      * 陈绪
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
-    public function repair_ajax(){
-        return view('repair_desc');
+    public function repair_ajax(Request $request){
+        if($request->isPost()){
+            $id = $request->only(["id"])["id"];
+            Session("order_id",$id);
+            return ajax_success("获取成功");
+        }
     }
 
 
