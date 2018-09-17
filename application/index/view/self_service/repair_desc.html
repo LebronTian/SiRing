@@ -101,7 +101,7 @@
 <div class="mask"></div>
 <div id="body" class="fadeIn">
     <div class="head">
-        <div class="head_close">×</div>
+        <!-- <div class="head_close">×</div> -->
         <div class="head_title">申请原因</div>
     </div>
     <div class="middle_box">
@@ -129,7 +129,22 @@
     (function(){
         $('.mask').show();
         $('.fadeIn').show();
+
+        if($('.fadeIn').css('display') == 'block'){
+            $('html').css({
+                'overflow': 'hidden',
+                'position': 'fixed',
+                'height': '100vh'
+            });
+            $('body').css({
+                'overflow': 'hidden',
+                'position': 'fixed',
+                'height': '100vh'
+            })
+        }
     })()
+
+    
     var reason = 0;
     var desc = '';
     $('.goods_fault input').change(function(){
@@ -152,6 +167,18 @@
             $('.fadeIn').css('display','none');
             $('.mask').css('display','none');
             console.log(reason, desc);
+            if($('.fadeIn').css('display') == 'none'){
+                $('html').css({
+                    'overflow': 'auto',
+                    'position': 'initial',
+                    'height': 'auto'
+                });
+                $('body').css({
+                    'overflow': 'auto',
+                    'position': 'initial',
+                    'height': 'auto'
+                })
+            }
         }
     })
     // 申请原因弹窗
