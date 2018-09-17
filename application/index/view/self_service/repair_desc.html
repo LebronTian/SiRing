@@ -193,6 +193,8 @@
                     alert('未填写申请数量');
                 }else if( goods_num > data.data.order_num){
                     alert('填写数量大于购买数量');
+                }else if(goods_num < 0){
+                    alert('数量不能小于0');
                 }else{
                     if(reason == 0){
                         alert('未选择原因');
