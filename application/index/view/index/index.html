@@ -177,6 +177,24 @@
 <script type="text/javascript" src="__STATIC__/index/js/index/aui-slide.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
 <script>
+	(function(){
+		$.ajax({
+			type:"POST",
+			url:"{:url('index/index/index')}",
+			data:{},
+			async:false,
+			timeout:5000,
+			dataType:"json",
+			success:function (data) {
+				console.log(data)
+			},
+			error:function () {
+				console.log("错误");
+			}
+		})
+	})()
+</script>
+<script>
 	$(".Href").click(function () {
 		var goods_id = $(this)[0].id;
 		$.ajax({
