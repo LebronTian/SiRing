@@ -336,9 +336,11 @@
         formData.append('order_num', order_num);
         
         if($('#desc_cont').val() == ''){
-            alert('请描述商品问题')
+            alert('请描述商品问题');
         }else if($('.isImg').length == 0){
-            alert('需要上传至少一张图片')
+            alert('需要上传至少一张图片');
+        }else if($('.buy_apply_num span:last') == 0){
+            alert('申请数量不能为0');
         }else{
             $.ajax({
                 url: '{:url("index/self_service/successful_sub")}',
