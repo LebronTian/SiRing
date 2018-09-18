@@ -17,9 +17,16 @@ class  Classify extends  Controller{
      * [商品分类]
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
-    public function index(){
-        $category = db("goods_type")->where("status","<>","0")->where("pid","0")->select();
-        return view('class_index',["category"=>$category]);
+    public function index(Request $request){
+        if($request->isPost()){
+            $category = db("goods_type")->where("status","<>","0")->where("pid","0")->select();
+            return ajax_success("获取成功",$category);
+        }
+        if($request->isGet()){
+            $category = db("goods_type")->where("status","<>","0")->where("pid","0")->select();
+            $this->assign(["category"=>$category]);
+        }
+        return view('class_index');
     }
 
 
