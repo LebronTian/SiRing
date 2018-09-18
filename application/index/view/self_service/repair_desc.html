@@ -56,7 +56,7 @@
                 </div>
             </div>
             <div class="apply_reason">
-                <a href="javascript:;">
+                <a href="javascript:apply_pop();">
                     <div class="apply_reason_title">
                         <p>申请原因</p>
                         <span name="reason">商品故障</span>
@@ -83,7 +83,7 @@
             <div class="address_box">
                 <div class="return_way">
                     <p>退货方式</p>
-                    <span>快递至嘎嘎亮</span>
+                    <span>快递至嘎嘎靓</span>
                 </div>
                 <a href="javascript:add_pop();">
                     <div class="receive">
@@ -103,8 +103,7 @@
     </form>
 </div>
 <div class="flow_bottom">
-    <a href="#" id="tj">提交</a>
-    <!-- <a href="successful_sub" id="tj">提交</a> -->
+    <a id="tj">提交</a>
 </div>
 
 <div class="mask"></div>
@@ -194,24 +193,6 @@
     }
 </script>
 <script>
-    (function(){
-        $('.mask').show();
-        $('.fadeIn').show();
-        // 弹窗显示，禁止页面上下滚动
-        if($('.fadeIn').css('display') == 'block'){
-            $('html').css({
-                'overflow': 'hidden',
-                'position': 'fixed',
-                'height': '100vh'
-            });
-            $('body').css({
-                'overflow': 'hidden',
-                'position': 'fixed',
-                'height': '100vh'
-            })
-        }
-    })()
-
     // 申请原因弹窗
     $('.head_close').click(function(){
         $('.fadeIn').css('display','none');
@@ -232,6 +213,24 @@
     function add_pop_hide(){
         $('.edit_add_pop').hide();
         $('.mask').hide();
+    }
+    // 申请原因弹窗
+    function apply_pop(){
+        $('.mask').show();
+        $('.fadeIn').show();
+        // 弹窗显示，禁止页面上下滚动
+        if($('.fadeIn').css('display') == 'block'){
+            $('html').css({
+                'overflow': 'hidden',
+                'position': 'fixed',
+                'height': '100vh'
+            });
+            $('body').css({
+                'overflow': 'hidden',
+                'position': 'fixed',
+                'height': '100vh'
+            })
+        }
     }
 </script>
 <!-- 用户填写售后信息 -->
@@ -303,7 +302,7 @@
             $('.user_addr').html(data.data.harvest_address);
             $('.buy_apply_num span:first').html(data.data.order_num);
             $('.contact span').html(data.data.harvester);
-            $('.phone_num span').html(data.data.harvest_phone_num.replace(reg, '$1****$2'))
+            $('.phone_num span').html(data.data.harvest_phone_num.replace(reg,'$1****$3'))
         },
         error: function(){
             console.log('错误');
@@ -351,6 +350,7 @@
                 data: formData,
                 success: function(data){
                     console.log(data);
+                    location.href = 'successful_sub';
                 },
                 error: function(){
                     console.log('错误');
@@ -510,8 +510,17 @@
                 }
                 if(data.status==1){
                     alert(data.info);
-                    // location.reload();
                 }
+                var reg = /(\d{3})(\d{4})(\d{4})/;
+                $('.contact span')[0].innerHTML = data.data.harvester;
+                $('.phone_num span')[0].innerHTML = data.data.harvest_phone_num.replace(reg, '$1****$3');
+                var str = '';
+                $.each(data.data.harvest_address.split(''),function(idx,val){
+                    if(val !== '请' && val !== '选' && val !== '择' ){
+                        str += val;
+                    }
+                })
+                $('.user_addr')[0].innerHTML = str;
             },
             error: function(data){
                 console.log(data);
