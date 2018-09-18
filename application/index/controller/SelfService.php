@@ -175,7 +175,7 @@ class  SelfService extends  Controller{
                         'harvest_address'=>$city_information,
 
                     ];
-                    $res =Db::name('order')->where('id',$order_numbers)->update($data);
+                    $res =Db::name('serve')->where('order_id',$order_numbers)->update($data);
                     if($res){
                         return ajax_success('成功',$data);
 
@@ -188,11 +188,18 @@ class  SelfService extends  Controller{
     }
 
 
-
-    public function repair_desc_edit(){
+    /**
+     * 售后订单修改
+     * 陈绪
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
+     */
+    public function repair_desc_edit($id){
         $province = Db::name('tree')->where (array('pid'=>1) )->select();
         $this->assign('province',$province);
-        return view("repair_desc_edit");
+        $serve = db("serve")->where("id",$id)->select();
+        $serve_images = db("serve_images")->where("serve_id",$id)->select();
+        return view("repair_desc_edit",["serve"=>$serve,"serve_images"=>$serve_images]);
     }
 
 
@@ -208,6 +215,63 @@ class  SelfService extends  Controller{
         }else{
             $this->error("订单取消失败",url("index/self_service/detail_info"));
         }
+    }
+
+
+    /**
+     * 售后服务图片删除
+     * 陈绪
+     */
+    public function detail_images(Request $request){
+
+        if($request->isPost()){
+            $id = $request->only(['id'])['id'];
+            $serve_images = db("serve_images")->where("id",$id)->field("serve_img")->find();
+            $bool = db("serve_images")->where("id",$id)->delete();
+            if($bool){
+                unlink(ROOT_PATH . 'public' . DS . 'upload/'.$serve_images['serve_img']);
+                return ajax_success("删除成功");
+            }
+        }
+    }
+
+
+
+    /**
+     * 售后服务订单更新
+     * 陈绪
+     */
+    /**
+     * 提交成功
+     * 陈绪
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
+     */
+    public function updata(Request $request){
+        if($request->isPost()){
+            $id = $request->only(['id'])['id'];
+            $serve_data = $request->param();
+            $serve_data["status"] = 1;
+            $serve_data["serve_num"] = "SN".date("YmdHis").uniqid();
+            $serve_data["create_time"] = time();
+            $bool = db("serve")->where("id",$id)->update($serve_data);
+            if($bool){
+                $serve_image = [];
+                $serve_img = $request->file("serve_img");
+                $serve_id = db("serve")->getLastInsID();
+                foreach ($serve_img as $value){
+                    $info = $value->move(ROOT_PATH . 'public' . DS . 'upload');
+                    $serve_url = str_replace("\\", "/", $info->getSaveName());
+                    $serve_image[] = ["serve_img" => $serve_url, "serve_id" => $id];
+                }
+                $booldata = model("serve_images")->saveAll($serve_image);
+                if($booldata){
+                    return ajax_success("入库成功");
+                }else{
+                    return ajax_error("入库成功");
+                }
+            }
+        }
+        return view('successful_sub');
     }
 
 

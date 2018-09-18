@@ -44,22 +44,23 @@
 </div>
 <div class="wrapper">
     <form action="" id="form">
+        {volist name="serve" id="value"}
         <div class="goods_div">
             <div class="goods_info">
                 <div class="goods_img">
-                    <img src="__STATIC__/index/image/icon/rp.jpg" name="goods_img">
+                    <img src="{$value.goods_img}" name="goods_img">
                 </div>
                 <div class="name_price">
-                    <p class="name_info" name="name_info">95新 iPhoneX 256G黑色 其他版本 三网4G</p>
-                    <p class="price" name="price">价格：<span>￥1299.00</span></p>
-                    <p class="buy_apply_num">购买数量：<span>0</span>&nbsp;&nbsp;申请数量：<span>0</span></p>
+                    <p class="name_info" name="name_info">{$value.goods_name}</p>
+                    <p class="price" name="price">价格：<span>￥{$value.order_money}</span></p>
+                    <p class="buy_apply_num">购买数量：<span>{$value.order_num}</span>&nbsp;&nbsp;申请数量：<span>{$value.applicant_num}</span></p>
                 </div>
             </div>
             <div class="apply_reason">
                 <a href="javascript:apply_pop();">
                     <div class="apply_reason_title">
                         <p>申请原因</p>
-                        <span name="reason">商品故障</span>
+                        <span name="reason">{$value.reason}</span>
                     </div>
                     <div class="apply_reason_tip">
                         <p>请您描述问题并上传商品图片</p>
@@ -71,12 +72,16 @@
                 <div class="desc_cont">
                     <textarea name="textarea" placeholder="请描述申请售后服务的具体原因，可上传最多5张图片哦~" id="desc_cont" cols="30" rows="10"></textarea>
                 </div>
+
                 <div class="img_edit">
+                    {volist name="serve_images" id="val"}
                     <div class="img_box">
-                        <img src="__UPLOADS__/20180908/c5920fe10d6a381eb7bd6b65ee179cc4.jpg" alt="">
-                        <a class="removeBtn" onclick="javascript:removeImg(this)">×</a>
+                        <img src="__UPLOAD__/{$val.serve_img}" alt="">
+                        <a id="{$val.id}" class="removeBtn" onclick="javascript:removeImg(this, '{$val.id}')">×</a>
                     </div>
+                    {/volist}
                 </div>
+
                 <div class="photo_wrap">
                     <input class="files" name="serve_img[]" id="myFile" type="file" hidden multiple="multiple">
                     <div class="visible_box" >
@@ -100,18 +105,19 @@
             </div>
             <div class="user_and_phone">
                 <div class="user">
-                    <p class="contact">联系人：<span>刘德华</span></p>
-                    <p class="phone_num">联系电话：<span>136****3045</span></p>
+                    <p class="contact">联系人：<span>{$value.harvester}</span></p>
+                    <p class="phone_num">联系电话：<span>{$value.harvest_phone_num}</span></p>
                 </div>
             </div>
             <p class="bottom_tip">提交服务单后，售后专员可能与您电话沟通，请保持手机畅通</p>
         </div>
+
     </form>
 </div>
 <div class="flow_bottom">
-    <a id="tj">提交</a>
+    <a id="tj" class="{$value.id}">提交</a>
 </div>
-
+{/volist}
 <div class="mask"></div>
 <div id="body" class="fadeIn">
     <div class="head">
@@ -327,6 +333,7 @@
         var harvester = $('.contact span')[0].innerHTML;
         var order_num = $('.buy_apply_num span:last')[0].innerHTML;
         var formData = new FormData();
+        var id = $(this)[0].className;
         for(var i = 0; i < $('#myFile')[0].files.length; i++){
             formData.append('serve_img[]', $('#myFile')[0].files[i]);
         }
@@ -340,14 +347,15 @@
         formData.append('harvester', harvester);
         formData.append('order_id', order_id);
         formData.append('order_num', order_num);
-        
+        formData.append('id', id);
+
         if($('#desc_cont').val() == ''){
             alert('请描述商品问题')
         }else if($('.isImg').length == 0){
             alert('需要上传至少一张图片')
         }else{
             $.ajax({
-                url: '{:url("index/self_service/successful_sub")}',
+                url: '{:url("index/self_service/updata")}',
                 type: 'POST',
                 dataType: 'JSON',
                 async: false,
@@ -356,7 +364,7 @@
                 data: formData,
                 success: function(data){
                     console.log(data);
-                    location.href = 'successful_sub';
+                    location.href = 'processing';
                 },
                 error: function(){
                     console.log('错误');
@@ -441,8 +449,22 @@
     /*
         描述：上传图片附带删除 在此地方可以加上一个ajax进行提交到后台进行删除
         * */
-    function removeImg(r){
+    function removeImg(r, id){
         $(r).parent().remove();
+        $.ajax({
+            url: '{:url("index/self_service/detail_images")}',
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+              "id": id
+            },
+            success: function(data){
+                console.log(data)
+            },
+            error: function(){
+                console.log('错误')
+            }
+        })
     }
 </script>
 <!-- 读取收货人数据 -->

@@ -120,7 +120,10 @@ Route::group("",[
     'detail_info'=>"index/self_service/detail_info", //服务单详情
     'detail_ajax'=>"index/self_service/repair_ajax", //获取售后商品信息
     'detail_del'=>"index/self_service/repair_del", //售后服务订单取消
- 
+    'detail_images'=>"index/self_service/detail_images", //售后图片删除
+    'detail_updata'=>"index/self_service/updata", //售后服务订单更新
+
+
 
 
     /*登录页面*/
