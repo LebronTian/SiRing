@@ -66,19 +66,36 @@
     <a href="{:url('index/self_service/evaluation')}">待评价</a>
 </div>
 <div class="wrapper">
+    {volist name="serve" id="value"}
     <div class="repair_goods">
         <div class="top">
-            <div class="service_num">服务单号：<span>476331193</span></div>
+            <div class="service_num">服务单号：<span>{$value.serve_num}</span></div>
             <p>维修</p>
         </div>
-        <a href="detail_info">
+        <a href="{:url('index/self_service/detail_info',['id'=>$value.id])}">
             <div class="mid">
                 <div class="goods_img">
-                    <img src="__STATIC__/index/image/icon/rp.jpg">
+                    <img src="{$value.goods_img}">
                 </div>
                 <div class="name_price">
-                    <p class="name_info">95新 iPhoneX 256G黑色 其他版本 三网4G</p>
-                    <p class="price">审核中</p>
+                    <p class="name_info">{$value.goods_name}</p>
+                    <p class="price">
+                        {if $value.status == 1}
+                        审核中
+                        {/if}
+                        {if $value.status == 2}
+                        审核通过
+                        {/if}
+                        {if $value.status == 3}
+                        已收货
+                        {/if}
+                        {if $value.status == 4}
+                        已处理
+                        {/if}
+                        {if $value.status == 5}
+                        已完成
+                        {/if}
+                    </p>
                 </div>
             </div>
         </a>
@@ -87,6 +104,7 @@
             <a href="repair_desc">修改服务单</a>
         </div>
     </div>
+    {/volist}
 </div>
 <div class="mask" id="mask"></div>
 <div class="pop" id="pop1">

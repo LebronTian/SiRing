@@ -125,7 +125,7 @@ class  SelfService extends  Controller{
      */
     public function processing(){
 
-        $serve = db("serve")->where("status",1)->select();
+        $serve = db("serve")->select();
         return view('processing',["serve"=>$serve]);
 
     }
@@ -147,7 +147,10 @@ class  SelfService extends  Controller{
      * 陈绪
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
-    public function detail_info(){
+    public function detail_info($id){
+
+        db("serve")->where("id",$id)->update(["status"=>2]);
         return view('detail_info');
+
     }
 }
