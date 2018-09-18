@@ -557,45 +557,4 @@ class Order extends Base {
 
         }
     }
-
-    public function  address_edit(Request $request){
-        if($request->isPost()){
-            $order_numbers =$request->only(['id'])['id'];
-            if(!empty($order_numbers)){
-                $datas = Db::name('user')->field('harvester,harvester_phone_num,city,address')->where('phone_num',$member['phone_num'])->find();
-                if(!empty($data['city'])){
-                    $my_position =explode(",",$datas['city']);
-                    $position = $my_position[0].$my_position[1].$my_position[2].$datas['address'];
-                    $data=[
-                        'city'=>$my_position,
-                        'position'=>$position,
-                        'harvester'=>$datas['harvester'],
-                        'harvester_phone_num'=>$data['harvester_phone_num'],
-                        ]
-                        if(!empty($data)){
-                            return ajax_success('成功返回数据',$data);
-                        }
-        
-                }
-               
-            }
-
-        }
-        if(!empty($member)){
-            $data = Db::name('user')->field('harvester,harvester_phone_num,city,address')->where('phone_num',$member['phone_num'])->find();
-            if(!empty($data['city'])){
-                $my_position =explode(",",$data['city']);
-                $position = $my_position[0].$my_position[1].$my_position[2].$data['address'];
-                if(!empty($my_position)){
-                    $this->assign('member_information',$data);
-                    $this->assign('position',$position);
-                }
-            }
-
-        }
-    }
-
-
-
-
 }
