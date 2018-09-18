@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自助服务</title>
+    <link rel="stylesheet" href="__STATIC__/index/css/aui.css">
+    <link rel="stylesheet" href="__STATIC__/index/css/repair/repair_desc.css">
+    <style>
+        body, html{
+            margin: 0;
+            padding: 0;
+        }
+        p, div, a, button, input, form, textarea{
+            font-family: "微软雅黑", Arial, Helvetica, sans-serif !important;
+        }
+        .header_box, .header_box .bar-header{
+            background-color: #fff;
+        }
+        .header_box a{
+            padding-top:5px; 
+            display:inline-block; 
+            padding-left:10px;
+        }
+        .header_box a i{
+            font-weight:800;
+            color:#000; 
+            font-size:20px;
+        }
+        .header_box .title{
+            width: 60%;
+        }
+    </style>
+</head>
+<body>
+<div class="header_box">
+    <div class="bar bar-header">
+        <a class="back" href="javascript:history.back(-1);">
+            <i class="aui-iconfont aui-icon-left"></i>
+        </a>
+        <div id="title" class="h1 title">售后维修</div>
+    </div>
+</div>
+<div class="wrapper">
+    <form action="" id="form">
+        <div class="goods_div">
+            <div class="goods_info">
+                <div class="goods_img">
+                    <img src="__STATIC__/index/image/icon/rp.jpg" name="goods_img">
+                </div>
+                <div class="name_price">
+                    <p class="name_info" name="name_info">95新 iPhoneX 256G黑色 其他版本 三网4G</p>
+                    <p class="price" name="price">价格：<span>￥1299.00</span></p>
+                    <p class="buy_apply_num">购买数量：<span>0</span>&nbsp;&nbsp;申请数量：<span>0</span></p>
+                </div>
+            </div>
+            <div class="apply_reason">
+                <a href="javascript:apply_pop();">
+                    <div class="apply_reason_title">
+                        <p>申请原因</p>
+                        <span name="reason">商品故障</span>
+                    </div>
+                    <div class="apply_reason_tip">
+                        <p>请您描述问题并上传商品图片</p>
+                    </div>
+                </a>
+            </div>
+            <div class="reason_desc">
+                <p>问题描述</p>
+                <div class="desc_cont">
+                    <textarea name="textarea" placeholder="请描述申请售后服务的具体原因，可上传最多5张图片哦~" id="desc_cont" cols="30" rows="10"></textarea>
+                </div>
+                <div class="photo_wrap">
+                    <input class="files" name="serve_img[]" id="myFile" type="file" hidden multiple="multiple">
+                    <div class="visible_box" >
+                        <i class="aui-iconfont aui-icon-camera"></i>
+                        <p>添加照片</p>
+                    </div> 
+                    <div class="img_div"></div>
+                </div>
+            </div>
+            <div class="address_box">
+                <div class="return_way">
+                    <p>退货方式</p>
+                    <span>快递至嘎嘎靓</span>
+                </div>
+                <a href="javascript:add_pop();">
+                    <div class="receive">
+                        <p class="title">收货地址<span>(该地址是嘎嘎亮回寄给您的地址)</span></p>
+                        <p class="user_addr" name="user_addr">广东深圳福田新闻路中电信息大厦东座1518</p>
+                    </div>
+                </a>
+            </div>
+            <div class="user_and_phone">
+                <div class="user">
+                    <p class="contact">联系人：<span>刘德华</span></p>
+                    <p class="phone_num">联系电话：<span>136****3045</span></p>
+                </div>
+            </div>
+            <p class="bottom_tip">提交服务单后，售后专员可能与您电话沟通，请保持手机畅通</p>
+        </div>
+    </form>
+</div>
+<div class="flow_bottom">
+    <a id="tj">提交</a>
+</div>
+
+<div class="mask"></div>
+<div id="body" class="fadeIn">
+    <div class="head">
+        <!-- <div class="head_close">×</div> -->
+        <div class="head_title">申请原因</div>
+    </div>
+    <div class="middle_box">
+        <div class="goods_num"">
+            <p>申请数量</p>
+            <input type="text">
+        </div>
+        <div class="goods_fault">
+            <p>商品故障</p>
+            <input name="fault" type="radio">
+        </div>
+        <div class="order_fault">
+            <p>其他</p>
+            <input name="fault" type="radio">
+        </div>
+        <div class="textarea_div">
+            <textarea name="" id="" cols="30" rows="10" placeholder="请描述商品详情"></textarea>
+        </div>
+    </div>
+    <button class="confirm" type="submit">确定</button>
+</div>
+
+<!-- 修改地址弹窗 -->
+<div class="edit_add_pop">
+    <div class="top">填写信息</div>
+    <input class="harvester" type="text" placeholder="收件人">
+    <input class="harvester_phone_num" type="text" placeholder="联系电话">
+
+    <select name="province" id="province" onchange="loadRegion('province',2,'city','{:url("index/Member/getRegions")}');">
+        <option value="0" selected>省份/直辖市</option>
+        {volist name="province" id="vo"}
+        <option value="{$vo.id}">{$vo.name}</option>
+        {/volist}
+    </select>
+
+    <select name="city" id="city"  onchange="loadRegion('city',3,'town','{:url("index/Member/getRegions")}');">
+        <option value="0">市/县</option>
+    </select>
+
+    <select name="town" id="town"  >
+        <option value="0">镇/区</option>
+    </select>
+    <input type="text" placeholder="详细地址" class="detail_add">
+    <button class="confirm_add">确认</button>
+    <a href="javascript:add_pop_hide();"><button class="cancel">取消</button></a>
+</div>
+
+
+<!-- <script src="__STATIC__/index/js/jquery.js"></script> -->
+<script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script src="__STATIC__/index/js/city/jquery.provincesCity.js"></script>
+<script src="__STATIC__/index/js/city/provincesData.js"></script>
+<script>
+    $(function(){
+        $("#province").ProvinceCity();
+    })
+</script>
+<!-- 火生写的，加载三级城市数据 -->
+<script>
+    function loadRegion(sel,type_id,selName,url){
+        jQuery("#"+selName+" option").each(function(){
+            jQuery(this).remove();
+        });
+        jQuery("<option value=0>请选择</option>").appendTo(jQuery("#"+selName));
+        if(jQuery("#"+sel).val()==0){
+            return;
+        }
+//        console.log(jQuery("#"+sel).val());
+        jQuery.getJSON(url,{pid:jQuery("#"+sel).val(),type:type_id},
+            function(data){
+                if(data){
+                    jQuery.each(data,function(idx,item){
+                        jQuery("<option value="+item.id+">"+item.name+"</option>").appendTo(jQuery("#"+selName));
+                    });
+
+                }else{
+                    jQuery("<option value='0'>请选择</option>").appendTo(jQuery("#"+selName));
+                }
+            }
+        );
+    }
+</script>
+<script>
+    // 申请原因弹窗
+    $('.head_close').click(function(){
+        $('.fadeIn').css('display','none');
+        $('.mask').css('display','none');
+    })
+
+    // 触发上传图片
+    $('.visible_box').click(function(){
+        $('.files').click();
+    })
+
+    // 地址弹窗
+    function add_pop(){
+        $('.edit_add_pop').show();
+        $('.mask').show();
+    }
+    // 地址弹窗隐藏
+    function add_pop_hide(){
+        $('.edit_add_pop').hide();
+        $('.mask').hide();
+    }
+    // 申请原因弹窗
+    function apply_pop(){
+        $('.mask').show();
+        $('.fadeIn').show();
+        // 弹窗显示，禁止页面上下滚动
+        if($('.fadeIn').css('display') == 'block'){
+            $('html').css({
+                'overflow': 'hidden',
+                'position': 'fixed',
+                'height': '100vh'
+            });
+            $('body').css({
+                'overflow': 'hidden',
+                'position': 'fixed',
+                'height': '100vh'
+            })
+        }
+    }
+</script>
+<!-- 用户填写售后信息 -->
+<script>
+    var reason = 0;
+    var desc = '';
+    $('.goods_fault input').change(function(){
+        $('.textarea_div').hide();
+        reason = '商品故障';
+    })
+    // 故障原因选择
+    $('.order_fault input').change(function(){
+        $('.textarea_div').show();
+        reason = '其他';
+    })
+    // 文本域 失去焦点 赋值
+    $('.textarea_div textarea').blur(function(){
+        desc = $(this).val();
+    })
+    $.ajax({
+        url: '{:url("index/self_service/repair_desc")}',
+        type: 'POST',
+        dataType: 'JSON',
+        async: 'false',
+        success: function(data){
+            console.log(data);
+            order_id = data.data.id;
+            send_add_id = data.data.id;
+            $('.confirm').click(function(){
+                var goods_num = $('.goods_num input').val();
+                if( goods_num == ''){
+                    alert('未填写申请数量');
+                }else if( goods_num > data.data.order_num){
+                    alert('填写数量大于购买数量');
+                }else if(goods_num < 0){
+                    alert('数量不能小于0');
+                }else{
+                    if(reason == 0){
+                        alert('未选择原因');
+                    }else if(reason == '其他' && desc == ''){
+                        alert('请描述商品详情');
+                    }else{
+                        $('.fadeIn').css('display','none');
+                        $('.mask').css('display','none');
+                        console.log(reason, desc);
+                        // 弹窗消失  页面可以上下滚动
+                        if($('.fadeIn').css('display') == 'none'){
+                            $('html').css({
+                                'overflow': 'auto',
+                                'position': 'initial',
+                                'height': 'auto'
+                            });
+                            $('body').css({
+                                'overflow': 'auto',
+                                'position': 'initial',
+                                'height': 'auto'
+                            })
+                        }
+                    }
+                }
+                $('.apply_reason_title span').html(reason);
+                $('.desc_cont textarea').html(desc);
+                $('.buy_apply_num span:last').html($('.goods_num input').val())
+            })
+            var reg = /(\d{3})(\d{4})(\d{4})/;
+            $('.goods_img img')[0].src = '__UPLOADS__/'+data.data.goods_img;
+            $('.name_info').html(data.data.goods_name);
+            $('.price span').html(data.data.pay_money);
+            $('.user_addr').html(data.data.harvest_address);
+            $('.buy_apply_num span:first').html(data.data.order_num);
+            $('.contact span').html(data.data.harvester);
+            $('.phone_num span').html(data.data.harvest_phone_num.replace(reg,'$1****$3'))
+        },
+        error: function(){
+            console.log('错误');
+        }
+    })
+</script>
+<script>
+    $('#tj').click(function(){
+        var goods_img = $('.goods_img img')[0].src;
+        var name_info = $('.name_info')[0].innerHTML;
+        var price = $('.price span')[0].innerHTML;
+        var reason = $('.apply_reason_title span')[0].innerHTML;
+        var desc = $('.desc_cont textarea').val();
+        var user_addr = $('.user_addr')[0].innerHTML;
+        var harvest_phone_num = $('.phone_num span')[0].innerHTML;
+        var harvester = $('.contact span')[0].innerHTML;
+        var order_num = $('.buy_apply_num span:last')[0].innerHTML;
+        var formData = new FormData();
+        for(var i = 0; i < $('#myFile')[0].files.length; i++){
+            formData.append('serve_img[]', $('#myFile')[0].files[i]);
+        }
+        formData.append('goods_img', goods_img);
+        formData.append('goods_name', name_info);
+        formData.append('order_money', price);
+        formData.append('reason', reason);
+        formData.append('serve_describe', desc);
+        formData.append('harvest_address', user_addr);
+        formData.append('harvest_phone_num', harvest_phone_num);
+        formData.append('harvester', harvester);
+        formData.append('order_id', order_id);
+        formData.append('order_num', order_num);
+        
+        if($('#desc_cont').val() == ''){
+            alert('请描述商品问题')
+        }else if($('.isImg').length == 0){
+            alert('需要上传至少一张图片')
+        }else{
+            $.ajax({
+                url: '{:url("index/self_service/successful_sub")}',
+                type: 'POST',
+                dataType: 'JSON',
+                async: false,
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function(data){
+                    console.log(data);
+                    location.href = 'successful_sub';
+                },
+                error: function(){
+                    console.log('错误');
+                }
+            })
+        }
+    })
+</script>
+<!-- 上传图片 -->
+<script type="text/javascript">
+    $(function() {
+        var objUrl;
+        var img_html;
+        $("#myFile").change(function() {
+            var img_div = $(".img_div");
+            var filepath = $("input[name='serve_img[]']").val();
+            // console.log(filepath)
+            for(var i = 0; i < this.files.length; i++) {
+                objUrl = getObjectURL(this.files[i]);
+                // 
+                var extStart = filepath.lastIndexOf(".");
+                // 获取图片后缀
+                var ext = filepath.substring(extStart, filepath.length).toUpperCase();
+                // console.log(ext)
+                /*
+                    描述：鉴定每个图片上传尾椎限制
+                    * */
+                if(ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {
+                    $(".shade").fadeIn(500);
+                    $(".text_span").text("图片限于bmp,png,gif,jpeg,jpg格式");
+                    this.value = "";
+                    $(".img_div").html("");
+                    return false;
+                } else {
+                    /*
+                        若规则全部通过则在此提交url到后台数据库
+                        * */
+                    if($('.isImg').length == 5){
+                        alert('最多上传5张图片');
+                    }else{
+                        img_html = "<div class='isImg'><img src='" + objUrl + "' onclick='javascript:lookBigImg(this)' style='height: 100%; width: 100%;' /><a class='removeBtn' onclick='javascript:removeImg(this)'>×</a></div>";
+                        img_div.append(img_html);
+                    }
+                }
+            }
+            /*
+                描述：鉴定每个图片大小总和
+                * */
+            var file_size = 0;
+            var all_size = 0;
+            for(j = 0; j < this.files.length; j++) {
+                file_size = this.files[j].size;
+                all_size = all_size + this.files[j].size;
+                var size = all_size / 1024;
+                if(size > 5000) {
+                    $(".shade").fadeIn(5000);
+                    $(".text_span").text("上传的图片大小不能超过1000k！");
+                    this.value = "";
+                    $(".img_div").html("");
+                    return false;
+                }
+            }
+            /*
+                描述：鉴定每个图片宽高 以后会做优化 多个图片的宽高 暂时隐藏掉 想看效果可以取消注释就行
+                * */
+            return true;
+        });
+            // 描述：鉴定每个浏览器上传图片url 目前没有合并到Ie
+        function getObjectURL(file) {
+            var url = null;
+            if(window.createObjectURL != undefined) { // basic
+                url = window.createObjectURL(file);
+            } else if(window.URL != undefined) { // mozilla(firefox)
+                url = window.URL.createObjectURL(file);
+            } else if(window.webkitURL != undefined) { // webkit or chrome
+                url = window.webkitURL.createObjectURL(file);
+            }
+            //console.log(url);
+            return url;
+        }
+    });
+    /*
+        描述：上传图片附带删除 在此地方可以加上一个ajax进行提交到后台进行删除
+        * */
+    function removeImg(r){
+        $(r).parent().remove();
+    }
+</script>
+<!-- 读取收货人数据 -->
+<script>
+    (function () {
+        $.ajax({
+            url: "{:url('index/Member/get_address_informations')}",
+            type: 'POST',
+            dataType: 'json',
+            success: function(data){
+                console.log(data);
+                $('.harvester').val(data.data.harvester);
+                $('.harvester_phone_num').val(data.data.harvester_phone_num);
+                // 设置城市
+                $('#province option:selected').val(data.data.province_id);
+                $('#city option:selected').val(data.data.city_id);
+                $('#town option:selected').val(data.data.town_id);
+                var oCity = data.data.city.split(',');
+                $('#province option:selected').html(oCity[0]);
+                $('#city option:selected').html(oCity[1]);
+                $('#town option:selected').html(oCity[2]);
+
+                $('.detail_add').val(data.data.address);
+                // 备注
+            },
+            error: function(){
+                console.log('失败');
+            }
+        });
+    })()
+</script>
+<!-- 编辑保存 -->
+<script>
+    $('.confirm_add').click(function(){
+        var harvester =$('.harvester').val();
+        var harvester_phone_num =$('.harvester_phone_num').val();
+        var phone_num = $('.phone_num').val();
+        var province = $('#province option:selected').html();
+        var city = $('#city option:selected').html();
+        var town = $('#town option:selected').html();
+        var province_id = $('#province option:selected').val();
+        var city_id = $('#city option:selected').val();
+        var town_id = $('#town option:selected').val();
+        var detail_add = $('.detail_add').val();
+        var city_information =province+city+town+detail_add;
+        $.ajax({
+            url: '{:url("index/self_service/address_edit")}',
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            data: {
+                'harvester':harvester,
+                'harvester_phone_num':harvester_phone_num,
+                'phone_num': phone_num,
+                'province': province,
+                'city': city,
+                'town': town,
+                'address': detail_add,
+                'province_id':province_id,
+                'city_id':city_id,
+                'town_id':town_id,
+                'city_information':city_information,
+                'id': send_add_id
+            },
+            success: function(data){
+                $('.edit_add_pop').hide();
+                $('.mask').hide();
+                console.log(data);
+                if(data.code ==0){
+                    alert(data.msg);
+                }
+                if(data.status==1){
+                    alert(data.info);
+                }
+                var reg = /(\d{3})(\d{4})(\d{4})/;
+                $('.contact span')[0].innerHTML = data.data.harvester;
+                $('.phone_num span')[0].innerHTML = data.data.harvest_phone_num.replace(reg, '$1****$3');
+                var str = '';
+                $.each(data.data.harvest_address.split(''),function(idx,val){
+                    if(val !== '请' && val !== '选' && val !== '择' ){
+                        str += val;
+                    }
+                })
+                $('.user_addr')[0].innerHTML = str;
+            },
+            error: function(data){
+                console.log(data);
+            }
+        })
+    })
+</script>
+</body>
+</html>

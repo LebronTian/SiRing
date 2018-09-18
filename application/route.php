@@ -113,6 +113,7 @@ Route::group("",[
     'repair_index'=>"index/self_service/repair", //售后维修
     'address_edit'=>"index/self_service/address_edit", //售后地址修改
     'repair_desc'=>"index/self_service/repair_desc", //问题描述
+    'repair_desc_edit'=>"index/self_service/repair_desc_edit", //问题描述
     'successful_sub'=>"index/self_service/successful_sub", //提交成功
     'processing'=>"index/self_service/processing", //处理中
     'evaluations'=>"index/self_service/evaluation", //待评价
