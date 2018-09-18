@@ -9,6 +9,7 @@ namespace  app\index\controller;
 use think\Controller;
 use think\Request;
 use think\Session;
+use think\Db;
 
 class  SelfService extends  Controller{
 
@@ -60,6 +61,8 @@ class  SelfService extends  Controller{
             $order = db("order")->where("id",$id)->field("id,order_num,goods_id,goods_img,user_id,goods_name,harvest_address,harvester,harvest_phone_num,pay_money")->find();
             return ajax_success("获取成功",$order);
         }
+        $province = Db::name('tree')->where (array('pid'=>1) )->select();
+        $this->assign('province',$province);        
         return view('repair_desc');
     }
 
@@ -140,4 +143,6 @@ class  SelfService extends  Controller{
     public function detail_info(){
         return view('detail_info');
     }
+
+
 }
