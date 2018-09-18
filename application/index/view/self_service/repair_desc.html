@@ -320,6 +320,7 @@
         var harvest_phone_num = $('.phone_num span')[0].innerHTML;
         var harvester = $('.contact span')[0].innerHTML;
         var order_num = $('.buy_apply_num span:last')[0].innerHTML;
+        var apply_num = $('.buy_apply_num span:last')[0].innerHTML;
         var formData = new FormData();
         for(var i = 0; i < $('#myFile')[0].files.length; i++){
             formData.append('serve_img[]', $('#myFile')[0].files[i]);
@@ -334,7 +335,7 @@
         formData.append('harvester', harvester);
         formData.append('order_id', order_id);
         formData.append('order_num', order_num);
-        
+        formData.append('applicant_num', apply_num);      
         if($('#desc_cont').val() == ''){
             alert('请描述商品问题');
         }else if($('.isImg').length == 0){
