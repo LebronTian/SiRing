@@ -99,6 +99,7 @@ class  SelfService extends  Controller{
             $serve_data = $request->param();
             $serve_data["status"] = 1;
             $serve_data["serve_num"] = "SN".date("YmdHis").uniqid();
+            $serve_data["create_time"] = time();
             $bool = db("serve")->insert($serve_data);
             if($bool){
                 $serve_image = [];

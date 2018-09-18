@@ -377,7 +377,12 @@ Route::group("admin",[
 
 
     /*客户中心*/
-    "client_index"=>"admin/Client/index"
+    "client_index"=>"admin/Client/index",
+
+
+    /*售后维修*/
+    "serve_index"=>"admin/Serve/index",
+    "serve_listing"=>"admin/Serve/listing",
 
 ]);
 
