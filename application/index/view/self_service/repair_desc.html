@@ -56,13 +56,15 @@
                 </div>
             </div>
             <div class="apply_reason">
-                <div class="apply_reason_title">
-                    <p>申请原因</p>
-                    <span name="reason">商品故障</span>
-                </div>
-                <div class="apply_reason_tip">
-                    <p>请您描述问题并上传商品图片</p>
-                </div>
+                <a href="javascript:;">
+                    <div class="apply_reason_title">
+                        <p>申请原因</p>
+                        <span name="reason">商品故障</span>
+                    </div>
+                    <div class="apply_reason_tip">
+                        <p>请您描述问题并上传商品图片</p>
+                    </div>
+                </a>
             </div>
             <div class="reason_desc">
                 <p>问题描述</p>
@@ -153,7 +155,7 @@
     </select>
     <input type="text" placeholder="详细地址" class="detail_add">
     <button class="confirm_add">确认</button>
-    <a href="javascript:;"><button class="cancel">取消</button></a>
+    <a href="javascript:add_pop_hide();"><button class="cancel">取消</button></a>
 </div>
 
 
@@ -192,23 +194,23 @@
     }
 </script>
 <script>
-    // (function(){
-    //     $('.mask').show();
-    //     $('.fadeIn').show();
-    //     // 弹窗显示，禁止页面上下滚动
-    //     if($('.fadeIn').css('display') == 'block'){
-    //         $('html').css({
-    //             'overflow': 'hidden',
-    //             'position': 'fixed',
-    //             'height': '100vh'
-    //         });
-    //         $('body').css({
-    //             'overflow': 'hidden',
-    //             'position': 'fixed',
-    //             'height': '100vh'
-    //         })
-    //     }
-    // })()
+    (function(){
+        $('.mask').show();
+        $('.fadeIn').show();
+        // 弹窗显示，禁止页面上下滚动
+        if($('.fadeIn').css('display') == 'block'){
+            $('html').css({
+                'overflow': 'hidden',
+                'position': 'fixed',
+                'height': '100vh'
+            });
+            $('body').css({
+                'overflow': 'hidden',
+                'position': 'fixed',
+                'height': '100vh'
+            })
+        }
+    })()
 
     // 申请原因弹窗
     $('.head_close').click(function(){
@@ -224,11 +226,13 @@
     // 地址弹窗
     function add_pop(){
         $('.edit_add_pop').show();
+        $('.mask').show();
     }
-    // 修改地址弹窗确认按钮
-    $('.confirm_add').click(function(){
+    // 地址弹窗隐藏
+    function add_pop_hide(){
         $('.edit_add_pop').hide();
-    })
+        $('.mask').hide();
+    }
 </script>
 <!-- 用户填写售后信息 -->
 <script>
@@ -498,18 +502,19 @@
                 'id': send_add_id
             },
             success: function(data){
+                $('.edit_add_pop').hide();
+                $('.mask').hide();
                 console.log(data);
                 if(data.code ==0){
                     alert(data.msg);
                 }
                 if(data.status==1){
                     alert(data.info);
-                    history.go(-1);
+                    // location.reload();
                 }
             },
             error: function(data){
                 console.log(data);
-
             }
         })
     })
