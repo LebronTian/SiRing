@@ -152,7 +152,7 @@
 }
 .apply_reason .apply_reason_title p,
 .reason_desc>p{
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     color: #000;
 }
@@ -254,7 +254,7 @@
     padding: 10px;
 }
 .address_box .return_way p{
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     color: #000;
 }
@@ -289,7 +289,7 @@
     -webkit-transform: rotateZ(135deg);
 }
 .address_box .receive p.title{
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     color: #000;
     margin: 12px 0;
