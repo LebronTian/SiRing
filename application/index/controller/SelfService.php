@@ -190,9 +190,13 @@ class  SelfService extends  Controller{
 
 
     public function repair_desc_edit(){
-
+        $province = Db::name('tree')->where (array('pid'=>1) )->select();
+        $this->assign('province',$province);
         return view("repair_desc_edit");
     }
+
+
+
     /**
      * 售后服务订单取消
      * 陈绪
