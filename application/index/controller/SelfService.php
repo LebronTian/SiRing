@@ -155,9 +155,8 @@ class  SelfService extends  Controller{
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
     public function detail_info($id){
-
-        db("serve")->where("id",$id)->update(["status"=>2]);
-        return view('detail_info');
+        $serve = db("serve")->where("id",$id)->find();
+        return view('detail_info',["serve"=>$serve]);
 
     }
 
