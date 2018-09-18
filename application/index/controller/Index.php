@@ -19,7 +19,11 @@ class Index extends Controller
             $goods_type = db("goods_type")->where("pid", "0")->order("sort_number")->select();
             $seckill = db("seckill")->select();
             $goods = db("goods")->where("goods_status", 1)->select();
-            return ajax_success("获取成功",array('goods_type'=>$goods_type,"seckill"=>$seckill,"goods"=>$goods));
+            if($goods){
+                return ajax_success("获取成功",array('goods_type'=>$goods_type,"seckill"=>$seckill,"goods"=>$goods));
+            }else{
+                return ajax_error("获取失败");
+            }
         }
         if($request->isGet()){
             $goods_type = db("goods_type")->where("pid", "0")->order("sort_number")->select();
