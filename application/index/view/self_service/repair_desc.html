@@ -83,7 +83,7 @@
                     <p>退货方式</p>
                     <span>快递至嘎嘎亮</span>
                 </div>
-                <a href="javascript:;">
+                <a href="javascript:add_pop();">
                     <div class="receive">
                         <p class="title">收货地址<span>(该地址是嘎嘎亮回寄给您的地址)</span></p>
                         <p class="user_addr" name="user_addr">广东深圳福田新闻路中电信息大厦东座1518</p>
@@ -131,25 +131,84 @@
     <button class="confirm" type="submit">确定</button>
 </div>
 
-<script src="__STATIC__/index/js/jquery.js"></script>
+<!-- 修改地址弹窗 -->
+<div class="edit_add_pop">
+    <div class="top">填写信息</div>
+    <input class="harvester" type="text" placeholder="收件人">
+    <input class="harvester_phone_num" type="text" placeholder="联系电话">
+
+    <select name="province" id="province" onchange="loadRegion('province',2,'city','{:url("index/Member/getRegions")}');">
+        <option value="0" selected>省份/直辖市</option>
+        {volist name="province" id="vo"}
+        <option value="{$vo.id}">{$vo.name}</option>
+        {/volist}
+    </select>
+
+    <select name="city" id="city"  onchange="loadRegion('city',3,'town','{:url("index/Member/getRegions")}');">
+        <option value="0">市/县</option>
+    </select>
+
+    <select name="town" id="town"  >
+        <option value="0">镇/区</option>
+    </select>
+    <input type="text" placeholder="详细地址" class="detail_add">
+    <button class="confirm_add">确认</button>
+    <a href="javascript:;"><button class="cancel">取消</button></a>
+</div>
+
+
+<!-- <script src="__STATIC__/index/js/jquery.js"></script> -->
+<script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script src="__STATIC__/index/js/city/jquery.provincesCity.js"></script>
+<script src="__STATIC__/index/js/city/provincesData.js"></script>
 <script>
-    (function(){
-        $('.mask').show();
-        $('.fadeIn').show();
-        // 弹窗显示，禁止页面上下滚动
-        if($('.fadeIn').css('display') == 'block'){
-            $('html').css({
-                'overflow': 'hidden',
-                'position': 'fixed',
-                'height': '100vh'
-            });
-            $('body').css({
-                'overflow': 'hidden',
-                'position': 'fixed',
-                'height': '100vh'
-            })
+    $(function(){
+        $("#province").ProvinceCity();
+    })
+</script>
+<!-- 火生写的，加载三级城市数据 -->
+<script>
+    function loadRegion(sel,type_id,selName,url){
+        jQuery("#"+selName+" option").each(function(){
+            jQuery(this).remove();
+        });
+        jQuery("<option value=0>请选择</option>").appendTo(jQuery("#"+selName));
+        if(jQuery("#"+sel).val()==0){
+            return;
         }
-    })()
+//        console.log(jQuery("#"+sel).val());
+        jQuery.getJSON(url,{pid:jQuery("#"+sel).val(),type:type_id},
+            function(data){
+                if(data){
+                    jQuery.each(data,function(idx,item){
+                        jQuery("<option value="+item.id+">"+item.name+"</option>").appendTo(jQuery("#"+selName));
+                    });
+
+                }else{
+                    jQuery("<option value='0'>请选择</option>").appendTo(jQuery("#"+selName));
+                }
+            }
+        );
+    }
+</script>
+<script>
+    // (function(){
+    //     $('.mask').show();
+    //     $('.fadeIn').show();
+    //     // 弹窗显示，禁止页面上下滚动
+    //     if($('.fadeIn').css('display') == 'block'){
+    //         $('html').css({
+    //             'overflow': 'hidden',
+    //             'position': 'fixed',
+    //             'height': '100vh'
+    //         });
+    //         $('body').css({
+    //             'overflow': 'hidden',
+    //             'position': 'fixed',
+    //             'height': '100vh'
+    //         })
+    //     }
+    // })()
 
     // 申请原因弹窗
     $('.head_close').click(function(){
@@ -160,6 +219,15 @@
     // 触发上传图片
     $('.visible_box').click(function(){
         $('.files').click();
+    })
+
+    // 地址弹窗
+    function add_pop(){
+        $('.edit_add_pop').show();
+    }
+    // 修改地址弹窗确认按钮
+    $('.confirm_add').click(function(){
+        $('.edit_add_pop').hide();
     })
 </script>
 <!-- 用户填写售后信息 -->
@@ -187,12 +255,15 @@
         success: function(data){
             console.log(data);
             order_id = data.data.id;
+            send_add_id = data.data.id;
             $('.confirm').click(function(){
                 var goods_num = $('.goods_num input').val();
                 if( goods_num == ''){
                     alert('未填写申请数量');
                 }else if( goods_num > data.data.order_num){
                     alert('填写数量大于购买数量');
+                }else if(goods_num < 0){
+                    alert('数量不能小于0');
                 }else{
                     if(reason == 0){
                         alert('未选择原因');
@@ -261,21 +332,27 @@
         formData.append('order_id', order_id);
         formData.append('order_num', order_num);
         
-        $.ajax({
-            url: '{:url("index/self_service/successful_sub")}',
-            type: 'POST',
-            dataType: 'JSON',
-            async: false,
-            processData: false,
-            contentType: false,
-            data: formData,
-            success: function(data){
-                console.log(data);
-            },
-            error: function(){
-                console.log('错误');
-            }
-        })
+        if($('#desc_cont').val() == ''){
+            alert('请描述商品问题')
+        }else if($('.isImg').length == 0){
+            alert('需要上传至少一张图片')
+        }else{
+            $.ajax({
+                url: '{:url("index/self_service/successful_sub")}',
+                type: 'POST',
+                dataType: 'JSON',
+                async: false,
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function(data){
+                    console.log(data);
+                },
+                error: function(){
+                    console.log('错误');
+                }
+            })
+        }
     })
 </script>
 <!-- 上传图片 -->
@@ -357,6 +434,88 @@
     function removeImg(r){
         $(r).parent().remove();
     }
+</script>
+<!-- 读取收货人数据 -->
+<script>
+    (function () {
+        $.ajax({
+            url: "{:url('index/Member/get_address_informations')}",
+            type: 'POST',
+            dataType: 'json',
+            success: function(data){
+                console.log(data);
+                $('.harvester').val(data.data.harvester);
+                $('.harvester_phone_num').val(data.data.harvester_phone_num);
+                // 设置城市
+                $('#province option:selected').val(data.data.province_id);
+                $('#city option:selected').val(data.data.city_id);
+                $('#town option:selected').val(data.data.town_id);
+                var oCity = data.data.city.split(',');
+                $('#province option:selected').html(oCity[0]);
+                $('#city option:selected').html(oCity[1]);
+                $('#town option:selected').html(oCity[2]);
+
+                $('.detail_add').val(data.data.address);
+                // 备注
+            },
+            error: function(){
+                console.log('失败');
+            }
+        });
+    })()
+</script>
+<!-- 编辑保存 -->
+<script>
+    $('.confirm_add').click(function(){
+        var harvester =$('.harvester').val();
+        var harvester_phone_num =$('.harvester_phone_num').val();
+        var phone_num = $('.phone_num').val();
+        var province = $('#province option:selected').html();
+        var city = $('#city option:selected').html();
+        var town = $('#town option:selected').html();
+        var province_id = $('#province option:selected').val();
+        var city_id = $('#city option:selected').val();
+        var town_id = $('#town option:selected').val();
+        var city_information =province+','+city+','+town;
+
+        console.log(town);
+        var detail_add = $('.detail_add').val();
+        console.log(detail_add);
+        $.ajax({
+            url: '{:url("index/self_service/address_edit")}',
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            data: {
+                'harvester':harvester,
+                'harvester_phone_num':harvester_phone_num,
+                'phone_num': phone_num,
+                'province': province,
+                'city': city,
+                'town': town,
+                'address': detail_add,
+                'province_id':province_id,
+                'city_id':city_id,
+                'town_id':town_id,
+                'city_information':city_information,
+                'id': send_add_id
+            },
+            success: function(data){
+                console.log(data);
+                if(data.code ==0){
+                    alert(data.msg);
+                }
+                if(data.status==1){
+                    alert(data.info);
+                    history.go(-1);
+                }
+            },
+            error: function(data){
+                console.log(data);
+
+            }
+        })
+    })
 </script>
 </body>
 </html>

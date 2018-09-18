@@ -65,15 +65,6 @@
         <div class="top">填写信息</div>
         <input class="harvester" type="text" placeholder="收件人">
         <input class="harvester_phone_num" type="text" placeholder="联系电话">
-        <!--<select name="" id="priv">-->
-            <!--<option value="">请选择</option>-->
-        <!--</select>-->
-        <!--<select name="" id="city">-->
-            <!--<option value="">请选择</option>-->
-        <!--</select>-->
-        <!--<select name="" id="town">-->
-            <!--<option value="">请选择</option>-->
-        <!--</select>-->
             <select name="province" id="province" onchange="loadRegion('province',2,'city','{:url("index/Member/getRegions")}');">
             <option value="0" selected>省份/直辖市</option>
             {volist name="province" id="vo"}
