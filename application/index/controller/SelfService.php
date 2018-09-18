@@ -45,6 +45,12 @@ class  SelfService extends  Controller{
                 $serve[$key]["create_time"] = $value["create_time"];
             }
         }
+        $serve_id = db("serve")->select();
+        foreach ($serve_id as $key=>$val){
+            if($val["order_id"] == $serve[$key]['id']){
+                unset($serve[$key]);
+            }
+        }
         return view('repair',["serve"=>$serve]);
     }
 
@@ -92,6 +98,7 @@ class  SelfService extends  Controller{
          if($request->isPost()){
             $serve_data = $request->param();
             $serve_data["status"] = 1;
+            $serve_data["serve_num"] = "SN".date("YmdHis").uniqid();
             $bool = db("serve")->insert($serve_data);
             if($bool){
                 $serve_image = [];
@@ -115,12 +122,15 @@ class  SelfService extends  Controller{
 
 
     /**
-     * 提交成功
+     * 处理中
      * 陈绪
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
     public function processing(){
-        return view('processing');
+
+        $serve = db("serve")->select();
+        return view('processing',["serve"=>$serve]);
+
     }
 
 
@@ -140,8 +150,11 @@ class  SelfService extends  Controller{
      * 陈绪
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
-    public function detail_info(){
+    public function detail_info($id){
+
+        db("serve")->where("id",$id)->update(["status"=>2]);
         return view('detail_info');
+
     }
 
 

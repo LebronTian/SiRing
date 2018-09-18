@@ -11,6 +11,6 @@ use think\Controller;
 
 class Serve extends Controller{
 
-    
+
 
 }
