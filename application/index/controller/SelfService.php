@@ -155,7 +155,7 @@ class  SelfService extends  Controller{
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
     public function detail_info($id){
-        $serve = db("serve")->where("id",$id)->find();
+        $serve = db("serve")->where("id",$id)->select();
         return view('detail_info',["serve"=>$serve]);
 
     }
@@ -184,6 +184,21 @@ class  SelfService extends  Controller{
                
             }
 
+        }
+    }
+
+
+
+    /**
+     * 售后服务订单取消
+     * 陈绪
+     */
+    public function repair_del($id){
+        $bool = db("serve")->where("id",$id)->delete();
+        if($bool){
+            $this->redirect(url("index/self_service/repair"));
+        }else{
+            $this->error("订单取消失败",url("index/self_service/detail_info"));
         }
     }
 

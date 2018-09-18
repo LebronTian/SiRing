@@ -100,21 +100,21 @@
             </div>
         </a>
         <div class="bot">
-            <a href="javascript:;" id="qxsq">取消申请</a>
-            <a href="repair_desc">修改服务单</a>
+            <a href="javascript:cancel_pop();" id="qxsq">取消申请</a>
+            <a href="javascript:;">修改申请</a>
         </div>
     </div>
-    {/volist}
+
 </div>
 <div class="mask" id="mask"></div>
 <div class="pop" id="pop1">
     <div class="cont">确定要取消本次售后申请吗?</div>
     <div class="btn_div">
         <a href="javascript:hide_pop(0);" class="cancel">取消</a>
-        <a href="javascript:hide_pop(1);" class="confirm">确定</a>
+        <a href="{:url('index/self_service/repair_del',['id'=>$value.id])}" class="confirm">确定</a>
     </div>
 </div>
-
+{/volist}
 <script src="__STATIC__/index/js/jquery.js"></script>
 <script>
     $('#qxsq').click(function(){
