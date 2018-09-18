@@ -163,23 +163,23 @@ class  SelfService extends  Controller{
 
     public function  address_edit(Request $request){
         if($request->isPost()){
+            $harvester =$request->only(['harvester'])['harvester'];
+            $harvester_phone_num=$request->only(['harvester_phone_num'])['harvester_phone_num'];
             $order_numbers =$request->only(['id'])['id'];
-            dump($order_numbers);exit();
+            $city_information =$request->only(['city_information'])['city_information'];
             if(!empty($order_numbers)){
-                $datas = Db::name('user')->field('harvester,harvester_phone_num,city,address')->where('phone_num',$member['phone_num'])->find();
-                if(!empty($data['city'])){
-                    $my_position =explode(",",$datas['city']);
-                    $position = $my_position[0].$my_position[1].$my_position[2].$datas['address'];
+                if(!empty($city_information)){
                     $data=[
-                        'city'=>$my_position,
-                        'position'=>$position,
-                        'harvester'=>$datas['harvester'],
-                        'harvester_phone_num'=>$data['harvester_phone_num'],
+                        'harvester'=>$harvester,
+                        'harvest_phone_num'=>$harvester_phone_num,
+                        'harvest_address'=>$city_information,
+
                     ];
-                        if(!empty($data)){
-                            return ajax_success('成功返回数据',$data);
-                        }
-        
+                    $res =Db::name('order')->where('id',$order_numbers)->update($data);
+                    if($res){
+                        return ajax_success('成功',$data);
+
+                    }
                 }
                
             }
