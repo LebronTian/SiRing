@@ -243,14 +243,14 @@ class Goods extends Controller{
                 foreach ($file as $key => $value) {
                     $info = $value->move(ROOT_PATH . 'public' . DS . 'upload');
                     $goods_url = str_replace("\\", "/", $info->getSaveName());
-                    $goods_images[] = ["goods_images" => $goods_url, "goods_id" => $goodsid];
+                    $goods_images[] = ["goods_images" => $goods_url, "goods_id" => $id];
                 }
 
                 $goods_quality_img = $request->file("goods_quality_img");
                 foreach ($goods_quality_img as $val) {
                     $goods_quality_imgs = $val->move(ROOT_PATH . 'public' . DS . 'upload');
                     $goods_quality_imgs_url = str_replace("\\", "/", $goods_quality_imgs->getSaveName());
-                    $goods_images[] = ["goods_quality_img" => $goods_quality_imgs_url, "goods_id" => $goodsid];
+                    $goods_images[] = ["goods_quality_img" => $goods_quality_imgs_url, "goods_id" => $id];
                 }
                 $booldata = model("goods_images")->saveAll($goods_images);
                 if ($booldata) {
