@@ -200,6 +200,10 @@ Route::group("",[
     "Alipay_pay_code"=>"index/Alipay/pay_code",
 
 
+    /*常见问题*/
+    "issue_index"=>"index/Issue/index",
+
+
 ]);
 
 /**
@@ -387,7 +391,6 @@ Route::group("admin",[
 
     /*售后维修*/
     "serve_index"=>"admin/Serve/index",
-    "serve_listing"=>"admin/Serve/listing",
 
 ]);
 

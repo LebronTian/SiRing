@@ -75,6 +75,7 @@ class Goods extends  Controller{
                     foreach ($goods_images as $val) {
                         if ($value['id'] == $val['goods_id']) {
                             $goods[$key]["goods_images"][] = $val["goods_images"];
+                            $goods[$key]["goods_quality_img"][] = $val["goods_quality_img"];
                             $goods[$key]['seckill_status'] = 1;
                             $goods[$key]['goods_bottom_money'] = $seckill['seckill_money'];
                             $goods[$key]['start_time'] = $seckill['start_time'];
@@ -93,6 +94,7 @@ class Goods extends  Controller{
                     foreach ($goods_images as $val) {
                         if ($value['id'] == $val['goods_id']) {
                             $goods[$key]["goods_images"][] = $val["goods_images"];
+                            $goods[$key]["goods_quality_img"][] = $val["goods_quality_img"];
                         }
                     }
                     return ajax_success("成功", $goods);
