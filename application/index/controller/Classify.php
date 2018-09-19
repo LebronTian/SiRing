@@ -20,10 +20,11 @@ class  Classify extends  Controller{
     public function index(Request $request){
         if($request->isPost()){
             $category = db("goods_type")->where("status","<>","0")->select();
-            return ajax_success("获取成功",$category);
+            $categorys = _tree_hTree(_tree_sort($category,"sort_number"));
+            return ajax_success("获取成功",$categorys);
         }
         if($request->isGet()){
-            $category = db("goods_type")->where("status","<>","0")->where("pid","0")->select();
+            $category = db("goods_type")->where("status","<>","0")->where("pid",0)->select();
             $this->assign(["category"=>$category]);
         }
         return view('class_index');

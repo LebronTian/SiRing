@@ -164,11 +164,11 @@
         </div>
 
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-2">规格</label>
+            <label class="form-label col-xs-4 col-sm-2">上传广告图片</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <div class="formControls col-xs-8 col-sm-9">
                     <a href="javascript:;" class="a-upload" style="width:30%;">
-                        <input type="file" name="goods_spec_img" id="myFile4" /><span>上传配件说明小图</span>
+                        <input type="file" name="images" id="myFile4" /><span>选择上传的文件</span>
                     </a>
                     <div class="img_div4"></div>
 
@@ -234,7 +234,7 @@
         var img_html;
         $("#myFile5").change(function() {
             var img_div = $(".img_div5");
-            var filepath = $("input[name='goods_quality_img']").val();
+            var filepath = $("input[name='images']").val();
             for(var i = 0; i < this.files.length; i++) {
                 objUrl = getObjectURL(this.files[i]);
                 var extStart = filepath.lastIndexOf(".");
