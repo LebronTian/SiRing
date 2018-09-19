@@ -19,7 +19,7 @@ class  Classify extends  Controller{
      */
     public function index(Request $request){
         if($request->isPost()){
-            $category = db("goods_type")->where("status","<>","0")->where("pid","0")->select();
+            $category = db("goods_type")->where("status","<>","0")->select();
             return ajax_success("获取成功",$category);
         }
         if($request->isGet()){
