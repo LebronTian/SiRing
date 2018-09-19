@@ -200,6 +200,10 @@ Route::group("",[
     "Alipay_pay_code"=>"index/Alipay/pay_code",
 
 
+    /*常见问题*/
+    "issue_index"=>"index/Issue/index",
+
+
 ]);
 
 /**
