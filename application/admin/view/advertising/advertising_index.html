@@ -107,14 +107,16 @@
                 </tr>
                 </thead>
                 <tbody class="tbody">
+                {volist name="advertising" id="value"}
                     <tr class="text-c va-m">
                         <td><input name="id" type="checkbox" id="ID" value="{$value.id}"></td>
                         <td id="html">{$value.id}</td>
-                        <td><img width="60" class="product-thumb" src="__UPLOADS__/{$value.goods_show_images}"></td>
-                        <td>链接地址</td>
+                        <td><img width="60" class="product-thumb" src="__UPLOAD__/{$value.images}"></td>
+                        <td width="30">{$value.location}</td>
+                        <td>{$value.site}</td>
                         <td class="td-manage">
-                            <a style="text-decoration:none" class="ml-5" onClick="product_edit('产品编辑','{:url("admin/Goods/edit",['id'=>$value.id])}')" href="javascript:;" title="编辑">
-                            <i class="Hui-iconfont">&#xe6df;</i>
+                            <a style="text-decoration:none" class="ml-5" onClick="product_edit('产品编辑','{:url("admin/Advertising/edit",['id'=>$value.id])}')" href="javascript:;" title="编辑">
+                                <i class="Hui-iconfont">&#xe6df;</i>
                             </a>
                             <a style="text-decoration:none" class="ml-5" onclick="product_del(this,'{$value.id}')" href="javascript:;" title="删除">
                                 <i class="Hui-iconfont">&#xe6e2;</i>
@@ -122,6 +124,7 @@
                         </td>
 
                     <tr>
+                {/volist}
                 </tbody>
             </table>
         </div>
@@ -306,7 +309,7 @@
         layer.confirm('确认要删除吗？',function(index){
             $.ajax({
                 type:'POST',
-                url:'{:url("admin/Goods/del")}',
+                url:'{:url("admin/Advertising/del")}',
                 data:{"id":id},
                 dataType: 'json',
                 success: function(data){

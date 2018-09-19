@@ -1,0 +1,346 @@
+{extend name="layout"}
+
+{block name="css"}
+<style type="text/css">
+    .dept_select{min-width: 200px;}
+    .shade,
+    .shade2,
+    .shade3,
+    .shade4,
+    .shade5,
+    .shade6{
+        position: absolute;
+        display: none;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.55);
+    }
+
+    .shade div,
+    .shade2 div,
+    .shade3 div,
+    .shade4 div,
+    .shade5 div,
+    .shade6 div{
+        width: 300px;
+        height: 200px;
+        line-height: 200px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -100px;
+        margin-left: -150px;
+        background: white;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .a-upload {
+        height: 20px;
+        position: relative;
+        cursor: pointer;
+        color: #888;
+        background: #fafafa;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        overflow: hidden;
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+        text-align: center;
+    }
+
+    .a-upload input {
+        position: absolute;
+        font-size: 100px;
+        right: 0;
+        top: 0;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        cursor: pointer
+    }
+
+    .a-upload:hover {
+        color: #444;
+        background: #eee;
+        border-color: #ccc;
+        text-decoration: none
+    }
+    .img_div,
+    .img_div2,
+    .img_div3,
+    .img_div4,
+    .img_div5,
+    .img_div6{
+        min-height: 100px;
+        min-width: 100px;
+        margin-top: 10px;
+    }
+    .isImg,
+    .isImg2,
+    .isImg3,
+    .isImg4,
+    .isImg5,
+    .isImg6{
+        width: 120px;
+        height: 120px;
+        position: relative;
+        float: left;
+        margin-left: 10px;
+    }
+    .removeBtn{
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        z-index: 11;
+        font-size: 14px;
+        color: #fff;
+        border: 0;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.55);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+    }
+    .shadeImg,
+    .shadeImg2,
+    .shadeImg3,
+    .shadeImg4,
+    .shadeImg5,
+    .shadeImg6{
+        position: absolute;
+        display: none;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 15;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.55);
+    }
+    .showImg,
+    .showImg2,
+    .showImg3,
+    .showImg4,
+    .showImg5,
+    .showImg6{
+        width: 400px;
+        height: 500px;
+        margin-top: 140px;
+    }
+    .myiconfont{
+        display: inline-block;
+        width: 35px;
+        height: 15px;
+        line-height: 15px;
+        color: #fff;
+        background-color: red;
+        padding: 0 2px;
+        box-sizing: border-box;
+        border-radius: 4px;
+        font-size: 9px;
+        text-align: center;
+        margin-right: 20px;
+    }
+</style>
+{/block}
+{block name="content"}
+<div class="page-container">
+    <form action="{:url('admin/Advertising/updata')}" method="post" class="form form-horizontal" id="form-article-add" enctype="multipart/form-data">
+        {volist name="data" id="value"}
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>广告位置</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" name="location" value="{$value.location}" style="width: 400px">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>广告链接地址</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" name="site" value="{$value.site}" style="width: 400px">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">广告图片操作</label>
+            <div class="formControls col-xs-8 col-sm-9" style="width:45%;">
+                <table>
+                    <tr style="display:inline-block; width:25%; height:25%; margin-right:5%;">
+                        <td>
+                            <img style="cursor:pointer;" height="160" src="__UPLOAD__/{$value.images}" alt=""><br>
+                            <input type="hidden" class="imgId" value="{$value.id}">
+                            <a href="javascript:;" onclick="product_del(this,'{$value.id}')">图片删除</a>
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">上传广告图片</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <div class="formControls col-xs-8 col-sm-9">
+                    <a href="javascript:;" class="a-upload" style="width:30%;">
+                        <input type="file" name="images" id="myFile4" /><span>选择上传的文件</span>
+                    </a>
+                    <div class="img_div4"></div>
+
+                    <div class="shade4" onclick="javascript:closeShade()">
+                        <div>
+                            <span class="text_span4"></span>
+                        </div>
+                    </div>
+                    <div class="shadeImg4" onclick="javascript:closeShadeImg()">
+                        <div>
+                            <img class="showImg4" src=""/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <input type="hidden" name="id" value="{$value.id}">
+                <button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存并提交</button>
+                <button onclick="window.close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+        {/volist}
+    </form>
+</div>
+{/block}
+{block name="bottom"}
+<script type="text/javascript" src="__STATIC__/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+<script type="text/javascript" src="__STATIC__/admin/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/lib/webuploader/0.1.5/webuploader.min.js"></script>
+<!-- <script type="text/javascript" src="__STATIC__/admin/ckeditor/ckeditor.js"></script> -->
+<script>
+    (function(){
+        //  分类栏目，请求地址获取数据，插入select
+        $.ajax({
+            url:"{:url('admin/Category/ajax_add')}",
+            type:"POST",
+            async:false,
+            timeout:5000,
+            dataType:"json",
+            success:function (data) {
+                var len = data.data.length;
+                for(var i = 0; i < len; i++){
+                    $('#goods-list').append('<option value="'+ data.data[i].id+'">'+ data.data[i].name+'</option>')
+                }
+            },
+            error:function () {
+                console.log("错误");
+            }
+        })
+    }())
+</script>
+<script type="text/javascript">
+    // 质检图片
+    $(function() {
+        var objUrl;
+        var img_html;
+        $("#myFile4").change(function() {
+            var img_div = $(".img_div4");
+            var filepath = $("input[name='images']").val();
+            for(var i = 0; i < this.files.length; i++) {
+                objUrl = getObjectURL(this.files[i]);
+                var extStart = filepath.lastIndexOf(".");
+                var ext = filepath.substring(extStart, filepath.length).toUpperCase();
+                /*
+                 描述：鉴定每个图片上传尾椎限制
+                 * */
+                if(ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {
+                    $(".shade4").fadeIn(500);
+                    $(".text_span4").text("图片限于bmp,png,gif,jpeg,jpg格式");
+                    this.value = "";
+                    $(".img_div4").html("");
+                    return false;
+                } else {
+                    /*
+                     若规则全部通过则在此提交url到后台数据库
+                     * */
+                    img_html = "<div class='isImg4'>\
+                                <img src='" + objUrl + "' onclick='javascript:lookBigImg(this)' style='height: 100%; width: 100%;' />\
+                                <button class='removeBtn' onclick='javascript:removeImg(this)'>x</button>\
+                            </div>";
+                    img_div.append(img_html);
+                }
+            }
+            /*
+             描述：鉴定每个图片大小总和
+             * */
+            var file_size = 0;
+            var all_size = 0;
+            for(j = 0; j < this.files.length; j++) {
+                file_size = this.files[j].size;
+                all_size = all_size + this.files[j].size;
+                var size = all_size / 1024;
+                if(size > 5000) {
+                    $(".shade4").fadeIn(5000);
+                    $(".text_span4").text("上传的图片大小不能超过1000k！");
+                    this.value = "";
+                    $(".img_div4").html("");
+                    return false;
+                }
+            }
+            return true;
+        });
+        /*
+         描述：鉴定每个浏览器上传图片url 目前没有合并到Ie
+         * */
+        function getObjectURL(file) {
+            var url = null;
+            if(window.createObjectURL != undefined) { // basic
+                url = window.createObjectURL(file);
+            } else if(window.URL != undefined) { // mozilla(firefox)
+                url = window.URL.createObjectURL(file);
+            } else if(window.webkitURL != undefined) { // webkit or chrome
+                url = window.webkitURL.createObjectURL(file);
+            }
+            //console.log(url);
+            return url;
+        }
+    });
+    function removeImg(r){
+        $(r).parent().remove();
+    }
+</script>
+<script>
+    /*关闭弹出框口*/
+    function layer_close(){
+        window.opener=null;
+        window.open('','_self');
+        window.close();
+    }
+</script>
+<script>
+    function product_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.ajax({
+                type: 'POST',
+                url: '{:url("admin/Advertising/images")}',
+                data:{"id":id},
+                dataType:"json",
+                success: function(data){
+                    console.log(data);
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                },
+                error:function(data) {
+                    console.log(data.msg);
+                },
+            });
+        });
+    }
+</script>
+{/block}
