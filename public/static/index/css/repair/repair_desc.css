@@ -15,7 +15,7 @@
 	height: 55vh;
 	width: 100%;
 	background-color: #ffffff;
-	
+	z-index: 999;
 }
 
 .fadeIn .head{
