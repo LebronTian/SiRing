@@ -7,6 +7,7 @@
  */
 namespace app\admin\controller;
 use think\Controller;
+use think\Request;
 
 class Advertising extends Controller{
 
@@ -37,7 +38,17 @@ class Advertising extends Controller{
      * 广告图片添加入库
      * 陈绪
      */
-    public function save(){
+    public function save(Request $request){
+        $advertising_data = $request->param();
+        $show_images = $request->file("images");
+        $show_image = $show_images->move(ROOT_PATH . 'public' . DS . 'upload');
+        $advertising_data["images"] = str_replace("\\", "/", $show_image->getSaveName());
+        $bool = db("advertising")->insert($advertising_data);
+        if($bool){
+            $this->redirect(url("admin/Advertising/index"));
+        }else{
+            $this->error("入库错误",url("admin/Advertising/add"));
+        }
 
     }
 

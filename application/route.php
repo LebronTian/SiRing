@@ -397,6 +397,8 @@ Route::group("admin",[
 
     /*广告管理*/
     "advertising_index"=>"admin/Advertising/index",
+    "advertising_add"=>"admin/Advertising/add",
+    "advertising_save"=>"admin/Advertising/save",
 
 ]);
 
