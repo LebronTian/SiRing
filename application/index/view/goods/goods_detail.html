@@ -9,7 +9,6 @@
 		.aui-bar-tab {
 			position: static;
 		}
-
 		.search-input {
 			height: 1.6rem;
 			line-height: 1.6rem;
@@ -21,12 +20,88 @@
 			padding-left: 1.5rem;
 			color: #999999;
 		}
-
 		.search-input:after {
 			position: absolute;
 			left: 0;
 			padding-left: 0.5rem;
 			content: "\e615";
+		}
+		.goods_parts{
+			display: flex;
+			align-items: center;
+			font-size: 12px;
+			color: #000;
+		}
+		.goods_parts_img{
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+			overflow: hidden;
+			margin-right: 5px;
+		}
+		.goods_parts_img img{
+			width: 100%;
+			height: 100%;
+		}
+		.goods_parts_big_img{
+			display: none;
+			position: fixed;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100vh;
+			background-color: #fff;
+			z-index: 999;
+		}
+		.goods_parts_big_img a{
+			position: absolute;
+			right: 0;
+			top: 0;
+			font-size: 35px;
+			color: #aaa;
+			width: 40px;
+			height: 40px;
+			text-align: center;
+			line-height: 40px;
+		}
+		.goods_parts_big_img div{
+			margin-top: 40px;
+			width: 100%;
+			height: auto;
+			overflow-y: scroll;
+		}
+		.goods_parts_big_img div img{
+			width: 100%;
+			height: auto;
+		}
+		.aui-card-list{
+			overflow-x: scroll;
+			overflow-y: hidden;
+			height: 65px;
+		}
+		.aui-card-list img{
+			max-width: initial;
+		}
+		.tabClick{
+			display: none;
+			width: 100%;
+			height: 40px;
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 998;
+			background-color: rgba(200, 200, 200, .3);
+		}
+		.aui-border-t{
+			display: flex !important;
+			justify-content: space-around;
+			align-items: center;
+			height: 55px;
+		}
+		.aui-text-white{
+			height: 36px;
+			line-height: 36px;
+			padding: 0 20px;
 		}
 	</style>
 	<link rel="icon" type="__STATIC__/index/image/x-icon" href="__STATIC__/index/favicon.ico">
@@ -42,9 +117,9 @@
 		<span class="aui-iconfont aui-icon-left" style="font-weight:800"></span>
 	</a>
 	<div class="aui-title">商品详情</div>
-	<a class="aui-pull-right aui-btn">
+	<!-- <a class="aui-pull-right aui-btn">
 		<span class="aui-iconfont aui-icon-more" tapmode onclick="showPopup('top-right')" style="display:block; height:40px; line-height:40px;"></span>
-	</a>
+	</a> -->
 </header>
 <div id="aui-slide2">
 	<div class="aui-slide-wrap" style="height:100%;">
@@ -80,234 +155,29 @@
 </div>
 <div class="div-border t-line"></div>
 <div class="aui-title-shout t-line">
-	<p>【首单支付】首单立减15元</p>
+	<a href="javascript:$('.goods_parts_big_img').show();">
+		<p class="goods_parts">
+			<span class="goods_parts_img"></span>
+			<span class="goods_parts_cont">【首单支付】首单立减15元</span>
+		</p>
+	</a>
 </div>
 <div class="div-border t-line"></div>
-<section class="aui-content-padded t-line" style="padding:0 20px; margin:0">
-	<div class="aui-card-list" style="padding:0; background:none">
-		<div class="aui-card-list-header aui-collapse-header" style="padding: 0" tapmode>
-			<div class="aui-title-text-hot">购买1件可优惠换购热销商品</div>
-			<i class="aui-iconfont aui-icon-down aui-collapse-arrow" style="font-weight:800"></i>
-		</div>
-		<div class="aui-card-list-content-padded aui-collapse-content">
-			<div class="aui-row aui-row-padded">
-				<p>购买1件可优惠换购热销商品</p>
-				<p>购买1件可优惠换购热销商品</p>
-				<p>买苹果指定产品送双节大礼包</p>
-				<p>最高省￥39.00</p>
-			</div>
-		</div>
-	</div>
+<section class="aui-content-padded t-line" style="margin:0">
+	<div class="aui-card-list"></div>
 </section>
 <div class="div-border t-line"></div>
 <div class="wrap" id="wrap">
 	<ul class="tabClick">
-		<li class="active">商品介绍</li>
+		<li>商品介绍</li>
 		<li>规格参数</li>
 		<li>包装售后</li>
 	</ul>
 	<div class="lineBorder">
-		<div class="lineDiv">
-			<!--移动的div-->
-		</div>
+		<div class="lineDiv"></div>
 	</div>
 	<div class="tabCon">
-		<div class="tabBox">
-			<div class="tabList">
-				<div style="margin-top:10px;">
-				</div>
-			</div>
-			<div class="tabList">
-				<div class="detail" id="wareStandard" style="display: block;">
-					<table class="table-border" width="100%">
-						<tbody>
-						<tr>
-							<td colspan="2">
-								<strong>基本信息</strong>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								机身宽度<br>(mm）
-							</td>
-							<td>67.1</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<strong>存储</strong>
-							</td>
-						</tr>
-						<tr>
-							<td>ROM</td>
-							<td>32GB</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<strong>前置摄像头</strong>
-							</td>
-						</tr>
-						<tr>
-							<td>前置摄像头</td>
-							<td>700万像素</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<strong>数据接口</strong>
-							</td>
-						</tr>
-						<tr>
-							<td>充电接口类型</td>
-							<td>Lightning(iphone)</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<strong>网络支持</strong>
-							</td>
-						</tr>
-						<tr>
-							<td>双卡机类型</td>
-							<td>单卡</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<strong>手机特性</strong>
-							</td>
-						</tr>
-						<tr>
-							<td>GPS</td>
-							<td>支持</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<strong>主芯片</strong>
-							</td>
-						</tr>
-						<tr>
-							<td>CPU品牌</td>
-							<td>以官网信息为准</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<strong>辅助功能</strong>
-							</td>
-						</tr>
-						<tr>
-							<td>其他特性</td>
-							<td>iPhone 7 和 iPhone 7 Plus 可防溅、抗水、防尘，在受控实验室条件下经测试，其效果在 IEC 60529 标准下达到 IP67 级别。防溅、抗水、防尘功能并非永久有效</td>
-						</tr>
-						<tr>
-							<td>其他1</td>
-							<td>防护性能可能会因日常磨损而下降。请勿为潮湿状态下的 iPhone 充电；请参阅使用手册了解清洁和干燥说明。由于浸入液体而导致的损坏不在保修范围之内。</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<strong>主体</strong>
-							</td>
-						</tr>
-						<tr>
-							<td>上市年份</td>
-							<td>2016年</td>
-						</tr>
-						<tr>
-							<td>型号</td>
-							<td>iPhone 7 </td>
-						</tr>
-						<tr>
-							<td>入网型号</td>
-							<td>A1660</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<strong>操作系统</strong>
-							</td>
-						</tr>
-						<tr>
-							<td>操作系统</td>
-							<td>以官网信息为准</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<strong>电池信息</strong>
-							</td>
-						</tr>
-						<tr>
-							<td>电池是否可拆卸</td>
-							<td>否</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<strong>屏幕</strong>
-							</td>
-						</tr>
-						<tr>
-							<td>屏幕材质类型</td>
-							<td>其他</td>
-						</tr>
-						<tr>
-							<td>
-								主屏幕尺寸<br>(英寸）
-							</td>
-							<td>4.7英寸</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<strong>后置摄像头</strong>
-							</td>
-						</tr>
-						<tr>
-							<td>后置摄像头</td>
-							<td>1200万像素</td>
-						</tr>
-						<tr>
-							<td>摄像头数量</td>
-							<td>1个</td>
-						</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<div class="tabList">
-				<div class="detail sale-service-wrap" id="warePack" style="display: block;">
-					<div class="sale-service-grey bdr-t"></div>
-					<div class="sale-service-floor bdr-t">
-						<div class="sale-service-title">
-                                    <span class="title-text">
-                                        包装清单<span></span>
-                                    </span>
-						</div>
-						<div class="sale-service-content">
-							装有 iOS 10 的 iPhone*1，采用 Lightning 接头的 EarPods*1，Lightning 至 3.5 毫米耳机插孔转换器*1，Lightning 至 USB 连接线*1，USB 电源适配器*1，资料*1.<table cellpadding="0" cellspacing="1" width="100%" border="0" class="Ptable"></table>
-						</div>
-					</div>
-					<div class="sale-service-grey bdr-t"></div>
-					<div class="sale-service-floor bdr-t">
-						<div class="sale-service-title">
-                                    <span class="title-text">
-                                        售后服务<span></span>
-                                    </span>
-						</div>
-						<div class="sale-service-content">
-							本产品全国联保，享受三包服务，质保期为：一年质保（已激活的iPhone无质量问题不支持7天无理由退换货）<br>
-							如因质量问题或故障，凭厂商维修中心或特约维修点的质量检测证明，享受7日内退货，15日内换货，15日以上在质保期内享受免费保修等三包服务！<br>
-						</div>
-					</div>
-					<div class="sale-service-grey bdr-t"></div>
-					<div class="sale-service-floor bdr-t">
-						<div class="sale-service-title">
-                                    <span class="title-text">
-                                        价格说明<span></span>
-                                    </span>
-						</div>
-						<div class="sale-service-content">
-							1、口袋价：口袋价为商品的销售价，是您最终决定是否购买商品的依据。<br>
-							2、划线价：商品展示的划横线价格为参考价，该价格可能是品牌专柜标价、商品吊牌价或由品牌供应商提供的正品零售价（如厂商指导价、建议零售价等）或该商品在口袋平台上曾经展示过的销售价；由于地区、时间的差异性和市场行情波动，品牌专柜标价、商品吊牌价等可能会与您购物时展示的不一致，该价格仅供您参考。<br>
-							3、折扣：如无特殊说明，折扣指销售商在原价、或划线价（如品牌专柜标价、商品吊牌价、厂商指导价、厂商建议零售价）等某一价格基础上计算出的优惠比例或优惠金额；如有疑问，您可在购买前联系销售商进行咨询。<br>
-							4、异常问题：商品促销信息以商品详情页“促销”栏中的信息为准；商品的具体售价以订单结算页价格为准；如您发现活动商品售价或促销信息有异常，建议购买前先联系销售商咨询。<br>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<div class="tabBox"></div>
 	</div>
 </div>
 <div style="height:52px"></div>
@@ -412,9 +282,14 @@
 		<a href="{:url('index/Shopping/index')}"><i class="aui-iconfont aui-icon-cart star_info" style="color:#757575"></i></a>
 		<div class="aui-bar-tab-label star_info">购物车</div>
 	</div>
-	<div class="aui-bar-tab-item aui-bg-warning aui-text-white" tapmode style="width: auto;border-top-left-radius: 30px;border-bottom-left-radius: 30px" id="add_to_cart">加入购物车</div>
-	<div class="aui-bar-tab-item aui-bg-danger aui-text-white" tapmode style="width: auto;border-top-right-radius: 30px;border-bottom-right-radius: 30px;"  id="buy_now">立即购买</div>
+	<div class="aui-bar-tab-item aui-bg-warning aui-text-white" tapmode style="border-top-left-radius: 18px;border-bottom-left-radius: 18px;" id="add_to_cart">加入购物车</div>
+	<div class="aui-bar-tab-item aui-bg-danger aui-text-white" tapmode style="border-top-right-radius: 18px; border-bottom-right-radius: 18px;" id="buy_now">立即购买</div>
 </footer>
+<!-- 配件大图 -->
+<div class="goods_parts_big_img">
+	<a href="javascript:$('.goods_parts_big_img').hide();;">×</a>
+	<div></div>
+</div>
 <script src="__STATIC__/index/js/swiper-4.3.5.min.js"></script>
 <script type="text/javascript" src="__STATIC__/index/js/index/api.js"></script>
 <script type="text/javascript" src="__STATIC__/index/js/index/aui-popup-new.js"></script>
@@ -423,7 +298,14 @@
 <script src="__STATIC__/index/js/index/jquery.min.js"></script>
 <script src="__STATIC__/index/js/index/ratchet.min.js"></script>
 <script>
-
+	window.onscroll = function() {
+		var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+		if(scrollTop >= 100){
+			$('.tabClick').show();
+		}else if(scrollTop == 0){
+			$('.tabClick').hide();
+		}
+	}
 	var xid;
 	(function(){
 		$.ajax({
@@ -437,12 +319,34 @@
 				// 轮播图
 				var img_len = data.goods_images.length;
 				for(var i = 0; i < img_len; i++){
-					$('.swiper-wrapper').append('<div class="swiper-slide"><img src="__UPLOAD__/'+data.goods_images[i]+'"></div>');
-												
+					if(data.goods_images[i] !== null){
+						$('.swiper-wrapper').append('<div class="swiper-slide"><img src="__UPLOAD__/'+data.goods_images[i]+'"></div>');
+					}							
 				}
 				// 标题
-				$('.goods_desc').html('<span>促销</span>'+data.goods_name+'');
+				var str = '';
+				var sign_len = data.goods_sign.split(',').length;
+				for(var i = 0; i < sign_len; i++){
+					str += '<span>'+data.goods_sign.split(',')[i]+'</span>';
+				}
+				$('.goods_desc').html(str + data.goods_name+'');
 				$('.goods_desc')[0].id = "desc_" + data.id;
+				
+				// 赠送配件说明
+				$('.goods_parts_cont').html(data.goods_parts);
+				$('.goods_parts_img').html('<img src="__UPLOADS__/'+data.goods_parts_img+'">')
+				// 配件大图
+				$('.goods_parts_big_img div').html('<img src="__UPLOADS__/'+data.goods_parts_big_img+'">');
+				// 规格图片
+				$('.aui-card-list').append('<img src="__UPLOADS__/'+data.goods_spec_img+'">')
+				// 质检图
+				$.each(data.goods_quality_img,function(idx, val){
+					var str = '';
+					if(val !== null){
+						str += '<img src="__UPLOAD__/'+data.goods_quality_img[i]+'">';
+					}
+					$('.tabBox').append(str);
+				})
 				// 价格
 				$('.price').html('￥'+data.goods_bottom_money+'');
 				xid = data.id;
@@ -510,130 +414,6 @@
 			}
 		})
 	})()
-</script>
-<script charset="utf-8">
-    window.onload = function() {
-        var windowWidth = document.body.clientWidth;
-        //window 宽度;
-        var wrap = document.getElementById('wrap');
-        var tabClick = wrap.querySelectorAll('.tabClick')[0];
-        var tabLi = tabClick.getElementsByTagName('li');
-
-        var tabBox = wrap.querySelectorAll('.tabBox')[0];
-        var tabList = tabBox.querySelectorAll('.tabList');
-
-        var lineBorder = wrap.querySelectorAll('.lineBorder')[0];
-        var lineDiv = lineBorder.querySelectorAll('.lineDiv')[0];
-
-        var tar = 0;
-        var endX = 0;
-        var dist = 0;
-
-        tabBox.style.overflow = 'hidden';
-        tabBox.style.position = 'relative';
-        tabBox.style.width = windowWidth * tabList.length + "px";
-
-        for (var i = 0; i < tabLi.length; i++) {
-            tabList[i].style.width = windowWidth + "px";
-            tabList[i].style.float = 'left';
-            tabList[i].style.float = 'left';
-            tabList[i].style.padding = '0';
-            tabList[i].style.margin = '0';
-            tabList[i].style.verticalAlign = 'top';
-            tabList[i].style.display = 'table-cell';
-        }
-
-        for (var i = 0; i < tabLi.length; i++) {
-            tabLi[i].start = i;
-            tabLi[i].onclick = function() {
-                var star = this.start;
-                for (var i = 0; i < tabLi.length; i++) {
-                    tabLi[i].className = '';
-                }
-                ;tabLi[star].className = 'active';
-                init.lineAnme(lineDiv, windowWidth / tabLi.length * star)
-                init.translate(tabBox, windowWidth, star);
-                endX = -star * windowWidth;
-            }
-        }
-
-        function OnTab(star) {
-            if (star < 0) {
-                star = 0;
-            } else if (star >= tabLi.length) {
-                star = tabLi.length - 1
-            }
-            for (var i = 0; i < tabLi.length; i++) {
-                tabLi[i].className = '';
-            }
-            ;
-            tabLi[star].className = 'active';
-            init.translate(tabBox, windowWidth, star);
-            endX = -star * windowWidth;
-        }
-        ;
-        tabBox.addEventListener('touchstart', chstart, false);
-        // tabBox.addEventListener('touchmove', chmove, false);
-        tabBox.addEventListener('touchend', chend, false);
-        //按下
-        function chstart(ev) {
-            ev.preventDefault;
-            var touch = ev.touches[0];
-            tar = touch.pageX;
-            tabBox.style.webkitTransition = 'all 0s ease-in-out';
-            tabBox.style.transition = 'all 0s ease-in-out';
-        };
-        function chend(ev) {
-            var str = tabBox.style.transform;
-            var strs = JSON.stringify(str.split(",", 1));
-            endX = Number(strs.substr(14, strs.length - 18));
-
-            if (endX > 0) {
-                init.back(tabBox, windowWidth, tar, 0, 0, 0.3);
-                endX = 0
-            } else if (endX < -windowWidth * tabList.length + windowWidth) {
-                endX = -windowWidth * tabList.length + windowWidth
-                init.back(tabBox, windowWidth, tar, 0, endX, 0.3);
-            } else if (dist < -windowWidth / 3) {
-                OnTab(tabClick.querySelector('.active').start + 1);
-                init.back(tabBox, windowWidth, tar, 0, endX, 0.3);
-            } else if (dist > windowWidth / 3) {
-                OnTab(tabClick.querySelector('.active').start - 1);
-            } else {
-                OnTab(tabClick.querySelector('.active').start);
-            }
-            var stars = wrap.querySelector('.active').start;
-            init.lineAnme(lineDiv, stars * windowWidth / 4);
-
-        }
-        ;
-    }
-    ;
-
-    var init = {
-        translate: function(obj, windowWidth, star) {
-            obj.style.webkitTransform = 'translate3d(' + -star * windowWidth + 'px,0,0)';
-            obj.style.transform = 'translate3d(' + -star * windowWidth + ',0,0)px';
-            obj.style.webkitTransition = 'all 0.3s ease-in-out';
-            obj.style.transition = 'all 0.3s ease-in-out';
-        },
-        touchs: function(obj, windowWidth, tar, distance, endX) {
-            obj.style.webkitTransform = 'translate3d(' + (distance + endX) + 'px,0,0)';
-            obj.style.transform = 'translate3d(' + (distance + endX) + ',0,0)px';
-        },
-        lineAnme: function(obj, stance) {
-            obj.style.webkitTransform = 'translate3d(' + stance + 'px,0,0)';
-            obj.style.transform = 'translate3d(' + stance + 'px,0,0)';
-            obj.style.webkitTransition = 'all 0.1s ease-in-out';
-            obj.style.transition = 'all 0.1s ease-in-out';
-        },
-        back: function(obj, windowWidth, tar, distance, endX, time) {
-            obj.style.webkitTransform = 'translate3d(' + (distance + endX) + 'px,0,0)';
-            obj.style.transform = 'translate3d(' + (distance + endX) + ',0,0)px';
-            obj.style.webkitTransition = 'all ' + time + 's ease-in-out';
-            obj.style.transition = 'all ' + time + 's ease-in-out';
-        },
-    }
 </script>
 <script type="text/javascript">
     $(function () {
@@ -753,7 +533,7 @@
 	 var mySwiper = new Swiper ('.swiper-container', {
         direction: 'horizontal',
         loop: true,
-        // autoplay: true,
+        autoplay: true,
         delay: 3000,
         // 如果需要分页器
         pagination: {
@@ -878,7 +658,7 @@
 				   }
                 },
                 error: function(){
-                    console.log('未收藏')
+                    // console.log('未收藏')
                 }
             })
         })()
