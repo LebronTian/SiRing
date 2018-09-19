@@ -392,6 +392,11 @@ Route::group("admin",[
     /*售后维修*/
     "serve_index"=>"admin/Serve/index",
 
+
+
+    /*广告管理*/
+    "advertising_index"=>"admin/Advertising/index",
+
 ]);
 
 Route::miss("public/miss");
