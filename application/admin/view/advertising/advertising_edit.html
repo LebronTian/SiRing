@@ -148,20 +148,36 @@
 {/block}
 {block name="content"}
 <div class="page-container">
-    <form action="{:url('admin/Advertising/save')}" method="post" class="form form-horizontal" id="form-article-add" enctype="multipart/form-data">
+    <form action="{:url('admin/Advertising/updata')}" method="post" class="form form-horizontal" id="form-article-add" enctype="multipart/form-data">
+        {volist name="data" id="value"}
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>广告位置</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" name="location" value="" placeholder="请输入" id="" style="width: 400px">
+                <input type="text" class="input-text" name="location" value="{$value.location}" style="width: 400px">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>广告链接地址</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" name="site" placeholder="请输入" style="width: 400px">
+                <input type="text" class="input-text" name="site" value="{$value.site}" style="width: 400px">
             </div>
         </div>
 
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">广告图片操作</label>
+            <div class="formControls col-xs-8 col-sm-9" style="width:45%;">
+                <table>
+                    <tr style="display:inline-block; width:25%; height:25%; margin-right:5%;">
+                        <td>
+                            <img style="cursor:pointer;" height="160" src="__UPLOAD__/{$value.images}" alt=""><br>
+                            <input type="hidden" class="imgId" value="{$value.id}">
+                            <a href="javascript:;" onclick="product_del(this,'{$value.id}')">图片删除</a>
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+        </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">上传广告图片</label>
             <div class="formControls col-xs-8 col-sm-9">
@@ -188,10 +204,12 @@
 
         <div class="row cl">
             <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <input type="hidden" name="id" value="{$value.id}">
                 <button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存并提交</button>
                 <button onclick="window.close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
             </div>
         </div>
+        {/volist}
     </form>
 </div>
 {/block}
@@ -303,6 +321,26 @@
         window.opener=null;
         window.open('','_self');
         window.close();
+    }
+</script>
+<script>
+    function product_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.ajax({
+                type: 'POST',
+                url: '{:url("admin/Advertising/images")}',
+                data:{"id":id},
+                dataType:"json",
+                success: function(data){
+                    console.log(data);
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                },
+                error:function(data) {
+                    console.log(data.msg);
+                },
+            });
+        });
     }
 </script>
 {/block}

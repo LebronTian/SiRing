@@ -397,6 +397,12 @@ Route::group("admin",[
 
     /*广告管理*/
     "advertising_index"=>"admin/Advertising/index",
+    "advertising_add"=>"admin/Advertising/add",
+    "advertising_save"=>"admin/Advertising/save",
+    "advertising_del"=>"admin/Advertising/del",
+    "advertising_edit"=>"admin/Advertising/edit",
+    "advertising_updata"=>"admin/Advertising/updata",
+    "advertising_images"=>"admin/Advertising/images",
 
 ]);
 
