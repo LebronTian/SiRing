@@ -26,6 +26,7 @@ Route::group("",[
     "goods_detail"=>"index/Goods/detail",
     "goods_id"=>"index/Goods/ajax_id",
     "particulars_id"=>"index/Goods/goods_id",
+    "goods_big_images"=>"index/Goods/big_images",
 
 
     /*分类*/

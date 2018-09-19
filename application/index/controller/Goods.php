@@ -106,4 +106,16 @@ class Goods extends  Controller{
 
 
 
+    /**
+     * 配件大图
+     * 陈绪
+     */
+    public function big_images(){
+
+        return view("goods_big_images");
+
+    }
+
+
+
 }
