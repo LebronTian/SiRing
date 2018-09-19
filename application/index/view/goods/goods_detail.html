@@ -9,7 +9,6 @@
 		.aui-bar-tab {
 			position: static;
 		}
-
 		.search-input {
 			height: 1.6rem;
 			line-height: 1.6rem;
@@ -21,12 +20,28 @@
 			padding-left: 1.5rem;
 			color: #999999;
 		}
-
 		.search-input:after {
 			position: absolute;
 			left: 0;
 			padding-left: 0.5rem;
 			content: "\e615";
+		}
+		.goods_parts{
+			display: flex;
+			align-items: center;
+			font-size: 12px;
+			color: #000;
+		}
+		.goods_parts_img{
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+			overflow: hidden;
+			margin-right: 5px;
+		}
+		.goods_parts_img img{
+			width: 100%;
+			height: 100%;
 		}
 	</style>
 	<link rel="icon" type="__STATIC__/index/image/x-icon" href="__STATIC__/index/favicon.ico">
@@ -80,7 +95,12 @@
 </div>
 <div class="div-border t-line"></div>
 <div class="aui-title-shout t-line">
-	<p>【首单支付】首单立减15元</p>
+	<a href="javascript:;">
+		<p class="goods_parts">
+			<span class="goods_parts_img"></span>
+			<span class="goods_parts_cont">【首单支付】首单立减15元</span>
+		</p>
+	</a>
 </div>
 <div class="div-border t-line"></div>
 <section class="aui-content-padded t-line" style="padding:0 20px; margin:0">
@@ -437,12 +457,22 @@
 				// 轮播图
 				var img_len = data.goods_images.length;
 				for(var i = 0; i < img_len; i++){
-					$('.swiper-wrapper').append('<div class="swiper-slide"><img src="__UPLOAD__/'+data.goods_images[i]+'"></div>');
-												
+					if(data.goods_images[i] !== null){
+						$('.swiper-wrapper').append('<div class="swiper-slide"><img src="__UPLOAD__/'+data.goods_images[i]+'"></div>');
+					}							
 				}
 				// 标题
-				$('.goods_desc').html('<span>促销</span>'+data.goods_name+'');
+				var str = '';
+				var sign_len = data.goods_sign.split(',').length;
+				for(var i = 0; i < sign_len; i++){
+					str += '<span>'+data.goods_sign.split(',')[i]+'</span>';
+				}
+				$('.goods_desc').html(str + data.goods_name+'');
 				$('.goods_desc')[0].id = "desc_" + data.id;
+				
+				// 赠送配件说明
+				$('.goods_parts_cont').html(data.goods_parts);
+				$('.goods_parts_img').html('<img src="__UPLOADS__/'+data.goods_parts_img+'">')
 				// 价格
 				$('.price').html('￥'+data.goods_bottom_money+'');
 				xid = data.id;
@@ -753,7 +783,7 @@
 	 var mySwiper = new Swiper ('.swiper-container', {
         direction: 'horizontal',
         loop: true,
-        // autoplay: true,
+        autoplay: true,
         delay: 3000,
         // 如果需要分页器
         pagination: {
@@ -878,7 +908,7 @@
 				   }
                 },
                 error: function(){
-                    console.log('未收藏')
+                    // console.log('未收藏')
                 }
             })
         })()
