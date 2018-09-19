@@ -9304,7 +9304,6 @@ em.jx-floor-jump-icon {
 	margin-right:4%;
 }
 
-.tabClick{ background: #f3f3f3; overflow: hidden}
 .tabClick li{ height:40px; line-height: 40px; width: 33.33%; float: left; text-align: center; font-size:14px;}
 .tabClick li.active{ color: #f15353; transition: 0.1s;}
 .tabCon{ overflow: hidden}
