@@ -259,6 +259,7 @@
             console.log(data);
             order_id = data.data.id;
             send_add_id = data.data.id;
+            user_id = data.data.user_id;
             $('.confirm').click(function(){
                 var goods_num = $('.goods_num input').val();
                 if( goods_num == ''){
@@ -335,7 +336,9 @@
         formData.append('harvester', harvester);
         formData.append('order_id', order_id);
         formData.append('order_num', order_num);
-        formData.append('applicant_num', apply_num);      
+        formData.append('applicant_num', apply_num);
+        formData.append('user_id', user_id);
+
         if($('#desc_cont').val() == ''){
             alert('请描述商品问题');
         }else if($('.isImg').length == 0){
