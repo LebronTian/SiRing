@@ -2,6 +2,17 @@
 
 {block name="css"}
 <link rel="stylesheet" href="__STATIC__/admin/serve/serve_index.css">
+<style>
+    .mask1{
+        display: none;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, .4);
+    }
+</style>
 {/block}
 
 {block name="content"}
@@ -45,7 +56,7 @@
         </div>
     </div>
 </div>
-<!-- <div class="mask"></div> -->
+<div class="mask1"></div>
 <!-- 审核中 -->
 <div class="pop pop1" style="display:none;">
     <div class="pop_title">
@@ -88,7 +99,7 @@
         </div>
     </div>
 </div>
-<!-- 已收货 -->
+<!-- 审核通过 -->
 <div class="pop pop3" style="display:none;">
     <div class="pop_title">
         <p>审核通过</p>
@@ -110,7 +121,7 @@
         <a href="javascript:;" class="ysh">已收货</a>
     </div>
 </div>
-<!-- 已处理 -->
+<!-- 已收货 -->
 <div class="pop pop4" style="display:none;">
     <div class="pop_title">
         <p>已收货</p>
@@ -132,7 +143,7 @@
         <a href="javascript:;" class="ycl">已处理</a>
     </div>
 </div>
-<!-- 已完成 -->
+<!-- 已处理 -->
 <div class="pop pop5" style="display:none;">
     <div class="pop_title">
         <p>已处理</p>
@@ -152,6 +163,25 @@
     </div>
     <div class="pop_btn">
         <a href="javascript:;" class="ywc">已完成</a>
+    </div>
+</div>
+<!-- 已完成 -->
+<div class="pop pop6" style="display:none;">
+    <div class="pop_title">
+        <p>已完成</p>
+        <a href="javascript:;" class="pop_close">×</a>
+    </div>
+    <div class="pop_cont">
+        <div class="user_cont">
+            <span>用户反馈：</span>
+            <p>手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡
+                手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡
+            </p>
+        </div>
+        <div class="remark_cont">
+            <span>后台回复：</span>
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+        </div>
     </div>
 </div>
 
@@ -194,6 +224,26 @@
                 break;
         }
         $(this).parents('.pop').hide();
+        $('.mask1').hide();
+        console.log(status_id)
+        var reply = $(this).parents('.pop').find('textarea').val();
+        $.ajax({
+            url: '{:url("admin/Serve/status")}',
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            data: {
+                'reply': reply,
+                'status': status,
+                'id': status_id
+            },
+            success: function(data){
+                console.log(data)
+            },
+            error: function(){
+                console.log('错误');
+            }
+        })
     })
 </script>
 <script>
@@ -261,27 +311,34 @@
             console.log('错误');
         }
     })
-
+    var status_id;
     $('.status_btn').click(function(){
+        status_id = $(this)[0].id;
         var status = $(this)[0].innerHTML;
         switch(status){
             case '审核中':
                 $('.pop1').show();
+                $('.mask1').show();
                 break;
             case '已拒绝':
                 $('.pop2').show();
+                $('.mask1').show();
                 break;
             case '审核通过':
                 $('.pop3').show();
+                $('.mask1').show();
                 break;
             case '已收货':
                 $('.pop4').show();
+                $('.mask1').show();
                 break;
             case '已处理':
                 $('.pop5').show();
+                $('.mask1').show();
                 break;
             case '已完成':
                 $('.pop6').show();
+                $('.mask1').show();
                 break;
         }
     })
