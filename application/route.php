@@ -26,6 +26,7 @@ Route::group("",[
     "goods_detail"=>"index/Goods/detail",
     "goods_id"=>"index/Goods/ajax_id",
     "particulars_id"=>"index/Goods/goods_id",
+    "goods_big_images"=>"index/Goods/big_images",
 
 
     /*分类*/
@@ -113,12 +114,17 @@ Route::group("",[
     'repair_index'=>"index/self_service/repair", //售后维修
     'address_edit'=>"index/self_service/address_edit", //售后地址修改
     'repair_desc'=>"index/self_service/repair_desc", //问题描述
+    'repair_desc_edit'=>"index/self_service/repair_desc_edit", //问题描述
     'successful_sub'=>"index/self_service/successful_sub", //提交成功
     'processing'=>"index/self_service/processing", //处理中
     'evaluations'=>"index/self_service/evaluation", //待评价
     'detail_info'=>"index/self_service/detail_info", //服务单详情
     'detail_ajax'=>"index/self_service/repair_ajax", //获取售后商品信息
- 
+    'detail_del'=>"index/self_service/repair_del", //售后服务订单取消
+    'detail_images'=>"index/self_service/detail_images", //售后图片删除
+    'detail_updata'=>"index/self_service/updata", //售后服务订单更新
+
+
 
 
     /*登录页面*/
@@ -195,6 +201,10 @@ Route::group("",[
     "Alipay_pay_code"=>"index/Alipay/pay_code",
 
 
+    /*常见问题*/
+    "issue_index"=>"index/Issue/index",
+
+
 ]);
 
 /**
@@ -264,6 +274,7 @@ Route::group("admin",[
     "category_del"=>"admin/Category/del",
     "category_updata"=>"admin/Category/updata",
     "category_ajax"=>"admin/Category/ajax_add",
+    "category_images"=>"admin/Category/images",
 
 
     /*会员管理*/
@@ -382,7 +393,17 @@ Route::group("admin",[
 
     /*售后维修*/
     "serve_index"=>"admin/Serve/index",
-    "serve_listing"=>"admin/Serve/listing",
+
+
+
+    /*广告管理*/
+    "advertising_index"=>"admin/Advertising/index",
+    "advertising_add"=>"admin/Advertising/add",
+    "advertising_save"=>"admin/Advertising/save",
+    "advertising_del"=>"admin/Advertising/del",
+    "advertising_edit"=>"admin/Advertising/edit",
+    "advertising_updata"=>"admin/Advertising/updata",
+    "advertising_images"=>"admin/Advertising/images",
 
 ]);
 

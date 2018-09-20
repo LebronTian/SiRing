@@ -1880,9 +1880,9 @@ body.without-third-sidebar #app-third-sidebar {
     }
 }
 
-.loading {
+/* .loading {
     background: url("images/loader.gif") center center no-repeat
-}
+} */
 
 .loading.absolute {
     position: absolute;
@@ -2120,9 +2120,9 @@ body.without-third-sidebar #app-third-sidebar {
     bottom: 0
 }
 
-.image-loading .module-loading {
+/* .image-loading .module-loading {
     background: url("images/loader.gif") center center no-repeat
-}
+} */
 
 .image-loading .module-loading.absolute {
     position: absolute;
@@ -21511,7 +21511,7 @@ body.show-help #app-third-sidebar {
     margin-top: 10px;
     width: 16px;
     height: 16px;
-    background: url("images/loader.gif") no-repeat center center;
+    /* background: url("images/loader.gif") no-repeat center center; */
     background-size: 16px 16px
 }
 
@@ -30187,7 +30187,7 @@ body.show-help #app-third-sidebar {
 }
 
 .app-preview .www-tpl-usercenter .loading {
-    background-image: url("images/loader.gif") !important;
+    /* background-image: url("images/loader.gif") !important; */
     background-repeat: no-repeat !important;
     background-position: center center !important;
     background-size: 16px 16px
@@ -32258,7 +32258,7 @@ body.show-help #app-third-sidebar {
     width: 150px;
     height: 200px;
     overflow: hidden;
-    background: url("images/loader.gif") 50% no-repeat
+    /* background: url("images/loader.gif") 50% no-repeat */
 }
 
 .widget-feature-template .img-wrap:hover .template-cover {

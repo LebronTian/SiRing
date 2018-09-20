@@ -27,10 +27,10 @@ class Role extends Controller
      * [角色节点查询]
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
-    public function add(){
+    public function add(Request $request){
         $roles = db("role")->field("id,name")->select();
-        $menu_list = db("menu")->where("status","<>",0)->select();
-        $menu_lists = _tree_hTree(_tree_sort($menu_list,"sort_number"));
+        $menu_list = db("menu")->where("status", "<>", 0)->select();
+        $menu_lists = _tree_hTree(_tree_sort($menu_list, "sort_number"));
         return view("save",["roles"=>$roles,"menu_lists"=>$menu_lists]);
     }
 

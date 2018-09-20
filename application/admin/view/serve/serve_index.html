@@ -1,239 +1,14 @@
 {extend name="layout"}
 
 {block name="css"}
-<style>
-    .pagination{text-align:center;margin-top:20px;margin-bottom: 20px;}
-    .pagination li{margin:0px 10px; border:1px solid #e6e6e6;padding: 3px 8px;display: inline-block;}
-    .pagination .active{background-color: #dd1a20;color: #fff;}
-    .pagination .disabled{color:#aaa;}
-    .dept_select{min-width: 200px;}
-    .shade {
-        position: absolute;
-        display: none;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        background: rgba(0, 0, 0, 0.55);
-    }
-
-    .shade div {
-        width: 300px;
-        height: 200px;
-        line-height: 200px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin-top: -100px;
-        margin-left: -150px;
-        background: white;
-        border-radius: 5px;
-        text-align: center;
-    }
-
-    .a-upload {
-        padding: 4px 10px;
-        height: 20px;
-        line-height: 20px;
-        position: relative;
-        cursor: pointer;
-        color: #888;
-        background: #fafafa;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        overflow: hidden;
-        display: inline-block;
-        *display: inline;
-        *zoom: 1
-    }
-
-    .a-upload input {
-        position: absolute;
-        font-size: 100px;
-        right: 0;
-        top: 0;
-        opacity: 0;
-        filter: alpha(opacity=0);
-        cursor: pointer
-    }
-
-    .a-upload:hover {
-        color: #444;
-        background: #eee;
-        border-color: #ccc;
-        text-decoration: none
-    }
-    .img_div{min-height: 100px; min-width: 100px;}
-    .isImg{width: 120px; height: 120px; position: relative; float: left; margin-left: 10px;}
-    .removeBtn{position: absolute; top: 0; right: 0; z-index: 11; border: 0px; border-radius: 50px; background: red; width: 22px; height: 22px; color: white;}
-    .shadeImg{position: absolute;
-        display: none;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: 15;
-        text-align: center;
-        background: rgba(0, 0, 0, 0.55);}
-    .showImg{width: 400px; height: 500px; margin-top: 140px;}
-
-    /* 状态值样式start */
-    .td-status a{
-        color: #fff;
-    }
-    .all_btn{
-        display: inline-block;
-        width: 70px;
-        height: 35px;
-        line-height: 35px;
-        text-align: center;
-        border-radius: 5px;
-        font-size: 16px;
-        font-weight: normal;
-    }
-    .myrefuse{
-        background-color: #e6e6e6;
-        color: #444444;
-    }
-    .mysuccess{
-        background-color: #5eb95e;
-        color: #ffffff;
-    }
-    .pending_delivery{
-        background-color: #dd514c;
-        color: #ffffff;
-    }
-    .pending_payment{
-        background-color: #f37b1d;
-        color: #ffffff;
-    }
-    /* 状态值样式end */
-
-    /* 弹窗通用start */
-    .pop{
-        position: fixed;
-        left: 50%;
-        top: 50%;
-        transform: translateX(-50%) translateY(-50%);
-        width: 500px;
-        height: 200px;
-        background-color: #f8f8f8;
-        color: #000;
-        box-shadow: 0 5px 15px rgba(33,33,33,.5);
-    }
-    .pop .title{
-        width: 100%;
-        height: 50px;
-        text-align: center;
-        line-height: 50px;
-        border-bottom: 1px solid #f0f0f0;
-        margin-bottom: 20px;
-    }
-    .pop .myconfirm, .pop .mycancel{
-        width: 50%;
-        height: 45px;
-        cursor: pointer;
-        color: #0e90d2;
-        background-color: #f8f8f8;
-    }
-    .pop .myconfirm{
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        border-right: 1px solid #dedede;
-    }
-    .pop .mycancel{
-        position: absolute;
-        right: 0;
-        bottom: 0;
-    }
-    .pop .myconfirm:hover, .pop .mycancel:hover{
-        background-color: #f0f0f0;
-    }
-    /* 弹窗通用end */
-    .pop1 .express, .pop1 .express_num, .pop6 .express, .pop6 .express_num{
-        width: 70%;
-        margin: 0 auto;
-        margin-bottom: 10px;
-    }
-    .express span, .express_num span{
-        margin-right: 20px;
-    }
-    .express_num input{
-        width: 150px;
-        height: 30px;
-        padding: 5px 0 5px 8px;
-        box-sizing: border-box;
-        border: 1px solid #f0f0f0;
-    }
-    /* 待支付 */
-    .pop2{
-        height: 250px;
-    }
-    .pop2 .order_info{
-        width: 70%;
-        margin: 0 auto;
-        overflow-y: scroll;
-        height:120px;
-    }
-    .pop2 .order_info p{
-        font-size: 16px;
-        line-height: 24px;
-        margin-bottom: 7px;
-    }
-    /* 待收货 */
-    .pop3{
-        height: 150px;
-    }
-    .pop3 .tips p{
-        font-size: 14px;
-        width: 100%;
-        text-align: center;
-    }
-    /* 待评价 */
-    .pop4 .content textarea{
-        height: 250px;
-        width: 100%;
-        height: 100px;
-        resize: none;
-        font-size: 16px;
-    }
-    /* 待退款 */
-    .pop5{
-        height: 150px;
-    }
-    .pop5 .tips p{
-        font-size: 16px;
-        line-height: 24px;
-        text-align: center;
-    }
-</style>
+<link rel="stylesheet" href="__STATIC__/admin/serve/serve_index.css">
 {/block}
-
-
 
 {block name="content"}
 <div style="position: relative;">
-
     <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 产品管理 <span class="c-gray en">&gt;</span> 产品列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
     <div class="page-container">
-        <!--<form action="" method="post">-->
-        <!--<div class="text-c"> 日期范围：-->
-        <!--&lt;!&ndash;<input type="date" name="datemin" class="input-text Wdate" id="datemin" style="width:140px;">&ndash;&gt;-->
-        <!--&lt;!&ndash; - &ndash;&gt;-->
-        <!--&lt;!&ndash;<input type="date" id="datemax" name="datemax" class="input-text Wdate" style="width:140px;">&ndash;&gt;-->
-        <!--<input type="text" class="input-text" id="search_key" style="width:250px" placeholder="产品名称、订单id、用户id" name="search_key">-->
-        <!--<button type="submit" class="btn btn-success radius bt_search" name="search_bt" >-->
-        <!--<i class="Hui-iconfont">&#xe665;</i> 搜索产品-->
-        <!--</button>-->
-        <!--</div>-->
-        <!--</form>-->
         <div class="cl pd-5 bg-1 bk-gray mt-20">
-            <span class="l">
-                <a href="javascript:;" onclick="" class="btn btn-danger radius">
-                    <i class="Hui-iconfont"></i> 批量发货
-                </a>
-            </span>
             <span class="r">共有数据：
                 <strong></strong> 条
             </span>
@@ -241,109 +16,142 @@
         <div class="mt-20">
             <table class="table table-border table-bordered table-bg table-hover table-sort">
                 <thead>
-                <tr class="text-c">
-                    <th width="40"><input name="ids" type="checkbox"></th>
-                    <th width="40">排序号</th>
-                    <th width="60">商品图片</th>
-                    <th width="12">产品名称</th>
-                    <th width="20">订单数量</th>
-                    <th width="50">买家信息</th>
-                    <th width="100">下单时间</th>
-                    <th width="60">实付金额</th>
-                    <th width="60">订单编号</th>
-                    <th width="60">订单状态</th>
-                </tr>
+                    <tr class="text-c">
+                        <th width="40"><input name="ids" type="checkbox"></th>
+                        <th width="40">服务单号</th>
+                        <th width="60">申请时间</th>
+                        <th width="30">用户账号</th>
+                        <th width="30">联系人</th>
+                        <th width="80">处理时间</th>
+                        <th width="50">状态</th>
+                    </tr>
                 </thead>
-
+                <tbody>
+                    <tr class="text-c">
+                        <td>
+                            <input type="checkbox">
+                        </td>
+                        <td>1111</td>
+                        <td>1111</td>
+                        <td>1111</td>
+                        <td>1111</td>
+                        <td>1111</td>
+                        <td>
+                            <a href="javascript:;">审核中</a>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
-
         </div>
-    </div>
-    <!-- 待发货弹窗 -->
-    <div class="pop pop1" style="display: none;">
-        <p class="title">配送信息</p>
-        <span style="display: none" class="hidden_id"></span>
-        <div class="express">
-            <span>快递公司</span>
-            <select name="" id="express_type">
-                <option value="EMS">EMS</option>
-                <option value="顺丰">顺丰</option>
-                <option value="中通">中通</option>
-                <option value="申通">申通</option>
-                <option value="圆通">圆通</option>
-            </select>
-        </div>
-        <div class="express_num">
-            <span>快递单号</span>
-            <input type="text">
-        </div>
-        <button class="confirm myconfirm" onclick="waiting_send()">确定</button>
-        <button class="cancel mycancel" onclick="mycancel('pop1')">取消</button>
-    </div>
-    <!-- 待付款弹窗 -->
-    <div class="pop pop2" style="display: none;">
-        <p class="title">订单信息</p>
-        <div class="order_info">
-            <p>订单号：<span class="order_ids"></span></p>
-            <p>订单名称：<span class="order_names"></span></p>
-            <p>订单金额：<span>￥</span><span class="order_moneys"></span></p>
-            <p>下单时间：<span class="order_create_time"></span></p>
-            <p>待付款方：<span class="order_harvester"></span></p>
-            <p>收获人信息：<span class="order_harvester"></span></p>
-            <p>收获人地址：<span class="order_harvest_address"></span></p>
-            <p>收获人号码：<span class="order_harvest_phone_num"></span></p>
-        </div>
-        <button class="payment myconfirm" onclick="order_refuse()">卖家拒绝订单</button>
-        <button class="cancel_pay mycancel" onclick="mycancel('pop2')">取消</button>
-    </div>
-    <!-- 待收货弹窗 -->
-    <div class="pop pop3" style="display: none;">
-        <p class="title">确认收货</p>
-        <div class="tips">
-            <p>要确认收货吗？</p>
-        </div>
-        <button class="payment myconfirm" onclick="myconfirm('pop3')">确认收货</button>
-        <button class="cancel_pay mycancel" onclick="mycancel('pop3')">取消</button>
-    </div>
-    <!-- 待评价弹窗 -->
-    <div class="pop pop4" style="display: none;">
-        <p class="title">商品评价</p>
-        <div class="content">
-            <textarea name="" id="" cols="30" rows="10" autofocus></textarea>
-        </div>
-        <button class="evaluate myconfirm" onclick="myconfirm('pop4')">确认</button>
-        <button class="cancel_eval mycancel" onclick="mycancel('pop4')">取消</button>
-    </div>
-    <!-- 待退款弹窗 -->
-    <div class="pop pop5" style="display: none;">
-        <p class="title">确认退款</p>
-        <div class="tips">
-            <p>要确认退款吗？</p>
-        </div>
-        <button class="payment myconfirm" onclick="myconfirm('pop5')">确认退款</button>
-        <button class="cancel_pay mycancel" onclick="mycancel('pop5')">拒绝</button>
-    </div>
-    <!-- 已发货弹窗 -->
-    <div class="pop pop6" style="display: none;">
-        <p class="title">快递单号</p>
-        <div class="express">
-            <span>快递公司</span>
-            <select name="" id="express_types">
-                <option value="EMS">EMS</option>
-                <option value="顺丰">顺丰</option>
-                <option value="中通">中通</option>
-                <option value="申通">申通</option>
-                <option value="圆通">圆通</option>
-            </select>
-        </div>
-        <div class="express_nums">
-            <span>快递单号</span>
-            <input type="text">
-        </div>
-        <button class="confirm myconfirm" onclick="myconfirm('pop6')">确定</button>
-        <button class="cancel mycancel" onclick="mycancel('pop6')">取消</button>
     </div>
 </div>
+<!-- <div class="mask"></div> -->
+<!-- 审核中 -->
+<div class="pop pop1" style="display:none;">
+    <div class="pop_title">
+        <p>审核中</p>
+        <a href="javascript:;" class="pop_close">×</a>
+    </div>
+    <div class="pop_cont">
+        <div class="user_cont">
+            <span>用户反馈：</span>
+            <p>手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡
+                手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡
+            </p>
+        </div>
+        <div class="remark_cont">
+            <span>后台回复：</span>
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+        </div>
+    </div>
+    <div class="pop_btn">
+        <a href="javascript:;" class="jujue">拒绝</a>
+        <a href="javascript:;" class="shtg">审核通过</a>
+    </div>
+</div>
+<!-- 已拒绝 -->
+<div class="pop pop2" style="display:none;">
+    <div class="pop_title">
+        <p>已拒绝</p>
+        <a href="javascript:;" class="pop_close">×</a>
+    </div>
+    <div class="pop_cont">
+        <div class="user_cont">
+            <span>用户反馈：</span>
+            <p>手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡
+                手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡
+            </p>
+        </div>
+        <div class="remark_cont">
+            <span>后台回复：</span>
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+        </div>
+    </div>
+</div>
+<!-- 已收货 -->
+<div class="pop pop3" style="display:none;">
+    <div class="pop_title">
+        <p>审核通过</p>
+        <a href="javascript:;" class="pop_close">×</a>
+    </div>
+    <div class="pop_cont">
+        <div class="user_cont">
+            <span>用户反馈：</span>
+            <p>手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡
+                手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡
+            </p>
+        </div>
+        <div class="remark_cont">
+            <span>后台回复：</span>
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+        </div>
+    </div>
+    <div class="pop_btn">
+        <a href="javascript:;" class="shtg">已收货</a>
+    </div>
+</div>
+<!-- 已处理 -->
+<div class="pop pop4" style="display:none;">
+    <div class="pop_title">
+        <p>已收货</p>
+        <a href="javascript:;" class="pop_close">×</a>
+    </div>
+    <div class="pop_cont">
+        <div class="user_cont">
+            <span>用户反馈：</span>
+            <p>手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡
+                手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡
+            </p>
+        </div>
+        <div class="remark_cont">
+            <span>后台回复：</span>
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+        </div>
+    </div>
+    <div class="pop_btn">
+        <a href="javascript:;" class="shtg">已处理</a>
+    </div>
+</div>
+<!-- 已完成 -->
+<div class="pop pop5" style="display:none;">
+    <div class="pop_title">
+        <p>完成</p>
+        <a href="javascript:;" class="pop_close">×</a>
+    </div>
+    <div class="pop_cont">
+        <div class="user_cont">
+            <span>用户反馈：</span>
+            <p>手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡
+                手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡手机卡
+            </p>
+        </div>
+        <div class="remark_cont">
+            <span>后台回复：</span>
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+        </div>
+    </div>
+</div>
+
 {/block}
 
 
@@ -352,319 +160,15 @@
 <script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/static/h-ui/js/H-ui.min.js"></script>
-<script type="text/javascript" src="__STATIC__/admin/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="__STATIC__/admin/static/h-ui.admin/js/H-ui.admin.js"></script>
 <script type="text/javascript" src="__STATIC__/common/strtotime.js"></script>
-
-<script type="text/javascript" src="__STATIC__/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
-<script type="text/javascript" src="__STATIC__/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="__STATIC__/admin/lib/laypage/1.2/laypage.js"></script>
 
 <!--/_footer 作为公共模版分离出去-->
 
-<script>
-
-
-    (function(){
-        var allA = $('.td-status a');
-        var len = $('.td-status a').length;
-        for(var i = 0; i < len; i++){
-            if(allA[i].innerHTML == 1){
-                $(allA[i]).addClass('pending_payment');
-                $(allA[i])[0].innerHTML = '待付款';
-            }else if(allA[i].innerHTML == 2){
-                $(allA[i]).addClass('pending_delivery');
-                $(allA[i])[0].innerHTML = '待发货';
-            }else if(allA[i].innerHTML == 3){
-                $(allA[i]).addClass('mysuccess');
-                $(allA[i])[0].innerHTML = '已发货';
-            }else if(allA[i].innerHTML == 4){
-                $(allA[i]).addClass('pending_delivery');
-                $(allA[i])[0].innerHTML = '待收货';
-            }else if(allA[i].innerHTML == 5){
-                $(allA[i]).addClass('mysuccess');
-                $(allA[i])[0].innerHTML = '已收货';
-            }else if(allA[i].innerHTML == 6){
-                $(allA[i]).addClass('pending_delivery');
-                $(allA[i])[0].innerHTML = '待评价';
-            }else if(allA[i].innerHTML == 7){
-                $(allA[i]).addClass('mysuccess');
-                $(allA[i])[0].innerHTML = '已评价';
-            }else if(allA[i].innerHTML == 8){
-                $(allA[i]).addClass('pending_delivery');
-                $(allA[i])[0].innerHTML = '待退款';
-            }else if(allA[i].innerHTML == 9){
-                $(allA[i]).addClass('pending_delivery');
-                $(allA[i])[0].innerHTML = '已退款';
-            }else if(allA[i].innerHTML == 10){
-                $(allA[i]).addClass('myrefuse');
-                $(allA[i])[0].innerHTML = '已完成';
-            }else if(allA[i].innerHTML == 11){
-                $(allA[i]).addClass('myrefuse');
-                $(allA[i])[0].innerHTML = '买家取消';
-            }else if(allA[i].innerHTML == 0){
-                $(allA[i]).addClass('myrefuse');
-                $(allA[i])[0].innerHTML = '商家取消';
-            }
-
-        }
-    })();
-    // 根据状态触发事件
-    $('.all_btn').click(function(){
-        if($(this)[0].innerHTML == '待发货'){
-            $('.pop1').css('display','block');
-            var order_id =$(this)[0].id.split('_')[1];
-            $('.hidden_id').html(order_id);
-        }
-        if($(this)[0].innerHTML == '待付款'){
-            $('.pop2').css('display','block');
-            var order_id =$(this)[0].id.split('_')[1];
-            pending_payment(order_id);
-        }
-        if($(this)[0].innerHTML == '待收货'){
-            $('.pop3').css('display','block');
-            var order_id =$(this)[0].id.split('_')[1];
-        }
-        if($(this)[0].innerHTML == '待评价'){
-            $('.pop4').css('display','block');
-            console.log($(this)[0].id.split('_')[1]);
-            var order_id =$(this)[0].id.split('_')[1];
-        }
-        if($(this)[0].innerHTML == '待退款'){
-            $('.pop5').css('display','block');
-            console.log($(this)[0].id.split('_')[1]);
-            var order_id =$(this)[0].id.split('_')[1];
-        }
-        if($(this)[0].innerHTML == '已发货'){
-            $('.pop6').css('display','block');
-            console.log($(this)[0].id.split('_')[1]);
-            var order_id =$(this)[0].id.split('_')[1];
-            order_deliver(order_id);
-        }
-    });
-    // 按钮事件  确认，取消
-    function myconfirm(obj){
-        $('.'+ obj +'').css('display', 'none');
-    }
-    function mycancel(obj){
-        $('.'+ obj +'').css('display', 'none');
-    }
-
-    //点击待付款传order_id给后台修改状态值
-    function pending_payment(order_id) {
-        $.ajax({
-            type:'POST',
-            url:'{:url("admin/Order/pending_payment")}',
-            data:{
-                'order_id':order_id
-            },
-            dataType: 'json',
-            success: function(data){
-                console.log(data);
-                var create_time =timetrans(data.data.create_time);
-                $(".order_ids").html(data.data.id);
-                $(".order_names").html(data.data.goods_name);
-                $(".order_moneys").html(data.data.pay_money);
-                $(".order_create_time").html(create_time);
-                $(".order_harvester").html(data.data.harvester);
-                $(".order_harvest_address").html(data.data.harvest_address);
-                $(".order_harvest_phone_num").html(data.data.harvest_phone_num);
-            },
-            error:function(data) {
-                console.log(data.msg);
-            },
-        });
-
-    }
-    //点击订单拒绝，传一个id值给后台，进行状态修改
-    function order_refuse() {
-        var order_id =$('.order_ids').html();
-        $.ajax({
-            type:'POST',
-            url:'{:url("admin/Order/refuse")}',
-            data:{
-                'order_id':order_id
-            },
-            dataType: 'json',
-            success: function(data){
-//                console.log(data);
-                alert(data.info);
-                window.location.href="{:url('admin/Order/index')}";
-            },
-            error:function(data) {
-                console.log(data.msg);
-            },
-        });
-    }
-
-    //待发货传值
-    function waiting_send() {
-        var order_id =$('.hidden_id').html();
-        var express_type =$("#express_type").children('option:selected').val();
-        console.log(express_type)
-        var express_num =$(".express_num").children('input').val();
-        $.ajax({
-            type:'POST',
-            url:'{:url("admin/Order/express_number")}',
-            data:{
-                'order_id':order_id,
-                'express_type':express_type,
-                'express_num':express_num
-            },
-            dataType: 'json',
-            success: function(data){
-                console.log(data);
-                alert(data.msg);
-                window.location.href ="{:url('admin/Order/index')}";
-            },
-            error:function(data) {
-                // console.log(data.msg);
-            },
-        });
-    }
-
-    //已发货查看快递单号
-    function order_deliver(order_id) {
-        $.ajax({
-            type:'POST',
-            url:'{:url("admin/Order/order_deliver")}',
-            data:{
-                'order_id':order_id,
-            },
-            dataType: 'json',
-            success: function(data){
-                console.log(data);
-                console.log($('#express_types option'))
-                var len = $('#express_types option').length;
-                var yfh_option = $('#express_types option');
-                for(var i = 0; i < len; i++){
-                    if(yfh_option[i].innerHTML == data.data.express_type){
-                        yfh_option[i].selected = true;
-                    }
-                }
-                $(".express_nums").children('input').val(data.data.express_num);
-            },
-            error:function(data) {
-                console.log(data.msg);
-            },
-        })
-    }
-
-</script>
-<script>
-    // 批量发货传id
-    $('.btn-danger').click(function(){
-        var len = $('.va-m').find('input').length;
-        var allInput = $('.va-m').find('input');
-        var allA = $('.va-m').find('a');
-        var allId = [];
-        console.log(allInput);
-        for(var i = 0; i < len; i++){
-            if(allInput[i].checked){
-                if(allInput[i].id.split('_')[1] == 2){
-                    allId.push(allInput[i].value);
-                }
-            }
-        }
-        $.ajax({
-            url:'{:url("admin/Order/batch_delivery")}',
-            type: 'POST',
-            dataType: 'JSON',
-            async: false,
-            data: {
-                'id': allId
-            },
-            success: function(data){
-                alert(data.msg);
-                window.location.href="{:url('admin/Order/index')}";
-            },
-            error: function(){
-                console.log('错误');
-            }
-        })
-
-    })
-</script>
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="__STATIC__/admin/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/laypage/1.2/laypage.js"></script>
-<script type="text/javascript" src="__STATIC__/admin/static/h-ui2/js/tp.js"></script>
-<script>
-    $(".bt_search").click(function () {
-//        var datemin = $('#datemin')[0].value;
-//        var datemax = $('#datemax')[0].value;
-        var search_key = $('#search_key').val();
-        $.ajax({
-            type:'POST',
-            url:'{:url("admin/Order/search")}',
-            data:{
-//                "datemin": datemin+' '+'00:00:00',
-//                "datemax": datemax+' '+'23:59:59',
-                "search_key": search_key
-            },
-            dataType: 'json',
-            success: function(data){
-                console.log(data);
-
-            },
-            error:function(data) {
-                console.log('shibai');
-            },
-        });
-
-    })
-
-</script>
-<script>
-    $('#search_bt').click(function(){
-        var datemin = $('#datemin')[0].value;
-        var datemax = $('#datemax')[0].value;
-        var search_key = $('#search_key').val();
-        $.ajax({
-            url: "{:url('admin/user/search')}",
-            type: "POST",
-            dataType: 'json',
-            async: false,
-            data: {
-                "datemin": datemin+' '+'00:00:00',
-                "datemax": datemax+' '+'23:59:59',
-                "search_key": search_key
-            },
-            success: function(data){
-                // 存放data
-                var data_arr = [];
-                var data_len = data.data.length;
-                // 存放页面显示的data
-                var page_arr = [];
-                var page_len = $('.sorting_1').length;
-                var page = $('.sorting_1');
-                console.log(page)
-                for(var i = 0; i < data_len; i++){
-                    data_arr[data.data[i].id] = true;//将 data.data[i].id 中的元素值作为data_arr 中的键，值为true
-                }
-                for(var j = 0; j < page_len; j++){
-                    if(!data_arr[page[j].innerHTML]){
-                        page_arr.push(page[j].innerHTML);// 过滤两个数组中相同的元素
-                    }
-                }
-                for(var z = 0; z < page_arr.length; z++){
-                    for(var i = 0; i < page_len; i++){
-                        if(page[i].innerHTML == page_arr[z]){
-                            page[i].parentNode.style.display = 'none';
-                        }
-                    }
-                }
-                $('#count_number').html(page_len - page_arr.length);
-                $('.dataTables_info').css('display','none');
-            },
-            error: function(){
-                console.log('错误')
-            }
-        })
-    })
-
-</script>
-
 
 {/block}

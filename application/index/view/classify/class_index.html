@@ -149,7 +149,7 @@
 		<h3>专场推荐</h3>
 	</div>
 	<div class="aui-row aui-row-padded class-ui-text">
-		
+
 	</div>
 </div>
 <footer class="aui-bar aui-bar-tab aui-bar-tab-cl aui-border-t" id="footer">
@@ -180,7 +180,7 @@
     function openCity(evt, cityName) {
         var i, tabcontent, tablinks;
 		tabcontent = document.getElementsByClassName("tabcontent");
-		
+
         // for (i = 0; i < tabcontent.length; i++) {
         //     tabcontent[i].style.display = "none";
 		// }
@@ -245,6 +245,26 @@
             }
         })
 	})
+</script>
+<script>
+    (function(){
+        $.ajax({
+            type:"POST",
+            url:"{:url('index/Classify/index')}",
+            data:{
+                "id": 1
+            },
+            async:false,
+            timeout:5000,
+            dataType:"json",
+            success:function (data) {
+                console.log(data)
+            },
+            error:function () {
+                console.log("错误");
+            }
+        })
+    })()
 </script>
 </body>
 </html>

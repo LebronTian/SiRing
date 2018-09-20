@@ -118,15 +118,32 @@ class Category extends Controller{
      * @return
      */
     public function ajax_add($pid = 0){
-        $goods_cate = [];
         $goods_list = [];
         if($pid == 0){
             $goods_list = getSelectList("goods_type");
-        }else{
-            $goods_cate = db("goods_type")->where("id",$pid)->field()->select();
         }
         return ajax_success("获取成功",$goods_list);
     }
+
+
+
+
+    /**
+     * 图片删除
+     * 陈绪
+     * @param Request $request
+     * @return string|void
+     */
+    public function images(Request $request){
+        $id = $request->only(['id'])['id'];
+        $images = db("goods_type")->where("id",$id)->field("type_images")->find();
+        $bool = db("goods_type")->where("id",$id)->update(['type_images'=>null]);
+        unlink(ROOT_PATH . 'public' . DS . 'type/'.$images['type_images']);
+        if($bool){
+            return ajax_success("更新成功");
+        }
+    }
+
 
 }
 

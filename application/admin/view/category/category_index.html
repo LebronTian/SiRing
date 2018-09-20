@@ -63,7 +63,8 @@
                     <input type="checkbox" class="ccheckall">
                     <a href="javascript:;" class="am-text-danger cdeleteall" style="margin-left:10px;color: #000"><span class="table-title">分类名称</span></a>
                 </th>
-                <th class="table-parent">商品分类图片</th>
+                <th class="table-parent">商品分类图标图片</th>
+                <th class="table-parent">父id</th>
                 <th class="table-order">排序</th>
                 <th class="table-status">状态</th>
                 <th class="table-set">操作</th>
@@ -73,6 +74,7 @@
             {volist name="category" id="value"}
             <tr class="am-danger " data-id="118">
                 <td class="table-check am-text-truncate width200"><input type="checkbox" class="ccheck"><span>{$value.name}</span></td>
+                <td><img width="60" class="product-thumb" src="__TYPE__/{$value.type_images}"></td>
                 <td>{$value.pid}</td>
                 <td>{$value.sort_number}</td>
                 <td><button data-status="{$value.status}" class="cstatus am-btn am-btn-xs am-btn-danger">已启用</button>
