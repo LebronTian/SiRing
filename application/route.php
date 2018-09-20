@@ -274,6 +274,7 @@ Route::group("admin",[
     "category_del"=>"admin/Category/del",
     "category_updata"=>"admin/Category/updata",
     "category_ajax"=>"admin/Category/ajax_add",
+    "category_images"=>"admin/Category/images",
 
 
     /*会员管理*/

@@ -24,7 +24,7 @@
     <div class="h-mid">会员登录     </div>
 </header>
 <div class="denglu">
-    <form action="login.html" method="post">
+    <form action="login.html" method="get">
         <div class="Login">
             <dl>
                 <dt>手机号：</dt>
@@ -66,31 +66,31 @@
         </div>
     </form>
 </div>
-<script type="text/javascript">
-    $(function(){
-        $('.btn_big1').click(function(){
-            var username = $('.user_name').val();
-            var password = $('.password').val();
-            $.ajax({
-                url: "{:url('index/index/login')}",
-                type: 'POST',
-                async: false,
-                dataType: 'json',
-                data: {
-                    "user_name": username,
-                    "password":password,
-                },
-                success: function(data){
-                    alert(data.msg);
-                },
-                error: function(data){
-                    console.log('失败');
-                }
-            })
-        })
-    });
+<!--<script type="text/javascript">-->
+    <!--$(function(){-->
+        <!--$('.btn_big1').click(function(){-->
+            <!--var username = $('.user_name').val();-->
+            <!--var password = $('.password').val();-->
+            <!--$.ajax({-->
+                <!--url: "{:url('index/index/login')}",-->
+                <!--type: 'GET',-->
+                <!--async: false,-->
+                <!--dataType: 'json',-->
+                <!--data: {-->
+                    <!--"user_name": username,-->
+                    <!--"password":password,-->
+                <!--},-->
+                <!--success: function(data){-->
+                    <!--alert(data.msg);-->
+                <!--},-->
+                <!--error: function(data){-->
+                    <!--console.log('失败');-->
+                <!--}-->
+            <!--})-->
+        <!--})-->
+    <!--});-->
 
-</script>
+<!--</script>-->
 
 </body>
 </html>
