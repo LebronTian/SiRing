@@ -364,7 +364,7 @@
                 data: formData,
                 success: function(data){
                     console.log(data);
-                    location.href = 'processing';
+                    window.location.href = '{:url("index/self_service/repair")}';
                 },
                 error: function(){
                     console.log('错误');
