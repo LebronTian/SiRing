@@ -22,8 +22,8 @@ class Login extends Controller{
      */
     public function login()
     {
-        if($_POST){
-            $data = $_POST;
+        if($_GET){
+            $data = $_GET;
             $user_mobile =$data['account'];
 
             $password =$data['passwd'];
