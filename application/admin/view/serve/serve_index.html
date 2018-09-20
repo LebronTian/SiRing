@@ -222,10 +222,12 @@
             case  '已完成':
                 status = '5';
                 break;
+            case '×':
+                status = '';
+                break;
         }
         $(this).parents('.pop').hide();
         $('.mask1').hide();
-        console.log(status_id)
         var reply = $(this).parents('.pop').find('textarea').val();
         $.ajax({
             url: '{:url("admin/Serve/status")}',
