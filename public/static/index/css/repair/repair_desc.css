@@ -410,12 +410,17 @@
 /* repair_desc_edit */
 .img_edit{
     width: 100%;
-    display: flex;
+}
+.img_edit::after{
+    display: block;
+    content: '';
+    clear: both;
 }
 .img_edit .img_box{
     width: 60px;
     height: 60px;
     position: relative;
+    float: left;
     margin-right: 8px;
     margin-bottom: 5px;
 }
