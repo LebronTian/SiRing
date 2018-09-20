@@ -3,7 +3,7 @@
 		{volist name="menu_list" id="value"}
 		{if isset($value["sub"])}
 		<dl id="menu-admin">
-			<dt><i class="Hui-iconfont">&#xe62d;</i>{$value.name}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt>{$value.name}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				{volist name="$value.sub" id="val"}
 				<ul>
