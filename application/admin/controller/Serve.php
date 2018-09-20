@@ -34,14 +34,19 @@ class Serve extends Controller{
      * 陈绪
      */
     public function status(Request $request){
-        $status = $request->only(['reply',"status"]);
-        $id = $request->only(['id'])['id'];
-        $status["dispose_time"] = date("Y-m-d H:i:s");
-        $bool = db("serve")->where("id",$id)->update($status);
-        if($bool){
-            return ajax_success("更新成功");
-        }else{
-            return ajax_error("更新失败");
+        if($request->only(['status'])['status'] == ""){
+            return 0;
+        }else {
+
+            $status = $request->only(['reply', "status"]);
+            $id = $request->only(['id'])['id'];
+            $status["dispose_time"] = date("Y-m-d H:i:s");
+            $bool = db("serve")->where("id", $id)->update($status);
+            if ($bool) {
+                return ajax_success("更新成功");
+            } else {
+                return ajax_error("更新失败");
+            }
         }
 
     }
