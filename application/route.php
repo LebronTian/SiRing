@@ -393,6 +393,7 @@ Route::group("admin",[
 
     /*售后维修*/
     "serve_index"=>"admin/Serve/index",
+    "serve_status"=>"admin/Serve/status",
 
 
 

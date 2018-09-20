@@ -29,4 +29,15 @@ class Serve extends Controller{
 
 
 
+    /**
+     * 售后状态修改
+     * 陈绪
+     */
+    public function status(Request $request){
+        $status = $request->param();
+        halt($status);
+    }
+
+
+
 }
