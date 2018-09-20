@@ -241,6 +241,7 @@
             },
             success: function(data){
                 console.log(data)
+                location.reload();
             },
             error: function(){
                 console.log('错误');
@@ -271,38 +272,73 @@
                 var str = '';
                 var status ='';
                 $.each(data.data, function(idx, val){
-                    switch(val.status){
-                        case '1':
-                            status = '审核中';
-                            break;
-                        case '2':
-                            status = '审核通过';
-                            break;
-                        case '3':
-                            status = '已收货';
-                            break;
-                        case '4':
-                            status = '已处理';
-                            break;
-                        case '5':
-                            status = '已完成';
-                            break;
-                        case '6':
-                            status = '已拒绝';
-                            break;
-                        default:
-                            console.log('default');
-                            break;
-                    }
-                    str += '<tr class="text-c">\
-                                <td><input type="checkbox"></td>\
-                                <td>'+val.serve_num+'</td>\
-                                <td>'+timetrans(val.create_time)+'</td>\
-                                <td>'+val.harvest_phone_num+'</td>\
-                                <td>'+val.harvester+'</td>\
-                                <td></td>\
-                                <td><a class="status_btn" id="'+val.id+'">'+status+'</a></td>\
-                            </tr>'
+                    if(val.dispose_time !== null){
+                        switch(val.status){
+                            case '1':
+                                status = '审核中';
+                                break;
+                            case '2':
+                                status = '审核通过';
+                                break;
+                            case '3':
+                                status = '已收货';
+                                break;
+                            case '4':
+                                status = '已处理';
+                                break;
+                            case '5':
+                                status = '已完成';
+                                break;
+                            case '6':
+                                status = '已拒绝';
+                                break;
+                            default:
+                                console.log('default');
+                                break;
+                        }
+                        str += '<tr class="text-c">\
+                                    <td><input type="checkbox"></td>\
+                                    <td>'+val.serve_num+'</td>\
+                                    <td>'+timetrans(val.create_time)+'</td>\
+                                    <td>'+val.harvest_phone_num+'</td>\
+                                    <td>'+val.harvester+'</td>\
+                                    <td>'+val.dispose_time+'</td>\
+                                    <td><a class="status_btn" id="'+val.id+'">'+status+'</a></td>\
+                                </tr>'
+                    }else{
+                        switch(val.status){
+                            case '1':
+                                status = '审核中';
+                                break;
+                            case '2':
+                                status = '审核通过';
+                                break;
+                            case '3':
+                                status = '已收货';
+                                break;
+                            case '4':
+                                status = '已处理';
+                                break;
+                            case '5':
+                                status = '已完成';
+                                break;
+                            case '6':
+                                status = '已拒绝';
+                                break;
+                            default:
+                                console.log('default');
+                                break;
+                        }
+                        str += '<tr class="text-c">\
+                                    <td><input type="checkbox"></td>\
+                                    <td>'+val.serve_num+'</td>\
+                                    <td>'+timetrans(val.create_time)+'</td>\
+                                    <td>'+val.harvest_phone_num+'</td>\
+                                    <td>'+val.harvester+'</td>\
+                                    <td></td>\
+                                    <td><a class="status_btn" id="'+val.id+'">'+status+'</a></td>\
+                                </tr>'
+                        }
                 })
                 $('#tbody').append(str);
             }else if(data.status == 0){
