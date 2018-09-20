@@ -37,18 +37,31 @@ class Serve extends Controller{
         if($request->only(['status'])['status'] == ""){
             return 0;
         }else {
-
-            $status = $request->only(['reply', "status"]);
+            $status['reply'] = $request->only(['reply'])["reply"];
+            $status["status"] = $request->only(["status"])["status"];
             $id = $request->only(['id'])['id'];
             $status["dispose_time"] = date("Y-m-d H:i:s");
             $bool = db("serve")->where("id", $id)->update($status);
             if ($bool) {
-                return ajax_success("更新成功");
+                return ajax_success("更新成功",$status['reply']);
             } else {
                 return ajax_error("更新失败");
             }
         }
+    }
 
+
+
+    /**
+     * 售后详情
+     * 陈绪
+     */
+    public function reply(Request $request){
+        if($request->isPost()){
+            $id = $request->only(["id"])["id"];
+            $reply = db("serve")->where("id",$id)->field("reply")->find();
+            return ajax_success("获取成功",$reply);
+        }
     }
 
 
