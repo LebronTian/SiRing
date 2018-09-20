@@ -240,7 +240,7 @@
                 'id': status_id
             },
             success: function(data){
-                console.log(data)
+                // console.log(data)
                 location.reload();
             },
             error: function(){
@@ -261,7 +261,6 @@
         return Y+M+D+h+m+s;
     }
 
-    var reply_h;
     $.ajax({
         url: '{:url("admin/Serve/index")}',
         type: 'POST',
@@ -354,29 +353,48 @@
     $('.status_btn').click(function(){
         status_id = $(this)[0].id;
         var status = $(this)[0].innerHTML;
+        var reply_h;
+
+        $.ajax({
+            url: '{:url("admin/Serve/reply")}',
+            dataType: 'JSON',
+            type: 'POST',
+            async: false,
+            data: {
+                'id': status_id
+            },
+            success: function(data){
+                console.log(data);
+                reply_h = data.data.reply;
+            },
+            error: function(){
+                console.log('错误')
+            }
+        })
+
         switch(status){
             case '审核中':
                 $('.pop1').show();
                 $('.mask1').show();
                 break;
             case '已拒绝':
-                $('.pop2').show();
+                $('.pop2').show().find('textarea').val(reply_h).attr('readonly', 'readonly');
                 $('.mask1').show();
                 break;
             case '审核通过':
-                $('.pop3').show();
+                $('.pop3').show().find('textarea').val(reply_h).attr('readonly', 'readonly');
                 $('.mask1').show();
                 break;
             case '已收货':
-                $('.pop4').show();
+                $('.pop4').show().find('textarea').val(reply_h).attr('readonly', 'readonly');
                 $('.mask1').show();
                 break;
             case '已处理':
-                $('.pop5').show();
+                $('.pop5').show().find('textarea').val(reply_h).attr('readonly', 'readonly');
                 $('.mask1').show();
                 break;
             case '已完成':
-                $('.pop6').show();
+                $('.pop6').show().find('textarea').val(reply_h).attr('readonly', 'readonly');
                 $('.mask1').show();
                 break;
         }
