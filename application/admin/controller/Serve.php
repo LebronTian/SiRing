@@ -48,7 +48,20 @@ class Serve extends Controller{
                 return ajax_error("更新失败");
             }
         }
+    }
 
+
+
+    /**
+     * 售后详情
+     * 陈绪
+     */
+    public function reply(Request $request){
+        if($request->isPost()){
+            $id = $request->only(["id"])["id"];
+            $reply = db("serve")->where("id",$id)->field("reply")->find();
+            return ajax_success("获取成功",$reply);
+        }
     }
 
 
