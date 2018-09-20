@@ -2,41 +2,67 @@
 
 
 {block name="css"}
-
-<!--自定义内容-->
-
-
+<style>
+    .wrapper{margin-left: 50px;display: flex;flex-direction: column;}
+    .wrapper div{display: flex; align-items: center; height: 50px; width: 500px;margin: 0 auto;}
+    .wrapper div label{flex: 1;}
+    .wrapper div select{flex:1;}
+    .wrapper div input{border: 1px solid #ccc;padding: 3px;}
+    .submit_btn{width:100%;height: 35px;border: 0;background-color: #5eb95e;color: #fff;}
+</style>
 {/block}
 
 
 {block name="content"}
-<form id="CategoryAdd" action="{:url('admin/Seckill/updata')}" method="post" enctype="multipart/form-data">
-    {volist name="seckill" id="value"}
-    <label class="form-label col-xs-4 col-sm-3"><span>商品id</span></label>
-    <input type="text" name="goods_id" style="margin-bottom: 20px;" value="{$value.goods_id}"><span>请到商品列表查找想要填写的商品id号</span><br/>
-    <label class="form-label col-xs-4 col-sm-3" ><span>开始秒杀</span></label>
-    <select name="status">
-        <option value="1">上架</option>
-        <option value="0">下架</option>
-    </select><br>
-    <label class="form-label col-xs-4 col-sm-3"><span>秒杀价格</span></label>
-    <input type="text" name="seckill_money" style="margin-bottom: 20px;" value="{$value.seckill_money}"><br/>
-    <input class="am-animation-slide-left am-field-valid" style="width: 16em ;" type="datetime-local" name="start_time"><br>
-    <small>秒杀开始时间</small><br>
-    <input class="am-animation-slide-left am-field-valid" style="width: 16em ;" type="datetime-local" name="over_time"><br>
-    <small>秒杀结束时间</small><br>
-    <label class="form-label col-xs-4 col-sm-3"><span>秒杀图片</span></label>
-    <input type="file" name="images"><br>
-    <label class="form-label col-xs-4 col-sm-3"><span>关键词</span></label>
-    <input type="text" name="keyword" placeholder="{$value.keyword}"><br>
-    <label class="form-label col-xs-4 col-sm-3"><span>库存</span></label>
-    <input type="text" name="goods_num" value="{$value.goods_num}"><br>
-    <label class="form-label col-xs-4 col-sm-3"><span>剩余库存</span></label>
-    <input type="text" name="residue_num" value="{$value.residue_num}"><br>
-    <input type="hidden" value="{$value.id}" name="id">
-    <input type="submit" value="提交">
-    {/volist}
-</form>
+<div class="wrapper">
+    <form id="CategoryAdd" action="{:url('admin/Seckill/updata')}" method="post" enctype="multipart/form-data">
+        {volist name="seckill" id="value"}
+        <div>
+            <label class="form-label col-xs-4 col-sm-3"><span>商品id</span></label>
+            <input type="text" placeholder="请到商品列表查找想要填写的商品id号" name="goods_id" value="{$value.goods_id}">
+        </div>
+        <div>
+            <label class="form-label col-xs-4 col-sm-3" ><span>开始秒杀</span></label>
+            <select name="status">
+                <option value="1">上架</option>
+                <option value="0">下架</option>
+            </select>
+        </div>
+        <div>
+            <label class="form-label col-xs-4 col-sm-3"><span>秒杀价格</span></label>
+            <input type="text" name="seckill_money" value="{$value.seckill_money}">
+        </div>
+        <div>
+            <label class="form-label col-xs-4 col-sm-3" ><span>秒杀开始时间</span></label>
+            <input class="am-animation-slide-left am-field-valid" style="width: 16em ;" type="datetime-local" name="start_time">
+        </div>
+        <div>
+            <label class="form-label col-xs-4 col-sm-3" ><span>秒杀结束时间</span></label>
+            <input class="am-animation-slide-left am-field-valid" style="width: 16em ;" type="datetime-local" name="over_time">
+        </div>
+        <div>
+            <label class="form-label col-xs-4 col-sm-3"><span>秒杀图片</span></label>
+            <input type="file" name="images">
+        </div>
+        <div>
+            <label class="form-label col-xs-4 col-sm-3"><span>关键词</span></label>
+            <input type="text" name="keyword" placeholder="{$value.keyword}">
+        </div>
+        <div>
+            <label class="form-label col-xs-4 col-sm-3"><span>库存</span></label>
+            <input type="text" name="goods_num" value="{$value.goods_num}">
+        </div>
+        <div>
+            <label class="form-label col-xs-4 col-sm-3"><span>剩余库存</span></label>
+            <input type="text" name="residue_num" value="{$value.residue_num}">
+        </div>
+        <input type="hidden" value="{$value.id}" name="id">
+        <div>
+            <input type="submit" class="submit_btn" value="提交">
+        </div>
+        {/volist}
+    </form>
+</div>
 
 {/block}
 

@@ -1,44 +1,63 @@
+{block name="css"}
 <style>
-    .wrapper{margin-left: 30px;}
+    .wrapper{margin-left: 50px;display: flex;flex-direction: column;}
+    .wrapper div{display: flex; align-items: center; height: 50px;width: 250px;margin: 0 auto;}
+    .wrapper div label{flex: 1;}
+    .wrapper div select{flex:1;}
+    .wrapper div input{border: 1px solid #ccc;padding: 3px;}
+    .submit_btn{width:100%;height: 35px;border: 0;background-color: #5eb95e;color: #fff;}
 </style>
+{/block}
 {extend name="layout"}
 
 {block name="content"}
-<div class="wrapper" style="margin-left:30px;">
+<div class="wrapper">
     <form method="post" action="{:url('admin/menu/updata')}">
         {volist name="menu" id="val"}
-            <label>
-                <span>菜单名称</span>
-            </label>
-            <input type="text" name="name" value="{$val.name}"><br/>
-            <label>
-                <span>菜单url</span>
-            </label>
-            <input type="text" name="url" value="{$val.url}"><br/>
-            <label>
-                <span>状态</span>
-            </label>
-            <select id="" class="" name="status">
-                <option value="1">启用</option>
-                <option value="0">停用</option>
-            </select><br/>
-            <label>
-                <span>菜单排序</span>
-            </label>
-            <input type="text" name="sort_number" value="{$val.sort_number}" ><br/>
-            <label>
-                <span>无</span>
-            </label>
-            {if !empty($menu_list)}
-            <select name="pid">
-                <option value="0">顶级</option>
-                {volist name="menu_list" id="value"}
-                <option value="{$value.id}">{$value.name}</option>
-                {/volist}
-            </select><br/>
-            {/if}
+            <div>
+                <label>
+                    <span>菜单名称:</span>
+                </label>
+                <input type="text" name="name" value="{$val.name}">
+            </div>
+            <div>
+                <label>
+                    <span>菜单url:</span>
+                </label>
+                <input type="text" name="url" value="{$val.url}">
+            </div>
+            <div>
+                <label>
+                    <span>状态:</span>
+                </label>
+                <select id="" class="" name="status">
+                    <option value="1">启用</option>
+                    <option value="0">停用</option>
+                </select>
+            </div>
+            <div>
+                <label>
+                    <span>菜单排序:</span>
+                </label>
+                <input type="text" name="sort_number" value="{$val.sort_number}" >
+            </div>
+            <div>
+                <label>
+                    <span>无:</span>
+                </label>
+                {if !empty($menu_list)}
+                <select name="pid">
+                    <option value="0">顶级</option>
+                    {volist name="menu_list" id="value"}
+                    <option value="{$value.id}">{$value.name}</option>
+                    {/volist}
+                </select>
+                {/if}
+            </div>
             <input type="hidden" name="id" value="{$val.id}">
-            <input type="submit" id="" class="" value="提交">
+            <div>
+                <input type="submit" class="submit_btn" value="提交">
+            </div>
         {/volist}
     </form>
 </div>
