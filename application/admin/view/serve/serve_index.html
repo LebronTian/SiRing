@@ -26,8 +26,8 @@
                         <th width="50">状态</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr class="text-c">
+                <tbody id="tbody">
+                    <!-- <tr class="text-c">
                         <td>
                             <input type="checkbox">
                         </td>
@@ -39,7 +39,7 @@
                         <td>
                             <a href="javascript:;">审核中</a>
                         </td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>
@@ -50,7 +50,7 @@
 <div class="pop pop1" style="display:none;">
     <div class="pop_title">
         <p>审核中</p>
-        <a href="javascript:;" class="pop_close">×</a>
+        <a href="javascript:hidePop(this.target);" class="pop_close">×</a>
     </div>
     <div class="pop_cont">
         <div class="user_cont">
@@ -107,7 +107,7 @@
         </div>
     </div>
     <div class="pop_btn">
-        <a href="javascript:;" class="shtg">已收货</a>
+        <a href="javascript:;" class="ysh">已收货</a>
     </div>
 </div>
 <!-- 已处理 -->
@@ -129,13 +129,13 @@
         </div>
     </div>
     <div class="pop_btn">
-        <a href="javascript:;" class="shtg">已处理</a>
+        <a href="javascript:;" class="ycl">已处理</a>
     </div>
 </div>
 <!-- 已完成 -->
 <div class="pop pop5" style="display:none;">
     <div class="pop_title">
-        <p>完成</p>
+        <p>已处理</p>
         <a href="javascript:;" class="pop_close">×</a>
     </div>
     <div class="pop_cont">
@@ -149,6 +149,9 @@
             <span>后台回复：</span>
             <textarea name="" id="" cols="30" rows="10"></textarea>
         </div>
+    </div>
+    <div class="pop_btn">
+        <a href="javascript:;" class="ywc">已完成</a>
     </div>
 </div>
 
@@ -170,5 +173,117 @@
 <script type="text/javascript" src="__STATIC__/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/laypage/1.2/laypage.js"></script>
+<script>
+    $('.pop a').click(function(){
+        var status = $(this)[0].innerHTML;
+        switch(status){
+            case '拒绝':
+                status = '6';
+                break;
+            case '审核通过':
+                status = '2';
+                break;
+            case '已收货':
+                status = '3';
+                break;
+            case '已处理':
+                status = '4';
+                break;
+            case  '已完成':
+                status = '5';
+                break;
+        }
+        $(this).parents('.pop').hide();
+    })
+</script>
+<script>
+    function timetrans(date){
+        var date = new Date(date*1000);//如果date为13位不需要乘1000
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+        var m = (date.getMinutes() <10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+        var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
+        return Y+M+D+h+m+s;
+    }
 
+    $.ajax({
+        url: '{:url("admin/Serve/index")}',
+        type: 'POST',
+        dataType: 'JSON',
+        async: false,
+        success: function(data){
+            console.log(data)
+            if(data.status == 1){
+                var str = '';
+                var status ='';
+                $.each(data.data, function(idx, val){
+                    switch(val.status){
+                        case '1':
+                            status = '审核中';
+                            break;
+                        case '2':
+                            status = '审核通过';
+                            break;
+                        case '3':
+                            status = '已收货';
+                            break;
+                        case '4':
+                            status = '已处理';
+                            break;
+                        case '5':
+                            status = '已完成';
+                            break;
+                        case '6':
+                            status = '已拒绝';
+                            break;
+                        default:
+                            console.log('default');
+                            break;
+                    }
+                    str += '<tr class="text-c">\
+                                <td><input type="checkbox"></td>\
+                                <td>'+val.serve_num+'</td>\
+                                <td>'+timetrans(val.create_time)+'</td>\
+                                <td>'+val.harvest_phone_num+'</td>\
+                                <td>'+val.harvester+'</td>\
+                                <td></td>\
+                                <td><a class="status_btn" id="'+val.id+'">'+status+'</a></td>\
+                            </tr>'
+                })
+                $('#tbody').append(str);
+            }else if(data.status == 0){
+                alert('数据更新失败');
+            }
+        },
+        error: function(){
+            console.log('错误');
+        }
+    })
+
+    $('.status_btn').click(function(){
+        var status = $(this)[0].innerHTML;
+        switch(status){
+            case '审核中':
+                $('.pop1').show();
+                break;
+            case '已拒绝':
+                $('.pop2').show();
+                break;
+            case '审核通过':
+                $('.pop3').show();
+                break;
+            case '已收货':
+                $('.pop4').show();
+                break;
+            case '已处理':
+                $('.pop5').show();
+                break;
+            case '已完成':
+                $('.pop6').show();
+                break;
+        }
+    })
+</script>
 {/block}
