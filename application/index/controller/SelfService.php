@@ -103,6 +103,7 @@ class  SelfService extends  Controller{
             $serve_data["status"] = 1;
             $serve_data["serve_num"] = "SN".date("YmdHis").uniqid();
             $serve_data["create_time"] = time();
+            halt($serve_data);
             $bool = db("serve")->insert($serve_data);
             if($bool){
                 $serve_image = [];
@@ -131,8 +132,9 @@ class  SelfService extends  Controller{
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
      */
     public function processing(){
-
-        $serve = db("serve")->select();
+        $data = Session::get("member");
+        $user_id =db("user")->field('id')->where('phone_num',$data['phone_num'])->find();
+        $serve = db("serve")->where("user_id",$user_id)->select();
         return view('processing',["serve"=>$serve]);
 
     }
