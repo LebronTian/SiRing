@@ -65,17 +65,21 @@
     <!-- 已使用 -->
     <div class="used" style="display: none;">
         <div class="used_discount">
-
+        {if !empty($discounts)}
+        {volist name="discounts" id="data"}
             <ul>
                 <li>
-                    <img src="">
-                    <p class="used_money_p">￥
-                        <span class="amount_of_money"></span>
+                    <img src="__UPLOADS__/{$data.discounts_valid_images}">
+                    <p class="money_p">￥
+                        <span class="amount_of_money">{$data.discounts_money}</span>
                     </p>
-                    <p class="used_p">已使用</p>
+                    <p class="time_p">有效期:
+                        <span class="term_of_validity">{$data.over_time|date='Y-m-d H:i:s',###}</span>
+                    </p>
                 </li>
             </ul>
-
+        {/volist}
+        {/if}
         </div>
     </div>
 

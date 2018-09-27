@@ -50,8 +50,8 @@ class Discounts extends Base{
         $time = time();
         db("discounts")->where("over_time","<",$time)->update(['status'=>3]);
         $discounts_status = db("discounts")->where("status","3")->select();
-        //差优惠券以使用的状态
-        return view("discounts_my",["discounts_status"=>$discounts_status]);
+        $discounts = db("discounts")->where("user_id",$user_id["user_id"])->select();
+        return view("discounts_my",["discounts_status"=>$discounts_status,"discounts"=>$discounts]);
     }
 
 }

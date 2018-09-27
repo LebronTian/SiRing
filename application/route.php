@@ -232,6 +232,7 @@ Route::group("admin",[
     "admin_del"=>"admin/admin/del",
     "admin_edit"=>"admin/admin/edit",
     "admin_updata"=>"admin/admin/updata",
+    "admin_status"=>"admin/admin/status",
 
 
 
@@ -242,6 +243,7 @@ Route::group("admin",[
     "menu_del"=>"admin/menu/del",
     "menu_edit"=>"admin/menu/edit",
     "menu_updata"=>"admin/menu/updata",
+    "menu_status"=>"admin/menu/status",
 
 
     /*角色列表*/
@@ -251,6 +253,8 @@ Route::group("admin",[
     "role_del"=>"admin/role/del",
     "role_edit"=>"admin/role/edit",
     "role_updata"=>"admin/role/updata",
+    "role_status"=>"admin/role/status",
+
 
     /*商品管理*/
     "goods_index"=>"admin/Goods/index",

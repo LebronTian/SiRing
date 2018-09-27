@@ -8,6 +8,7 @@
 
 namespace app\index\controller;
 use think\Controller;
+use think\Request;
 
 class Issue extends Controller{
 
@@ -17,9 +18,13 @@ class Issue extends Controller{
      * 陈绪
      */
 
-    public function index(){
+    public function index(Request $request){
 
-        $issue = db("issue")->select();
+        if($request->isPost()){
+            $issue = db("issue")->select();
+            return ajax_success("获取成功",$issue);
+        }
+
         return view("issue_index");
     }
 
