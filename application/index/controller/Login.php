@@ -20,47 +20,86 @@ class Login extends Controller{
      * 登录
      **************************************
      */
+//    public function login()
+//    {
+//        if($_GET){
+//            $data = $_GET;
+//            $user_mobile =$data['account'];
+//            $password =$data['passwd'];
+//            if(empty($user_mobile)){
+//                $this->error('手机号不能为空');
+//            }
+//            if(empty($password)){
+//                $this->error('密码不能为空');
+//            }
+//            $res = Db::name('user')->field('password')->where('phone_num',$user_mobile)->find();
+//            if(!$res)
+//            {
+//                $this->error('手机号不存在');
+//            }
+//            $datas=[
+//                "phone_num" => $user_mobile,
+//                "password" => md5($password),
+//            ];
+//            $res =Db::name('user')->where($datas)->find();
+//           if(!$res && $res == null){
+//               $this->error("密码错误");
+//           }
+//           if($res){
+//               $res =Db::name('user')->where($datas)->where('status',1)->find();
+//               if($res)
+//               {
+//                   session('member',$datas);
+//                   $this->success('登录成功',url('index/index/index'));
+//               }else{
+//                   $this->error('此用户已被管理员设置停用');
+//               }
+//           }
+//        }
+//        return view('login');
+//    }
     public function login()
     {
-        if($_GET){
+        return view('login');
+    }
+
+    public function Dolog(Request $request){
+        if($request->isGet()){
             $data = $_GET;
             $user_mobile =$data['account'];
-
             $password =$data['passwd'];
-
             if(empty($user_mobile)){
-                $this->error('手机号不能为空');
+              return  ajax_error('手机号不能为空');
             }
             if(empty($password)){
-                $this->error('密码不能为空');
+               return ajax_error('密码不能为空');
             }
             $res = Db::name('user')->field('password')->where('phone_num',$user_mobile)->find();
             if(!$res)
             {
-                $this->error('手机号不存在');
+               return ajax_error('手机号不存在');
             }
             $datas=[
                 "phone_num" => $user_mobile,
                 "password" => md5($password),
             ];
             $res =Db::name('user')->where($datas)->find();
-           if(!$res && $res == null){
-               $this->error("密码错误");
-           }
-           if($res){
-               $res =Db::name('user')->where($datas)->where('status',1)->find();
-               if($res)
-               {
-//                   $_SESSION['member'] =$datas;
-                   session('member',$datas);
-                   $this->success('登录成功',url('index/index/index'));
-               }else{
-                   $this->error('此用户已被管理员设置停用');
-               }
-           }
+            if(!$res && $res == null){
+                return ajax_error('密码错误');
+            }
+            if($res){
+                $res =Db::name('user')->where($datas)->where('status',1)->find();
+                if($res)
+                {
+                    session('member',$datas);
+                    return ajax_success('登录成功',$datas);
+                }else{
+                    ajax_error('此用户已被管理员设置停用');
+                }
+            }
         }
-        return view('login');
     }
+
 
     /**
      **************李火生*******************

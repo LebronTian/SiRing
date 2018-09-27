@@ -129,6 +129,8 @@ Route::group("",[
 
     /*登录页面*/
     "login"=>"index/Login/login",
+    /*登录操作*/
+    'Dolog'=>"index/Login/Dolog",
     /*退出登录*/
     "logout"=>"index/Login/logout",
 
