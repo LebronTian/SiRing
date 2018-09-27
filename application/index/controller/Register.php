@@ -76,15 +76,14 @@ class Register extends  Controller{
                 $password =trim($_POST['password']);
                 $confirm_password =trim($_POST['confirm_password']);
                 $create_time =date('Y-m-d H:i:s');
-
                 if($password !==$confirm_password ){
-                    $this->error('两次密码不相同');
+                    return ajax_error('两次密码不相同');
                 }
                 if (strlen($mobile) != 11 || substr($mobile, 0, 1) != '1' || $code == '') {
-                    $this->error("参数不正确");
+                    return ajax_error("参数不正确");
                 }
                 if (session('mobileCode') != $code) {
-                    $this->error("验证码不正确");
+                    return ajax_error("验证码不正确");
                 }
                 $data =[
                   'phone_num'=>$mobile,
@@ -101,11 +100,13 @@ class Register extends  Controller{
                     $data['invitation'] = $invitation;
                     $bool = db("discounts_user")->insert($data);
                     if($bool){
-                        $this->success("注册成功",url('index/Login/login'));
+                        ajax_success('注册成功',$data);
+                        $this->success('注册成功','index/login/login');
                     }
 
                 }else if($res){
-                    $this->success('注册成功',url('index/Login/login'));
+                     ajax_success('注册成功',$data);
+                    $this->success('注册成功','index/login/login');
                 }
 
 
@@ -139,18 +140,17 @@ class Register extends  Controller{
                 $mobile = $_POST["mobile"];
               $res =  Db::name('user')->field('phone_num')->where('phone_num',$mobile)->select();
               if($res){
-                  $this->error('此手机号已经注册');
+                  return ajax_error('此手机号已经注册',$mobile);
               }
                 $mobileCode = rand(100000, 999999);
                 $arr = json_decode($mobile, true);
                 $mobiles = strlen($arr);
                 if (isset($mobiles) != 11) {
-                    $this->error("手机号码不正确");
+                    return ajax_error("手机号码不正确");
                 }
                 //存入session中
                 if (strlen($mobileCode)> 0) {
                     session('mobileCode',$mobileCode);
-//                    $_SESSION['mobileCode'] = $mobileCode;
                     $_SESSION['mobile'] = $mobile;
                 }
                 $content = "尊敬的用户，您本次验证码为{$mobileCode}，十分钟内有效";
@@ -164,9 +164,9 @@ class Register extends  Controller{
                 $output = curl_exec($ch);
                 curl_close($ch);
                 if ($output) {
-                    ajax_success("发送成功", $output);
+                   return ajax_success("发送成功", $output);
                 } else {
-                    $this->error("发送失败");
+                    return ajax_error("发送失败",$output);
                 }
             }
         }

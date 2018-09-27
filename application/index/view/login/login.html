@@ -24,7 +24,7 @@
     <div class="h-mid">会员登录     </div>
 </header>
 <div class="denglu">
-    <form action="login.html" method="get">
+    <!--<form action="login.html" method="get">-->
         <div class="Login">
             <dl>
                 <dt>手机号：</dt>
@@ -36,7 +36,8 @@
                 <dd><input type="password" class="password" name="passwd" placeholder="密码"/></dd>
             </dl>
             <div class="field submit-btn">
-                <input type="submit" class="btn_big1" onclick="member_login()" value="登 录" />
+                <!--<input type="submit" class="btn_big1" onclick="member_login()" value="登 录" />-->
+                <input type="submit" class="btn_big1"  value="登 录" />
                 <input type="hidden" name="act" value="act_login" />
                 <input type="hidden" name="back_act" value="" />
             </div>
@@ -64,33 +65,37 @@
             </div>
 
         </div>
-    </form>
+    <!--</form>-->
 </div>
-<!--<script type="text/javascript">-->
-    <!--$(function(){-->
-        <!--$('.btn_big1').click(function(){-->
-            <!--var username = $('.user_name').val();-->
-            <!--var password = $('.password').val();-->
-            <!--$.ajax({-->
-                <!--url: "{:url('index/index/login')}",-->
-                <!--type: 'GET',-->
-                <!--async: false,-->
-                <!--dataType: 'json',-->
-                <!--data: {-->
-                    <!--"user_name": username,-->
-                    <!--"password":password,-->
-                <!--},-->
-                <!--success: function(data){-->
-                    <!--alert(data.msg);-->
-                <!--},-->
-                <!--error: function(data){-->
-                    <!--console.log('失败');-->
-                <!--}-->
-            <!--})-->
-        <!--})-->
-    <!--});-->
+<script type="text/javascript">
+    $(function(){
+        $('.btn_big1').click(function(){
+            var username = $('.user_name').val();
+            var password = $('.password').val();
+            console.log(username+password);
+            $.ajax({
+                url: "{:url('index/Login/Dolog')}",
+                type: 'GET',
+                async: false,
+                dataType: 'json',
+                data: {
+                    "account": username,
+                    "passwd":password,
+                },
+                success: function(data){
+                    console.log(data);
+                    if(data.status==1){
+                        window.location.href ='{:url('index/index/index')}';
+                    }
+                },
+                error: function(data){
+                    console.log(data);
+                }
+            })
+        })
+    });
 
-<!--</script>-->
+</script>
 
 </body>
 </html>
