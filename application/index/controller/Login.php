@@ -6,7 +6,6 @@
  * Time: 9:38
  */
 namespace app\index\controller;
-
 use think\Controller;
 use think\captcha\Captcha;
 use think\Db;

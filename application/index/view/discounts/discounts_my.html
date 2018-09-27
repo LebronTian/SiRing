@@ -23,7 +23,7 @@
 </div>
 <div class="tab">
     <!-- 没有优惠券的时候解除隐藏 -->
-    {if empty($discounts_data)}
+    {if empty($discounts) || $discounts.0.status != 1}
     <div class="no_discount" style="display: block;">
         <div class="no_discount_img">
             <img src="__STATIC__/index/images/u141.png">
@@ -36,57 +36,67 @@
     <!-- 未使用 没有优惠券时隐藏-->
     <div class="not_used" style="display: block;">
         <div class="discount_img">
-            {if !empty($discounts_data)}
-            {volist name="discounts_data" id="value"}
-            <ul>
-                <li>
-                    <img src="__UPLOADS__/{$value.discounts_valid_images}">
-                    <p class="money_p">￥
-                        <span class="amount_of_money">{$value.discounts_money}</span>
-                    </p>
-                    <p class="time_p">有效期:
-                        <span class="term_of_validity">{$value.over_time|date='Y-m-d H:i:s',###}</span>
-                    </p>
-                </li>
-            </ul>
+            {if !empty($discounts)}
+            {volist name="discounts" id="value"}
+                {if $value.status == 1}
+                <ul>
+                    <li>
+                        <img src="__UPLOADS__/{$value.discounts_valid_images}">
+                        <p class="money_p">￥
+                            <span class="amount_of_money">{$value.discounts_money}</span>
+                        </p>
+                        <p class="time_p">有效期:
+                            <span class="term_of_validity">{$value.over_time|date='Y-m-d H:i:s',###}</span>
+                        </p>
+                    </li>
+                </ul>
+                {/if}
             {/volist}
             {/if}
         </div>
     </div>
 
     <!-- 已使用 -->
-    <div class="used" style="display: none;">
+    <div class="used" style="display: block;">
         <div class="used_discount">
-
+        {if !empty($discounts)}
+        {volist name="discounts" id="data"}
+            {if $data.status == 2}
             <ul>
                 <li>
-                    <img src="">
-                    <p class="used_money_p">￥
-                        <span class="amount_of_money"></span>
+                    <img src="__UPLOADS__/{$data.discounts_valid_images}">
+                    <p class="money_p">￥
+                        <span class="amount_of_money">{$data.discounts_money}</span>
                     </p>
-                    <p class="used_p">已使用</p>
+                    <p class="time_p">有效期:
+                        <span class="term_of_validity">{$data.over_time|date='Y-m-d H:i:s',###}</span>
+                    </p>
                 </li>
             </ul>
-
+            {/if}
+        {/volist}
+        {/if}
         </div>
     </div>
 
     <!-- 已过期 -->
     <div class="expired" style="display: none;">
         <div class="expired_discount">
-            {if !empty($discounts_status)}
-            {volist name="discounts_status" id="val"}
-            <ul>
-                <li>
-                    <img src="__UPLOADS__/{$val.discounts_failure_images}">
-                    <p class="expired_money_p">￥
-                        <span class="amount_of_money">{$val.discounts_money}</span>
-                    </p>
-                    <p class="expired_p">有效期:
-                        <span class="term_of_validity">{$val.over_time|date='Y-m-d H:i:s',###}</span>
-                    </p>
-                </li>
-            </ul>
+            {if !empty($discounts)}
+            {volist name="discounts" id="val"}
+                {if $val.status == 3}
+                <ul>
+                    <li>
+                        <img src="__UPLOADS__/{$val.discounts_failure_images}">
+                        <p class="expired_money_p">￥
+                            <span class="amount_of_money">{$val.discounts_money}</span>
+                        </p>
+                        <p class="expired_p">有效期:
+                            <span class="term_of_validity">{$val.over_time|date='Y-m-d H:i:s',###}</span>
+                        </p>
+                    </li>
+                </ul>
+                {/if}
             {/volist}
             {/if}
         </div>

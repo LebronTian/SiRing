@@ -43,15 +43,12 @@ class Discounts extends Base{
                 if($bool == true){
                     db("discounts")->where("id",$discounts_id['id'])->update(["user_id"=>$user_id['user_id']]);
                 }
-                $discounts_data = db("discounts")->where("id",$discounts_id['id'])->where("user_id",$user_id["user_id"])->select();
-                $this->assign("discounts_data",$discounts_data);
             }
         }
         $time = time();
         db("discounts")->where("over_time","<",$time)->update(['status'=>3]);
-        $discounts_status = db("discounts")->where("status","3")->select();
-        //差优惠券以使用的状态
-        return view("discounts_my",["discounts_status"=>$discounts_status]);
+        $discounts = db("discounts")->where("user_id",$user["id"])->select();
+        return view("discounts_my",["discounts"=>$discounts]);
     }
 
 }
