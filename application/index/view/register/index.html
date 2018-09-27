@@ -34,7 +34,7 @@
         <!--</ul>-->
         <div id="logRegTabCon">
             <div class="log_reg_item" id="phonearea">
-                <form action="{:url('index/register/doRegByPhone')}" id="mobileForm" name="mobileForm" method="post">
+                <!--<form action="{:url('index/register/doRegByPhone')}" id="mobileForm" name="mobileForm" method="post">-->
                     <input type="hidden" id="register_type" name="register_type" value="mobile"/>
 
                     <div class="field phone">
@@ -65,7 +65,7 @@
                     </div>
                     <div class="yanzheng" style=" margin-top:0px;">
                         <div class="codeTxt">
-                            <input type="text" id="mobile_code" name="mobile_code" placeholder="手机验证码"/>
+                            <input type="text" id="mobile_codes" name="mobile_code" placeholder="手机验证码"/>
                         </div>
                         <div class="codePhoto">
                             <input id="zphone" type="button" value="获取手机验证码 " onclick="yzm()" class="zphone"
@@ -73,16 +73,16 @@
                         </div>
                     </div>
                     <div class="field pwd">
-                        <input type="text" name="invitation" value="{$number}" placeholder="请输入邀请码(可以不填)"
+                        <input id="inviteCode" type="text" name="invitation" value="{$number}" placeholder="请输入邀请码(可以不填)"
                                class="c-form-txt-normal"/>
                         <div class="tips">
                             <span></span>
                         </div>
                     </div>
-                    <input type="submit" name="Submit" class="btn_big1 Invitations" value="注 册"/>
+                    <input type="submit" name="Submit" class="btn_big1 Invitations" onclick="regdo()" value="注 册"/>
                     <!--<input type="hidden" name="act" value="register"/>-->
                     <!--<input type="hidden" name="back_act" value=""/>-->
-                </form>
+                <!--</form>-->
             </div>
         </div>
     </div>
@@ -130,9 +130,46 @@
                 if(data.code==0){
                     alert(data.msg);
                 }
+                if(data.status==0){
+                    alert(data.info);
+                }
             },
-            error: function () {
-                console.log("错误");
+            error: function (data) {
+                console.log('error');
+            }
+        })
+    }
+    function regdo() {
+        var mobile =$('#mobile').val();
+        var mobile_code =$('#mobile_codes').val();
+        var password =$('#password').val();
+        var confirm_password = $('#confirm_password').val();
+        var invitation = $('#inviteCode').val();
+        $.ajax({
+            url: "{:url('index/register/doRegByPhone')}",
+            type: "POST", //GET
+            async: false, //或true，异步请求
+            timeout: 2000,
+            data: {
+                    'mobile':mobile,
+                    'mobile_code':mobile_code,
+                    'password':password,
+                'confirm_password':confirm_password,
+                'invitation':invitation,
+            },
+            dataType: "json",
+            success: function (data) {
+                if(data.status==0){
+                    alert(data.info);
+                }
+                if(data.status==1){
+                    alert(data.info);
+                    window.location.href ="{:url('index/Login/login')}";
+                }
+
+            },
+            error: function (data) {
+                console.log(data);
             }
         })
     }

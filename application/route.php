@@ -145,11 +145,8 @@ Route::group("",[
 
     /*短信注册*/
     "doreg_phone" =>"index/Register/doRegByPhone",
-
-
     /*手机验证码*/
     "send_mobile_code"=>"index/Register/sendMobileCode",
-
     /*邮箱注册*/
     "doreg_email" =>"index/Register/doRegByEmail",
 
