@@ -49,7 +49,7 @@
         <div class="status_bar">
             <div class="status_bar_gray"></div>
             <div class="true_div">
-                <span class="one" style="display:block;"></span>
+                <span class="one" style="visibility: inherit;"></span>
                 <span class="two"></span>
                 <span class="three"></span>
                 <span class="four"></span>
@@ -66,12 +66,9 @@
         </div>
     </div>
     <div class="float_inner">
-
         <div class="count_down">
             <p>
-                <span class="cont">您的服务单已申请成功，待售后审核中</span><br>预计
-                <span class="time">08小时19分51秒</span>内为您
-                <span class="status">审核</span>
+                <span class="cont">您的服务单已申请成功，待售后审核中</span>
             </p>
         </div>
 
@@ -96,8 +93,8 @@
         <div class="user_detail_info">
             <div class="repair_info">
                 <div class="service_num">
-                    服务单号：<span>{$value.serve_num}</span>
-                    <span class="copy">复制</span>
+                    服务单号：<input type="text" id="input" value="{$value.serve_num}">
+                    <span class="copy" onclick="copyUrl()">复制</span>
                 </div>
                 <div class="apply_time">
                     申请时间：<span>{$value.create_time|date='Y-m-d H:i',###}</span>
@@ -128,6 +125,7 @@
         </div>
     </div>
     <div class="operation">
+        <input type="input" hidden id="status" value="{$value.status}">
         <a href="javascript:cancel_pop();" id="qxsq">取消申请</a>
         <a href="{:url('index/self_service/repair_desc_edit',['id'=>$value.id])}">修改申请</a>
     </div>
@@ -153,7 +151,48 @@
     function hide_pop(status){
         $('#pop1').hide();
         $('#mask').hide();
-        console.log(status);
+        // console.log(status);
+    }
+    // 判断状态值
+    var s = $('#status').val();
+    switch(s){
+        case '2':
+            $('.two').css('visibility', 'inherit');
+            $('.bar_div').addClass('sec');
+            $('.repair_status')[0].innerHTML = '审核通过';
+            $('.count_down').find('.cont')[0].innerHTML = '您的申请审核通过，等待收货中！';
+            break;
+        case '3':
+            $('.two').css('visibility', 'inherit');
+            $('.three').css('visibility', 'inherit');
+            $('.bar_div').addClass('third');
+            $('.repair_status')[0].innerHTML = '已收货';
+            $('.count_down').find('.cont')[0].innerHTML = '已收货，等待处理中！';
+            break;
+        case '4':
+            $('.two').css('visibility', 'inherit');
+            $('.three').css('visibility', 'inherit');
+            $('.four').css('visibility', 'inherit');
+            $('.bar_div').addClass('fourth');
+            $('.repair_status')[0].innerHTML = '已处理';
+            $('.count_down').find('.cont')[0].innerHTML = '您的申请已处理，等待完成！';
+            break;
+        case '5':
+            $('.two').css('visibility', 'inherit');
+            $('.three').css('visibility', 'inherit');
+            $('.four').css('visibility', 'inherit');
+            $('.five').css('visibility', 'inherit');
+            $('.bar_div').addClass('fifth');
+            $('.repair_status')[0].innerHTML = '已完成';
+            $('.count_down').find('.cont')[0].innerHTML = '您的申请已完成！';
+            break;
+    }
+
+    function copyUrl() {
+        var Url=document.getElementById("input");
+        Url.select(); // 选择对象
+        document.execCommand("Copy"); // 执行浏览器复制命令
+        alert("复制成功！");
     }
 </script>
 </body>
