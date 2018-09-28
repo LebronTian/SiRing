@@ -5,29 +5,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>常见问题</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .wrapper{
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .wrapper li{
+            border-bottom: 1px solid #ddd;
+            padding: 8px 10px;
+            position: relative;
+            list-style: none;
+        }
+        .wrapper li::after{
+            content: "";
+            display: inline-block;
+            position: absolute;
+            right: .55rem;
+            top: 50%;
+            margin-top: -.16rem;
+            width: .28rem;
+            height: .28rem;
+            border-style: solid;
+            border-color: #7D7D7D;
+            border-width: 1px 0 0 1px;
+            transform: rotateZ(135deg);
+        }
+        .wrapper li a{
+            font-size: 14px;
+            text-decoration: none;
+            color: #000;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            line-height: 24px;
+        }
+    </style>
 </head>
 <body>
-<div></div>
+<div class="wrapper">
+    <ul>
+        <!-- <li><a href="javascript:;">常见问题常见问题常见问题</a></li> -->
+    </ul>
+</div>
 
 <script src="__STATIC__/index/js/jquery.js"></script>
 <script>
-    // $.ajax({
-    //     url: '{:url("index/Issue/index")}',
-    //     type: 'POST',
-    //     dataType: 'JSON',
-    //     success: function(data){
-    //         console.log(data);
-    //         var str = '';
-    //         $.each(data.data, function(index, val){
-    //             str += val.issue_detail;
-    //         })
-    //         $('div').append(str);
-    //     },
-    //     error: function(){
-    //         console.log('error');
-    //     }
-        
-    // })
+    $.ajax({
+        url: '{:url("index/Issue/index")}',
+        type: 'POST',
+        dataType: 'JSON',
+        success: function(data){
+            console.log(data);
+            var str = '';
+            $.each(data.data, function(index, val){
+                str += '<li><a href="javascript:sendID('+val.id+');">'+val.issue_name+'</a></li>'
+            })
+            $('.wrapper ul').append(str);
+        },
+        error: function(){
+            console.log('error');
+        }
+    })
+</script>
+<script>
+    function sendID(id){
+        $.ajax({
+            url: '{:url("")}',
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                'id': id
+            },
+            success: function(data){
+                console.log(data)
+            },
+            error: function(){
+                console.log('error');
+            }
+        })
+    }
 </script>
 </body>
 </html>
