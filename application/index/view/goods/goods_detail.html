@@ -283,7 +283,7 @@
 		<div class="aui-bar-tab-label star_info">购物车</div>
 	</div>
 	<div class="aui-bar-tab-item aui-bg-warning aui-text-white" tapmode style="border-top-left-radius: 18px;border-bottom-left-radius: 18px;" id="add_to_cart">加入购物车</div>
-	<div class="aui-bar-tab-item aui-bg-danger aui-text-white" tapmode style="border-top-right-radius: 18px; border-bottom-right-radius: 18px;" id="buy_now">立即购买</div>
+	<div class="aui-bar-tab-item aui-bg-danger aui-text-white" onclick="toUrl('order_index')" tapmode style="border-top-right-radius: 18px; border-bottom-right-radius: 18px;" id="buy_now">立即购买</div>
 </footer>
 <!-- 配件大图 -->
 <div class="goods_parts_big_img">
@@ -630,8 +630,8 @@
 </script>
 
 <script>
-	function toUrl(){
-        console.log($(this))
+	function toUrl(url){
+        OCModel.share({'title': '立即购买跳转链接', 'desc': '跳转链接', 'shareUrl': url});
     }
 </script>
 </body>
