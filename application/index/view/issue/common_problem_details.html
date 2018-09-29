@@ -13,6 +13,17 @@
         .wrapper{
             width: 100%;
             box-sizing: border-box;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .wrapper p{
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .wrapper img{
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
@@ -29,6 +40,7 @@
         dataType: 'JSON',
         success: function(data){
             console.log(data);
+            $('.wrapper').append(data.data[0].issue_detail);
         },
         error: function(){
             console.log('error');
