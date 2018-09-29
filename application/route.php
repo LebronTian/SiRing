@@ -209,7 +209,6 @@ Route::group("",[
     "issue_index"=>"index/Issue/index",
     'common_problem_details'=>'index/Issue/common_problem_details',//常见问题详情
 
-
 ]);
 
 /**
