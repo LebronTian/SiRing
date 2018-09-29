@@ -125,6 +125,11 @@ Route::group("",[
     'detail_updata'=>"index/self_service/updata", //售后服务订单更新
 
 
+    'electronices'=>'index/self_service/electronics',//电子保修
+    'agreement'=>'index/self_service/agreement',//售后服务协议
+   
+
+
 
 
     /*登录页面*/
@@ -202,7 +207,7 @@ Route::group("",[
 
     /*常见问题*/
     "issue_index"=>"index/Issue/index",
-    "issue_details"=>"index/Issue/details",
+    'common_problem_details'=>'index/Issue/common_problem_details',//常见问题详情
 
 
 ]);
