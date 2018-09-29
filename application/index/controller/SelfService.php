@@ -275,5 +275,16 @@ class  SelfService extends  Controller{
         return view('successful_sub');
     }
 
+    //电子保修
+    public function electronics(){
+        return view('electronics');
+    }
+
+      //售后服务协议
+      public function agreement(){
+        return view('agreement');
+    }
+   
+
 
 }

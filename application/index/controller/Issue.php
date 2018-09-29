@@ -27,5 +27,9 @@ class Issue extends Controller{
 
         return view("issue_index");
     }
+       //常见问题详情
+       public function common_problem_details(){
+        return view('common_problem_details');
+    }
 
 }
