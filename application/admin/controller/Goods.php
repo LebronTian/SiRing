@@ -335,4 +335,49 @@ class Goods extends Controller{
 
 
 
+    /**
+     * 商品克隆
+     * 陈绪
+     */
+    public function goods_clone(Request $request){
+
+        if($request->isPost()){
+            $id = $request->only(['id'])['id'];
+            $goods = db("goods")->where("id",$id)->find();
+            $dir_name = (ROOT_PATH . 'public' . DS . 'uploads/'.date("YmdHis"));
+            if(!is_dir($dir_name)){
+                mkdir(ROOT_PATH . 'public' . DS . 'uploads/'.date("YmdHis"),777);
+            }
+            //$images_name = strrchr($dir_name,"/");
+
+            $dir = (ROOT_PATH . 'public' . DS . 'uploads/'.$goods["goods_show_images"]);
+            $jpg = strrchr($dir,".");
+            $image_name = date("Ymd").$jpg;
+            $goods_url = str_replace("\\", "/", $dir);
+            $new_name = str_replace("\\", "/", $dir_name);
+            $dir_bool = copy($goods_url,$new_name."/".$image_name);
+            halt($dir_bool);
+            $goods_url = str_replace("\\", "/", $dir);
+            $goods_images = db("goods_images")->where("goods_id",$id)->select();
+            unset($goods["id"]);
+            $bool = db("goods")->insert($goods);
+            if($bool){
+                foreach ($goods_images as $val){
+                    if($val['id']){
+                        unset($val["id"]);
+                    }
+                    $bool_images = db("goods_images")->insert($val);
+                }
+                if($bool_images){
+                    return ajax_success("添加成功");
+                }
+            }
+        }
+
+
+
+    }
+
+
+
 }
