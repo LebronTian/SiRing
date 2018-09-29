@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>手袋购物网</title>
+    <title>购物车</title>
     <link rel="icon" type="image/x-icon" href="__STATIC__/index/favicon.ico">
     <link rel="stylesheet" type="text/css" href="__STATIC__/index/css/aui.css"/>
 
@@ -32,17 +32,6 @@
     </script>
 </head>
 <body>
-<div class="header_box" style="background:#fff">
-    <div class="bar bar-header" style="background:#fff">
-        <a class="back" onclick="history.back(-1);" style="padding-top:5px; display:inline-block; padding-left:10px;">
-            <i class="aui-iconfont aui-icon-left" style="font-weight:800; color:#000; font-size:20px;"></i>
-        </a>
-        <div id="tite" class="h1 title" style=" width: 60%; margin: 0 auto; ">购物车</div>
-        <a class="rig_shai" id="rem_s" href="javascript:void(0)" style="margin-right: 2%;position: absolute; top: 5px; right: 3%;">
-            <i class="aui-iconfont aui-icon-edit" style="font-weight:800; color:#000; font-size:21px;"></i>
-        </a>
-    </div>
-</div>
 <form method="post" name="cart_form" target="_self" id="cart_form" action="{:url('index/Shopping/option')}">
     <!--list-->
     <div class="commodity_list_box">
@@ -159,6 +148,11 @@
                 success: function(data){
                     console.log(data);
                     window.location.href ="{:url('index/Order/index')}";
+
+                    function toUrl(){
+                        OCModel.share({'title': '结算', 'desc': '跳转链接', 'shareUrl': 'index/Order/index'});
+                    }
+                    toUrl();
                 },
                 error: function(){
                     location.href="login";
