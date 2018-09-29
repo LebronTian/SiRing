@@ -202,6 +202,7 @@ Route::group("",[
 
     /*常见问题*/
     "issue_index"=>"index/Issue/index",
+    "issue_details"=>"index/Issue/details",
 
 
 ]);

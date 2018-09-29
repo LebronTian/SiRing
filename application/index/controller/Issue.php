@@ -28,4 +28,21 @@ class Issue extends Controller{
         return view("issue_index");
     }
 
+
+
+    /**
+     * 常见问题详情
+     * 陈绪
+     */
+    public function details(Request $request){
+        if($request->isPost()){
+            $id = $request->only(["id"])["id"];
+            $details = db("issue")->where("id",$id)->select();
+            return ajax_success("获取成功",$details);
+        }
+        return view("common_problem_details");
+
+    }
+
+
 }

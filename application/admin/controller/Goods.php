@@ -71,17 +71,7 @@ class Goods extends Controller{
     public function save(Request $request)
     {
         if ($request->isPost()) {
-            $goods_data = $request->only([
-                "goods_name",
-                "sort_number",
-                "goods_type_id",
-                "goods_new_money",
-                "goods_parts",
-                "goods_status",
-                "goods_bottom_money",
-                "goods_num",
-                "goods_date"
-            ]);
+            $goods_data = $request->param();
             $sign = $request->only(["goods_sign"])["goods_sign"];
             $goods_data["goods_sign"] = implode(",", $sign);
             $goods_data["goods_number"] = "GB" . date("YmdHis") . uniqid() . $request->only(["goods_number"])["goods_number"];
