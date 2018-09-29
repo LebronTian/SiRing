@@ -208,6 +208,7 @@ Route::group("",[
     /*常见问题*/
     "issue_index"=>"index/Issue/index",
     'common_problem_details'=>'index/Issue/common_problem_details',//常见问题详情
+    "issue_details"=>"index/Issue/details",
 
 ]);
 
