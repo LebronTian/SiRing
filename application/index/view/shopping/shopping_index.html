@@ -148,10 +148,11 @@
                 success: function(data){
                     console.log(data);
                     window.location.href ="{:url('index/Order/index')}";
-                    
+
                     function toUrl(){
                         OCModel.share({'title': '结算', 'desc': '跳转链接', 'shareUrl': 'index/Order/index'});
                     }
+                    toUrl();
                 },
                 error: function(){
                     location.href="login";
