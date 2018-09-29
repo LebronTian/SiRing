@@ -56,10 +56,15 @@
                 font-size: 14px;
             }
         }
+        .warranty_card li a{
+            text-decoration: none;
+            color: #fff;
+        }
         .warranty_card li .top{
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 10px;
         }
         .warranty_card li .top .goods_img{
             width: 50px;
@@ -108,16 +113,18 @@
     var str = '';
     for(var i = 0; i < 8; i++){
         str += '<li>\
-                    <div class="top">\
-                        <div class="goods_img">\
-                            <img src="__STATIC__/index/image/class-4.jpg">\
+                    <a href="javascript:;">\
+                        <div class="top">\
+                            <div class="goods_img">\
+                                <img src="__STATIC__/index/image/class-4.jpg">\
+                            </div>\
+                            <p>售后服务保修卡</p>\
                         </div>\
-                        <p>售后服务保修卡</p>\
-                    </div>\
-                    <div class="bottom_time">\
-                        <div class="start_time">购买日期: <span>20180928</span></div>\
-                        <div class="end_time">保修到期: <span>20190928</span></div>\
-                    </div>\
+                        <div class="bottom_time">\
+                            <div class="start_time">购买日期: <span>20180928</span></div>\
+                            <div class="end_time">保修到期: <span>20190928</span></div>\
+                        </div>\
+                    </a>\
                 </li>'
     }
     $('.warranty_card ul').append(str)
