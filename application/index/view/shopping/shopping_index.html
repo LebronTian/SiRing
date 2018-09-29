@@ -32,17 +32,6 @@
     </script>
 </head>
 <body>
-<div class="header_box" style="background:#fff">
-    <div class="bar bar-header" style="background:#fff">
-        <a class="back" onclick="history.back(-1);" style="padding-top:5px; display:inline-block; padding-left:10px;">
-            <i class="aui-iconfont aui-icon-left" style="font-weight:800; color:#000; font-size:20px;"></i>
-        </a>
-        <div id="tite" class="h1 title" style=" width: 60%; margin: 0 auto; ">购物车</div>
-        <a class="rig_shai" id="rem_s" href="javascript:void(0)" style="margin-right: 2%;position: absolute; top: 5px; right: 3%;">
-            <i class="aui-iconfont aui-icon-edit" style="font-weight:800; color:#000; font-size:21px;"></i>
-        </a>
-    </div>
-</div>
 <form method="post" name="cart_form" target="_self" id="cart_form" action="{:url('index/Shopping/option')}">
     <!--list-->
     <div class="commodity_list_box">
@@ -159,6 +148,10 @@
                 success: function(data){
                     console.log(data);
                     window.location.href ="{:url('index/Order/index')}";
+                    
+                    function toUrl(){
+                        OCModel.share({'title': '结算', 'desc': '跳转链接', 'shareUrl': 'index/Order/index'});
+                    }
                 },
                 error: function(){
                     location.href="login";
