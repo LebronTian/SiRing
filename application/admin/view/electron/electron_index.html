@@ -1,0 +1,21 @@
+{extend name="layout"}
+
+{block name="content"}
+<form action="{:url('admin/Electron/save')}" method="post">
+<div class="row cl">
+    <label class="form-label col-xs-4 col-sm-2">保修年限</label>
+    <div class="formControls col-xs-8 col-sm-9">
+        <input name="year" class="HOT" type="checkbox" value="三年"><span class="myiconfont">三年</span><br>
+        <input name="year" class="cu" type="checkbox" checked="checked" value="二年"><span class="myiconfont">二年</span>  <span>* 系统默认二年</span><br>
+        <input name="year" class="ziying" type="checkbox" value="一年"><span class="myiconfont">一年</span><br>
+    </div>
+
+</div><br>
+    <input type="submit" value="提交">
+</form>
+
+{/block}
+
+{block name="bottom"}
+
+{/block}
