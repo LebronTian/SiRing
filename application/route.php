@@ -420,6 +420,8 @@ Route::group("admin",[
     /*电子保修卡*/
     "electron_index"=>"admin/Electron/index",
     "electron_save"=>"admin/Electron/save",
+    "electron_add"=>"admin/Electron/add",
+    "electron_del"=>"admin/Electron/del",
 
 
 ]);
