@@ -23,20 +23,21 @@
 
 <script src="__STATIC__/index/js/jquery.js"></script>
 <script>
-    // $.ajax({
-    //     url: '{:url("")}',
-    //     type: 'POST',
-    //     dataType: 'JSON',
-    //     data: {
-    //         'id': id
-    //     },
-    //     success: function(data){
-    //         console.log(data)
-    //     },
-    //     error: function(){
-    //         console.log('error');
-    //     }
-    // })
+    $.ajax({
+        url: '{:url("")}',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {
+            'id': id
+        },
+        success: function(data){
+            console.log(data);
+            location.href = 'common_problem_details';
+        },
+        error: function(){
+            console.log('error');
+        }
+    })
 </script>
 </body>
 </html>
