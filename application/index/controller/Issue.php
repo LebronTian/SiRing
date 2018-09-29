@@ -9,6 +9,7 @@
 namespace app\index\controller;
 use think\Controller;
 use think\Request;
+use think\Session;
 
 class Issue extends Controller{
 
@@ -34,9 +35,24 @@ class Issue extends Controller{
        if($request->isPost()){
            $id = $request->only(["id"])["id"];
            $details = db("issue")->where("id",$id)->select();
-           return ajax_success("获取成功",$details);
+           Session("details",$details);
+           return ajax_success("获取成功");
        }
-    return view('common_problem_details');
+    }
+
+
+
+    /**
+     * 常见问题显示
+     * 陈绪
+     */
+    public function details(Request $request){
+        if($request->isPost()){
+            $details = Session::get("details");
+            return ajax_success("获取成功",$details);
+        }
+
+        return view('common_problem_details');
     }
 
 
