@@ -24,15 +24,11 @@
 <script src="__STATIC__/index/js/jquery.js"></script>
 <script>
     $.ajax({
-        url: '{:url("")}',
+        url: '{:url("index/Issue/details")}',
         type: 'POST',
         dataType: 'JSON',
-        data: {
-            'id': id
-        },
         success: function(data){
             console.log(data);
-            location.href = 'common_problem_details';
         },
         error: function(){
             console.log('error');
