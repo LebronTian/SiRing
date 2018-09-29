@@ -221,6 +221,30 @@
             </div>
         </div>
 
+        <!--商品分类大图-->
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">商品分类大图</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <div class="formControls col-xs-8 col-sm-9">
+                    <a href="javascript:;" class="a-upload" style="width:30%;">
+                        <input type="file" name="type_show_images" id="myFile5" /><span>选择上传的文件</span>
+                    </a>
+                    <div class="img_div5"></div>
+
+                    <div class="shade5" onclick="javascript:closeShade()">
+                        <div>
+                            <span class="text_span5"></span>
+                        </div>
+                    </div>
+                    <div class="shadeImg5" onclick="javascript:closeShadeImg()">
+                        <div>
+                            <img class="showImg5" src=""/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <input type="submit" class="submit" value="提交">
     </form>
 </div>
@@ -305,6 +329,77 @@
                     $(".text_span4").text("上传的图片大小不能超过1000k！");
                     this.value = "";
                     $(".img_div4").html("");
+                    return false;
+                }
+            }
+            return true;
+        });
+        /*
+         描述：鉴定每个浏览器上传图片url 目前没有合并到Ie
+         * */
+        function getObjectURL(file) {
+            var url = null;
+            if(window.createObjectURL != undefined) { // basic
+                url = window.createObjectURL(file);
+            } else if(window.URL != undefined) { // mozilla(firefox)
+                url = window.URL.createObjectURL(file);
+            } else if(window.webkitURL != undefined) { // webkit or chrome
+                url = window.webkitURL.createObjectURL(file);
+            }
+            //console.log(url);
+            return url;
+        }
+    });
+    function removeImg(r){
+        $(r).parent().remove();
+    }
+
+
+    // 分类大图
+    $(function() {
+        var objUrl;
+        var img_html;
+        $("#myFile5").change(function() {
+            var img_div = $(".img_div5");
+            var filepath = $("input[name='type_show_images']").val();
+            for(var i = 0; i < this.files.length; i++) {
+                objUrl = getObjectURL(this.files[i]);
+                var extStart = filepath.lastIndexOf(".");
+                var ext = filepath.substring(extStart, filepath.length).toUpperCase();
+                /*
+                 描述：鉴定每个图片上传尾椎限制
+                 * */
+                if(ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {
+                    $(".shade5").fadeIn(500);
+                    $(".text_span5").text("图片限于bmp,png,gif,jpeg,jpg格式");
+                    this.value = "";
+                    $(".img_div5").html("");
+                    return false;
+                } else {
+                    /*
+                     若规则全部通过则在此提交url到后台数据库
+                     * */
+                    img_html = "<div class='isImg5'>\
+                                <img src='" + objUrl + "' onclick='javascript:lookBigImg(this)' style='height: 100%; width: 100%;' />\
+                                <button class='removeBtn' onclick='javascript:removeImg(this)'>x</button>\
+                            </div>";
+                    img_div.append(img_html);
+                }
+            }
+            /*
+             描述：鉴定每个图片大小总和
+             * */
+            var file_size = 0;
+            var all_size = 0;
+            for(j = 0; j < this.files.length; j++) {
+                file_size = this.files[j].size;
+                all_size = all_size + this.files[j].size;
+                var size = all_size / 1024;
+                if(size > 5000) {
+                    $(".shade5").fadeIn(5000);
+                    $(".text_span5").text("上传的图片大小不能超过1000k！");
+                    this.value = "";
+                    $(".img_div5").html("");
                     return false;
                 }
             }

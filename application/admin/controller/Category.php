@@ -52,6 +52,8 @@ class Category extends Controller{
             $data = $request->param();
             $show_images = $request->file("type_images")->move(ROOT_PATH . 'public' . DS . 'type');
             $data["type_images"] = str_replace("\\","/",$show_images->getSaveName());
+            $type_images = $request->file("type_show_images")->move(ROOT_PATH . 'public' . DS . 'type');
+            $data["type_show_images"] = str_replace("\\","/",$type_images->getSaveName());
             $bool = db("goods_type")->insert($data);
             if($bool){
                 $this->success("添加成功",url("admin/Category/index"));
@@ -87,6 +89,8 @@ class Category extends Controller{
             $data = $request->only(["name", "status", "sort_number", "pid"]);
             $show_images = $request->file("type_images")->move(ROOT_PATH . 'public' . DS . 'type');
             $data["type_images"] = str_replace("\\", "/", $show_images->getSaveName());
+            $type_images = $request->file("type_show_images")->move(ROOT_PATH . 'public' . DS . 'type');
+            $data["type_show_images"] = str_replace("\\","/",$type_images->getSaveName());
             $bool = db("goods_type")->where('id', $request->only(["id"])["id"])->update($data);
             if ($bool) {
                 $this->success("编辑成功", url("admin/Category/index"));
@@ -135,13 +139,18 @@ class Category extends Controller{
      * @return string|void
      */
     public function images(Request $request){
-        $id = $request->only(['id'])['id'];
-        $images = db("goods_type")->where("id",$id)->field("type_images")->find();
-        $bool = db("goods_type")->where("id",$id)->update(['type_images'=>null]);
-        unlink(ROOT_PATH . 'public' . DS . 'type/'.$images['type_images']);
-        if($bool){
-            return ajax_success("更新成功");
+        if($request->isPost()) {
+            $id = $request->only(['id'])['id'];
+            $images = db("goods_type")->where("id", $id)->field("type_images,type_show_images")->find();
+            if ($images['type_images'] != null) {
+                unlink(ROOT_PATH . 'public' . DS . 'type/' . $images['type_images']);
+            }
+            if ($images['type_show_images'] != null) {
+                unlink(ROOT_PATH . 'public' . DS . 'type/' . $images['type_show_images']);
+            }
+            return ajax_success("删除成功");
         }
+
     }
 
 

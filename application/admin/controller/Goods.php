@@ -79,7 +79,8 @@ class Goods extends Controller{
                 "goods_parts",
                 "goods_status",
                 "goods_bottom_money",
-                "goods_num"
+                "goods_num",
+                "goods_date"
             ]);
             $sign = $request->only(["goods_sign"])["goods_sign"];
             $goods_data["goods_sign"] = implode(",", $sign);
@@ -214,7 +215,8 @@ class Goods extends Controller{
                 "goods_parts",
                 "goods_status",
                 "goods_bottom_money",
-                "goods_num"
+                "goods_num",
+                "goods_date"
             ]);
             $sign = $request->only(["goods_sign"])["goods_sign"];
             $goods_data["goods_sign"] = implode(",", $sign);
