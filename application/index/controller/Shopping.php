@@ -17,11 +17,21 @@ class Shopping extends Base {
      * 购物车
      * 陈绪
      */
-    public function index(){
-        $data = Session::get("member");
-        $user_id =Db::name('user')->field('id')->where('phone_num',$data['phone_num'])->find();
-        $shopping = db("shopping")->where("user_id",$user_id['id'])->select();
-        return view("shopping_index",["shopping"=>$shopping]);
+    public function index(Request $request){
+        if($request->isGet()){
+            $data = Session::get("member");
+            $user_id =Db::name('user')->field('id')->where('phone_num',$data['phone_num'])->find();
+            $shopping = db("shopping")->where("user_id",$user_id['id'])->select();
+            return view("shopping_index",["shopping"=>$shopping]);
+        }
+        if($request->isPost()){
+            $phone = $request->only(['phone_num'])["phone_num"];
+            $user_id =Db::name('user')->field('id')->where('phone_num',$phone)->find();
+            $shopping = db("shopping")->where("user_id",$user_id['id'])->select();
+            return ajax_success("获取成功",$shopping);
+        }
+
+
     }
 
 

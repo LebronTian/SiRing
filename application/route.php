@@ -416,6 +416,10 @@ Route::group("admin",[
     "advertising_updata"=>"admin/Advertising/updata",
     "advertising_images"=>"admin/Advertising/images",
 
+
+    /*电子保修卡*/
+
+
 ]);
 
 Route::miss("public/miss");
