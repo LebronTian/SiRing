@@ -19,19 +19,8 @@ class Seckill extends Controller{
      */
     public function index(Request $request){
         if ($request->isPost()){
-            $time = time();
-            $seckill = db("seckill")->where("over_time",">",$time)->select();
-            db("seckill")->where("over_time","<",$time)->update(['status'=>0]);
-            $goods = db("goods")->select();
-            foreach ($seckill as $key=>$value){
-                foreach ($goods as $val){
-                    if($value['goods_id'] == $val['id']){
-                        $seckill[$key]['goods_name'] = $val['goods_name'];
-                        $seckill[$key]['goods_show_images'] = $val['goods_show_images'];
-                    }
-                }
-            }
-            return ajax_success("获取成功",$seckill);
+            $type_id = $request->only(['type_id'])["type_id"];
+            return ajax_success("获取成功");
         }
         return view("seckill_index");
 

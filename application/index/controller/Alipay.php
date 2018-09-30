@@ -91,11 +91,6 @@ class AliPay extends Controller
                 if(empty($shopping_goods[0]["shopping_shop_id"])){
                     db("goods")->where("id",$shopping_goods[0]['goods_id'])->update(["goods_num"=>$goods_num]);
                 }
-                //秒杀提交订单   秒杀剩余库存修改
-                if(!empty($seckill["residue_num"])){
-                    $seckill_num = $seckill["residue_num"] - 1;
-                    db("seckill")->where("goods_id",$shopping_goods[0]['goods_id'])->update(["residue_num"=>$seckill_num]);
-                }
                 //第一次秒杀提交订单
                 if(!empty($seckill["goods_num"])){
                     $seckill_num = $seckill["goods_num"] - 1;
