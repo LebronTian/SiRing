@@ -1,5 +1,5 @@
 .time_limit .limit_inner{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 .limit_inner{
     width: 96%;
@@ -17,9 +17,10 @@
 }
 .limit_inner .limit_title{
     color: #0f0f0f;
+    margin: 6px 0;
 }
 .limit_inner .limit_title span{
-    color: #757575;
+    color: #000;
 }
 .limit_inner .limit_num i{
     width: 28px;
