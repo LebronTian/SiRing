@@ -12,7 +12,7 @@ class AliPay extends Controller
     /*
     * 支付宝支付
     */
-    public function aliPay()
+    public function aliPay(Request $request)
     {
         $config = array (
             //应用ID,您的APPID。
@@ -41,9 +41,11 @@ class AliPay extends Controller
 
         );
 
-        Loader::import("Alipay/wappay/buildermodel",EXTEND_PATH,".AlipayTradeWapPayContentBuilder");
-        import("Alipay/wappay/buildermodel",EXTEND_PATH,".AlipayTradeWapPayContentBuilder");
-        //Loader::import('Alipay/wappay/buildermodel/AlipayTradeWapPayContentBuilder.php',EXTEND_PATH);
+        Loader::import("Alipay.wappay.buildermodel",EXTEND_PATH,".AlipayTradeWapPayContentBuilder.php");
+        import("Alipay.wappay.buildermodel",EXTEND_PATH,".AlipayTradeWapPayContentBuilder.php");
+        Loader::import('Alipay.wappay.buildermodel',EXTEND_PATH,".AlipayTradeWapPayContentBuilder.php");
+        import('Alipay.wappay.buildermodel',EXTEND_PATH,".AlipayTradeWapPayContentBuilder.php");
+
         if (!empty($_POST['WIDout_trade_no'])&& trim($_POST['WIDout_trade_no'])!=""){
             //商户订单号，商户网站订单系统中唯一订单号，必填
             $out_trade_no = $_POST['WIDout_trade_no'];
@@ -59,6 +61,7 @@ class AliPay extends Controller
 
             //超时时间
             $timeout_express="1m";
+
             $payRequestBuilder = new \AlipayTradeWapPayContentBuilder();
 
             $payRequestBuilder->setBody($body);
@@ -67,7 +70,7 @@ class AliPay extends Controller
             $payRequestBuilder->setTotalAmount($total_amount);
             $payRequestBuilder->setTimeExpress($timeout_express);
 
-            $payResponse = new \Alipay\wappay\service\AlipayTradeService($config);
+            $payResponse = new \AlipayTradeService($config);
             $result=$payResponse->wapPay($payRequestBuilder,$config['return_url'],$config['notify_url']);
 
             return ;
