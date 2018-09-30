@@ -18,6 +18,13 @@
 </header>
 <div class="aui-content aui-margin-b-15">
     <ul class="aui-list aui-media-list">
+        <div class="time_box">
+            <span class="time_text">距离活动结束</span>&nbsp;
+            <span class="day">0天</span>
+            <span class="hour">0</span> :
+            <span class="minutes">0</span> :
+            <span class="second">0</span>
+        </div>
         <!-- <li class="aui-list-item">
             <div class="time_box">
                 距结束
@@ -67,17 +74,10 @@
                 var len = data.length;
                 for(var i = 0; i < len; i++){
                     $('.aui-media-list').append('<li class="aui-list-item">\
-                                                    <div class="time_box">\
-                                                        <span class="time_text">距开始</span>&nbsp;\
-                                                        <span class="day">0天</span>\
-                                                        <span class="hour">0</span> :\
-                                                        <span class="minutes">0</span> :\
-                                                        <span class="second">0</span>\
-                                                    </div>\
                                                     <a href="{:url("index/Goods/detail")}">\
                                                         <div class="aui-media-list-item-inner">\
                                                             <div class="aui-list-item-media" style="width:6rem">\
-                                                                <img src="__UPLOADS__/'+data[i].goods_show_images+'" id="img_'+data[i].goods_id+'">\
+                                                                <img src="__UPLOADS__/'+data[i].images+'" id="img_'+data[i].goods_id+'">\
                                                             </div>\
                                                             <div class="aui-list-item-inner">\
                                                                 <div class="aui-list-item-text">\
