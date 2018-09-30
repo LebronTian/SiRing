@@ -22,7 +22,7 @@ class Category extends Controller{
      * 陈绪
      */
     public function index(){
-        $category = db("goods_type")->where("status","<>","0")->select();
+        $category = db("goods_type")->where("status","<>","0")->order("sort_number")->paginate(10);
         return view("category_index",["category"=>$category]);
     }
 
