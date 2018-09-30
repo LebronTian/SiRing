@@ -119,9 +119,11 @@
 		{volist name="seckill" id="val"}
 		<div class="limit_inner">
 			<div class="img_box">
-				<a href="{:url('index/seckill/index')}"><img src="__UPLOADS__/{$val.images}"></a>
+				<a id="{$val.type_id}" class="secondk" href="{:url('index/seckill/index')}">
+					<img src="__UPLOADS__/{$val.images}">
+				</a>
 			</div>
-			<a id="{$val.type_id}" href="{:url('index/seckill/index')}">
+			<a href="{:url('index/seckill/index')}">
 				<p class="limit_title">
 					<span class="limit_time">{$val.keyword}</span>
 					<span class="time_box">
@@ -324,7 +326,23 @@
 </script>
 <!-- 秒杀 发送typeid -->
 <script>
-	
+	$('.secondk').click(function(){
+		var id = $(this)[0].id;
+		$.ajax({
+			url: '{:url("index/Seckill/index")}',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				'id': id
+			},
+			success: function(data){
+				console.log(data)
+			},
+			error: function(){
+				console.log('error');
+			}
+		})
+	})
 </script>
 </body>
 </html>
