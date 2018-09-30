@@ -6,7 +6,6 @@
  * Time: 14:18
  */
 namespace  app\index\controller;
-
 use think\Controller;
 use think\Request;
 
@@ -28,6 +27,7 @@ class  Classify extends  Controller{
         }
         return view('class_index');
     }
+
 
 
     /**

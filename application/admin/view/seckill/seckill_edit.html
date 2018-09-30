@@ -18,8 +18,8 @@
     <form id="CategoryAdd" action="{:url('admin/Seckill/updata')}" method="post" enctype="multipart/form-data">
         {volist name="seckill" id="value"}
         <div>
-            <label class="form-label col-xs-4 col-sm-3"><span>商品id</span></label>
-            <input type="text" placeholder="请到商品列表查找想要填写的商品id号" name="goods_id" value="{$value.goods_id}">
+            <label class="form-label col-xs-4 col-sm-3"><span>商品分类id</span></label>
+            <input type="text" placeholder="请到商品列表查找想要填写的商品id号" name="type_id" value="{$value.type_id}">
         </div>
         <div>
             <label class="form-label col-xs-4 col-sm-3" ><span>开始秒杀</span></label>

@@ -5,13 +5,14 @@ use think\Controller;
 use think\Loader;
 use think\Paginator;
 use think\Request;
+use Alipay\wappay\buildermodel;
 
 class AliPay extends Controller
 {
     /*
     * 支付宝支付
     */
-    public function aliPay()
+    public function aliPay(Request $request)
     {
         $config = array (
             //应用ID,您的APPID。
@@ -39,9 +40,12 @@ class AliPay extends Controller
             'alipay_public_key' => "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz+SfWrndsOSD3AY3v5YtA9n+BoBcckMYfjgpIrT5Bu2YF2GR5oFCBJASSQeRRyDHPWL3i91lbyZeiBsE2l+rJcMTP+EfH6MpxMerwqfvOPw4p4OHHAnbI52xjdNZStBdIT7oEwEUsghuejCpWelL/b3CPFpW/1OpEVRnssw9gc0f1mius2eOXZ0+5JaJRZ/zJWxgyMHctF6NXcSG2oVOl0WyiNK/F4CuqdIcq1y8ZDiVvmRbyfzcEmbgob7MpwVFWw1Fge3z4fSnG7bicOJSXkPbWNhZmGe/yXCEXbA/8Kldp/nMkwnMGJ5A/3yFZTEUnmY60qnXA5T3R1KOnpXklwIDAQAB",
 
         );
-        require_once dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'Alipay/wappay/service/AlipayTradeService.php';
-        //Loader::import("Alipay/wappay/service/AlipayTradeService.php",EXTEND_PATH);
-        //Loader::import('Alipay/wappay/buildermodel/AlipayTradeWapPayContentBuilder.php',EXTEND_PATH);
+
+        Loader::import("Alipay.wappay.buildermodel",EXTEND_PATH,".AlipayTradeWapPayContentBuilder.php");
+        import("Alipay.wappay.buildermodel",EXTEND_PATH,".AlipayTradeWapPayContentBuilder.php");
+        Loader::import('Alipay.wappay.buildermodel',EXTEND_PATH,".AlipayTradeWapPayContentBuilder.php");
+        import('Alipay.wappay.buildermodel',EXTEND_PATH,".AlipayTradeWapPayContentBuilder.php");
+
         if (!empty($_POST['WIDout_trade_no'])&& trim($_POST['WIDout_trade_no'])!=""){
             //商户订单号，商户网站订单系统中唯一订单号，必填
             $out_trade_no = $_POST['WIDout_trade_no'];
@@ -90,11 +94,6 @@ class AliPay extends Controller
                 $seckill = db("seckill")->where("goods_id",$shopping_goods[0]['goods_id'])->find();
                 if(empty($shopping_goods[0]["shopping_shop_id"])){
                     db("goods")->where("id",$shopping_goods[0]['goods_id'])->update(["goods_num"=>$goods_num]);
-                }
-                //秒杀提交订单   秒杀剩余库存修改
-                if(!empty($seckill["residue_num"])){
-                    $seckill_num = $seckill["residue_num"] - 1;
-                    db("seckill")->where("goods_id",$shopping_goods[0]['goods_id'])->update(["residue_num"=>$seckill_num]);
                 }
                 //第一次秒杀提交订单
                 if(!empty($seckill["goods_num"])){

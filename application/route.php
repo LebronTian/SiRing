@@ -44,6 +44,7 @@ Route::group("",[
 
     /*秒杀*/
     "seckill_index"=>"index/Seckill/index",
+    "seckill_show"=>"index/Seckill/show",
 
 
     /*我的收藏*/
@@ -126,6 +127,7 @@ Route::group("",[
 
 
     'electronices'=>'index/self_service/electronics',//电子保修
+    'electronices_show'=>'index/self_service/electronics_show',//电子保修
     'agreement'=>'index/self_service/agreement',//售后服务协议
    
 

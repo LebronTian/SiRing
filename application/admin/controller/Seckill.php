@@ -20,9 +20,8 @@ class Seckill extends Controller{
     public function index(){
 
         $seckill = db("seckill")->paginate(10);
-        $goods = db("goods")->select();
         $goods_type = db("goods_type")->select();
-        return view("seckill_index",["seckill"=>$seckill,"goods"=>$goods,"goods_type"=>$goods_type]);
+        return view("seckill_index",["seckill"=>$seckill,"goods_type"=>$goods_type]);
     }
 
 
@@ -40,11 +39,11 @@ class Seckill extends Controller{
      * 陈绪
      */
     public function save(Request $request){
-        $goods_id = $request->only(['goods_id'])['goods_id'];
+        $goods_id = $request->only(['type_id'])['type_id'];
         $data = $request->only(["status","seckill_money","keyword"]);
         $start_time = $request->only(["start_time"])["start_time"];
         $over_time = $request->only(["over_time"])["over_time"];
-        $data['goods_id'] = $goods_id;
+        $data['type_id'] = $goods_id;
         $data["start_time"] = strtotime($start_time);
         $data["over_time"] = strtotime($over_time);
         $data['goods_num'] = $request->only(['goods_num'])['goods_num'];
@@ -77,7 +76,7 @@ class Seckill extends Controller{
      */
     public function updata(Request $request){
         $id = $request->only(["id"])['id'];
-        $data = $request->only(["status","goods_id","seckill_money","keyword","goods_num","residue_num"]);
+        $data = $request->only(["status","type_id","seckill_money","keyword","goods_num","residue_num"]);
         $start_time = $request->only(["start_time"])["start_time"];
         $over_time = $request->only(["over_time"])["over_time"];
         $data["start_time"] = strtotime($start_time);

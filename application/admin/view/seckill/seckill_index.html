@@ -25,7 +25,7 @@
             <th width="40">商品图片</th>
             <th width="150">价格</th>
             <th width="90">分类</th>
-            <th width="150">goods_id</th>
+            <th width="150">type_id</th>
             <th>活动时间</th>
             <th width="130">排序</th>
             <th width="130">上架</th>
@@ -37,16 +37,12 @@
         <tr class="text-c">
             <td><input type="checkbox" value="1" name=""></td>
             <td id="{$value.id}">{$value.id}</td>
-                {volist name="goods" id="val"}
-                {if $val.id == $value.goods_id}
+                {volist name="goods_type" id="val"}
+                {if $val.id == $value.type_id}
                 <td><img src="__UPLOADS__/{$value.images}"></td>
                 <td>{$value.seckill_money}</td>
-                    {volist name="goods_type" id="v"}
-                    {if $val.goods_type_id == $v.id}
-                    <td>{$v.name}</td>
-                    {/if}
-                    {/volist}
-                <td>{$value.goods_id}</td>
+                <td>{$val.name}</td>
+                <td>{$value.type_id}</td>
                 <td>
                     {$value.start_time|date='Y-m-d H:i',###}<br>
                     {$value.over_time|date='Y-m-d H:i',###}<br>
