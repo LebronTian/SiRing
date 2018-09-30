@@ -102,80 +102,66 @@
     },1000)
     
     
-    // $.ajax({
-    //     url: '{:url("index/Seckill/index")}',
-    //     type: 'POST',
-    //     dataType: 'json',
-    //     async: false,
-    //     success: function(data){
-    //         console.log(data);
-    //         // 活动开始时间
-    //         if(data.data.length != 0){
-    //             var start_time = data.data[0].start_time*1000;
-    //             // 活动结束时间
-    //             var over_time = data.data[0].over_time*1000;
-    //             // console.log(curr_time)
-    //             var data = data.data;
-    //             var len = data.length;
-    //             for(var i = 0; i < len; i++){
-    //                 $('.aui-media-list').append('<li class="aui-list-item">\
-    //                                                 <a href="{:url("index/Goods/detail")}">\
-    //                                                     <div class="aui-media-list-item-inner">\
-    //                                                         <div class="aui-list-item-media" style="width:6rem">\
-    //                                                             <img src="__UPLOADS__/'+data[i].images+'" id="img_'+data[i].goods_id+'">\
-    //                                                         </div>\
-    //                                                         <div class="aui-list-item-inner">\
-    //                                                             <div class="aui-list-item-text">\
-    //                                                                 <div class="aui-list-item-title">'+data[i].goods_name+'</div>\
-    //                                                             </div>\
-    //                                                             <div><span class="aui-margin-l-5">￥'+data[i].seckill_money+'</span></div>\
-    //                                                         </div>\
-    //                                                     </div>\
-    //                                                 </a>\
-    //                                             </li>')
-    //             }
-                
-    //             // 显示距离活动开始的时间
-    //             // if(start_time - new Date().getTime() > 0){
-    //             //     $('.time_text')[0].innerHTML = '距开始';
-    //             //     setInterval(function(){
-    //             //         count_down(start_time);
-    //             //     },1000)
-    //             // }else{
-    //             //     // 显示 距离活动结束的时间
-    //             //     $('.time_text')[0].innerHTML = '距结束';
-    //             //     setInterval(function(){
-    //             //         count_down(over_time);
-    //             //     },1000)
-    //             // }
-    //             // 发送id 商品列表
-    //             $('.aui-list-item a').click(function(){
-    //                 var list_img_id = $(this).children().find('img')[0].id.split('_')[1];
-    //                 $.ajax({
-    //                     url: '{:url("index/Goods/goods_id")}',
-    //                     type: 'POST',
-    //                     dataType: 'JSON',
-    //                     async: false,
-    //                     data:{
-    //                         "goods_id": list_img_id
-    //                     },
-    //                     success: function(data){
-    //                         console.log(data);
-    //                     },
-    //                     error: function(){
-    //                         console.log('错误');
-    //                     }
+    $.ajax({
+        url: '{:url("seckill_index")}',
+        type: 'POST',
+        dataType: 'json',
+        async: false,
+        success: function(data){
+            console.log(data);
+            // 活动开始时间
+            if(data.data.length != 0){
+                var start_time = data.data[0].start_time*1000;
+                // 活动结束时间
+                var over_time = data.data[0].over_time*1000;
+                // console.log(curr_time)
+                var data = data.data;
+                var len = data.length;
+                for(var i = 0; i < len; i++){
+                    $('.aui-media-list').append('<li class="aui-list-item">\
+                                                    <a href="{:url("index/Goods/detail")}">\
+                                                        <div class="aui-media-list-item-inner">\
+                                                            <div class="aui-list-item-media" style="width:6rem">\
+                                                                <img src="__UPLOADS__/'+data[i].images+'" id="img_'+data[i].goods_id+'">\
+                                                            </div>\
+                                                            <div class="aui-list-item-inner">\
+                                                                <div class="aui-list-item-text">\
+                                                                    <div class="aui-list-item-title">'+data[i].goods_name+'</div>\
+                                                                </div>\
+                                                                <div><span class="aui-margin-l-5">￥'+data[i].seckill_money+'</span></div>\
+                                                            </div>\
+                                                        </div>\
+                                                    </a>\
+                                                </li>')
+                }
+                // 发送id 商品列表
+                $('.aui-list-item a').click(function(){
+                    var list_img_id = $(this).children().find('img')[0].id.split('_')[1];
+                    $.ajax({
+                        url: '{:url("index/Goods/goods_id")}',
+                        type: 'POST',
+                        dataType: 'JSON',
+                        async: false,
+                        data:{
+                            "goods_id": list_img_id
+                        },
+                        success: function(data){
+                            console.log(data);
+                        },
+                        error: function(){
+                            console.log('错误');
+                        }
 
-    //                 })
-    //             })
-    //         }else{
-    //             return;
-    //         }
+                    })
+                })
+            }else{
+                return;
+            }
             
-    //     },
-    //     error: function(){
-    //         console.log('错误')
-    //     }
-    // })
+        },
+        error: function(){
+            console.log('错误')
+        }
+    })
 </script>
 </html>
