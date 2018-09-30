@@ -8,6 +8,23 @@
     <link rel="icon" type="image/x-icon" href="__STATIC__/index/favicon.ico">
     <link rel="stylesheet" type="text/css" href="__STATIC__/index/css/aui.css" />
     <link rel="stylesheet" href="__STATIC__/index/css/seckill.css">
+    <style>
+        .icon span{
+            width: 28px;
+            height: 16px;
+            text-align: center;
+            line-height: 16px;
+            background: #f34347;
+            font-size: 11px;
+            color: #fff;
+            border-radius: 2px;
+            font-weight: 100;
+            display: inline-block;
+            margin-left: 4px;
+            margin-right: 4px;
+            margin-top: 2px;
+        }
+    </style>
 </head>
 <body>
 <header class="aui-bar aui-bar-nav" id="aui-header">
@@ -26,12 +43,6 @@
             <span class="second">0</span>
         </div>
         <!-- <li class="aui-list-item">
-            <div class="time_box">
-                距结束
-                <span class="hour">12</span>:
-                <span class="minutes">59</span>:
-                <span class="second">59</span>
-            </div>
             <a href='{:url("index/Goods/detail")}'>
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-media" style="width:6rem">
@@ -40,6 +51,9 @@
                     <div class="aui-list-item-inner">
                         <div class="aui-list-item-text">
                             <div class="aui-list-item-title">[为你推荐]kaman抽屉式化妆品收纳盒大号创意护肤桌面收纳盒塑料口红置物架</div>
+                        </div>
+                        <div class="icon">
+                            <span>促</span>
                         </div>
                         <div><span class="aui-margin-l-5">￥39.00</span></div>
                     </div>
@@ -102,80 +116,65 @@
     },1000)
     
     
-    // $.ajax({
-    //     url: '{:url("index/Seckill/index")}',
-    //     type: 'POST',
-    //     dataType: 'json',
-    //     async: false,
-    //     success: function(data){
-    //         console.log(data);
-    //         // 活动开始时间
-    //         if(data.data.length != 0){
-    //             var start_time = data.data[0].start_time*1000;
-    //             // 活动结束时间
-    //             var over_time = data.data[0].over_time*1000;
-    //             // console.log(curr_time)
-    //             var data = data.data;
-    //             var len = data.length;
-    //             for(var i = 0; i < len; i++){
-    //                 $('.aui-media-list').append('<li class="aui-list-item">\
-    //                                                 <a href="{:url("index/Goods/detail")}">\
-    //                                                     <div class="aui-media-list-item-inner">\
-    //                                                         <div class="aui-list-item-media" style="width:6rem">\
-    //                                                             <img src="__UPLOADS__/'+data[i].images+'" id="img_'+data[i].goods_id+'">\
-    //                                                         </div>\
-    //                                                         <div class="aui-list-item-inner">\
-    //                                                             <div class="aui-list-item-text">\
-    //                                                                 <div class="aui-list-item-title">'+data[i].goods_name+'</div>\
-    //                                                             </div>\
-    //                                                             <div><span class="aui-margin-l-5">￥'+data[i].seckill_money+'</span></div>\
-    //                                                         </div>\
-    //                                                     </div>\
-    //                                                 </a>\
-    //                                             </li>')
-    //             }
-                
-    //             // 显示距离活动开始的时间
-    //             // if(start_time - new Date().getTime() > 0){
-    //             //     $('.time_text')[0].innerHTML = '距开始';
-    //             //     setInterval(function(){
-    //             //         count_down(start_time);
-    //             //     },1000)
-    //             // }else{
-    //             //     // 显示 距离活动结束的时间
-    //             //     $('.time_text')[0].innerHTML = '距结束';
-    //             //     setInterval(function(){
-    //             //         count_down(over_time);
-    //             //     },1000)
-    //             // }
-    //             // 发送id 商品列表
-    //             $('.aui-list-item a').click(function(){
-    //                 var list_img_id = $(this).children().find('img')[0].id.split('_')[1];
-    //                 $.ajax({
-    //                     url: '{:url("index/Goods/goods_id")}',
-    //                     type: 'POST',
-    //                     dataType: 'JSON',
-    //                     async: false,
-    //                     data:{
-    //                         "goods_id": list_img_id
-    //                     },
-    //                     success: function(data){
-    //                         console.log(data);
-    //                     },
-    //                     error: function(){
-    //                         console.log('错误');
-    //                     }
+    $.ajax({
+        url: '{:url("index/Seckill/show")}',
+        type: 'POST',
+        dataType: 'json',
+        async: false,
+        success: function(data){
+            console.log(data);
+            var str = '';
+            $.each(data.data, function(index, val){
+                var signStr = '';
+                if(val.goods_sign != ''){
+                     var signLen = val.goods_sign.split(',').length;
+                     var signArr = val.goods_sign.split(',');
+                     for(var i = 0; i < signLen; i++){
+                         signStr += '<span>'+signArr[i]+'</span>'
+                     }
+                }
+                str += '<li class="aui-list-item">\
+                            <a href="{:url("index/Goods/detail")}">\
+                                <div class="aui-media-list-item-inner">\
+                                    <div class="aui-list-item-media" style="width:6rem">\
+                                        <img src="__UPLOADS__/'+val.goods_show_images+'" id="img_'+val.id+'">\
+                                    </div>\
+                                    <div class="aui-list-item-inner">\
+                                        <div class="aui-list-item-text">\
+                                            <div class="aui-list-item-title">'+val.goods_name+'</div>\
+                                        </div>\
+                                        <div class="icon">'+signStr+'</div>\
+                                        <div><span class="aui-margin-l-5">￥'+val.goods_bottom_money+'</span></div>\
+                                    </div>\
+                                </div>\
+                            </a>\
+                        </li>'
+            })
+            $('.aui-media-list').append(str);
+            // 发送id 商品列表
+            $('.aui-list-item a').click(function(){
+                var list_img_id = $(this).children().find('img')[0].id.split('_')[1];
+                $.ajax({
+                    url: '{:url("index/Goods/goods_id")}',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    async: false,
+                    data:{
+                        "goods_id": list_img_id
+                    },
+                    success: function(data){
+                        console.log(data);
+                    },
+                    error: function(){
+                        console.log('错误');
+                    }
 
-    //                 })
-    //             })
-    //         }else{
-    //             return;
-    //         }
-            
-    //     },
-    //     error: function(){
-    //         console.log('错误')
-    //     }
-    // })
+                })
+            })
+        },
+        error: function(){
+            console.log('错误')
+        }
+    })
 </script>
 </html>

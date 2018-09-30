@@ -74,7 +74,7 @@ class Goods extends Controller{
             $goods_data = $request->param();
             $sign = $request->only(["goods_sign"])["goods_sign"];
             $goods_data["goods_sign"] = implode(",", $sign);
-            $goods_data["goods_number"] = "GB" . date("YmdHis") . uniqid() . $request->only(["goods_number"])["goods_number"];
+            $goods_data["goods_number"] = $request->only(["goods_number"])["goods_number"];
             //图片添加
             $show_images = $request->file("goods_show_images");
             $show_image = $show_images->move(ROOT_PATH . 'public' . DS . 'uploads');
@@ -210,7 +210,7 @@ class Goods extends Controller{
             ]);
             $sign = $request->only(["goods_sign"])["goods_sign"];
             $goods_data["goods_sign"] = implode(",", $sign);
-            $goods_data["goods_number"] = "GB" . date("YmdHis") . uniqid() . $request->only(["goods_number"])["goods_number"];
+            $goods_data["goods_number"] = $request->only(["goods_number"])["goods_number"];
             //图片添加
             $show_images = $request->file("goods_show_images");
             $show_image = $show_images->move(ROOT_PATH . 'public' . DS . 'uploads');

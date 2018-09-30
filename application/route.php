@@ -44,6 +44,7 @@ Route::group("",[
 
     /*秒杀*/
     "seckill_index"=>"index/Seckill/index",
+    "seckill_show"=>"index/Seckill/show",
 
 
     /*我的收藏*/

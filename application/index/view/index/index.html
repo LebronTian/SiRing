@@ -41,7 +41,7 @@
 			justify-content: space-between;
 		}
 		.time_box{
-			font-size: 12px;
+			font-size: 10px;
 		}
 		.hour, .minutes, .second, .day{
 			display: inline-block;
@@ -49,7 +49,7 @@
 			background-color: #f00;
 			border-radius: 3px;
 			color: #fff !important;
-			font-size: 11px;
+			font-size: 10px;
 			font-weight: bold;
 			text-align: center;
 			line-height: 12px;
@@ -119,13 +119,15 @@
 		{volist name="seckill" id="val"}
 		<div class="limit_inner">
 			<div class="img_box">
-				<a href="{:url('index/seckill/index')}"><img src="__UPLOADS__/{$val.images}"></a>
+				<a id="{$val.type_id}" class="secondk" href="{:url('index/Seckill/show')}">
+					<img src="__UPLOADS__/{$val.images}">
+				</a>
 			</div>
-			<a id="{$val.type_id}" href="{:url('index/seckill/index')}">
+			<a href="{:url('index/Seckill/show')}">
 				<p class="limit_title">
 					<span class="limit_time">{$val.keyword}</span>
 					<span class="time_box">
-						<span class="time_text">距离活动结束</span><span class="day">0天</span>
+						<span class="time_text">距离活动结束 </span><span class="day">0天</span>
 						<span class="hour">0</span>:<span class="minutes">0</span>:<span class="second">0</span>
 					</span>
 				</p>
@@ -324,7 +326,23 @@
 </script>
 <!-- 秒杀 发送typeid -->
 <script>
-	
+	$('.secondk').click(function(){
+		var id = $(this)[0].id;
+		$.ajax({
+			url: '{:url("index/Seckill/index")}',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				'type_id': id
+			},
+			success: function(data){
+				console.log(data)
+			},
+			error: function(){
+				console.log('error');
+			}
+		})
+	})
 </script>
 </body>
 </html>
