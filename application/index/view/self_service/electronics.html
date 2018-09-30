@@ -92,42 +92,42 @@
     </div>
     <div class="warranty_card">
         <ul>
-            <!-- <li>
+            {volist name="images" id="value"}
+            <li>
                 <div class="top">
                     <div class="goods_img">
-                        <img src="__STATIC__/index/image/class-4.jpg">
+                        <img src="__UPLOADS__/{$value.images.goods_show_images}">
                     </div>
                     <p>售后服务保修卡</p>
                 </div>
                 <div class="bottom_time">
-                    <div class="start_time">购买日期: <span>20180928</span></div>
-                    <div class="end_time">保修到期: <span>20190928</span></div>
+                    <div class="start_time">购买日期: <span>{$value.create_time|date='Y-m-d H:i',###}</span></div>
+                    <div class="end_time">保修到期: <span>{$time.year}</span></div>
                 </div>
-            </li> -->
+            </li>
+            {/volist}
         </ul>
     </div>
 </div>
 
 <script src="__STATIC__/index/js/jquery.js"></script>
 <script>
-    var str = '';
-    for(var i = 0; i < 8; i++){
-        str += '<li>\
-                    <a href="javascript:;">\
-                        <div class="top">\
-                            <div class="goods_img">\
-                                <img src="__STATIC__/index/image/class-4.jpg">\
-                            </div>\
-                            <p>售后服务保修卡</p>\
-                        </div>\
-                        <div class="bottom_time">\
-                            <div class="start_time">购买日期: <span>20180928</span></div>\
-                            <div class="end_time">保修到期: <span>20190928</span></div>\
-                        </div>\
-                    </a>\
-                </li>'
-    }
-    $('.warranty_card ul').append(str)
+    (function () {
+        $.ajax({
+            type: 'POST',
+            url: "{:url('index/self_service/electronics_show')}",
+            dataType: 'json',
+            data: {
+            },
+            success: function (data) {
+//                console.log(data);
+                $('.member_name')[0].innerText = data.data.user_name;
+            },
+            error: function (data) {
+                console.log('错误');
+            },
+        });
+    })()
 </script>
 </body>
 </html>

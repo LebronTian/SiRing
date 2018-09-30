@@ -20,7 +20,8 @@ class Seckill extends Controller{
     public function index(Request $request){
         if ($request->isPost()){
             $type_id = $request->only(['type_id'])["type_id"];
-            return ajax_success("获取成功");
+            $goods = db("goods")->where("goods_type_id",$type_id)->select();
+            return ajax_success("获取成功",$goods);
         }
         return view("seckill_index");
 
