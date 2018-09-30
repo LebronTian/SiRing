@@ -68,20 +68,38 @@ class Share extends Controller{
                     ->select();
                 foreach ($all_evaluation_data as $value){
                     $all_evaluation_img_url =Db::table('tb_evaluate_images')->where('evaluate_order_id',$value['order_id'])->select();
-                    $datas[] =[
-                        'id'=>$value['id'],
-                        'evaluate_content'=>$value['evaluate_content'],
-                        'evaluate_images'=>$value['evaluate_images'],
-                        'goods_id'=>$value['goods_id'],
-                        'user_id'=>$value['user_id'],
-                        'status'=>$value['status'],
-                        'order_id'=>$value['order_id'],
-                        'create_time'=>$value['create_time'],
-                        'goods_name'=>$value['goods_name'],
-                        'goods_show_images'=>$value['goods_show_images'],
-                        'phone_num'=>$value['phone_num'],
-                        'evaluate_images'=>$all_evaluation_img_url
-                    ];
+                    if(!empty($all_evaluation_img_url)){
+                        $datas[] =[
+                            'id'=>$value['id'],
+                            'evaluate_content'=>$value['evaluate_content'],
+                            'evaluate_images'=>$value['evaluate_images'],
+                            'goods_id'=>$value['goods_id'],
+                            'user_id'=>$value['user_id'],
+                            'status'=>$value['status'],
+                            'order_id'=>$value['order_id'],
+                            'create_time'=>$value['create_time'],
+                            'goods_name'=>$value['goods_name'],
+                            'goods_show_images'=>$value['goods_show_images'],
+                            'phone_num'=>$value['phone_num'],
+                            'evaluate_images'=>$all_evaluation_img_url
+                        ];
+                    }else{
+                        $datas[] =[
+                            'id'=>$value['id'],
+                            'evaluate_content'=>$value['evaluate_content'],
+                            'evaluate_images'=>$value['evaluate_images'],
+                            'goods_id'=>$value['goods_id'],
+                            'user_id'=>$value['user_id'],
+                            'status'=>$value['status'],
+                            'order_id'=>$value['order_id'],
+                            'create_time'=>$value['create_time'],
+                            'goods_name'=>$value['goods_name'],
+                            'goods_show_images'=>$value['goods_show_images'],
+                            'phone_num'=>$value['phone_num'],
+                        ];
+                    }
+
+
                 }
                 return ajax_success('全部数据返回',$datas);
             }
