@@ -344,20 +344,14 @@ class Goods extends Controller{
         if($request->isPost()){
             $id = $request->only(['id'])['id'];
             $goods = db("goods")->where("id",$id)->find();
-            $dir_name = (ROOT_PATH . 'public' . DS . 'uploads/'.date("YmdHis"));
+            $dir_name = (ROOT_PATH . 'public' . DS . 'uploads/'."SB".date("Ymd"));
             if(!is_dir($dir_name)){
-                mkdir(ROOT_PATH . 'public' . DS . 'uploads/'.date("YmdHis"),777);
+                mkdir(ROOT_PATH . 'public' . DS . 'uploads/'."SB".date("Ymd"),777);
             }
-            //$images_name = strrchr($dir_name,"/");
-
-            $dir = (ROOT_PATH . 'public' . DS . 'uploads/'.$goods["goods_show_images"]);
-            $jpg = strrchr($dir,".");
-            $image_name = date("Ymd").$jpg;
-            $goods_url = str_replace("\\", "/", $dir);
-            $new_name = str_replace("\\", "/", $dir_name);
-            $dir_bool = copy($goods_url,$new_name."/".$image_name);
-            halt($dir_bool);
-            $goods_url = str_replace("\\", "/", $dir);
+            $goods["goods_show_images"] = new_images($goods["goods_show_images"],$dir_name);
+            $goods["goods_parts_big_img"] = new_images($goods["goods_parts_big_img"],$dir_name);
+            $goods["goods_spec_img"] = new_images($goods["goods_spec_img"],$dir_name);
+            $goods["goods_parts_img"] = new_images($goods["goods_parts_img"],$dir_name);
             $goods_images = db("goods_images")->where("goods_id",$id)->select();
             unset($goods["id"]);
             $bool = db("goods")->insert($goods);
@@ -365,6 +359,17 @@ class Goods extends Controller{
                 foreach ($goods_images as $val){
                     if($val['id']){
                         unset($val["id"]);
+                    }
+                    $dir_names = (ROOT_PATH . 'public' . DS . 'upload/'."SB".date("Ymd"));
+                    if(!is_dir($dir_names)){
+                        $name_bool = mkdir(ROOT_PATH . 'public' . DS . 'upload/'."SB".date("Ymd"),777);
+                    }
+
+                    if($val["goods_images"] != null){
+                        $val["goods_images"] = new_image($val["goods_images"],$dir_names);
+                    }
+                    if($val["goods_quality_img"] != null){
+                        $val["goods_quality_img"] = new_image($val["goods_quality_img"],$dir_names);
                     }
                     $bool_images = db("goods_images")->insert($val);
                 }

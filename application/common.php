@@ -427,4 +427,51 @@ function _tree_sorts($arr){
 }
 
 
+function new_images($arr,$dir_name){
+
+    $dir = (ROOT_PATH . 'public' . DS . 'uploads/'.$arr);
+
+    $jpg = strrchr($dir,".");
+
+    $image_name = uniqid().date("Ymd").$jpg;
+
+    $goods_url = str_replace("\\", "/", $dir);
+
+    $new_name = str_replace("\\", "/", $dir_name);
+
+    $name = strrchr($new_name,"/");
+
+    $numbers = substr($name,1)."/".$image_name;
+
+    $dir_bool = copy($goods_url,$new_name."/".$image_name);
+    if($dir_bool){
+        return $numbers;
+    }
+
+}
+
+
+function new_image($arr,$dir_name){
+
+    $dir = (ROOT_PATH . 'public' . DS . 'upload/'.$arr);
+
+    $jpg = strrchr($dir,".");
+
+    $image_name = uniqid().date("Ymd").$jpg;
+
+    $goods_url = str_replace("\\", "/", $dir);
+
+    $new_name = str_replace("\\", "/", $dir_name);
+
+    $name = strrchr($new_name,"/");
+
+    $numbers = substr($name,1)."/".$image_name;
+
+    $dir_bool = copy($goods_url,$new_name."/".$image_name);
+    if($dir_bool){
+        return $numbers;
+    }
+
+}
+
 
