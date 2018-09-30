@@ -83,7 +83,7 @@ class Share extends Controller{
                         'evaluate_images'=>$all_evaluation_img_url
                     ];
                 }
-                return ajax_success('全部数据返回',$all_evaluation_data);
+                return ajax_success('全部数据返回',$datas);
             }
         }
 
