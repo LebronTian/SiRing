@@ -136,7 +136,7 @@
                     <i class="aui-iconfont aui-icon-calendar aui-text-danger"></i>
                 </div>
                 <div class="aui-list-item-inner aui-list-item-arrow">
-                    <a href="{:url('index/self_service/electronics')}" style="width: 100%;">
+                    <a href="javascript:;" class="electronices" style="width: 100%;">
                         <div class="aui-list-item-title">电子保修卡</div>
                     </a>
                 </div>
@@ -144,7 +144,7 @@
         </ul>
     </section>
     <a href="{:url('index/Login/logout')}" class="login_out">退出登录</a>
-    
+
     <div style="height:48px"></div>
     <div id="demo" style="display:none"></div>
 
@@ -177,6 +177,7 @@
 <script type="text/javascript" src="__STATIC__/index/js/index/aui-tab.js" ></script>
 <script type="text/javascript" src="__STATIC__/index/js/index/aui-slide.js"></script>
 <script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
+<script src="__STATIC__/index/layui/layui.js"></script>
 <script type="text/javascript">
     // 换头像
 //    (function () {
@@ -269,7 +270,7 @@
             data: {
             },
             success: function (data) {
-                console.log(data);
+//                console.log(data);
                 $('.member_name')[0].innerText = data.data.user_name;
             },
             error: function (data) {
@@ -278,8 +279,33 @@
         });
     })()
 </script>
+<script>
+    layui.use('layer', function(){ //独立版的layer无需执行这一句
+        var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+        $('.electronices').click(function(){
+            $.ajax({
+                type:"POST",
+                url:"{:url('index/self_service/electronics')}",
+                async:false,
+                timeout:5000,
+                dataType:"json",
+                success:function (data) {
+                    console.log(data)
+                    if(data.status ==1){
+                        location.href = "electronices_show";
+                    }
+                    if(data.status == 0){
+                        layer.msg('请购买了在查看!',{icon:0,time:1000});
+                    }
+                },
+                error:function () {
+                    console.log("错误");
+                }
+            })
+        });
+    });
 
-
+</script>
 
 
 </html>

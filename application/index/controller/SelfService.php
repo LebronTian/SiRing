@@ -276,8 +276,39 @@ class  SelfService extends  Controller{
     }
 
     //电子保修
-    public function electronics(){
-        return view('electronics');
+    public function electronics(Request $request){
+        if($request->isPost()){
+            $data = Session::get("member");
+            $user_id = db('user')->field('id')->where('phone_num', $data['phone_num'])->find();
+            $order_status = db("order")->where("user_id", $user_id["id"])->field("status")->select();
+            foreach ($order_status as $value) {
+                if ($value["status"] >= 2 && $value["status"] < 11) {
+                    return ajax_success("可以查看");
+                }else{
+                    return ajax_error("不能查看");
+                }
+            }
+        }
+
+    }
+
+
+
+    public function electronics_show(){
+        $data = Session::get("member");
+        $user_id = db('user')->field('id')->where('phone_num', $data['phone_num'])->find();
+        $goods_id = db("order")->where("user_id", $user_id["id"])->field("goods_id,status,create_time")->select();
+        $time = db("electron")->field("year")->find();
+        $images = [];
+        $create_time = [];
+        foreach ($goods_id as $value){
+            if ($value["status"] >= 2 && $value["status"] < 11) {
+                $create_time = $value["create_time"];
+                $images_show = db("goods")->where("id",$value["goods_id"])->find();
+                $images[] = ["images"=>$images_show,"create_time"=>$create_time];
+            }
+        }
+        return view('electronics',["time"=>$time,"images"=>$images]);
     }
 
       //售后服务协议
