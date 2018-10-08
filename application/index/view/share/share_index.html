@@ -98,6 +98,8 @@
             color: #333;
             box-shadow: 0 4px 10px 0 rgba(0,0,0,.1);
             border-radius: 4px;
+            height: 260px;
+            overflow-y: scroll;
         }
         .select_menu li{
             padding: 10px 0;
@@ -308,6 +310,7 @@
                                                     </div>\
                                                 </div>\
                                                 <div class="comment_box">'+val.evaluate_content+'</div>\
+                                                <div></div>\
                                                 <div class="list_footer">\
                                                     <span class="time_box">'+timetrans(val.create_time)+'</span>\
                                                     <div class="operation">\
@@ -388,38 +391,46 @@
             dataType: 'json',
             success: function(data){
                 console.log(data);
-                var str = '';
-                var reg = /(\d{3})(\d{4})(\d{4})/;
-                $.each(data.data,function(idx, val){
-                    if(val.phone_num != null){
-                        val.phone_num = val.phone_num.replace(reg,'$1****$2');
-                    }
-                    str += '<section class="list_view">\
-                                <div class="user_box">\
-                                    <div class="user_img">\
-                                        <img src="__UPLOADS__/'+val.goods_show_images+'">\
-                                    </div>\
-                                    <div class="user_msg">\
-                                        <div class="user_name">\
-                                            <span>'+val.phone_num+'</span>\
+                if(data !== null){
+                    var str = '';
+                    var reg = /(\d{3})(\d{4})(\d{4})/;
+                    $.each(data.data,function(idx, val){
+                        if(val.phone_num != null){
+                            val.phone_num = val.phone_num.replace(reg,'$1****$2');
+                        }
+                        var imgStr = '';
+                        var imgLen = val.evaluate_images.length;
+                        for(var i = 0; i < imgLen; i++){
+                            imgStr +='<div style="width:60px;height:40px;display:inline-block;margin-right:6px;"><img src="__UPLOAD__/'+val.evaluate_images[i].images+'"></div>'
+                        }
+                        str += '<section class="list_view">\
+                                    <div class="user_box">\
+                                        <div class="user_img">\
+                                            <img src="__UPLOADS__/'+val.goods_show_images+'">\
                                         </div>\
-                                        <span class="product_label">'+val.goods_name+'</span>\
+                                        <div class="user_msg">\
+                                            <div class="user_name">\
+                                                <span>'+val.phone_num+'</span>\
+                                            </div>\
+                                            <span class="product_label">'+val.goods_name+'</span>\
+                                        </div>\
                                     </div>\
-                                </div>\
-                                <div class="comment_box">'+val.evaluate_content+'</div>\
-                                <div class="list_footer">\
-                                    <span class="time_box">'+timetrans(val.create_time)+'</span>\
-                                    <div class="operation">\
-                                        <!--这里你需要绑定一个id就是see_evaluation+一个回来的id-->\
-                                        <a href="javascript:;" id="see_evaluation_'+val.id+'" class="see_evaluation">\
-                                            <span>查看评论</span>\
-                                        </a>\
+                                    <div class="comment_box">'+val.evaluate_content+'</div>\
+                                    <div>'+imgStr+'</div>\
+                                    <div class="list_footer">\
+                                        <span class="time_box">'+timetrans(val.create_time)+'</span>\
+                                        <div class="operation">\
+                                            <!--这里你需要绑定一个id就是see_evaluation+一个回来的id-->\
+                                            <a href="javascript:;" id="see_evaluation_'+val.id+'" class="see_evaluation">\
+                                                <span>查看评论</span>\
+                                            </a>\
+                                        </div>\
                                     </div>\
-                                </div>\
-                            </section>'
-                })
-                $('.list_box').html('');
-                $('.list_box').append(str);
+                                </section>'
+                    })
+                    $('.list_box').html('');
+                    $('.list_box').append(str);
+                }
 
                 // 查看评价信息
                 $('.see_evaluation').click(function(){
