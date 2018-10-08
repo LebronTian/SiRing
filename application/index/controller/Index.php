@@ -4,6 +4,7 @@ namespace app\index\controller;
 
 use think\Controller;
 use think\Request;
+use think\Session;
 
 class Index extends Controller
 {
@@ -20,8 +21,24 @@ class Index extends Controller
             $seckill = db("seckill")->select();
             $goods = db("goods")->where("goods_status", 1)->select();
             $images = db("advertising")->select();
+            $over_time = Session::get("over_time");
+            $time = time();
+            if (!empty($over_time)) {
+                $over_time = Session::get("over_time");
+                $str_time = $over_time;
+                if ($over_time - $time <= 0) {
+                    $over_time = date("Y-m-d H:i:s", strtotime("+3 day"));
+                    $str_time = strtotime($over_time);
+                    Session("over_time", $str_time);
+                }
+
+            } else {
+                $over_time = date("Y-m-d H:i:s", strtotime("+3 day"));
+                $str_time = strtotime($over_time);
+                Session("over_time", $str_time);
+            }
             if($goods){
-                return ajax_success("获取成功",array('images'=>$images,'goods_type'=>$goods_type,"seckill"=>$seckill,"goods"=>$goods));
+                return ajax_success("获取成功",array('images'=>$images,'goods_type'=>$goods_type,"seckill"=>$seckill,"goods"=>$goods,"time"=>$str_time));
             }else{
                 return ajax_error("获取失败");
             }
