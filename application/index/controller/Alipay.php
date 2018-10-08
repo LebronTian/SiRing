@@ -5,7 +5,7 @@ use think\Controller;
 use think\Loader;
 use think\Request;
 //use Alipay\wappay\buildermodel\AlipayTradeWapPayContentBuilder;
-//use Alipay\wappay\service\AlipayTradeService;
+use Alipay\wappay\service\AlipayTradeService;
 
 class AliPay extends Controller
 {
@@ -58,7 +58,9 @@ class AliPay extends Controller
             //超时时间
             $timeout_express="1m";
 
-            require "Alipay/wappay/buildermodel/AlipayTradeWapPayContentBuilder.php";
+            //require_once("Alipay.wappay.buildermodel.AlipayTradeWapPayContentBuilder");
+            include('../extend/AliPay/wappay/buildermodel/AlipayTradeWapPayContentBuilder.php');
+
 
             $payRequestBuilder = new \AlipayTradeWapPayContentBuilder();
             $payRequestBuilder->setBody($body);
@@ -67,9 +69,10 @@ class AliPay extends Controller
             $payRequestBuilder->setTotalAmount($total_amount);
             $payRequestBuilder->setTimeExpress($timeout_express);
 
-            require 'Alipay/wappay/service/AlipayTradeService.php';
-
-            $payResponse = new \AlipayTradeService($config);
+            include('../extend/AliPay/wappay/service/AlipayTradeService.php');
+			
+            //$payResponse = new AlipayTradeService();
+            $payResponse = new AlipayTradeService($config);
             $result=$payResponse->wapPay($payRequestBuilder,$config['return_url'],$config['notify_url']);
 
             return ;
