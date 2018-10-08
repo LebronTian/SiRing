@@ -93,7 +93,7 @@
 								<div class="aui-grid-label">优惠券</div>
 							</a>
 						</div>
-						<div class="aui-col-xs-3">
+						<div class="aui-col-xs-3">=
 							<a href="{:url('index/seckill/index')}" class="tolist">
 								<i class="aui-iconfont "><img src="__STATIC__/index/image/icon/u45.png"></i>
 								<div class="aui-grid-label">秒杀</div>
@@ -205,23 +205,82 @@
 <script type="text/javascript" src="__STATIC__/index/js/index/aui-slide.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.cookie.js"></script>
+<!-- 倒计时 -->
 <script>
-	(function(){
-		$.ajax({
-			type:"POST",
-			url:"{:url('/')}",
-			data:{},
-			async:false,
-			timeout:5000,
-			dataType:"json",
-			success:function (data) {
-				console.log(data)
-			},
-			error:function () {
-				console.log("错误");
+	// 倒计时函数
+    function count_down(obj){
+        // if()
+        // 获取当前时间
+        var curr_time = new Date().getTime();
+        // 时间差
+        var to_start = obj - curr_time;
+        // 剩余多少天，小时，分钟，秒
+        var Day = parseInt(to_start/1000/3600/24) < 10 ? '0'+parseInt(to_start/1000/3600/24) : parseInt(to_start/1000/3600/24);
+        var Hour = parseInt(to_start/1000/3600%24) < 10 ? '0'+parseInt(to_start/1000/3600%24) : parseInt(to_start/1000/3600%24);
+        var Minutes = parseInt(to_start/1000/60%60) < 10 ? '0'+parseInt(to_start/1000/60%60) : parseInt(to_start/1000/60%60);
+        var Second = parseInt(to_start/1000%60) < 10 ? '0'+parseInt(to_start/1000%60):  parseInt(to_start/1000%60);
+        if(Day == 00 && Hour == 00 && Minutes == 00 && Second == 00){
+            location.reload();
+        }
+        // 渲染到页面上
+		var dayLen = $('.day').length;
+		var hourLen = $('.hour').length;
+		var minLen = $('.minutes').length;
+		var secLen = $('.second').length;
+		function insertHTML(obj, len, val){
+			for(var i = 0; i < len; i++){
+				$(obj)[i].innerHTML = val;
 			}
-		})
-	})()
+		}
+        // $('.hour')[0].innerHTML = Hour;
+        // $('.minutes')[0].innerHTML = Minutes;
+        // $('.second')[0].innerHTML = Second;
+		insertHTML('.day', dayLen, Day);
+		insertHTML('.hour', hourLen, Hour);
+		insertHTML('.minutes', minLen, Minutes);
+		insertHTML('.second', secLen, Second);
+        // 如果天数不为0，显示标签
+        if(Day != 0){
+            $('.day').css('display','inline-block');
+			for(var i = 0; i < dayLen; i++){
+				$('.day')[i].innerHTML = Day + '天';
+			}
+        }
+    }
+    // 设置三天时间
+    // cookie中 endTime是否存在值
+    // if($.cookie('endTime') !== undefined && !isNaN($.cookie('endTime'))){
+    //     var endTime = $.cookie('endTime');
+    //     var nowTime = new Date().getTime();
+    //     if(parseInt((endTime - nowTime)/1000) <= 0){
+    //         var threeday = new Date().getTime() + 259200000;
+    //         $.cookie('endTime', threeday);
+    //     }
+    // }else{
+    //     var threeday = new Date().getTime() + 259200000;
+    //     $.cookie('endTime', threeday);
+    // }
+    // var myCookieTime = $.cookie('endTime');
+    // setInterval(function(){
+    //     count_down(myCookieTime);
+    // },1000)
+</script>
+<script>
+	$.ajax({
+		type:"POST",
+		url:"{:url('/')}",
+		data:{},
+		async:false,
+		timeout:5000,
+		dataType:"json",
+		success:function (data) {
+			console.log(data)
+			count_down(data.data.time*1000);
+		},
+		error:function () {
+			console.log("错误");
+		}
+	})
 </script>
 <script>
 	$(".Href").click(function () {
@@ -276,66 +335,7 @@
         }
     });
 </script>
-<!-- 倒计时 -->
-<script>
-	// 倒计时函数
-    function count_down(obj){
-        // if()
-        // 获取当前时间
-        var curr_time = new Date().getTime();
-        // 时间差
-        var to_start = obj - curr_time;
-        // 剩余多少天，小时，分钟，秒
-        var Day = parseInt(to_start/1000/3600/24) < 10 ? '0'+parseInt(to_start/1000/3600/24) : parseInt(to_start/1000/3600/24);
-        var Hour = parseInt(to_start/1000/3600%24) < 10 ? '0'+parseInt(to_start/1000/3600%24) : parseInt(to_start/1000/3600%24);
-        var Minutes = parseInt(to_start/1000/60%60) < 10 ? '0'+parseInt(to_start/1000/60%60) : parseInt(to_start/1000/60%60);
-        var Second = parseInt(to_start/1000%60) < 10 ? '0'+parseInt(to_start/1000%60):  parseInt(to_start/1000%60);
-        if(Day == 00 && Hour == 00 && Minutes == 00 && Second == 00){
-            location.reload();
-        }
-        // 渲染到页面上
-		var dayLen = $('.day').length;
-		var hourLen = $('.hour').length;
-		var minLen = $('.minutes').length;
-		var secLen = $('.second').length;
-		function insertHTML(obj, len, val){
-			for(var i = 0; i < len; i++){
-				$(obj)[i].innerHTML = val;
-			}
-		}
-        // $('.hour')[0].innerHTML = Hour;
-        // $('.minutes')[0].innerHTML = Minutes;
-        // $('.second')[0].innerHTML = Second;
-		insertHTML('.day', dayLen, Day);
-		insertHTML('.hour', hourLen, Hour);
-		insertHTML('.minutes', minLen, Minutes);
-		insertHTML('.second', secLen, Second);
-        // 如果天数不为0，显示标签
-        if(Day != 0){
-            $('.day').css('display','inline-block');
-			for(var i = 0; i < dayLen; i++){
-				$('.day')[i].innerHTML = Day + '天';
-			}
-        }
-    }
-    // 设置三天时间
-    // cookie中 endTime是否存在值
-    if($.cookie('endTime') !== undefined && !isNaN($.cookie('endTime'))){
-        var endTime = $.cookie('endTime');
-        var nowTime = new Date().getTime();
-        if(parseInt((endTime - nowTime)/1000) <= 0){
-            var threeday = new Date().getTime() + 259200000;
-            $.cookie('endTime', threeday);
-        }
-    }else{
-        var threeday = new Date().getTime() + 259200000;
-        $.cookie('endTime', threeday);
-    }
-    var myCookieTime = $.cookie('endTime');
-    setInterval(function(){
-        count_down(myCookieTime);
-    },1000)
-</script>
+
 <!-- 秒杀 发送typeid -->
 <script>
 	$('.secondk').click(function(){
