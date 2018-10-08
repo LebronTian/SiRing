@@ -7,6 +7,23 @@
     <title>商品列表</title>
     <link rel="icon" type="image/x-icon" href="__STATIC__/index/favicon.ico">
     <link rel="stylesheet" type="text/css" href="__STATIC__/index/css/aui.css" />
+    <style>
+        .icon span{
+            width: 28px;
+            height: 16px;
+            text-align: center;
+            line-height: 16px;
+            background: #f34347;
+            font-size: 11px;
+            color: #fff;
+            border-radius: 2px;
+            font-weight: 100;
+            display: inline-block;
+            margin-left: 4px;
+            margin-right: 4px;
+            margin-top: 2px;
+        }
+    </style>
 </head>
 <body>
 <div class="aui-content aui-margin-b-15">
@@ -44,24 +61,35 @@
         async: false,
         success: function(data){
             console.log(data);
-            var data = data.data;
-            var len = data.length;
-            for(var i = 0; i < len; i++){
-                $('.aui-media-list').append('<li class="aui-list-item">\
-                                                <a href="{:url("index/Goods/detail")}">\
-                                                    <div class="aui-media-list-item-inner">\
-                                                        <div class="aui-list-item-media" style="width:6rem">\
-                                                            <img src="__UPLOADS__/'+data[i].goods_show_images+'" id="img_'+data[i].id+'">\
-                                                        </div>\
-                                                        <div class="aui-list-item-inner">\
-                                                            <div class="aui-list-item-text">\
-                                                                <div class="aui-list-item-title">'+data[i].goods_name+'</div>\
-                                                            </div>\
-                                                            <div><span class="aui-margin-l-5">￥'+data[i].goods_bottom_money+'</span></div>\
-                                                        </div>\
-                                                    </div>\
-                                                </a>\
-                                            </li>')
+            var str = '';
+            if(data.data.goods_list.length !== 0){
+                $.each(data.data.goods_list, function(idx, val){
+                    var signStr = '';
+                    if(val.goods_sign != ''){
+                        var signLen = val.goods_sign.split(',').length;
+                        var signArr = val.goods_sign.split(',');
+                        for(var i = 0; i < signLen; i++){
+                            signStr += '<span>'+signArr[i]+'</span>'
+                        }
+                    }
+                    str += '<li class="aui-list-item">\
+                                <a href="{:url("index/Goods/detail")}">\
+                                    <div class="aui-media-list-item-inner">\
+                                        <div class="aui-list-item-media" style="width:6rem">\
+                                            <img src="__UPLOADS__/'+val.goods_show_images+'" id="img_'+val.id+'">\
+                                        </div>\
+                                        <div class="aui-list-item-inner">\
+                                            <div class="aui-list-item-text">\
+                                                <div class="aui-list-item-title">'+val.goods_name+'</div>\
+                                            </div>\
+                                            <div class="icon">'+signStr+'</div>\
+                                            <div><span class="aui-margin-l-5">￥'+val.goods_bottom_money+'</span></div>\
+                                        </div>\
+                                    </div>\
+                                </a>\
+                            </li>'
+                })
+                $('.aui-media-list').append(str);
             }
             // 发送id 商品列表
             $('.aui-list-item a').click(function(){
