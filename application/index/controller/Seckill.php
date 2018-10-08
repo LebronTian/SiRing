@@ -42,6 +42,7 @@ class Seckill extends Controller{
                 if ($over_time - $time <= 0) {
                     $over_time = date("Y-m-d H:i:s", strtotime("+3 day"));
                     $str_time = strtotime($over_time);
+                    Session("over_time", $str_time);
                 }
 
             } else {
