@@ -35,6 +35,7 @@
 </header>
 <div class="aui-content aui-margin-b-15">
     <ul class="aui-list aui-media-list">
+        <div class="banner_img"></div>
         <div class="time_box">
             <span class="time_text">距离活动结束</span>&nbsp;
             <span class="day">0天</span>
@@ -154,9 +155,12 @@
 
                 })
             })
+            // 倒计时
             setInterval(function(){
                 count_down(data.data.time*1000);
             },1000)
+            // 倒计时上面的图片
+            $('.banner_img').append('<img src="'+data.data.images[0].images+'">');
         },
         error: function(){
             console.log('错误')
