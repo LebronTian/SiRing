@@ -133,7 +133,7 @@
 	<div class="aui-slide-wrap" style="height:100%;">
 		<div class="swiper-container" style="height:100%;">
 			<div class="swiper-wrapper">
-				
+
 			</div>
 			<!-- 如果需要分页器 -->
 			<div class="swiper-pagination"></div>
@@ -329,7 +329,7 @@
 				for(var i = 0; i < img_len; i++){
 					if(data.goods_images[i] !== null){
 						$('.swiper-wrapper').append('<div class="swiper-slide"><img src="__UPLOAD__/'+data.goods_images[i]+'"></div>');
-					}							
+					}
 				}
 				// 标题
 				var str = '';
@@ -339,7 +339,7 @@
 				}
 				$('.goods_desc').html(str + data.goods_name+'');
 				$('.goods_desc')[0].id = "desc_" + data.id;
-				
+
 				// 赠送配件说明
 				$('.goods_parts_cont').html(data.goods_parts);
 				$('.goods_parts_img').html('<img src="__UPLOADS__/'+data.goods_parts_img+'">')
@@ -535,7 +535,7 @@
     //     'dotPosition':'center'
     // })
     // console.log(slide3.pageCount());
-	
+
 </script>
 <!--获取陪同商品订单一起过来的用户id-->
 <script>
