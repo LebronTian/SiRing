@@ -65,9 +65,6 @@
 <body style="background:none">
 
 	<header class="aui-bar aui-bar-nav">
-		<!-- <a class="aui-pull-left aui-btn">
-			<span class="aui-iconfont aui-icon-camera"></span>
-		</a> -->
 		<div class="aui-title" style="left:0rem; right: 2rem;">
 			<div class="aui-searchbar" id="search">
 				<div class="aui-searchbar-input aui-border-radius">
@@ -92,20 +89,20 @@
 
 						<div class="aui-col-xs-3">
 							<a href="{:url('index/Discounts/index')}" class="tolist">
-								<i class="aui-iconfont "><img src="__STATIC__/index/image/icon/20180815165821.png" alt=""></i>
+								<i class="aui-iconfont "><img src="__STATIC__/index/image/icon/u44.png"></i>
 								<div class="aui-grid-label">优惠券</div>
 							</a>
 						</div>
 						<div class="aui-col-xs-3">
 							<a href="{:url('index/seckill/index')}" class="tolist">
-								<i class="aui-iconfont "><img src="__STATIC__/index/image/icon/u45.png" alt=""></i>
+								<i class="aui-iconfont "><img src="__STATIC__/index/image/icon/u45.png"></i>
 								<div class="aui-grid-label">秒杀</div>
 							</a>
 						</div>
 						{volist name="goods_type" id="value"}
 						<div class="aui-col-xs-3">
 							<a href="{:url('index/Classify/index')}" class="tolist">
-								<i class="aui-iconfont "><img src="__TYPE__/{$value.type_images}" alt=""></i>
+								<i class="aui-iconfont "><img src="__TYPE__/{$value.type_images}"></i>
 								<div class="aui-grid-label">{$value.name}</div>
 							</a>
 						</div>
@@ -297,13 +294,28 @@
             location.reload();
         }
         // 渲染到页面上
-        $('.hour')[0].innerHTML = Hour;
-        $('.minutes')[0].innerHTML = Minutes;
-        $('.second')[0].innerHTML = Second;
+		var dayLen = $('.day').length;
+		var hourLen = $('.hour').length;
+		var minLen = $('.minutes').length;
+		var secLen = $('.second').length;
+		function insertHTML(obj, len, val){
+			for(var i = 0; i < len; i++){
+				$(obj)[i].innerHTML = val;
+			}
+		}
+        // $('.hour')[0].innerHTML = Hour;
+        // $('.minutes')[0].innerHTML = Minutes;
+        // $('.second')[0].innerHTML = Second;
+		insertHTML('.day', dayLen, Day);
+		insertHTML('.hour', hourLen, Hour);
+		insertHTML('.minutes', minLen, Minutes);
+		insertHTML('.second', secLen, Second);
         // 如果天数不为0，显示标签
         if(Day != 0){
-            $($('.day')[0]).css('display','inline-block');
-            $('.day')[0].innerHTML = Day + '天';
+            $('.day').css('display','inline-block');
+			for(var i = 0; i < dayLen; i++){
+				$('.day')[i].innerHTML = Day + '天';
+			}
         }
     }
     // 设置三天时间
