@@ -13,6 +13,10 @@
             margin: 0;
             padding: 0;
         }
+        img{
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -270,8 +274,6 @@
     $(".details_order").click(function () {
         var order_id = $(this)[0].id.split('_')[2];
         var status = $(this)[0].id.split('_')[3];
-        alert(status);
-        alert(order_id);
         $.ajax({
             type:'POST',
             url:'{:url("index/Order/ajax_id")}',
