@@ -293,10 +293,16 @@
                     if(data != null){
                         // 第一次循环
                         $.each(data.data,function(idx, val){
-                            // 第二次循环
+                            console.log('第1次:'+idx,val)
                             if(Array.isArray(val)){
+                            // 第二次循环
                                 $.each(val,function(idx, val){
-                                    // console.log('第2次:'+idx,val)
+                                    console.log('第2次:'+idx,val)
+                                    var imgStr = '';
+                                    var imgLen = val.evaluate_images.length;
+                                    for(var i = 0; i < imgLen; i++){
+                                        imgStr +='<div style="width:60px;height:40px;display:inline-block;margin-right:6px;"><img src="__UPLOAD__/'+val.evaluate_images[i].images+'"></div>'
+                                    }
                                     str += '<section class="list_view">\
                                                 <div class="user_box">\
                                                     <div class="user_img">\
@@ -310,7 +316,7 @@
                                                     </div>\
                                                 </div>\
                                                 <div class="comment_box">'+val.evaluate_content+'</div>\
-                                                <div></div>\
+                                                <div>'+imgStr+'</div>\
                                                 <div class="list_footer">\
                                                     <span class="time_box">'+timetrans(val.create_time)+'</span>\
                                                     <div class="operation">\
