@@ -59,15 +59,16 @@ class AliPay extends Controller
 
             //超时时间
             $timeout_express="1m";
-            include ('../extend/AliPay/wappay/buildermodel/AlipayTradeWapPayContentBuilder.php');
+            include('../extend/AliPay/wappay/buildermodel/AlipayTradeWapPayContentBuilder.php');
+
             $payRequestBuilder = new \AlipayTradeWapPayContentBuilder();
             $payRequestBuilder->setBody($body);
             $payRequestBuilder->setSubject($subject);
             $payRequestBuilder->setOutTradeNo($out_trade_no);
             $payRequestBuilder->setTotalAmount($total_amount);
             $payRequestBuilder->setTimeExpress($timeout_express);
-
             include('../extend/AliPay/wappay/service/AlipayTradeService.php');
+
             $payResponse = new \AlipayTradeService($config);
             $result=$payResponse->wapPay($payRequestBuilder,$config['return_url'],$config['notify_url']);
 
