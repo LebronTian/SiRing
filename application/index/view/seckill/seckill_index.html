@@ -155,12 +155,18 @@
 
                 })
             })
+<<<<<<< HEAD
             // 倒计时
             setInterval(function(){
                 count_down(data.data.time*1000);
             },1000)
             // 倒计时上面的图片
             $('.banner_img').append('<img src="'+data.data.images[0].images+'">');
+=======
+            setInterval(function(){
+                count_down(data.data.time*1000);
+            },1000)
+>>>>>>> d049eb5f1742af68eb05b5c183c2ccf59b7ca686
         },
         error: function(){
             console.log('错误')
