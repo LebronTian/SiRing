@@ -86,19 +86,6 @@
 			<div class="aui-slide-node">
 				<div class="aui-grid">
 					<div class="aui-row aui-row-img-wt">
-
-						<div class="aui-col-xs-3">
-							<a href="{:url('index/Discounts/index')}" class="tolist">
-								<i class="aui-iconfont "><img src="__STATIC__/index/image/icon/u44.png"></i>
-								<div class="aui-grid-label">优惠券</div>
-							</a>
-						</div>
-						<div class="aui-col-xs-3">
-							<a href="{:url('index/seckill/index')}" class="tolist">
-								<i class="aui-iconfont "><img src="__STATIC__/index/image/icon/u45.png"></i>
-								<div class="aui-grid-label">秒杀</div>
-							</a>
-						</div>
 						{volist name="goods_type" id="value"}
 						<div class="aui-col-xs-3">
 							<a href="{:url('index/Classify/index')}" class="tolist">
@@ -275,7 +262,10 @@
 		dataType:"json",
 		success:function (data) {
 			console.log(data)
-			count_down(data.data.time*1000);
+			// 倒计时
+            setInterval(function(){
+                count_down(data.data.time*1000);
+            },1000)
 		},
 		error:function () {
 			console.log("错误");
@@ -303,24 +293,22 @@
     })
 </script>
 <script>
-    (function(){
-        $.ajax({
-            type:"POST",
-            url:"{:url('index/Classify/show')}",
-            data:{
-				"id": 1
-			},
-            async:false,
-            timeout:5000,
-            dataType:"json",
-            success:function (data) {
-				// console.log(data)
-            },
-            error:function () {
-                console.log("错误");
-            }
-        })
-	})()
+	$.ajax({
+		type:"POST",
+		url:"{:url('index/Classify/show')}",
+		data:{
+			"id": 1
+		},
+		async:false,
+		timeout:5000,
+		dataType:"json",
+		success:function (data) {
+			// console.log(data)
+		},
+		error:function () {
+			console.log("错误");
+		}
+	})
 </script>
 <script type="text/javascript">
     apiready = function(){

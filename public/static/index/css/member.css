@@ -71,6 +71,8 @@
 }
 .order_li{
     margin-bottom: 10px;
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
 }
 .aui-media-list-item-inner{
     display: flex;
