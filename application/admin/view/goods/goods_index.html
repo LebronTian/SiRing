@@ -415,9 +415,9 @@ function product_edit(title,url,id){
                     console.log(data);
                     if(data.status == 1){
                         layer.msg('已克隆！',{icon:1,time:2000},function(){
+                            location.reload();
                         });
                     }
-
                 },
                 error:function(data) {
                     console.log(data.msg);
