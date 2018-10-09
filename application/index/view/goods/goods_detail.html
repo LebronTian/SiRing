@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=auto"/>
 	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
 	<title>商品详情</title>
 	<style type="text/css">
@@ -30,7 +30,7 @@
 			display: flex;
 			align-items: center;
 			font-size: 12px;
-			color: #000;
+			color: #f00;
 		}
 		.goods_parts_img{
 			display: inline-block;
@@ -78,6 +78,7 @@
 			overflow-x: scroll;
 			overflow-y: hidden;
 			height: 65px;
+			width: 100%;
 		}
 		.aui-card-list img{
 			max-width: initial;
@@ -128,59 +129,6 @@
     <link rel="stylesheet" href="__STATIC__/index/css/seckill.css">
 	<link rel="stylesheet" type="text/css" href="__STATIC__/index/css/pop.css"/>
 	<link rel="stylesheet" href="__STATIC__/index/css/swiper-4.3.5.min.css">
-	<!-- iphoneX适配 -->
-	<style>
-		@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3){ 
-			header {
-				background-color: black;
-			}
-			body{
-				bottom: constant(safe-area-inset-bottom);
-				padding-bottom: env(safe-area-inset-bottom);
-			}
-			.iphonex-pt{
-				padding-top: constant(safe-area-inset-top);
-				padding-top: env(safe-area-inset-top);
-			}
-			.iphonex-pb{
-				padding-bottom: constant(safe-area-inset-bottom);
-				padding-bottom: env(safe-area-inset-bottom);
-			}
-			.iphonex-mt{
-				margin-top: constant(safe-area-inset-top);
-				margin-top: env(safe-area-inset-top);
-			}
-			.iphonex-mb{
-				margin-bottom: constant(safe-area-inset-bottom);
-				margin-bottom: env(safe-area-inset-bottom);
-			}
-			.iphonex-pl{
-				padding-left: constant(safe-area-inset-left);
-				padding-left: env(safe-area-inset-left);
-			}
-			.iphonex-pr{
-				padding-right: constant(safe-area-inset-right);
-				padding-right: env(safe-area-inset-right);
-			}
-			.iphonex-ml{
-				margin-left: constant(safe-area-inset-left);
-				margin-left: env(safe-area-inset-left);
-			}
-			.iphonex-mr{
-				margin-right: constant(safe-area-inset-right);
-				margin-right: env(safe-area-inset-right);
-			}
-			.iphonex-bd-top-bg{
-				border-top: 88px solid transparent;
-			}
-			.iphonex-bd-top{
-				border-top: 44px solid transparent;
-			}
-			.iphonex-bd-bottom{
-				border-bottom: 34px solid transparent;
-			}
-		}
-	</style>
 </head>
 <body style="background:#fff">
 <header class="aui-bar aui-bar-nav">
@@ -212,8 +160,8 @@
 		</h2>
 	</a>
 	<div>
-		<span class="old_price"></span>
 		<span class="price"></span>
+		<span class="old_price"></span>
 	</div>
 	<div class="time_box" style="text-align:right; display: none;">
 		<span class="time_text">距开始</span>&nbsp;
@@ -410,7 +358,7 @@
 				// 规格图片
 				$('.aui-card-list').append('<img src="__UPLOADS__/'+data.goods_spec_img+'">')
 				// 质检图
-				$.each(data.goods_quality_img,function(idx, val){
+				$.each(data.goods_images,function(idx, val){
 					var str = '';
 					if(val !== null){
 						str += '<img src="__UPLOAD__/'+data.goods_quality_img[i]+'">';
