@@ -192,26 +192,30 @@
 <!-- 倒计时 -->
 <script>
 	// 倒计时函数
-    function count_down(obj){
-        if(obj != 0){
-			// 获取当前时间
-			var curr_time = new Date().getTime();
-			// 时间差
-			var to_start = obj - curr_time;
-			// 剩余多少天，小时，分钟，秒
-			var Day = parseInt(to_start/1000/3600/24) < 10 ? '0'+parseInt(to_start/1000/3600/24) : parseInt(to_start/1000/3600/24);
-			var Hour = parseInt(to_start/1000/3600%24) < 10 ? '0'+parseInt(to_start/1000/3600%24) : parseInt(to_start/1000/3600%24);
-			var Minutes = parseInt(to_start/1000/60%60) < 10 ? '0'+parseInt(to_start/1000/60%60) : parseInt(to_start/1000/60%60);
-			var Second = parseInt(to_start/1000%60) < 10 ? '0'+parseInt(to_start/1000%60):  parseInt(to_start/1000%60);
+    // function count_down(obj){
+    //     if(obj != 0){
+	// 		// 获取当前时间
+	// 		var curr_time = new Date().getTime();
+	// 		// 时间差
+	// 		var to_start = obj - curr_time;
+	// 		// 剩余多少天，小时，分钟，秒
+	// 		var Day = parseInt(to_start/1000/3600/24) < 10 ? '0'+parseInt(to_start/1000/3600/24) : parseInt(to_start/1000/3600/24);
+	// 		var Hour = parseInt(to_start/1000/3600%24) < 10 ? '0'+parseInt(to_start/1000/3600%24) : parseInt(to_start/1000/3600%24);
+	// 		var Minutes = parseInt(to_start/1000/60%60) < 10 ? '0'+parseInt(to_start/1000/60%60) : parseInt(to_start/1000/60%60);
+	// 		var Second = parseInt(to_start/1000%60) < 10 ? '0'+parseInt(to_start/1000%60):  parseInt(to_start/1000%60);
 
-			if(Day == 00 && Hour == 00 && Minutes == 00 && Second == 00){
-				location.reload();
-			}
-			return Day;
-		}else{
-			return 0;
-		}
-    }
+	// 		if(Day == 00 && Hour == 00 && Minutes == 00 && Second == 00){
+	// 			location.reload();
+	// 		}
+	// 		if(Day == 00 && Hour > 0 && Minutes > 0 && Second > 0){
+	// 			Day = '小于1天';
+	// 		}else{
+	// 			return Day;
+	// 		}
+	// 	}else{
+	// 		return 0;
+	// 	}
+    // }
 </script>
 <script>
 	$.ajax({
@@ -223,10 +227,9 @@
 		dataType:"json",
 		success:function (data) {
 			console.log(data)
-			// 倒计时
-			$.each(data.data.seckill, function(idx, val){
-				$($('.limit_inner')[idx]).find('.day')[0].innerHTML = count_down(val.over_time*1000);
-			})
+			// $.each(data.data.seckill, function(idx, val){
+			// 	$($('.limit_inner')[idx]).find('.day')[0].innerHTML = count_down(val.over_time*1000);
+			// })
 		},
 		error:function () {
 			console.log("错误");

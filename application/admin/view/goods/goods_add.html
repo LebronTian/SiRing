@@ -74,7 +74,7 @@
     .img_div4,
     .img_div5,
     .img_div6{
-        min-height: 100px; 
+        min-height: 50px; 
         min-width: 100px;
         margin-top: 10px;
     }
@@ -84,8 +84,8 @@
     .isImg4,
     .isImg5,
     .isImg6{
-        width: 120px; 
-        height: 120px; 
+        width: 50px; 
+        height: 50px; 
         position: relative; 
         float: left; 
         margin-left: 10px;
@@ -152,13 +152,13 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商品名称</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" name="goods_name" value="" placeholder="请输入" id="" style="width: 400px">
+				<input type="text" class="input-text goods_name" name="goods_name" value="" placeholder="请输入" id="" style="width: 400px">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商品编号</label>
 			<div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" name="goods_number" placeholder="请输入" style="width: 400px">
+                <input type="text" class="input-text goods_number" name="goods_number" placeholder="请输入" style="width: 400px">
                 <p style=" font-size:10px;"><span style="color:red;">*</span>设定规则按照字幕+数字编号</p>
 			</div>
 		</div>
@@ -175,13 +175,13 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">排序</label>
 			<div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" name="sort_number" value="0" placeholder="" id="" style="width: 200px">
+                <input type="text" class="input-text sort_number" name="sort_number" value="0" placeholder="" id="" style="width: 200px">
                 <p style=" font-size:10px;"><span style="color:red;">*</span>填写正整数，从大到小排序</p>
 			</div>
         </div>
         <div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">标记</label>
-			<div class="formControls col-xs-8 col-sm-9">
+			<div class="formControls col-xs-8 col-sm-9 sign_div">
                 <input name="goods_sign[]" class="ziying" type="checkbox" checked value="自营"><span class="myiconfont">自营</span>
                 <input name="goods_sign[]" class="cu" type="checkbox" value="促"><span class="myiconfont">促</span>
                 <input name="goods_sign[]" class="HOT" type="checkbox" value="HOT"><span class="myiconfont">HOT</span>
@@ -190,26 +190,26 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">商品全新价</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" name="goods_new_money" placeholder="请输入" class="input-text" style="width:200px">元
+				<input type="text" name="goods_new_money" placeholder="请输入" class="input-text goods_new_money" style="width:200px">元
             </div>
         </div>
         <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-2">商品售价</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" name="goods_bottom_money" placeholder="请输入" class="input-text" style="width:200px">元
+                    <input type="text" name="goods_bottom_money" placeholder="请输入" class="input-text goods_bottom_money" style="width:200px">元
                 </div>
         </div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">库存</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" name="goods_num" placeholder="请输入" class="input-text" style="width: 200px">件
+				<input type="text" name="goods_num" value="1" placeholder="请输入" class="input-text" style="width: 200px">件
 			</div>
 		</div>
 
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">网络和出厂日期</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" name="goods_date" placeholder="请用逗号分隔开" class="input-text" style="width: 200px">
+                <input type="text" name="goods_date" placeholder="请用逗号分隔开" class="input-text goods_date" style="width: 200px">
             </div>
         </div>
 		<div class="row cl">
@@ -235,7 +235,7 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">赠送配件说明</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" name="goods_parts" placeholder="不超过20字" class="input-text" style="width: 400px">
+                <input type="text" name="goods_parts" placeholder="不超过20字" class="input-text goods_parts" style="width: 400px">
             </div>
             <div class="double_img">
                 <label class="form-label col-xs-4 col-sm-2">配件小图</label>
@@ -282,7 +282,7 @@
             <div class="formControls col-xs-8 col-sm-9">
                 <div class="formControls col-xs-8 col-sm-9">
                     <a href="javascript:;" class="a-upload" style="width:30%;">
-                        <input type="file" name="goods_spec_img" id="myFile4" /><span>上传配件说明小图</span>
+                        <input type="file" name="goods_spec_img" id="myFile4" /><span>上传规格图</span>
                     </a>
                     <div class="img_div4"></div>
     
@@ -303,7 +303,7 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">质检报告</label>
             <div class="formControls col-xs-8 col-sm-9">
-                IMEI号&nbsp;&nbsp;<input type="text" name="goods_num" class="input-text" style="width: 300px">
+                IMEI号&nbsp;&nbsp;<input type="text" name="goods_num" class="input-text imei_num" style="width: 300px">
             </div>
                 <label class="form-label col-xs-4 col-sm-2">质检图片</label>
             <div class="formControls col-xs-8 col-sm-9" style="margin-top: 5px">
@@ -350,13 +350,13 @@
             <label class="form-label col-xs-4 col-sm-2">状态</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <input name="goods_status" type="radio" value="0"><span>暂不上架</span>
-                <input name="goods_status" type="radio" value="1"><span>立即上架</span>
+                <input name="goods_status" checked type="radio" value="1"><span>立即上架</span>
             </div>
         </div>
 
 		<div class="row cl">
 		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-		<button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
+		<button onClick="" class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
 		<button onclick="window.close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 		</div>
 	</div>
@@ -372,7 +372,40 @@
 <script type="text/javascript" src="__STATIC__/admin/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
 <script type="text/javascript" src="__STATIC__/admin/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/webuploader/0.1.5/webuploader.min.js"></script>
-<!-- <script type="text/javascript" src="__STATIC__/admin/ckeditor/ckeditor.js"></script> -->
+<!-- 提交限制，必须填所有内容才能提交 -->
+<script>
+    $('.btn-primary').click(function(){
+        if($('.goods_name').val() == ''){
+            alert('商品名称不能为空');
+        }else if($('.goods_number').val() == ''){
+            alert('商品编号不能为空');
+        }else if($('.goods_new_money').val() == ''){
+            alert('商品全新价不能为空');
+        }else if($('.goods_bottom_money').val() == ''){
+            alert('商品售价不能为空');
+        }else if($('.goods_date').val() == ''){
+            alert('网络和出厂日期不能为空');
+        }else if($('.goods_parts').val() == ''){
+            alert('赠送配件说明不能为空');
+        }else if($('.imei_num').val() == ''){
+            alert('IMEI号不能为空');
+        }else if($('.img_div').find('.isImg').length == 0){
+            alert('需要上传商品主图');
+        }else if($('.img_div2').find('.isImg').length == 0){
+            alert('.需要上传配件小图');
+        }else if($('.img_div3').find('.isImg').length == 0){
+            alert('.需要上传配件大图');
+        }else if($('.img_div4').find('.isImg').length == 0){
+            alert('.需要上传规格图');
+        }else if($('.img_div5').find('.isImg').length == 0){
+            alert('.需要上传质检图片');
+        }else if($('.img_div6').find('.isImg').length == 0){
+            alert('.需要上传商品展示缩略图');
+        }else{
+            $(this).attr('type', 'submit');
+        }
+    })
+</script>
 <script>
     (function(){
         //  分类栏目，请求地址获取数据，插入select
