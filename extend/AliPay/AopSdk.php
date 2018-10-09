@@ -15,14 +15,7 @@
  */
 if (!defined("AOP_SDK_WORK_DIR"))
 {
-
-    $dirname = "../tmp";
-    if(!is_dir($dirname)){
-        mkdir($dirname,777);
-
-    }
-    define("AOP_SDK_WORK_DIR", $dirname);
-
+    define("AOP_SDK_WORK_DIR", "/tmp/");
 }
 /**
  * 是否处于开发模式
