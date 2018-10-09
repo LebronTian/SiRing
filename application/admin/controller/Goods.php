@@ -53,7 +53,7 @@ class Goods extends Controller{
                 'datemin' => $datemin
             ]);
         }else{
-            $goods = db("goods")->paginate(10);
+            $goods = db("goods")->order("id desc")->paginate(10);
             return view("goods_index",["goods"=>$goods]);
         }
 
@@ -376,7 +376,8 @@ class Goods extends Controller{
                     $bool_images = db("goods_images")->insert(["goods_id"=>$goodsid,"goods_images"=>$val["goods_images"],"goods_quality_img"=>$val["goods_quality_img"]]);
                 }
                 if($bool_images){
-                    return ajax_success("添加成功");
+                    Session("goodsid",$goodsid);
+                    return ajax_success("添加成功",$goodsid);
                 }
 
             }
