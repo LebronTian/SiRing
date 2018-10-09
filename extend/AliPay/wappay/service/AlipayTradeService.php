@@ -7,7 +7,7 @@
  * 以下代码只是为了方便商户测试而提供的样例代码，商户可以根据自己网站的需要，按照技术文档编写,并非一定要使用该代码。
  */
 
-namespace Alipay\wappay\service;
+//namespace Alipay\wappay\service;
 
 require_once dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'./../../AopSdk.php';
 require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'./../../config.php';
@@ -78,9 +78,9 @@ class AlipayTradeService {
 		//打印业务参数
 		$this->writeLog($biz_content);
 
-	        include('../extend/AliPay/aop/request/AlipayTradeWapPayRequest.php');
+        include('../extend/AliPay/aop/request/AlipayTradeWapPayRequest.php');
 
-        	$request = new \Alipay\aop\request\AlipayTradeWapPayRequest();
+        $request = new \Alipay\aop\request\AlipayTradeWapPayRequest();
 	
 		$request->setNotifyUrl($notify_url);
 		$request->setReturnUrl($return_url);
@@ -94,7 +94,8 @@ class AlipayTradeService {
 
 	 function aopclientRequestExecute($request,$ispage=false) {
 
-		include('../extend/AliPay/aop/AopClient.php');
+	    include('../extend/AliPay/aop/AopClient.php');
+
 		$aop = new \Alipay\aop\AopClient ();
 		$aop->gatewayUrl = $this->gateway_url;
 		$aop->appId = $this->appid;
@@ -230,7 +231,7 @@ class AlipayTradeService {
 	function writeLog($text) {
 		// $text=iconv("GBK", "UTF-8//IGNORE", $text);
 		//$text = characet ( $text );
-		//file_put_contents ( dirname ( __FILE__ ).DIRECTORY_SEPARATOR."./../../log.txt", date ( "Y-m-d H:i:s" ) . "  " . $text . "\r\n", FILE_APPEND );
+		file_put_contents ( dirname ( __FILE__ ).DIRECTORY_SEPARATOR."./../../log.txt", date ( "Y-m-d H:i:s" ) . "  " . $text . "\r\n", FILE_APPEND );
 	}
 	
 
