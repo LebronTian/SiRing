@@ -111,6 +111,16 @@
 			background-size: 100%;
 			vertical-align: sub;
 		}
+		.price{
+			font-size: 18px; 
+			font-weight: 800; 
+			color: #f34347;
+		}
+		.old_price{
+			font-size: 14px;
+			text-decoration: line-through;
+			color: #000;
+		}
 	</style>
 	<link rel="icon" type="__STATIC__/index/image/x-icon" href="__STATIC__/index/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="__STATIC__/index/css/aui.css"/>
@@ -201,7 +211,10 @@
 			荣耀V9play全网通 标配版 3GB+32GB 幻夜黑 移动联通电信4G手机 双卡双待 -->
 		</h2>
 	</a>
-	<div style="font-size:18px; font-weight:800; color:#f34347" class="price">￥1299.00</div>
+	<div>
+		<span class="old_price"></span>
+		<span class="price"></span>
+	</div>
 	<div class="time_box" style="text-align:right; display: none;">
 		<span class="time_text">距开始</span>&nbsp;
 		<span class="day">0天</span>
@@ -406,6 +419,7 @@
 				})
 				// 价格
 				$('.price').html('￥'+data.goods_bottom_money);
+				$('.old_price').html('￥'+data.goods_new_money);
 				xid = data.id;
 				if(data.start_time != undefined){
 					$('.time_box').css('display','block');
