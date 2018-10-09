@@ -263,13 +263,13 @@
                 <div class="comment_box">评论的内容</div>
                <div class="eva_img_div">
                     <div class="tpfd" style="width:60px;height:40px;display:inline-block;margin-right:6px;">
-                        <img src="__UPLOAD__/20181008/2c130f57dbcc081f3c851488c4b33744.jpg">
+                        <img src="__UPLOAD__/20181008/399e32753faf4d64d7186736216925c2.jpg">
                     </div>
                     <div class="tpfd" style="width:60px;height:40px;display:inline-block;margin-right:6px;">
-                        <img src="__UPLOAD__/20181008/459b456caf1ee7d55ec88817e7d6be37.jpg">
+                        <img src="__UPLOAD__/20181008/89cc1eda93b3ba5ae59f33aaf4d9361a.jpg">
                     </div>
                     <div class="tpfd" style="width:60px;height:40px;display:inline-block;margin-right:6px;">
-                        <img src="__UPLOAD__/20181008/1534606a024f296e70d2548f248347e7.jpg">
+                        <img src="__UPLOAD__/20181008/0950a9fd8050d3a0c1d6b6b6214f1d79.jpg">
                     </div>
                </div>
                 <div class="list_footer">
@@ -521,13 +521,14 @@
                     $('.list_box').append(str);
                 }
                 var img_num;
+                var activeBox;//用户点击当前图片的父级盒子
                 // 图片放大
                 // 给tpfd添加点击事件，事件委托img，获取img的src路径
-                $('.tpfd img').click(function(){
-                    var src = $(this)[0].src;
+                $('.tpfd').click(function(){
+                    var src = $(this).children('img')[0].src;
                     activeIndex = $(this).index();
                     img_num = $(this).parents('.eva_img_div').children('div').length;
-                    console.log(img_num);
+                    activeBox = $(this).parents('.eva_img_div');
                     loadImage(src);
                 })
                 //show-image添加图片
@@ -558,21 +559,20 @@
                         activeIndex++;
                         if(activeIndex > img_num - 1){
                             activeIndex = img_num - 1;
-                            console.log('到底了')
                         }else{
-                            var src = $('.eva_img_div').find('img');
-                            console.log(activeIndex);
-                            // loadImage(activeIndex);
+                            // 下一张图片的src
+                            var src = $($(activeBox).children('div')[activeIndex]).children('img')[0].src;
+                            loadImage(src);
                         }
                     })
                     .on('swipeRight',function(){
                         activeIndex--;
                         if(activeIndex < 0){
-                            console.log(activeIndex);
-                            console.log('到头了')
                             activeIndex = 0
                         }else{
-                            // loadImage(activeIndex);
+                            // 上一张图片的src
+                            var src = $($(activeBox).children('div')[activeIndex]).children('img')[0].src;
+                            loadImage(src);
                         }
                     })
 

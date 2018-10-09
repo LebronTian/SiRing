@@ -112,7 +112,7 @@
 					<span class="limit_time">{$val.keyword}</span>
 					<span class="time_box">
 						<span class="time_text">距离活动结束 </span><span class="day">0天</span>
-						<span class="hour">0</span>:<span class="minutes">0</span>:<span class="second">0</span>
+						<!-- <span class="hour">0</span>:<span class="minutes">0</span>:<span class="second">0</span> -->
 					</span>
 				</p>
 			</a>
@@ -223,9 +223,10 @@
         // $('.minutes')[0].innerHTML = Minutes;
         // $('.second')[0].innerHTML = Second;
 		insertHTML('.day', dayLen, Day);
-		insertHTML('.hour', hourLen, Hour);
-		insertHTML('.minutes', minLen, Minutes);
-		insertHTML('.second', secLen, Second);
+		// insertHTML('.hour', hourLen, Hour);
+		// insertHTML('.minutes', minLen, Minutes);
+		// insertHTML('.second', secLen, Second);
+		
         // 如果天数不为0，显示标签
         if(Day != 0){
             $('.day').css('display','inline-block');
@@ -234,23 +235,6 @@
 			}
         }
     }
-    // 设置三天时间
-    // cookie中 endTime是否存在值
-    // if($.cookie('endTime') !== undefined && !isNaN($.cookie('endTime'))){
-    //     var endTime = $.cookie('endTime');
-    //     var nowTime = new Date().getTime();
-    //     if(parseInt((endTime - nowTime)/1000) <= 0){
-    //         var threeday = new Date().getTime() + 259200000;
-    //         $.cookie('endTime', threeday);
-    //     }
-    // }else{
-    //     var threeday = new Date().getTime() + 259200000;
-    //     $.cookie('endTime', threeday);
-    // }
-    // var myCookieTime = $.cookie('endTime');
-    // setInterval(function(){
-    //     count_down(myCookieTime);
-    // },1000)
 </script>
 <script>
 	$.ajax({
