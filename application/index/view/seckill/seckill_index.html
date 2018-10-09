@@ -35,6 +35,7 @@
 </header>
 <div class="aui-content aui-margin-b-15">
     <ul class="aui-list aui-media-list">
+        <div class="banner_img"></div>
         <div class="time_box">
             <span class="time_text">距离活动结束</span>&nbsp;
             <span class="day">0天</span>
@@ -94,27 +95,10 @@
         // 如果天数不为0，显示标签
         if(Day != 0){
             $($('.day')[0]).css('display','inline-block');
+
             $('.day')[0].innerHTML = Day + '天';
         }
     }
-    // 设置三天时间
-    // cookie中 endTime是否存在值
-    if($.cookie('endTime') !== undefined && !isNaN($.cookie('endTime'))){
-        var endTime = $.cookie('endTime');
-        var nowTime = new Date().getTime();
-        if(parseInt((endTime - nowTime)/1000) <= 0){
-            var threeday = new Date().getTime() + 259200000;
-            $.cookie('endTime', threeday);
-        }
-    }else{
-        var threeday = new Date().getTime() + 259200000;
-        $.cookie('endTime', threeday);
-    }
-    var myCookieTime = $.cookie('endTime');
-    setInterval(function(){
-        count_down(myCookieTime);
-    },1000)
-    
     
     $.ajax({
         url: '{:url("index/Seckill/show")}',
@@ -124,7 +108,7 @@
         success: function(data){
             console.log(data);
             var str = '';
-            $.each(data.data, function(index, val){
+            $.each(data.data.goods, function(index, val){
                 var signStr = '';
                 if(val.goods_sign != ''){
                      var signLen = val.goods_sign.split(',').length;
@@ -171,6 +155,12 @@
 
                 })
             })
+            // 倒计时
+            setInterval(function(){
+                count_down(data.data.time*1000);
+            },1000)
+            // 倒计时上面的图片
+            $('.banner_img').append('<img src="__UPLOADS__/'+data.data.images[0].images+'">');
         },
         error: function(){
             console.log('错误')

@@ -80,8 +80,7 @@ class AlipayTradeService {
 
 	        include('../extend/AliPay/aop/request/AlipayTradeWapPayRequest.php');
 
-                $request = new \Alipay\aop\request\AlipayTradeWapPayRequest();
-	
+        	$request = new \Alipay\aop\request\AlipayTradeWapPayRequest();
 	
 		$request->setNotifyUrl($notify_url);
 		$request->setReturnUrl($return_url);
@@ -94,8 +93,8 @@ class AlipayTradeService {
 	}
 
 	 function aopclientRequestExecute($request,$ispage=false) {
-                include('../extend/AliPay/aop/AopClient.php');
-         
+
+		include('../extend/AliPay/aop/AopClient.php');
 		$aop = new \Alipay\aop\AopClient ();
 		$aop->gatewayUrl = $this->gateway_url;
 		$aop->appId = $this->appid;

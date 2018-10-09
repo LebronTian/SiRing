@@ -19,14 +19,6 @@
 <body id="view">
 <div id="mask-layer" style="display: block;">
     <section class="cart-page main">
-        <header class="sn-nav">
-            <div class="sn-nav-back">
-                <a class="sn-iconbtn" href="{:url('index/Order/wait_pay')}">返回</a>
-            </div>
-            <div class="sn-nav-title of">订单详情</div>
-            <div class="sn-nav-other"></div>
-        </header>
-
             {if !empty($datas)}
         <div class="cart-group">
             <div class="cart-group-item delivery-lite-info"  onclick=''>
@@ -180,6 +172,7 @@
                 console.log('错误');
             }
         })
+    })
     //取消订单
     $('.cancel_order').click(function () {
         var id =  $(this)[0].id.split('_')[2];
