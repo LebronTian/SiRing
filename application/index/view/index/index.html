@@ -54,9 +54,6 @@
 			text-align: center;
 			line-height: 12px;
 		}
-		.day{
-			display: none;
-		}
 	</style>
 	<link rel="stylesheet" href="__STATIC__/index/css/aui-flex.css">
 	<link rel="stylesheet" href="__STATIC__/index/css/aui-slide.css">
@@ -101,7 +98,7 @@
 	</div>
 	<div class="time_limit">
 		{volist name="seckill" id="val"}
-		<div class="limit_inner">
+		<div class="limit_inner" id="{$val.id}">
 			<div class="img_box">
 				<a id="{$val.type_id}" class="secondk" href="{:url('index/Seckill/show')}">
 					<img src="__UPLOADS__/{$val.images}">
@@ -163,28 +160,28 @@
 
 	<div style="height:48px"></div>
 	<div id="demo" style="display:none">1</div>
-		<footer class="aui-bar aui-bar-tab aui-bar-tab-cl aui-border-t" id="footer">
-			<a href="{:url('index/index/index')}" class="aui-bar-tab-item " tapmode>
-				<i class="aui-iconfont aui-icon-home"></i>
-				<div class="aui-bar-tab-label">首页</div>
-			</a>
-			<a class="aui-bar-tab-item" tapmode href="{:url('index/Classify/index')}">
-				<i class="aui-iconfont aui-icon-menu"></i>
-				<div class="aui-bar-tab-label">分类</div>
-			</a>
-			<a class="aui-bar-tab-item" tapmode href="{:url('index/Share/share_index')}">
-				<i class="aui-iconfont aui-icon-camera"></i>
-				<div class="aui-bar-tab-label">晒单</div>
-			</a>
-			<a class="aui-bar-tab-item" tapmode href="{:url('index/Shopping/index')}">
-				<i class="aui-iconfont aui-icon-cart"></i>
-				<div class="aui-bar-tab-label">购物车</div>
-			</a>
-			<a href="{:url('index/Member/index')}" class="aui-bar-tab-item" id="my" tapmode>
-				<i class="aui-iconfont aui-icon-my"></i>
-				<div class="aui-bar-tab-label">我的</div>
-			</a>
-		</footer>
+	<footer class="aui-bar aui-bar-tab aui-bar-tab-cl aui-border-t" id="footer">
+		<a href="{:url('index/index/index')}" class="aui-bar-tab-item " tapmode>
+			<i class="aui-iconfont aui-icon-home"></i>
+			<div class="aui-bar-tab-label">首页</div>
+		</a>
+		<a class="aui-bar-tab-item" tapmode href="{:url('index/Classify/index')}">
+			<i class="aui-iconfont aui-icon-menu"></i>
+			<div class="aui-bar-tab-label">分类</div>
+		</a>
+		<a class="aui-bar-tab-item" tapmode href="{:url('index/Share/share_index')}">
+			<i class="aui-iconfont aui-icon-camera"></i>
+			<div class="aui-bar-tab-label">晒单</div>
+		</a>
+		<a class="aui-bar-tab-item" tapmode href="{:url('index/Shopping/index')}">
+			<i class="aui-iconfont aui-icon-cart"></i>
+			<div class="aui-bar-tab-label">购物车</div>
+		</a>
+		<a href="{:url('index/Member/index')}" class="aui-bar-tab-item" id="my" tapmode>
+			<i class="aui-iconfont aui-icon-my"></i>
+			<div class="aui-bar-tab-label">我的</div>
+		</a>
+	</footer>
 
 
 <script type="text/javascript" src="__STATIC__/index/js/index/api.js" ></script>
@@ -196,44 +193,24 @@
 <script>
 	// 倒计时函数
     function count_down(obj){
-        // if()
-        // 获取当前时间
-        var curr_time = new Date().getTime();
-        // 时间差
-        var to_start = obj - curr_time;
-        // 剩余多少天，小时，分钟，秒
-        var Day = parseInt(to_start/1000/3600/24) < 10 ? '0'+parseInt(to_start/1000/3600/24) : parseInt(to_start/1000/3600/24);
-        var Hour = parseInt(to_start/1000/3600%24) < 10 ? '0'+parseInt(to_start/1000/3600%24) : parseInt(to_start/1000/3600%24);
-        var Minutes = parseInt(to_start/1000/60%60) < 10 ? '0'+parseInt(to_start/1000/60%60) : parseInt(to_start/1000/60%60);
-        var Second = parseInt(to_start/1000%60) < 10 ? '0'+parseInt(to_start/1000%60):  parseInt(to_start/1000%60);
-        if(Day == 00 && Hour == 00 && Minutes == 00 && Second == 00){
-            location.reload();
-        }
-        // 渲染到页面上
-		var dayLen = $('.day').length;
-		var hourLen = $('.hour').length;
-		var minLen = $('.minutes').length;
-		var secLen = $('.second').length;
-		function insertHTML(obj, len, val){
-			for(var i = 0; i < len; i++){
-				$(obj)[i].innerHTML = val;
+        if(obj != 0){
+			// 获取当前时间
+			var curr_time = new Date().getTime();
+			// 时间差
+			var to_start = obj - curr_time;
+			// 剩余多少天，小时，分钟，秒
+			var Day = parseInt(to_start/1000/3600/24) < 10 ? '0'+parseInt(to_start/1000/3600/24) : parseInt(to_start/1000/3600/24);
+			var Hour = parseInt(to_start/1000/3600%24) < 10 ? '0'+parseInt(to_start/1000/3600%24) : parseInt(to_start/1000/3600%24);
+			var Minutes = parseInt(to_start/1000/60%60) < 10 ? '0'+parseInt(to_start/1000/60%60) : parseInt(to_start/1000/60%60);
+			var Second = parseInt(to_start/1000%60) < 10 ? '0'+parseInt(to_start/1000%60):  parseInt(to_start/1000%60);
+
+			if(Day == 00 && Hour == 00 && Minutes == 00 && Second == 00){
+				location.reload();
 			}
+			return Day;
+		}else{
+			return 0;
 		}
-        // $('.hour')[0].innerHTML = Hour;
-        // $('.minutes')[0].innerHTML = Minutes;
-        // $('.second')[0].innerHTML = Second;
-		insertHTML('.day', dayLen, Day);
-		// insertHTML('.hour', hourLen, Hour);
-		// insertHTML('.minutes', minLen, Minutes);
-		// insertHTML('.second', secLen, Second);
-		
-        // 如果天数不为0，显示标签
-        if(Day != 0){
-            $('.day').css('display','inline-block');
-			for(var i = 0; i < dayLen; i++){
-				$('.day')[i].innerHTML = Day + '天';
-			}
-        }
     }
 </script>
 <script>
@@ -247,9 +224,9 @@
 		success:function (data) {
 			console.log(data)
 			// 倒计时
-            setInterval(function(){
-                count_down(data.data.time*1000);
-            },1000)
+			$.each(data.data.seckill, function(idx, val){
+				$($('.limit_inner')[idx]).find('.day')[0].innerHTML = count_down(val.over_time*1000);
+			})
 		},
 		error:function () {
 			console.log("错误");
