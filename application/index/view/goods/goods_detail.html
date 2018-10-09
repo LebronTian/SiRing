@@ -121,6 +121,9 @@
 	<!-- iphoneX适配 -->
 	<style>
 		@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3){ 
+			header {
+				background-color: black;
+			}
 			body{
 				bottom: constant(safe-area-inset-bottom);
 				padding-bottom: env(safe-area-inset-bottom);
@@ -324,7 +327,7 @@
 	</div>
 </div>
 <!-- 弹出 -->
-<footer class="aui-bar aui-bar-tab aui-margin-t-15  aui-border-t">
+<footer class="aui-bar aui-bar-tab aui-margin-t-15  aui-border-t iphonex-pb">
 	<div class="aui-bar-tab-item" style="width: 2rem;">
 		<i class="kefu"></i><a href="chat"></a>
 		<div class="aui-bar-tab-label star_info">客服</div>
