@@ -32,7 +32,7 @@ class LtStoreFile implements LtStore
 		$cachePath = pathinfo($file, PATHINFO_DIRNAME);
 		if (!is_dir($cachePath))
 		{
-			if (!@mkdir($cachePath, 0777, true))
+			if (!@mkdir($cachePath, 777, true))
 			{
 				trigger_error("Can not create $cachePath");
 			}
