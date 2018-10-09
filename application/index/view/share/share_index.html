@@ -185,6 +185,23 @@
             line-height: 27px;
             text-align: center;
         }
+        .show-image{
+            position: absolute;
+            left:0;
+            top:0;
+            width:100%;
+            height:100%;
+            display:none;
+            background:#000;
+            z-index: 999;
+        }
+        .show-image img{
+            position: absolute;
+            left:50%;
+            top:50%;
+            transform: translate(-50%,-50%);
+            opacity: 0;
+        }
     </style>
 </head>
 <body>
@@ -231,11 +248,48 @@
                     </div>
                 </div>
             </section> -->
+            <section class="list_view">
+                <div class="user_box">
+                    <div class="user_img">
+                        <img src="__UPLOADS__/20180929/125f3d48fb5b87a0d43240f1ad0504b3.jpg">
+                    </div>
+                    <div class="user_msg">
+                        <div class="user_name">
+                            <span>13691853045</span>
+                        </div>
+                        <span class="product_label">123456789</span>
+                    </div>
+                </div>
+                <div class="comment_box">评论的内容</div>
+               <div class="eva_img_div">
+                    <div class="tpfd" style="width:60px;height:40px;display:inline-block;margin-right:6px;">
+                        <img src="__UPLOAD__/20181008/399e32753faf4d64d7186736216925c2.jpg">
+                    </div>
+                    <div class="tpfd" style="width:60px;height:40px;display:inline-block;margin-right:6px;">
+                        <img src="__UPLOAD__/20181008/89cc1eda93b3ba5ae59f33aaf4d9361a.jpg">
+                    </div>
+                    <div class="tpfd" style="width:60px;height:40px;display:inline-block;margin-right:6px;">
+                        <img src="__UPLOAD__/20181008/0950a9fd8050d3a0c1d6b6b6214f1d79.jpg">
+                    </div>
+               </div>
+                <div class="list_footer">
+                    <span class="time_box">2018-10-8 19:17:11</span>
+                    <div class="operation">
+                        <a href="javascript:;" class="see_evaluation">
+                            <span>查看评论</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
+<div class="show-image"></div>
 
     
-<script type="text/javascript" src="__STATIC__/index/js/jquery.js"></script>
+<script src="__STATIC__/index/js/jquery.js"></script>
+<script src="__STATIC__/index/js/zepto.js"></script>
+<script src="__STATIC__/index/js/touch.js"></script>
+<script src="__STATIC__/index/js/animate.js"></script>
 <!-- 筛选列表 切换类名 -->
 <script>
     $('.select_btn').click(function(){
@@ -298,11 +352,12 @@
                             // 第二次循环
                                 $.each(val,function(idx, val){
                                     console.log('第2次:'+idx,val)
-                                    var imgStr = '';
+                                    var imgStr = '<div class="tpfd" style="width:60px;height:40px;display:inline-block;margin-right:6px;">';
                                     var imgLen = val.evaluate_images.length;
                                     for(var i = 0; i < imgLen; i++){
-                                        imgStr +='<div style="width:60px;height:40px;display:inline-block;margin-right:6px;"><img src="__UPLOAD__/'+val.evaluate_images[i].images+'"></div>'
+                                        imgStr +='<img src="__UPLOAD__/'+val.evaluate_images[i].images+'">'
                                     }
+                                    imgStr += '</div>';
                                     str += '<section class="list_view">\
                                                 <div class="user_box">\
                                                     <div class="user_img">\
@@ -316,7 +371,7 @@
                                                     </div>\
                                                 </div>\
                                                 <div class="comment_box">'+val.evaluate_content+'</div>\
-                                                <div>'+imgStr+'</div>\
+                                                <div class="eva_img_div">'+imgStr+'</div>\
                                                 <div class="list_footer">\
                                                     <span class="time_box">'+timetrans(val.create_time)+'</span>\
                                                     <div class="operation">\
@@ -355,6 +410,33 @@
                             $('.list_box').html('');
                             $('.list_box').append(str);
 
+                            // 图片放大
+                            // 给tpfd添加点击事件，事件委托img，获取img的src路径
+                            $('.tpfd img').click(function(){
+                                var src = $(this)[0].src;
+                                activeIndex = $(this).index();
+                                loadImage(src);
+                            })
+                            //show-image添加图片
+                            //获取可视窗口比例
+                            var bili = $(window).height() / $(window).width();
+                            function loadImage(src) {
+                                $('.show-image').empty().show();//清空之前的图片
+                                var oImg = new Image(),
+                                    oImage_src = src;
+                                oImg.src = oImage_src;
+                                oImg.onload = function () {
+                                    //等图片下载完再显示
+                                    //获取图片宽高比例
+                                    var img_h = this.height,
+                                        img_w = this.width;
+                                    if(img_h / img_w > bili){
+                                        $(oImg).appendTo($('.show-image')).css('height','100%').animate({opacity:1},500);
+                                    }else{
+                                        $(oImg).appendTo($('.show-image')).css('width','100%').animate({opacity:1},500);
+                                    }
+                                }
+                            }
                             // 查看评价信息
                             $('.see_evaluation').click(function(){
                                 var see_evaluation_id = $(this)[0].id.split('_')[2];
@@ -404,11 +486,12 @@
                         if(val.phone_num != null){
                             val.phone_num = val.phone_num.replace(reg,'$1****$2');
                         }
-                        var imgStr = '';
+                        var imgStr = '<div class="tpfd" style="width:60px;height:40px;display:inline-block;margin-right:6px;">';
                         var imgLen = val.evaluate_images.length;
                         for(var i = 0; i < imgLen; i++){
-                            imgStr +='<div style="width:60px;height:40px;display:inline-block;margin-right:6px;"><img src="__UPLOAD__/'+val.evaluate_images[i].images+'"></div>'
+                            imgStr +='<img src="__UPLOAD__/'+val.evaluate_images[i].images+'">'
                         }
+                        imgStr += '</div>';
                         str += '<section class="list_view">\
                                     <div class="user_box">\
                                         <div class="user_img">\
@@ -422,7 +505,7 @@
                                         </div>\
                                     </div>\
                                     <div class="comment_box">'+val.evaluate_content+'</div>\
-                                    <div>'+imgStr+'</div>\
+                                    <div class="eva_img_div">'+imgStr+'</div>\
                                     <div class="list_footer">\
                                         <span class="time_box">'+timetrans(val.create_time)+'</span>\
                                         <div class="operation">\
@@ -434,9 +517,64 @@
                                     </div>\
                                 </section>'
                     })
-                    $('.list_box').html('');
+                    // $('.list_box').html('');
                     $('.list_box').append(str);
                 }
+                var img_num;
+                var activeBox;//用户点击当前图片的父级盒子
+                // 图片放大
+                // 给tpfd添加点击事件，事件委托img，获取img的src路径
+                $('.tpfd').click(function(){
+                    var src = $(this).children('img')[0].src;
+                    activeIndex = $(this).index();
+                    img_num = $(this).parents('.eva_img_div').children('div').length;
+                    activeBox = $(this).parents('.eva_img_div');
+                    loadImage(src);
+                })
+                //show-image添加图片
+                //获取可视窗口比例
+                var bili = $(window).height() / $(window).width();
+                function loadImage(src) {
+                    $('.show-image').empty().show();//清空之前的图片
+                    var oImg = new Image(),
+                        oImage_src = src;
+                    oImg.src = oImage_src;
+                    oImg.onload = function () {
+                        //等图片下载完再显示
+                        //获取图片宽高比例
+                        var img_h = this.height,
+                            img_w = this.width;
+                        if(img_h / img_w > bili){
+                            $(oImg).appendTo($('.show-image')).css('height','100%').animate({opacity:1},500);
+                        }else{
+                            $(oImg).appendTo($('.show-image')).css('width','100%').animate({opacity:1},500);
+                        }
+                    }
+                }
+                var activeIndex;//在tpfd的点击事件中获取当前图片的索引值
+                $('.show-image').on('tap',function(){
+                        $('.show-image').hide();
+                    })
+                    .on('swipeLeft',function(){
+                        activeIndex++;
+                        if(activeIndex > img_num - 1){
+                            activeIndex = img_num - 1;
+                        }else{
+                            // 下一张图片的src
+                            var src = $($(activeBox).children('div')[activeIndex]).children('img')[0].src;
+                            loadImage(src);
+                        }
+                    })
+                    .on('swipeRight',function(){
+                        activeIndex--;
+                        if(activeIndex < 0){
+                            activeIndex = 0
+                        }else{
+                            // 上一张图片的src
+                            var src = $($(activeBox).children('div')[activeIndex]).children('img')[0].src;
+                            loadImage(src);
+                        }
+                    })
 
                 // 查看评价信息
                 $('.see_evaluation').click(function(){
@@ -464,6 +602,5 @@
         });
     })()
 </script>
-
 </body>
 </html>

@@ -13,6 +13,10 @@
             margin: 0;
             padding: 0;
         }
+        .null_box img{
+            width: 128px;
+            height: 128px;
+        }
     </style>
 </head>
 <body>
@@ -50,11 +54,13 @@
         </ul>
     </div>
     {/if}
-    <div class="null_box" style="display: none">
-        <img src="__STATIC__/index/image/icon/img14.png" width="128" height="128">
+    {if empty($data)}
+    <div class="null_box">
+        <img src="__STATIC__/index/image/icon/img14.png">
         <p class="p1">您还没有相关的订单</p>
         <p class="p2">可以去看看有哪些想买的</p>
     </div>
+    {/if}
     <!-- 弹窗遮罩 -->
     <div class="mask" style="position:absolute;"></div>
     <!-- 支付弹窗 -->
