@@ -356,7 +356,9 @@ class Goods extends Controller{
             unset($goods["id"]);
             $bool = db("goods")->insert($goods);
             if($bool){
-                foreach ($goods_images as $val){
+                $goodsid = db("goods")->getLastInsID();
+                foreach ($goods_images as $key=>$val){
+                    $goods_images[$key]["goods_id"] = $goodsid;
                     if($val['id']){
                         unset($val["id"]);
                     }
@@ -371,11 +373,12 @@ class Goods extends Controller{
                     if($val["goods_quality_img"] != null){
                         $val["goods_quality_img"] = new_image($val["goods_quality_img"],$dir_names);
                     }
-                    $bool_images = db("goods_images")->insert($val);
+                    $bool_images = db("goods_images")->insert(["goods_id"=>$goodsid,"goods_images"=>$val["goods_images"],"goods_quality_img"=>$val["goods_quality_img"]]);
                 }
                 if($bool_images){
                     return ajax_success("添加成功");
                 }
+
             }
         }
 
