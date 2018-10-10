@@ -34,16 +34,45 @@
 <div id="tbh5v0">
     <div class="find">
         <section class="innercontent">
-            <form action="{:url('index/Findpwd/findpwd')}" method="post" id="fpForm" name="fpForm" class="c-form login-form">
+            <!--<form action="{:url('index/Findpwd/findpwd')}" method="post" id="fpForm" name="fpForm" class="c-form login-form">-->
                 <div class="yonghu">
                     <input type="text" id="u_name" name="u_name" placeholder="请输入用户手机号" value="" />
                 </div>
                 <div class="submit-btn">
                     <input type="button" id="btn_submit" class="btn_big1" value="提交" />
-                    <input type="hidden" name="act" value="check_username" />
+                    <!--<input type="hidden" name="act" value="check_username" />-->
                 </div>
-            </form>
+            <!--</form>-->
         </section>
+
+        <!--找回密码ajax-->
+        <!--<script>-->
+            <!--$('#btn_submit').click(function () {-->
+                <!--var phone_num =$('#u_name').val();-->
+                <!--$.ajax({-->
+                    <!--url: "{:url('index/Findpwd/find_password_by_phone')}",-->
+                    <!--type: "POST", //GET-->
+                    <!--async: false, //或true，异步请求-->
+                    <!--timeout: 2000,-->
+                    <!--data: {-->
+                       <!--'phone_number':phone_num,-->
+                    <!--},-->
+                    <!--dataType: "json",-->
+                    <!--success: function (data) {-->
+                        <!--console.log(data);-->
+
+                    <!--},-->
+                    <!--error: function (data) {-->
+                        <!--console.log(data);-->
+                    <!--}-->
+                <!--})-->
+            <!--});-->
+        <!--</script>-->
+
+
+
+
+
         <script type="text/javascript">
             $().ready(function(){
                 var container = $("#error_container");
