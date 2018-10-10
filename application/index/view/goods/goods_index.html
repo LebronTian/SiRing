@@ -6,8 +6,16 @@
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
     <title>商品列表</title>
     <link rel="icon" type="image/x-icon" href="__STATIC__/index/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="__STATIC__/index/css/aui.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="__STATIC__/index/css/aui.css" /> -->
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/css/swiper-4.3.5.min.css" />
     <style>
+        body, html{
+            background-color: #eee;
+        }
+        *{
+            padding: 0;
+            margin: 0;
+        }
         .icon span{
             width: 28px;
             height: 16px;
@@ -23,35 +31,129 @@
             margin-right: 4px;
             margin-top: 2px;
         }
+        .swiper-container{
+            height: 40px;
+            font-size: 0px;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        .active{
+            border-bottom: 2px solid #f34347;
+        }
+        .swiper-wrapper a{
+            font-size: 16px;
+            display: inline-block;
+            height: 39px;
+            line-height: 40px;
+            color: #f34347;
+            text-align: center;
+            width: 33%;
+            text-decoration: none;
+        }
+        .goods_div li{
+            list-style: none;
+        }
+        .goods_div,
+        .goods_div ul{
+            width: 100%;
+        }
+        .goods_div ul{
+            padding: 0 8px;
+        }
+        .goods_div ul::after{
+            display: block;
+            clear: both;
+            content: '';
+        }
+        .goods_div ul li{
+            width: 48%;
+            float: left;
+            margin-bottom: 10px;
+        }
+        .goods_div ul li .goods_img{
+            width: 95%;
+            height: 120px;
+            overflow: hidden;
+        }
+        .goods_div ul li .goods_img img{
+            width: 100%;
+            height: 100%;
+        }
+        .goods_div ul li .goods_name{
+            width: 95%;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            margin: 5px 0;
+        }
+        .goods_div ul li .goods_price{
+            font-size: 14px;
+            color: #f00;
+        }
+
     </style>
 </head>
 <body>
-<div class="aui-content aui-margin-b-15">
-    <ul class="aui-list aui-media-list">
-        <!-- <li class="aui-list-item">
-            <a href='{:url("index/Goods/detail")}'>
-                <div class="aui-media-list-item-inner">
-                    <div class="aui-list-item-media" style="width:6rem">
-                        <img src="__STATIC__/index/image/demo/pa1.jpg" data-src="http://www.auicss.com/demo/image/1.jpg">
-                    </div>
-                    <div class="aui-list-item-inner">
-                        <div class="aui-list-item-text">
-                            <div class="aui-list-item-title">[为你推荐]kaman抽屉式化妆品收纳盒大号创意护肤桌面收纳盒塑料口红置物架</div>
-                        </div>
-                        <div><span class="aui-margin-l-5">￥39.00</span></div>
-                    </div>
-                </div>
-            </a>
-        </li> -->
+
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <a class="swiper-slide active" href="javascript:;">【32G超低价】</a>
+        <a class="swiper-slide" href="javascript:;">【128G推荐】</a>
+        <a class="swiper-slide" href="javascript:;">【64G推荐】</a>
+        <a class="swiper-slide" href="javascript:;">【512G推荐】</a>
+        <a class="swiper-slide" href="javascript:;">【1024G推荐】</a>
+        <a class="swiper-slide" href="javascript:;">【2048G推荐】</a>
+        <a class="swiper-slide" href="javascript:;">【4096G推荐】</a>
+    </div>
+</div>
+<div class="goods_div">
+    <ul>
+        <li>
+            <div class="goods_img">
+                <img src="__UPLOAD__/20181009/7ad9138731a2aade55b16596ae6fa9b2.jpg">
+            </div>
+            <p class="goods_name">iPhoneXMAXplus256G 超值价 iPhone 7plus1024G 超值价</p>
+            <p class="goods_price">￥9998</p>
+        </li>
+        <li>
+            <div class="goods_img">
+                <img src="__UPLOAD__/20181009/7ad9138731a2aade55b16596ae6fa9b2.jpg">
+            </div>
+            <p class="goods_name">iPhoneXMAXplus256G 超值价 iPhone 7plus1024G 超值价</p>
+            <p class="goods_price">￥9998</p>
+        </li>
+        <li>
+            <div class="goods_img">
+                <img src="__UPLOAD__/20181009/7ad9138731a2aade55b16596ae6fa9b2.jpg">
+            </div>
+            <p class="goods_name">iPhoneXMAXplus256G 超值价 iPhone 7plus1024G 超值价</p>
+            <p class="goods_price">￥9998</p>
+        </li>
+        <li>
+            <div class="goods_img">
+                <img src="__UPLOAD__/20181009/7ad9138731a2aade55b16596ae6fa9b2.jpg">
+            </div>
+            <p class="goods_name">iPhoneXMAXplus256G 超值价 iPhone 7plus1024G 超值价</p>
+            <p class="goods_price">￥9998</p>
+        </li>
     </ul>
 </div>
 </body>
-<script type="text/javascript" src="__STATIC__/index/js/index/aui-lazyload.js" ></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript">
-    new auiLazyload({
-        errorImage:'../image/error-img.png'
-    });
+<script type="text/javascript" src="__STATIC__/index/js/swiper-4.3.5.min.js"></script>
+
+<script>
+    $('.swiper-wrapper a').click(function(){
+        $(this).addClass('active').siblings().removeClass('active');
+    })
+    // 滑动菜单
+    var mySwiper = new Swiper('.swiper-container', {
+        freeMode:true,//滑动不够一格，不会自动贴合
+        slidesPerView:3,//设置slider容器能够同时显示的slides数量
+    })
 </script>
 <script>
     $.ajax({
