@@ -66,19 +66,21 @@
 .order_ul{
     width: 96%;
     margin: 0 auto;
-    height: 86vh;
+    height: 93vh;
     overflow-y: scroll;
 }
 .order_li{
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
 }
 .aui-media-list-item-inner{
     display: flex;
     align-items: center;
-    justify-content: space-around;
 }
 .aui-list-item-inner{
     margin-left: 8px;
+    flex: 1;
 }
 .aui-list-item-inner p{
     width: 100%;

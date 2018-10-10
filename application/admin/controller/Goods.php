@@ -53,7 +53,7 @@ class Goods extends Controller{
                 'datemin' => $datemin
             ]);
         }else{
-            $goods = db("goods")->paginate(10);
+            $goods = db("goods")->order("id desc")->paginate(10);
             return view("goods_index",["goods"=>$goods]);
         }
 
@@ -123,10 +123,15 @@ class Goods extends Controller{
      * [商品修改]
      * 陈绪
      */
-    public function edit(Request $r,$id){
+    public function edit(Request $r){
+        $id = $r->only(['id'])['id'];
         $goods = db("goods")->where("id",$id)->select();
         $goods_type = db("goods_type")->where("id",$goods[0]["goods_type_id"])->field("name,id")->select();
         $goods_images = db("goods_images")->where("goods_id",$id)->select();
+        $goods_id = $r->only(['goods_id'])['goods_id'];
+        halt($goods_id);
+        if(!empty($r->only(['goods_id'])['goods_id'])){
+        }
         return view("goods_edit",["goods"=>$goods,"goods_type"=>$goods_type,"goods_images"=>$goods_images]);
     }
 
@@ -213,17 +218,28 @@ class Goods extends Controller{
             $goods_data["goods_number"] = $request->only(["goods_number"])["goods_number"];
             //图片添加
             $show_images = $request->file("goods_show_images");
-            $show_image = $show_images->move(ROOT_PATH . 'public' . DS . 'uploads');
-            $goods_data["goods_show_images"] = str_replace("\\", "/", $show_image->getSaveName());
+            if(!empty($show_images)){
+                $show_image = $show_images->move(ROOT_PATH . 'public' . DS . 'uploads');
+                $goods_data["goods_show_images"] = str_replace("\\", "/", $show_image->getSaveName());
+            }
+            $goods_parts_big_img = $request->file("goods_parts_big_img");
+            if(!empty($goods_parts_big_img)){
+                $goods_parts_big_imgs = $goods_parts_big_img->move(ROOT_PATH . 'public' . DS . 'uploads');
+                $goods_data["goods_parts_big_img"] = str_replace("\\", "/", $goods_parts_big_imgs->getSaveName());
 
-            $goods_parts_big_img = $request->file("goods_parts_big_img")->move(ROOT_PATH . 'public' . DS . 'uploads');
-            $goods_data["goods_parts_big_img"] = str_replace("\\", "/", $goods_parts_big_img->getSaveName());
+            }
 
-            $goods_spec_img = $request->file("goods_spec_img")->move(ROOT_PATH . 'public' . DS . 'uploads');
-            $goods_data["goods_spec_img"] = str_replace("\\", "/", $goods_spec_img->getSaveName());
+            $goods_spec_img = $request->file("goods_spec_img");
+            if(!empty($goods_spec_img)){
+                $goods_spec_imgs = $goods_spec_img->move(ROOT_PATH . 'public' . DS . 'uploads');
+                $goods_data["goods_spec_img"] = str_replace("\\", "/", $goods_spec_imgs->getSaveName());
+            }
 
-            $goods_parts_img = $request->file("goods_parts_img")->move(ROOT_PATH . 'public' . DS . 'uploads');
-            $goods_data["goods_parts_img"] = str_replace("\\", "/", $goods_parts_img->getSaveName());
+            $goods_parts_img = $request->file("goods_parts_img");
+            if(!empty($goods_parts_img)){
+                $goods_parts_imgs = $goods_parts_img->move(ROOT_PATH . 'public' . DS . 'uploads');
+                $goods_data["goods_parts_img"] = str_replace("\\", "/", $goods_parts_imgs->getSaveName());
+            }
 
             $goods_data["create_time"] = time();
             $bool = db("goods")->where("id", $id)->update($goods_data);
@@ -232,23 +248,27 @@ class Goods extends Controller{
                 $goods_images = [];
                 $goodsid = db("goods")->getLastInsID();
                 $file = request()->file('goods_images');
-                foreach ($file as $key => $value) {
-                    $info = $value->move(ROOT_PATH . 'public' . DS . 'upload');
-                    $goods_url = str_replace("\\", "/", $info->getSaveName());
-                    $goods_images[] = ["goods_images" => $goods_url, "goods_id" => $id];
+                if(!empty($file)){
+                    foreach ($file as $key => $value) {
+                        $info = $value->move(ROOT_PATH . 'public' . DS . 'upload');
+                        $goods_url = str_replace("\\", "/", $info->getSaveName());
+                        $goods_images[] = ["goods_images" => $goods_url, "goods_id" => $id];
+                    }
                 }
 
                 $goods_quality_img = $request->file("goods_quality_img");
-                foreach ($goods_quality_img as $val) {
-                    $goods_quality_imgs = $val->move(ROOT_PATH . 'public' . DS . 'upload');
-                    $goods_quality_imgs_url = str_replace("\\", "/", $goods_quality_imgs->getSaveName());
-                    $goods_images[] = ["goods_quality_img" => $goods_quality_imgs_url, "goods_id" => $id];
+                if(!empty($goods_quality_img)){
+                    foreach ($goods_quality_img as $val) {
+                        $goods_quality_imgs = $val->move(ROOT_PATH . 'public' . DS . 'upload');
+                        $goods_quality_imgs_url = str_replace("\\", "/", $goods_quality_imgs->getSaveName());
+                        $goods_images[] = ["goods_quality_img" => $goods_quality_imgs_url, "goods_id" => $id];
+                    }
                 }
                 $booldata = model("goods_images")->saveAll($goods_images);
                 if ($booldata) {
                     $this->redirect(url('admin/Goods/index'));
                 } else {
-                    $this->redirect(url('admin/Goods/add'));
+                    $this->redirect(url('admin/Goods/index'));
                 }
             }
         }
@@ -356,7 +376,9 @@ class Goods extends Controller{
             unset($goods["id"]);
             $bool = db("goods")->insert($goods);
             if($bool){
-                foreach ($goods_images as $val){
+                $goodsid = db("goods")->getLastInsID();
+                foreach ($goods_images as $key=>$val){
+                    $goods_images[$key]["goods_id"] = $goodsid;
                     if($val['id']){
                         unset($val["id"]);
                     }
@@ -371,11 +393,13 @@ class Goods extends Controller{
                     if($val["goods_quality_img"] != null){
                         $val["goods_quality_img"] = new_image($val["goods_quality_img"],$dir_names);
                     }
-                    $bool_images = db("goods_images")->insert($val);
+                    $bool_images = db("goods_images")->insert(["goods_id"=>$goodsid,"goods_images"=>$val["goods_images"],"goods_quality_img"=>$val["goods_quality_img"]]);
                 }
                 if($bool_images){
-                    return ajax_success("添加成功");
+                    Session("goodsid",$goodsid);
+                    return ajax_success("添加成功",$goodsid);
                 }
+
             }
         }
 

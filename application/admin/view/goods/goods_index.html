@@ -413,8 +413,10 @@ function product_edit(title,url,id){
                 dataType: 'json',
                 success: function(data){
                     console.log(data);
-                    if(data.staus == 1){
-                        location.reload();
+                    if(data.status == 1){
+                        layer.msg('已克隆！',{icon:1,time:2000},function(){
+                            location.href = "{:url('admin/Goods/edit',['goods_id'=>session('goodsid')])}";
+                        });
                     }
                 },
                 error:function(data) {

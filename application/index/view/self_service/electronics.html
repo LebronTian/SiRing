@@ -96,7 +96,7 @@
             <li>
                 <div class="top">
                     <div class="goods_img">
-                        <img src="__UPLOADS__/{$value.images.goods_show_images}">
+                        <a href="javascript:;" id="{$value.order_id}"><img src="__UPLOADS__/{$value.images.goods_show_images}"></a>
                     </div>
                     <p>售后服务保修卡</p>
                 </div>
@@ -109,25 +109,26 @@
         </ul>
     </div>
 </div>
-
 <script src="__STATIC__/index/js/jquery.js"></script>
 <script>
-    (function () {
+    $('.warranty_card a').click(function(){
+        var order_id = $(this)[0].id;
         $.ajax({
-            type: 'POST',
-            url: "{:url('index/self_service/electronics_show')}",
+            type:'POST',
+            url:'{:url("index/Order/ajax_id")}',
+            data:{
+                'order_id':order_id
+            },
             dataType: 'json',
-            data: {
+            success: function(data){
+                    console.log(data);
+                window.location.href ="order_details";
             },
-            success: function (data) {
-//                console.log(data);
-                $('.member_name')[0].innerText = data.data.user_name;
-            },
-            error: function (data) {
-                console.log('错误');
+            error:function(data) {
+                    console.log("失败");
             },
         });
-    })()
+    })
 </script>
 </body>
 </html>

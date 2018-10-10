@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
 	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
 	<title>商品详情</title>
 	<style type="text/css">
@@ -118,6 +118,59 @@
     <link rel="stylesheet" href="__STATIC__/index/css/seckill.css">
 	<link rel="stylesheet" type="text/css" href="__STATIC__/index/css/pop.css"/>
 	<link rel="stylesheet" href="__STATIC__/index/css/swiper-4.3.5.min.css">
+	<!-- iphoneX适配 -->
+	<style>
+		@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3){ 
+			header {
+				background-color: black;
+			}
+			body{
+				bottom: constant(safe-area-inset-bottom);
+				padding-bottom: env(safe-area-inset-bottom);
+			}
+			.iphonex-pt{
+				padding-top: constant(safe-area-inset-top);
+				padding-top: env(safe-area-inset-top);
+			}
+			.iphonex-pb{
+				padding-bottom: constant(safe-area-inset-bottom);
+				padding-bottom: env(safe-area-inset-bottom);
+			}
+			.iphonex-mt{
+				margin-top: constant(safe-area-inset-top);
+				margin-top: env(safe-area-inset-top);
+			}
+			.iphonex-mb{
+				margin-bottom: constant(safe-area-inset-bottom);
+				margin-bottom: env(safe-area-inset-bottom);
+			}
+			.iphonex-pl{
+				padding-left: constant(safe-area-inset-left);
+				padding-left: env(safe-area-inset-left);
+			}
+			.iphonex-pr{
+				padding-right: constant(safe-area-inset-right);
+				padding-right: env(safe-area-inset-right);
+			}
+			.iphonex-ml{
+				margin-left: constant(safe-area-inset-left);
+				margin-left: env(safe-area-inset-left);
+			}
+			.iphonex-mr{
+				margin-right: constant(safe-area-inset-right);
+				margin-right: env(safe-area-inset-right);
+			}
+			.iphonex-bd-top-bg{
+				border-top: 88px solid transparent;
+			}
+			.iphonex-bd-top{
+				border-top: 44px solid transparent;
+			}
+			.iphonex-bd-bottom{
+				border-bottom: 34px solid transparent;
+			}
+		}
+	</style>
 </head>
 <body style="background:#fff">
 <header class="aui-bar aui-bar-nav">
@@ -125,15 +178,12 @@
 		<span class="aui-iconfont aui-icon-left" style="font-weight:800"></span>
 	</a>
 	<div class="aui-title">商品详情</div>
-	<!-- <a class="aui-pull-right aui-btn">
-		<span class="aui-iconfont aui-icon-more" tapmode onclick="showPopup('top-right')" style="display:block; height:40px; line-height:40px;"></span>
-	</a> -->
 </header>
 <div id="aui-slide2">
 	<div class="aui-slide-wrap" style="height:100%;">
 		<div class="swiper-container" style="height:100%;">
 			<div class="swiper-wrapper">
-				
+
 			</div>
 			<!-- 如果需要分页器 -->
 			<div class="swiper-pagination"></div>
@@ -277,17 +327,17 @@
 	</div>
 </div>
 <!-- 弹出 -->
-<footer class="aui-bar aui-bar-tab aui-margin-t-15  aui-border-t">
+<footer class="aui-bar aui-bar-tab aui-margin-t-15  aui-border-t iphonex-pb">
 	<div class="aui-bar-tab-item" style="width: 2rem;">
 		<i class="kefu"></i><a href="chat"></a>
-		<div class="aui-bar-tab-label star_info">客服</div>
+		<div class="aui-bar-tab-label star_info" style="color:#f00;">客服</div>
 	</div>
 	<div class="aui-bar-tab-item collection_add" tapmode style="width: 2rem;">
 		<i class="aui-iconfont aui-icon-star star_info"></i>
 		<div class="aui-bar-tab-label star_info">收藏</div>
 	</div>
 	<div class="aui-bar-tab-item" style="width: 2rem;">
-		<a href="{:url('index/Shopping/index')}"><i class="aui-iconfont aui-icon-cart star_info" style="color:#757575"></i></a>
+		<i class="aui-iconfont aui-icon-cart star_info" style="color:#757575"></i>
 		<div class="aui-bar-tab-label star_info">购物车</div>
 	</div>
 	<div class="aui-bar-tab-item aui-bg-warning aui-text-white" tapmode style="border-top-left-radius: 18px;border-bottom-left-radius: 18px;" id="add_to_cart">加入购物车</div>
@@ -329,7 +379,7 @@
 				for(var i = 0; i < img_len; i++){
 					if(data.goods_images[i] !== null){
 						$('.swiper-wrapper').append('<div class="swiper-slide"><img src="__UPLOAD__/'+data.goods_images[i]+'"></div>');
-					}							
+					}
 				}
 				// 标题
 				var str = '';
@@ -339,7 +389,7 @@
 				}
 				$('.goods_desc').html(str + data.goods_name+'');
 				$('.goods_desc')[0].id = "desc_" + data.id;
-				
+
 				// 赠送配件说明
 				$('.goods_parts_cont').html(data.goods_parts);
 				$('.goods_parts_img').html('<img src="__UPLOADS__/'+data.goods_parts_img+'">')
@@ -400,22 +450,6 @@
 						},1000)
 					}
 				}
-//				$.ajax({
-//					url: '{:url("index/Order/common_id")}',
-//					type: 'POST',
-//					dataType: 'JSON',
-//					async: false,
-//					data: {
-//						'data': data
-//					},
-//					success: function(data){
-//						console.log(111)
-//						console.log(data);
-//					},
-//					error: function(){
-//						console.log('错误');
-//					}
-//				})
 			},
 			error: function(){
 				console.log('错误')
@@ -423,7 +457,7 @@
 		})
 	})()
 </script>
-<script type="text/javascript">
+<script>
     $(function () {
         $(".clickwn").click(function () {
             $(".flick-menu-mask").show();
@@ -449,7 +483,6 @@
 
         });
 
-
         $('#color a').click(function () {
             var cook = $(this).index();
             $('#color a').eq(cook).addClass('selected').siblings().removeClass('selected');
@@ -459,7 +492,6 @@
             var cook = $(this).index();
             $('#color1 a').eq(cook).addClass('selected').siblings().removeClass('selected');
         })
-
 
         //加减面板
         $(function(){
@@ -523,19 +555,7 @@
         "height":290,
         "speed":300
     })
-    // var slide3 = new auiSlide({
-    //     container:document.getElementById("aui-slide3"),
-    //     // "width":300,
-    //     "height":240,
-    //     "speed":500,
-    //     "autoPlay": 3000, //自动播放
-    //     "loop":true,
-    //     "pageShow":true,
-    //     "pageStyle":'line',
-    //     'dotPosition':'center'
-    // })
-    // console.log(slide3.pageCount());
-	
+
 </script>
 <!--获取陪同商品订单一起过来的用户id-->
 <script>
@@ -577,7 +597,6 @@
                 'id':myid
 			},
             success:function(data){
-//                console.log(data);
                 location.href='shopping_index';
             },
             error: function(){
@@ -615,32 +634,37 @@
 
 <!--收藏按钮样式修改-->
 <script>
-        (function(){
-            $.ajax({
-                url: '{:url("index/Collection/show_collection")}',
-                type: 'POST',
-                dataType: 'JSON',
-				'data':{
-                    'id':xid
-				},
-                async: false,
-                success: function(data){
-//                   console.log(data);
-				   if(data.data.status != null && data.data.status == 1){
-					   $('.collection_add').children().addClass('aui-text-warning');
-				   }
-                },
-                error: function(){
-                    // console.log('未收藏')
-                }
-            })
-        })()
-</script>
+	(function(){
+		$.ajax({
+			url: '{:url("index/Collection/show_collection")}',
+			type: 'POST',
+			dataType: 'JSON',
+			'data':{
+				'id':xid
+			},
+			async: false,
+			success: function(data){
+				// console.log(data);
+				if(data.data.status != null && data.data.status == 1){
+					$('.collection_add').children().addClass('aui-text-warning');
+				}
+			},
+			error: function(){
+				// console.log('未收藏')
+			}
+		})
+	})()
 
+	// 购物车跳转
+	$('.aui-icon-cart').click(function(){
+		location.href='shopping_index';
+	})
+</script>
+<!-- iphoneX适配 -->
 <script>
-	function toUrl(url){
-        OCModel.share({'title': '立即购买跳转链接', 'desc': '跳转链接', 'shareUrl': url});
-    }
+	if($(window).width() === 375 && $(window).height() === 724 && window.devicePixelRatio === 3){
+		$(".phonex-pb").css("padding-bottom","34px");
+	}
 </script>
 </body>
 </html>

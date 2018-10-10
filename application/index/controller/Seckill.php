@@ -30,10 +30,27 @@ class Seckill extends Controller{
 
 
     public function show(Request $request){
-        if($request->isPost()){
+        if($request->isPost()) {
             $type_id = Session::get("type_id");
-            $goods = db("goods")->where("goods_type_id",$type_id)->select();
-            return ajax_success("获取成功",$goods);
+            $goods = db("goods")->where("goods_type_id", $type_id)->select();
+            $images = db("seckill")->where("type_id", $type_id)->select();
+            $over_time = Session::get("over_time");
+            $time = time();
+            if (!empty($over_time)) {
+                $over_time = Session::get("over_time");
+                $str_time = $over_time;
+                if ($over_time - $time <= 0) {
+                    $over_time = date("Y-m-d H:i:s", strtotime("+3 day"));
+                    $str_time = strtotime($over_time);
+                    Session("over_time", $str_time);
+                }
+
+            } else {
+                $over_time = date("Y-m-d H:i:s", strtotime("+3 day"));
+                $str_time = strtotime($over_time);
+                Session("over_time", $str_time);
+            }
+            return ajax_success("获取成功", array("goods" => $goods, "images" => $images, "time" => $str_time));
         }
         return view("seckill_index");
     }
