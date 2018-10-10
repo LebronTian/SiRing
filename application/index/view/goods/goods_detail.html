@@ -376,11 +376,14 @@
 				var data = data.data[0];
 				// 轮播图
 				var img_len = data.goods_images.length;
+				var str = '';
 				for(var i = 0; i < img_len; i++){
 					if(data.goods_images[i] !== null){
 						$('.swiper-wrapper').append('<div class="swiper-slide"><img src="__UPLOAD__/'+data.goods_images[i]+'"></div>');
+						str += '<img src="__UPLOAD__/'+data.goods_images[i]+'">';
 					}
 				}
+				$('.tabBox').append(str);
 				// 标题
 				var str = '';
 				var sign_len = data.goods_sign.split(',').length;
@@ -398,13 +401,7 @@
 				// 规格图片
 				$('.aui-card-list').append('<img src="__UPLOADS__/'+data.goods_spec_img+'">')
 				// 质检图
-				$.each(data.goods_quality_img,function(idx, val){
-					var str = '';
-					if(val !== null){
-						str += '<img src="__UPLOAD__/'+data.goods_quality_img[i]+'">';
-					}
-					$('.tabBox').append(str);
-				})
+				
 				// 价格
 				$('.price').html('￥'+data.goods_bottom_money+'');
 				xid = data.id;
