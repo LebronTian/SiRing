@@ -124,15 +124,30 @@ class Goods extends Controller{
      * 陈绪
      */
     public function edit(Request $r){
-        $id = $r->only(['id'])['id'];
-        $goods = db("goods")->where("id",$id)->select();
-        $goods_type = db("goods_type")->where("id",$goods[0]["goods_type_id"])->field("name,id")->select();
-        $goods_images = db("goods_images")->where("goods_id",$id)->select();
-        $goods_id = $r->only(['goods_id'])['goods_id'];
-        halt($goods_id);
-        if(!empty($r->only(['goods_id'])['goods_id'])){
+        $id = Session::get("goodsid");
+        if(isset($id)){
+            $goods = db("goods")->where("id",$id)->select();
+            $goods_type = db("goods_type")->where("id",$goods[0]["goods_type_id"])->field("name,id")->select();
+            $goods_images = db("goods_images")->where("goods_id",$id)->select();
+            Session::delete("goodsid");
+            $this->assign([
+                "goods"=>$goods,
+                "goods_type"=>$goods_type,
+                "goods_images"=>$goods_images
+            ]);
+        }else{
+            $id = $r->only(['id'])['id'];
+            $goods = db("goods")->where("id",$id)->select();
+            $goods_type = db("goods_type")->where("id",$goods[0]["goods_type_id"])->field("name,id")->select();
+            $goods_images = db("goods_images")->where("goods_id",$id)->select();
+            $this->assign([
+                "goods"=>$goods,
+                "goods_type"=>$goods_type,
+                "goods_images"=>$goods_images
+            ]);
         }
-        return view("goods_edit",["goods"=>$goods,"goods_type"=>$goods_type,"goods_images"=>$goods_images]);
+
+        return view("goods_edit");
     }
 
 

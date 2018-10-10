@@ -414,8 +414,8 @@ function product_edit(title,url,id){
                 success: function(data){
                     console.log(data);
                     if(data.status == 1){
-                        layer.msg('已克隆！',{icon:1,time:2000},function(){
-                            location.href = "{:url('admin/Goods/edit',['goods_id'=>session('goodsid')])}";
+                        layer.msg('已克隆！',{icon:1,time:1000},function(){
+                            location.href = "{:url('admin/Goods/edit')}";
                         });
                     }
                 },
