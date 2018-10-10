@@ -163,7 +163,7 @@ Route::group("",[
     "findpwd"=>"index/Findpwd/findpwd",
     'find_password_by_phone'=>"index/findpwd/find_password_by_phone",//用于操作手机找回密码
     /*找回密码验证码*/
-    'sendMobileCodeByPhone'=>'idnex/findpwd/sendMobileCodeByPhone',
+    'sendMobileCodeByPhone'=>'index/findpwd/sendMobileCodeByPhone',
 
     /*晒单*/
     "share_detail"=>"index/Share/share_detail",
