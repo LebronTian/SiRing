@@ -157,7 +157,7 @@
             })
             // 倒计时
             setInterval(function(){
-                count_down(data.data.images[0].over_time*1000);
+                count_down(data.data.time*1000);
             },1000)
             // 倒计时上面的图片
             $('.banner_img').append('<img src="__UPLOADS__/'+data.data.images[0].images+'">');
