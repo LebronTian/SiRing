@@ -71,7 +71,6 @@ class AliPay extends Controller
 
             $payResponse = new \AlipayTradeService($config);
             $result=$payResponse->wapPay($payRequestBuilder,$config['return_url'],$config['notify_url']);
-
             return ;
         }
     }
@@ -79,7 +78,7 @@ class AliPay extends Controller
 
     /**
      * [回调修改数据]
-     * 陈绪
+     *
      * @param Request
      */
     public function pay_code(Request $request){

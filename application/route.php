@@ -162,6 +162,8 @@ Route::group("",[
     /*找回密码页面*/
     "findpwd"=>"index/Findpwd/findpwd",
     'find_password_by_phone'=>"index/findpwd/find_password_by_phone",//用于操作手机找回密码
+    /*找回密码验证码*/
+    'sendMobileCodeByPhone'=>'idnex/findpwd/sendMobileCodeByPhone',
 
     /*晒单*/
     "share_detail"=>"index/Share/share_detail",
@@ -211,6 +213,8 @@ Route::group("",[
     "issue_index"=>"index/Issue/index",
     'common_problem_details'=>'index/Issue/common_problem_details',//常见问题详情
     "issue_details"=>"index/Issue/details",
+    //短信测试
+    'sendInformationByPhone'=>"index/Issue/sendInformationByPhone",
 
 ]);
 
@@ -219,6 +223,9 @@ Route::group("",[
  * 陈绪
  */
 Route::group("admin",[
+
+
+
     /*首页*/
     "/$"=>"admin/index/index",
 
@@ -425,6 +432,9 @@ Route::group("admin",[
     "electron_save"=>"admin/Electron/save",
     "electron_add"=>"admin/Electron/add",
     "electron_del"=>"admin/Electron/del",
+
+
+
 
 
 ]);

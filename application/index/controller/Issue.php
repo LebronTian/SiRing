@@ -55,6 +55,25 @@ class Issue extends Controller{
         return view('common_problem_details');
     }
 
+    /**
+     **************李火生*******************
+     * 阿里鱼短信测试
+     **************************************
+     */
+    public function sendSms($phone){
+        $mobile = $phone;
+        $code = mt_rand(10000, 99999);
+        $result = sendMsg($mobile, $code);
+        if ($result['Code'] == 'OK') {
+            cache('tel' . $mobile, $code, 39);
+            return json(['success' => 'ok', 'tel' => $mobile]);
+        }
+    }
+    public function sendInformationByPhone(){
+        $phone ='18998906797';
+        $this->sendSms($phone);
+    }
+
 
 
 

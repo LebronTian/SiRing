@@ -85,29 +85,31 @@ class Register extends  Controller{
                 if (session('mobileCode') != $code) {
                     return ajax_error("验证码不正确");
                 }
-                $data =[
-                  'phone_num'=>$mobile,
-                    'password'=>md5($password),
-                    'create_time'=>strtotime($create_time),
-                    "status"=>1
-                ];
-                $invitation = $request->only(['invitation'])['invitation'];
-                $res =Db::name('user')->data($data)->insert();
-                if(!empty($invitation)) {
-                    $data = [];
-                    $id = substr($invitation,3);
-                    $data['user_id'] = $id;
-                    $data['invitation'] = $invitation;
-                    $bool = db("discounts_user")->insert($data);
-                    if($bool){
-                        ajax_success('注册成功',$data);
-                        $this->success('注册成功','index/login/login');
+                if (session('mobileCode') == $code) {
+                    $data =[
+                        'phone_num'=>$mobile,
+                        'password'=>md5($password),
+                        'create_time'=>strtotime($create_time),
+                        "status"=>1
+                    ];
+                    $invitation = $request->only(['invitation'])['invitation'];
+                    $res =Db::name('user')->insert($data);
+                    if(!empty($invitation)) {
+                        $data = [];
+                        $id = substr($invitation,3);
+                        $data['user_id'] = $id;
+                        $data['invitation'] = $invitation;
+                        $bool = db("discounts_user")->insert($data);
+                        if($bool){
+                            return ajax_success('注册成功',$data);
+//                        $this->success('注册成功','index/login/login');
+                        }
+                    }else if($res){
+                        return ajax_success('注册成功',$data);
+//                    $this->success('注册成功','index/login/login');
                     }
-
-                }else if($res){
-                     ajax_success('注册成功',$data);
-                    $this->success('注册成功','index/login/login');
                 }
+
 
 
             }
@@ -125,7 +127,6 @@ class Register extends  Controller{
                 dump($_POST);exit();
             }
         }
-
 
     /**
      **************李火生*******************
@@ -153,16 +154,17 @@ class Register extends  Controller{
                     session('mobileCode',$mobileCode);
                     $_SESSION['mobile'] = $mobile;
                 }
-                $content = "尊敬的用户，您本次验证码为{$mobileCode}，十分钟内有效";
-                $url = "http://120.26.38.54:8000/interface/smssend.aspx";
-                $post_data = array("account" => "gagaliang", "password" => "123qwe", "mobile" => "$mobile", "content" => $content);
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_POST, 1);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-                $output = curl_exec($ch);
-                curl_close($ch);
+//                $content = "尊敬的用户，您本次验证码为{$mobileCode}，十分钟内有效";
+//                $url = "http://120.26.38.54:8000/interface/smssend.aspx";
+//                $post_data = array("account" => "gagaliang", "password" => "123qwe", "mobile" => "$mobile", "content" => $content);
+//                $ch = curl_init();
+//                curl_setopt($ch, CURLOPT_URL, $url);
+//                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+//                curl_setopt($ch, CURLOPT_POST, 1);
+//                curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+//                $output = curl_exec($ch);
+//                curl_close($ch);
+                $output = sendMsg($mobile, $mobileCode);
                 if ($output) {
                    return ajax_success("发送成功", $output);
                 } else {
@@ -170,4 +172,7 @@ class Register extends  Controller{
                 }
             }
         }
+
+
+
 }
