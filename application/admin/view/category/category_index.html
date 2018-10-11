@@ -9,6 +9,10 @@
 
 <div class="conter-right-body">
     <style>
+        *{
+            padding: 0;
+            margin: 0 !important;
+        }
         .am-g{
             padding: 30px 30px 0 30px;
         }
@@ -31,85 +35,31 @@
         .admin-content #chooseCats{
             max-height: 700px;
         }
-
-        tbody .table-check span{
-            margin-left: 15px!important;
-            color: rgb(0,119,221);
-        }
         .pagination{text-align:center;margin-top:20px;margin-bottom: 20px;}
         .pagination li{margin:0px 10px; border:1px solid #e6e6e6;padding: 3px 8px;display: inline-block;}
         .pagination .active{background-color: #dd1a20;color: #fff;}
         .pagination .disabled{color:#aaa;}
         .dept_select{min-width: 200px;}
-        .shade {
-            position: absolute;
-            display: none;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background: rgba(0, 0, 0, 0.55);
-        }
-
-        .shade div {
-            width: 300px;
-            height: 200px;
-            line-height: 200px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin-top: -100px;
-            margin-left: -150px;
-            background: white;
-            border-radius: 5px;
-            text-align: center;
-        }
-
-        .a-upload {
-            padding: 4px 10px;
-            height: 20px;
-            line-height: 20px;
-            position: relative;
-            cursor: pointer;
-            color: #888;
-            background: #fafafa;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            overflow: hidden;
+        .am-text-truncate div{
+            vertical-align: middle;
             display: inline-block;
-            *display: inline;
-            *zoom: 1
         }
-
-        .a-upload input {
-            position: absolute;
-            font-size: 100px;
-            right: 0;
-            top: 0;
-            opacity: 0;
-            filter: alpha(opacity=0);
-            cursor: pointer
+        ul{
+            list-style: none;
         }
-
-        .a-upload:hover {
-            color: #444;
-            background: #eee;
-            border-color: #ccc;
-            text-decoration: none
-        }
-        .img_div{min-height: 100px; min-width: 100px;}
-        .isImg{width: 120px; height: 120px; position: relative; float: left; margin-left: 10px;}
-        .removeBtn{position: absolute; top: 0; right: 0; z-index: 11; border: 0px; border-radius: 50px; background: red; width: 22px; height: 22px; color: white;}
-        .shadeImg{position: absolute;
+        .childLi{
             display: none;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 15;
+        }
+        .tree{
+            color: #000;
+        }
+        .tree button{
+            width: 15px;
+            height: 15px;
+            line-height: 11px;
             text-align: center;
-            background: rgba(0, 0, 0, 0.55);}
-        .showImg{width: 400px; height: 500px; margin-top: 140px;}
+            vertical-align: text-bottom;
+        }
     </style>
 
     <!-- <div class="am-cf am-padding" onselectstart="return false">
@@ -132,34 +82,71 @@
     <div class="am-u-sm-12 pl0 pr0" style="min-height: 600px">
         <table class="am-table am-table-hover table-main pro-table-self cats-table-self">
             <thead>
-            <tr>
-                <th class="table-check">
-                    <input type="checkbox" class="ccheckall">
-                    <a href="javascript:;" class="am-text-danger cdeleteall" style="margin-left:10px;color: #000"><span class="table-title">分类名称</span></a>
-                </th>
-                <th class="table-parent">商品分类图标图片</th>
-                <th class="table-parent">商品分类大图</th>
-                <th class="table-parent">分类id</th>
-                <th class="table-parent">父id</th>
-                <th class="table-order">排序</th>
-                <th class="table-status">状态</th>
-                <th class="table-set">操作</th>
-            </tr>
+                <tr>
+                    <th class="table-check">
+                        <input type="checkbox" class="ccheckall">
+                        <a href="javascript:;" class="am-text-danger cdeleteall" style="margin-left:10px;color: #000"><span class="table-title">分类名称</span></a>
+                    </th>
+                    <th class="table-parent">商品分类图标图片</th>
+                    <th class="table-parent">商品分类大图</th>
+                    <!-- <th class="table-parent">分类id</th> -->
+                    <!-- <th class="table-parent">父id</th> -->
+                    <!-- <th class="table-order">排序</th> -->
+                    <th class="table-status">状态</th>
+                    <th class="table-set">操作</th>
+                </tr>
             </thead>
             <tbody>
             {volist name="category" id="value"}
-            <tr class="am-danger " data-id="118">
-                <td class="table-check am-text-truncate width200"><input type="checkbox" class="ccheck"><span>{$value.name}</span></td>
-                <td><img width="60" class="product-thumb" src="__TYPE__/{$value.type_images}"></td>
-                <td><img width="60" class="product-thumb" src="__TYPE__/{$value.type_show_images}"></td>
-                <td>{$value.id}</td>
-                <td>{$value.pid}</td>
-                <td>{$value.sort_number}</td>
-                <td><button data-status="{$value.status}" class="cstatus am-btn am-btn-xs am-btn-danger">已启用</button>
-                <td><a href="{:url('admin/Category/edit',['id'=>$value.id])}" target="_self" class="am-text-primary">编辑</a>
-                    <a href="{:url('admin/Category/del',['id'=>$value.id])}" class="am-text-danger cdelete" data-id="118">删除</a>
-                </td>
-            </tr>
+                <tr class="am-danger " data-id="118">
+                    <td class="table-check am-text-truncate width200">
+                        <input type="checkbox" class="ccheck">
+                        <div class="tree">
+                            <ul>
+                                <li>
+                                    <span class="parent_span">{$value.name}</span>
+                                    <ul>
+                                        <li class="childLi">
+                                            <span class="parent_span">
+                                                iphone 5s 16G
+                                                <button>＋</button>
+                                            </span>
+                                            <ul>
+                                                <li class="childLi">
+                                                    iphone 5s 32G
+                                                    <button>＋</button>
+                                                </li>
+                                                <li class="childLi">
+                                                    iphone 5s 32G
+                                                    <button>＋</button>
+                                                </li>
+                                                <li class="childLi">
+                                                    iphone 5s 32G
+                                                    <button>＋</button>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="childLi">
+                                            iphone 5s 32G
+                                            <button>＋</button>
+                                        </li>
+                                        <li class="childLi">
+                                            iphone 5s 64G
+                                            <button>＋</button>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td><img width="60" class="product-thumb" src="__TYPE__/{$value.type_images}"></td>
+                    <td><img width="60" class="product-thumb" src="__TYPE__/{$value.type_show_images}"></td>
+                    <td><button data-status="{$value.status}" class="cstatus am-btn am-btn-xs am-btn-danger">已启用</button>
+                    <td>
+                        <a href="{:url('admin/Category/edit',['id'=>$value.id])}" target="_self" class="am-text-primary">编辑</a>
+                        <a href="{:url('admin/Category/del',['id'=>$value.id])}" class="am-text-danger cdelete" data-id="118">删除</a>
+                    </td>
+                </tr>
             {/volist}
         </table>
         {$category->render()}
@@ -181,16 +168,32 @@
         </div>
     </div>
 
-    <script>
-        var parents =[{"uid":"118","shop_uid":"3","parent_uid":"0","title":"\u5e72\u679c\u7c7b","title_en":"","image":"?_a=upload&_u=index.out&uidm=17775349f","create_time":"1500975924","sort":"6","status":"1"},{"uid":"93","shop_uid":"3","parent_uid":"0","title":"\u4e9a\u9ebb\u6cb9","title_en":"","image":"","create_time":"1465986345","sort":"5","status":"0"},{"uid":"30","shop_uid":"3","parent_uid":"0","title":"\u5973\u88c5","title_en":"","image":"?_a=upload&_u=index.out&uidm=58451a1d","create_time":"1460603442","sort":"0","status":"0"},{"uid":"31","shop_uid":"3","parent_uid":"0","title":"\u7537\u88c5","title_en":"","image":"?_a=upload&_u=index.out&uidm=58582c9a","create_time":"1460603503","sort":"0","status":"0"},{"uid":"32","shop_uid":"3","parent_uid":"0","title":"\u978b\u9774","title_en":"","image":"?_a=upload&_u=index.out&uidm=177618f55","create_time":"1460603521","sort":"0","status":"0"},{"uid":"33","shop_uid":"3","parent_uid":"0","title":"\u7bb1\u5305","title_en":"","image":"","create_time":"1460603526","sort":"0","status":"1"}];
-        var cats =[{"uid":"118","shop_uid":"3","parent_uid":"0","title":"\u5e72\u679c\u7c7b","title_en":"","image":"?_a=upload&_u=index.out&uidm=17775349f","create_time":"1500975924","sort":"6","status":"1"},{"uid":"93","shop_uid":"3","parent_uid":"0","title":"\u4e9a\u9ebb\u6cb9","title_en":"","image":"","create_time":"1465986345","sort":"5","status":"0"},{"uid":"30","shop_uid":"3","parent_uid":"0","title":"\u5973\u88c5","title_en":"","image":"?_a=upload&_u=index.out&uidm=58451a1d","create_time":"1460603442","sort":"0","status":"0"},{"uid":"31","shop_uid":"3","parent_uid":"0","title":"\u7537\u88c5","title_en":"","image":"?_a=upload&_u=index.out&uidm=58582c9a","create_time":"1460603503","sort":"0","status":"0"},{"uid":"32","shop_uid":"3","parent_uid":"0","title":"\u978b\u9774","title_en":"","image":"?_a=upload&_u=index.out&uidm=177618f55","create_time":"1460603521","sort":"0","status":"0"},{"uid":"33","shop_uid":"3","parent_uid":"0","title":"\u7bb1\u5305","title_en":"","image":"","create_time":"1460603526","sort":"0","status":"1"}];
-        var catsAll =[{"uid":"118","shop_uid":"3","parent_uid":"0","title":"\u5e72\u679c\u7c7b","title_en":"","image":"?_a=upload&_u=index.out&uidm=17775349f","create_time":"1500975924","sort":"6","status":"1"},{"uid":"93","shop_uid":"3","parent_uid":"0","title":"\u4e9a\u9ebb\u6cb9","title_en":"","image":"","create_time":"1465986345","sort":"5","status":"0"},{"uid":"30","shop_uid":"3","parent_uid":"0","title":"\u5973\u88c5","title_en":"","image":"?_a=upload&_u=index.out&uidm=58451a1d","create_time":"1460603442","sort":"0","status":"0"},{"uid":"31","shop_uid":"3","parent_uid":"0","title":"\u7537\u88c5","title_en":"","image":"?_a=upload&_u=index.out&uidm=58582c9a","create_time":"1460603503","sort":"0","status":"0"},{"uid":"32","shop_uid":"3","parent_uid":"0","title":"\u978b\u9774","title_en":"","image":"?_a=upload&_u=index.out&uidm=177618f55","create_time":"1460603521","sort":"0","status":"0"},{"uid":"33","shop_uid":"3","parent_uid":"0","title":"\u7bb1\u5305","title_en":"","image":"","create_time":"1460603526","sort":"0","status":"1"},{"uid":"90","shop_uid":"3","parent_uid":"30","title":"\u4e0a\u8863","title_en":"","image":"","create_time":"1462324744","sort":"0","status":"0","parent_cat":{"uid":"30","shop_uid":"3","parent_uid":"0","title":"\u5973\u88c5","title_en":"","image":"?_a=upload&_u=index.out&uidm=58451a1d","create_time":"1460603442","sort":"0","status":"0"}},{"uid":"108","shop_uid":"3","parent_uid":"31","title":"\u7537\u58eb\u4e0a\u88c5","title_en":"","image":"","create_time":"1499227812","sort":"0","status":"0","parent_cat":{"uid":"31","shop_uid":"3","parent_uid":"0","title":"\u7537\u88c5","title_en":"","image":"?_a=upload&_u=index.out&uidm=58582c9a","create_time":"1460603503","sort":"0","status":"0"}},{"uid":"109","shop_uid":"3","parent_uid":"31","title":"\u7537\u58eb\u4e0b\u88c5","title_en":"","image":"","create_time":"1499227836","sort":"0","status":"0","parent_cat":{"uid":"31","shop_uid":"3","parent_uid":"0","title":"\u7537\u88c5","title_en":"","image":"?_a=upload&_u=index.out&uidm=58582c9a","create_time":"1460603503","sort":"0","status":"0"}},{"uid":"110","shop_uid":"3","parent_uid":"31","title":"\u7537\u58eb\u5916\u5957","title_en":"","image":"","create_time":"1499227849","sort":"0","status":"0","parent_cat":{"uid":"31","shop_uid":"3","parent_uid":"0","title":"\u7537\u88c5","title_en":"","image":"?_a=upload&_u=index.out&uidm=58582c9a","create_time":"1460603503","sort":"0","status":"0"}},{"uid":"111","shop_uid":"3","parent_uid":"93","title":"\u9ebb\u6cb9","title_en":"","image":"","create_time":"1499307128","sort":"0","status":"0","parent_cat":{"uid":"93","shop_uid":"3","parent_uid":"0","title":"\u4e9a\u9ebb\u6cb9","title_en":"","image":"","create_time":"1465986345","sort":"5","status":"0"}},{"uid":"112","shop_uid":"3","parent_uid":"93","title":"\u6cb9\u8138","title_en":"","image":"","create_time":"1499307178","sort":"0","status":"0","parent_cat":{"uid":"93","shop_uid":"3","parent_uid":"0","title":"\u4e9a\u9ebb\u6cb9","title_en":"","image":"","create_time":"1465986345","sort":"5","status":"0"}},{"uid":"113","shop_uid":"3","parent_uid":"93","title":"\u4e9a\u9ebb\u6cb91","title_en":"","image":"","create_time":"1499307656","sort":"0","status":"0","parent_cat":{"uid":"93","shop_uid":"3","parent_uid":"0","title":"\u4e9a\u9ebb\u6cb9","title_en":"","image":"","create_time":"1465986345","sort":"5","status":"0"}},{"uid":"114","shop_uid":"3","parent_uid":"93","title":"\u4e9a\u9ebb\u6cb92","title_en":"","image":"","create_time":"1499307663","sort":"0","status":"0","parent_cat":{"uid":"93","shop_uid":"3","parent_uid":"0","title":"\u4e9a\u9ebb\u6cb9","title_en":"","image":"","create_time":"1465986345","sort":"5","status":"0"}},{"uid":"115","shop_uid":"3","parent_uid":"93","title":"\u4e9a\u9ebb\u6cb93","title_en":"","image":"","create_time":"1499307674","sort":"0","status":"0","parent_cat":{"uid":"93","shop_uid":"3","parent_uid":"0","title":"\u4e9a\u9ebb\u6cb9","title_en":"","image":"","create_time":"1465986345","sort":"5","status":"0"}},{"uid":"116","shop_uid":"3","parent_uid":"93","title":"\u4e9a\u9ebb\u6cb94","title_en":"","image":"","create_time":"1499307686","sort":"0","status":"0","parent_cat":{"uid":"93","shop_uid":"3","parent_uid":"0","title":"\u4e9a\u9ebb\u6cb9","title_en":"","image":"","create_time":"1465986345","sort":"5","status":"0"}},{"uid":"117","shop_uid":"3","parent_uid":"93","title":"\u4e9a\u9ebb\u6cb924","title_en":"","image":"","create_time":"1499307745","sort":"0","status":"0","parent_cat":{"uid":"93","shop_uid":"3","parent_uid":"0","title":"\u4e9a\u9ebb\u6cb9","title_en":"","image":"","create_time":"1465986345","sort":"5","status":"0"}},{"uid":"189","shop_uid":"3","parent_uid":"118","title":"\u82b1\u751f","title_en":"peanut","image":"?_a=upload&_u=index.out&uidm=177785436","create_time":"1504661035","sort":"0","status":"0","parent_cat":{"uid":"118","shop_uid":"3","parent_uid":"0","title":"\u5e72\u679c\u7c7b","title_en":"","image":"?_a=upload&_u=index.out&uidm=17775349f","create_time":"1500975924","sort":"6","status":"1"}}];
-        console.log(catsAll)
-    </script>
-
 </div>
 
 <script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="__STATIC__/admin/static/h-ui2/js/catlist.js"></script>
+<script>
+    $('.tree').click(function(e){
+        var $this = e.target;
+        var clickTag = $($this)[0].tagName.toLowerCase();
+        if(clickTag == 'span'){
+            if($($this).siblings('ul')){
+                $($this).siblings('ul').children('li').toggleClass('childLi');
+            }
+        }else if(clickTag == 'button'){
+            $($this).parents('tr').after('<tr class="am-danger " data-id="118">\
+                                            <td class="table-check am-text-truncate width200">\
+                                                <input type="checkbox" class="ccheck">\
+                                            </td>\
+                                            <td><img width="60" class="product-thumb" src="__TYPE__/{$value.type_images}"></td>\
+                                            <td><img width="60" class="product-thumb" src="__TYPE__/{$value.type_show_images}"></td>\
+                                            <td><button data-status="{$value.status}" class="cstatus am-btn am-btn-xs am-btn-danger">已启用</button>\
+                                            <td>\
+                                                <a href="{:url('+"admin/Category/edit"+',['+"id"+'=>$value.id])}" target="_self" class="am-text-primary">编辑</a>\
+                                                <a href="{:url('+"admin/Category/del"+',['+"id"+'=>$value.id])}" class="am-text-danger cdelete" data-id="118">删除</a>\
+                                            </td>\
+                                        </tr>')
+        }
+    })
+</script>
 </body>
 </html>

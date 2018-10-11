@@ -26,6 +26,20 @@ class Goods extends Controller{
      * 陈绪
      */
     public function index(Request $request){
+
+        $goods = db("goods")->order("id desc")->paginate(10);
+        return view("goods_index",["goods"=>$goods]);
+
+    }
+
+
+    /**
+     * 模糊查询
+     * 陈绪
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
+     */
+    public function seach(Request $request){
         $datemins = $request->param("datemin");
         $datemaxs = $request->param("datemax");
         $search_keys = $request->param("search_key");
@@ -34,31 +48,33 @@ class Goods extends Controller{
         $datemax = isset($datemaxs) ? $datemaxs : false;
         $search_key = isset($search_keys) ? $search_keys : '%';
         $search_bt = isset($search_bts) ? $search_bts : false;
-        if($request->isPost()) {
-            if ($datemin && $datemax) {
-               $good = db("goods")->where('create_time','>',strtotime($datemin))->where('create_time','<',strtotime($datemax))->paginate(5);
-            }
 
-            if ($search_key) {
-                $good = db("goods")->where("goods_name","like","%".$search_key."%")->paginate(5);
-
-            }else {
-                $good = db("goods")->paginate(5);
-            }
-
-            return view("goods_index", [
-                'good' => $good,
-                'search_key' => $search_key,
-                'datemax' => $datemax,
-                'datemin' => $datemin
-            ]);
-        }else{
-            $goods = db("goods")->order("id desc")->paginate(10);
-            return view("goods_index",["goods"=>$goods]);
+        if ($datemin && $datemax) {
+            $good = db("goods")->where('create_time', '>', strtotime($datemin))->where('create_time', '<', strtotime($datemax))->paginate(5, false,['query' => request()->param()]);
+            $this->assign("good",$good);
         }
+
+        if ($search_key) {
+            $good = db("goods")->where("goods_name", "like", "%" . $search_key . "%")->paginate(5, false,['query' => request()->param()]);
+        } else {
+            $good = db("goods")->paginate(5,false,['query' => request()->param()]);
+            $this->assign("good", $good);
+        }
+        return view("goods_index", [
+            'good' => $good,
+            'search_key' => $search_key,
+            'datemax' => $datemax,
+            'datemin' => $datemin
+        ]);
 
     }
 
+
+    /**
+     * 商品添加
+     * 陈绪
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\think\response\View
+     */
     public function add(){
         return view("goods_add");
     }
@@ -124,15 +140,30 @@ class Goods extends Controller{
      * 陈绪
      */
     public function edit(Request $r){
-        $id = $r->only(['id'])['id'];
-        $goods = db("goods")->where("id",$id)->select();
-        $goods_type = db("goods_type")->where("id",$goods[0]["goods_type_id"])->field("name,id")->select();
-        $goods_images = db("goods_images")->where("goods_id",$id)->select();
-        $goods_id = $r->only(['goods_id'])['goods_id'];
-        halt($goods_id);
-        if(!empty($r->only(['goods_id'])['goods_id'])){
+        $id = Session::get("goodsid");
+        if(isset($id)){
+            $goods = db("goods")->where("id",$id)->select();
+            $goods_type = db("goods_type")->where("id",$goods[0]["goods_type_id"])->field("name,id")->select();
+            $goods_images = db("goods_images")->where("goods_id",$id)->select();
+            Session::delete("goodsid");
+            $this->assign([
+                "goods"=>$goods,
+                "goods_type"=>$goods_type,
+                "goods_images"=>$goods_images
+            ]);
+        }else{
+            $id = $r->only(['id'])['id'];
+            $goods = db("goods")->where("id",$id)->select();
+            $goods_type = db("goods_type")->where("id",$goods[0]["goods_type_id"])->field("name,id")->select();
+            $goods_images = db("goods_images")->where("goods_id",$id)->select();
+            $this->assign([
+                "goods"=>$goods,
+                "goods_type"=>$goods_type,
+                "goods_images"=>$goods_images
+            ]);
         }
-        return view("goods_edit",["goods"=>$goods,"goods_type"=>$goods_type,"goods_images"=>$goods_images]);
+
+        return view("goods_edit");
     }
 
 

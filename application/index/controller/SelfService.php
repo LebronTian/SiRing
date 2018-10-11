@@ -101,7 +101,7 @@ class  SelfService extends  Controller{
          if($request->isPost()){
             $serve_data = $request->param();
             $serve_data["status"] = 1;
-            $serve_data["serve_num"] = "SN".date("YmdHis").uniqid();
+            $serve_data["serve_num"] = "SN".date("YmdHis");
             $serve_data["create_time"] = time();
             $bool = db("serve")->insert($serve_data);
             if($bool){
@@ -238,10 +238,6 @@ class  SelfService extends  Controller{
 
 
 
-    /**
-     * 售后服务订单更新
-     * 陈绪
-     */
     /**
      * 提交成功
      * 陈绪

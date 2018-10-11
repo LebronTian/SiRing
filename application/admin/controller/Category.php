@@ -22,7 +22,9 @@ class Category extends Controller{
      * 陈绪
      */
     public function index(){
-        $category = db("goods_type")->where("status","<>","0")->order("sort_number")->paginate(10);
+        $category = db("goods_type")->where("status","<>","0")->select();
+        $category_list = _tree_hTree(_tree_sort($category,"sort_number"));
+        halt($category_list);
         return view("category_index",["category"=>$category]);
     }
 
@@ -36,6 +38,7 @@ class Category extends Controller{
         $goods_list = [];
         if($pid == 0){
             $goods_list = getSelectList("goods_type");
+            halt($goods_list);
         }else{
             $goods_cate = db("goods_type")->where("id",$pid)->field()->select();
         }
@@ -50,10 +53,16 @@ class Category extends Controller{
     public function save(Request $request){
         if($request->isPost()){
             $data = $request->param();
-            $show_images = $request->file("type_images")->move(ROOT_PATH . 'public' . DS . 'type');
-            $data["type_images"] = str_replace("\\","/",$show_images->getSaveName());
-            $type_images = $request->file("type_show_images")->move(ROOT_PATH . 'public' . DS . 'type');
-            $data["type_show_images"] = str_replace("\\","/",$type_images->getSaveName());
+            $show_images = $request->file("type_images");
+            if(!empty($show_images)){
+                $show_image = $show_images->move(ROOT_PATH . 'public' . DS . 'type');
+                $data["type_images"] = str_replace("\\","/",$show_image->getSaveName());
+            }
+            $type_images = $request->file("type_show_images");
+            if(!empty($type_images)){
+                $type_image = $type_images->move(ROOT_PATH . 'public' . DS . 'type');
+                $data["type_show_images"] = str_replace("\\","/",$type_image->getSaveName());
+            }
             $bool = db("goods_type")->insert($data);
             if($bool){
                 $this->success("添加成功",url("admin/Category/index"));
@@ -87,10 +96,16 @@ class Category extends Controller{
     public function updata(Request $request){
         if($request->isPost()) {
             $data = $request->only(["name", "status", "sort_number", "pid"]);
-            $show_images = $request->file("type_images")->move(ROOT_PATH . 'public' . DS . 'type');
-            $data["type_images"] = str_replace("\\", "/", $show_images->getSaveName());
-            $type_images = $request->file("type_show_images")->move(ROOT_PATH . 'public' . DS . 'type');
-            $data["type_show_images"] = str_replace("\\","/",$type_images->getSaveName());
+            $show_images = $request->file("type_images");
+            if(!empty($show_images)){
+                $show_image = $show_images->move(ROOT_PATH . 'public' . DS . 'type');
+                $data["type_images"] = str_replace("\\","/",$show_image->getSaveName());
+            }
+            $type_images = $request->file("type_show_images");
+            if(!empty($type_images)){
+                $type_image = $type_images->move(ROOT_PATH . 'public' . DS . 'type');
+                $data["type_show_images"] = str_replace("\\","/",$type_image->getSaveName());
+            }
             $bool = db("goods_type")->where('id', $request->only(["id"])["id"])->update($data);
             if ($bool) {
                 $this->success("编辑成功", url("admin/Category/index"));
