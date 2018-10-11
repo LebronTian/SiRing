@@ -283,6 +283,7 @@ Route::group("admin",[
     "goods_batches"=>"admin/Goods/batches",
     "goods_putaway"=>"admin/Goods/putaway",
     "goods_clone"=>"admin/Goods/goods_clone",
+    "goods_seach"=>"admin/Goods/seach",
 
 
     /*商品分类*/
