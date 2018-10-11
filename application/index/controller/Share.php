@@ -275,6 +275,9 @@ class Share extends Controller{
                 $data =$_POST;
                 if(!empty($data)){
                     $content = $data['evaluation_content'];
+                    if(empty($content)){
+                        $this->error('请输入您的评价');
+                    }
                     if(!empty($content)){
                         $member =Session::get('member');
                         $user_id =Db::name('user')->field('id')->where('phone_num',$member['phone_num'])->find();
@@ -309,9 +312,40 @@ class Share extends Controller{
      * 图片获取
      **************************************
      */
+//    public  function  evaluation_add_img(Request $request){
+//        if($request->isPost()){
+//            $evaluation_order_id = Session::get('evaluation_order_id');
+//            if(!empty($evaluation_order_id)){
+//                $evaluation_images = [];
+//                $file = $request->file('evaluation_images');
+//                foreach ($file as $k=>$v){
+//                    $info = $v->move(ROOT_PATH . 'public' . DS . 'upload');
+//                    $evaluation_url = str_replace("\\","/",$info->getSaveName());
+//                    $evaluation_images[] = ["images"=>$evaluation_url,"evaluate_order_id"=>$evaluation_order_id];
+//                }
+//                if(!empty($evaluation_images)){
+//                    $res = model('evaluate_images')->saveAll($evaluation_images);
+//                    if($res)
+//                    {
+//                        $this->success('评价成功',url('index/Order/evaluate'));
+//                    }
+//                }else{
+//                    $this->error('请上传图片');
+//                }
+//
+//
+//            }
+//        }
+//    }
+
+
+
+
+
     public  function  evaluation_add_img(Request $request){
         if($request->isPost()){
             $evaluation_order_id = Session::get('evaluation_order_id');
+            $content =input('evaluation_content');
             if(!empty($evaluation_order_id)){
                 $evaluation_images = [];
                 $file = $request->file('evaluation_images');
@@ -320,16 +354,35 @@ class Share extends Controller{
                     $evaluation_url = str_replace("\\","/",$info->getSaveName());
                     $evaluation_images[] = ["images"=>$evaluation_url,"evaluate_order_id"=>$evaluation_order_id];
                 }
-                if(!empty($evaluation_images)){
-                    $res = model('evaluate_images')->saveAll($evaluation_images);
-                    if($res)
-                    {
-                        $this->success('评价成功',url('index/Order/evaluate'));
-                    }
-                }else{
-                    $this->error('请上传图片',url('index/Order/evaluate'));
+                if(empty($content)){
+                    $this->error('请输入评价的内容');
                 }
-
+                if(!empty($content)){
+                    $member =Session::get('member');
+                    $user_id =Db::name('user')->field('id')->where('phone_num',$member['phone_num'])->find();
+                    $goods_id =Db::name('order')->field('goods_id,order_information_number')->where('id',$evaluation_order_id)->find();
+                    if(!empty($user_id)&&!empty($goods_id)){
+                        $datas = [
+                            'order_id'=> $evaluation_order_id,
+                            'order_information_number'=>$goods_id['order_information_number'],
+                            'evaluate_content'=>$content,
+                            'goods_id'=>$goods_id['goods_id'],
+                            'user_id'=>$user_id['id'],
+                            'create_time'=>time(),
+                            'status'=>0
+                        ];
+                        if(!empty($evaluation_images)){
+                            $res_boll = model('evaluate_images')->saveAll($evaluation_images);
+                        }
+                        $res = Db::name('evaluate')->insert($datas);
+                        $order_status_check =Db::name('order')->where('id',$evaluation_order_id)->update(['status'=>10]);
+                        if($res!==null &&$order_status_check !==null){
+                            $this->success('评价成功',url('index/Order/evaluate'));
+                        }else{
+                            $this->error('评价失败');
+                        }
+                    }
+                }
 
             }
         }
@@ -346,7 +399,6 @@ class Share extends Controller{
     public function evaluation_get_order_id(Request $request){
         if($request->isPost()){
             $order_id =$request->only(["order_id"])['order_id'];
-            dump($order_id);exit();
             if(!empty($order_id)){
                     session('evaluation_order_id',$order_id);
                     return ajax_success('成功',$order_id);
