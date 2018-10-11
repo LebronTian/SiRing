@@ -137,20 +137,34 @@
     </div>
     {/if}
 
-    <div class="text_box">
-        <textarea name="" id="evaluation_content" cols="30" rows="10" class="describe" placeholder="请输入您的评价"></textarea>
-    </div>
-    <div class="photo_wrap">
-        <form action="{:url('index/Share/evaluation_add_img')}" method="post" enctype="multipart/form-data">
-            <input class="files" name="evaluation_images[]" id="myFile" type="file" hidden multiple="multiple">
-            <div class="visible_box" >
-                <i class="aui-iconfont aui-icon-camera"></i>
-                <p>添加照片</p>
-            </div> 
-            <div class="img_div"></div>
-            <button type="submit" class="evaluation_a">发表评价</button>
-        </form>
-    </div>
+    <!--<div class="text_box">-->
+        <!--<textarea name="" id="evaluation_content" cols="30" rows="10" class="describe" placeholder="请输入您的评价"></textarea>-->
+    <!--</div>-->
+    <!--<div class="photo_wrap">-->
+        <!--<form action="{:url('index/Share/evaluation_add_img')}" method="post" enctype="multipart/form-data">-->
+            <!--<input class="files" name="evaluation_images[]" id="myFile" type="file" hidden multiple="multiple">-->
+            <!--<div class="visible_box" >-->
+                <!--<i class="aui-iconfont aui-icon-camera"></i>-->
+                <!--<p>添加照片</p>-->
+            <!--</div> -->
+            <!--<div class="img_div"></div>-->
+            <!--<button type="submit" class="evaluation_a">发表评价</button>-->
+        <!--</form>-->
+    <!--</div>-->
+    <form action="{:url('index/Share/evaluation_add_img')}" method="post" enctype="multipart/form-data">
+        <div class="text_box">
+            <textarea name="evaluation_content" id="evaluation_content" cols="30" rows="10" class="describe" placeholder="请输入您的评价"></textarea>
+        </div>
+        <div class="photo_wrap">
+                <input class="files" name="evaluation_images[]" id="myFile" type="file" hidden multiple="multiple">
+                <div class="visible_box" >
+                    <i class="aui-iconfont aui-icon-camera"></i>
+                    <p>添加照片</p>
+                </div>
+                <div class="img_div"></div>
+                <button type="submit" class="evaluation_a">发表评价</button>
+        </div>
+    </form>
 <script src="__STATIC__/index/js/jquery.js"></script>
 <!--发表评价-->
 <script>
@@ -159,25 +173,25 @@
         $('.files').click();
     })
 
-    $(".evaluation_a").click(function () {
-        var evaluation_content = $("#evaluation_content").val();
-        $.ajax({
-            type:'POST',
-            url:'{:url("index/Share/evaluation_add")}',
-            data:{
-                'evaluation_content':evaluation_content
-            },
-            dataType: 'json',
-            success: function(data){
-                console.log(data);
-                alert(data.info);
-                window.location.href ="{:url('index/Order/evaluate')}";
-            },
-            error:function(data) {
-                console.log("失败");
-            },
-        });
-    });
+//    $(".evaluation_a").click(function () {
+//        var evaluation_content = $("#evaluation_content").val();
+//        $.ajax({
+//            type:'POST',
+//            url:'{:url("index/Share/evaluation_add")}',
+//            data:{
+//                'evaluation_content':evaluation_content
+//            },
+//            dataType: 'json',
+//            success: function(data){
+//                console.log(data);
+//                alert(data.info);
+//                window.location.href ="{:url('index/Order/evaluate')}";
+//            },
+//            error:function(data) {
+//                console.log("失败");
+//            },
+//        });
+//    });
 </script>
 <script type="text/javascript">
     $(function() {
