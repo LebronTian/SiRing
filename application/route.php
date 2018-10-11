@@ -345,9 +345,18 @@ Route::group("admin",[
 
 
 
-
     /*订单管理*/
     "order_index"=>"admin/Order/index",
+    "order_wait_send"=>"admin/Order/WaitSend",//待发货页面
+    "order_wait_pay"=>"admin/Order/WaitPay",   //待付款
+    "order_wait_take"=>"admin/Order/WaitTake",   //待收货
+    "order_wait_evaluate"=>"admin/Order/WaitEvaluate",//待评价
+    "orderComplete"=>"admin/Order/OrderComplete",//已完成
+    "BuyerCancellation"=>"admin/Order/BuyerCancellation",//买家取消
+    "SellerCancelled"=>"admin/Order/SellerCancelled",//卖家取消
+
+
+
     "order_search"=>"admin/Order/search",//模糊查询
     "batch_delivery"=>"admin/Order/batch_delivery",//批量发货
     "pending_payment"=>"admin/Order/pending_payment",//代发货
@@ -355,8 +364,10 @@ Route::group("admin",[
     "express_number"=>"admin/Order/express_number",//商家手动填写快递单号
     "order_deliver"=>"admin/Order/order_deliver", //已发货点击弹出的快递信息
 
-    /*评价管理（未做）*/
+    /*评价管理*/
     "evaluation_management"=>"admin/Evaluation/management",
+    /*评价模糊查询*/
+    "search_evaluation"=>"admin/Evaluation/search_evaluation",
     /*客户评价图片*/
     "evalution_imgs"=>"admin/Evaluation/evalution_imgs",
     /*评价审核操作*/
