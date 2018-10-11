@@ -326,10 +326,9 @@ class Share extends Controller{
                     {
                         $this->success('评价成功',url('index/Order/evaluate'));
                     }
+                }else{
+                    $this->error('请上传图片',url('index/Order/evaluate'));
                 }
-//                else{
-//                    $this->success('评价成功',url('index/Order/evaluate'));
-//                }
 
 
             }
