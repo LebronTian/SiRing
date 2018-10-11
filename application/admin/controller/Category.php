@@ -22,7 +22,9 @@ class Category extends Controller{
      * 陈绪
      */
     public function index(){
-        $category = db("goods_type")->where("status","<>","0")->order("sort_number")->paginate(10);
+        $category = db("goods_type")->where("status","<>","0")->select();
+        $category_list = _tree_hTree(_tree_sort($category,"sort_number"));
+        halt($category_list);
         return view("category_index",["category"=>$category]);
     }
 
@@ -36,6 +38,7 @@ class Category extends Controller{
         $goods_list = [];
         if($pid == 0){
             $goods_list = getSelectList("goods_type");
+            halt($goods_list);
         }else{
             $goods_cate = db("goods_type")->where("id",$pid)->field()->select();
         }
