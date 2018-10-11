@@ -89,9 +89,6 @@
                     </th>
                     <th class="table-parent">商品分类图标图片</th>
                     <th class="table-parent">商品分类大图</th>
-                    <!-- <th class="table-parent">分类id</th> -->
-                    <!-- <th class="table-parent">父id</th> -->
-                    <!-- <th class="table-order">排序</th> -->
                     <th class="table-status">状态</th>
                     <th class="table-set">操作</th>
                 </tr>
@@ -183,7 +180,6 @@
         }else if(clickTag == 'button'){
             if($(e.target)[0].innerHTML == '+'){
                 $(e.target)[0].innerHTML = '-';
-                console.log($innerHTML);
                 $($this).parents('tr').after('<tr class="am-danger " data-id="118">\
                                             <td class="table-check am-text-truncate width200">\
                                                 <input type="checkbox" class="ccheck">\
