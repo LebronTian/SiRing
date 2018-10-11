@@ -347,6 +347,7 @@ class Share extends Controller{
     public function evaluation_get_order_id(Request $request){
         if($request->isPost()){
             $order_id =$request->only(["order_id"])['order_id'];
+            dump($order_id);exit();
             if(!empty($order_id)){
                     session('evaluation_order_id',$order_id);
                     return ajax_success('成功',$order_id);
