@@ -44,7 +44,7 @@ class Goods extends Controller{
         $datemaxs = $request->param("datemax");
         $search_keys = $request->param("search_key");
         $search_bts = $request->param("search_bt");
-        $datemin = isset($datemins) ? $datemins : false;.
+        $datemin = isset($datemins) ? $datemins : false;
         $datemax = isset($datemaxs) ? $datemaxs : false;
         $search_key = isset($search_keys) ? $search_keys : '%';
         $search_bt = isset($search_bts) ? $search_bts : false;
