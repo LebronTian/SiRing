@@ -289,7 +289,7 @@ class Share extends Controller{
                                'create_time'=>time(),
                                'status'=>0
                            ];
-                           $res = Db::name('evaluate')->data($datas)->insert();
+                           $res = Db::name('evaluate')->insert($datas);
                            $order_status_check =Db::name('order')->where('id',$evaluation_order_id)->update(['status'=>10]);
                            if($res!==null &&$order_status_check !==null){
                                return ajax_success('成功',$res);
@@ -326,9 +326,10 @@ class Share extends Controller{
                     {
                         $this->success('评价成功',url('index/Order/evaluate'));
                     }
-                }else{
-                    $this->success('评价成功',url('index/Order/evaluate'));
                 }
+//                else{
+//                    $this->success('评价成功',url('index/Order/evaluate'));
+//                }
 
 
             }
