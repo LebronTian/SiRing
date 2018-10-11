@@ -339,9 +339,12 @@ class Share extends Controller{
 //    }
 
 
-
-
-
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 评价发表
+     **************************************
+     */
     public  function  evaluation_add_img(Request $request){
         if($request->isPost()){
             $evaluation_order_id = Session::get('evaluation_order_id');
@@ -354,6 +357,9 @@ class Share extends Controller{
                     $evaluation_url = str_replace("\\","/",$info->getSaveName());
                     $evaluation_images[] = ["images"=>$evaluation_url,"evaluate_order_id"=>$evaluation_order_id];
                 }
+//                dump($evaluation_images);exit;
+
+
                 if(empty($content)){
                     $this->error('请输入评价的内容');
                 }
