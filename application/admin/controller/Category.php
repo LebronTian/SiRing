@@ -24,8 +24,8 @@ class Category extends Controller{
     public function index(){
         $category = db("goods_type")->where("status","<>","0")->select();
         $category_list = _tree_hTree(_tree_sort($category,"sort_number"));
-        halt($category_list);
-        return view("category_index",["category"=>$category]);
+        //halt($category_list);
+        return view("category_index",["category"=>$category_list]);
     }
 
     /**
@@ -38,7 +38,6 @@ class Category extends Controller{
         $goods_list = [];
         if($pid == 0){
             $goods_list = getSelectList("goods_type");
-            halt($goods_list);
         }else{
             $goods_cate = db("goods_type")->where("id",$pid)->field()->select();
         }
