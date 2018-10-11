@@ -112,7 +112,8 @@
                 dataType: 'json',
                 success: function(data){
                     console.log(data);
-                    window.location.href ="{:url('index/Share/evaluation')}";
+//                    alert(data.data)
+                    window.location.href ="{:url('index/Share/evaluation')}"; 
                 },
                 error:function(data) {
                     console.log("失败");

@@ -89,9 +89,6 @@
                     </th>
                     <th class="table-parent">商品分类图标图片</th>
                     <th class="table-parent">商品分类大图</th>
-                    <!-- <th class="table-parent">分类id</th> -->
-                    <!-- <th class="table-parent">父id</th> -->
-                    <!-- <th class="table-order">排序</th> -->
                     <th class="table-status">状态</th>
                     <th class="table-set">操作</th>
                 </tr>
@@ -147,12 +144,15 @@
     $('.tree').click(function(e){
         var $this = e.target;
         var clickTag = $($this)[0].tagName.toLowerCase();
+        var $innerHTML = $($this)[0].innerHTML;
         if(clickTag == 'span'){
             if($($this).siblings('ul')){
                 $($this).siblings('ul').children('li').toggleClass('childLi');
             }
         }else if(clickTag == 'button'){
-            $($this).parents('tr').after('<tr class="am-danger " data-id="118">\
+            if($(e.target)[0].innerHTML == '+'){
+                $(e.target)[0].innerHTML = '-';
+                $($this).parents('tr').after('<tr class="am-danger " data-id="118">\
                                             <td class="table-check am-text-truncate width200">\
                                                 <input type="checkbox" class="ccheck">\
                                             </td>\
@@ -164,6 +164,11 @@
                                                 <a href="{:url('+"admin/Category/del"+',['+"id"+'=>$value.id])}" class="am-text-danger cdelete" data-id="118">删除</a>\
                                             </td>\
                                         </tr>')
+            }else if($(e.target)[0].innerHTML == '-'){
+                $(e.target)[0].innerHTML = '+';
+                $($this).parents('tr').next().remove();
+            }
+           
         }
     })
 </script>

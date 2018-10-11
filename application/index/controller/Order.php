@@ -486,6 +486,9 @@ class Order extends Base {
                     if($express_type=="中通"){
                         $express_types ="zhongtong";
                     }
+                    if($express_type=="韵达"){
+                        $express_types ="yunda";
+                    }
 
                     if(!empty($express_num)) {
                         $codes =$express_num;

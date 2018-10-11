@@ -20,20 +20,50 @@ class  Evaluation extends  Controller{
      **************************************
      */
     public function management(){
-
        $data=Db::table("tb_evaluate")
             ->field("tb_evaluate.*,tb_goods.goods_name goods_name,tb_goods.goods_show_images goods_show_images ,tb_user.user_name user_name")
             ->join("tb_goods","tb_evaluate.goods_id=tb_goods.id",'left')
             ->join("tb_user","tb_evaluate.user_id=tb_user.id",'left')
             ->order('tb_evaluate.create_time','desc')
-            ->select();
+           ->paginate(5);
+        $count =Db::name('evaluate')->count();
        if($data)
        {
            $this->assign('data',$data);
+           $this->assign('count',$count);
        }
-
        return view('evaluation_management');
     }
+
+
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 模糊查询
+     **************************************
+     */
+    public function search_evaluation(){
+        $keywords =input('search_key');
+        if(!empty($keywords)){
+            $condition = " `order_information_number` like '%{$keywords}%'";
+            $data=Db::table("tb_evaluate")
+                ->field("tb_evaluate.*,tb_goods.goods_name goods_name,tb_goods.goods_show_images goods_show_images ,tb_user.user_name user_name")
+                ->join("tb_goods","tb_evaluate.goods_id=tb_goods.id",'left')
+                ->join("tb_user","tb_evaluate.user_id=tb_user.id",'left')
+                ->where($condition)
+                ->order('tb_evaluate.create_time','desc')
+                ->paginate(5 ,false, [
+                    'query' => request()->param(),
+                ]);
+            $count =$data->total();
+            if(!empty($data)){
+                return view('evaluation_management',['count'=>$count,'data'=>$data]);
+            }
+
+        }
+
+    }
+
 
     /**
      **************李火生*******************

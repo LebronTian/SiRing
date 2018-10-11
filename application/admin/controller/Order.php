@@ -23,8 +23,10 @@ class  Order extends  Controller{
         $data=Db::table("tb_order")
             ->field("tb_order.*,tb_user.user_name tname,tb_user.phone_num phone")
             ->join("tb_user","tb_order.user_id=tb_user.id",'left')
+            ->order('tb_order.create_time','desc')
             ->paginate(10);
         $count =Db::name('order')->count();
+
         if(!empty($data)){
             $this->assign('count',$count);
             $this->assign('data',$data);
@@ -37,40 +39,63 @@ class  Order extends  Controller{
      * 模糊查询
      **************************************
      */
-    public function search(Request $request){
-        if($request->isPost()){
+
+    public function search(){
             $keywords =input('search_key');
             if(!empty($keywords)){
-                $condition = " `goods_name` like '%{$keywords}%' or `id` like '%{$keywords}%' or`user_id` like '%{$keywords}%'";
-                $res = Db::name("order")->where($condition)->select();
-                return ajax_success('成功',$res);
+//                $condition = " `goods_name` like '%{$keywords}%' or `order_information_number` like '%{$keywords}%'  or `harvest_phone_num` like '%{$keywords}%'";
+                $condition = " `goods_name` like '%{$keywords}%' or `order_information_number` like '%{$keywords}%'  or `harvest_phone_num` like '%{$keywords}%' ";
+                $data=Db::table("tb_order")
+                    ->field("tb_order.*,tb_user.user_name tname,tb_user.phone_num phone")
+                    ->join("tb_user","tb_order.user_id=tb_user.id",'left')
+                    ->where($condition)
+                    ->order('tb_order.create_time','desc')
+                    ->paginate(5 ,false, [
+                    'query' => request()->param(),
+                ]);
+                $count =$data->total();
+                if(!empty($data)){
+                    return view('order_index',['count'=>$count,'data'=>$data]);
+                }
+
             }
-//            $timemin  =strtotime(input('datemin'));
-//            $timemax  =strtotime(input('datemax'));
-//            if(empty($timemin)||empty($timemax)){
+
+    }
+
+//    public function search(Request $request){
+//        if($request->isPost()){
+//            $keywords =input('search_key');
+//            if(!empty($keywords)){
 //                $condition = " `goods_name` like '%{$keywords}%' or `id` like '%{$keywords}%' or`user_id` like '%{$keywords}%'";
 //                $res = Db::name("order")->where($condition)->select();
-//                dump($res);
 //                return ajax_success('成功',$res);
 //            }
-//            if(!empty($timemin)&&!empty($timemax)){
-//                if(empty($keywords)){
-//                    $condition = "create_time>{$timemin} and create_time< {$timemax}";
-//                    $res = Db::name("order")->where($condition)->select();
-//                    return ajax_success('成功',$res);
-//                }
-//                if(!empty($keywords)){
-//                    $condition = " `goods_name` like '%{$keywords}%' or `id` like '%{$keywords}%' or`user_id` like '%{$keywords}%'";
-//                    $conditions = "create_time>{$timemin} and create_time< {$timemax}";
-//                    $res = Db::name("order")->where($condition)->where($conditions)->select();
-//                    return ajax_success('成功',$res);
-//                }else{
-//                    return ajax_error('失败');
-//                }
-//
-//            }
-        }
-    }
+////            $timemin  =strtotime(input('datemin'));
+////            $timemax  =strtotime(input('datemax'));
+////            if(empty($timemin)||empty($timemax)){
+////                $condition = " `goods_name` like '%{$keywords}%' or `id` like '%{$keywords}%' or`user_id` like '%{$keywords}%'";
+////                $res = Db::name("order")->where($condition)->select();
+////                dump($res);
+////                return ajax_success('成功',$res);
+////            }
+////            if(!empty($timemin)&&!empty($timemax)){
+////                if(empty($keywords)){
+////                    $condition = "create_time>{$timemin} and create_time< {$timemax}";
+////                    $res = Db::name("order")->where($condition)->select();
+////                    return ajax_success('成功',$res);
+////                }
+////                if(!empty($keywords)){
+////                    $condition = " `goods_name` like '%{$keywords}%' or `id` like '%{$keywords}%' or`user_id` like '%{$keywords}%'";
+////                    $conditions = "create_time>{$timemin} and create_time< {$timemax}";
+////                    $res = Db::name("order")->where($condition)->where($conditions)->select();
+////                    return ajax_success('成功',$res);
+////                }else{
+////                    return ajax_error('失败');
+////                }
+////
+////            }
+//        }
+//    }
 
 
     /**
@@ -190,6 +215,151 @@ class  Order extends  Controller{
     public function sunburn(){
 
         return view('order_sunburn');
+    }
+
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 待发货页面
+     **************************************
+     */
+    public function WaitSend(){
+        $data=Db::table("tb_order")
+            ->field("tb_order.*,tb_user.user_name tname,tb_user.phone_num phone")
+            ->join("tb_user","tb_order.user_id=tb_user.id",'left')
+            ->where('tb_order.status',2)
+            ->order('tb_order.create_time','desc')
+            ->paginate(10);
+        $count =$data->count();
+        if(!empty($data)){
+            $this->assign('count',$count);
+            $this->assign('data',$data);
+        }
+        return view('order_index');
+    }
+
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 待付款页面
+     **************************************
+     */
+    public function WaitPay(){
+        $data=Db::table("tb_order")
+            ->field("tb_order.*,tb_user.user_name tname,tb_user.phone_num phone")
+            ->join("tb_user","tb_order.user_id=tb_user.id",'left')
+            ->where('tb_order.status',1)
+            ->order('tb_order.create_time','desc')
+            ->paginate(10);
+        $count =$data->count();
+        if(!empty($data)){
+            $this->assign('count',$count);
+            $this->assign('data',$data);
+        }
+        return view('order_index');
+    }
+
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 待收货页面
+     **************************************
+     */
+    public function WaitTake(){
+        $data=Db::table("tb_order")
+            ->field("tb_order.*,tb_user.user_name tname,tb_user.phone_num phone")
+            ->join("tb_user","tb_order.user_id=tb_user.id",'left')
+            ->where('tb_order.status',3)
+            ->whereOr('tb_order.status',4)
+            ->order('tb_order.create_time','desc')
+            ->paginate(10);
+        $count =$data->count();
+        if(!empty($data)){
+            $this->assign('count',$count);
+            $this->assign('data',$data);
+        }
+        return view('order_index');
+    }
+
+    /**
+ **************李火生*******************
+ * @return \think\response\View
+ * 待评价页面
+ **************************************
+ */
+    public function WaitEvaluate(){
+        $data=Db::table("tb_order")
+            ->field("tb_order.*,tb_user.user_name tname,tb_user.phone_num phone")
+            ->join("tb_user","tb_order.user_id=tb_user.id",'left')
+            ->where('tb_order.status',6)
+            ->order('tb_order.create_time','desc')
+            ->paginate(10);
+        $count =$data->count();
+        if(!empty($data)){
+            $this->assign('count',$count);
+            $this->assign('data',$data);
+        }
+        return view('order_index');
+    }
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 已完成
+     **************************************
+     */
+    public function OrderComplete(){
+        $data=Db::table("tb_order")
+            ->field("tb_order.*,tb_user.user_name tname,tb_user.phone_num phone")
+            ->join("tb_user","tb_order.user_id=tb_user.id",'left')
+            ->where('tb_order.status',10)
+            ->order('tb_order.create_time','desc')
+            ->paginate(10);
+        $count =$data->count();
+        if(!empty($data)){
+            $this->assign('count',$count);
+            $this->assign('data',$data);
+        }
+        return view('order_index');
+    }
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 买家取消
+     **************************************
+     */
+    public function BuyerCancellation(){
+        $data=Db::table("tb_order")
+            ->field("tb_order.*,tb_user.user_name tname,tb_user.phone_num phone")
+            ->join("tb_user","tb_order.user_id=tb_user.id",'left')
+            ->where('tb_order.status',11)
+            ->order('tb_order.create_time','desc')
+            ->paginate(10);
+        $count =$data->count();
+        if(!empty($data)){
+            $this->assign('count',$count);
+            $this->assign('data',$data);
+        }
+        return view('order_index');
+    }
+    /**
+     **************李火生*******************
+     * @return \think\response\View
+     * 卖家取消
+     **************************************
+     */
+    public function SellerCancelled(){
+        $data=Db::table("tb_order")
+            ->field("tb_order.*,tb_user.user_name tname,tb_user.phone_num phone")
+            ->join("tb_user","tb_order.user_id=tb_user.id",'left')
+            ->where('tb_order.status',0)
+            ->order('tb_order.create_time','desc')
+            ->paginate(10);
+        $count =$data->count();
+        if(!empty($data)){
+            $this->assign('count',$count);
+            $this->assign('data',$data);
+        }
+        return view('order_index');
     }
 
 
