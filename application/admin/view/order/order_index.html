@@ -217,22 +217,49 @@
 
     <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 产品管理 <span class="c-gray en">&gt;</span> 产品列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
     <div class="page-container">
-        <!--<form action="" method="post">-->
-            <!--<div class="text-c"> 日期范围：-->
-                <!--&lt;!&ndash;<input type="date" name="datemin" class="input-text Wdate" id="datemin" style="width:140px;">&ndash;&gt;-->
-                 <!--&lt;!&ndash; - &ndash;&gt;-->
-                <!--&lt;!&ndash;<input type="date" id="datemax" name="datemax" class="input-text Wdate" style="width:140px;">&ndash;&gt;-->
-                <!--<input type="text" class="input-text" id="search_key" style="width:250px" placeholder="产品名称、订单id、用户id" name="search_key">-->
-                <!--<button type="submit" class="btn btn-success radius bt_search" name="search_bt" >-->
-                    <!--<i class="Hui-iconfont">&#xe665;</i> 搜索产品-->
-                <!--</button>-->
-            <!--</div>-->
-        <!--</form>-->
+        <form action="{:url('admin/Order/search')}" method="post">
+            <div class="text-c">
+                <!--日期范围：-->
+                <!--<input type="date" name="datemin" class="input-text Wdate" id="datemin" style="width:140px;">-->
+                 <!-- - -->
+                <!--<input type="date" id="datemax" name="datemax" class="input-text Wdate" style="width:140px;">-->
+                <input type="text" class="input-text" id="search_key" style="width:250px" placeholder="名称、订单号、用户信息、收货人信息" name="search_key">
+                <button type="submit" class="btn btn-success radius bt_search" name="search_bt" >
+                    <i class="Hui-iconfont">&#xe665;</i> 搜索
+                </button>
+            </div>
+        </form>
         <div class="cl pd-5 bg-1 bk-gray mt-20">
             <span class="l">
-                <a href="javascript:;" onclick="" class="btn btn-danger radius">
-                    <i class="Hui-iconfont"></i> 批量发货
+
+                <a href="{:url('admin/Order/WaitSend')}" onclick="" class="btn btn-primary radius">
+                    <i class="Hui-iconfont"></i> 待发货
                 </a>
+                <!--<a href="javascript:;" onclick="" class="btn btn-primary radius">-->
+                    <!--<i class="Hui-iconfont"></i> 批量发货-->
+                <!--</a>-->
+                <a href="{:url('admin/Order/WaitPay')}" onclick="" class="btn btn-danger radius">
+                    <i class="Hui-iconfont"></i> 待付款
+                </a>
+
+                <a href="{:url('admin/Order/WaitTake')}" onclick="" class="btn btn-danger radius">
+                    <i class="Hui-iconfont"></i> 已发货
+                </a>
+
+                <a href="{:url('admin/Order/WaitEvaluate')}" onclick="" class="btn btn-primary radius">
+                    <i class="Hui-iconfont"></i> 待评价
+                </a>
+
+                <a href="{:url('admin/Order/OrderComplete')}" onclick="" class="btn btn-primary radius">
+                    <i class="Hui-iconfont"></i> 已完成
+                </a>
+                <a href="{:url('admin/Order/BuyerCancellation')}" onclick="" class="btn btn-primary radius">
+                    <i class="Hui-iconfont"></i> 买家取消
+                </a>
+                <a href="{:url('admin/Order/SellerCancelled')}" onclick="" class="btn btn-primary radius">
+                    <i class="Hui-iconfont"></i> 卖家取消
+                </a>
+
             </span>
             <span class="r">共有数据：
                 <strong>{$count}</strong> 条
@@ -251,6 +278,9 @@
                     <th width="100">下单时间</th>
                     <th width="60">实付金额</th>
                     <th width="60">订单编号</th>
+                    <th width="60">收货地址</th>
+                    <th width="60">收货人</th>
+                    <th width="60">收货人手机号码</th>
                     <th width="60">订单状态</th>
                 </tr>
                 </thead>
@@ -266,6 +296,9 @@
                         <th width="50">{$vo.create_time|date="Y-m-d H:i:s",###}</th>
                         <th width="40">{$vo.pay_money}</th>
                         <th width="40">{$vo.order_information_number}</th>
+                        <th width="40">{$vo.harvest_address}</th>
+                        <th width="40">{$vo.harvester}</th>
+                        <th width="40">{$vo.harvest_phone_num}</th>
                         <td class="td-status ">
                             <a value="btn_{$vo.status}" class="all_btn" id="a_{$vo['id']}">{$vo.status}</a>
                         </td>
@@ -284,11 +317,12 @@
         <div class="express">
             <span>快递公司</span>
             <select name="" id="express_type">
-                <option value="EMS">EMS</option>
                 <option value="顺丰">顺丰</option>
+                <option value="EMS">EMS</option>
                 <option value="中通">中通</option>
                 <option value="申通">申通</option>
                 <option value="圆通">圆通</option>
+                <option value="韵达">韵达</option>
             </select>
         </div>
         <div class="express_num">
@@ -506,7 +540,8 @@
             success: function(data){
 //                console.log(data);
                 alert(data.info);
-                window.location.href="{:url('admin/Order/index')}";
+//                window.location.href="{:url('admin/Order/index')}";
+                location.reload();
             },
             error:function(data) {
                 console.log(data.msg);
@@ -532,7 +567,7 @@
             success: function(data){
                 console.log(data);
                 alert(data.msg);
-                window.location.href ="{:url('admin/Order/index')}";
+                window.location.href ="{:url('admin/Order/WaitTake')}";
             },
             error:function(data) {
                 // console.log(data.msg);
@@ -593,7 +628,7 @@
                 },
                 success: function(data){
                     alert(data.msg);
-                    window.location.href="{:url('admin/Order/index')}";
+                    window.location.href="{:url('admin/Order/WaitTake')}";
                 },
                 error: function(){
                     console.log('错误');
@@ -602,36 +637,48 @@
             
         })
     </script>
+
+
+
+
+
+
+
+
+
+
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="__STATIC__/admin/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/static/h-ui2/js/tp.js"></script>
+
+<!--模糊查询-->
 <script>
-    $(".bt_search").click(function () {
-//        var datemin = $('#datemin')[0].value;
-//        var datemax = $('#datemax')[0].value;
-        var search_key = $('#search_key').val();
-        $.ajax({
-            type:'POST',
-            url:'{:url("admin/Order/search")}',
-            data:{
-//                "datemin": datemin+' '+'00:00:00',
-//                "datemax": datemax+' '+'23:59:59',
-                "search_key": search_key
-            },
-            dataType: 'json',
-            success: function(data){
-                console.log(data);
-
-            },
-            error:function(data) {
-                console.log('shibai');
-            },
-        });
-
-    })
+//    $(".bt_search").click(function () {
+////        var datemin = $('#datemin')[0].value;
+////        var datemax = $('#datemax')[0].value;
+//        var search_key = $('#search_key').val();
+//        $.ajax({
+//            type:'POST',
+//            url:'{:url("admin/Order/search")}',
+//            data:{
+////                "datemin": datemin+' '+'00:00:00',
+////                "datemax": datemax+' '+'23:59:59',
+//                "search_key": search_key
+//            },
+//            dataType: 'json',
+//            success: function(data){
+//                console.log(data);
+//
+//            },
+//            error:function(data) {
+//                console.log('shibai');
+//            },
+//        });
+//
+//    })
     
 </script>
 <script>

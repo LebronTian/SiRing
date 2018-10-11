@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006~2017 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -58,11 +58,6 @@ class Request
      * @var array 当前路由信息
      */
     protected $routeInfo = [];
-
-    /**
-     * @var array 环境变量
-     */
-    protected $env;
 
     /**
      * @var array 当前调度信息
@@ -232,7 +227,7 @@ class Request
             parse_str(html_entity_decode($info['query']), $query);
             if (!empty($params)) {
                 $params      = array_replace($query, $params);
-                $queryString = http_build_query($params, '', '&');
+                $queryString = http_build_query($query, '', '&');
             } else {
                 $params      = $query;
                 $queryString = $info['query'];
@@ -1093,7 +1088,7 @@ class Request
     public function filterExp(&$value)
     {
         // 过滤查询特殊字符
-        if (is_string($value) && preg_match('/^(EXP|NEQ|GT|EGT|LT|ELT|OR|XOR|LIKE|NOTLIKE|NOT LIKE|NOT BETWEEN|NOTBETWEEN|BETWEEN|NOT EXISTS|NOTEXISTS|EXISTS|NOT NULL|NOTNULL|NULL|BETWEEN TIME|NOT BETWEEN TIME|NOTBETWEEN TIME|NOTIN|NOT IN|IN)$/i', $value)) {
+        if (is_string($value) && preg_match('/^(EXP|NEQ|GT|EGT|LT|ELT|OR|XOR|LIKE|NOTLIKE|NOT BETWEEN|NOTBETWEEN|BETWEEN|NOTIN|NOT IN|IN)$/i', $value)) {
             $value .= ' ';
         }
         // TODO 其他安全过滤
@@ -1265,7 +1260,7 @@ class Request
      * @param boolean   $adv 是否进行高级模式获取（有可能被伪装）
      * @return mixed
      */
-    public function ip($type = 0, $adv = true)
+    public function ip($type = 0, $adv = false)
     {
         $type      = $type ? 1 : 0;
         static $ip = null;
@@ -1273,11 +1268,7 @@ class Request
             return $ip[$type];
         }
 
-        $httpAgentIp = Config::get('http_agent_ip');
-
-        if ($httpAgentIp && isset($_SERVER[$httpAgentIp])) {
-            $ip = $_SERVER[$httpAgentIp];
-        } elseif ($adv) {
+        if ($adv) {
             if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
                 $arr = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
                 $pos = array_search('unknown', $arr);
@@ -1342,18 +1333,11 @@ class Request
     /**
      * 当前请求的host
      * @access public
-     * @param bool $strict  true 仅仅获取HOST
      * @return string
      */
-    public function host($strict = false)
+    public function host()
     {
-        if (isset($_SERVER['HTTP_X_REAL_HOST'])) {
-            $host = $_SERVER['HTTP_X_REAL_HOST'];
-        } else {
-            $host = $this->server('HTTP_HOST');
-        }
-
-        return true === $strict && strpos($host, ':') ? strstr($host, ':', true) : $host;
+        return $this->server('HTTP_HOST');
     }
 
     /**
@@ -1474,12 +1458,11 @@ class Request
      */
     public function action($action = null)
     {
-        if (!is_null($action) && !is_bool($action)) {
+        if (!is_null($action)) {
             $this->action = $action;
             return $this;
         } else {
-            $name = $this->action ?: '';
-            return true === $action ? $name : strtolower($name);
+            return $this->action ?: '';
         }
     }
 
@@ -1546,16 +1529,10 @@ class Request
      * @param string $key 缓存标识，支持变量规则 ，例如 item/:name/:id
      * @param mixed  $expire 缓存有效期
      * @param array  $except 缓存排除
-     * @param string $tag    缓存标签
      * @return void
      */
-    public function cache($key, $expire = null, $except = [], $tag = null)
+    public function cache($key, $expire = null, $except = [])
     {
-        if (!is_array($except)) {
-            $tag    = $except;
-            $except = [];
-        }
-
         if (false !== $key && $this->isGet() && !$this->isCheckCache) {
             // 标记请求缓存检查
             $this->isCheckCache = true;
@@ -1609,7 +1586,7 @@ class Request
                 $response               = Response::create($content)->header($header);
                 throw new \think\exception\HttpResponseException($response);
             } else {
-                $this->cache = [$key, $expire, $tag];
+                $this->cache = [$key, $expire];
             }
         }
     }
@@ -1627,7 +1604,7 @@ class Request
     /**
      * 设置当前请求绑定的对象实例
      * @access public
-     * @param string|array $name 绑定的对象标识
+     * @param string $name 绑定的对象标识
      * @param mixed  $obj 绑定的对象实例
      * @return mixed
      */

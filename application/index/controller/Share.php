@@ -278,10 +278,11 @@ class Share extends Controller{
                     if(!empty($content)){
                         $member =Session::get('member');
                         $user_id =Db::name('user')->field('id')->where('phone_num',$member['phone_num'])->find();
-                       $goods_id =Db::name('order')->field('goods_id')->where('id',$evaluation_order_id)->find();
+                       $goods_id =Db::name('order')->field('goods_id,order_information_number')->where('id',$evaluation_order_id)->find();
                        if(!empty($user_id)&&!empty($goods_id)){
                            $datas = [
                                'order_id'=> $evaluation_order_id,
+                               'order_information_number'=>$goods_id['order_information_number'],
                                'evaluate_content'=>$content,
                                'goods_id'=>$goods_id['goods_id'],
                                'user_id'=>$user_id['id'],
@@ -319,11 +320,17 @@ class Share extends Controller{
                     $evaluation_url = str_replace("\\","/",$info->getSaveName());
                     $evaluation_images[] = ["images"=>$evaluation_url,"evaluate_order_id"=>$evaluation_order_id];
                 }
-              $res = model('evaluate_images')->saveAll($evaluation_images);
-            if($res)
-            {
-                $this->success('评价成功',url('index/Order/evaluate'));
-            }
+                if(!empty($evaluation_images)){
+                    $res = model('evaluate_images')->saveAll($evaluation_images);
+                    if($res)
+                    {
+                        $this->success('评价成功',url('index/Order/evaluate'));
+                    }
+                }else{
+                    $this->success('评价成功',url('index/Order/evaluate'));
+                }
+
+
             }
         }
     }
