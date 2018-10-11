@@ -35,11 +35,6 @@
         .admin-content #chooseCats{
             max-height: 700px;
         }
-
-        tbody .table-check span{
-            /* margin-left: 15px!important; */
-            color: rgb(0,119,221);
-        }
         .pagination{text-align:center;margin-top:20px;margin-bottom: 20px;}
         .pagination li{margin:0px 10px; border:1px solid #e6e6e6;padding: 3px 8px;display: inline-block;}
         .pagination .active{background-color: #dd1a20;color: #fff;}
@@ -54,6 +49,16 @@
         }
         .childLi{
             display: none;
+        }
+        .tree{
+            color: #000;
+        }
+        .tree button{
+            width: 15px;
+            height: 15px;
+            line-height: 11px;
+            text-align: center;
+            vertical-align: text-bottom;
         }
     </style>
 
@@ -93,39 +98,55 @@
             </thead>
             <tbody>
             {volist name="category" id="value"}
-            <tr class="am-danger " data-id="118">
-                <td class="table-check am-text-truncate width200">
-                    <input type="checkbox" class="ccheck">
-                    <div class="tree">
-                        <ul>
-                            <li>
-                                <span class="parent_span">{$value.name}</span>
-                                <ul>
-                                    <li class="childLi">
-                                        <span class="parent_span">iphone 5s 16G</span>
-                                        <ul>
-                                            <li class="childLi">iphone 5s 32G</li>
-                                            <li class="childLi">iphone 5s 32G</li>
-                                            <li class="childLi">iphone 5s 32G</li>
-                                        </ul>
-                                    </li>
-                                    <li class="childLi">iphone 5s 32G</li>
-                                    <li class="childLi">iphone 5s 64G</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </td>
-                <td><img width="60" class="product-thumb" src="__TYPE__/{$value.type_images}"></td>
-                <td><img width="60" class="product-thumb" src="__TYPE__/{$value.type_show_images}"></td>
-                <!-- <td>{$value.id}</td> -->
-                <!-- <td>{$value.pid}</td> -->
-                <!-- <td>{$value.sort_number}</td> -->
-                <td><button data-status="{$value.status}" class="cstatus am-btn am-btn-xs am-btn-danger">已启用</button>
-                <td><a href="{:url('admin/Category/edit',['id'=>$value.id])}" target="_self" class="am-text-primary">编辑</a>
-                    <a href="{:url('admin/Category/del',['id'=>$value.id])}" class="am-text-danger cdelete" data-id="118">删除</a>
-                </td>
-            </tr>
+                <tr class="am-danger " data-id="118">
+                    <td class="table-check am-text-truncate width200">
+                        <input type="checkbox" class="ccheck">
+                        <div class="tree">
+                            <ul>
+                                <li>
+                                    <span class="parent_span">{$value.name}</span>
+                                    <ul>
+                                        <li class="childLi">
+                                            <span class="parent_span">
+                                                iphone 5s 16G
+                                                <button>＋</button>
+                                            </span>
+                                            <ul>
+                                                <li class="childLi">
+                                                    iphone 5s 32G
+                                                    <button>＋</button>
+                                                </li>
+                                                <li class="childLi">
+                                                    iphone 5s 32G
+                                                    <button>＋</button>
+                                                </li>
+                                                <li class="childLi">
+                                                    iphone 5s 32G
+                                                    <button>＋</button>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="childLi">
+                                            iphone 5s 32G
+                                            <button>＋</button>
+                                        </li>
+                                        <li class="childLi">
+                                            iphone 5s 64G
+                                            <button>＋</button>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td><img width="60" class="product-thumb" src="__TYPE__/{$value.type_images}"></td>
+                    <td><img width="60" class="product-thumb" src="__TYPE__/{$value.type_show_images}"></td>
+                    <td><button data-status="{$value.status}" class="cstatus am-btn am-btn-xs am-btn-danger">已启用</button>
+                    <td>
+                        <a href="{:url('admin/Category/edit',['id'=>$value.id])}" target="_self" class="am-text-primary">编辑</a>
+                        <a href="{:url('admin/Category/del',['id'=>$value.id])}" class="am-text-danger cdelete" data-id="118">删除</a>
+                    </td>
+                </tr>
             {/volist}
         </table>
         {$category->render()}
@@ -151,10 +172,26 @@
 
 <script type="text/javascript" src="__STATIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
 <script>
-    $('.parent_span').click(function(){
-        if($(this).siblings()){
-            console.log(111)
-            $(this).siblings('ul').children('li').toggleClass('childLi');
+    $('.tree').click(function(e){
+        var $this = e.target;
+        var clickTag = $($this)[0].tagName.toLowerCase();
+        if(clickTag == 'span'){
+            if($($this).siblings('ul')){
+                $($this).siblings('ul').children('li').toggleClass('childLi');
+            }
+        }else if(clickTag == 'button'){
+            $($this).parents('tr').after('<tr class="am-danger " data-id="118">\
+                                            <td class="table-check am-text-truncate width200">\
+                                                <input type="checkbox" class="ccheck">\
+                                            </td>\
+                                            <td><img width="60" class="product-thumb" src="__TYPE__/{$value.type_images}"></td>\
+                                            <td><img width="60" class="product-thumb" src="__TYPE__/{$value.type_show_images}"></td>\
+                                            <td><button data-status="{$value.status}" class="cstatus am-btn am-btn-xs am-btn-danger">已启用</button>\
+                                            <td>\
+                                                <a href="{:url('+"admin/Category/edit"+',['+"id"+'=>$value.id])}" target="_self" class="am-text-primary">编辑</a>\
+                                                <a href="{:url('+"admin/Category/del"+',['+"id"+'=>$value.id])}" class="am-text-danger cdelete" data-id="118">删除</a>\
+                                            </td>\
+                                        </tr>')
         }
     })
 </script>
