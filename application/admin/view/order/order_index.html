@@ -151,7 +151,7 @@
         background-color: #f0f0f0;
     }
     /* 弹窗通用end */
-    .pop1 .express, .pop1 .express_num, .pop6 .express, .pop6 .express_num{
+    .pop1 .express, .pop1 .express_num, .pop6 .express, .pop6 .express_nums{
         width: 70%;
         margin: 0 auto;
         margin-bottom: 10px;
@@ -272,15 +272,15 @@
                     <th width="40"><input name="ids" type="checkbox"></th>
                     <th width="40">排序号</th>
                     <th width="60">商品图片</th>
-                    <th width="12">产品名称</th>
                     <th width="20">订单数量</th>
-                    <th width="50">买家信息</th>
+                    <th width="55">买家信息</th>
                     <th width="100">下单时间</th>
                     <th width="60">实付金额</th>
                     <th width="60">订单编号</th>
                     <th width="60">收货地址</th>
                     <th width="60">收货人</th>
                     <th width="60">收货人手机号码</th>
+                    <th width="50">产品名称</th>
                     <th width="60">订单状态</th>
                 </tr>
                 </thead>
@@ -290,7 +290,6 @@
                         <th width="10"><input name="ids" id="status_{$vo.status}" type="checkbox" value="{$vo['id']}"></th>
                         <th width="30">{$vo['id']}</th>
                         <th width="50"><img src="__UPLOADS__/{$vo.goods_img}" alt="商品图片"></th>
-                        <th width="80">{$vo.goods_name}</th>
                         <th width="20">{$vo.order_num}</th>
                         <th width="40">{$vo.tname}<br> {$vo.phone}  </th>
                         <th width="50">{$vo.create_time|date="Y-m-d H:i:s",###}</th>
@@ -299,6 +298,7 @@
                         <th width="40">{$vo.harvest_address}</th>
                         <th width="40">{$vo.harvester}</th>
                         <th width="40">{$vo.harvest_phone_num}</th>
+                        <th width="80">{$vo.goods_name}</th>
                         <td class="td-status ">
                             <a value="btn_{$vo.status}" class="all_btn" id="a_{$vo['id']}">{$vo.status}</a>
                         </td>
@@ -392,7 +392,7 @@
             <span>快递单号</span>
             <input type="text">
         </div>
-        <button class="confirm myconfirm" onclick="myconfirm('pop6')">确定</button>
+        <button class="confirm myconfirm" id="kddh">确定</button>
         <button class="cancel mycancel" onclick="mycancel('pop6')">取消</button>
     </div>
 </div>
@@ -490,9 +490,11 @@
             $('.pop6').css('display','block');
             console.log($(this)[0].id.split('_')[1]); 
             var order_id =$(this)[0].id.split('_')[1];
+            take_goods = order_id;
             order_deliver(order_id);
         }
     });
+    var take_goods;
     // 按钮事件  确认，取消
     function myconfirm(obj){
         $('.'+ obj +'').css('display', 'none');
@@ -500,6 +502,30 @@
     function mycancel(obj){
         $('.'+ obj +'').css('display', 'none');
     }
+    //发送快递单号ajax
+    $('#kddh').click(function(){
+//        $(this).parents('.pop6').css('display', 'none');
+        var order_num = $(this).siblings('.express_nums').find('input').val();
+        var express = $(this).siblings('.express').find('select option:selected').val();
+        $.ajax({
+            type:'POST',
+            url:'{:url("admin/Order/order_deliver_change")}',
+            data:{
+                'express_num': order_num,
+                'order_id': take_goods,
+                'express_type': express
+            },
+            dataType: 'json',
+            success: function(data){
+//                console.log(data);
+                alert(data.msg);
+                location.reload();
+            },
+            error:function(data) {
+                console.log(data.msg);
+            },
+        });
+    })
 
     //点击待付款传order_id给后台修改状态值
     function pending_payment(order_id) {
@@ -567,7 +593,8 @@
             success: function(data){
                 console.log(data);
                 alert(data.msg);
-                window.location.href ="{:url('admin/Order/WaitTake')}";
+//                window.location.href ="{:url('admin/Order/WaitTake')}";
+                location.reload();
             },
             error:function(data) {
                 // console.log(data.msg);
@@ -652,7 +679,7 @@
 <script type="text/javascript" src="__STATIC__/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/lib/laypage/1.2/laypage.js"></script>
-<script type="text/javascript" src="__STATIC__/admin/static/h-ui2/js/tp.js"></script>
+<!--<script type="text/javascript" src="__STATIC__/admin/static/h-ui2/js/tp.js"></script>-->
 
 <!--模糊查询-->
 <script>
