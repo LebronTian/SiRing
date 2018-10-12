@@ -254,94 +254,7 @@
 	</div>
 </div>
 <div style="height:52px"></div>
-<!-- 弹出 -->
-<div class="flick-menu-mask"></div>
-<div class="spec-menu">
-	<div class="spec-menu-content spec-menu-show" style="display: block;">
-		<div class="spec-menu-top bdr-b">
-			<div class="spec-first-pic">
-				<img id="spec_image" src="__STATIC__/index/image/sp1.jpg"/>
-			</div>
-			<a class="rt-close-btn-wrap spec-menu-close">
-				<p class="flick-menu-close tclck">
-					<i class="aui-iconfont aui-icon-close"></i>
-				</p>
-			</a>
-			<div class="spec-price" id="specJdPri" style="display: block">
-                        <span class="yang-pic spec-yang-pic">￥
-                                        </span>
-				<span id="spec_price">36.80 </span>
-			</div>
-			<div id="specWeightDiv" class="spec-weight">
-				<span>重量:</span>
-				<span id="spec_weight">3.26kg</span>
-			</div>
-		</div>
-		<div class="spec-menu-middle">
-			<div class="prod-spec" id="prodSpecArea">
-				<!-- 已选 -->
-				<div class="prod-spec" id="prodSpecArea">
-					<!-- 已选 -->
-					<div class="spec-desc">
-						<span class="part-note-msg">已选</span>
-						<div id="specDetailInfo_spec" class="base-txt">
-							黑色  128GB &nbsp;&nbsp;<span class="amount">1</span>
-							件
-
-						</div>
-					</div>
-					<div class="nature-container" id="natureCotainer">
-						<!--颜色 5.5版本之前的规格属性-->
-						<div class="pro-color">
-							<span class="part-note-msg">颜色 </span>
-							<p id="color">
-								<a title="金色" class="a-item selected J_ping" report-eventparam="金色">金色</a>
-								<a title="玫瑰金色" class="a-item J_ping" report-eventparam="玫瑰金色">玫瑰金色</a>
-								<a title="银色" class="a-item J_ping" report-eventparam="银色">银色</a>
-								<a title="黑色" class="a-item J_ping" report-eventparam="黑色">黑色</a>
-								<a title="亮黑色" class="a-item J_ping" report-eventparam="亮黑色">亮黑色</a>
-								<a title="特别版红" class="a-item J_ping" report-eventparam="特别版红">特别版红</a>
-							</p>
-						</div>
-						<div class="pro-color">
-							<span class="part-note-msg">容量 </span>
-							<p id="color1">
-								<a title="16G" class="a-item selected J_ping" report-eventparam="16G">16G</a>
-								<a title="32G" class="a-item J_ping" report-eventparam="32G">32G</a>
-								<a title="64G" class="a-item J_ping" report-eventparam="64G">64G</a>
-								<a title="128G" class="a-item J_ping" report-eventparam="128G">128G</a>
-								<a title="256G" class="a-item J_ping" report-eventparam="256G">256G</a>
-							</p>
-						</div>
-						<!--尺寸-->
-						<!--容量-->
-						<!--数量-->
-					</div>
-					<!--尺寸-->
-					<!--容量-->
-					<!--数量-->
-					<div id="addCartNum" class="pro-count">
-						<span class="part-note-msg" style="margin-right: 10px;">数量</span>
-						<div style="width: 100%;margin-left: 10px;" class="num ">
-							<p class="jian" style="float: left;margin-top: 5px; font-size:18px;">-
-							</p>
-							<input id="cool" class="inputBorder" value="1" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')" type="text" maxlength="5" placeholder="数量" style="font-size: 12px;width: 60px;height: 20px;float: left;padding: 0 5px;margin-top:3px;margin-left: 5px; text-align:center"/>
-							<p class="jia" style="float: left;margin-top: 5px;font-size:18px; margin-left:4px;">+
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--延保start-->
-			<div class="warranty-wrap bdr-t">
-				<div id="spec_yanbaoInfo" class="warranty-title">保障服务 </div>
-				<div id="spec_yanbaoItems"></div>
-			</div>
-			<!--延保end-->
-		</div>
-	</div>
-</div>
-<!-- 弹出 -->
+<!-- footer -->
 <footer class="aui-bar aui-bar-tab aui-margin-t-15  aui-border-t iphonex-pb">
 	<div class="aui-bar-tab-item" style="width: 2rem;">
 		<i class="kefu"></i><a href="chat"></a>
@@ -416,7 +329,16 @@
 				// 规格图片
 				$('.aui-card-list').append('<img src="__UPLOADS__/'+data.goods_spec_img+'">')
 				// 质检图
-				
+				var quality = '<div>';
+				$.each(data.goods_quality_img, function(idx, val){
+					if(val != null){
+						quality += '<img src="__UPLOAD__/'+val+'">';
+					}
+				})
+				quality += '</div>';
+				$('.tabCon').before(quality);
+
+
 				// 价格
 				$('.price').html('￥'+data.goods_bottom_money+'');
 				xid = data.id;
