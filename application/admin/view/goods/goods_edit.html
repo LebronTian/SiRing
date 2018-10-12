@@ -383,7 +383,7 @@
                 IMEI号&nbsp;&nbsp;<input type="text" name="goods_num" value="{$value.goods_number}" class="input-text" style="width: 300px">
             </div>
             <div class="row cl">
-                <div class="formControls col-xs-8 col-sm-9" style="width:45%;">
+                <div class="formControls col-xs-8 col-sm-9" style="width:45%;margin-left: 180px;">
                     <table>
                         {volist name="goods_images" id="v"}
                         {if $v.goods_images == null}
@@ -460,7 +460,7 @@
             <label class="form-label col-xs-4 col-sm-2">状态</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <input name="goods_status" type="radio" value="0"><span>暂不上架</span>
-                <input name="goods_status" type="radio" value="1"><span>立即上架</span>
+                <input name="goods_status" checked type="radio" value="1"><span>立即上架</span>
             </div>
         </div>
 
