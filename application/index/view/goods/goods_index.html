@@ -101,24 +101,18 @@
 
 <div class="swiper-container">
     <div class="swiper-wrapper">
-        <a class="swiper-slide active" href="javascript:;">【32G超低价】</a>
-        <a class="swiper-slide" href="javascript:;">【128G推荐】</a>
-        <a class="swiper-slide" href="javascript:;">【64G推荐】</a>
-        <a class="swiper-slide" href="javascript:;">【512G推荐】</a>
-        <a class="swiper-slide" href="javascript:;">【1024G推荐】</a>
-        <a class="swiper-slide" href="javascript:;">【2048G推荐】</a>
-        <a class="swiper-slide" href="javascript:;">【4096G推荐】</a>
+        <!-- <a class="swiper-slide active" href="javascript:;">【32G超低价】</a> -->
     </div>
 </div>
 <div class="goods_div">
     <ul>
-        <li>
+        <!-- <li>
             <div class="goods_img">
                 <a href="javascript:;"><img src="__UPLOAD__/20181009/7ad9138731a2aade55b16596ae6fa9b2.jpg"></a>
             </div>
             <p class="goods_name">iPhoneXMAXplus256G 超值价 iPhone 7plus1024G 超值价</p>
             <p class="goods_price">￥9998</p>
-        </li>
+        </li> -->
     </ul>
 </div>
 </body>
@@ -126,9 +120,7 @@
 <script type="text/javascript" src="__STATIC__/index/js/swiper-4.3.5.min.js"></script>
 
 <script>
-    $('.swiper-wrapper a').click(function(){
-        $(this).addClass('active').siblings().removeClass('active');
-    })
+
     // 滑动菜单
     var mySwiper = new Swiper('.swiper-container', {
         freeMode:true,//滑动不够一格，不会自动贴合
@@ -143,12 +135,74 @@
         async: false,
         success: function(data){
             console.log(data);
-            var str = '';
+            var str = '', capacity = '';
+            // 容量标题
+            $.each(data.data.goods_type, function(idx, val){
+                capacity += '<a class="swiper-slide" href="javascript:;" id='+val.id+'>【'+val.name+'推荐】</a>'
+            })
+            $('.swiper-wrapper').append(capacity);
             
-
+            // 容量标题 点击效果
+            $('.swiper-wrapper a').click(function(){
+                $(this).addClass('active').siblings().removeClass('active');
+            })
+            // 铺内容
+            $.each(data.data.goods_list, function(idx, val){
+                for(var i = 0; i < val.length; i++){
+                    str += '<li>\
+                                <div class="goods_img">\
+                                    <a href="javascript:;" id="'+val[i].id+'"><img src="__UPLOAD__/'+val[i].goods_show_images+'"></a>\
+                                </div>\
+                                <p class="goods_name">'+val[i].goods_name+'</p>\
+                                <p class="goods_price">￥'+val[i].goods_bottom_money+'</p>\
+                            </li>';
+                }
+            })
+            $('.goods_div ul').html('').append(str);
+            
+            // 判断筛选容量
+            $('.swiper-wrapper a').click(function(){
+                var id = $(this)[0].id;
+                var cap_str = '';
+                $.each(data.data.goods_list, function(idx, val){
+                    if(id == val[0].goods_type_id){
+                        for(var i = 0; i < val.length; i++){
+                            cap_str += '<li>\
+                                            <div class="goods_img">\
+                                                <a href="javascript:;" id="'+val[i].id+'"><img src="__UPLOAD__/'+val[i].goods_show_images+'"></a>\
+                                            </div>\
+                                            <p class="goods_name">'+val[i].goods_name+'</p>\
+                                            <p class="goods_price">￥'+val[i].goods_bottom_money+'</p>\
+                                        </li>';
+                        }
+                    }
+                })
+                $('.goods_div ul').html('').append(cap_str);
+                // 因为筛选以后不执行这个方法，所以复制一份到这里
+                $('.goods_img').find('a').click(function(){
+                    var list_img_id = $(this)[0].id;
+                    $.ajax({
+                        url: '{:url("index/Goods/goods_id")}',
+                        type: 'POST',
+                        dataType: 'JSON',
+                        async: false,
+                        data:{
+                            "goods_id": list_img_id
+                        },
+                        success: function(data){
+                            console.log(data);
+                            location.href = 'goods_detail';
+                        },
+                        error: function(){
+                            console.log('错误');
+                        }
+                    })
+                })
+            })
+            
             // 发送id 商品列表
-            $('.aui-list-item a').click(function(){
-                var list_img_id = $(this).children().find('img')[0].id.split('_')[1];
+            $('.goods_img').find('a').click(function(){
+                var list_img_id = $(this)[0].id;
                 $.ajax({
                     url: '{:url("index/Goods/goods_id")}',
                     type: 'POST',
@@ -159,13 +213,13 @@
                     },
                     success: function(data){
                         console.log(data);
+                        location.href = 'goods_detail';
                     },
                     error: function(){
                         console.log('错误');
                     }
                 })
             })
-
         },
         error: function(){
             console.log('错误')
