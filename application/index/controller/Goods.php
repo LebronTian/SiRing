@@ -23,14 +23,14 @@ class Goods extends  Controller{
         if ($request->isPost()) {
             $id = Session::get("id");
             $goods_list = db("goods")->where("goods_type_id", $id)->select();
-            $goods_type = db("goods_type")->where("id",$id)->select();
+            $goods_type = db("goods_type")->where("pid",$id)->select();
             return ajax_success("获取成功", array("goods_list"=>$goods_list,"goods_type"=>$goods_type));
         }
 
         return view('goods_index');
     }
 
-    
+
     /**
      * [商品分组id]
      * 陈绪
