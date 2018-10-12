@@ -164,11 +164,26 @@
                                                 <a href="{:url('+"admin/Category/del"+',['+"id"+'=>$value.id])}" class="am-text-danger cdelete" data-id="118">删除</a>\
                                             </td>\
                                         </tr>')
+                // 点击按钮发送id
+                var id = $(e.target)[0].id;
+                $.ajax({
+                    url: '{:url("admin/Category/ajax_id")}',
+                    type: 'POST',
+                    dataType:"json",
+                    data:{
+                        "id":id
+                    },
+                    success: function(data){
+                        console.log(data);
+                    },
+                    error:function() {
+                        console.log('错误');
+                    },
+                });
             }else if($(e.target)[0].innerHTML == '-'){
                 $(e.target)[0].innerHTML = '+';
                 $($this).parents('tr').next().remove();
             }
-           
         }
     })
 </script>
