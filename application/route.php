@@ -295,6 +295,7 @@ Route::group("admin",[
     "category_updata"=>"admin/Category/updata",
     "category_ajax"=>"admin/Category/ajax_add",
     "category_images"=>"admin/Category/images",
+    "category_id"=>"admin/Category/ajax_id",
 
 
     /*会员管理*/

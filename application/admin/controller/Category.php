@@ -72,6 +72,24 @@ class Category extends Controller{
     }
 
 
+
+
+    /**
+     * [商品分组显示]
+     * 陈绪
+     */
+    public function ajax_id(Request $request){
+
+        if($request->isPost()){
+            $type_id = $request->only(["id"])['id'];
+            $category = db("goods_type")->where("id",$type_id)->find();
+            return ajax_success("获取成功",$category);
+        }
+
+    }
+
+
+
     /**
      * [商品分组修改]
      * [陈绪]
