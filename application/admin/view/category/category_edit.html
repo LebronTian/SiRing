@@ -202,7 +202,7 @@
                             <td>
                                 <img style="cursor:pointer;" height="160" src="__TYPE__/{$value.type_images}" alt=""><br>
                                 <input type="hidden" class="imgId" value="{$value.id}">
-                                <a href="javascript:;" onclick="product_del(this,'{$value.id}')">图片删除</a>
+                                <a href="javascript:;" onclick="product_del(this,'{$value.type_images}')">图片删除</a>
                             </td>
 
                         </tr>
@@ -241,7 +241,7 @@
                             <td>
                                 <img style="cursor:pointer;" height="160" src="__TYPE__/{$value.type_show_images}" alt=""><br>
                                 <input type="hidden" class="imgId" value="{$value.id}">
-                                <a href="javascript:;" onclick="product_del(this,'{$value.id}')">图片删除</a>
+                                <a href="javascript:;" onclick="product_del(this,'{$value.type_show_images}')">图片删除</a>
                             </td>
                         </tr>
                     </table>
@@ -462,12 +462,12 @@
     }
 </script>
 <script>
-    function product_del(obj,id){
+    function product_del(obj,images){
         layer.confirm('确认要删除吗？',function(index){
             $.ajax({
                 type: 'POST',
                 url: '{:url("admin/Category/images")}',
-                data:{"id":id},
+                data:{"images":images},
                 dataType:"json",
                 success: function(data){
                     console.log(data);

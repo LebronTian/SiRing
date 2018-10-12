@@ -174,22 +174,22 @@ class Category extends Controller{
      */
     public function images(Request $request){
         if($request->isPost()) {
-            $id = $request->only(['id'])['id'];
-            $images = db("goods_type")->where("id", $id)->find();
+            $images = $request->only(['images'])['images'];
+            $type_images = db("goods_type")->where("type_images",$images)->find();
+            $show_images = db("goods_type")->where("type_show_images",$images)->find();
 
-            if (!empty($images['type_images'])) {
-                unlink(ROOT_PATH . 'public' . DS . 'type/' . $images['type_show_images']);
-              $res =  db("goods_type")->where("id", $id)->update(['type_show_images'=>'']);
+            if (!empty($type_images)){
+                unlink(ROOT_PATH . 'public' . DS . 'type/' . $type_images['type_images']);
+                db("goods_type")->where("type_images",$images)->update(["type_images"=>null]);
             }
-            if (!empty($images['type_show_images'])) {
-                unlink(ROOT_PATH . 'public' . DS . 'type/' . $images['type_images']);
-              $res =  db("goods_type")->where("id", $id)->update(['type_images'=>'']);
+            if (!empty($show_images)) {
+                unlink(ROOT_PATH . 'public' . DS . 'type/' . $show_images['type_show_images']);
+                db("goods_type")->where("type_show_images", $images)->update(['type_show_images'=>null]);
             }
             return ajax_success("删除成功");
         }
 
     }
-
 
 }
 
