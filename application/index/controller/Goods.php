@@ -30,6 +30,7 @@ class Goods extends  Controller{
         return view('goods_index');
     }
 
+    
     /**
      * [商品分组id]
      * 陈绪
@@ -42,6 +43,7 @@ class Goods extends  Controller{
             return ajax_success("获取成功");
         }
     }
+
 
 
     /**
