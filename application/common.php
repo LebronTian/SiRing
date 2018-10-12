@@ -607,7 +607,7 @@ function show_category($arr){
                  echo '<li class="childLi">' ;
                      echo  '<span class="parent_span">' ;
                           echo  $value['name'] ;
-                          echo '<button>' . '+' . '</button>' ;
+                          echo '<button id='.$value['id'].'>' . '+' . '</button>' ;
                      echo  '</span>';
                              if($value["sub"]) {
                                  show_category($value["sub"]);
