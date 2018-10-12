@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0"/>
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
     <title>商品列表</title>
     <link rel="icon" type="image/x-icon" href="__STATIC__/index/favicon.ico">
@@ -59,6 +59,7 @@
         }
         .goods_div ul{
             padding: 0 8px;
+            box-sizing: border-box;
         }
         .goods_div ul::after{
             display: block;
@@ -66,7 +67,7 @@
             content: '';
         }
         .goods_div ul li{
-            width: 48%;
+            width: 50%;
             float: left;
             margin-bottom: 10px;
         }
