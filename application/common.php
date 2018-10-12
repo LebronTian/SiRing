@@ -600,3 +600,33 @@ function new_image($arr,$dir_name){
 }
 
 
+function show_category($arr){
+    if(!empty($arr)){
+        foreach ($arr as $value){
+            echo '<ul>' ;
+                 echo '<li class="childLi">' ;
+                     echo  '<span class="parent_span">' ;
+                          echo  $value['name'] ;
+                          echo '<button id='.$value['id'].'>' . '+' . '</button>' ;
+                     echo  '</span>';
+                             if($value["sub"]) {
+                                 show_category($value["sub"]);
+                             }
+                 echo '</li>' ;
+            echo  '</ul>';
+        }
+    }
+}
+
+
+function showCategory($arr,$pid=0,$form=""){   //利用递归函数实现无限分类的效果
+    $form.="&nbsp&nbsp&nbsp";   //让下拉框出现无限分类的层次效果
+    foreach ($arr as $value){
+        if($value['pid']==$pid){   //出现顶级分类的效果
+            echo "<option value='{$value['id']}'>".$form.$value['cname']."</option>";  //通过id调用cname名称
+            showCategory($arr,$value['id'],$form);   //递归函数，自己调用自己
+
+        }
+    }
+}
+

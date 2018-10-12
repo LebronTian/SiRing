@@ -43,29 +43,34 @@
             success: function(data){
                 console.log(data);
                 // 判断物流
-               switch(data.com){
-                   case 'yuantong':
-                        $('.logistic_name')[0].innerHTML = '圆通';break;
-                    case 'zhongtong':
-                        $('.logistic_name')[0].innerHTML = '中通';break;
-                    case 'shentong':
-                        $('.logistic_name')[0].innerHTML = '申通';break;
-                    case 'EMS':
-                        $('.logistic_name')[0].innerHTML = 'EMS';break;
-                    case 'shunfeng':
-                        $('.logistic_name')[0].innerHTML = '顺丰';break;
+                if(data.message == 'ok'){
+                    switch(data.com){
+                        case 'yuantong':
+                            $('.logistic_name')[0].innerHTML = '圆通';break;
+                        case 'zhongtong':
+                            $('.logistic_name')[0].innerHTML = '中通';break;
+                        case 'shentong':
+                            $('.logistic_name')[0].innerHTML = '申通';break;
+                        case 'EMS':
+                            $('.logistic_name')[0].innerHTML = 'EMS';break;
+                        case 'shunfeng':
+                            $('.logistic_name')[0].innerHTML = '顺丰';break;
 
-               }
-                // 物流单号
-                $('.logistic_num')[0].innerHTML = data.nu;
-                var len =  data.data.length;
-                var data = data.data;
-                for(var i = 0; i < len; i++){
-                    $('.logistic_box ul').append('<li>\
-                                                    <span style="font-size:12px;">'+data[i].time+'</span>\
-                                                    <i>&nbsp;—&nbsp;</i>\
-                                                    <span style="font-size:12px;">'+data[i].context+'</span>\
-                                                </li>')
+                    }
+                    // 物流单号
+                    $('.logistic_num')[0].innerHTML = data.nu;
+                    var len =  data.data.length;
+                    var data = data.data;
+                    for(var i = 0; i < len; i++){
+                        $('.logistic_box ul').append('<li>\
+                                                        <span style="font-size:12px;">'+data[i].time+'</span>\
+                                                        <i>&nbsp;—&nbsp;</i>\
+                                                        <span style="font-size:12px;">'+data[i].context+'</span>\
+                                                    </li>')
+                    }
+                }else{
+                    $('.logistic_num_box').css('display','none');
+                    $('.logistic_box ul').append('<li><p style="font-size:16px;">'+data.message+'</p></li>')
                 }
             },
             error:function(data) {
