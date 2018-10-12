@@ -350,6 +350,7 @@ Route::group("admin",[
     "order_wait_send"=>"admin/Order/WaitSend",//待发货页面
     "order_wait_pay"=>"admin/Order/WaitPay",   //待付款
     "order_wait_take"=>"admin/Order/WaitTake",   //待收货
+    "order_deliver_change"=>"admin/Order/order_deliver_change",   //已发货快递单号编辑
     "order_wait_evaluate"=>"admin/Order/WaitEvaluate",//待评价
     "orderComplete"=>"admin/Order/OrderComplete",//已完成
     "BuyerCancellation"=>"admin/Order/BuyerCancellation",//买家取消

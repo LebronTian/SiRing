@@ -204,6 +204,37 @@ class  Order extends  Controller{
         }
     }
 
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 快递单号已发货修改编辑
+     **************************************
+     */
+    public function order_deliver_change(Request $request){
+        if($request->isPost())
+        {
+            $data_express =$_POST;
+            $order_id =$_POST['order_id'];
+            $express_type=$_POST['express_type'];
+            $express_num =$_POST['express_num'];
+            $data =[
+                'express_type'=>$express_type,
+                'express_num'=>$express_num,
+            ];
+            if(!empty($data_express)){
+                $res =  Db::name("order")->where('id',$order_id)->update($data);
+                if($res){
+                    $this->success('快递信息更改成功');
+                }else{
+                    $this->error('未修改任何信息');
+                }
+            }
+        }
+
+    }
+
+
+
 
 
     /**
