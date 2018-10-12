@@ -114,28 +114,7 @@
     <ul>
         <li>
             <div class="goods_img">
-                <img src="__UPLOAD__/20181009/7ad9138731a2aade55b16596ae6fa9b2.jpg">
-            </div>
-            <p class="goods_name">iPhoneXMAXplus256G 超值价 iPhone 7plus1024G 超值价</p>
-            <p class="goods_price">￥9998</p>
-        </li>
-        <li>
-            <div class="goods_img">
-                <img src="__UPLOAD__/20181009/7ad9138731a2aade55b16596ae6fa9b2.jpg">
-            </div>
-            <p class="goods_name">iPhoneXMAXplus256G 超值价 iPhone 7plus1024G 超值价</p>
-            <p class="goods_price">￥9998</p>
-        </li>
-        <li>
-            <div class="goods_img">
-                <img src="__UPLOAD__/20181009/7ad9138731a2aade55b16596ae6fa9b2.jpg">
-            </div>
-            <p class="goods_name">iPhoneXMAXplus256G 超值价 iPhone 7plus1024G 超值价</p>
-            <p class="goods_price">￥9998</p>
-        </li>
-        <li>
-            <div class="goods_img">
-                <img src="__UPLOAD__/20181009/7ad9138731a2aade55b16596ae6fa9b2.jpg">
+                <a href="javascript:;"><img src="__UPLOAD__/20181009/7ad9138731a2aade55b16596ae6fa9b2.jpg"></a>
             </div>
             <p class="goods_name">iPhoneXMAXplus256G 超值价 iPhone 7plus1024G 超值价</p>
             <p class="goods_price">￥9998</p>
@@ -165,35 +144,8 @@
         success: function(data){
             console.log(data);
             var str = '';
-            if(data.data.goods_list.length !== 0){
-                $.each(data.data.goods_list, function(idx, val){
-                    var signStr = '';
-                    if(val.goods_sign != ''){
-                        var signLen = val.goods_sign.split(',').length;
-                        var signArr = val.goods_sign.split(',');
-                        for(var i = 0; i < signLen; i++){
-                            signStr += '<span>'+signArr[i]+'</span>'
-                        }
-                    }
-                    str += '<li class="aui-list-item">\
-                                <a href="{:url("index/Goods/detail")}">\
-                                    <div class="aui-media-list-item-inner">\
-                                        <div class="aui-list-item-media" style="width:6rem">\
-                                            <img src="__UPLOADS__/'+val.goods_show_images+'" id="img_'+val.id+'">\
-                                        </div>\
-                                        <div class="aui-list-item-inner">\
-                                            <div class="aui-list-item-text">\
-                                                <div class="aui-list-item-title">'+val.goods_name+'</div>\
-                                            </div>\
-                                            <div class="icon">'+signStr+'</div>\
-                                            <div><span class="aui-margin-l-5">￥'+val.goods_bottom_money+'</span></div>\
-                                        </div>\
-                                    </div>\
-                                </a>\
-                            </li>'
-                })
-                $('.aui-media-list').append(str);
-            }
+            
+
             // 发送id 商品列表
             $('.aui-list-item a').click(function(){
                 var list_img_id = $(this).children().find('img')[0].id.split('_')[1];
@@ -211,7 +163,6 @@
                     error: function(){
                         console.log('错误');
                     }
-                    
                 })
             })
 
