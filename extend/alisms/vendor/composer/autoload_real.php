@@ -10,7 +10,8 @@ class ComposerAutoloaderInitee70723fd3132b6d05f0ff016c58b71b
     {
         if ('Composer\Autoload\ClassLoader' === $class) {
 //            include(__DIR__ .DS.'ClassLoader.php');
-            include(EXTEND_PATH.'alisms/vendor/composer/ClassLoader.php');
+            include('../extend/alisms/vendor/composer/ClassLoader.php');
+//            include('../extend/AliPay/wappay/buildermodel/AlipayTradeWapPayContentBuilder.php');
         }
     }
 
