@@ -90,7 +90,6 @@ class Goods extends Controller{
             $goods_data = $request->param();
             $sign = $request->only(["goods_sign"])["goods_sign"];
             $goods_data["goods_sign"] = implode(",", $sign);
-            $goods_data["goods_number"] = $request->only(["goods_number"])["goods_number"];
             //图片添加
             $show_images = $request->file("goods_show_images");
             $show_image = $show_images->move(ROOT_PATH . 'public' . DS . 'uploads');
@@ -106,6 +105,7 @@ class Goods extends Controller{
             $goods_data["goods_parts_img"] = str_replace("\\", "/", $goods_parts_img->getSaveName());
 
             $goods_data["create_time"] = time();
+            halt($goods_data);
             $bool = db("goods")->insert($goods_data);
             if ($bool) {
                 //取出图片在存到数据库
@@ -233,20 +233,9 @@ class Goods extends Controller{
     {
         if ($request->isPost()) {
             $id = $request->only(["id"])["id"];
-            $goods_data = $request->only([
-                "goods_name",
-                "sort_number",
-                "goods_type_id",
-                "goods_new_money",
-                "goods_parts",
-                "goods_status",
-                "goods_bottom_money",
-                "goods_num",
-                "goods_date"
-            ]);
+            $goods_data = $request->param();
             $sign = $request->only(["goods_sign"])["goods_sign"];
             $goods_data["goods_sign"] = implode(",", $sign);
-            $goods_data["goods_number"] = $request->only(["goods_number"])["goods_number"];
             //图片添加
             $show_images = $request->file("goods_show_images");
             if(!empty($show_images)){
