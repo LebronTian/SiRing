@@ -2783,7 +2783,6 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .aui-title-text{
 	padding:20px;
-	margin-top:20px;
 	position:relative;
 }
 
@@ -2806,7 +2805,7 @@ input[type="search"]::-webkit-search-cancel-button {
 	border:none;
 }
 
-.aui-title-text a span{
+.aui-title-text .goods_desc span{
 	width:28px;
 	height:16px;
 	text-align:center;

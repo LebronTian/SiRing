@@ -75,6 +75,7 @@
             width: 95%;
             height: 120px;
             overflow: hidden;
+            position: relative;
         }
         .goods_div ul li .goods_img img{
             width: 100%;
@@ -94,7 +95,15 @@
             font-size: 14px;
             color: #f00;
         }
-
+        .goods_number{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            font-size: 12px;
+            background-color: orange;
+            width: 100%;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -149,13 +158,25 @@
             // 铺内容
             $.each(data.data.goods_list, function(idx, val){
                 for(var i = 0; i < val.length; i++){
-                    str += '<li>\
+                    if(val[i].goods_number == ''){
+                        str += '<li>\
                                 <div class="goods_img">\
                                     <a href="javascript:;" id="'+val[i].id+'"><img src="__UPLOADS__/'+val[i].goods_show_images+'"></a>\
                                 </div>\
                                 <p class="goods_name">'+val[i].goods_name+'</p>\
                                 <p class="goods_price">￥'+val[i].goods_bottom_money+'</p>\
                             </li>';
+                    }else{
+                        str += '<li>\
+                                <div class="goods_img">\
+                                    <a href="javascript:;" id="'+val[i].id+'"><img src="__UPLOADS__/'+val[i].goods_show_images+'"></a>\
+                                    <p class="goods_number">'+val[i].goods_number+'</p>\
+                                </div>\
+                                <p class="goods_name">'+val[i].goods_name+'</p>\
+                                <p class="goods_price">￥'+val[i].goods_bottom_money+'</p>\
+                            </li>';
+                    }
+                    
                 }
             })
             $('.goods_div ul').html('').append(str);
@@ -165,17 +186,32 @@
                 var id = $(this)[0].id;
                 var cap_str = '';
                 $.each(data.data.goods_list, function(idx, val){
-                    if(id == val[0].goods_type_id){
-                        for(var i = 0; i < val.length; i++){
-                            cap_str += '<li>\
-                                            <div class="goods_img">\
-                                                <a href="javascript:;" id="'+val[i].id+'"><img src="__UPLOADS__/'+val[i].goods_show_images+'"></a>\
-                                            </div>\
-                                            <p class="goods_name">'+val[i].goods_name+'</p>\
-                                            <p class="goods_price">￥'+val[i].goods_bottom_money+'</p>\
-                                        </li>';
+                    if(val.length != 0){
+                        if(id == val[0].goods_type_id){
+                            for(var i = 0; i < val.length; i++){
+                                if(val[i].goods_number == ''){
+                                    cap_str += '<li>\
+                                                <div class="goods_img">\
+                                                    <a href="javascript:;" id="'+val[i].id+'"><img src="__UPLOADS__/'+val[i].goods_show_images+'"></a>\
+                                                </div>\
+                                                <p class="goods_name">'+val[i].goods_name+'</p>\
+                                                <p class="goods_price">￥'+val[i].goods_bottom_money+'</p>\
+                                            </li>';
+                                }else{
+                                    cap_str += '<li>\
+                                                <div class="goods_img">\
+                                                    <a href="javascript:;" id="'+val[i].id+'"><img src="__UPLOADS__/'+val[i].goods_show_images+'"></a>\
+                                                    <p class="goods_number">'+val[i].goods_number+'</p>\
+                                                </div>\
+                                                <p class="goods_name">'+val[i].goods_name+'</p>\
+                                                <p class="goods_price">￥'+val[i].goods_bottom_money+'</p>\
+                                            </li>';
+                                }
+                                
+                            }
                         }
                     }
+                    
                 })
                 $('.goods_div ul').html('').append(cap_str);
                 // 因为筛选以后不执行这个方法，所以复制一份到这里

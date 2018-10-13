@@ -159,7 +159,7 @@
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>出厂日期+充电次数</label>
 			<div class="formControls col-xs-8 col-sm-9">
                 <input type="text" class="input-text goods_number" name="goods_number" placeholder="请输入" style="width: 400px">
-                <p style=" font-size:10px;"><span style="color:red;">*</span>设定规则按照字幕+数字编号</p>
+                <p style=" font-size:10px;"><span style="color:red;">*</span>设定规则按照字母+数字编号</p>
 			</div>
 		</div>
 		<div class="row cl">
@@ -385,8 +385,6 @@
             alert('网络和出厂日期不能为空');
         }else if($('.goods_parts').val() == ''){
             alert('赠送配件说明不能为空');
-        }else if($('.imei_num').val() == ''){
-            alert('IMEI号不能为空');
         }else if($('.img_div').find('.isImg').length == 0){
             alert('需要上传商品主图');
         }else if($('.img_div2').find('.isImg2').length == 0){
