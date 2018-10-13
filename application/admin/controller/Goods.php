@@ -105,7 +105,6 @@ class Goods extends Controller{
             $goods_data["goods_parts_img"] = str_replace("\\", "/", $goods_parts_img->getSaveName());
 
             $goods_data["create_time"] = time();
-            halt($goods_data);
             $bool = db("goods")->insert($goods_data);
             if ($bool) {
                 //取出图片在存到数据库
