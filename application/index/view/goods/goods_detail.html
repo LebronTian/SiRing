@@ -247,7 +247,7 @@
 	<!-- <div class="aui-slide-page-wrap"> -->
 		<!--分页容器-->
 	<!-- </div> -->
-	<span class="identifier">编号：456</span>
+	<span class="identifier"></span>
 </div>
 <div class="aui-title-text ">
 	<h2 class="goods_desc">
@@ -375,6 +375,8 @@
 				net_date += '</p>';
 				$('.goods_desc').after(net_date);
 
+				// 编号
+				$('.identifier').html(data.goods_number);
 				// 赠送配件说明
 				$('.goods_parts_cont').html(data.goods_parts);
 				$('.goods_parts_img').html('<img src="__UPLOADS__/'+data.goods_parts_img+'">')
@@ -393,17 +395,40 @@
 				$('.tabCon').before(quality);
 
 				var img_num;
-                var activeBox;//用户点击当前图片的父级盒子
                 // 图片放大
                 // 给tpfd添加点击事件，事件委托img，获取img的src路径
-                $('.tabBox').click(function(){
+                $('.tabBox').click(function(e){
                     var src = $(this).children('img')[0].src;
-                    activeIndex = $(this).index();
+                    activeIndex = $(e.target).index();
                     img_num = $(this).children('img').length;
-                    activeBox = $(this).parents('.eva_img_div');
                     loadImage(src);
                 })
-                //show-image添加图片
+                
+                var activeIndex;//在tabBox的点击事件中获取当前图片的索引值
+                $('.show-image').on('tap',function(){
+                        $('.show-image').hide();
+                    })
+                    .on('swipeLeft',function(){
+                        activeIndex++;
+                        if(activeIndex > img_num - 1){
+                            activeIndex = img_num - 1;
+                        }else{
+                            // 下一张图片的src
+							var src = $('.tabBox').children('img')[activeIndex].src;
+                            loadImage(src);
+                        }
+                    })
+                    .on('swipeRight',function(){
+                        activeIndex--;
+                        if(activeIndex < 0){
+                            activeIndex = 0
+                        }else{
+                            // 上一张图片的src
+                            var src = $('.tabBox').children('img')[activeIndex].src;
+                            loadImage(src);
+                        }
+                    })
+				//show-image添加图片
                 //获取可视窗口比例
                 var bili = $(window).height() / $(window).width();
                 function loadImage(src) {
@@ -423,30 +448,6 @@
                         }
                     }
                 }
-                var activeIndex;//在tpfd的点击事件中获取当前图片的索引值
-                $('.show-image').on('tap',function(){
-                        $('.show-image').hide();
-                    })
-                    .on('swipeLeft',function(){
-                        activeIndex++;
-                        if(activeIndex > img_num - 1){
-                            activeIndex = img_num - 1;
-                        }else{
-                            // 下一张图片的src
-                            var src = $($(activeBox).children('div')[activeIndex]).children('img')[0].src;
-                            loadImage(src);
-                        }
-                    })
-                    .on('swipeRight',function(){
-                        activeIndex--;
-                        if(activeIndex < 0){
-                            activeIndex = 0
-                        }else{
-                            // 上一张图片的src
-                            var src = $($(activeBox).children('div')[activeIndex]).children('img')[0].src;
-                            loadImage(src);
-                        }
-                    })
 
 				// 价格
 				$('.price').html('￥'+data.goods_bottom_money+' '+'<span class="goods_new_money">￥'+data.goods_new_money+'</span>');

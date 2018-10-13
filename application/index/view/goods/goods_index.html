@@ -189,13 +189,25 @@
                     if(val.length != 0){
                         if(id == val[0].goods_type_id){
                             for(var i = 0; i < val.length; i++){
-                                cap_str += '<li>\
+                                if(val[i].goods_number == ''){
+                                    cap_str += '<li>\
                                                 <div class="goods_img">\
                                                     <a href="javascript:;" id="'+val[i].id+'"><img src="__UPLOADS__/'+val[i].goods_show_images+'"></a>\
                                                 </div>\
                                                 <p class="goods_name">'+val[i].goods_name+'</p>\
                                                 <p class="goods_price">￥'+val[i].goods_bottom_money+'</p>\
                                             </li>';
+                                }else{
+                                    cap_str += '<li>\
+                                                <div class="goods_img">\
+                                                    <a href="javascript:;" id="'+val[i].id+'"><img src="__UPLOADS__/'+val[i].goods_show_images+'"></a>\
+                                                    <p class="goods_number">'+val[i].goods_number+'</p>\
+                                                </div>\
+                                                <p class="goods_name">'+val[i].goods_name+'</p>\
+                                                <p class="goods_price">￥'+val[i].goods_bottom_money+'</p>\
+                                            </li>';
+                                }
+                                
                             }
                         }
                     }
