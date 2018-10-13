@@ -397,7 +397,7 @@ class Goods extends Controller{
             $goods = db("goods")->where("id",$id)->find();
             $dir_name = (ROOT_PATH . 'public' . DS . 'uploads/'."SB".date("Ymd"));
             if(!is_dir($dir_name)){
-                mkdir(ROOT_PATH . 'public' . DS . 'uploads/'."SB".date("Ymd"),777);
+                mkdir(ROOT_PATH . 'public' . DS . 'uploads/'."SB".date("Ymd"),0777);
             }
             $goods["goods_show_images"] = new_images($goods["goods_show_images"],$dir_name);
             $goods["goods_parts_big_img"] = new_images($goods["goods_parts_big_img"],$dir_name);
@@ -415,7 +415,7 @@ class Goods extends Controller{
                     }
                     $dir_names = (ROOT_PATH . 'public' . DS . 'upload/'."SB".date("Ymd"));
                     if(!is_dir($dir_names)){
-                        $name_bool = mkdir(ROOT_PATH . 'public' . DS . 'upload/'."SB".date("Ymd"),777);
+                        mkdir(ROOT_PATH . 'public' . DS . 'upload/'."SB".date("Ymd"),0777);
                     }
 
                     if($val["goods_images"] != null){
