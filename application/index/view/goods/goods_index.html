@@ -165,17 +165,20 @@
                 var id = $(this)[0].id;
                 var cap_str = '';
                 $.each(data.data.goods_list, function(idx, val){
-                    if(id == val[0].goods_type_id){
-                        for(var i = 0; i < val.length; i++){
-                            cap_str += '<li>\
-                                            <div class="goods_img">\
-                                                <a href="javascript:;" id="'+val[i].id+'"><img src="__UPLOADS__/'+val[i].goods_show_images+'"></a>\
-                                            </div>\
-                                            <p class="goods_name">'+val[i].goods_name+'</p>\
-                                            <p class="goods_price">￥'+val[i].goods_bottom_money+'</p>\
-                                        </li>';
+                    if(val.length != 0){
+                        if(id == val[0].goods_type_id){
+                            for(var i = 0; i < val.length; i++){
+                                cap_str += '<li>\
+                                                <div class="goods_img">\
+                                                    <a href="javascript:;" id="'+val[i].id+'"><img src="__UPLOADS__/'+val[i].goods_show_images+'"></a>\
+                                                </div>\
+                                                <p class="goods_name">'+val[i].goods_name+'</p>\
+                                                <p class="goods_price">￥'+val[i].goods_bottom_money+'</p>\
+                                            </li>';
+                            }
                         }
                     }
+                    
                 })
                 $('.goods_div ul').html('').append(cap_str);
                 // 因为筛选以后不执行这个方法，所以复制一份到这里

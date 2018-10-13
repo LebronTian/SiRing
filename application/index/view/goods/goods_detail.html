@@ -111,12 +111,14 @@
 			background-size: 100%;
 			vertical-align: sub;
 		}
-		.zjsp_title{
+		.zjsp_title,
+		.zjtp_title{
 			font-size: 18px;
 			color: #000;
 			padding: 8px 0 8px 5px;
 		}
-		.zjsp_title::before{
+		.zjsp_title::before,
+		.zjtp_title::before{
 			content: '|';
 			color: #f00;
 			font-weight: bold;
@@ -124,6 +126,45 @@
 		.zjsp_title span{
 			font-size: 13px;
 			color: #aaa;
+		}
+		/* 图片放大样式 */
+		.show-image{
+            position: fixed;
+            left:0;
+            top:0;
+            width:100%;
+            height:100vh;
+            display:none;
+            background:#000;
+            z-index: 999;
+        }
+        .show-image img{
+            position: absolute;
+            left:50%;
+            top:50%;
+            transform: translate(-50%,-50%);
+            opacity: 0;
+        }
+		.identifier{
+			position: absolute;
+			right: 0;
+			bottom: 20px;
+			padding: 2px 5px;
+			background-color: pink;
+			border-top-left-radius: 15px;
+			border-bottom-left-radius: 15px;
+			font-size: 12px;
+			color: #fff;
+			z-index: 99;
+		}
+		.goods_parts_cont{
+			color: #f00;
+		}
+		.goods_new_money{
+			color: #000;
+			font-weight: normal;
+			text-decoration: line-through;
+			font-size: 14px;
 		}
 	</style>
 	<link rel="icon" type="__STATIC__/index/image/x-icon" href="__STATIC__/index/favicon.ico">
@@ -200,21 +241,20 @@
 
 			</div>
 			<!-- 如果需要分页器 -->
-			<div class="swiper-pagination"></div>
+			<!-- <div class="swiper-pagination"></div> -->
 		</div>
 	</div>
-	<div class="aui-slide-page-wrap">
+	<!-- <div class="aui-slide-page-wrap"> -->
 		<!--分页容器-->
-	</div>
+	<!-- </div> -->
+	<span class="identifier">编号：456</span>
 </div>
 <div class="aui-title-text ">
-	<a href="#">
-		<h2 class="goods_desc">
-			<!-- <i><img src="__STATIC__/index/image/l.png" alt=""></i>
-			<span>促销</span>
-			荣耀V9play全网通 标配版 3GB+32GB 幻夜黑 移动联通电信4G手机 双卡双待 -->
-		</h2>
-	</a>
+	<h2 class="goods_desc">
+		<!-- <i><img src="__STATIC__/index/image/l.png" alt=""></i>
+		<span>促销</span>
+		荣耀V9play全网通 标配版 3GB+32GB 幻夜黑 移动联通电信4G手机 双卡双待 -->
+	</h2>
 	<div style="font-size:18px; font-weight:800; color:#f34347" class="price">￥1299.00
 	</div>
 	<div class="time_box" style="text-align:right; display: none;">
@@ -276,6 +316,8 @@
 	<a href="javascript:$('.goods_parts_big_img').hide();;">×</a>
 	<div></div>
 </div>
+<!-- 图片放大 -->
+<div class="show-image"></div>
 <script src="__STATIC__/index/js/swiper-4.3.5.min.js"></script>
 <script type="text/javascript" src="__STATIC__/index/js/index/api.js"></script>
 <script type="text/javascript" src="__STATIC__/index/js/index/aui-popup-new.js"></script>
@@ -283,6 +325,9 @@
 <script type="text/javascript" src="__STATIC__/index/js/index/aui-collapse.js"></script>
 <script src="__STATIC__/index/js/index/jquery.min.js"></script>
 <script src="__STATIC__/index/js/index/ratchet.min.js"></script>
+<script src="__STATIC__/index/js/zepto.js"></script>
+<script src="__STATIC__/index/js/touch.js"></script>
+<script src="__STATIC__/index/js/animate.js"></script>
 <script>
 	window.onscroll = function() {
 		var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
@@ -313,13 +358,22 @@
 				}
 				$('.tabBox').append(str);
 				// 标题
-				var str = '';
+				var str_title = '';
 				var sign_len = data.goods_sign.split(',').length;
 				for(var i = 0; i < sign_len; i++){
-					str += '<span>'+data.goods_sign.split(',')[i]+'</span>';
+					str_title += '<span>'+data.goods_sign.split(',')[i]+'</span>';
 				}
-				$('.goods_desc').html(str + data.goods_name+'');
+				$('.goods_desc').html(str_title + data.goods_name+'');
 				$('.goods_desc')[0].id = "desc_" + data.id;
+				
+				// 网络和出厂日期
+				var net_date = '<p>';
+				var net_date_arr = data.goods_date.split('，');
+				$.each(net_date_arr, function(idx, val){
+					net_date += val +' ';
+				})
+				net_date += '</p>';
+				$('.goods_desc').after(net_date);
 
 				// 赠送配件说明
 				$('.goods_parts_cont').html(data.goods_parts);
@@ -329,7 +383,7 @@
 				// 规格图片
 				$('.aui-card-list').append('<img src="__UPLOADS__/'+data.goods_spec_img+'">')
 				// 质检图
-				var quality = '<div>';
+				var quality = '<div><p class="zjtp_title"></p>';
 				$.each(data.goods_quality_img, function(idx, val){
 					if(val != null){
 						quality += '<img src="__UPLOAD__/'+val+'">';
@@ -338,9 +392,66 @@
 				quality += '</div>';
 				$('.tabCon').before(quality);
 
+				var img_num;
+                var activeBox;//用户点击当前图片的父级盒子
+                // 图片放大
+                // 给tpfd添加点击事件，事件委托img，获取img的src路径
+                $('.tabBox').click(function(){
+                    var src = $(this).children('img')[0].src;
+                    activeIndex = $(this).index();
+                    img_num = $(this).children('img').length;
+                    activeBox = $(this).parents('.eva_img_div');
+                    loadImage(src);
+                })
+                //show-image添加图片
+                //获取可视窗口比例
+                var bili = $(window).height() / $(window).width();
+                function loadImage(src) {
+                    $('.show-image').empty().show();//清空之前的图片
+                    var oImg = new Image(),
+                        oImage_src = src;
+                    oImg.src = oImage_src;
+                    oImg.onload = function () {
+                        //等图片下载完再显示
+                        //获取图片宽高比例
+                        var img_h = this.height,
+                            img_w = this.width;
+                        if(img_h / img_w > bili){
+                            $(oImg).appendTo($('.show-image')).css('height','100%').animate({opacity:1},500);
+                        }else{
+                            $(oImg).appendTo($('.show-image')).css('width','100%').animate({opacity:1},500);
+                        }
+                    }
+                }
+                var activeIndex;//在tpfd的点击事件中获取当前图片的索引值
+                $('.show-image').on('tap',function(){
+                        $('.show-image').hide();
+                    })
+                    .on('swipeLeft',function(){
+                        activeIndex++;
+                        if(activeIndex > img_num - 1){
+                            activeIndex = img_num - 1;
+                        }else{
+                            // 下一张图片的src
+                            var src = $($(activeBox).children('div')[activeIndex]).children('img')[0].src;
+                            loadImage(src);
+                        }
+                    })
+                    .on('swipeRight',function(){
+                        activeIndex--;
+                        if(activeIndex < 0){
+                            activeIndex = 0
+                        }else{
+                            // 上一张图片的src
+                            var src = $($(activeBox).children('div')[activeIndex]).children('img')[0].src;
+                            loadImage(src);
+                        }
+                    })
 
 				// 价格
-				$('.price').html('￥'+data.goods_bottom_money+'');
+				$('.price').html('￥'+data.goods_bottom_money+' '+'<span class="goods_new_money">￥'+data.goods_new_money+'</span>');
+				// 全新家
+
 				xid = data.id;
 				if(data.start_time != undefined){
 					$('.time_box').css('display','block');
