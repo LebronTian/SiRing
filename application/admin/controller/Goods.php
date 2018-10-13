@@ -401,7 +401,7 @@ class Goods extends Controller{
                     if($val['id']){
                         unset($val["id"]);
                     }
-                    $dir_names = (ROOT_PATH . 'public' . DS . 'upload/'."SB".date("Ymd"));
+                    $dir_names = (ROOT_PATH . 'public' . DS . 'upload/' . "SB" . date("Ymd"));
                     if(!is_dir($dir_names)){
                         mkdir(ROOT_PATH . 'public' . DS . 'upload/'."SB".date("Ymd"),0777);
                     }
