@@ -39,6 +39,10 @@ class Electron extends Controller{
      */
     public function save(Request $request){
         $data = $request->param();
+        $order = db("order")->where("status",">=",2)->where("status","<",11)->select();
+        foreach ($order as $value){
+            $goods[] = db("goods")->where("id",$value['goods_id'])->select();
+        }
         $bool = db("electron")->insert($data);
         if($bool){
             $this->success("添加成功");

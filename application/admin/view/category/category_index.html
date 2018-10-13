@@ -87,6 +87,7 @@
                         <input type="checkbox" class="ccheckall">
                         <a href="javascript:;" class="am-text-danger cdeleteall" style="margin-left:10px;color: #000"><span class="table-title">分类名称</span></a>
                     </th>
+                    <th class="table-parent">id</th>
                     <th class="table-parent">商品分类图标图片</th>
                     <th class="table-parent">商品分类大图</th>
                     <th class="table-status">状态</th>
@@ -107,6 +108,7 @@
                             </ul>
                         </div>
                     </td>
+                    <td>{$value.id}</td>
                     <td><img width="60" class="product-thumb" src="__TYPE__/{$value.type_images}"></td>
                     <td><img width="60" class="product-thumb" src="__TYPE__/{$value.type_show_images}"></td>
                     <td><button data-status="{$value.status}" class="cstatus am-btn am-btn-xs am-btn-danger">已启用</button>
@@ -168,6 +170,7 @@
                                                 <input type="checkbox" class="ccheck">\
                                                 '+data.data.name+'\
                                             </td>\
+                                            <td>'+data.data.id+'</td>\
                                             <td><img width="60" class="product-thumb" src="__TYPE__/'+data.data.type_images+'"></td>\
                                             <td><img width="60" class="product-thumb" src="__TYPE__/'+data.data.type_show_images+'"></td>\
                                             <td><button data-status="'+data.data.status+'" class="cstatus am-btn am-btn-xs am-btn-danger">已启用</button>\

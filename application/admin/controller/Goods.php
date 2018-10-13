@@ -90,7 +90,6 @@ class Goods extends Controller{
             $goods_data = $request->param();
             $sign = $request->only(["goods_sign"])["goods_sign"];
             $goods_data["goods_sign"] = implode(",", $sign);
-            $goods_data["goods_number"] = $request->only(["goods_number"])["goods_number"];
             //图片添加
             $show_images = $request->file("goods_show_images");
             $show_image = $show_images->move(ROOT_PATH . 'public' . DS . 'uploads');
@@ -126,9 +125,9 @@ class Goods extends Controller{
                 }
                 $booldata = model("goods_images")->saveAll($goods_images);
                 if ($booldata) {
-                    $this->redirect(url('admin/Goods/index'));
+                    $this->redirect('admin/Goods/index');
                 } else {
-                    $this->redirect(url('admin/Goods/add'));
+                    $this->redirect('admin/Goods/index');
                 }
             }
         }
@@ -233,20 +232,9 @@ class Goods extends Controller{
     {
         if ($request->isPost()) {
             $id = $request->only(["id"])["id"];
-            $goods_data = $request->only([
-                "goods_name",
-                "sort_number",
-                "goods_type_id",
-                "goods_new_money",
-                "goods_parts",
-                "goods_status",
-                "goods_bottom_money",
-                "goods_num",
-                "goods_date"
-            ]);
+            $goods_data = $request->param();
             $sign = $request->only(["goods_sign"])["goods_sign"];
             $goods_data["goods_sign"] = implode(",", $sign);
-            $goods_data["goods_number"] = $request->only(["goods_number"])["goods_number"];
             //图片添加
             $show_images = $request->file("goods_show_images");
             if(!empty($show_images)){
@@ -297,9 +285,9 @@ class Goods extends Controller{
                 }
                 $booldata = model("goods_images")->saveAll($goods_images);
                 if ($booldata) {
-                    $this->redirect(url('admin/Goods/index'));
+                    $this->redirect('admin/Goods/index');
                 } else {
-                    $this->redirect(url('admin/Goods/index'));
+                    $this->redirect('admin/Goods/index');
                 }
             }
         }
@@ -397,7 +385,7 @@ class Goods extends Controller{
             $goods = db("goods")->where("id",$id)->find();
             $dir_name = (ROOT_PATH . 'public' . DS . 'uploads/'."SB".date("Ymd"));
             if(!is_dir($dir_name)){
-                mkdir(ROOT_PATH . 'public' . DS . 'uploads/'."SB".date("Ymd"),777);
+                mkdir(ROOT_PATH . 'public' . DS . 'uploads/'."SB".date("Ymd"),0777);
             }
             $goods["goods_show_images"] = new_images($goods["goods_show_images"],$dir_name);
             $goods["goods_parts_big_img"] = new_images($goods["goods_parts_big_img"],$dir_name);
@@ -415,7 +403,7 @@ class Goods extends Controller{
                     }
                     $dir_names = (ROOT_PATH . 'public' . DS . 'upload/'."SB".date("Ymd"));
                     if(!is_dir($dir_names)){
-                        $name_bool = mkdir(ROOT_PATH . 'public' . DS . 'upload/'."SB".date("Ymd"),777);
+                        mkdir(ROOT_PATH . 'public' . DS . 'upload/'."SB".date("Ymd"),0777);
                     }
 
                     if($val["goods_images"] != null){
