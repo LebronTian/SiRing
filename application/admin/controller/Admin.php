@@ -43,9 +43,9 @@ class Admin extends Controller
         $boolData = model("Admin")->sSave($data);
 
         if($boolData){
-            $this->redirect(url("admin/admin/index"));
-        }else{
-            $this->redirect(url("admin/admin/add"));
+            $this->success("添加成功",url('admin/admin/index'));
+        } else {
+            $this->error("添加失败",url('admin/admin/index'));
         }
     }
 
@@ -56,9 +56,9 @@ class Admin extends Controller
     public function del($id){
         $bool = model("Admin")->where("id",$id)->delete();
         if($bool){
-            $this->redirect(url("admin/admin/index"));
-        }else{
-            $this->error(url("admin/admin/index"));
+            $this->success("添加成功",url('admin/admin/index'));
+        } else {
+            $this->error("添加失败",url('admin/admin/index'));
         }
     }
 
@@ -83,9 +83,9 @@ class Admin extends Controller
         $id = $request->only(['id'])['id'];
         $bool = db("Admin")->where('id', $id)->update($data);
         if ($bool){
-            $this->success("编辑成功",url("admin/admin/index"));
-        }else{
-            $this->error("编辑失败",url("admin/admin/edit"));
+            $this->success("添加成功",url('admin/admin/index'));
+        } else {
+            $this->error("添加失败",url('admin/admin/index'));
         }
     }
 
