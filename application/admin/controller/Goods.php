@@ -126,9 +126,9 @@ class Goods extends Controller{
                 }
                 $booldata = model("goods_images")->saveAll($goods_images);
                 if ($booldata) {
-                    $this->redirect('index/Goods/index');
+                    $this->redirect('admin/Goods/index');
                 } else {
-                    $this->redirect('index/Goods/index');
+                    $this->redirect('admin/Goods/index');
                 }
             }
         }
@@ -297,9 +297,9 @@ class Goods extends Controller{
                 }
                 $booldata = model("goods_images")->saveAll($goods_images);
                 if ($booldata) {
-                    $this->redirect('index/Goods/index');
+                    $this->redirect('admin/Goods/index');
                 } else {
-                    $this->redirect('index/Goods/index');
+                    $this->redirect('admin/Goods/index');
                 }
             }
         }
