@@ -57,8 +57,13 @@ class Goods extends  Controller{
     public function goods_id(Request $request){
         if($request->isPost()){
             $goods_id = $request->only(["goods_id"])["goods_id"];
-            Session("goods_id",$goods_id);
-            return ajax_success("获取成功",$goods_id);
+            if($goods_id){
+                Session("goods_id",$goods_id);
+                return ajax_success("获取成功",$goods_id);
+            }else{
+                return ajax_success("错误");
+            }
+
         }
     }
 
