@@ -3,30 +3,60 @@
 {block name="css"}
 <style>
     .wrapper{
-        width: 500px;
+        width: 600px;
         margin: 30px auto 0;
     }
     .submit{
         width: 200px;
         height: 32px;
-        background-color: #0a6999;
+        background-color: rgb(26, 188, 156);
         color: #fff;
         border: 0;
+        margin-top: 30px;
+    }
+    .wrapper span.title{
+        display: inline-block;
+        width: 100px;
+        text-align: right;
+        font-size: 13px;
+        height: 40px;
+        line-height: 40px;
+        margin-right: 20px;
+    }
+    .wrapper p{
+        margin-left: 125px;
+        font-size: 12px;
+        color: #f00;
+    }
+    .wrapper input.input_box{
+        border: 1px solid #ccc;
+        padding: 2px 0 2px 4px;
     }
 </style>
 {/block}
 {block name="content"}
 <div class="wrapper">
     <form action="{:url('admin/Electron/save')}" method="post">
-        <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-2">保修年限</label>
-            <div class="formControls col-xs-8 col-sm-9">
-                <input name="year" class="HOT" type="checkbox" value="三年"><span class="myiconfont">三年</span><br>
-                <input name="year" class="cu" type="checkbox" checked="checked" value="二年"><span class="myiconfont">二年</span>  <span>* 系统默认二年</span><br>
-                <input name="year" class="ziying" type="checkbox" value="一年"><span class="myiconfont">一年</span><br>
-            </div>
-
-        </div><br>
+        <div>
+            <span class="title">保修年限</span>
+            <input type="checkbox" checked>一年
+            <span>*系统默认保修一年</span>
+            <p>注意：按照365天保修倒计时</p>
+        </div>
+        <div>
+            <span class="title">保修年限</span>
+            <input class="input_box" type="text" placeholder="请输入">
+            <p>输入0到367天内</p>
+        </div>
+        <div>
+            <span class="title">IMEI号</span>
+            <input class="input_box" type="text" placeholder="请输入">
+            <p>注意：如商品添加处已添加，此处自动显示，同理如此处添加，将显示到商品添加处</p>
+        </div>
+        <div>
+            <span class="title">拒保文字添加</span>
+            <input class="input_box" type="text" placeholder="请输入">
+        </div>
         <input type="submit" value="提交" class="submit">
     </form>
 </div>
