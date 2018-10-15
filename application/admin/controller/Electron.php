@@ -41,7 +41,7 @@ class Electron extends Controller{
      */
     public function edit(Request $request,$id){
         $order = db("order")->where("id",$id)->find();
-        
+
 
         return view("electron_edit");
     }

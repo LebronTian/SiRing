@@ -166,6 +166,21 @@
 			text-decoration: line-through;
 			font-size: 14px;
 		}
+		.imei{
+			font-size: 14px;
+			padding-left: 7px;
+			color: #000;
+		}
+		.copy_imei{
+			display: inline-block;
+			border: 1px solid #f00;
+			color: #f00;
+			border-radius: 3px;
+			margin-left: 20px;
+			padding: 0 2px;
+			font-size: 12px;
+			line-height: 12px;
+		}
 	</style>
 	<link rel="icon" type="__STATIC__/index/image/x-icon" href="__STATIC__/index/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="__STATIC__/index/css/aui.css"/>
@@ -173,59 +188,6 @@
     <link rel="stylesheet" href="__STATIC__/index/css/seckill.css">
 	<link rel="stylesheet" type="text/css" href="__STATIC__/index/css/pop.css"/>
 	<link rel="stylesheet" href="__STATIC__/index/css/swiper-4.3.5.min.css">
-	<!-- iphoneX适配 -->
-	<style>
-		@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3){ 
-			header {
-				background-color: black;
-			}
-			body{
-				bottom: constant(safe-area-inset-bottom);
-				padding-bottom: env(safe-area-inset-bottom);
-			}
-			.iphonex-pt{
-				padding-top: constant(safe-area-inset-top);
-				padding-top: env(safe-area-inset-top);
-			}
-			.iphonex-pb{
-				padding-bottom: constant(safe-area-inset-bottom);
-				padding-bottom: env(safe-area-inset-bottom);
-			}
-			.iphonex-mt{
-				margin-top: constant(safe-area-inset-top);
-				margin-top: env(safe-area-inset-top);
-			}
-			.iphonex-mb{
-				margin-bottom: constant(safe-area-inset-bottom);
-				margin-bottom: env(safe-area-inset-bottom);
-			}
-			.iphonex-pl{
-				padding-left: constant(safe-area-inset-left);
-				padding-left: env(safe-area-inset-left);
-			}
-			.iphonex-pr{
-				padding-right: constant(safe-area-inset-right);
-				padding-right: env(safe-area-inset-right);
-			}
-			.iphonex-ml{
-				margin-left: constant(safe-area-inset-left);
-				margin-left: env(safe-area-inset-left);
-			}
-			.iphonex-mr{
-				margin-right: constant(safe-area-inset-right);
-				margin-right: env(safe-area-inset-right);
-			}
-			.iphonex-bd-top-bg{
-				border-top: 88px solid transparent;
-			}
-			.iphonex-bd-top{
-				border-top: 44px solid transparent;
-			}
-			.iphonex-bd-bottom{
-				border-bottom: 34px solid transparent;
-			}
-		}
-	</style>
 </head>
 <body style="background:#fff">
 <header class="aui-bar aui-bar-nav">
@@ -393,6 +355,12 @@
 				})
 				quality += '</div>';
 				$('.tabCon').before(quality);
+				
+				// IEMI号
+				if(data.goods_imei != null){
+					var imei = '<p class="imei">IMEI号：<input readonly id="input" value="'+data.goods_imei+'"><span onclick="copyUrl()" class="copy_imei">复制</span></p>';
+					$('.zjtp_title').after(imei);
+				}
 
 				var img_num;
                 // 图片放大
@@ -502,6 +470,13 @@
 			}
 		})
 	})()
+	// 复制IMEI号
+	function copyUrl() {
+        var Url=document.getElementById('input');
+        Url.select(); // 选择对象
+        document.execCommand("Copy"); // 执行浏览器复制命令
+        alert("复制成功！");
+    }
 </script>
 <script>
     $(function () {
