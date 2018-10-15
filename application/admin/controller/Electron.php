@@ -39,16 +39,11 @@ class Electron extends Controller{
      * 电子保修卡添加
      * 陈绪
      */
-    public function edit(Request $request){
-        $data = $request->param();
-        $order = db("order")->where("status",">=",2)->where("status","<",11)->select();
-        foreach ($order as $value){
-            $goods[] = db("goods")->where("id",$value['goods_id'])->select();
-        }
-        $bool = db("electron")->insert($data);
-        if($bool){
-            $this->success("添加成功");
-        }
+    public function edit(Request $request,$id){
+        $order = db("order")->where("id",$id)->find();
+        
+
+        return view("electron_edit");
     }
 
 

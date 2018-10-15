@@ -36,7 +36,7 @@
 {/block}
 {block name="content"}
 <div class="wrapper">
-    <form action="{:url('admin/Electron/save')}" method="post">
+    <form action="{:url('admin/Electron/edit')}" method="post">
         <div>
             <span class="title">保修年限</span>
             <input type="checkbox" checked>一年
@@ -45,18 +45,19 @@
         </div>
         <div>
             <span class="title">保修年限</span>
-            <input class="input_box" type="text" placeholder="请输入">
+            <input class="input_box" name="year" value="" type="text" placeholder="请输入">
             <p>输入0到367天内</p>
         </div>
         <div>
             <span class="title">IMEI号</span>
-            <input class="input_box" type="text" placeholder="请输入">
+            <input class="input_box" type="text" value="" name="goods_imei" placeholder="请输入">
             <p>注意：如商品添加处已添加，此处自动显示，同理如此处添加，将显示到商品添加处</p>
         </div>
         <div>
             <span class="title">拒保文字添加</span>
-            <input class="input_box" type="text" placeholder="请输入">
+            <input class="input_box" type="text" name="details" placeholder="请输入">
         </div>
+        <input type="hidden" name="order_id" value="">
         <input type="submit" value="提交" class="submit">
     </form>
 </div>
