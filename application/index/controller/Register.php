@@ -76,42 +76,44 @@ class Register extends  Controller{
                 $password =trim($_POST['password']);
                 $confirm_password =trim($_POST['confirm_password']);
                 $create_time =date('Y-m-d H:i:s');
+
                 if($password !==$confirm_password ){
                     return ajax_error('两次密码不相同');
                 }
                 if (strlen($mobile) != 11 || substr($mobile, 0, 1) != '1' || $code == '') {
                     return ajax_error("参数不正确");
                 }
-                if (session('mobileCode') != $code) {
+                if (session('mobileCode') != $code || $mobile != $_SESSION['mobile']) {
                     return ajax_error("验证码不正确");
                 } else {
-                    $data =[
-                        'phone_num'=>$mobile,
-                        'password'=>md5($password),
-                        'create_time'=>strtotime($create_time),
-                        "status"=>1
-                    ];
-                    $invitation = $request->only(['invitation'])['invitation'];
-                    if(!empty($invitation)) {
-                        $res =Db::name('user')->insert($data);
-                        $data = [];
-                        $id = substr($invitation,3);
-                        $data['user_id'] = $id;
-                        $data['invitation'] = $invitation;
-                        $bool = db("discounts_user")->insert($data);
-                        if($bool){
-                            return ajax_success('注册成功',$data);
-//                        $this->success('注册成功','index/login/login');
-                        }
-                    }else{
-                        $res =Db::name('user')->insert($data);
-                        if($res){
-                            return ajax_success('注册成功',$data);
-//                    $this->success('注册成功','index/login/login');
-                        }else{
-                            return ajax_error('注册失败');
-                        }
-                    }
+                    return ajax_success('成功',$mobile);
+//                    $data =[
+//                        'phone_num'=>$mobile,
+//                        'password'=>md5($password),
+//                        'create_time'=>strtotime($create_time),
+//                        "status"=>1
+//                    ];
+//                    $invitation = $request->only(['invitation'])['invitation'];
+//                    if(!empty($invitation)) {
+//                        $res =Db::name('user')->insert($data);
+//                        $data = [];
+//                        $id = substr($invitation,3);
+//                        $data['user_id'] = $id;
+//                        $data['invitation'] = $invitation;
+//                        $bool = db("discounts_user")->insert($data);
+//                        if($bool){
+//                            return ajax_success('注册成功',$data);
+////                        $this->success('注册成功','index/login/login');
+//                        }
+//                    }else{
+//                        $res =Db::name('user')->insert($data);
+//                        if($res){
+//                            return ajax_success('注册成功',$data);
+////                    $this->success('注册成功','index/login/login');
+//                        }else{
+//                            return ajax_error('注册失败');
+//                        }
+//                    }
 
                 }
 
