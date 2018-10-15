@@ -36,29 +36,26 @@
 {/block}
 {block name="content"}
 <div class="wrapper">
-    <form action="{:url('admin/Electron/updata')}" method="post">
-        {volist name="$electron" id="value"}
+    <form action="{:url('admin/Electron/save')}" method="post">
         <div>
             <span class="title">订单排序号</span>
-            <input class="input_box" name="order_id" value="{$value.order_id}" type="text" placeholder="请输入">
+            <input class="input_box" name="order_id" type="text" placeholder="请输入">
         </div>
         <div>
             <span class="title">保修年限</span>
-            <input class="input_box" name="year" value="{$value.year}" type="text" placeholder="请输入">
+            <input class="input_box" name="year" type="text" placeholder="请输入">
             <p>输入0到367天内</p>
         </div>
         <div>
             <span class="title">IMEI号</span>
-            <input class="input_box" type="text" value="{$value.goods_imei}" name="goods_imei" placeholder="请输入">
+            <input class="input_box" name="goods_imei" type="text" placeholder="请输入">
             <p>注意：如商品添加处已添加，此处自动显示，同理如此处添加，将显示到商品添加处</p>
         </div>
         <div>
             <span class="title">拒保文字添加</span>
-            <input class="input_box" type="text" value="{$value.details}" name="details" placeholder="请输入">
+            <input class="input_box" type="text" name="details" placeholder="请输入">
         </div>
-        <input type="hidden" name="id" value="{$value.id}">
         <input type="submit" value="提交" class="submit">
-        {/volist}
     </form>
 </div>
 

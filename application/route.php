@@ -443,8 +443,12 @@ Route::group("admin",[
 
     /*电子保修卡*/
     "electron_index"=>"admin/Electron/index",
+    "electron_add"=>"admin/Electron/add",
     "electron_edit"=>"admin/Electron/edit",
+    "electron_save"=>"admin/Electron/save",
     "electron_del"=>"admin/Electron/del",
+    "electron_updata"=>"admin/Electron/updata",
+    "electron_search"=>"admin/Electron/search",
 
 
 

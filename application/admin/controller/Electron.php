@@ -17,42 +17,115 @@ class Electron extends Controller{
      * 陈绪
      */
     public function index(Request $request){
-        $order = db("order")->where("status",">=",2)->where("status","<",11)->select();
-        foreach ($order as $value){
-            $goods = db("goods")->where("id",$value["goods_id"])->select();
-            foreach ($goods as $val){
-                if($val["id"] == $value["goods_id"]){
-                    $goods_num[] = ["order_id"=>$value["id"],
-                                    "goods_num"=>db("goods")->where("id",$value["goods_id"])->field("goods_num")->find()
-                                    ,"time"=>date('Y-m-d H:i:s',strtotime("+1year",$value["create_time"]))];
 
-                }
-            }
-        }
-        return view("electron_index",["goods_num"=>$goods_num]);
+        $electron = db("electron")->paginate(10);
+        return view("electron_index",["electron"=>$electron]);
+
+    }
+
+
+
+
+    /**
+     * 电子保修卡添加
+     */
+    public function add(){
+
+        return view("electron_add");
 
     }
 
 
 
     /**
-     * 电子保修卡添加
+     * 电子保修卡修改显示
      * 陈绪
      */
-    public function edit(Request $request,$id){
-        $order = db("order")->where("id",$id)->find();
+    public function edit($id){
 
-
-        return view("electron_edit");
+        $electron = db("electron")->where("id",$id)->select();
+        return view("electron_edit",["electron"=>$electron]);
     }
 
 
+    /**
+     * [电子保修卡添加]
+     * 陈绪
+     * @param $id
+     */
+    public function save(Request $request){
+        $electron = $request->param();
+        $order = db("order")->where("id",$electron["order_id"])->find();
+        if(is_numeric(trim($electron["year"]))){
+            $year = $request->only(["year"])["year"];
+            $electron["year"] = date("Y-m-d H:i:s",strtotime("+$year day",$order["create_time"]));
+        }else{
+            $electron["year"] = date("Y-m-d H:i:s",strtotime("+367 day",$order["create_time"]));
+        }
+        $bool = db("electron")->insert($electron);
+        if($bool){
+            $this->success("添加成功",url("admin/Electron/index"));
+        }else{
+            $this->error("添加失败",url("admin/Electron/index"));
+        }
 
+    }
+
+
+    /**
+     * 保修卡删除
+     * 陈绪
+     * @param $id
+     */
     public function del($id){
         $bool = db("electron")->where("id",$id)->delete();
         if($bool){
             $this->success("删除成功",url("admin/Electron/index"));
         }
+    }
+
+
+
+    /**
+     * 保修卡更新
+     * 陈绪
+     * @param Request $request
+     */
+    public function updata(Request $request){
+        $id = $request->only(['id'])['id'];
+        $electron = $request->param();
+        $order = db("order")->where("id",$electron["order_id"])->find();
+        if(is_numeric(trim($electron["year"]))){
+            $year = $request->only(["year"])["year"];
+            $electron["year"] = date("Y-m-d H:i:s",strtotime("+$year day",$order["create_time"]));
+        }else{
+            $electron["year"] = date("Y-m-d H:i:s",strtotime("+367 day",$order["create_time"]));
+        }
+        $bool = db("electron")->where("id",$id)->update($electron);
+        if($bool){
+            $this->success("编辑成功",url("admin/Electron/index"));
+        }else{
+            $this->error("编辑失败",url("admin/Electron/index"));
+        }
+
+    }
+
+
+
+
+
+    public function search(Request $request){
+        $goods_imei = $request->param("goods_imei");
+        $search_bt = $request->param("search_bt");
+        $goods_imeis = isset($goods_imei) ? $goods_imei : "%";
+        $search_bts = isset($search_bt) ? $search_bt : false;
+        if($goods_imeis){
+            $data = db("electron")->where("goods_imei","like","%".$goods_imeis."%")->paginate(5, false,['query' => request()->param()]);;
+
+        }else {
+            $data = db("electron")->paginate(5,false,['query' => request()->param()]);
+        }
+        return view("electron_index",["data"=>$data]);
     }
 
 }

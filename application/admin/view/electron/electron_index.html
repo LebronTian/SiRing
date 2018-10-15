@@ -37,40 +37,69 @@
 
 {block name="content"}
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 内容管理 <span class="c-gray en">&gt;</span> 电子保修卡 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<form action="{:url('admin/Electron/search')}" method="post">
 <div class="search">
     <span>
         IMEI号搜索：
     </span>
-    <input type="text" placeholder="请输入">
-    <button>搜索</button>
+    <input type="text" placeholder="请输入" name="goods_imei">
+    <button name="search_bt" type="submit">搜索</button>
 </div>
+</form>
 <div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20"><a href="javascript:;" onclick="admin_add('添加秒杀产品','{:url("admin/Electron/add")}',document.body.clientWidth,document.body.clientHeight)" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加秒杀产品</a></span></div>
     <table class="table table-border table-bordered table-bg">
         <thead>
         <tr>
             <th scope="col" colspan="9">电子保修卡列表</th>
         </tr>
         <tr class="text-c">
+            <th>订单排序号</th>
             <th>年限</th>
             <th>IMEI号</th>
+            <th>拒保详情</th>
             <th>操作</th>
         </tr>
         </thead>
         <tbody class="tbody">
-        {volist name="goods_num" id="value"}
+        {if !empty($data)}
+        {volist name="data" id="value"}
         <tr class="text-c">
-            <td>{$value.time}</td>
-            <td>{$value.goods_num.goods_num}</td>
+            <td>{$value.order_id}</td>
+            <td>{$value.year}</td>
+            <td>{$value.goods_imei}</td>
+            <td>{$value.details}</td>
             <td class="td-manage">
-                <a title="删除" href="{:url('admin/Electron/del',['id'=>$value.order_id])}" onclick="if(!confirm('确定要删除吗？')) return false" class="ml-5" style="text-decoration:none">
+                <a title="删除" href="{:url('admin/Electron/del',['id'=>$value.id])}" onclick="if(!confirm('确定要删除吗？')) return false" class="ml-5" style="text-decoration:none">
                     删除
                 </a>
-                <a href="{:url('admin/Electron/edit',['id'=>$value.order_id])}" title="编辑" class="edit">编辑</a>
+                <a href="{:url('admin/Electron/edit',['id'=>$value.id])}" title="编辑" class="edit">编辑</a>
             </td>
         </tr>
         {/volist}
+        {else}
+        {volist name="electron" id="value"}
+        <tr class="text-c">
+            <td>{$value.order_id}</td>
+            <td>{$value.year}</td>
+            <td>{$value.goods_imei}</td>
+            <td>{$value.details}</td>
+            <td class="td-manage">
+                <a title="删除" href="{:url('admin/Electron/del',['id'=>$value.id])}" onclick="if(!confirm('确定要删除吗？')) return false" class="ml-5" style="text-decoration:none">
+                    删除
+                </a>
+                <a href="{:url('admin/Electron/edit',['id'=>$value.id])}" title="编辑" class="edit">编辑</a>
+            </td>
+        </tr>
+        {/volist}
+        {/if}
         </tbody>
     </table>
+    {if !empty($data)}
+    {$data->render()}
+    {else}
+    {$electron->render()}
+    {/if}
 </div>
 
 {/block}
