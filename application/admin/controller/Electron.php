@@ -19,30 +19,27 @@ class Electron extends Controller{
     public function index(Request $request){
         $order = db("order")->where("status",">=",2)->where("status","<",11)->select();
         foreach ($order as $value){
-            $time[] = date('Y-m-d H:i:s',strtotime("+1year",$value["create_time"]));
-            $goods_num[] = ["order_id"=>$value["id"],"goods_num"=>db("goods")->where("id",$value["goods_id"])->field("goods_num")->find()];
+            $goods = db("goods")->where("id",$value["goods_id"])->select();
+            foreach ($goods as $val){
+                if($val["id"] == $value["goods_id"]){
+                    $goods_num[] = ["order_id"=>$value["id"],
+                                    "goods_num"=>db("goods")->where("id",$value["goods_id"])->field("goods_num")->find()
+                                    ,"time"=>date('Y-m-d H:i:s',strtotime("+1year",$value["create_time"]))];
+
+                }
+            }
         }
-        halt($goods_num);
-        return view("electron_index",["data"=>$time]);
+        return view("electron_index",["goods_num"=>$goods_num]);
 
     }
 
-
-    /**
-     * 电子保修卡
-     * 陈绪
-     */
-    public function add(){
-        return view("electron_add");
-
-    }
 
 
     /**
      * 电子保修卡添加
      * 陈绪
      */
-    public function save(Request $request){
+    public function edit(Request $request){
         $data = $request->param();
         $order = db("order")->where("status",">=",2)->where("status","<",11)->select();
         foreach ($order as $value){
