@@ -141,13 +141,13 @@ class Register extends  Controller{
                 $mobile = $_POST["mobile"];
               $res =  Db::name('user')->field('phone_num')->where('phone_num',$mobile)->select();
               if($res){
-                  return ajax_error('此手机号已经注册',$mobile);
+                  return ajax_success('此手机号已经注册',$mobile);
               }
                 $mobileCode = rand(100000, 999999);
                 $arr = json_decode($mobile, true);
                 $mobiles = strlen($arr);
                 if (isset($mobiles) != 11) {
-                    return ajax_error("手机号码不正确");
+                    return ajax_success("手机号码不正确",$mobile);
                 }
                 //存入session中
                 if (strlen($mobileCode)> 0) {
@@ -168,7 +168,7 @@ class Register extends  Controller{
                 if ($output) {
                    return ajax_success("发送成功", $output);
                 } else {
-                    return ajax_error("发送失败",$output);
+                    return ajax_success("发送失败",$output);
                 }
             }
         }
