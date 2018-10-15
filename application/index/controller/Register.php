@@ -76,16 +76,16 @@ class Register extends  Controller{
                 $password =trim($_POST['password']);
                 $confirm_password =trim($_POST['confirm_password']);
                 $create_time =date('Y-m-d H:i:s');
+
                 if($password !==$confirm_password ){
                     return ajax_error('两次密码不相同');
                 }
                 if (strlen($mobile) != 11 || substr($mobile, 0, 1) != '1' || $code == '') {
                     return ajax_error("参数不正确");
                 }
-                if (session('mobileCode') != $code) {
+                if (session('mobileCode') != $code || $mobile != $_SESSION['mobile']) {
                     return ajax_error("验证码不正确");
-                }
-                if (session('mobileCode') == $code) {
+                } else {
                     $data =[
                         'phone_num'=>$mobile,
                         'password'=>md5($password),
@@ -93,8 +93,8 @@ class Register extends  Controller{
                         "status"=>1
                     ];
                     $invitation = $request->only(['invitation'])['invitation'];
-                    $res =Db::name('user')->insert($data);
                     if(!empty($invitation)) {
+                        $res =Db::name('user')->insert($data);
                         $data = [];
                         $id = substr($invitation,3);
                         $data['user_id'] = $id;
@@ -104,10 +104,16 @@ class Register extends  Controller{
                             return ajax_success('注册成功',$data);
 //                        $this->success('注册成功','index/login/login');
                         }
-                    }else if($res){
-                        return ajax_success('注册成功',$data);
+                    }else{
+                        $res =Db::name('user')->insert($data);
+                        if($res){
+                            return ajax_success('注册成功',$data);
 //                    $this->success('注册成功','index/login/login');
+                        }else{
+                            return ajax_error('注册失败');
+                        }
                     }
+
                 }
 
 
@@ -141,13 +147,13 @@ class Register extends  Controller{
                 $mobile = $_POST["mobile"];
               $res =  Db::name('user')->field('phone_num')->where('phone_num',$mobile)->select();
               if($res){
-                  return ajax_error('此手机号已经注册',$mobile);
+                  return ajax_success('此手机号已经注册',$mobile);
               }
                 $mobileCode = rand(100000, 999999);
                 $arr = json_decode($mobile, true);
                 $mobiles = strlen($arr);
                 if (isset($mobiles) != 11) {
-                    return ajax_error("手机号码不正确");
+                    return ajax_success("手机号码不正确",$mobile);
                 }
                 //存入session中
                 if (strlen($mobileCode)> 0) {
@@ -168,7 +174,7 @@ class Register extends  Controller{
                 if ($output) {
                    return ajax_success("发送成功", $output);
                 } else {
-                    return ajax_error("发送失败",$output);
+                    return ajax_success("发送失败",$output);
                 }
             }
         }
