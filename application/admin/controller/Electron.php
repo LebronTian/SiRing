@@ -17,8 +17,13 @@ class Electron extends Controller{
      * 陈绪
      */
     public function index(Request $request){
-        $data = db("electron")->select();
-        return view("electron_index",["data"=>$data]);
+        $order = db("order")->where("status",">=",2)->where("status","<",11)->select();
+        foreach ($order as $value){
+            $time[] = date('Y-m-d H:i:s',strtotime("+1year",$value["create_time"]));
+            $goods_num[] = ["order_id"=>$value["id"],"goods_num"=>db("goods")->where("id",$value["goods_id"])->field("goods_num")->find()];
+        }
+        halt($goods_num);
+        return view("electron_index",["data"=>$time]);
 
     }
 
