@@ -91,7 +91,7 @@ class Login extends Controller{
                 if($res)
                 {
                     session('member',$datas);
-                    return ajax_success('登录成功了',$datas);
+                    return ajax_success('登录成功',$datas);
                 }else{
                     ajax_success('此用户已被管理员设置停用',$datas);
                 }
