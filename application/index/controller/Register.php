@@ -93,28 +93,25 @@ class Register extends  Controller{
                         "status"=>1
                     ];
                     $invitation = $request->only(['invitation'])['invitation'];
-
                     if(!empty($invitation)) {
-                        return ajax_success('成功', $invitation);
-//                        $res =Db::name('user')->insert($data);
-//                        $data = [];
-//                        $id = substr($invitation,3);
-//                        $data['user_id'] = $id;
-//                        $data['invitation'] = $invitation;
-//                        $bool = db("discounts_user")->insert($data);
-//                        if($bool){
-//                            return ajax_success('注册成功',$data);
-////                        $this->success('注册成功','index/login/login');
-//                        }
+                        $res =Db::name('user')->insert($data);
+                        $data = [];
+                        $id = substr($invitation,3);
+                        $data['user_id'] = $id;
+                        $data['invitation'] = $invitation;
+                        $bool = db("discounts_user")->insert($data);
+                        if($bool){
+                            return ajax_success('注册成功',$data);
+//                        $this->success('注册成功','index/login/login');
+                        }
                     }else{
-                        return ajax_success('成功',$data);
-//                        $res =Db::name('user')->insert($data);
-//                        if($res){
-//                            return ajax_success('注册成功',$data);
-////                    $this->success('注册成功','index/login/login');
-//                        }else{
-//                            return ajax_error('注册失败');
-//                        }
+                        $res =Db::name('user')->insert($data);
+                        if($res){
+                            return ajax_success('注册成功',$data);
+//                    $this->success('注册成功','index/login/login');
+                        }else{
+                            return ajax_error('注册失败');
+                        }
                     }
 
                 }
