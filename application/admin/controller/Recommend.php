@@ -29,7 +29,9 @@ class Recommend extends Controller{
     public function save(Request $request){
 
         $data = $request->param();
-        $data["images"] = $request->file("images")->move(ROOT_PATH . 'public' . DS . 'uploads');
+        $data["images"] = $request->file("images");//
+        halt($data["images"]);
+        //->move(ROOT_PATH . 'public' . DS . 'uploads');
         $bool = db("recommend")->insert($data);
         if($bool){
             return ajax_success("入库成功",$bool);
@@ -42,7 +44,6 @@ class Recommend extends Controller{
 
 
     public function edit($id){
-
 
         return view("recommend_edit");
 

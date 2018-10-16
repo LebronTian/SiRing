@@ -164,7 +164,9 @@ class  SelfService extends  Controller{
 
     public function  address_edit(Request $request){
         if($request->isPost()){
-            $harvester =$request->only(['harvester'])['harvester'];
+            $data = $request->param();
+            halt($data);
+          /*  $harvester =$request->only(['harvester'])['harvester'];
             $harvester_phone_num=$request->only(['harvester_phone_num'])['harvester_phone_num'];
             $order_numbers =$request->only(['id'])['id'];
             $city_information =$request->only(['city_information'])['city_information'];
@@ -183,7 +185,7 @@ class  SelfService extends  Controller{
                     }
                 }
                
-            }
+            }*/
 
         }
     }
