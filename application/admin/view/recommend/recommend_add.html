@@ -1,10 +1,305 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>添加推荐</title>
+    <style>
+        .switch_checkbox {
+            display: none;
+        }
+        .switch_label {
+            margin-top: 5px;
+            background-color: rgb(242, 242, 242);
+            display: inline-block;
+            position: relative;
+            height: 20px;
+            width: 40px;
+            border-radius: 15px;
+            vertical-align: text-bottom;
+        }
+        /* ~选择器 选择前面的input checkbox被选中状态下的 span标签*/
+        .switch_checkbox:checked~.switch_label .switch_circle {
+            left: 20px;
+        }
+        .switch_circle {
+            position: absolute;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            border: 1px solid #eee;
+            background-color: #fff;
+            left: 0;
+            top: -1px;
+            -webkit-transition: all 0.3s;
+            -moz-transition: all 0.3s;
+            -ms-transition: all 0.3s;
+            -o-transition: all 0.3s;
+            transition: all 0.3s;
+        }
+        /* ~选择器 选择前面的input checkbox被选中状态下的 label标签*/
+        .switch_checkbox:checked~.switch_label {
+            background: rgb(0, 153, 255);
+        }
+        .recommend {
+            margin-bottom: 10px;
+        }
+        .recommend a{
+            display: inline-block;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #5a98de;
+            border-radius: 3px;
+        }
+        .wrapper{
+            width: 50%;
+            margin: 0 auto;
+        }
+        .wrapper div{
+            margin-bottom: 30px;
+        }
+        .xzcz,
+        .tjtb{
+            display: flex;
+        }
+        .mgb0{
+            margin-bottom: 0 !important;
+        }
+        .submit{
+            width: 200px;
+            height: 30px;
+            background-color: #3399ff;
+            border: 1px solid #3399ff;
+            color: #fff;
+        }
+        .w200{
+            width: 200px;
+        }
+        .shade{
+            position: absolute;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.55);
+        }
+        .shade div{
+            width: 300px;
+            height: 200px;
+            line-height: 200px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -100px;
+            margin-left: -150px;
+            background: white;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .a-upload {
+            height: 20px;
+            position: relative;
+            cursor: pointer;
+            color: #888;
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+            display: inline-block;
+            *display: inline;
+            *zoom: 1;
+            text-align: center;
+            text-decoration: none;
+        }
+        .a-upload input {
+            position: absolute;
+            font-size: 100px;
+            right: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer
+        }
+        .a-upload:hover {
+            color: #444;
+            background: #eee;
+            border-color: #ccc;
+            text-decoration: none
+        }
+        .img_div{
+            min-height: 50px; 
+            min-width: 100px;
+            margin-top: 10px;
+        }
+        .isImg{
+            width: 50px; 
+            height: 50px; 
+            position: relative; 
+            float: left; 
+            margin-left: 10px;
+        }
+        .removeBtn{
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            z-index: 11;
+            font-size: 14px;
+            color: #fff;
+            border: 0;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.55);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+        .shadeImg{
+            position: absolute;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 15;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.55);
+        }
+        .showImg{
+            width: 400px; 
+            height: 500px; 
+            margin-top: 140px;
+        }
+    </style>
 </head>
 <body>
+    <div class="wrapper">
+        <div>
+            <span class="tjkg">推荐开关</span>
+            <input type="checkbox" class="switch_checkbox" id="switch_checkbox">
+            <label for="switch_checkbox" class="switch_label">
+                <span class="switch_circle"></span>
+            </label>
+        </div>
+        <div>
+            <span>首页排序</span>
+            <input type="text" class="w200" placeholder="输入首页排序，例如1">
+        </div>
+        <div class="tjtb">
+            <span>推荐图标</span>
+			<div>
+				<a href="javascript:;" class="a-upload">
+					<input type="file" name="goods_images[]" id="myFile" multiple="multiple"/><span>点击文件上传</span>
+				</a>
+				<div class="img_div"></div>
 
+				<div class="shade" onclick="javascript:closeShade()">
+					<div>
+						<span class="text_span"></span>
+					</div>
+				</div>
+				<div class="shadeImg" onclick="javascript:closeShadeImg()">
+					<div>
+						<img class="showImg" src=""/>
+					</div>
+				</div>
+			</div>
+        </div>
+        <div>
+            <span>推荐说明</span>
+            <input type="text" class="w200" placeholder="例如：甩卖商品（不超过5个字）">
+        </div>
+        <div class="xzcz">
+            <span>选择操作</span>
+            <div class="mgb0">
+                <div>
+                    <input type="radio" name="radio" class="goods_list_id" id="goods_list_id">
+                    <label for="goods_list_id">商品分类id</label>
+                    <input type="text">
+                </div>
+                <div>
+                    <input type="radio" name="radio" class="out_url" id="out_url">
+                    <label for="out_url">商品分类id</label>
+                    <input type="text">
+                </div>
+            </div>
+        </div>
+        <button class="submit">提交</button>
+    </div>
+
+    <script src="__STATIC__/admin/lib/jquery/1.9.1/jquery.js"></script>
+    <script>
+        $(function(){
+        var objUrl;
+        var img_html;
+        $("#myFile").change(function() {
+            var img_div = $(".img_div");
+            var filepath = $("input[name='goods_images[]']").val();
+            for(var i = 0; i < this.files.length; i++) {
+                objUrl = getObjectURL(this.files[i]);
+                var extStart = filepath.lastIndexOf(".");
+                var ext = filepath.substring(extStart, filepath.length).toUpperCase();
+                /*
+                    描述：鉴定每个图片上传尾椎限制
+                    * */
+                if(ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {
+                    $(".shade").fadeIn(500);
+                    $(".text_span").text("图片限于bmp,png,gif,jpeg,jpg格式");
+                    this.value = "";
+                    $(".img_div").html("");
+                    return false;
+                } else {
+                    /*
+                        若规则全部通过则在此提交url到后台数据库
+                        * */
+                    img_html = "<div class='isImg'>\
+                                    <img src='" + objUrl + "' onclick='javascript:;' style='height: 100%; width: 100%;' />\
+                                    <button class='removeBtn' onclick='javascript:removeImg(this)'>x</button>\
+                                </div>";
+                    img_div.append(img_html);
+                }
+            }
+            /*
+                描述：鉴定每个图片大小总和
+                * */
+            var file_size = 0;
+            var all_size = 0;
+            for(j = 0; j < this.files.length; j++) {
+                file_size = this.files[j].size;
+                all_size = all_size + this.files[j].size;
+                var size = all_size / 1024;
+                if(size > 5000) {
+                    $(".shade").fadeIn(5000);
+                    $(".text_span").text("上传的图片大小不能超过1000k！");
+                    this.value = "";
+                    $(".img_div").html("");
+                    return false;
+                }
+            }
+            return true;
+        });
+        /*
+            描述：鉴定每个浏览器上传图片url 目前没有合并到Ie
+            * */
+        function getObjectURL(file) {
+            var url = null;
+            if(window.createObjectURL != undefined) { // basic
+                url = window.createObjectURL(file);
+            } else if(window.URL != undefined) { // mozilla(firefox)
+                url = window.URL.createObjectURL(file);
+            } else if(window.webkitURL != undefined) { // webkit or chrome
+                url = window.webkitURL.createObjectURL(file);
+            }
+            //console.log(url);
+            return url;
+        }
+    });
+    function removeImg(r){
+        $(r).parent().remove();
+    }
+    </script>
 </body>
 </html>
