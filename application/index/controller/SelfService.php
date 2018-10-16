@@ -271,6 +271,8 @@ class  SelfService extends  Controller{
         return view('successful_sub');
     }
 
+
+
     //电子保修
     public function electronics(Request $request){
         if($request->isPost()){
@@ -293,18 +295,22 @@ class  SelfService extends  Controller{
     public function electronics_show(){
         $data = Session::get("member");
         $user_id = db('user')->field('id')->where('phone_num', $data['phone_num'])->find();
-        $goods_id = db("order")->where("user_id", $user_id["id"])->field("goods_id,status,create_time,id")->select();
-        $time = db("electron")->field("year")->find();
+        $order_id = db("order")->where("user_id", $user_id["id"])->field("goods_id,status,create_time,id")->select();
+        $electron = db("electron")->select();
         $images = [];
-        $create_time = [];
-        foreach ($goods_id as $value){
+        foreach ($order_id as $value){
             if ($value["status"] >= 2 && $value["status"] < 11) {
-                $create_time = $value["create_time"];
-                $images_show = db("goods")->where("id",$value["goods_id"])->find();
-                $images[] = ["images"=>$images_show,"create_time"=>$create_time,"order_id"=>$value['id']];
+                foreach ($electron as $val){
+                    if($value["id"] == $val["order_id"]){
+                        $create_time = $value["create_time"];
+                        $images_show = db("goods")->where("id",$value["goods_id"])->find();
+                        $images[] = ["images"=>$images_show,"create_time"=>$create_time,"order_id"=>$value['id'],"electron"=>$val];
+                    }
+                }
+
             }
         }
-        return view('electronics',["time"=>$time,"images"=>$images]);
+        return view('electronics',["images"=>$images]);
     }
 
       //售后服务协议
