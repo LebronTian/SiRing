@@ -193,7 +193,7 @@
                 <span>推荐图标</span>
                 <div>
                     <a href="javascript:;" class="a-upload">
-                        <input type="file" name="goods_images[]" id="myFile" multiple="multiple"/><span>点击文件上传</span>
+                        <input type="file" name="images[]" id="myFile" multiple="multiple"/><span>点击文件上传</span>
                     </a>
                     <div class="img_div"></div>
     
@@ -239,7 +239,7 @@
         var img_html;
         $("#myFile").change(function() {
             var img_div = $(".img_div");
-            var filepath = $("input[name='goods_images[]']").val();
+            var filepath = $("input[name='images[]']").val();
             for(var i = 0; i < this.files.length; i++) {
                 objUrl = getObjectURL(this.files[i]);
                 var extStart = filepath.lastIndexOf(".");
@@ -323,10 +323,13 @@
                 var goods_id = $('.goods_id').val();
                 var url = $('.url').val();
                 var formData = new FormData();
-                
+                // formData 给后台传图片地址  循环传多张 
+                // for(var i = 0; i < $('#myFile')[0].files.length; i++){
+                    formData.append('images[]', $('#myFile')[0].files[0]);
+                // }
                 formData.append('status', switchoff);
                 formData.append('sort_number', sort_num);
-                formData.append('images', images);
+                // formData.append('images', images);
                 formData.append('explain', explain);
                 formData.append('goods_id', goods_id);
                 formData.append('url', url);
