@@ -104,7 +104,7 @@
                 <td>{$value.explain}</td>
                 <td>{$value.sort_number}</td>
                 <td>
-                    <input type="checkbox" class="switch_checkbox" id="switch_checkbox_{$value.id}">
+                    <input type="checkbox" name="{$value.status}" class="switch_checkbox" id="switch_checkbox_{$value.id}">
                     <label for="switch_checkbox_{$value.id}" class="switch_label">
                         <span class="switch_circle"></span>
                     </label>
@@ -121,7 +121,6 @@
     <script>
         $('.switch_checkbox').on('click', function(){
             var value = $(this).siblings('input').context.id.split('_')[2];
-            console.log(value)
             if($(this).siblings('input').context.checked){
                 $.ajax({
                     url: '{:url("admin/Recommend/status")}',
@@ -156,6 +155,13 @@
                         console.log('错误');
                     }
                 })
+            }
+        })
+
+        // 判断 是否推荐status值
+        $.each($('.switch_checkbox'),function(idx, val){
+            if(val.name == 1){
+                $($('.switch_checkbox')[idx]).attr('checked', 'true');
             }
         })
     </script>

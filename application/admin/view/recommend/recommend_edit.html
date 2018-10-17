@@ -192,6 +192,17 @@
         </div>
         <div class="tjtb">
             <span>推荐图标</span>
+            <div class="formControls col-xs-8 col-sm-9" style="width:45%;">
+                <table>
+                    <tr style="display:inline-block; width:25%; height:25%; margin-right:5%;">
+                        <td>
+                            <img width="50" height="50" src="__UPLOADS__/{$value.images}"><br>
+                            <input type="hidden" class="imgId">
+                            <a href="javascript:product_dels(this,'{$value.id}');">图片删除</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <div>
                 <a href="javascript:;" class="a-upload">
                     <input type="file" name="images" id="myFile" multiple="multiple"/><span>点击文件上传</span>
@@ -357,6 +368,26 @@
             alert('必须上传图标');
         }
     })
+</script>
+<!-- 删除图片 -->
+<script>
+function product_dels(obj,id){
+    layer.confirm('确认要删除吗？',function(index){
+        $.ajax({
+            type: 'POST',
+            url: '{:url("admin/Recommend/iamges")}',
+            data:{"id":id},
+            dataType:"json",
+            success: function(data){
+                console.log(data);
+                $(obj).parents("tr").remove();
+            },
+            error:function(data) {
+                console.log(data.msg);
+            },
+        });
+    });
+}
 </script>
 </body>
 </html>
