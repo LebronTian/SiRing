@@ -186,7 +186,7 @@
         {volist name="data" id="value"}
         <div>
             <span class="tjkg">推荐开关</span>
-            <input type="checkbox" class="switch_checkbox" id="switch_checkbox">
+            <input type="checkbox" name="{$value.status}" class="switch_checkbox" id="switch_checkbox">
             <label for="switch_checkbox" class="switch_label">
                 <span class="switch_circle"></span>
             </label>
@@ -251,6 +251,7 @@
 </div>
 
 <script src="__STATIC__/admin/lib/jquery/1.9.1/jquery.js"></script>
+<script src="__STATIC__/admin/lib/layer/2.4/layer.js"></script>
 <script>
     $(function(){
         var objUrl;
@@ -363,8 +364,8 @@
                 data: formData,
                 success: function(data){
                     if(data.status == 1){
-                        console.log(1);
-                        location.href = 'recommend_index';
+                        closeiframe();
+                        // location.href = "recommend_index";
                     }
                 },
                 error: function(){
@@ -375,6 +376,17 @@
             alert('必须上传图标');
         }
     })
+    // 进来查看推荐开关
+    if($('.switch_checkbox')[0].name == 1){
+        $('.switch_checkbox').attr('checked', 'true');
+    }
+
+    // 关闭弹出层
+    function closeiframe(){
+        var index=parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    }
+
 </script>
 <!-- 删除图片 -->
 <script>

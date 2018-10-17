@@ -110,60 +110,70 @@
                     </label>
                 </td>
                 <td>
-                    <a href="{:url('admin/Recommend/edit',['id'=>$value.id])}" class="edit">编辑</a>
+                    <a href="javascript:;" onclick="product_edit('编辑','{:url("admin/Recommend/edit",['id'=>$value.id])}')" class="edit">编辑</a>
                     <a href="{:url('admin/Recommend/del',['id'=>$value.id])}" class="delete">删除</a>
                 </td>
             </tr>
             {/volist}
         </table>
     </div>
-    <script src="__STATIC__/admin/lib/jquery/1.9.1/jquery.js"></script>
-    <script>
-        $('.switch_checkbox').on('click', function(){
-            var value = $(this).siblings('input').context.id.split('_')[2];
-            if($(this).siblings('input').context.checked){
-                $.ajax({
-                    url: '{:url("admin/Recommend/status")}',
-                    type: 'POST',
-                    dataType: 'JSON',
-                    async: false,
-                    data: {
-                        'id': value,
-                        'status': 1
-                    },
-                    success: function(data){
-                        console.log(data);
-                    },
-                    error: function(){
-                        console.log('错误');
-                    }
-                })
-            }else{
-                $.ajax({
-                    url: '{:url("admin/Recommend/status")}',
-                    type: 'POST',
-                    dataType: 'JSON',
-                    async: false,
-                    data: {
-                        'id': value,
-                        'status': 0
-                    },
-                    success: function(data){
-                        console.log(data);
-                    },
-                    error: function(){
-                        console.log('错误');
-                    }
-                })
-            }
-        })
-
-        // 判断 是否推荐status值
-        $.each($('.switch_checkbox'),function(idx, val){
-            if(val.name == 1){
-                $($('.switch_checkbox')[idx]).attr('checked', 'true');
-            }
-        })
-    </script>
+<script src="__STATIC__/admin/lib/jquery/1.9.1/jquery.js"></script>
+<script src="__STATIC__/admin/lib/layer/2.4/layer.js"></script>
+<script>
+    $('.switch_checkbox').on('click', function(){
+        var value = $(this).siblings('input').context.id.split('_')[2];
+        if($(this).siblings('input').context.checked){
+            $.ajax({
+                url: '{:url("admin/Recommend/status")}',
+                type: 'POST',
+                dataType: 'JSON',
+                async: false,
+                data: {
+                    'id': value,
+                    'status': 1
+                },
+                success: function(data){
+                    console.log(data);
+                },
+                error: function(){
+                    console.log('错误');
+                }
+            })
+        }else{
+            $.ajax({
+                url: '{:url("admin/Recommend/status")}',
+                type: 'POST',
+                dataType: 'JSON',
+                async: false,
+                data: {
+                    'id': value,
+                    'status': 0
+                },
+                success: function(data){
+                    console.log(data);
+                },
+                error: function(){
+                    console.log('错误');
+                }
+            })
+        }
+    })
+    // 判断 是否推荐status值
+    $.each($('.switch_checkbox'),function(idx, val){
+        if(val.name == 1){
+            $($('.switch_checkbox')[idx]).attr('checked', 'true');
+        }
+    })
+    
+    // 编辑
+    function product_edit(title,url,id){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+</script>
 </body>
 </html>
