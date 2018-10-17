@@ -459,6 +459,7 @@ Route::group("admin",[
     "recommend_updata"=>"admin/Recommend/updata",
     "recommend_del"=>"admin/Recommend/del",
     "recommend_status"=>"admin/Recommend/status",
+    "recommend_images"=>"admin/Recommend/images",
 
 
 
