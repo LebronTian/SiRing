@@ -105,12 +105,12 @@ class Recommend extends Controller{
         $id = $request->only(["id"])["id"];
         $data = db("recommend")->where("id",$id)->find();
         if(!empty($data)){
-            unlink(ROOT_PATH . 'public' . DS . 'type/' . $data['images']);
+            unlink(ROOT_PATH . 'public' . DS . 'uploads/' . $data['images']);
             $bool = db("recommend")->where("id",$id)->update(["images"=>null]);
             if($bool){
-                $this->success("删除成功",url("admin/Recommend/index"));
+                return ajax_success("删除成功");
             }else{
-                $this->error("删除失败",url("admin/Recommend/index"));
+                return ajax_error("删除失败");
 
             }
         }
