@@ -43,7 +43,18 @@ class Index extends Controller
             $goods_type = db("goods_type")->where("pid", "0")->where("status","<>",0)->order("sort_number")->limit(7)->select();
             $seckill = db("seckill")->select();
             $goods = db("goods")->where("goods_status", 1)->select();
-            $this->assign(['goods_type'=>$goods_type,"seckill"=>$seckill,"goods"=>$goods]);
+            $recommend = db("recommend")->where("status","<>","0")->select();
+            $time = time();
+            foreach ($seckill as $value){
+                $str_time = $value["over_time"];
+                if (!empty($value["over_time"])) {
+                    if ($value["over_time"] - $time <= 0) {
+                        $value["over_time"] = date("Y-m-d H:i:s", strtotime("+3 day"));
+                        $str_time = strtotime($value["over_time"]);
+                    }
+                }
+            }
+            $this->assign(['goods_type'=>$goods_type,"seckill"=>$seckill,"goods"=>$goods,"recommend"=>$recommend]);
         }
         return view("index");
     }
