@@ -60,9 +60,9 @@ class Recommend extends Controller{
             unset($data["id"]);
             $images = $request->file("images");
             if (!empty($images)) {
-                $data["images"] = $images->move(ROOT_PATH . 'public' . DS . 'uploads');
+                $image = $images->move(ROOT_PATH . 'public' . DS . 'uploads');
+                $data["images"] = str_replace("\\", "/", $image->getSaveName());
             }
-            halt($data);
             $bool = db("recommend")->where("id", $id)->update($data);
             if ($bool) {
                 return ajax_success("入库成功", $bool);

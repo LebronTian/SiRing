@@ -362,9 +362,9 @@
                 contentType: false,
                 data: formData,
                 success: function(data){
-                    console.log(data);
                     if(data.status == 1){
-                        location.href = "recommend_index";
+                        console.log(1);
+                        location.href = 'recommend_index';
                     }
                 },
                 error: function(){
