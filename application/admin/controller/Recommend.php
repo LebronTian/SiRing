@@ -27,16 +27,17 @@ class Recommend extends Controller{
 
 
     public function save(Request $request){
-
-        $data = $request->param();
-        $images = $request->file("images");
-        $image = $images->move(ROOT_PATH . 'public' . DS . 'uploads');
-        $data["images"] = str_replace("\\", "/", $image->getSaveName());
-        $bool = db("recommend")->insert($data);
-        if($bool){
-            return ajax_success("入库成功",$bool);
-        }else{
-            return ajax_error("入库失败");
+        if($request->isPost()) {
+            $data = $request->param();
+            $images = $request->file("images");
+            $image = $images->move(ROOT_PATH . 'public' . DS . 'uploads');
+            $data["images"] = str_replace("\\", "/", $image->getSaveName());
+            $bool = db("recommend")->insert($data);
+            if ($bool) {
+                return ajax_success("入库成功", $bool);
+            } else {
+                return ajax_error("入库失败");
+            }
         }
 
     }
@@ -53,19 +54,20 @@ class Recommend extends Controller{
 
 
     public function updata(Request $request){
-
-        $data = $request->param();
-        $id = $request->only(["id"])["id"];
-        unset($data["id"]);
-        $images = $request->file("images");
-        if(!empty($images)){
-            $data["images"] = $images->move(ROOT_PATH . 'public' . DS . 'uploads');
-        }
-        $bool = db("recommend")->where("id",$id)->update($data);
-        if($bool){
-            return ajax_success("入库成功",$bool);
-        }else{
-            return ajax_error("入库失败");
+        if($request->isPost()) {
+            $data = $request->param();
+            $id = $request->only(["id"])["id"];
+            unset($data["id"]);
+            $images = $request->file("images");
+            if (!empty($images)) {
+                $data["images"] = $images->move(ROOT_PATH . 'public' . DS . 'uploads');
+            }
+            $bool = db("recommend")->where("id", $id)->update($data);
+            if ($bool) {
+                return ajax_success("入库成功", $bool);
+            } else {
+                return ajax_error("入库失败");
+            }
         }
 
     }
