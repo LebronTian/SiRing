@@ -29,9 +29,9 @@ class Recommend extends Controller{
     public function save(Request $request){
 
         $data = $request->param();
-        $data["images"] = $request->file("images");//
-        halt($data["images"]);
-        //->move(ROOT_PATH . 'public' . DS . 'uploads');
+        $images = $request->file("images");
+        $image = $images->move(ROOT_PATH . 'public' . DS . 'uploads');
+        $data["images"] = str_replace("\\", "/", $image->getSaveName());
         $bool = db("recommend")->insert($data);
         if($bool){
             return ajax_success("入库成功",$bool);

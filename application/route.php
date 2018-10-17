@@ -458,6 +458,7 @@ Route::group("admin",[
     "recommend_edit"=>"admin/Recommend/edit",
     "recommend_updata"=>"admin/Recommend/updata",
     "recommend_del"=>"admin/Recommend/del",
+    "recommend_status"=>"admin/Recommend/status",
 
 
 
