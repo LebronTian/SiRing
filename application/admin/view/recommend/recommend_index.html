@@ -98,21 +98,23 @@
                 <th>是否推荐</th>
                 <th>操作</th>
             </tr>
+            {volist name="data" id="value"}
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><img src="__UPLOADS__/{$value.images}"></td>
+                <td>{$value.explain}</td>
+                <td>{$value.sort_number}</td>
                 <td>
-                    <input type="checkbox" class="switch_checkbox" id="switch_checkbox">
+                    <input value="{$value.id}" type="checkbox" class="switch_checkbox" id="switch_checkbox">
                     <label for="switch_checkbox" class="switch_label">
                         <span class="switch_circle"></span>
                     </label>
                 </td>
                 <td>
-                    <a href="{:url('admin/Recommend/edit')}" class="edit">编辑</a>
-                    <a href="javascript:;" class="delete">删除</a>
+                    <a href="{:url('admin/Recommend/edit',['id'=>$value.id])}" class="edit">编辑</a>
+                    <a href="{:url('admin/Recommend/del',['id'=>$value.id])}" class="delete">删除</a>
                 </td>
             </tr>
+            {/volist}
         </table>
     </div>
     <script src="__STATIC__/admin/lib/jquery/1.9.1/jquery.js"></script>
