@@ -62,6 +62,7 @@ class Recommend extends Controller{
             if (!empty($images)) {
                 $data["images"] = $images->move(ROOT_PATH . 'public' . DS . 'uploads');
             }
+            halt($data);
             $bool = db("recommend")->where("id", $id)->update($data);
             if ($bool) {
                 return ajax_success("入库成功", $bool);
