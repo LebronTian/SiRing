@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>编辑推荐</title>
+    <title>添加推荐</title>
     <style>
         .switch_checkbox {
             display: none;
@@ -132,15 +132,15 @@
             text-decoration: none
         }
         .img_div{
-            min-height: 50px; 
+            min-height: 50px;
             min-width: 100px;
             margin-top: 10px;
         }
         .isImg{
-            width: 50px; 
-            height: 50px; 
-            position: relative; 
-            float: left; 
+            width: 50px;
+            height: 50px;
+            position: relative;
+            float: left;
             margin-left: 10px;
         }
         .removeBtn{
@@ -169,14 +169,16 @@
             background: rgba(0, 0, 0, 0.55);
         }
         .showImg{
-            width: 400px; 
-            height: 500px; 
+            width: 400px;
+            height: 500px;
             margin-top: 140px;
         }
     </style>
 </head>
 <body>
-    <div class="wrapper">
+<div class="wrapper">
+    <form action="" id="from">
+        {volist name="data" id="value"}
         <div>
             <span class="tjkg">推荐开关</span>
             <input type="checkbox" class="switch_checkbox" id="switch_checkbox">
@@ -186,31 +188,31 @@
         </div>
         <div>
             <span>首页排序</span>
-            <input type="text" class="w200" placeholder="输入首页排序，例如1">
+            <input type="text" value="{$value.sort_number}" class="w200 sort_num" placeholder="输入首页排序，例如1">
         </div>
         <div class="tjtb">
             <span>推荐图标</span>
-			<div>
-				<a href="javascript:;" class="a-upload">
-					<input type="file" name="goods_images[]" id="myFile" multiple="multiple"/><span>点击文件上传</span>
-				</a>
-				<div class="img_div"></div>
+            <div>
+                <a href="javascript:;" class="a-upload">
+                    <input type="file" name="images" id="myFile" multiple="multiple"/><span>点击文件上传</span>
+                </a>
+                <div class="img_div"></div>
 
-				<div class="shade" onclick="javascript:closeShade()">
-					<div>
-						<span class="text_span"></span>
-					</div>
-				</div>
-				<div class="shadeImg" onclick="javascript:closeShadeImg()">
-					<div>
-						<img class="showImg" src=""/>
-					</div>
-				</div>
-			</div>
+                <div class="shade" onclick="javascript:closeShade()">
+                    <div>
+                        <span class="text_span"></span>
+                    </div>
+                </div>
+                <div class="shadeImg" onclick="javascript:closeShadeImg()">
+                    <div>
+                        <img class="showImg" src=""/>
+                    </div>
+                </div>
+            </div>
         </div>
         <div>
             <span>推荐说明</span>
-            <input type="text" class="w200" placeholder="例如：甩卖商品（不超过5个字）">
+            <input type="text" class="w200 tjsm" value="{$value.explain}" placeholder="例如：甩卖商品（不超过5个字）">
         </div>
         <div class="xzcz">
             <span>选择操作</span>
@@ -218,33 +220,35 @@
                 <div>
                     <input type="radio" name="radio" class="goods_list_id" id="goods_list_id">
                     <label for="goods_list_id">商品id</label>
-                    <input type="text">
+                    <input value="{$value.goods_id}" type="text" class="goods_id">
                 </div>
                 <div>
                     <input type="radio" name="radio" class="out_url" id="out_url">
                     <label for="out_url">链接地址</label>
-                    <input type="text">
+                    <input value="{$value.url}" type="text" class="url">
                 </div>
             </div>
         </div>
-        <button class="submit">提交</button>
-    </div>
+        {/volist}
+    </form>
+    <button class="submit">提交</button>
+</div>
 
-    <script src="__STATIC__/admin/lib/jquery/1.9.1/jquery.js"></script>
-    <script>
-        $(function(){
+<script src="__STATIC__/admin/lib/jquery/1.9.1/jquery.js"></script>
+<script>
+    $(function(){
         var objUrl;
         var img_html;
         $("#myFile").change(function() {
             var img_div = $(".img_div");
-            var filepath = $("input[name='goods_images[]']").val();
+            var filepath = $("input[name='images']").val();
             for(var i = 0; i < this.files.length; i++) {
                 objUrl = getObjectURL(this.files[i]);
                 var extStart = filepath.lastIndexOf(".");
                 var ext = filepath.substring(extStart, filepath.length).toUpperCase();
                 /*
-                    描述：鉴定每个图片上传尾椎限制
-                    * */
+                 描述：鉴定每个图片上传尾椎限制
+                 * */
                 if(ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {
                     $(".shade").fadeIn(500);
                     $(".text_span").text("图片限于bmp,png,gif,jpeg,jpg格式");
@@ -253,18 +257,22 @@
                     return false;
                 } else {
                     /*
-                        若规则全部通过则在此提交url到后台数据库
-                        * */
-                    img_html = "<div class='isImg'>\
+                     若规则全部通过则在此提交url到后台数据库
+                     * */
+                    if($('.isImg').length == 1){
+                        alert('最多上传1张图片');
+                    }else{
+                        img_html = "<div class='isImg'>\
                                     <img src='" + objUrl + "' onclick='javascript:;' style='height: 100%; width: 100%;' />\
                                     <button class='removeBtn' onclick='javascript:removeImg(this)'>x</button>\
                                 </div>";
-                    img_div.append(img_html);
+                        img_div.append(img_html);
+                    }
                 }
             }
             /*
-                描述：鉴定每个图片大小总和
-                * */
+             描述：鉴定每个图片大小总和
+             * */
             var file_size = 0;
             var all_size = 0;
             for(j = 0; j < this.files.length; j++) {
@@ -282,8 +290,8 @@
             return true;
         });
         /*
-            描述：鉴定每个浏览器上传图片url 目前没有合并到Ie
-            * */
+         描述：鉴定每个浏览器上传图片url 目前没有合并到Ie
+         * */
         function getObjectURL(file) {
             var url = null;
             if(window.createObjectURL != undefined) { // basic
@@ -300,6 +308,55 @@
     function removeImg(r){
         $(r).parent().remove();
     }
-    </script>
+</script>
+<!-- 给后台传值 -->
+<script>
+    $('.submit').click(function(){
+        if($('.isImg').length != 0){
+            var images = $('.isImg img')[0].src;
+            var switchoff = '';
+            if($('.switch_checkbox')[0].checked){
+                switchoff = 1;
+            }else{
+                switchoff = 0;
+            }
+            var sort_num = $('.sort_num').val();
+            var explain = $('.tjsm').val()
+            var goods_id = $('.goods_id').val();
+            var url = $('.url').val();
+            var formData = new FormData();
+            // formData 给后台传图片地址  循环传多张
+            // for(var i = 0; i < $('#myFile')[0].files.length; i++){
+            formData.append('images', $('#myFile')[0].files[0]);
+            // }
+            formData.append('status', switchoff);
+            formData.append('sort_number', sort_num);
+            // formData.append('images', images);
+            formData.append('explain', explain);
+            formData.append('goods_id', goods_id);
+            formData.append('url', url);
+            $.ajax({
+                url: '{:url("admin/Recommend/save")}',
+                type: 'POST',
+                dataType: 'JSON',
+                async: false,
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function(data){
+                    console.log(data);
+                    if(data.status == 1){
+                        location.href = "recommend_index";
+                    }
+                },
+                error: function(){
+                    console.log('错误');
+                }
+            })
+        }else{
+            alert('必须上传图标');
+        }
+    })
+</script>
 </body>
 </html>

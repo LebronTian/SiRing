@@ -45,7 +45,8 @@ class Recommend extends Controller{
 
     public function edit($id){
 
-        return view("recommend_edit");
+        $data = db("recommend")->where("id",$id)->select();
+        return view("recommend_edit",["data"=>$data]);
 
     }
 
@@ -93,6 +94,24 @@ class Recommend extends Controller{
             return ajax_error("更改失败");
         }
 
+    }
+
+
+
+
+    public function images(Request $request){
+        $id = $request->only(["id"])["id"];
+        $data = db("recommend")->where("id",$id)->find();
+        if(!empty($data)){
+            unlink(ROOT_PATH . 'public' . DS . 'type/' . $data['images']);
+            $bool = db("recommend")->where("id",$id)->update(["images"=>null]);
+            if($bool){
+                $this->success("删除成功",url("admin/Recommend/index"));
+            }else{
+                $this->error("删除失败",url("admin/Recommend/index"));
+
+            }
+        }
     }
 
 
