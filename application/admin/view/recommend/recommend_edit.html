@@ -245,9 +245,9 @@
                 </div>
             </div>
         </div>
+        <button class="submit" id="{$value.id}">提交</button>
         {/volist}
     </form>
-    <button class="submit">提交</button>
 </div>
 
 <script src="__STATIC__/admin/lib/jquery/1.9.1/jquery.js"></script>
@@ -341,11 +341,13 @@
             var goods_id = $('.goods_id').val();
             var url = $('.url').val();
             var formData = new FormData();
+            var id = $(this)[0].id;
             // formData 给后台传图片地址  循环传多张
             // for(var i = 0; i < $('#myFile')[0].files.length; i++){
             formData.append('images', $('#myFile')[0].files[0]);
             // }
             formData.append('status', switchoff);
+            formData.append('id', id);
             formData.append('sort_number', sort_num);
             // formData.append('images', images);
             formData.append('explain', explain);
