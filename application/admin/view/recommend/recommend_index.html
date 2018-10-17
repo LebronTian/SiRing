@@ -100,12 +100,12 @@
             </tr>
             {volist name="data" id="value"}
             <tr>
-                <td><img src="__UPLOADS__/{$value.images}"></td>
+                <td><img src="__UPLOADS__/{$value.images}" width="50" height="50"></td>
                 <td>{$value.explain}</td>
                 <td>{$value.sort_number}</td>
                 <td>
-                    <input value="{$value.id}" type="checkbox" class="switch_checkbox" id="switch_checkbox">
-                    <label for="switch_checkbox" class="switch_label">
+                    <input type="checkbox" class="switch_checkbox" id="switch_checkbox_{$value.id}">
+                    <label for="switch_checkbox_{$value.id}" class="switch_label">
                         <span class="switch_circle"></span>
                     </label>
                 </td>
@@ -120,10 +120,42 @@
     <script src="__STATIC__/admin/lib/jquery/1.9.1/jquery.js"></script>
     <script>
         $('.switch_checkbox').on('click', function(){
+            var value = $(this).siblings('input').context.id.split('_')[2];
+            console.log(value)
             if($(this).siblings('input').context.checked){
-                console.log(111);
+                $.ajax({
+                    url: '{:url("admin/Recommend/status")}',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    async: false,
+                    data: {
+                        'id': value,
+                        'status': 1
+                    },
+                    success: function(data){
+                        console.log(data);
+                    },
+                    error: function(){
+                        console.log('错误');
+                    }
+                })
             }else{
-                console.log(222);
+                $.ajax({
+                    url: '{:url("admin/Recommend/status")}',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    async: false,
+                    data: {
+                        'id': value,
+                        'status': 0
+                    },
+                    success: function(data){
+                        console.log(data);
+                    },
+                    error: function(){
+                        console.log('错误');
+                    }
+                })
             }
         })
     </script>

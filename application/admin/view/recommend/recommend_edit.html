@@ -336,7 +336,7 @@
             formData.append('goods_id', goods_id);
             formData.append('url', url);
             $.ajax({
-                url: '{:url("admin/Recommend/save")}',
+                url: '{:url("admin/Recommend/update")}',
                 type: 'POST',
                 dataType: 'JSON',
                 async: false,
