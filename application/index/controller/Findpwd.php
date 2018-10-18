@@ -49,8 +49,8 @@ class Findpwd extends Controller{
                     return ajax_success('此手机号不能存在，请前往注册',$mobile);
                 }else{
 
-                    if ($_SESSION['mobileCode'] != $code || $_SESSION['mobile'] != $mobile) {
-                            return ajax_success("验证码不正确");
+                    if ($_SESSION['mobileCode'] != $code) {
+                            return ajax_success("验证码不正确",$mobile);
                     }else{
                         return ajax_success('chwengg',$mobile);
 //                                $password_bool =Db::name('user')->where('phone_num',$mobile)->update(['password'=>$password]);
