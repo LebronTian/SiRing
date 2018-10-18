@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>首页推荐列表</title>
+    <style>
+        table{
+            border-collapse: collapse;
+            width: 100%;
+            border-color: #ccc;
+        }
+        table th{
+            background-color: #ddd;
+            font-weight: normal;
+            color: #666;
+        }
+        table tr{
+            height: 30px;
+            text-align: center;
+        }
+        .edit{
+            display: inline-block;
+            color: #0099ff;
+            border: 1px solid #0099ff;
+            text-decoration: none;
+            padding: 0 3px;
+            border-radius: 3px;
+            margin-right: 10px;
+        }
+        .delete{
+            color: #666;
+            text-decoration: none;
+        }
+
+        .switch_checkbox {
+            display: none;
+        }
+        .switch_label {
+            margin-top: 5px;
+            background-color: rgb(242, 242, 242);
+            display: inline-block;
+            position: relative;
+            height: 20px;
+            width: 40px;
+            border-radius: 15px;
+        }
+        /* ~选择器 选择前面的input checkbox被选中状态下的 span标签*/
+        .switch_checkbox:checked~.switch_label .switch_circle {
+            left: 20px;
+        }
+        .switch_circle {
+            position: absolute;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            border: 1px solid #eee;
+            background-color: #fff;
+            left: 0;
+            top: -1px;
+            -webkit-transition: all 0.3s;
+            -moz-transition: all 0.3s;
+            -ms-transition: all 0.3s;
+            -o-transition: all 0.3s;
+            transition: all 0.3s;
+        }
+        /* ~选择器 选择前面的input checkbox被选中状态下的 label标签*/
+        .switch_checkbox:checked~.switch_label {
+            background: rgb(0, 153, 255);
+        }
+        .recommend {
+            margin-bottom: 10px;
+        }
+        .recommend a{
+            display: inline-block;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #5a98de;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="recommend">
+            <a href="{:url('admin/Recommend/add')}">＋添加推荐</a>
+        </div>
+        <table border="1">
+            <tr>
+                <th>推荐图标</th>
+                <th>推荐说明</th>
+                <th>首页排序</th>
+                <th>是否推荐</th>
+                <th>操作</th>
+            </tr>
+            {volist name="data" id="value"}
+            <tr>
+                <td><img src="__UPLOADS__/{$value.images}" width="50" height="50"></td>
+                <td>{$value.explain}</td>
+                <td>{$value.sort_number}</td>
+                <td>
+                    <input type="checkbox" name="{$value.status}" class="switch_checkbox" id="switch_checkbox_{$value.id}">
+                    <label for="switch_checkbox_{$value.id}" class="switch_label">
+                        <span class="switch_circle"></span>
+                    </label>
+                </td>
+                <td>
+                    <a href="javascript:;" onclick="product_edit('编辑','{:url("admin/Recommend/edit",['id'=>$value.id])}')" class="edit">编辑</a>
+                    <a href="{:url('admin/Recommend/del',['id'=>$value.id])}" class="delete">删除</a>
+                </td>
+            </tr>
+            {/volist}
+        </table>
+    </div>
+<script src="__STATIC__/admin/lib/jquery/1.9.1/jquery.js"></script>
+<script src="__STATIC__/admin/lib/layer/2.4/layer.js"></script>
+<script>
+    $('.switch_checkbox').on('click', function(){
+        var value = $(this).siblings('input').context.id.split('_')[2];
+        if($(this).siblings('input').context.checked){
+            $.ajax({
+                url: '{:url("admin/Recommend/status")}',
+                type: 'POST',
+                dataType: 'JSON',
+                async: false,
+                data: {
+                    'id': value,
+                    'status': 1
+                },
+                success: function(data){
+                    console.log(data);
+                },
+                error: function(){
+                    console.log('错误');
+                }
+            })
+        }else{
+            $.ajax({
+                url: '{:url("admin/Recommend/status")}',
+                type: 'POST',
+                dataType: 'JSON',
+                async: false,
+                data: {
+                    'id': value,
+                    'status': 0
+                },
+                success: function(data){
+                    console.log(data);
+                },
+                error: function(){
+                    console.log('错误');
+                }
+            })
+        }
+    })
+    // 判断 是否推荐status值
+    $.each($('.switch_checkbox'),function(idx, val){
+        if(val.name == 1){
+            $($('.switch_checkbox')[idx]).attr('checked', 'true');
+        }
+    })
+    
+    // 编辑
+    function product_edit(title,url,id){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+</script>
+</body>
+</html>

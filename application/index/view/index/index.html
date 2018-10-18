@@ -94,6 +94,16 @@
 						</div>
 						{/volist}
 					</div>
+					<div class="aui-row aui-row-img-wt">
+						{volist name="recommend" id="data"}
+						<div class="aui-col-xs-3">
+							<a href="{if !empty($data.goods_id)}javascript:;{else}{$data.url}{/if}" class="Goods">
+								<i class="aui-iconfont "><img src="__UPLOADS__/{$data.images}"></i>
+								<div class="aui-grid-label">{$data.explain}</div>
+							</a>
+						</div>
+						{/volist}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -225,6 +235,27 @@
             }
 		});
     })
+</script>
+<script>
+	$(".Goods").click(function () {
+	    console.log($(this))
+		var goods_id = $(this)[0].id;
+		$.ajax({
+			type:"POST",
+			url:"{:url('index/Goods/goods_id')}",
+			data:{"goods_id":goods_id},
+			dataType:"json",
+			success:function (data) {
+				//console.log(data);
+//				if(data.status == 1){
+//					location.href = "goods_detail";
+//				}
+			},
+			error:function (data) {
+				console.log("错误");
+			}
+		});
+	})
 </script>
 <script>
 	$.ajax({

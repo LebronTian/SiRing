@@ -451,6 +451,17 @@ Route::group("admin",[
     "electron_search"=>"admin/Electron/search",
 
 
+    //首页推荐
+    "recommend_index"=>"admin/Recommend/index",
+    "recommend_add"=>"admin/Recommend/add",
+    "recommend_save"=>"admin/Recommend/save",
+    "recommend_edit"=>"admin/Recommend/edit",
+    "recommend_updata"=>"admin/Recommend/updata",
+    "recommend_del"=>"admin/Recommend/del",
+    "recommend_status"=>"admin/Recommend/status",
+    "recommend_images"=>"admin/Recommend/images",
+
+
 
 
 

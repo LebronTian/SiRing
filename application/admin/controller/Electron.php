@@ -58,13 +58,16 @@ class Electron extends Controller{
         $order = db("order")->where("id",$electron["order_id"])->find();
         if(is_numeric(trim($electron["year"]))){
             $year = $request->only(["year"])["year"];
-            $electron["year"] = date("Y-m-d H:i:s",strtotime("+$year day",$order["create_time"]));
+            $electron["year"] = date("Y-m-d",strtotime("+$year day",$order["create_time"]));
         }else{
-            $electron["year"] = date("Y-m-d H:i:s",strtotime("+367 day",$order["create_time"]));
+            $electron["year"] = date("Y-m-d",strtotime("+367 day",$order["create_time"]));
         }
         $bool = db("electron")->insert($electron);
         if($bool){
-            $this->success("添加成功",url("admin/Electron/index"));
+            $goods_bool = db("goods")->where("id",$order["goods_id"])->update(["goods_imei"=>$electron["goods_imei"]]);
+            if($goods_bool){
+                $this->success("添加成功",url("admin/Electron/index"));
+            }
         }else{
             $this->error("添加失败",url("admin/Electron/index"));
         }
@@ -97,9 +100,9 @@ class Electron extends Controller{
         $order = db("order")->where("id",$electron["order_id"])->find();
         if(is_numeric(trim($electron["year"]))){
             $year = $request->only(["year"])["year"];
-            $electron["year"] = date("Y-m-d H:i:s",strtotime("+$year day",$order["create_time"]));
+            $electron["year"] = date("Y-m-d",strtotime("+$year day",$order["create_time"]));
         }else{
-            $electron["year"] = date("Y-m-d H:i:s",strtotime("+367 day",$order["create_time"]));
+            $electron["year"] = date("Y-m-d",strtotime("+367 day",$order["create_time"]));
         }
         $bool = db("electron")->where("id",$id)->update($electron);
         if($bool){
