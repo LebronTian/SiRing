@@ -48,10 +48,11 @@ class Findpwd extends Controller{
                 if(empty($res)){
                     return ajax_success('此手机号不能存在，请前往注册',$mobile);
                 }else{
-                    return ajax_success('chwengg',$mobile);
-//                    if ($_SESSION['mobileCode'] != $code || $_SESSION['mobile'] != $mobile) {
-//                            return ajax_success("验证码不正确");
-//                    }else{
+
+                    if ($_SESSION['mobileCode'] != $code || $_SESSION['mobile'] != $mobile) {
+                            return ajax_success("验证码不正确");
+                    }else{
+                        return ajax_success('chwengg',$mobile);
 //                                $password_bool =Db::name('user')->where('phone_num',$mobile)->update(['password'=>$password]);
 //    //                            if(!empty($password_bool)){
 //    //                                $user_data =Db::name('user')->where('phone_num',$mobile)->find();
@@ -60,7 +61,7 @@ class Findpwd extends Controller{
 //    //                            return ajax_success('密码修改失败',$password_bool);
 //    //                        }
 //                        return ajax_success('密码修改成功',$password_bool);
-//                        }
+                        }
                 }
             }
 
