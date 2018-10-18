@@ -49,7 +49,7 @@ class Findpwd extends Controller{
                     return ajax_success('此手机号不能存在，请前往注册',$mobile);
                 }else{
 
-                    if ($_SESSION['mobileCode'] != $code) {
+                    if (session('mobileCode') != $code) {
                             return ajax_success("验证码不正确",$mobile);
                     }else{
                         return ajax_success('chwengg',$mobile);
