@@ -31,11 +31,12 @@ class Findpwd extends Controller{
             $mobile =trim($_POST['phone_number']);
             $code =trim($_POST['code']);
             $password =trim($_POST['password']);
+
             if (strlen($mobile) != 11 || substr($mobile, 0, 1) != '1' ) {
-                return ajax_error("请输入正确的手机号码");
+                return ajax_success("请输入正确的手机号码",$mobile);
             }
             if($code == ''){
-               return ajax_error('验证码不能为空');
+               return ajax_success('验证码不能为空',$code);
             }
            $res =Db::name('user')->field('phone_num')->where('phone_num',$mobile)->select();
             if(empty($res)){
@@ -43,7 +44,7 @@ class Findpwd extends Controller{
             }
             if(!empty($res)){
                 if ($_SESSION['mobileCode'] != $code || $_SESSION['mobile'] != $mobile) {
-                        return ajax_error("验证码不正确");
+                        return ajax_success("验证码不正确");
                 }else{
                         $password_bool =Db::name('user')->where('phone_num',$mobile)->update(['password'=>$password]);
                         if(!empty($password_bool)){
