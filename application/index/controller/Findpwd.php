@@ -37,30 +37,30 @@ class Findpwd extends Controller{
                 'code'=>$code,
             ];
             if(!empty($data)){
-                return ajax_success('返回成功',$data);
+            if (strlen($mobile) != 11 || substr($mobile, 0, 1) != '1' ) {
+                return ajax_success("请输入正确的手机号码",$mobile);
             }
-            
-//            if (strlen($mobile) != 11 || substr($mobile, 0, 1) != '1' ) {
-//                return ajax_success("请输入正确的手机号码",$mobile);
-//            }
-//            if($code == ''){
-//               return ajax_success('验证码不能为空',$code);
-//            }
-//           $res =Db::name('user')->field('phone_num')->where('phone_num',$mobile)->select();
-//            if(empty($res)){
-//                return ajax_success('此手机号不能存在，请前往注册',$mobile);
-//            }
-//            if(!empty($res)){
-//                if ($_SESSION['mobileCode'] != $code || $_SESSION['mobile'] != $mobile) {
-//                        return ajax_success("验证码不正确");
-//                }else{
-//                        $password_bool =Db::name('user')->where('phone_num',$mobile)->update(['password'=>$password]);
-//                        if(!empty($password_bool)){
-//                            $user_data =Db::name('user')->where('phone_num',$mobile)->find();
-//                            return ajax_success('密码修改成功',$user_data);
-//                        }
-//                    }
-//            }
+            if($code == ''){
+               return ajax_success('验证码不能为空',$code);
+            }
+           $res =Db::name('user')->field('phone_num')->where('phone_num',$mobile)->select();
+            if(empty($res)){
+                return ajax_success('此手机号不能存在，请前往注册',$mobile);
+            }
+            if(!empty($res)){
+                if ($_SESSION['mobileCode'] != $code || $_SESSION['mobile'] != $mobile) {
+                        return ajax_success("验证码不正确");
+                }else{
+                        $password_bool =Db::name('user')->where('phone_num',$mobile)->update(['password'=>$password]);
+                        if(!empty($password_bool)){
+                            $user_data =Db::name('user')->where('phone_num',$mobile)->find();
+                            return ajax_success('密码修改成功',$user_data);
+                        }else{
+                        return ajax_success('密码修改失败',$password_bool);
+                    }
+                    }
+            }
+            }
 
         }
     }
