@@ -36,7 +36,10 @@ class Findpwd extends Controller{
                 'password'=>$password,
                 'code'=>$code,
             ];
-            return ajax_success('返回成功',$data);
+            if(!empty($data)){
+                return ajax_success('返回成功',$data);
+            }
+            
 //            if (strlen($mobile) != 11 || substr($mobile, 0, 1) != '1' ) {
 //                return ajax_success("请输入正确的手机号码",$mobile);
 //            }
