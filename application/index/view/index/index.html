@@ -97,7 +97,7 @@
 					<div class="aui-row aui-row-img-wt">
 						{volist name="recommend" id="data"}
 						<div class="aui-col-xs-3">
-							<a href="{if !empty($data.goods_id)}{$data.goods_id}{else}{$data.url}{/if}" class="Goods">
+							<a href="{if !empty($data.goods_id)}javascript:;{else}{$data.url}{/if}" class="Goods">
 								<i class="aui-iconfont "><img src="__UPLOADS__/{$data.images}"></i>
 								<div class="aui-grid-label">{$data.explain}</div>
 							</a>
