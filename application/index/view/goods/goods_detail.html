@@ -87,7 +87,7 @@
 			width: 100%;
 			height: 40px;
 			position: fixed;
-			top: 50px;
+			top: 0;
 			left: 0;
 			z-index: 998;
 			background-color: rgba(200, 200, 200, .3);
@@ -181,10 +181,6 @@
 			font-size: 12px;
 			line-height: 12px;
 		}
-		.fixed{
-			position: fixed !important;
-			z-index: 999 !important;
-		}
 	</style>
 	<link rel="icon" type="__STATIC__/index/image/x-icon" href="__STATIC__/index/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="__STATIC__/index/css/aui.css"/>
@@ -194,12 +190,7 @@
 	<link rel="stylesheet" href="__STATIC__/index/css/swiper-4.3.5.min.css">
 </head>
 <body style="background:#fff">
-<header class="aui-bar aui-bar-nav fixed">
-	<a class="aui-pull-left aui-btn" href="javascript:history.back(-1);">
-		<span class="aui-iconfont aui-icon-left" style="font-weight:800"></span>
-	</a>
-	<div class="aui-title">商品详情</div>
-</header>
+
 <div id="aui-slide2" style="margin-top:50px;">
 	<div class="aui-slide-wrap" style="height:100%;">
 		<div class="swiper-container" style="height:100%;">
@@ -260,23 +251,7 @@
 	</div>
 </div>
 <div style="height:52px"></div>
-<!-- footer -->
-<footer class="aui-bar aui-bar-tab aui-margin-t-15  aui-border-t iphonex-pb">
-	<div class="aui-bar-tab-item" style="width: 2rem;">
-		<i class="kefu"></i><a href="chat"></a>
-		<div class="aui-bar-tab-label star_info" style="color:#f00;">客服</div>
-	</div>
-	<div class="aui-bar-tab-item collection_add" tapmode style="width: 2rem;">
-		<i class="aui-iconfont aui-icon-star star_info"></i>
-		<div class="aui-bar-tab-label star_info">收藏</div>
-	</div>
-	<div class="aui-bar-tab-item" style="width: 2rem;">
-		<i class="aui-iconfont aui-icon-cart star_info" style="color:#757575"></i>
-		<div class="aui-bar-tab-label star_info">购物车</div>
-	</div>
-	<div class="aui-bar-tab-item aui-bg-warning aui-text-white" tapmode style="border-top-left-radius: 18px;border-bottom-left-radius: 18px;" id="add_to_cart">加入购物车</div>
-	<div class="aui-bar-tab-item aui-bg-danger aui-text-white" onclick="toUrl('order_index')" tapmode style="border-top-right-radius: 18px; border-bottom-right-radius: 18px;" id="buy_now">立即购买</div>
-</footer>
+
 <!-- 配件大图 -->
 <div class="goods_parts_big_img">
 	<a href="javascript:$('.goods_parts_big_img').hide();;">×</a>
