@@ -53,7 +53,8 @@ class Findpwd extends Controller{
                             return ajax_success("验证码不正确",$mobile);
                     }else{
 //                        return ajax_success('chwengg',$mobile);
-                                $password_bool =Db::name('user')->where('phone_num',$mobile)->update(['password'=>md5($password)]);
+                                $passwords =md5($password);
+                                $password_bool =Db::name('user')->where('phone_num',$mobile)->update(['password'=>$passwords]);
                                 if(!empty($password_bool)){
                                     $user_data =Db::name('user')->where('phone_num',$mobile)->find();
                                     return ajax_success('密码修改成功',$user_data);
