@@ -136,7 +136,7 @@
             height:100vh;
             display:none;
             background:#000;
-            z-index: 999;
+            z-index: 9999;
         }
         .show-image img{
             position: absolute;
@@ -377,7 +377,8 @@
                 })
                 
                 var activeIndex;//在tabBox的点击事件中获取当前图片的索引值
-                $('.show-image').on('tap',function(){
+                $('.show-image').on('tap',function(e){
+						console.log(e)
                         $('.show-image').hide();
                     })
                     .on('swipeLeft',function(){
