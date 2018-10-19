@@ -34,7 +34,6 @@ class Login extends Controller{
             'useNoise'=>false,
             'length'=>3,
         ]);
-        halt($captcha);
         return $captcha->entry();
     }
 
