@@ -68,8 +68,11 @@ class  Collection extends Base{
                         $res = Db::name('collection')->insert($data);
                         $see_status = Db::name('collection')->field('status')->where($data)->find();
                         if($res&&$see_status){
-                            return ajax_success('收藏成功',$see_status);
+                            return ajax_success('收藏成功',$res);
+                        }else{
+                            return ajax_error('收藏失败',['status'=>0]);
                         }
+
                     }
                 }
 
@@ -95,9 +98,9 @@ class  Collection extends Base{
             if($list!==false)
             {
 
-                $this->success('删除成功!');
+                return ajax_success('删除成功!',$list);
             }else{
-                $this->error('删除失败');
+                return ajax_error('删除失败',$list);
             }
         }
     }
@@ -116,6 +119,7 @@ class  Collection extends Base{
                 $member = Session::get('member');
                 $member_data = Db::name('user')->field('id')->where('phone_num',$member['phone_num'])->find();
                 $member_id = $member_data['id'];
+//
                 if(!empty($goods_id)&&!empty($member_id)){
                     $data =[
                         'user_id'=>$member_id,
@@ -124,9 +128,12 @@ class  Collection extends Base{
                     ];
                     $see_status = Db::name('collection')->field('status')->where($data)->find();
                     if($see_status){
-                        return ajax_success('成功',$see_status);
+                        return ajax_success('有收藏',$see_status);
+                    }else{
+                        return ajax_success('没有收藏',['status'=>0]);
                     }
                 }
+
 
             }
 

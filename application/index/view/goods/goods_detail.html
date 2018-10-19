@@ -616,7 +616,7 @@
                 'id': xid
             },
             success:function(data){
-//                console.log(data);
+                console.log(data);
 				if(data.info == '收藏成功'){
 					$('.collection_add').children().addClass('aui-text-warning');
 				}else if(data.info == '取消收藏成功'){
@@ -644,12 +644,13 @@
 			},
 			async: false,
 			success: function(data){
-				// console.log(data);
 				if(data.data.status != null && data.data.status == 1){
+                    console.log(data);
 					$('.collection_add').children().addClass('aui-text-warning');
 				}
 			},
-			error: function(){
+			error: function(data){
+                console.log(data);
 				// console.log('未收藏')
 			}
 		})
