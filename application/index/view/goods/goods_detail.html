@@ -370,15 +370,14 @@
                 // 图片放大
                 // 给tpfd添加点击事件，事件委托img，获取img的src路径
                 $('.tabBox').click(function(e){
-                    var src = $(this).children('img')[0].src;
                     activeIndex = $(e.target).index();
+                    var src = $(this).children('img')[activeIndex].src;
                     img_num = $(this).children('img').length;
                     loadImage(src);
                 })
-                
                 var activeIndex;//在tabBox的点击事件中获取当前图片的索引值
                 $('.show-image').on('tap',function(e){
-						console.log(e)
+						e.stopPropagation();
                         $('.show-image').hide();
                     })
                     .on('swipeLeft',function(){
