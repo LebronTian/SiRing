@@ -116,17 +116,27 @@ class  Collection extends Base{
                 $member = Session::get('member');
                 $member_data = Db::name('user')->field('id')->where('phone_num',$member['phone_num'])->find();
                 $member_id = $member_data['id'];
-                if(!empty($goods_id)&&!empty($member_id)){
-                    $data =[
-                        'user_id'=>$member_id,
-                        'goods_id'=>$goods_id,
-                        'status'=>1
-                    ];
-                    $see_status = Db::name('collection')->field('status')->where($data)->find();
-                    if($see_status){
-                        return ajax_success('成功',$see_status);
-                    }
+                $data =[
+                    'a'=>$goods_id,
+                    'b'=>$member,
+                    'c'=>$member_data,
+                    'd'=> $member_id
+                ];
+                if(!empty($data)){
+                    return ajax_success('success',$data);
                 }
+
+//                if(!empty($goods_id)&&!empty($member_id)){
+//                    $data =[
+//                        'user_id'=>$member_id,
+//                        'goods_id'=>$goods_id,
+//                        'status'=>1
+//                    ];
+//                    $see_status = Db::name('collection')->field('status')->where($data)->find();
+//                    if($see_status){
+//                        return ajax_success('成功',$see_status);
+//                    }
+//                }
 
             }
 
