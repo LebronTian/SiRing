@@ -164,7 +164,7 @@
 			color: #f00;
 		}
 		.goods_new_money{
-			color: #000;
+			color: #d2d2d2;
 			font-weight: normal;
 			text-decoration: line-through;
 			font-size: 14px;
@@ -173,6 +173,9 @@
 			font-size: 14px;
 			padding-left: 7px;
 			color: #000;
+		}
+		.imei input{
+			font-size: 13px;
 		}
 		.copy_imei{
 			display: inline-block;
@@ -329,7 +332,7 @@
 				// 规格图片
 				$('.aui-card-list').append('<img src="__UPLOADS__/'+data.goods_spec_img+'">')
 				// 质检图
-				var quality = '<div><p class="zjtp_title"></p>';
+				var quality = '<div><p class="zjtp_title">质检</p>';
 				$.each(data.goods_quality_img, function(idx, val){
 					if(val != null){
 						quality += '<img src="__UPLOAD__/'+val+'">';
@@ -355,7 +358,9 @@
                 })
                 var activeIndex;//在tabBox的点击事件中获取当前图片的索引值
                 $('.show-image').on('tap',function(e){
-						e.stopPropagation();
+						var event = e || event;
+						event.cancelBubble = true;
+						event.stopPropagation();
                         $('.show-image').hide();
                     })
                     .on('swipeLeft',function(){
