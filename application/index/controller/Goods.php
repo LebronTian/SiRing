@@ -33,7 +33,11 @@ class Goods extends  Controller{
     }
 
 
-
+    /**
+     * 分类商品显示
+     * 陈绪
+     * @param Request $request
+     */
     public function type(Request $request){
 
         if($request->isPost()) {
