@@ -42,7 +42,6 @@ class Electron extends Controller{
      * 陈绪
      */
     public function edit($id){
-
         $electron = db("electron")->where("id",$id)->select();
         return view("electron_edit",["electron"=>$electron]);
     }

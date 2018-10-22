@@ -26,12 +26,18 @@ class  Collection extends Base{
                 ->field("tb_collection.*,tb_goods.goods_bottom_money goods_bottom_money,tb_goods.goods_name goods_name,tb_goods.goods_show_images goods_show_images")
                 ->join("tb_goods","tb_collection.goods_id=tb_goods.id and tb_collection.user_id=$member_id",'left')
                 ->order('id','desc')
+                ->where('tb_collection.user_id',$member_id)
                 ->select();
             if(!empty($data)){
-                $this->assign('data',$data);
+//                $this->assign('data',$data);
+                return ajax_success('成功',$data);
+            }else{
+                return ajax_error('成功',[]);
             }
+        }else{
+            return ajax_error('没有数据',[]);
         }
-        return view('index');
+//        return view('index');
     }
 
     /**
@@ -130,7 +136,7 @@ class  Collection extends Base{
                     if($see_status){
                         return ajax_success('有收藏',$see_status);
                     }else{
-                        return ajax_success('没有收藏',['status'=>0]);
+                        return ajax_error('没有收藏',['status'=>0]);
                     }
                 }
 

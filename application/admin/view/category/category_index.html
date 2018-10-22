@@ -114,7 +114,7 @@
                     <td><button data-status="{$value.status}" class="cstatus am-btn am-btn-xs am-btn-danger">已启用</button>
                     <td>
                         <a href="{:url('admin/Category/edit',['id'=>$value.id])}" target="_self" class="am-text-primary">编辑</a>
-                        <a href="{:url('admin/Category/del',['id'=>$value.id])}" class="am-text-danger cdelete" data-id="118">删除</a>
+                        <a href="{:url('admin/Category/del',['id'=>$value.id])}" onclick="if(!confirm('确定要删除吗？')) return false" class="am-text-danger cdelete" data-id="118">删除</a>
                     </td>
                 </tr>
             {/volist}

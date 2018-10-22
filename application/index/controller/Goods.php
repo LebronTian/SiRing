@@ -42,7 +42,7 @@ class Goods extends  Controller{
         if ($request->isPost()){
             $id = $request->only(['id'])['id'];
             Session('id',$id);
-            return ajax_success("获取成功");
+            return ajax_success("获取成功",$id);
         }
     }
 
