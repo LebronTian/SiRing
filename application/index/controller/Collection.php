@@ -28,10 +28,13 @@ class  Collection extends Base{
                 ->order('id','desc')
                 ->select();
             if(!empty($data)){
-                $this->assign('data',$data);
+//                $this->assign('data',$data);
+                return ajax_success('成功',$data);
             }
+        }else{
+            return ajax_error('没有数据',['status'=>0]);
         }
-        return view('index');
+//        return view('index');
     }
 
     /**
