@@ -6,12 +6,12 @@
  * Time: 14:28
  */
 namespace  app\index\controller;
-
 use think\Controller;
 use think\Request;
 use think\Session;
 
 class Goods extends  Controller{
+
 
     /**
      * [商品显示]
@@ -30,6 +30,18 @@ class Goods extends  Controller{
         }
 
         return view('goods_index');
+    }
+
+
+
+    public function type(Request $request){
+
+        if($request->isPost()) {
+            $type_id = $request->only(["id"])["id"];
+            $goods = db("goods")->where("goods_type_id",$type_id)->select();
+            return ajax_success("获取成功",$goods);
+        }
+
     }
 
 
