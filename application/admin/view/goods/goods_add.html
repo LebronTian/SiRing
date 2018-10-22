@@ -500,6 +500,7 @@
             for(var i = 0; i < this.files.length; i++) {
                 objUrl = getObjectURL(this.files[i]);
                 var extStart = filepath.lastIndexOf(".");
+                console.log(extStart);
                 var ext = filepath.substring(extStart, filepath.length).toUpperCase();
                 /*
                     描述：鉴定每个图片上传尾椎限制
