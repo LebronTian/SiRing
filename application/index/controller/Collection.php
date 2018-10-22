@@ -31,6 +31,8 @@ class  Collection extends Base{
             if(!empty($data)){
 //                $this->assign('data',$data);
                 return ajax_success('成功',$data);
+            }else{
+                return ajax_error('成功',[]);
             }
         }else{
             return ajax_error('没有数据',[]);
