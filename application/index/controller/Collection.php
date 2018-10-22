@@ -133,7 +133,7 @@ class  Collection extends Base{
                     if($see_status){
                         return ajax_success('有收藏',$see_status);
                     }else{
-                        return ajax_success('没有收藏',['status'=>0]);
+                        return ajax_error('没有收藏',['status'=>0]);
                     }
                 }
 
