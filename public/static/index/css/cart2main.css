@@ -4922,19 +4922,15 @@
 	width: 100%;
 	text-align: center;
 	font-size: 36px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 .fadeIn .middle_box .price_p span{
 	display: inline-block;
 	text-align: right;
-	width: 30%;
 }
 #WIDtotal_amount{
+	display: inline-block;
 	font-size: 28px;
 	border: 0;
-	width: 50%;
 	background-color: transparent;
 }
 .fadeIn .middle_box ul{
@@ -4948,6 +4944,8 @@
 	line-height: 44px;
 	font-size: 14px;
 	color: #666;
+	display: flex;
+	justify-content: space-between;
 }
 .fadeIn .middle_box li input{
 	float: right;
