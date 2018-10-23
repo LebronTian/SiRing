@@ -377,6 +377,8 @@ Route::group("admin",[
     'evalution_examine'=>"admin/Evaluation/evalution_examine",
     /*批量审核通过操作*/
     'evalution_all_check'=>"admin/Evaluation/evalution_all_check",
+    /*评价批量删除操作*/
+    'evalution_all_del'=>"admin/Evaluation/evalution_all_del",
     /*退款维权(未做)*/
     "refund_rights"=>"admin/Refund/rights",
     /*晒单管理（未作）*/

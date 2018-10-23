@@ -113,6 +113,9 @@
                 <a href="javascript:;" class="btn btn-danger radius">
                     <i class="Hui-iconfont"></i> 批量通过
                 </a>
+                <a href="javascript:;" class="btn btn-success radius btn_delect">
+                    <i class="Hui-iconfont"></i> 批量删除
+                </a>
             </span>
 
             <span class="r">共有数据：
@@ -302,6 +305,36 @@
         $.ajax({
             type: 'POST',
             url: "{:url('admin/Evaluation/evalution_all_check')}",
+            dataType: 'JSON',
+            async: false,
+            data: {
+                'id': id_checked
+            },
+            success: function(data){
+                alert(data.info);
+                location.reload();
+            },
+            error: function(){
+                console.log('错误')
+            }
+        })
+    })
+</script>
+<!-- 批量删除 -->
+<script>
+    $('.btn_delect').click(function(){
+        // 被选中的input
+        var input_checked = $('.va-m input:checked');
+        var len_checked = input_checked.length;
+        // 存放被选中input的id
+        var id_checked = [];
+        for(var i = 0; i < len_checked; i++){
+            // 拆分被选中input中的id
+            id_checked.push(input_checked[i].id.split('_')[1]);
+        }
+        $.ajax({
+            type: 'POST',
+            url: "{:url('admin/Evaluation/evalution_all_del')}",
             dataType: 'JSON',
             async: false,
             data: {

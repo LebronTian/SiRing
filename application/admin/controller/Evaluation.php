@@ -146,5 +146,48 @@ class  Evaluation extends  Controller{
         }
     }
 
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 批量删除
+     **************************************
+     */
+    public function  evalution_all_del(Request $request){
+        if($request->isPost()){
+            $id =$_POST['id'];
+            if(is_array($id)){
+                $where ='id in('.implode(',',$id).')';
+
+            }else{
+                $where ='id='.$id;
+            }
+            $order_ids =Db::name('evaluate')->field('order_id')->where($where)->select();
+            if(!empty($order_ids)){
+                foreach ($order_ids  as $key=>$value){
+                 $ab_res =   Db::name('evaluate_images')->where('evaluate_order_id',$value['order_id'])->select();
+                    if(!empty($ab_res)){
+                        foreach ($ab_res as $k=>$v){
+                            if($v['images'] != null){
+//                                dump($v['images']);
+                                unlink(ROOT_PATH . 'public' . DS . 'upload/'.$v['images']);
+                            }
+                              Db::name('evaluate_images')->where('id',$v['id'])->delete();
+
+                        }
+
+                    }
+                }
+            }
+//            halt($order_ids);
+            $list =  Db::name('evaluate')->where($where)->delete();
+            if($list!==false)
+            {
+                return ajax_success('删除成功');
+            }else{
+                return ajax_error('删除失败');
+            }
+        }
+    }
+
 
 }
