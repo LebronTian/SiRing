@@ -47,6 +47,7 @@ class Order extends Base {
         if(!empty($commodity_id)&&empty($shopping_id)){
             session('shopping',null);
             $datas =Db::name('goods')->where('id',$commodity_id)->find();
+
             $express_fee =0.00;
             /*促销*/
             $seckill_money =Db::name('seckill')->field('seckill_money')->where('goods_id',$commodity_id)->find();
@@ -64,6 +65,7 @@ class Order extends Base {
                 'commodity_id'=>$commodity_id,
                 'goods_name'=>$datas['goods_name'],
                 'goods_bottom_money'=>$goods_bottom_money,
+                'goods_show_images'=>$datas['goods_show_images'],
                 //运费
                 'express_fee'=>$express_fee,
                 //总计
