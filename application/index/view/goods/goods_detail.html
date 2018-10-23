@@ -357,11 +357,17 @@
                     img_num = $(this).children('img').length;
                     loadImage(src);
                 })
+				// 取消事件冒泡
+				function stopBubble(event) {
+					if (event.stopPropagation) {
+						event.stopPropagation();
+					} else {
+						event.cancelBubble = true;
+					}
+				}
                 var activeIndex;//在tabBox的点击事件中获取当前图片的索引值
                 $('.show-image').on('tap',function(e){
-						var event = e || event;
-						event.cancelBubble = true;
-						event.stopPropagation();
+						stopBubble(e);
                         $('.show-image').hide();
                     })
                     .on('swipeLeft',function(){
@@ -585,7 +591,7 @@
 				'id': xid
 			},
             success:function(data){
-                console.log(data);
+                // console.log(data);
 				location.href='order_index'
             },
             error: function(data){
@@ -609,7 +615,7 @@
                 location.href='shopping_index';
             },
             error: function(){
-                console.log('未登录');
+                // console.log('未登录');
                 location.href='login';
             }
 
@@ -625,7 +631,7 @@
                 'id': xid
             },
             success:function(data){
-                console.log(data);
+                // console.log(data);
 				if(data.info == '收藏成功'){
 					$('.collection_add').children().addClass('aui-text-warning');
 				}else if(data.info == '取消收藏成功'){
@@ -654,12 +660,12 @@
 			async: false,
 			success: function(data){
 				if(data.data.status != null && data.data.status == 1){
-                    console.log(data);
+                    // console.log(data);
 					$('.collection_add').children().addClass('aui-text-warning');
 				}
 			},
 			error: function(data){
-                console.log(data);
+                // console.log(data);
 				// console.log('未收藏')
 			}
 		})
