@@ -217,7 +217,7 @@
 </div>
 <div class="mask"></div>
 <!-- 支付弹窗 -->
-<form name=alipayment action='{:url("index/Alipay/aliPay")}' method=post target="_blank">
+<!-- <form name=alipayment action='{:url("index/Alipay/aliPay")}' method=post target="_blank">
     <div id="body" class="fadeIn">
         <div class="head">
             <div class="head_close">×</div>
@@ -242,8 +242,58 @@
         </div>
         <button class="new-btn-login" type="submit" style="text-align:center;">立即付款</button>
     </div>
-</form>
+</form> -->
+<div id="body" class="fadeIn">
+    <div class="head">
+        <div class="head_close">×</div>
+        <div class="head_title">确认付款</div>
+    </div>
+    <div class="middle_box">
+        <div class="price_p">
+            <span>￥</span>
+            <p id="WIDtotal_amount" name="WIDtotal_amount"></p>
+        </div>
+        <ul class="content">
+            <li>
+                商户订单号: <p id="WIDout_trade_no" name="WIDout_trade_no"></p>
+            </li>
+            <li>
+                订单名称: <p id="WIDsubject" name="WIDsubject"></p>
+            </li>
+            <li>
+                商品描述: <p id="WIDbody" name="WIDbody"></p>
+            </li>
+        </ul>
+    </div>
+    <button class="new-btn-login" type="submit" style="text-align:center;">立即付款</button>
+</div>
+<!-- 支付 -->
+<script>
+    $('.new-btn-login').click(function(){
+        var WIDtotal_amount = $('#WIDtotal_amount').html(),
+            WIDout_trade_no = $('#WIDout_trade_no').html(),
+            WIDsubject = $('#WIDsubject').html(),
+            WIDbody  =$('#WIDbody').html();
+        $.ajax({
+            url: '{:url("index/Alipay/aliPay")}',
+            type: 'POST',
+            async: false,
+            dataType: 'JSON',
+            data: {
+                'WIDtotal_amount':WIDtotal_amount,
+                'WIDout_trade_no':WIDout_trade_no,
+                'WIDsubject':WIDsubject,
+                'WIDbody':WIDbody
+            },
+            success: function(data){
 
+            },
+            error: function(){
+                console.log('error');
+            }
+        })
+    })
+</script>
 <script>
     $("#bt_order").click(function () {
         var goods_name = [],
@@ -275,10 +325,10 @@
                     alert(data.msg);
                 }else {
                     console.log(data);
-                    $("#WIDout_trade_no").val(data.data.order_information_number);
-                    $("#WIDbody").val(data.data.goods_name);
-                    $("#WIDsubject").val(data.data.goods_name);
-                    $("#WIDtotal_amount").val(data.data.pay_money);
+                    $("#WIDout_trade_no").html(data.data.order_information_number);
+                    $("#WIDbody").html(data.data.goods_name);
+                    $("#WIDsubject").html(data.data.goods_name);
+                    $("#WIDtotal_amount").html(data.data.pay_money);
                     $('.fadeIn').animate({'bottom':'0'});
                     $('.mask').css('display','block');
                 }
@@ -308,10 +358,7 @@
                 console.log('失败');
             }
         })
-
-    })
-
-    
+    })    
 </script>
 </body>
 </html>
