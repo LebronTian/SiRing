@@ -133,7 +133,8 @@ class Order extends Base {
                     ];
                     $res = Db::name('order')->insertGetId($datas);
                     if ($res) {
-                        Session::delete('goods_id');
+                        //TODO:
+//                        Session::delete('goods_id');
                         session('order_id', $res);
                         $discounts =  Db::name('discounts_user')->field('discounts_id')->where('user_id',$member['id'])->find();
                         if(!empty($discounts)){
@@ -147,7 +148,8 @@ class Order extends Base {
             //从购物车过来的
             $shopping_id = Session::get('shopping');
             if (!empty($shopping_id)) {
-                Session::delete('goods_id');
+                //TODO:
+//                Session::delete('goods_id');
                 $shopping = Db::name('shopping_shop')->where('id', $shopping_id['id'])->find();
                 $shop_id = explode(',', $shopping['shopping_id']);
                 if (is_array($shop_id)) {
