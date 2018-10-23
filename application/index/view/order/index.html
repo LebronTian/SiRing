@@ -270,10 +270,10 @@
 <!-- 支付 -->
 <script>
     $('.new-btn-login').click(function(){
-        var WIDtotal_amount = $('#WIDtotal_amount').val(),
-            WIDout_trade_no = $('#WIDout_trade_no').val(),
-            WIDsubject = $('#WIDsubject').val(),
-            WIDbody  =$('#WIDbody').val();
+        var WIDtotal_amount = $('#WIDtotal_amount').html(),
+            WIDout_trade_no = $('#WIDout_trade_no').html(),
+            WIDsubject = $('#WIDsubject').html(),
+            WIDbody  =$('#WIDbody').html();
         $.ajax({
             url: '{:url("index/Alipay/aliPay")}',
             type: 'POST',
