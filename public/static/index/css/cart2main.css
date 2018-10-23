@@ -4928,7 +4928,7 @@
 	text-align: right;
 }
 #WIDtotal_amount{
-	display: inline-block;
+	width: 30%;
 	font-size: 28px;
 	border: 0;
 	background-color: transparent;

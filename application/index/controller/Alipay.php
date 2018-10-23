@@ -47,7 +47,7 @@ class AliPay extends Controller
         if (!empty($_POST['WIDout_trade_no'])&& trim($_POST['WIDout_trade_no'])!=""){
             //商户订单号，商户网站订单系统中唯一订单号，必填
             $out_trade_no = $_POST['WIDout_trade_no'];
-
+            
             //订单名称，必填
             $subject = $_POST['WIDsubject'];
 
