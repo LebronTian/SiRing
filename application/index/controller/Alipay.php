@@ -5,6 +5,7 @@ use think\Controller;
 use think\Loader;
 use think\Paginator;
 use think\Request;
+use think\Session;
 //use Alipay\wappay\buildermodel\AlipayTradeWapPayContentBuilder;
 //use Alipay\wappay\service\AlipayTradeService;
 
@@ -109,6 +110,7 @@ class AliPay extends Controller
 
                 $bool = db("order")->where("order_information_number",$_GET['out_trade_no'])->update($data);
                 if($bool){
+                    Session::delete('goods_id');
                     $this->redirect(url("index/index/index"));
                 }
             }
