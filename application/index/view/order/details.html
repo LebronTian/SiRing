@@ -51,7 +51,7 @@
                         <div class="goods-service">
                             <span class="goods-service-item">
                                 <i class="goods-icon icon-tui"></i>
-                                <span class="goods-service-word goods-service-word-tui">7天退货</span>
+                                <span class="goods-service-word goods-service-word-tui">7天退换</span>
                             </span>
                         </div>
                     </div>
@@ -160,7 +160,7 @@
                 'id': id
             },
             success: function(data){
-                console.log(data);
+                // console.log(data);
                 $("#WIDout_trade_no").val(data.data.order_information_number);
                 $("#WIDbody").val(data.data.goods_name);
                 $("#WIDsubject").val(data.data.goods_name);
