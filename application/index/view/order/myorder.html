@@ -342,7 +342,6 @@
 <script>
     $(".check_logistic").click(function () {
         var order_id = $(this)[0].id.split('_')[2];
-        alert(order_id);
         $.ajax({
             type:'POST',
             url:'{:url("index/Order/logistics_information")}',
@@ -364,7 +363,6 @@
 <script>
     $(".wait_evaluate").click(function () {
         var order_id = $(this)[0].id.split('_')[2];
-        // alert(order_id);
         $.ajax({
             type:'POST',
             url:'{:url("index/Share/evaluation_get_order_id")}',
