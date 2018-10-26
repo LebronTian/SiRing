@@ -244,7 +244,6 @@ class Order extends Base {
                     $this->assign('datas',$datas);
                     session('save_order_information_number',null);
                 }
-
             }
             /*判断来自于我的订单列表点击订单详情*/
             $order_from_myorder_bt =Session::get('order_id_from_myorder');

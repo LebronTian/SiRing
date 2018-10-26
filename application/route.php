@@ -28,6 +28,8 @@ Route::group("",[
     "particulars_id"=>"index/Goods/goods_id",
     "goods_big_images"=>"index/Goods/big_images",
     "goods_type"=>"index/Goods/type",
+    "ios_api_goods_buy"=>"index/Goods/ios_api_goods_buy",//立即购买发送一个Id获取信息
+
 
 
     /*分类*/

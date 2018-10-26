@@ -142,6 +142,55 @@ class Goods extends  Controller{
 
     }
 
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 商品详情信息对接IOS商品立即购买
+     **************************************
+     */
+    public function ios_api_goods_buy(Request $request){
+        if ($request->isPost()) {
+            $id = $request->only(['id'])['id'];
+            if(!empty($id)){
+                $goods = db("goods")->where("goods_status", "<>", "0")->where("id", $id)->select();
+                $goods_images = db("goods_images")->select();
+                $seckill = db("seckill")->where("goods_id", $id)->where("status", "1")->field("seckill_money,over_time,start_time")->find();
+                $time = time();
+                if (!empty($seckill)) {
+                    foreach ($goods as $key => $value) {
+                        foreach ($goods_images as $val) {
+                            if ($value['id'] == $val['goods_id']) {
+                                $goods[$key]["goods_images"][] = $val["goods_images"];
+                                $goods[$key]["goods_quality_img"][] = $val["goods_quality_img"];
+                                $goods[$key]['seckill_status'] = 1;
+                                $goods[$key]['goods_bottom_money'] = $seckill['seckill_money'];
+                                $goods[$key]['start_time'] = $seckill['start_time'];
+                                $goods[$key]['over_time'] = $seckill['over_time'];
+                            }
+                            if ($time > $seckill['over_time']) {
+                                unset($goods[$key]['start_time']);
+                                unset($goods[$key]['over_time']);
+                                $goods[$key]['goods_bottom_money'] = $value['goods_bottom_money'];
+                            }
+                        }
+                        return ajax_success("获取成功", $goods);
+                    }
+                } else {
+                    foreach ($goods as $key => $value) {
+                        foreach ($goods_images as $val) {
+                            if ($value['id'] == $val['goods_id']) {
+                                $goods[$key]["goods_images"][] = $val["goods_images"];
+                                $goods[$key]["goods_quality_img"][] = $val["goods_quality_img"];
+                            }
+                        }
+                        return ajax_success("成功", $goods);
+                    }
+                }
+            }
+        }
+
+    }
+
 
 
 }
