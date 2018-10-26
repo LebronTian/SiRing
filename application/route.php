@@ -87,6 +87,8 @@ Route::group("",[
 
     /*确认订单*/
     "order_index"=>"index/Order/index",
+    "ios_api_order_button"=>"index/Order/ios_api_order_button", //ios提交订单传过来的参数形成订单存库并返回对应的订单号给IOS
+
     "common_id"=>"index/Order/common_id",
     'bt_order'=>"index/Order/bt_order",//提交订单
 
