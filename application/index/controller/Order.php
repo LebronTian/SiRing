@@ -598,7 +598,7 @@ class Order extends Base {
                 if(!empty($data)){
                     return ajax_success('待收货ios数据返回成功',$data);
                 }else{
-                    return ajax_error('待收货ios数据返回失败',['status'=>0]);
+                    return ajax_error('待收货IOS接口数据返回为空',['status'=>0]);
                 }
             }else{
                 return ajax_error('请登录',['status'=>0]);
