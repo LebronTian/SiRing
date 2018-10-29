@@ -225,9 +225,8 @@ class Order extends Base {
                        $order_num = $v['order_information_number'];
                        $goods_pay_money =$v['pay_money'];
                        $subject =$v['order_num'];
-                       $curl_url ='goods_name='.$goods_name.'&'.'order_num='.$order_num.'&'."goods_pay_money=".$goods_pay_money;
-                       $app_id ="app_id=2016112603335050"."&biz_content={'timeout_express':'30m','seller_id':"."'".$order_num."'".",'product_code':"."'".$product_code."'"."
-                       ,'total_amount':"."'".$goods_pay_money."'".",'subject':"."'".$subject."'".",'body':"."'".$goods_name."'".",'out_trade_no':"."'".$out_trade_no."'"."}&charset=utf-8&method=alipay.trade.app.pay&sign_type=RSA2&timestamp=".$time."&version=1.0";
+//                       $curl_url ='goods_name='.$goods_name.'&'.'order_num='.$order_num.'&'."goods_pay_money=".$goods_pay_money;
+                       $app_id ="app_id=2016112603335050"."&biz_content={'timeout_express':'30m','seller_id':"."'".$order_num."'".",'product_code':"."'".$product_code."'".",'total_amount':"."'".$goods_pay_money."'".",'subject':"."'".$subject."'".",'body':"."'".$goods_name."'".",'out_trade_no':"."'".$out_trade_no."'"."}&charset=utf-8&method=alipay.trade.app.pay&sign_type=RSA2&timestamp=".$time."&version=1.0";
                     return ajax_success('数据成功返回',$app_id);
                    }
                }else{
@@ -590,16 +589,17 @@ class Order extends Base {
             $datas =session('member');
             $member_id =Db::name('user')->field('id')->where('phone_num',$datas['phone_num'])->find();
             if(!empty($member_id)){
-                $data =Db::name('order')
-                    ->where("status=3 or status=4")
-                    ->where('user_id',$member_id['id'])
-                    ->order('create_time','desc')
-                    ->select();
-                if(!empty($data)){
-                    return ajax_success('待收货ios数据返回成功',$data);
-                }else{
-                    return ajax_error('待收货IOS接口数据返回为空',['status'=>0]);
-                }
+                return ajax_success('测试',$member_id);
+//                $data =Db::name('order')
+//                    ->where("status=3 or status=4")
+//                    ->where('user_id',$member_id['id'])
+//                    ->order('create_time','desc')
+//                    ->select();
+//                if(!empty($data)){
+//                    return ajax_success('待收货ios数据返回成功',$data);
+//                }else{
+//                    return ajax_error('待收货IOS接口数据返回为空',['status'=>0]);
+//                }
             }else{
                 return ajax_error('请登录',['status'=>0]);
             }
