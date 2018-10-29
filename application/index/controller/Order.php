@@ -213,7 +213,7 @@ class Order extends Base {
     public function ios_api_generating_alipay(Request $request){
         if($request->isPost()){
             $order_num =$request->only(['order_num'])['order_num'];
-            $order_num ='1540519884103';
+//            $order_num ='1540519884103';
             $product_code ="QUICK_MSECURITY_PAY";
             $out_trade_no="ZQLM3O56MJD4SK3";
             $time =date('Y-m-d H:i:s');
@@ -230,6 +230,8 @@ class Order extends Base {
                        ,'total_amount':"."'".$goods_pay_money."'".",'subject':"."'".$subject."'".",'body':"."'".$goods_name."'".",'out_trade_no':"."'".$out_trade_no."'"."}&charset=utf-8&method=alipay.trade.app.pay&sign_type=RSA2&timestamp=".$time."&version=1.0";
                     return ajax_success('数据成功返回',$app_id);
                    }
+               }else{
+                   return ajax_error('数据返回不成功',['status'=>0]);
                }
 
 
