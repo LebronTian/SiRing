@@ -70,7 +70,7 @@ Route::group("",[
     "member_edit_active"=>"index/Member/member_edit_active",
     /*如果有个人信息则进行编辑*/
     "get_member_information"=>"index/Member/get_member_information",
-    /*TODO:个人头像上传(未实现)*/
+    /*TODO:个人头像上传*/
     "user_add_img"=>"index/Member/user_add_img",
     /*收货地址*/
     "address"=>"index/Member/address",
@@ -114,6 +114,21 @@ Route::group("",[
     'interface_information'=>"index/Order/interface_information", //快递100接口
     'logistics_information_id'=>"index/Order/logistics_information_id",//用来接收物流信息的id
     'confirm_payment'=>"index/order/confirm_payment", //确定付款
+    /**
+     * TODO：订单与IOS合作的接口开始
+     */
+    "ios_api_generating_alipay"=>"index/Order/ios_api_generating_alipay", //支付宝签名
+    "ios_order_wait_pay"=>"index/Order/ios_order_wait_pay", //待付款
+    "ios_order_wait_deliver"=>"index/Order/ios_order_wait_deliver", //待发货
+    "ios_order_take_deliver"=>"index/Order/ios_ios_order_take_deliver", //待收货
+    "ios_order_evaluate"=>"index/Order/ios_order_evaluate", //待评价
+     //售后
+    /**
+     * TODO：订单与IOS合作的接口结束
+     */
+
+
+
 
 
     'service_index'=>"index/self_service/index", //自助服务

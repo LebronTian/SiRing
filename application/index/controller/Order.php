@@ -108,13 +108,14 @@ class Order extends Base {
             $data = $_POST;
             $member_data = session('member');
             $member = Db::name('user')->field('id,harvester,harvester_phone_num,city,address')->where('phone_num', $member_data['phone_num'])->find();
-//            if (empty($member['harvester']) || empty($member['harvester_phone_num']) || empty($member['city']) || empty($member['address'])) {
-//                return ajax_error('请填写收货人信息',['status'=>0]);
-//            }
-//            if (!empty($member['city'])) {
-//                $my_position = explode(",", $member['city']);
-//                $position = $my_position[0] . $my_position[1] . $my_position[2] . $member['address'];
-//            }
+
+            if (empty($member['harvester']) || empty($member['harvester_phone_num']) || empty($member['city']) || empty($member['address'])) {
+                return ajax_error('请填写收货人信息',['status'=>0]);
+            }
+            if (!empty($member['city'])) {
+                $my_position = explode(",", $member['city']);
+                $position = $my_position[0] . $my_position[1] . $my_position[2] . $member['address'];
+            }
 
             $position =$_POST['position'];
             //从点击买入一步步过来
@@ -148,7 +149,6 @@ class Order extends Base {
                         if(!empty($discounts)){
                             $bools =Db::name('discounts')->where('id',$discounts['discounts_id'])->update(['status'=>2]);
                         }
-
                         return ajax_success('下单成功', $datas['order_information_number']);
                     }
                 }
@@ -203,6 +203,46 @@ class Order extends Base {
 //            }
         }
     }
+
+
+    /**
+     **************李火生*******************
+     * 生成支付宝签名 TODO:支付宝签名
+     **************************************
+     */
+    public function ios_api_generating_alipay(Request $request){
+        if($request->isPost()){
+            $order_num =$request->only(['order_num'])['order_num'];
+            $order_num ='1540519884103';
+            $product_code ="QUICK_MSECURITY_PAY";
+            $out_trade_no="ZQLM3O56MJD4SK3";
+            $time =date('Y-m-d H:i:s');
+            if(!empty( $order_num)){
+                $data = Db::name('order')->where('order_information_number',$order_num)->select();
+               if(!empty($data)){
+                   foreach ($data as $k=>$v){
+                       $goods_name = $v['goods_name'];
+                       $order_num = $v['order_information_number'];
+                       $goods_pay_money =$v['pay_money'];
+                       $subject =$v['order_num'];
+                       $curl_url ='goods_name='.$goods_name.'&'.'order_num='.$order_num.'&'."goods_pay_money=".$goods_pay_money;
+                       $app_id ="app_id=2016112603335050"."&biz_content={'timeout_express':'30m','seller_id':"."'".$order_num."'".",'product_code':"."'".$product_code."'"."
+                       ,'total_amount':"."'".$goods_pay_money."'".",'subject':"."'".$subject."'".",'body':"."'".$goods_name."'".",'out_trade_no':"."'".$out_trade_no."'"."}&charset=utf-8&method=alipay.trade.app.pay&sign_type=RSA2&timestamp=".$time."&version=1.0";
+                    return ajax_success('数据成功返回',$app_id);
+                   }
+               }
+
+
+            }else{
+                return ajax_error('失败',['status=>0']);
+            }
+
+
+        }
+
+    }
+
+
 
 
 
@@ -461,6 +501,29 @@ class Order extends Base {
     /**
      **************李火生*******************
      * @return \think\response\View
+     * TODO:待支付IOS数据返回
+     **************************************
+     */
+        public function ios_order_wait_pay(){
+            $datas =session('member');
+            $member_id =Db::name('user')->field('id')->where('phone_num',$datas['phone_num'])->find();
+           if(!empty($member_id)){
+               $data =Db::name('order')->where('status',1)->where('user_id',$member_id['id'])->order('create_time','desc')->select();
+               if(!empty($data)){
+                   return ajax_success('待支付数据返回成功',$data);
+               }else{
+                   return ajax_error('待支付数据返回为空',['status'=>0]);
+               }
+           }else{
+               return ajax_error('请登录',['status'=>0]);
+           }
+
+        }
+
+
+    /**
+     **************李火生*******************
+     * @return \think\response\View
      * 代发货
      **************************************
      */
@@ -471,6 +534,32 @@ class Order extends Base {
             $this->assign('data',$data);
             return view('wait_deliver');
         }
+
+    /**
+     **************李火生*******************
+     * TODO:IOS接口待发货
+     **************************************
+     */
+        public function ios_order_wait_deliver(){
+            $datas =session('member');
+            $member_id =Db::name('user')->field('id')->where('phone_num',$datas['phone_num'])->find();
+            if(!empty($member_id)){
+                $data =Db::name('order')->where('status',2)->where('user_id',$member_id['id'])->order('create_time','desc')->select();
+                if(!empty($data)){
+                    return ajax_success('待发IOS接口数据返回成功',$data);
+                }else{
+                    return ajax_error('待发IOS接口数据返回为空',['status'=>0]);
+                }
+            }else{
+                return ajax_error('请登录',['status'=>0]);
+            }
+
+        }
+
+
+
+
+
 
     /**
      **************李火生*******************
@@ -492,6 +581,34 @@ class Order extends Base {
 
     /**
      **************李火生*******************
+     * TODO：IOS待收货接口返回
+     **************************************
+     */
+        public function  ios_order_take_deliver(){
+            $datas =session('member');
+            $member_id =Db::name('user')->field('id')->where('phone_num',$datas['phone_num'])->find();
+            if(!empty($member_id)){
+                $data =Db::name('order')
+                    ->where("status=3 or status=4")
+                    ->where('user_id',$member_id['id'])
+                    ->order('create_time','desc')
+                    ->select();
+                if(!empty($data)){
+                    return ajax_success('待收货ios数据返回成功',$data);
+                }else{
+                    return ajax_error('待收货ios数据返回失败',['status'=>0]);
+                }
+            }else{
+                return ajax_error('请登录',['status'=>0]);
+            }
+        }
+
+
+
+
+
+    /**
+     **************李火生*******************
      * @return \think\response\View
      * 待评价
      **************************************
@@ -507,6 +624,33 @@ class Order extends Base {
             $this->assign('data',$data);
             return view('evaluate');
         }
+
+    /**
+     **************李火生*******************
+     * TODO:iso与待评价的接口
+     **************************************
+     */
+        public function ios_order_evaluate(){
+            $datas =session('member');
+            $member_id =Db::name('user')->field('id')->where('phone_num',$datas['phone_num'])->find();
+           if(!empty($member_id)){
+               $data =Db::name('order')
+                   ->where("status=5 or status=6")
+                   ->where('user_id',$member_id['id'])
+                   ->order('create_time','desc')
+                   ->select();
+               if(!empty($data)){
+                   return ajax_success('iso与待评价的接口数据返回成功',$data);
+               }else{
+                  return ajax_error('iso与待评价的接口数据返回失败',['status'=>0]);
+               }
+           }else{
+               return ajax_error('请登录',['status'=>0]);
+           }
+        }
+
+
+
 
     /**
      **************李火生*******************
