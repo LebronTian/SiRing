@@ -227,7 +227,7 @@ class Order extends Base {
                        $subject =$v['order_num'];
 //                       $curl_url ='goods_name='.$goods_name.'&'.'order_num='.$order_num.'&'."goods_pay_money=".$goods_pay_money;
                        $app_id ="app_id=2016112603335050"."&biz_content={'timeout_express':'30m','seller_id':"."'".$order_num."'".",'product_code':"."'".$product_code."'".",'total_amount':"."'".$goods_pay_money."'".",'subject':"."'".$subject."'".",'body':"."'".$goods_name."'".",'out_trade_no':"."'".$out_trade_no."'"."}&charset=utf-8&method=alipay.trade.app.pay&sign_type=RSA2&timestamp=".$time."&version=1.0";
-                       $app_ids =json_encode($app_id);
+                       $app_ids =urlencode($app_id);
                        return ajax_success('数据成功返回',$app_ids);
                    }
                }else{
