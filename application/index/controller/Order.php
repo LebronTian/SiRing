@@ -318,7 +318,7 @@ class Order extends Base {
 
             'subject' => 'App支付测试',//支付的标题，
 
-            'out_trade_no' => '20170125test011',//支付宝订单号必须是唯一的，不能在支付宝再次使用，必须重新生成，哪怕是同一个订单，不能重复。否则二次支付时候会失败，订单号可以在自己订单那里保持一致，但支付宝那里必须要唯一，具体处理自己操作！
+            'out_trade_no' => '20181200125test011',//支付宝订单号必须是唯一的，不能在支付宝再次使用，必须重新生成，哪怕是同一个订单，不能重复。否则二次支付时候会失败，订单号可以在自己订单那里保持一致，但支付宝那里必须要唯一，具体处理自己操作！
 
             'timeout_express' => '30m',//過期時間（分钟）
 
@@ -337,6 +337,7 @@ class Order extends Base {
 
 //htmlspecialchars是为了输出到页面时防止被浏览器将关键参数html转义，实际打印到日志以及http传输不会有这个问题
 //        echo htmlspecialchars($response);//就是orderString 可以直接给客户端请求，无需再做处理。这里就是方便打印给你看，具体你直接可以在方法那里return出去，不用加htmlspecialchars，或者响应给app端让他拿着这串东西调起支付宝支付
+
     return ajax_success('数据',$response);
     }
 
