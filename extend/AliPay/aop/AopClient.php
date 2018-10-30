@@ -1,16 +1,17 @@
 <?php
 
-namespace Alipay\aop;
 require_once 'AopEncrypt.php';
 
 class AopClient {
 	//应用ID
 	public $appId;
+	
 	//私钥文件路径
 	public $rsaPrivateKeyFilePath;
 
 	//私钥值
 	public $rsaPrivateKey;
+
 	//网关
 	public $gatewayUrl = "https://openapi.alipay.com/gateway.do";
 	//返回数据格式
@@ -21,9 +22,10 @@ class AopClient {
 	// 表单提交字符集编码
 	public $postCharset = "UTF-8";
 
-
+	//使用文件读取文件格式，请只传递该值
 	public $alipayPublicKey = null;
 
+	//使用读取字符串格式，请只传递该值
 	public $alipayrsaPublicKey;
 
 
@@ -54,7 +56,7 @@ class AopClient {
 
 	public $encryptType = "AES";
 
-	protected $alipaySdkVersion = "alipay-sdk-php-20161101";
+	protected $alipaySdkVersion = "alipay-sdk-php-20180705";
 
 	public function generateSign($params, $signType = "RSA") {
 		return $this->sign($this->getSignContent($params), $signType);
@@ -64,7 +66,7 @@ class AopClient {
 		return $this->sign($this->getSignContent($params), $signType);
 	}
 
-	protected function getSignContent($params) {
+	public function getSignContent($params) {
 		ksort($params);
 
 		$stringToBeSigned = "";
@@ -79,6 +81,32 @@ class AopClient {
 					$stringToBeSigned .= "$k" . "=" . "$v";
 				} else {
 					$stringToBeSigned .= "&" . "$k" . "=" . "$v";
+				}
+				$i++;
+			}
+		}
+
+		unset ($k, $v);
+		return $stringToBeSigned;
+	}
+
+
+	//此方法对value做urlencode
+	public function getSignContentUrlencode($params) {
+		ksort($params);
+
+		$stringToBeSigned = "";
+		$i = 0;
+		foreach ($params as $k => $v) {
+			if (false === $this->checkEmpty($v) && "@" != substr($v, 0, 1)) {
+
+				// 转换成目标字符集
+				$v = $this->characet($v, $this->postCharset);
+
+				if ($i == 0) {
+					$stringToBeSigned .= "$k" . "=" . urlencode($v);
+				} else {
+					$stringToBeSigned .= "&" . "$k" . "=" . urlencode($v);
 				}
 				$i++;
 			}
@@ -108,6 +136,43 @@ class AopClient {
 		}
 
 		if(!$this->checkEmpty($this->rsaPrivateKeyFilePath)){
+			openssl_free_key($res);
+		}
+		$sign = base64_encode($sign);
+		return $sign;
+	}
+
+    /**
+     * RSA单独签名方法，未做字符串处理,字符串处理见getSignContent()
+     * @param $data 待签名字符串
+     * @param $privatekey 商户私钥，根据keyfromfile来判断是读取字符串还是读取文件，false:填写私钥字符串去回车和空格 true:填写私钥文件路径 
+     * @param $signType 签名方式，RSA:SHA1     RSA2:SHA256 
+     * @param $keyfromfile 私钥获取方式，读取字符串还是读文件
+     * @return string 
+     * @author mengyu.wh
+     */
+	public function alonersaSign($data,$privatekey,$signType = "RSA",$keyfromfile=false) {
+
+		if(!$keyfromfile){
+			$priKey=$privatekey;
+			$res = "-----BEGIN RSA PRIVATE KEY-----\n" .
+				wordwrap($priKey, 64, "\n", true) .
+				"\n-----END RSA PRIVATE KEY-----";
+		}
+		else{
+			$priKey = file_get_contents($privatekey);
+			$res = openssl_get_privatekey($priKey);
+		}
+
+		($res) or die('您使用的私钥格式错误，请检查RSA私钥配置'); 
+
+		if ("RSA2" == $signType) {
+			openssl_sign($data, $sign, $res, OPENSSL_ALGO_SHA256);
+		} else {
+			openssl_sign($data, $sign, $res);
+		}
+
+		if($keyfromfile){
 			openssl_free_key($res);
 		}
 		$sign = base64_encode($sign);
@@ -319,10 +384,12 @@ class AopClient {
 		//签名
 		$totalParams["sign"] = $this->generateSign($totalParams, $this->signType);
 
-		if ("GET" == $httpmethod) {
-
+		if ("GET" == strtoupper($httpmethod)) {
+			
+			//value做urlencode
+			$preString=$this->getSignContentUrlencode($totalParams);
 			//拼接GET请求串
-			$requestUrl = $this->gatewayUrl."?".$preSignStr."&sign=".urlencode($totalParams["sign"]);
+			$requestUrl = $this->gatewayUrl."?".$preString;
 			
 			return $requestUrl;
 		} else {
@@ -332,6 +399,8 @@ class AopClient {
 
 
 	}
+
+
 
 	/**
      * 建立请求，以表单HTML形式构造（默认）
@@ -465,13 +534,14 @@ class AopClient {
 				$signData = $this->parserJSONSignData($request, $resp, $respObject);
 			}
 		} else if ("xml" == $this->format) {
-
+			$disableLibxmlEntityLoader = libxml_disable_entity_loader(true);
 			$respObject = @ simplexml_load_string($resp);
 			if (false !== $respObject) {
 				$respWellFormed = true;
 
 				$signData = $this->parserXMLSignData($request, $resp);
 			}
+			libxml_disable_entity_loader($disableLibxmlEntityLoader);
 		}
 
 
@@ -500,7 +570,9 @@ class AopClient {
 				$resp = $this->encryptXMLSignSource($request, $resp);
 
 				$r = iconv($this->postCharset, $this->fileCharset . "//IGNORE", $resp);
+				$disableLibxmlEntityLoader = libxml_disable_entity_loader(true);
 				$respObject = @ simplexml_load_string($r);
+				libxml_disable_entity_loader($disableLibxmlEntityLoader);
 
 			}
 		}
@@ -606,10 +678,11 @@ class AopClient {
 
 		//调用openssl内置方法验签，返回bool值
 
+		$result = FALSE;
 		if ("RSA2" == $signType) {
-			$result = (bool)openssl_verify($data, base64_decode($sign), $res, OPENSSL_ALGO_SHA256);
+			$result = (openssl_verify($data, base64_decode($sign), $res, OPENSSL_ALGO_SHA256)===1);
 		} else {
-			$result = (bool)openssl_verify($data, base64_decode($sign), $res);
+			$result = (openssl_verify($data, base64_decode($sign), $res)===1);
 		}
 
 		if(!$this->checkEmpty($this->alipayPublicKey)) {
@@ -620,11 +693,15 @@ class AopClient {
 		return $result;
 	}
 
-	public function checkSignAndDecrypt($params, $rsaPublicKeyPem, $rsaPrivateKeyPem, $isCheckSign, $isDecrypt) {
+/** 
+	 *  在使用本方法前，必须初始化AopClient且传入公私钥参数。
+	 *  公钥是否是读取字符串还是读取文件，是根据初始化传入的值判断的。
+	 **/
+	public function checkSignAndDecrypt($params, $rsaPublicKeyPem, $rsaPrivateKeyPem, $isCheckSign, $isDecrypt, $signType='RSA') {
 		$charset = $params['charset'];
 		$bizContent = $params['biz_content'];
 		if ($isCheckSign) {
-			if (!$this->rsaCheckV2($params, $rsaPublicKeyPem)) {
+			if (!$this->rsaCheckV2($params, $rsaPublicKeyPem, $signType)) {
 				echo "<br/>checkSign failure<br/>";
 				exit;
 			}
@@ -636,24 +713,28 @@ class AopClient {
 		return $bizContent;
 	}
 
-	public function encryptAndSign($bizContent, $rsaPublicKeyPem, $rsaPrivateKeyPem, $charset, $isEncrypt, $isSign) {
+	/** 
+	 *  在使用本方法前，必须初始化AopClient且传入公私钥参数。
+	 *  公钥是否是读取字符串还是读取文件，是根据初始化传入的值判断的。
+	 **/
+	public function encryptAndSign($bizContent, $rsaPublicKeyPem, $rsaPrivateKeyPem, $charset, $isEncrypt, $isSign, $signType='RSA') {
 		// 加密，并签名
 		if ($isEncrypt && $isSign) {
 			$encrypted = $this->rsaEncrypt($bizContent, $rsaPublicKeyPem, $charset);
-			$sign = $this->sign($bizContent);
-			$response = "<?xml version=\"1.0\" encoding=\"$charset\"?><alipay><response>$encrypted</response><encryption_type>RSA</encryption_type><sign>$sign</sign><sign_type>RSA</sign_type></alipay>";
+			$sign = $this->sign($encrypted, $signType);
+			$response = "<?xml version=\"1.0\" encoding=\"$charset\"?><alipay><response>$encrypted</response><encryption_type>RSA</encryption_type><sign>$sign</sign><sign_type>$signType</sign_type></alipay>";
 			return $response;
 		}
 		// 加密，不签名
 		if ($isEncrypt && (!$isSign)) {
 			$encrypted = $this->rsaEncrypt($bizContent, $rsaPublicKeyPem, $charset);
-			$response = "<?xml version=\"1.0\" encoding=\"$charset\"?><alipay><response>$encrypted</response><encryption_type>RSA</encryption_type></alipay>";
+			$response = "<?xml version=\"1.0\" encoding=\"$charset\"?><alipay><response>$encrypted</response><encryption_type>$signType</encryption_type></alipay>";
 			return $response;
 		}
 		// 不加密，但签名
 		if ((!$isEncrypt) && $isSign) {
-			$sign = $this->sign($bizContent);
-			$response = "<?xml version=\"1.0\" encoding=\"$charset\"?><alipay><response>$bizContent</response><sign>$sign</sign><sign_type>RSA</sign_type></alipay>";
+			$sign = $this->sign($bizContent, $signType);
+			$response = "<?xml version=\"1.0\" encoding=\"$charset\"?><alipay><response>$bizContent</response><sign>$sign</sign><sign_type>$signType</sign_type></alipay>";
 			return $response;
 		}
 		// 不加密，不签名
@@ -661,11 +742,25 @@ class AopClient {
 		return $response;
 	}
 
+	/** 
+	 *  在使用本方法前，必须初始化AopClient且传入公私钥参数。
+	 *  公钥是否是读取字符串还是读取文件，是根据初始化传入的值判断的。
+	 **/
 	public function rsaEncrypt($data, $rsaPublicKeyPem, $charset) {
-		//读取公钥文件
-		$pubKey = file_get_contents($rsaPublicKeyPem);
-		//转换为openssl格式密钥
-		$res = openssl_get_publickey($pubKey);
+		if($this->checkEmpty($this->alipayPublicKey)){
+			//读取字符串
+			$pubKey= $this->alipayrsaPublicKey;
+			$res = "-----BEGIN PUBLIC KEY-----\n" .
+				wordwrap($pubKey, 64, "\n", true) .
+				"\n-----END PUBLIC KEY-----";
+		}else {
+			//读取公钥文件
+			$pubKey = file_get_contents($rsaPublicKeyFilePath);
+			//转换为openssl格式密钥
+			$res = openssl_get_publickey($pubKey);
+		}
+
+		($res) or die('支付宝RSA公钥错误。请检查公钥文件格式是否正确'); 
 		$blocks = $this->splitCN($data, 0, 30, $charset);
 		$chrtext  = null;
 		$encodes  = array();
@@ -677,14 +772,27 @@ class AopClient {
 		}
 		$chrtext = implode(",", $encodes);
 
-		return $chrtext;
+		return base64_encode($chrtext);
 	}
 
+	/** 
+	 *  在使用本方法前，必须初始化AopClient且传入公私钥参数。
+	 *  公钥是否是读取字符串还是读取文件，是根据初始化传入的值判断的。
+	 **/
 	public function rsaDecrypt($data, $rsaPrivateKeyPem, $charset) {
-		//读取私钥文件
-		$priKey = file_get_contents($rsaPrivateKeyPem);
+		
+		if($this->checkEmpty($this->rsaPrivateKeyFilePath)){
+			//读字符串
+			$priKey=$this->rsaPrivateKey;
+			$res = "-----BEGIN RSA PRIVATE KEY-----\n" .
+				wordwrap($priKey, 64, "\n", true) .
+				"\n-----END RSA PRIVATE KEY-----";
+		}else {
+			$priKey = file_get_contents($this->rsaPrivateKeyFilePath);
+			$res = openssl_get_privatekey($priKey);
+		}
+		($res) or die('您使用的私钥格式错误，请检查RSA私钥配置'); 
 		//转换为openssl格式密钥
-		$res = openssl_get_privatekey($priKey);
 		$decodes = explode(',', $data);
 		$strnull = "";
 		$dcyCont = "";
@@ -801,7 +909,7 @@ class AopClient {
 
 	function parserJSONSource($responseContent, $nodeName, $nodeIndex) {
 		$signDataStartIndex = $nodeIndex + strlen($nodeName) + 2;
-		$signIndex = strpos($responseContent, "\"" . $this->SIGN_NODE_NAME . "\"");
+		$signIndex = strrpos($responseContent, "\"" . $this->SIGN_NODE_NAME . "\"");
 		// 签名前-逗号
 		$signDataEndIndex = $signIndex - 1;
 		$indexLen = $signDataEndIndex - $signDataStartIndex;
@@ -862,7 +970,7 @@ class AopClient {
 
 	function parserXMLSource($responseContent, $nodeName, $nodeIndex) {
 		$signDataStartIndex = $nodeIndex + strlen($nodeName) + 1;
-		$signIndex = strpos($responseContent, "<" . $this->SIGN_NODE_NAME . ">");
+		$signIndex = strrpos($responseContent, "<" . $this->SIGN_NODE_NAME . ">");
 		// 签名前-逗号
 		$signDataEndIndex = $signIndex - 1;
 		$indexLen = $signDataEndIndex - $signDataStartIndex + 1;

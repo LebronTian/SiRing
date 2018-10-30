@@ -327,18 +327,14 @@ class Order extends Base {
             'product_code' => 'QUICK_MSECURITY_PAY'
         ));
 
-
         $request->setNotifyUrl("https://vip.gagaliang.com/Alipay_pay_code");//你在应用那里设置的异步回调地址
-
         $request->setBizContent($bizcontent);
-
 //这里和普通的接口调用不同，使用的是sdkExecute
         $response = $aop->sdkExecute($request);
-
 //htmlspecialchars是为了输出到页面时防止被浏览器将关键参数html转义，实际打印到日志以及http传输不会有这个问题
-//        echo htmlspecialchars($response);//就是orderString 可以直接给客户端请求，无需再做处理。这里就是方便打印给你看，具体你直接可以在方法那里return出去，不用加htmlspecialchars，或者响应给app端让他拿着这串东西调起支付宝支付
+//echo htmlspecialchars($response);//就是orderString 可以直接给客户端请求，无需再做处理。这里就是方便打印给你看，具体你直接可以在方法那里return出去，不用加htmlspecialchars，或者响应给app端让他拿着这串东西调起支付宝支付
+        return ajax_success('数据',$response);
 
-    return ajax_success('数据',$response);
     }
 
 
