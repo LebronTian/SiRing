@@ -124,6 +124,30 @@ class  Member extends  Base {
         }
     }
 
+
+    /**
+     * TODO:
+     */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      **************李火生*******************
      * @return \think\response\View
@@ -163,7 +187,7 @@ class  Member extends  Base {
                 if(!empty($datas)){
                     return ajax_success('成功',$datas);
                 }else{
-                    return ajax_error('失败');
+                    return ajax_error('失败',['status'=>0]);
                 }
             }
 
