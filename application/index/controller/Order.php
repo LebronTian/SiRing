@@ -239,11 +239,13 @@ class Order extends Base {
 
                        $deco ='%7B%22body%22%3A%22pay_test%22%2C%22out_trade_no%22%3A%22201810291619487174012%22%2C%22passback_params%22%3A%22callback+params%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%2C%22subject%22%3A%22%E4%BA%AE%E6%9E%9C%E5%9B%BD%E9%99%85%22%2C%22timeout_express%22%3A%2230m%22%2C%22total_amount%22%3A%22430.00%22%7D&charset=UTF-8&format=json&method=alipay.trade.app.pay&notify_url=https%3A%2F%2Flggj.lgz666.com%2Flggj%2Fapi%2Falipay%2Fnotify_url';
                        $data_name =urldecode($deco);
+                       $tm ='2018-10-29+16%3A19%3A48';
+                       $tms =urldecode($tm);
                        $test ="alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_id=2018031402370789"."&biz_content=".$data_name;
 
 
 
-                       $body_content = '{"body":"pay_test","out_trade_no":"201810291619487174012","passback_params":"callback_params","product_code":"QUICK_MSECURITY_PAY","subject":"亮锅","timeout_express":"30m","total_amount":"0.01"}';
+                       $body_content = '{"body":"pay_test","out_trade_no":"201810291619487174012","passback_params":"callback_params","product_code":"QUICK_MSECURITY_PAY","subject":"亮果国际","timeout_express":"30m","total_amount":"430.00"}';
                        $body_contents =urlencode($body_content);
                        $body_url='&charset=UTF-8&format=json&method=alipay.trade.app.pay&notify_url=';
                        $body_ec_url="https://lggj.lgz666.com/lggj/api/alipay/notify_url";
@@ -251,7 +253,7 @@ class Order extends Base {
                        $times =urlencode($time);
                        $cont ='&sign=4dA15K7C5y20LMfGoAwVJrfK4nyiKhn4UKJCewkW5WoeYETUZGC%2FYkZX6IY9syAbe0opzJ9XPwuxsmJ2LgkkLrDJmfMXBEaZOw3fS0a6KIAPdo%2FtqOFzlAUSiGP79yyorSDzXVSNk7gZPhuYqW2ym1wAWiuAz7WwDBg%2FS1Ns2brrfpen%2BXncPabc5CdmwYhi9pKE%2BwxWeZv825f5EAV%2FAic%2FcPEyBwic6BVjYt3gGff1TKdzMysxsZn3ElLpcO3hs%2FPOopwcBb85JsVKf9v9hV9y%2FY6CHlfdKeXAVDXra0eHm9LpQZwGBSV%2BabTCZZRXqRxsdR1Mp%2BTlgFzap49XqA%3D%3D&sign_type=RSA2&timestamp='.$times.'&version=1.0';
                         $body_all ="alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_id=2018031402370789"."&biz_content=".$body_contents.$body_url.$body_encode_url.$cont;
-                       return ajax_success('数据成功返回',$test);
+                       return ajax_success('数据成功返回',$tms);
 
 
                    }
