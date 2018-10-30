@@ -245,7 +245,7 @@ class Order extends Base {
 
 
 
-                       $body_content = '{"body":"pay_test","out_trade_no":"201810291619487174012","passback_params":"callback params","product_code":"QUICK_MSECURITY_PAY","subject":"亮果国际","timeout_express":"30m","total_amount":"430.00"}';
+                       $body_content = '{"body":"pay_test","out_trade_no":"201810291619487174012","passback_params":"callback params","product_code":"QUICK_MSECURITY_PAY","subject":"亮果","timeout_express":"30m","total_amount":"1.00"}';
                        $body_contents =urlencode($body_content);
                        $body_url='&charset=UTF-8&format=json&method=alipay.trade.app.pay&notify_url=';
                        $body_ec_url="https://lggj.lgz666.com/lggj/api/alipay/notify_url";
