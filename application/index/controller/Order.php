@@ -733,6 +733,28 @@ class Order extends Base {
     /**
      **************李火生*******************
      * @param Request $request
+     * TODO:IOS对接取消订单
+     **************************************
+     */
+    public function ios_api_cancel_order(Request $request){
+        if($request->isPost()){
+            $order_id =$_POST['order_id'];
+            if(!empty($order_id)){
+                $res =Db::name('order')->where('id',$order_id)->update(['status'=>11]);
+                if($res){
+                   return ajax_success('订单取消成功',['status'=>1]);
+                }else{
+                    return ajax_error('订单取消失败',['status'=>0]);
+                }
+            }
+        }
+    }
+
+
+
+    /**
+     **************李火生*******************
+     * @param Request $request
      * 买家确认收货
      **************************************
      */
@@ -750,6 +772,29 @@ class Order extends Base {
             }
         }
 
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * TODO:IOS接口（买家确认收货）
+     **************************************
+     */
+    public function ios_api_collect_goods(Request $request){
+        if ($request->isPost()){
+            $order_id =$_POST['order_id'];
+            if(!empty($order_id)){
+                $res =Db::name('order')->where('id',$order_id)->update(['status'=>5]);
+                if($res){
+                    return ajax_success('确认收货成功',['status'=>1]);
+                }else{
+                   return ajax_error('确认收货失败',['status'=>0]);
+                }
+            }else{
+                return ajax_error('没有这个订单',['status'=>0]);
+            }
+        }
+    }
+
     /**
      * 实时物流显示
      */
@@ -762,8 +807,28 @@ class Order extends Base {
             }
         }
             return view('logistics_information');
-
     }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * TODO：IOS对接实时物流显示
+     **************************************
+     */
+    public function ios_api_logistics_information(Request $request){
+        if ($request->isPost()) {
+            $order_id =$_POST['order_id'];
+            session('by_order_id',$order_id);
+            if(!empty($order_id)){
+               return ajax_success('查看物流信息成功',['status'=>1]);
+            }else{
+                return ajax_error('没有这个订单号',['status'=>0]);
+            }
+        }
+    }
+
+
+
 
     /**
      **************李火生*******************
@@ -779,6 +844,26 @@ class Order extends Base {
             }
         }
     }
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * TODO:IOS对接待收货查看物流传的order_Id
+     **************************************
+     */
+    public  function ios_api_logistics_information_id(Request $request){
+        if($request->isPost()){
+            $order_id =$_POST['order_id'];
+            session('by_order_id',$order_id);
+            if(!empty($order_id)){
+                return ajax_success('待收货查看物流获取id成功',['status'=>1]);
+            }else{
+                return ajax_error('订单不存在',['status'=>0]);
+            }
+        }
+    }
+
+
 
 
     /**
@@ -874,6 +959,12 @@ class Order extends Base {
         }
     }
 
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * 订单详情页面的付款按钮
+     **************************************
+     */
     public function order_to_pay_by_number(Request $request){
         if($request->isPost()){
             $order_numbers =$request->only(['id'])['id'];
