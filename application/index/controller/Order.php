@@ -592,8 +592,8 @@ class Order extends Base {
      */
         public function  ios_order_take_deliver(Request $request){
             if($request->isPost()){
-                $data_member =session('member');
-                $member_id =Db::name('user')->field('id')->where('phone_num',$data_member['phone_num'])->find();
+                $datas =session('member');
+                $member_id =Db::name('user')->field('id')->where('phone_num',$datas['phone_num'])->find();
                 if(!empty($member_id)){
                     $data =Db::name('order')
                         ->where("status=3 or status=4")
