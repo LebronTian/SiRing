@@ -122,6 +122,7 @@ Route::group("",[
     "ios_order_wait_deliver"=>"index/Order/ios_order_wait_deliver", //待发货
     "ios_order_take_deliver"=>"index/Order/ios_order_take_deliver", //待收货
     "ios_order_evaluate"=>"index/Order/ios_order_evaluate", //待评价
+    "ios_api_myorder"=>"index/Order/ios_api_myorder", //待评价
      //售后
     /**
      * TODO：订单与IOS合作的接口结束
