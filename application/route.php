@@ -120,7 +120,7 @@ Route::group("",[
     "ios_api_generating_alipay"=>"index/Order/ios_api_generating_alipay", //支付宝签名
     "ios_order_wait_pay"=>"index/Order/ios_order_wait_pay", //待付款
     "ios_order_wait_deliver"=>"index/Order/ios_order_wait_deliver", //待发货
-    "ios_order_take_deliver"=>"index/Order/ios_ios_order_take_deliver", //待收货
+    "ios_order_take_deliver"=>"index/Order/ios_order_take_deliver", //待收货
     "ios_order_evaluate"=>"index/Order/ios_order_evaluate", //待评价
      //售后
     /**
