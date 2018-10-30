@@ -86,6 +86,8 @@ class AliPay extends Controller
 
         if($request->isGet()){
             $data['status'] = 2;
+            $pay_time = time();
+            $data['pay_time']=$pay_time;
             if(!empty($_GET['out_trade_no'])){
                 $shopping_goods = db("order")->where("order_information_number",$_GET["out_trade_no"])->field("goods_id,shopping_shop_id,order_num")->select();
                 $goods = db("goods")->where("id",$shopping_goods[0]['goods_id'])->field("goods_num")->find();

@@ -122,7 +122,7 @@ Route::group("",[
     "ios_order_wait_deliver"=>"index/Order/ios_order_wait_deliver", //待发货
     "ios_order_take_deliver"=>"index/Order/ios_order_take_deliver", //待收货
     "ios_order_evaluate"=>"index/Order/ios_order_evaluate", //待评价
-    "ios_api_myorder"=>"index/Order/ios_api_myorder", //待评价
+    "ios_api_myorder"=>"index/Order/ios_api_myorder", //我的订单
     "ios_api_cancel_order"=>"index/Order/ios_api_cancel_order", //取消订单
     "ios_api_collect_goods"=>"index/Order/ios_api_collect_goods", //确认收货
     'ios_api_logistics_information'=>"index/Order/ios_api_logistics_information",//实时物流信息
