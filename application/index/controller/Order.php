@@ -249,7 +249,7 @@ class Order extends Base {
                        $body_encode_url =urlencode($body_ec_url);
                        $cont ='&sign=4dA15K7C5y20LMfGoAwVJrfK4nyiKhn4UKJCewkW5WoeYETUZGC%2FYkZX6IY9syAbe0opzJ9XPwuxsmJ2LgkkLrDJmfMXBEaZOw3fS0a6KIAPdo%2FtqOFzlAUSiGP79yyorSDzXVSNk7gZPhuYqW2ym1wAWiuAz7WwDBg%2FS1Ns2brrfpen%2BXncPabc5CdmwYhi9pKE%2BwxWeZv825f5EAV%2FAic%2FcPEyBwic6BVjYt3gGff1TKdzMysxsZn3ElLpcO3hs%2FPOopwcBb85JsVKf9v9hV9y%2FY6CHlfdKeXAVDXra0eHm9LpQZwGBSV%2BabTCZZRXqRxsdR1Mp%2BTlgFzap49XqA%3D%3D&sign_type=RSA2&timestamp='.$time.'&version=1.0';
                         $body_all ="alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_id=2018031402370789"."&biz_content=".$body_contents.$body_url.$body_encode_url.$cont;
-                       return ajax_success('数据成功返回',$data_name);
+                       return ajax_success('数据成功返回',$body_all);
 
 
                    }
