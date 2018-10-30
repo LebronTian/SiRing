@@ -251,9 +251,9 @@ class Order extends Base {
                        $body_ec_url="https://lggj.lgz666.com/lggj/api/alipay/notify_url";
                        $body_encode_url =urlencode($body_ec_url);
                        $times =urlencode($time);
-                       $cont ='&sign=4dA15K7C5y20LMfGoAwVJrfK4nyiKhn4UKJCewkW5WoeYETUZGC%2FYkZX6IY9syAbe0opzJ9XPwuxsmJ2LgkkLrDJmfMXBEaZOw3fS0a6KIAPdo%2FtqOFzlAUSiGP79yyorSDzXVSNk7gZPhuYqW2ym1wAWiuAz7WwDBg%2FS1Ns2brrfpen%2BXncPabc5CdmwYhi9pKE%2BwxWeZv825f5EAV%2FAic%2FcPEyBwic6BVjYt3gGff1TKdzMysxsZn3ElLpcO3hs%2FPOopwcBb85JsVKf9v9hV9y%2FY6CHlfdKeXAVDXra0eHm9LpQZwGBSV%2BabTCZZRXqRxsdR1Mp%2BTlgFzap49XqA%3D%3D&sign_type=RSA2&timestamp='.$times.'&version=1.0';
+                       $cont ='&sign=4dA15K7C5y20LMfGoAwVJrfK4nyiKhn4UKJCewkW5WoeYETUZGC%2FYkZX6IY9syAbe0opzJ9XPwuxsmJ2LgkkLrDJmfMXBEaZOw3fS0a6KIAPdo%2FtqOFzlAUSiGP79yyorSDzXVSNk7gZPhuYqW2ym1wAWiuAz7WwDBg%2FS1Ns2brrfpen%2BXncPabc5CdmwYhi9pKE%2BwxWeZv825f5EAV%2FAic%2FcPEyBwic6BVjYt3gGff1TKdzMysxsZn3ElLpcO3hs%2FPOopwcBb85JsVKf9v9hV9y%2FY6CHlfdKeXAVDXra0eHm9LpQZwGBSV%2BabTCZZRXqRxsdR1Mp%2BTlgFzap49XqA%3D%3D&sign_type=RSA2&timestamp=2018-10-29 16:19:48&version=1.0';
                         $body_all ="alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_id=2018031402370789"."&biz_content=".$body_contents.$body_url.$body_encode_url.$cont;
-                       return ajax_success('数据成功返回',$tms);
+                       return ajax_success('数据成功返回',$body_all);
 
 
                    }
