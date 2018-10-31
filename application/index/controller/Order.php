@@ -179,7 +179,7 @@ class Order extends Base {
                             'harvest_phone_num' => $member['harvester_phone_num'],
                             'harvest_address' => $position,
                             'create_time' => $create_time,
-                            'pay_money' => $data['all_pay'],
+                            'pay_money' => $data['all_pay'][$k],
                             'status' => 1,
                             'goods_id' => $v['goods_id'],
                             'send_money' => $data['express_fee'],
