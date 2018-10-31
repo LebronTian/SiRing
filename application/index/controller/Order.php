@@ -179,7 +179,8 @@ class Order extends Base {
                             'harvest_phone_num' => $member['harvester_phone_num'],
                             'harvest_address' => $position,
                             'create_time' => $create_time,
-                            'pay_money' => $data['all_pay'][$k],
+//                            'pay_money' => $data['all_pay'],
+                            'pay_money' => $v['money'],
                             'status' => 1,
                             'goods_id' => $v['goods_id'],
                             'send_money' => $data['express_fee'],
@@ -189,7 +190,6 @@ class Order extends Base {
                         $res =Db::name('order')->insertGetId($datas);
 //                        session('order_id', $res);
                         /*下单成功对购物车里面对应的商品进行删除*/
-
                     }
 
                 }
