@@ -84,9 +84,9 @@ class  Member extends  Base {
               'harvester'=>$data['harvester'],
                 'harvester_phone_num'=>$data['harvester_phone_num'],
                 'city'=>$data['city_information'],
-                'province_id'=>$data['province_id'],
-                'city_id'=>$data['city_id'],
-                'town_id'=>$data['town_id'],
+//                'province_id'=>$data['province_id'],
+//                'city_id'=>$data['city_id'],
+//                'town_id'=>$data['town_id'],
                 'address'=>$data['address'],
             ];
             if(!$_POST['harvester']){

@@ -787,6 +787,8 @@ class Order extends Base {
             }
         }
 
+
+
     /**
      **************李火生*******************
      * @param Request $request
@@ -802,6 +804,27 @@ class Order extends Base {
                    return ajax_success('订单取消成功',['status'=>1]);
                 }else{
                     return ajax_error('订单取消失败',['status'=>0]);
+                }
+            }
+        }
+    }
+
+
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * TODO：IOS接口返回（删除订单）
+     **************************************
+     */
+    public function ios_api_delete_order(Request $request){
+        if($request->isPost()){
+            $order_id =$_POST['order_id'];
+            if(!empty($order_id)){
+                $res =Db::name('order')->where('id',$order_id)->delete();
+                if($res){
+                    return ajax_success('订单删除成功',['status'=>1]);
+                }else{
+                    return ajax_error('订单删除失败',['status'=>0]);
                 }
             }
         }
