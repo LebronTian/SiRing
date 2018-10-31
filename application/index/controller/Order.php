@@ -128,8 +128,8 @@ class Order extends Base {
                 if (!empty($data)) {
                     $datas = [
                         'goods_img' => $goods_data['goods_show_images'],
-                        'goods_name' => $data['goods_name'][0],
-                        'order_num' => $data['order_num'][0],
+                        'goods_name' => $data['goods_name'],
+                        'order_num' => $data['order_num'],
                         'user_id' => $member['id'],
                         'harvester' => $member['harvester'],
                         'harvest_phone_num' => $member['harvester_phone_num'],

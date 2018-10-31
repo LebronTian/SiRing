@@ -72,7 +72,7 @@ class  Member extends  Base {
     /**
      **************李火生*******************
      * @param Request $request
-     * 收货信息
+     * TODO:IOS交接（收货信息）
      **************************************
      */
     public function  harvester_informations(Request $request){
@@ -90,22 +90,22 @@ class  Member extends  Base {
                 'address'=>$data['address'],
             ];
             if(!$_POST['harvester']){
-                $this->error('收获人不能为空');
+                return ajax_error('收获人不能为空',['status'=>0]);
             }
             if(!$_POST['harvester_phone_num']){
-                $this->error('收获人手机号不能为空');
+                return ajax_error('收获人手机号不能为空',['status'=>0]);
             }
             if(!$_POST['province']){
-                $this->error('省级地址不能为空');
+                return ajax_error('省级地址不能为空',['status'=>0]);
             }
             if(!$_POST['city']){
-                $this->error('市级地址不能为空');
+                return ajax_error('市级地址不能为空',['status'=>0]);
             }
             if(!$_POST['town']){
-                $this->error('县级地址不能为空');
+                return ajax_error('县级地址不能为空',['status'=>0]);
             }
             if(!$_POST['address']){
-                $this->error('具体收货街道地址不能为空');
+                return ajax_error('具体收货街道地址不能为空',['status'=>0]);
             }
             if(!empty($_POST['harvester'])&&
                 !empty($_POST['harvester_phone_num'])&&
@@ -119,34 +119,10 @@ class  Member extends  Base {
                     return ajax_success('成功',$res);
                 }
             }else{
-                return ajax_error('失败');
+                return ajax_error('失败',['status'=>0]);
             }
         }
     }
-
-
-    /**
-     * TODO:
-     */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      **************李火生*******************
@@ -175,7 +151,7 @@ class  Member extends  Base {
     /**
      **************李火生*******************
      * @param Request $request
-     * 获取收货人地址信息
+     * TODO:IOS获取收货人地址信息
      **************************************
      */
     public function  get_address_informations(Request $request){
