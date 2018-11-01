@@ -249,13 +249,13 @@ class Order extends Controller {
                        $param['app_id'] = '2016112603335050';
                        $param['method'] = 'alipay.trade.app.pay';//接口名称，固定值
                        $param['charset'] = 'utf-8';//请求使用的编码格式
-                       $param['sign_type'] = 'RSA';//商户生成签名字符串所使用的签名算法类型
+                       $param['sign_type'] = 'RSA2';//商户生成签名字符串所使用的签名算法类型
                        $param['timestamp'] = date("Y-m-d Hi:i:s");//发送请求的时间
                        $param['version'] = '1.0';//调用的接口版本，固定为：1.0
                        $param['notify_url'] = 'https://vip.gagaliang.com/notifyurl';
                        $param['biz_content'] = $con;//业务请求参数的集合,长度不限,json格式，即前面一步得到的
                        $paramStr = $Client->getSignContent($param);//组装请求签名参数
-                       $sign = $Client->alonersaSign($paramStr, $private_path, 'RSA', false);//生成签名()
+                       $sign = $Client->alonersaSign($paramStr, $private_path, 'RSA2', false);//生成签名()
                        $param['sign'] = $sign;
                        $str = $Client->getSignContentUrlencode($param);//最终请求参数
                        $strings ='alipay_sdk=alipay-sdk-php-3.3.0&'.$str;
