@@ -215,6 +215,12 @@ class Order extends Base {
     public function ios_api_alipay(Request $request){
 
         if($request->isPost()){
+
+
+
+
+
+
             $order_num =$request->only(['order_num'])['order_num'];
 //            $order_num ='1540519884103';
             $product_code ="QUICK_MSECURITY_PAY";
@@ -233,23 +239,39 @@ class Order extends Base {
                        $time_encode =urlencode($time);
 
                         // 订单信息，在iOS端加密
-                       $c = new \AopClient;
-                       $c->gatewayUrl = "https://openapi.alipay.com/gateway.do";
-                       $c->appId = "2016112603335050";   // 填写你的AppID
-                       $c->rsaPrivateKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz+SfWrndsOSD3AY3v5YtA9n+BoBcckMYfjgpIrT5Bu2YF2GR5oFCBJASSQeRRyDHPWL3i91lbyZeiBsE2l+rJcMTP+EfH6MpxMerwqfvOPw4p4OHHAnbI52xjdNZStBdIT7oEwEUsghuejCpWelL/b3CPFpW/1OpEVRnssw9gc0f1mius2eOXZ0+5JaJRZ/zJWxgyMHctF6NXcSG2oVOl0WyiNK/F4CuqdIcq1y8ZDiVvmRbyfzcEmbgob7MpwVFWw1Fge3z4fSnG7bicOJSXkPbWNhZmGe/yXCEXbA/8Kldp/nMkwnMGJ5A/3yFZTEUnmY60qnXA5T3R1KOnpXklwIDAQAB';  // 应用私钥  在生成私钥的时候看清是java还是非java端
-                       $c->format = "json";
-                       $c->charset = "UTF-8";
-                       $c->signType= "RSA2";   // 这里看清到底是用RSA 还是 RSA2
-                       $c->alipayrsaPublicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz+SfWrndsOSD3AY3v5YtA9n+BoBcckMYfjgpIrT5Bu2YF2GR5oFCBJASSQeRRyDHPWL3i91lbyZeiBsE2l+rJcMTP+EfH6MpxMerwqfvOPw4p4OHHAnbI52xjdNZStBdIT7oEwEUsghuejCpWelL/b3CPFpW/1OpEVRnssw9gc0f1mius2eOXZ0+5JaJRZ/zJWxgyMHctF6NXcSG2oVOl0WyiNK/F4CuqdIcq1y8ZDiVvmRbyfzcEmbgob7MpwVFWw1Fge3z4fSnG7bicOJSXkPbWNhZmGe/yXCEXbA/8Kldp/nMkwnMGJ5A/3yFZTEUnmY60qnXA5T3R1KOnpXklwIDAQAB';  // 是支付宝公钥！不是应用公钥！
-                       $request = new \AlipayOpenPublicTemplateMessageIndustryModifyRequest();
-                       $response = $request->bizContent = "{
-                       primary_industry_name:'IT科技IT软件与服务',
-                       primary_industry_code:'10001',
-                       secondary_industry_code:'10002',
-                       secondary_industry_name:'it科技'
-                           }";
-                       $alipay_data = urlencode($response);
-                       return ajax_success('数据成功返回',$alipay_data);
+//                       require_once '\Alipays\aop\AopClient.php';
+                       include('../vendor/Alipays/aop/AopClient.php');
+                       $private_path =  "MIIEowIBAAKCAQEAz+SfWrndsOSD3AY3v5YtA9n+BoBcckMYfjgpIrT5Bu2YF2GR5oFCBJASSQeRRyDHPWL3i91lbyZeiBsE2l+rJcMTP+EfH6MpxMerwqfvOPw4p4OHHAnbI52xjdNZStBdIT7oEwEUsghuejCpWelL/b3CPFpW/1OpEVRnssw9gc0f1mius2eOXZ0+5JaJRZ/zJWxgyMHctF6NXcSG2oVOl0WyiNK/F4CuqdIcq1y8ZDiVvmRbyfzcEmbgob7MpwVFWw1Fge3z4fSnG7bicOJSXkPbWNhZmGe/yXCEXbA/8Kldp/nMkwnMGJ5A/3yFZTEUnmY60qnXA5T3R1KOnpXklwIDAQABAoIBAQCDq2VSbQ4AD3uES1vbuB3ipprBO2NR6zUEHEXReZWP0cPWazGhMJTDlww9vNFCn3wRYTEwIJUyBLcytQop1RXs4NS8TLUNsKWvwFcE/qABE54+WoukMonc0O+3x/hx7e5ONC2Ae9rDt5thQJjCHYTHvPvchcs8A5y9IRxcngcGweL6m6KUd4yT4yr5pPCXM8Q4B5cG/BM+MtLeqPJ1S7zheMKt4pN52M9pU9+n1V3nx1FgViv7ycOh8E+9L33S/Ri9HuLyIeV9zZ44g53ociUlSoQBnUIiDHWriHROWP0yxPdp0Et4oUPFcsDR1FVa8rFSmhZRauA6M7Um8SRXKVtBAoGBAPrhPqij8HfnOCJAGMcbwJnpQGZAypYBawEOSib3uIKyqEQmDlvzTjJgR2YbFUfGvgeAn0mX/Q4B/Vgffb1dqCJbU4McSE3GHJHCdBO6UqvUD4B8Qy6aJJomPGwgZAi+DAk9PtNDo2tC6DTZbd5UJMTqdpMq0776pjR6E3+7F2wZAoGBANQiyZTfw9qqf9xyQ4YKwu6v0165e+mnlycOTRkrBSESJUNSCH4aYHZnE4B9J1MU5fxxrZuk5qt6iu0N5AkUQY6xuLkKdjX8WJbHWgHHjvMxXsEqx1LQlQ2PSCCvF5jxB0xhzTjBa3uCzfabs3o+6MKh1QF1DuYMBE1B/rku8uwvAoGAdnuAIxbhj08EpLBOw2Ho8QdGocQBqRxcU7BS9tpRKnCDpUOvzl820/XCYodx4mcLAfINyCzelwn7gu3EbXVY3XjyFN57izd/8Jq8RUDeoEXTWGPXOqATnzVlnc8iTzqp5oclL5MnD5YWojb5e2GTx+fPPiuguvYXHnt00AMkyakCgYAkFOKqksDSUYu76Cd6BhyP0pImG3BrFplMCE+uxzVxIY/6+ln9cOkVWoTjpuXoaLaRkJhRz+N4KTi2B1XRAYQBDFN6DcB7gDdlNfUmNlYnIS+XtXn/qQChNMy02nMuDVkLcdshGyz37hCwMF1/nnGioToErG9jS4nzxhTYVJb2+wKBgGGU5XtXTZAeBtueAgwwPkdOe1pXHXjkeytG2cGeNJrBkMmj7B7eNt+3EkHw4yPgvj/e4OYNm4ojRH05FefZmb6dtLDUH0p1k9LeqEbGGbHn7cl7jDjTqaRznlODyaT3pJlRldZIaJ95VEwZtpMQCnItUAu5yGH3Vrgo2Y8eNpAn";//私钥路径
+                       //构造业务请求参数的集合(订单信息)
+                       $content = array();
+                       $content['subject'] = "gagaliang";
+                       $content['out_trade_no'] = "20181101325";
+                       $content['timeout_express'] = "23:00";
+                       $content['total_amount'] = "0.01";
+                       $content['product_code'] = "QUICK_MSECURITY_PAY";
+                        $con = json_encode($content);//$content是biz_content的值,将之转化成json字符串
+//                       $alipay_data = urlencode($response);
+
+                       //公共参数
+                       $Client = new \AopClient();//实例化支付宝sdk里面的AopClient类,下单时需要的操作,都在这个类里面
+                       $param['app_id'] = '2016112603335050';
+                       $param['method'] = 'alipay.trade.app.pay';//接口名称，固定值
+                       $param['charset'] = 'utf-8';//请求使用的编码格式
+                       $param['sign_type'] = 'RSA2';//商户生成签名字符串所使用的签名算法类型
+                       $param['timestamp'] = date("Y-m-d Hi:i:s");//发送请求的时间
+                       $param['version'] = '1.0';//调用的接口版本，固定为：1.0
+                       $param['notify_url'] = 'https://vip.gagaliang.com/notifyurl';
+                       $param['biz_content'] = $con;//业务请求参数的集合,长度不限,json格式，即前面一步得到的
+
+                       $paramStr = $Client->getSignContent($param);//组装请求签名参数
+                       $sign = $Client->alonersaSign($paramStr, $private_path, 'RSA2', true);//生成签名
+                       $param['sign'] = $sign;
+                       $str = $Client->getSignContentUrlencode($param);//最终请求参数
+
+
+
+
+                       return ajax_success('数据成功返回',$str);
                    }
                }else{
                    return ajax_error('数据返回不成功',['status'=>0]);
