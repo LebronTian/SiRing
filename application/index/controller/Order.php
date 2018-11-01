@@ -255,10 +255,11 @@ class Order extends Controller {
                        $param['notify_url'] = 'https://vip.gagaliang.com/notifyurl';
                        $param['biz_content'] = $con;//业务请求参数的集合,长度不限,json格式，即前面一步得到的
                        $paramStr = $Client->getSignContent($param);//组装请求签名参数
-                       $sign = $Client->alonersaSign($paramStr, $private_path, 'RSA2', false);//生成签名
+                       $sign = $Client->alonersaSign($paramStr, $private_path, 'RSA2', false);//生成签名()
                        $param['sign'] = $sign;
                        $str = $Client->getSignContentUrlencode($param);//最终请求参数
-                       return ajax_success('数据成功返回',$str);
+                       $strings ='alipay_sdk=alipay-sdk-php-3.3.0&'.$str;
+                       return ajax_success('数据成功返回',$strings);
                    }
                }else{
                    return ajax_error('数据返回不成功',['status'=>0]);
