@@ -176,25 +176,25 @@
         $('.files').click();
     })
 
-//    $(".evaluation_a").click(function () {
-//        var evaluation_content = $("#evaluation_content").val();
-//        $.ajax({
-//            type:'POST',
-//            url:'{:url("index/Share/evaluation_add")}',
-//            data:{
-//                'evaluation_content':evaluation_content
-//            },
-//            dataType: 'json',
-//            success: function(data){
-//                console.log(data);
-//                alert(data.info);
-//                window.location.href ="{:url('index/Order/evaluate')}";
-//            },
-//            error:function(data) {
-//                console.log("失败");
-//            },
-//        });
-//    });
+   $(".evaluation_a").click(function () {
+       var evaluation_content = $("#evaluation_content").val();
+       $.ajax({
+           type:'POST',
+           url:'{:url("index/Share/evaluation_add")}',
+           data:{
+               'evaluation_content':evaluation_content
+           },
+           dataType: 'json',
+           success: function(data){
+               console.log(data);
+            //    alert(data.info);
+               window.location.href ="{:url('index/Order/evaluate')}";
+           },
+           error:function(data) {
+               console.log("失败");
+           },
+       });
+   });
 </script>
 <script type="text/javascript">
     $(function() {
