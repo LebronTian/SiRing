@@ -243,9 +243,7 @@ class Order extends Controller {
                        $content['total_amount'] = "0.01";
                        $content['product_code'] = "QUICK_MSECURITY_PAY";
                         $con = json_encode($content);//$content是biz_content的值,将之转化成json字符串
-                       return ajax_success('数据成功返回',$con);
 //                       $alipay_data = urlencode($response);
-
                        //公共参数
                        $Client = new \AopClient();//实例化支付宝sdk里面的AopClient类,下单时需要的操作,都在这个类里面
                        $param['app_id'] = '2016112603335050';
@@ -258,6 +256,7 @@ class Order extends Controller {
                        $param['biz_content'] = $con;//业务请求参数的集合,长度不限,json格式，即前面一步得到的
 
                        $paramStr = $Client->getSignContent($param);//组装请求签名参数
+                       return ajax_success('lalla',$paramStr);
                        $sign = $Client->alonersaSign($paramStr, $private_path, 'RSA2', true);//生成签名
                        $param['sign'] = $sign;
                        $str = $Client->getSignContentUrlencode($param);//最终请求参数
