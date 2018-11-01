@@ -247,7 +247,7 @@ class Order extends Controller {
 //                       $alipay_data = urlencode($response);
                        //公共参数
                        $Client = new \AopClient();//实例化支付宝sdk里面的AopClient类,下单时需要的操作,都在这个类里面
-                       $param['app_id'] = '2018082761132725';
+                       $param['app_id'] = '2088921891438094';
                        $param['method'] = 'alipay.trade.app.pay';//接口名称，固定值
                        $param['charset'] = 'utf-8';//请求使用的编码格式
                        $param['sign_type'] = 'RSA2';//商户生成签名字符串所使用的签名算法类型
