@@ -243,6 +243,7 @@ class Order extends Controller {
                        $content['total_amount'] = "0.01";
                        $content['product_code'] = "QUICK_MSECURITY_PAY";
                         $con = json_encode($content);//$content是biz_content的值,将之转化成json字符串
+                       return ajax_success('数据成功返回',$con);
 //                       $alipay_data = urlencode($response);
 
                        //公共参数
