@@ -234,7 +234,7 @@ class Order extends Controller {
                         // 订单信息，在iOS端加密
 //                       require_once '\Alipays\aop\AopClient.php';
                        include('../vendor/Alipays/aop/AopClient.php');
-                       $private_path =  "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmKw/C4jHlGLUhpATv2yesGaZOSI9MmOuw5AMcB6odktNj19CSNDAmS5gDCKM4bJyVFOCFb3BNgvADvhoXHMPngGUkqHkJuRotGpvbr3A5UCyWLsF442cFnO7KZC5blKY59DmB/zZ7E9gRT5BhmQebJkkMls2PcVkvEUNTdQiorcNunhxOfsyUuYqsZP0yPoptR8YarmiWZVXwNxJ7Ha3zVzc7kVPqNYyDkCYtSfvVjOeutUh2dGsz1irsYUZpQP4Kra2YyhPlXpNS/KR3TSl1eLXxAQH6g1YWIsQ7/AZRi+Qv1mczwB9miYjQyPkEtjyYQkHVaItxeGW3fvsSvXy9QIDAQAB";//私钥路径
+                       $private_path = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAq2KGCUdWRFqi0KaALNAlPulSp2gMViM8E05Srq/r3EOux8ZMLIBYdTuDtTjfnfEdGg450S19FRh4i4CBxF0ToprIVVbXSacriUQB8t6Pu9O4GqAqOKm5uFlUV+GsBt6ImHFkBU8Azik0fAF6saer1RTAYuYfy2+jhRwISo5bvdQYGaWEnOmgwzZ0EV2/B/KxmGwmCNSnrrPxit7jlWCvOk5UPKfNeA9y+39w++EEHXafFGNO8YlR85LBpwyAZhdjcjA1pi8L1LeJF3O/965QEfAxreEUs0yshIInrVeAsj+gz8Q2qJPQkRow6lM1irELP061ZXZKP9+kKqTpt7iioQIDAQAB";//私钥路径
 
                        //构造业务请求参数的集合(订单信息)
                        $content = array();
