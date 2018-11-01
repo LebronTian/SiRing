@@ -12,7 +12,7 @@ use think\Request;
 use think\Session;
 
 
-class Order extends Base {
+class Order extends Controller {
 
     /**
      **************李火生*******************
@@ -213,14 +213,7 @@ class Order extends Base {
      **************************************
      */
     public function ios_api_alipay(Request $request){
-
         if($request->isPost()){
-
-
-
-
-
-
             $order_num =$request->only(['order_num'])['order_num'];
 //            $order_num ='1540519884103';
             $product_code ="QUICK_MSECURITY_PAY";
@@ -249,7 +242,7 @@ class Order extends Base {
                        $content['timeout_express'] = "23:00";
                        $content['total_amount'] = "0.01";
                        $content['product_code'] = "QUICK_MSECURITY_PAY";
-                        $con = json_encode($content);//$content是biz_content的值,将之转化成json字符串
+                        $con = urlencode($content);//$content是biz_content的值,将之转化成json字符串
 //                       $alipay_data = urlencode($response);
 
                        //公共参数
@@ -267,10 +260,7 @@ class Order extends Base {
                        $sign = $Client->alonersaSign($paramStr, $private_path, 'RSA2', true);//生成签名
                        $param['sign'] = $sign;
                        $str = $Client->getSignContentUrlencode($param);//最终请求参数
-
-
-
-
+                       halt($str);
                        return ajax_success('数据成功返回',$str);
                    }
                }else{
