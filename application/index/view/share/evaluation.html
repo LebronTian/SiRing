@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>手袋购物网</title>
+    <title>评论商品</title>
     <link rel="stylesheet" href="__STATIC__/index/css/aui.css">
     <link rel="stylesheet" href="__STATIC__/index/css/myadd.css">
     <style type="text/css">
@@ -104,10 +104,13 @@
         }
         
         .evaluation_a{
-            background-color: transparent;
             position: absolute;
-            top: 7px;
-            right: 0;
+            left: 50%;
+            bottom: 50px;
+            background-color: #f23030;
+            color: #fff;
+            width: 90%;
+            transform: translateX(-50%);
             border: 0;
             font-size: 16px;
         }
@@ -115,7 +118,7 @@
 </head>
 
 <body>
-    <div class="header_box">
+    <!-- <div class="header_box">
         <div class="bar bar-header">
             <a class="back" href="javascript:history.back(-1);">
                 <i class="aui-iconfont aui-icon-left"></i>
@@ -123,7 +126,7 @@
             <div id="title" class="h1 title">我的评价</div>
 
         </div>
-    </div>
+    </div> -->
     {if !empty($res)}
     <div class="goods_wrap">
         <div class="goods_inner_box">
