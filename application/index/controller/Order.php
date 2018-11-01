@@ -254,10 +254,8 @@ class Order extends Controller {
                        $param['version'] = '1.0';//调用的接口版本，固定为：1.0
                        $param['notify_url'] = 'https://vip.gagaliang.com/notifyurl';
                        $param['biz_content'] = $con;//业务请求参数的集合,长度不限,json格式，即前面一步得到的
-
                        $paramStr = $Client->getSignContent($param);//组装请求签名参数
                        $sign = $Client->alonersaSign($paramStr, $private_path, 'RSA2', false);//生成签名
-                       return ajax_success('lalla',$sign);
                        $param['sign'] = $sign;
                        $str = $Client->getSignContentUrlencode($param);//最终请求参数
                        return ajax_success('数据成功返回',$str);
