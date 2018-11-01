@@ -260,7 +260,6 @@ class Order extends Controller {
                        $sign = $Client->alonersaSign($paramStr, $private_path, 'RSA2', true);//生成签名
                        $param['sign'] = $sign;
                        $str = $Client->getSignContentUrlencode($param);//最终请求参数
-                       halt($str);
                        return ajax_success('数据成功返回',$str);
                    }
                }else{
