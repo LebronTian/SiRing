@@ -242,13 +242,12 @@ class Order extends Base {
                        $c->signType= "RSA2";   // 这里看清到底是用RSA 还是 RSA2
                        $c->alipayrsaPublicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz+SfWrndsOSD3AY3v5YtA9n+BoBcckMYfjgpIrT5Bu2YF2GR5oFCBJASSQeRRyDHPWL3i91lbyZeiBsE2l+rJcMTP+EfH6MpxMerwqfvOPw4p4OHHAnbI52xjdNZStBdIT7oEwEUsghuejCpWelL/b3CPFpW/1OpEVRnssw9gc0f1mius2eOXZ0+5JaJRZ/zJWxgyMHctF6NXcSG2oVOl0WyiNK/F4CuqdIcq1y8ZDiVvmRbyfzcEmbgob7MpwVFWw1Fge3z4fSnG7bicOJSXkPbWNhZmGe/yXCEXbA/8Kldp/nMkwnMGJ5A/3yFZTEUnmY60qnXA5T3R1KOnpXklwIDAQAB';  // 是支付宝公钥！不是应用公钥！
                        $request = new \AlipayOpenPublicTemplateMessageIndustryModifyRequest();
-                       $request->bizContent = "{
+                       $response = $request->bizContent = "{
                        primary_industry_name:'IT科技IT软件与服务',
                        primary_industry_code:'10001',
                        secondary_industry_code:'10002',
                        secondary_industry_name:'it科技'
                            }";
-                       $response= $c->execute($request);
                        $alipay_data = urlencode($response);
                        return ajax_success('数据成功返回',$alipay_data);
                    }
