@@ -3,9 +3,8 @@
  * ALIPAY API: alipay.trade.wap.pay request
  *
  * @author auto create
- * @since 1.0, 2016-11-17 11:46:00
+ * @since 1.0, 2018-05-08 17:55:00
  */
-namespace Alipay\aop\request;
 class AlipayTradeWapPayRequest
 {
 	/** 

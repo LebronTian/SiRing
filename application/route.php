@@ -87,7 +87,7 @@ Route::group("",[
 
     /*确认订单*/
     "order_index"=>"index/Order/index",
-    "ios_api_order_button"=>"index/Order/ios_api_order_button", //ios提交订单传过来的参数形成订单存库并返回对应的订单号给IOS
+    "ios_api_order_button"=>"index/Order/ios_api_order_button", //TODO：ios提交订单传过来的参数形成订单存库并返回对应的订单号给IOS
 
     "common_id"=>"index/Order/common_id",
     'bt_order'=>"index/Order/bt_order",//提交订单
@@ -122,13 +122,17 @@ Route::group("",[
     "ios_order_wait_deliver"=>"index/Order/ios_order_wait_deliver", //待发货
     "ios_order_take_deliver"=>"index/Order/ios_order_take_deliver", //待收货
     "ios_order_evaluate"=>"index/Order/ios_order_evaluate", //待评价
-    "ios_api_myorder"=>"index/Order/ios_api_myorder", //待评价
+    "ios_api_myorder"=>"index/Order/ios_api_myorder", //我的订单
+    "ios_api_cancel_order"=>"index/Order/ios_api_cancel_order", //取消订单
+    "ios_api_delete_order"=>"index/Order/ios_api_delete_order", //删除取消的订单
+    "ios_api_collect_goods"=>"index/Order/ios_api_collect_goods", //确认收货
+    'ios_api_logistics_information'=>"index/Order/ios_api_logistics_information",//实时物流信息
+    'ios_api_logistics_information_id'=>"index/Order/ios_api_logistics_information_id",//用来接收物流信息的id
+    'ios_api_interface_information'=>"index/Order/ios_api_interface_information", //快递100接口
      //售后
     /**
      * TODO：订单与IOS合作的接口结束
      */
-
-
 
 
 
@@ -146,14 +150,10 @@ Route::group("",[
     'detail_images'=>"index/self_service/detail_images", //售后图片删除
     'detail_updata'=>"index/self_service/updata", //售后服务订单更新
 
-
     'electronices'=>'index/self_service/electronics',//电子保修
     'electronices_show'=>'index/self_service/electronics_show',//电子保修
     'agreement'=>'index/self_service/agreement',//售后服务协议
    
-
-
-
 
     /*登录页面*/
     "login"=>"index/Login/login",
