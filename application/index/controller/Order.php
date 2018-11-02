@@ -280,7 +280,8 @@ class Order extends Controller {
     public function notifyurl()
     {
         $aop = new \AopClient;
-        $aop->alipayrsaPublicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz+SfWrndsOSD3AY3v5YtA9n+BoBcckMYfjgpIrT5Bu2YF2GR5oFCBJASSQeRRyDHPWL3i91lbyZeiBsE2l+rJcMTP+EfH6MpxMerwqfvOPw4p4OHHAnbI52xjdNZStBdIT7oEwEUsghuejCpWelL/b3CPFpW/1OpEVRnssw9gc0f1mius2eOXZ0+5JaJRZ/zJWxgyMHctF6NXcSG2oVOl0WyiNK/F4CuqdIcq1y8ZDiVvmRbyfzcEmbgob7MpwVFWw1Fge3z4fSnG7bicOJSXkPbWNhZmGe/yXCEXbA/8Kldp/nMkwnMGJ5A/3yFZTEUnmY60qnXA5T3R1KOnpXklwIDAQAB';
+//        $aop->alipayrsaPublicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz+SfWrndsOSD3AY3v5YtA9n+BoBcckMYfjgpIrT5Bu2YF2GR5oFCBJASSQeRRyDHPWL3i91lbyZeiBsE2l+rJcMTP+EfH6MpxMerwqfvOPw4p4OHHAnbI52xjdNZStBdIT7oEwEUsghuejCpWelL/b3CPFpW/1OpEVRnssw9gc0f1mius2eOXZ0+5JaJRZ/zJWxgyMHctF6NXcSG2oVOl0WyiNK/F4CuqdIcq1y8ZDiVvmRbyfzcEmbgob7MpwVFWw1Fge3z4fSnG7bicOJSXkPbWNhZmGe/yXCEXbA/8Kldp/nMkwnMGJ5A/3yFZTEUnmY60qnXA5T3R1KOnpXklwIDAQAB';
+        $aop->alipayrsaPublicKey ='MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwyr92dShYLGSl9NvYbxqgUwyoDi8ln8YLEaPMvwqwf7Nwevf2jBxbTENyghi8R3AGEvocjhxjc7b5AoA9RMB2cJRDj5bGqbktsASwssREv8fRrEDed+Pw+Yyrs65xB3vAYTKmcQWKvPYCD5CuChcwXMUD5XBlfIoaxsU1p2ps/cAcwwLd+ywg0/cHDWVaLq2b4F43U7EhYRDzUTwTSxl1YBUUWFxIs4cbifWLhSgsvncP1tx5yb5lZfucjpIvKmuFOahdl9HImpVtk1gXc2DIMMiE5oZqYO7agaBTQ60jsqxQweEozeJj68Wmh4cmjroiXHXyLBBw/TPyDrS4SOl4QIDAQAB';
         $flag = $aop->rsaCheckV1($_POST, NULL, "RSA2");
         if($flag){
             //验证成功
