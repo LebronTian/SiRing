@@ -84,6 +84,7 @@ class Goods extends  Controller{
     }
 
 
+
     /**
      *[商品详情]
      * 陈绪
