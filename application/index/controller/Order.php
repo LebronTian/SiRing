@@ -258,8 +258,8 @@ class Order extends Controller {
                             'harvest_phone_num' => $member['harvester_phone_num'],
                             'harvest_address' => $position,
                             'create_time' => $create_time,
-//                            'pay_money' => $data['all_pay'],
-                            'pay_money' => $data['money'],
+                            'pay_money' => $data['all_pay'],
+//                            'pay_money' => $data['money'],
                             'status' => 1,
                             'goods_id' => $v['goods_id'],
                             'send_money' => $data['express_fee'],
@@ -269,9 +269,11 @@ class Order extends Controller {
                         $res =Db::name('order')->insertGetId($datas);
                         /*下单成功对购物车里面对应的商品进行删除*/
                         if (!empty($res)) {
-                            Db::name('shopping')->where($where)->delete();
-                            Db::name('shopping_shop')->where('id',$shopping_id['id'])->delete();
-                            return ajax_success('下单成功', $datas);
+                           $resss= Db::name('shopping')->where($where)->delete();
+                           $ressss= Db::name('shopping_shop')->where('id',$shopping_id['id'])->delete();
+                           if($resss&&$ressss){
+                               return ajax_success('下单成功', $datas);
+                           }
                         }
                     }
                 }
@@ -281,13 +283,6 @@ class Order extends Controller {
             }
         }
     }
-
-
-
-
-
-
-
 
     /**
      **************李火生*******************
@@ -350,7 +345,6 @@ class Order extends Controller {
                 return ajax_error('失败',['status=>0']);
             }
         }
-
     }
 
     /**
