@@ -240,7 +240,7 @@ class Order extends Controller {
                        $content = array();
                        $content['subject'] = "gagaliang";
                        $content['out_trade_no'] = "20181101325";
-                       $content['timeout_express'] = "90m";
+//                       $content['timeout_express'] = "90m";
                        $content['total_amount'] = "9.00";
                        $content['product_code'] = "QUICK_MSECURITY_PAY";
                         $con = json_encode($content);//$content是biz_content的值,将之转化成json字符串
