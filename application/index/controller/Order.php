@@ -230,7 +230,6 @@ class Order extends Controller {
                        $app_id ="{'timeout_express':'30m','seller_id':"."'".$order_num."'".",'product_code':"."'".$product_code."'".",'total_amount':"."'".$goods_pay_money."'".",'subject':"."'".$subject."'".",'body':"."'".$goods_name."'".",'out_trade_no':"."'".$out_trade_no."'"."}";
                        $app_ids =urlencode($app_id);
                        $time_encode =urlencode($time);
-
                         // 订单信息，在iOS端加密
 //                       require_once '\Alipays\aop\AopClient.php';
                        include('../vendor/Alipays/aop/AopClient.php');
@@ -251,7 +250,7 @@ class Order extends Controller {
                        $param['method'] = 'alipay.trade.app.pay';//接口名称，固定值
                        $param['charset'] = 'utf-8';//请求使用的编码格式
                        $param['sign_type'] = 'RSA2';//商户生成签名字符串所使用的签名算法类型
-                       $param['timestamp'] = date("Y-m-d Hi:i:s");//发送请求的时间
+                       $param['timestamp'] = date("Y-m-d H:i:s");//发送请求的时间
                        $param['version'] = '1.0';//调用的接口版本，固定为：1.0
                        $param['notify_url'] = 'https://vip.gagaliang.com/notifyurl';
                        $param['biz_content'] = $con;//业务请求参数的集合,长度不限,json格式，即前面一步得到的
