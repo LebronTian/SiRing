@@ -206,7 +206,6 @@ class Order extends Controller {
         }
     }
 
-
     /**
      **************李火生*******************
      * ios购物车提交订单传过来的参数形成订单存库并返回对应的订单号给IOS
@@ -285,11 +284,7 @@ class Order extends Controller {
                     }else{
                         return ajax_error('错误',['status'=>0]);
                     }
-
                 }
-
-
-
             }
         }
     }
@@ -321,7 +316,8 @@ class Order extends Controller {
 //                       require_once '\Alipays\aop\AopClient.php';
                        include('../vendor/Alipays/aop/AopClient.php');
 //                       $private_path =  "MIIEowIBAAKCAQEAz+SfWrndsOSD3AY3v5YtA9n+BoBcckMYfjgpIrT5Bu2YF2GR5oFCBJASSQeRRyDHPWL3i91lbyZeiBsE2l+rJcMTP+EfH6MpxMerwqfvOPw4p4OHHAnbI52xjdNZStBdIT7oEwEUsghuejCpWelL/b3CPFpW/1OpEVRnssw9gc0f1mius2eOXZ0+5JaJRZ/zJWxgyMHctF6NXcSG2oVOl0WyiNK/F4CuqdIcq1y8ZDiVvmRbyfzcEmbgob7MpwVFWw1Fge3z4fSnG7bicOJSXkPbWNhZmGe/yXCEXbA/8Kldp/nMkwnMGJ5A/3yFZTEUnmY60qnXA5T3R1KOnpXklwIDAQABAoIBAQCDq2VSbQ4AD3uES1vbuB3ipprBO2NR6zUEHEXReZWP0cPWazGhMJTDlww9vNFCn3wRYTEwIJUyBLcytQop1RXs4NS8TLUNsKWvwFcE/qABE54+WoukMonc0O+3x/hx7e5ONC2Ae9rDt5thQJjCHYTHvPvchcs8A5y9IRxcngcGweL6m6KUd4yT4yr5pPCXM8Q4B5cG/BM+MtLeqPJ1S7zheMKt4pN52M9pU9+n1V3nx1FgViv7ycOh8E+9L33S/Ri9HuLyIeV9zZ44g53ociUlSoQBnUIiDHWriHROWP0yxPdp0Et4oUPFcsDR1FVa8rFSmhZRauA6M7Um8SRXKVtBAoGBAPrhPqij8HfnOCJAGMcbwJnpQGZAypYBawEOSib3uIKyqEQmDlvzTjJgR2YbFUfGvgeAn0mX/Q4B/Vgffb1dqCJbU4McSE3GHJHCdBO6UqvUD4B8Qy6aJJomPGwgZAi+DAk9PtNDo2tC6DTZbd5UJMTqdpMq0776pjR6E3+7F2wZAoGBANQiyZTfw9qqf9xyQ4YKwu6v0165e+mnlycOTRkrBSESJUNSCH4aYHZnE4B9J1MU5fxxrZuk5qt6iu0N5AkUQY6xuLkKdjX8WJbHWgHHjvMxXsEqx1LQlQ2PSCCvF5jxB0xhzTjBa3uCzfabs3o+6MKh1QF1DuYMBE1B/rku8uwvAoGAdnuAIxbhj08EpLBOw2Ho8QdGocQBqRxcU7BS9tpRKnCDpUOvzl820/XCYodx4mcLAfINyCzelwn7gu3EbXVY3XjyFN57izd/8Jq8RUDeoEXTWGPXOqATnzVlnc8iTzqp5oclL5MnD5YWojb5e2GTx+fPPiuguvYXHnt00AMkyakCgYAkFOKqksDSUYu76Cd6BhyP0pImG3BrFplMCE+uxzVxIY/6+ln9cOkVWoTjpuXoaLaRkJhRz+N4KTi2B1XRAYQBDFN6DcB7gDdlNfUmNlYnIS+XtXn/qQChNMy02nMuDVkLcdshGyz37hCwMF1/nnGioToErG9jS4nzxhTYVJb2+wKBgGGU5XtXTZAeBtueAgwwPkdOe1pXHXjkeytG2cGeNJrBkMmj7B7eNt+3EkHw4yPgvj/e4OYNm4ojRH05FefZmb6dtLDUH0p1k9LeqEbGGbHn7cl7jDjTqaRznlODyaT3pJlRldZIaJ95VEwZtpMQCnItUAu5yGH3Vrgo2Y8eNpAn";//私钥路径
-                       $private_path ="MIIEpAIBAAKCAQEAwyr92dShYLGSl9NvYbxqgUwyoDi8ln8YLEaPMvwqwf7Nwevf2jBxbTENyghi8R3AGEvocjhxjc7b5AoA9RMB2cJRDj5bGqbktsASwssREv8fRrEDed+Pw+Yyrs65xB3vAYTKmcQWKvPYCD5CuChcwXMUD5XBlfIoaxsU1p2ps/cAcwwLd+ywg0/cHDWVaLq2b4F43U7EhYRDzUTwTSxl1YBUUWFxIs4cbifWLhSgsvncP1tx5yb5lZfucjpIvKmuFOahdl9HImpVtk1gXc2DIMMiE5oZqYO7agaBTQ60jsqxQweEozeJj68Wmh4cmjroiXHXyLBBw/TPyDrS4SOl4QIDAQABAoIBAAjgmr1ey5xfV2CqkGVssZeCBMd+7S0XSN0ytG7IQ5WhZnCMrxj4nSAvXAY1jXKUPNmeEkunv5qIrz3XKqX7IFlsWk2AjppOvxaE9BWCMRuhGSYZBSR1A9AQV3vWEWMXTXjPNnv6DFwVzVzKoDRKObXe6ymuUSjl4+rDR5Zfg4mY/T1YbPVnwJI+SZiYC7ttQGOUGPBlq7dNrYzJZvMWZq5aKXAgap31qx9NJwx3lDIMeprlxYijmpSDb1FAZkHW0eCUHf7GVABf8vMvwoL1hvqMqC9l0g3BPREo2obZ5yUH0DdEZksCmll4OuvErwXG1knppvVd8Zqq4n4RvEMlMWUCgYEA72Hj0WqeC0vFcfVJVtL+wqNh5nc07Hsm7CYh1H4vMYblBGaCazqtH0gs9oV5AAoCcZ2A5X1NzzNtVf88Qf8ovAzQtZJSzh0On91LOltdTRF07af6N9wGyaVP4LQ/JkQr/0QqOn1tFC34uEO/Av9ufurYrKhXvGQtUK0n0qhUTgMCgYEA0LdbuhwEXRSZzOvIv8oe5hJUQYu/qcE/0C9BtBzZf9B3bvrxVkFqqhuQswj+gFD4ZBK/+bMs9oDovgEktpin30awy3BCKkwKGV4knHVWtgKgf3jvXZaWYR3yVsSSPWaelpgEOtOHh37cYOnxR/BYIRMjhxll65n2SS3GoKabmUsCgYEA4A5SqudNCCuiodhBDcgtdcZw0sLOwW0/cBb84SQ+TfABmY3NEkp4Ueg/VXp2V8gGo4sVYzdWRdLPyoc8QlVuLh0cmGZdpNfjoVQCnpt3h7QIKo1oETKbE8/sJNjwpoN2XtXRZK+TEik5PFcEiOzF4nsz1N84R3fIRlPcCztMtTsCgYBKXbqiIk9vtuJiAHUD2QmPYmKBBEEjRAbvr5bSjSD2CJo1gdYxrJdLywyQrhi4MaF/Tqr2VmAj6KSE5rVlFhliVbayleoNVhCXH1MeKDTgHyl+oeFv0DL+oYPyZJHSrNi+waVoLGxy28G8Cj79KebMyhvzjBojizUUt+m43gQ85wKBgQCbH/lWSWLL+YmQlpq7iX2GJQW72oVdz/yjEy7PiPm8zxNpcsbwW4PbslYEkUbiU0dqOb5ycqUHKPaMt4ntKETav0W8IIIsCCpODRxklB8i/HcG1tElcVleqf/ozNa2Ket+RQoGREBqewGXxunBVz7dPtGVmgQpDJTT4ah+GiMIzw==";
+//                       $private_path ="MIIEpAIBAAKCAQEAwyr92dShYLGSl9NvYbxqgUwyoDi8ln8YLEaPMvwqwf7Nwevf2jBxbTENyghi8R3AGEvocjhxjc7b5AoA9RMB2cJRDj5bGqbktsASwssREv8fRrEDed+Pw+Yyrs65xB3vAYTKmcQWKvPYCD5CuChcwXMUD5XBlfIoaxsU1p2ps/cAcwwLd+ywg0/cHDWVaLq2b4F43U7EhYRDzUTwTSxl1YBUUWFxIs4cbifWLhSgsvncP1tx5yb5lZfucjpIvKmuFOahdl9HImpVtk1gXc2DIMMiE5oZqYO7agaBTQ60jsqxQweEozeJj68Wmh4cmjroiXHXyLBBw/TPyDrS4SOl4QIDAQABAoIBAAjgmr1ey5xfV2CqkGVssZeCBMd+7S0XSN0ytG7IQ5WhZnCMrxj4nSAvXAY1jXKUPNmeEkunv5qIrz3XKqX7IFlsWk2AjppOvxaE9BWCMRuhGSYZBSR1A9AQV3vWEWMXTXjPNnv6DFwVzVzKoDRKObXe6ymuUSjl4+rDR5Zfg4mY/T1YbPVnwJI+SZiYC7ttQGOUGPBlq7dNrYzJZvMWZq5aKXAgap31qx9NJwx3lDIMeprlxYijmpSDb1FAZkHW0eCUHf7GVABf8vMvwoL1hvqMqC9l0g3BPREo2obZ5yUH0DdEZksCmll4OuvErwXG1knppvVd8Zqq4n4RvEMlMWUCgYEA72Hj0WqeC0vFcfVJVtL+wqNh5nc07Hsm7CYh1H4vMYblBGaCazqtH0gs9oV5AAoCcZ2A5X1NzzNtVf88Qf8ovAzQtZJSzh0On91LOltdTRF07af6N9wGyaVP4LQ/JkQr/0QqOn1tFC34uEO/Av9ufurYrKhXvGQtUK0n0qhUTgMCgYEA0LdbuhwEXRSZzOvIv8oe5hJUQYu/qcE/0C9BtBzZf9B3bvrxVkFqqhuQswj+gFD4ZBK/+bMs9oDovgEktpin30awy3BCKkwKGV4knHVWtgKgf3jvXZaWYR3yVsSSPWaelpgEOtOHh37cYOnxR/BYIRMjhxll65n2SS3GoKabmUsCgYEA4A5SqudNCCuiodhBDcgtdcZw0sLOwW0/cBb84SQ+TfABmY3NEkp4Ueg/VXp2V8gGo4sVYzdWRdLPyoc8QlVuLh0cmGZdpNfjoVQCnpt3h7QIKo1oETKbE8/sJNjwpoN2XtXRZK+TEik5PFcEiOzF4nsz1N84R3fIRlPcCztMtTsCgYBKXbqiIk9vtuJiAHUD2QmPYmKBBEEjRAbvr5bSjSD2CJo1gdYxrJdLywyQrhi4MaF/Tqr2VmAj6KSE5rVlFhliVbayleoNVhCXH1MeKDTgHyl+oeFv0DL+oYPyZJHSrNi+waVoLGxy28G8Cj79KebMyhvzjBojizUUt+m43gQ85wKBgQCbH/lWSWLL+YmQlpq7iX2GJQW72oVdz/yjEy7PiPm8zxNpcsbwW4PbslYEkUbiU0dqOb5ycqUHKPaMt4ntKETav0W8IIIsCCpODRxklB8i/HcG1tElcVleqf/ozNa2Ket+RQoGREBqewGXxunBVz7dPtGVmgQpDJTT4ah+GiMIzw==";
+                       $private_path="MIIEpAIBAAKCAQEA1YHhYsj9AaXi+UvoMWp8EqiJHHqD+O+YbQ9nF8POQuyaTPW4hZZPIq/HoEBIyu8Myh7UT5DS5HFA4ZUZeeySTISCPFUWbppQf7YM4UXuzqSzERQmcFw4wpfQglfb6ECuGyH81C7ibhHvoibzeFESMCC1nHvmMl+AjEqBK7b/CCJpC4KwPzoloivFNy8rXfP/mSocbADSfAORhJo15fjbQT2ixy7mRUA8bIK2hBLbDp8JsStJ3BoLGS4/zX0jQJRXQfeE3DLt95ITIul4RMTFnZ151fS7ylOgNWeAacDQ3fet7IF54QWP5zW9M7j8gcy7UexJdMfffPoZvvSetIItFwIDAQABAoIBAQCkJsZ1n9e985+NUgoELD2WTtOT/LIIq5WCjCwT/mxP0f9UGjuzIXxYS9NsZuBQffhUUd2kCtHJ5zUd+vdqYTOd9ub2oeisQqKPfhVrAcx4PfKat+ZRzuWo3vXlsM0XRNtXawsqy501ST73aYEZSSN1s0BOPogexIRd2E51oK11vy+BBotPOXmSj6sKAFNJ6drD3ckdJ678s+mYTxdIoKi45l+5wwpHxL7qsPTeuBijhhBufY6KzkxRYlR+zq5M+pVJcnsh3TZWsbW6z73tb/C31E5cOnuy2l53YHe20dda0Om6w41+QhekuZvwZyLWYqXeLYCc2tfR1DHs2Zicv6ZJAoGBAO1D0eZIldte7Ka6Yd+zrNhaNvL8JGUSosGmKwdS6PHQA27IBuVd";
                        //构造业务请求参数的集合(订单信息)
                        $content = array();
                        $content['subject'] = "gagaliang";
@@ -355,6 +351,9 @@ class Order extends Controller {
                 return ajax_error('失败',['status=>0']);
             }
         }
+
+
+
     }
 
     /**
@@ -366,7 +365,8 @@ class Order extends Controller {
     {
         $aop = new \AopClient;
 //        $aop->alipayrsaPublicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz+SfWrndsOSD3AY3v5YtA9n+BoBcckMYfjgpIrT5Bu2YF2GR5oFCBJASSQeRRyDHPWL3i91lbyZeiBsE2l+rJcMTP+EfH6MpxMerwqfvOPw4p4OHHAnbI52xjdNZStBdIT7oEwEUsghuejCpWelL/b3CPFpW/1OpEVRnssw9gc0f1mius2eOXZ0+5JaJRZ/zJWxgyMHctF6NXcSG2oVOl0WyiNK/F4CuqdIcq1y8ZDiVvmRbyfzcEmbgob7MpwVFWw1Fge3z4fSnG7bicOJSXkPbWNhZmGe/yXCEXbA/8Kldp/nMkwnMGJ5A/3yFZTEUnmY60qnXA5T3R1KOnpXklwIDAQAB';
-        $aop->alipayrsaPublicKey ='MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwyr92dShYLGSl9NvYbxqgUwyoDi8ln8YLEaPMvwqwf7Nwevf2jBxbTENyghi8R3AGEvocjhxjc7b5AoA9RMB2cJRDj5bGqbktsASwssREv8fRrEDed+Pw+Yyrs65xB3vAYTKmcQWKvPYCD5CuChcwXMUD5XBlfIoaxsU1p2ps/cAcwwLd+ywg0/cHDWVaLq2b4F43U7EhYRDzUTwTSxl1YBUUWFxIs4cbifWLhSgsvncP1tx5yb5lZfucjpIvKmuFOahdl9HImpVtk1gXc2DIMMiE5oZqYO7agaBTQ60jsqxQweEozeJj68Wmh4cmjroiXHXyLBBw/TPyDrS4SOl4QIDAQAB';
+//        $aop->alipayrsaPublicKey ='MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwyr92dShYLGSl9NvYbxqgUwyoDi8ln8YLEaPMvwqwf7Nwevf2jBxbTENyghi8R3AGEvocjhxjc7b5AoA9RMB2cJRDj5bGqbktsASwssREv8fRrEDed+Pw+Yyrs65xB3vAYTKmcQWKvPYCD5CuChcwXMUD5XBlfIoaxsU1p2ps/cAcwwLd+ywg0/cHDWVaLq2b4F43U7EhYRDzUTwTSxl1YBUUWFxIs4cbifWLhSgsvncP1tx5yb5lZfucjpIvKmuFOahdl9HImpVtk1gXc2DIMMiE5oZqYO7agaBTQ60jsqxQweEozeJj68Wmh4cmjroiXHXyLBBw/TPyDrS4SOl4QIDAQAB';
+            $aop->alipayrsaPublicKey = "MIIEpAIBAAKCAQEA1YHhYsj9AaXi+UvoMWp8EqiJHHqD+O+YbQ9nF8POQuyaTPW4hZZPIq/HoEBIyu8Myh7UT5DS5HFA4ZUZeeySTISCPFUWbppQf7YM4UXuzqSzERQmcFw4wpfQglfb6ECuGyH81C7ibhHvoibzeFESMCC1nHvmMl+AjEqBK7b/CCJpC4KwPzoloivFNy8rXfP/mSocbADSfAORhJo15fjbQT2ixy7mRUA8bIK2hBLbDp8JsStJ3BoLGS4/zX0jQJRXQfeE3DLt95ITIul4RMTFnZ151fS7ylOgNWeAacDQ3fet7IF54QWP5zW9M7j8gcy7UexJdMfffPoZvvSetIItFwIDAQABAoIBAQCkJsZ1n9e985+NUgoELD2WTtOT/LIIq5WCjCwT/mxP0f9UGjuzIXxYS9NsZuBQffhUUd2kCtHJ5zUd+vdqYTOd9ub2oeisQqKPfhVrAcx4PfKat+ZRzuWo3vXlsM0XRNtXawsqy501ST73aYEZSSN1s0BOPogexIRd2E51oK11vy+BBotPOXmSj6sKAFNJ6drD3ckdJ678s+mYTxdIoKi45l+5wwpHxL7qsPTeuBijhhBufY6KzkxRYlR+zq5M+pVJcnsh3TZWsbW6z73tb/C31E5cOnuy2l53YHe20dda0Om6w41+QhekuZvwZyLWYqXeLYCc2tfR1DHs2Zicv6ZJAoGBAO1D0eZIldte7Ka6Yd+zrNhaNvL8JGUSosGmKwdS6PHQA27IBuVd";
         $flag = $aop->rsaCheckV1($_POST, NULL, "RSA2");
         if($flag){
             //验证成功
