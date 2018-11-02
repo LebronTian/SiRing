@@ -242,6 +242,7 @@ class Order extends Controller {
                        $content['timeout_express'] = "23:00";
                        $content['total_amount'] = "0.01";
                        $content['product_code'] = "QUICK_MSECURITY_PAY";
+                       return ajax_success('书',$content);
                         $con = json_encode($content);//$content是biz_content的值,将之转化成json字符串
 //                       $alipay_data = urlencode($response);
                        //公共参数
