@@ -225,7 +225,6 @@ class Order extends Controller {
             $data = $_POST;
             $member_data = session('member');
             $member = Db::name('user')->field('id,harvester,harvester_phone_num,city,address')->where('phone_num', $member_data['phone_num'])->find();
-
             if (empty($member['harvester']) || empty($member['harvester_phone_num']) || empty($member['city']) || empty($member['address'])) {
                 return ajax_error('请填写收货人信息',['status'=>0]);
             }
@@ -267,6 +266,10 @@ class Order extends Controller {
                             'shopping_shop_id' => $v['id']
                         ];
                         $res =Db::name('order')->insertGetId($datas);
+
+                        if(!empty(res)){
+                            return ajax_success('下单成',$res);
+                        }
                         /*下单成功对购物车里面对应的商品进行删除*/
                         }
                     if (!empty($res)) {
@@ -283,7 +286,7 @@ class Order extends Controller {
 
                 }
 
-                
+
 
             }
         }
