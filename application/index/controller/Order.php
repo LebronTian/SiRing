@@ -216,6 +216,7 @@ class Order extends Controller {
     'express_fee':express_fee,      //快递费
     'unit_price': unit_price        //商品的价格
     'shopping_id':                    //购物车的Id
+     * 'money'
      *
      **************************************
      */
@@ -258,7 +259,7 @@ class Order extends Controller {
                             'harvest_address' => $position,
                             'create_time' => $create_time,
 //                            'pay_money' => $data['all_pay'],
-                            'pay_money' => $v['money'],
+                            'pay_money' => $data['money'],
                             'status' => 1,
                             'goods_id' => $v['goods_id'],
                             'send_money' => $data['express_fee'],
@@ -267,13 +268,14 @@ class Order extends Controller {
                         ];
                         $res =Db::name('order')->insertGetId($datas);
                         /*下单成功对购物车里面对应的商品进行删除*/
+                        if (!empty($res)) {
+                            Db::name('shopping')->where($where)->delete();
+                            Db::name('shopping_shop')->where('id',$shopping_id['id'])->delete();
+                            return ajax_success('下单成功', $datas);
+                        }
                     }
                 }
-                if (!empty($res)) {
-                    Db::name('shopping')->where($where)->delete();
-                    Db::name('shopping_shop')->where('id',$shopping_id['id'])->delete();
-                    return ajax_success('下单成功', $datas);
-                }
+
 
 
             }
