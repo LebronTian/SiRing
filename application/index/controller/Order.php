@@ -256,6 +256,7 @@ class Order extends Controller {
                        $param['biz_content'] = $con;//业务请求参数的集合,长度不限,json格式，即前面一步得到的
                        $paramStr = $Client->getSignContent($param);//组装请求签名参数
                        $sign = $Client->alonersaSign($paramStr, $private_path, 'RSA2', false);//生成签名()
+                       return ajax_success('深圳',$sign);
                        $param['sign'] = $sign;
                        $str = $Client->getSignContentUrlencode($param);//最终请求参数
                        $strings ='alipay_sdk=alipay-sdk-php-3.3.0&'.$str;
