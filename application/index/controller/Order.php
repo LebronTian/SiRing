@@ -209,6 +209,86 @@ class Order extends Controller {
 
     /**
      **************李火生*******************
+     * ios购物车提交订单传过来的参数形成订单存库并返回对应的订单号给IOS
+     * 'goods_name':goods_name, //商品名字
+    'order_num':order_num,      //商品数量
+    'all_pay':all_pay,             //实付金额
+    'express_fee':express_fee,      //快递费
+    'unit_price': unit_price        //商品的价格
+    'shopping_id':                    //购物车的Id
+     *
+     **************************************
+     */
+    public function  ios_api_order_button_by_shop(Request $request){
+        if ($request->isPost()) {
+            $data = $_POST;
+            $member_data = session('member');
+            $member = Db::name('user')->field('id,harvester,harvester_phone_num,city,address')->where('phone_num', $member_data['phone_num'])->find();
+
+            if (empty($member['harvester']) || empty($member['harvester_phone_num']) || empty($member['city']) || empty($member['address'])) {
+                return ajax_error('请填写收货人信息',['status'=>0]);
+            }
+            if (!empty($member['city'])) {
+                $my_position = explode(",", $member['city']);
+                $position = $my_position[0] . $my_position[1] . $my_position[2] . $member['address'];
+            }else{
+                return ajax_error('请填写收货地址',['status'=>0]);
+            }
+            //从购物车过来的
+            $shopping_id = $_POST['shopping_id'];
+            if (!empty($shopping_id)) {
+                $shopping = Db::name('shopping_shop')->where('id', $shopping_id)->find();
+                $shop_id = explode(',', $shopping['shopping_id']);
+                if (is_array($shop_id)) {
+                    $where = 'id in(' . implode(',', $shop_id) . ')';
+                } else {
+                    $where = 'id=' . $shop_id;
+                }
+                $list = Db::name('shopping')->where($where)->select();
+                $create_time = time();
+                foreach ($list as $k => $v) {
+                    if (!empty($data)) {
+                        $datas = [
+                            'goods_img' => $v['goods_images'],
+                            'goods_name' => $data['goods_name'][$k],
+                            'order_num' => $data['order_num'][$k],
+                            'user_id' => $member['id'],
+                            'harvester' => $member['harvester'],
+                            'harvest_phone_num' => $member['harvester_phone_num'],
+                            'harvest_address' => $position,
+                            'create_time' => $create_time,
+//                            'pay_money' => $data['all_pay'],
+                            'pay_money' => $v['money'],
+                            'status' => 1,
+                            'goods_id' => $v['goods_id'],
+                            'send_money' => $data['express_fee'],
+                            'order_information_number' => $create_time . $member['id'],//时间戳+用户id构成订单号
+                            'shopping_shop_id' => $v['id']
+                        ];
+                        $res =Db::name('order')->insertGetId($datas);
+                        /*下单成功对购物车里面对应的商品进行删除*/
+                    }
+                }
+                if (!empty($res)) {
+                    Db::name('shopping')->where($where)->delete();
+                    Db::name('shopping_shop')->where('id',$shopping_id['id'])->delete();
+                    return ajax_success('下单成功', $datas);
+                }
+
+
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+    /**
+     **************李火生*******************
      * 生成支付宝签名 TODO:支付宝签名
      **************************************
      */
@@ -256,7 +336,6 @@ class Order extends Controller {
                        $param['biz_content'] = $con;//业务请求参数的集合,长度不限,json格式，即前面一步得到的
                        $paramStr = $Client->getSignContent($param);//组装请求签名参数
                        $sign = $Client->alonersaSign($paramStr, $private_path, 'RSA2', false);//生成签名()
-                       return ajax_success('深圳',$sign);
                        $param['sign'] = $sign;
                        $str = $Client->getSignContentUrlencode($param);//最终请求参数
                        $strings ='alipay_sdk=alipay-sdk-php-3.3.0&'.$str;
