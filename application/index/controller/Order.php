@@ -269,21 +269,21 @@ class Order extends Controller {
                         $res =Db::name('order')->insertGetId($datas);
                         /*下单成功对购物车里面对应的商品进行删除*/
                         }
-                    }
-                if (!empty($res)) {
-                    $resss= Db::name('shopping')->where($where)->delete();
-                    $ressss= Db::name('shopping_shop')->where('id',$shopping_id['id'])->delete();
-                    if($resss&&$ressss){
-                        return ajax_success('下单成功', $datas);
+                    if (!empty($res)) {
+                        $resss= Db::name('shopping')->where($where)->delete();
+                        $ressss= Db::name('shopping_shop')->where('id',$shopping_id['id'])->delete();
+                        if($resss&&$ressss){
+                            return ajax_success('下单成功', $datas);
+                        }else{
+                            return ajax_error('错误',['status'=>0]);
+                        }
                     }else{
                         return ajax_error('错误',['status'=>0]);
                     }
-                }else{
-                    return ajax_error('错误',['status'=>0]);
+
                 }
 
-
-
+                
 
             }
         }
