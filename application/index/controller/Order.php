@@ -267,8 +267,10 @@ class Order extends Controller {
                         ];
                         $res =Db::name('order')->insertGetId($datas);
 
-                        if(!empty(res)){
-                            return ajax_success('下单成',$res);
+                        if(!empty($res)){
+                            return ajax_success('下单成功',$res);
+                        }else{
+                            return ajax_success('下单失败',['status'=>0]);
                         }
                         /*下单成功对购物车里面对应的商品进行删除*/
                         }
