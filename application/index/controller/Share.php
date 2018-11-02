@@ -352,6 +352,7 @@ class Share extends Controller{
             if(!empty($evaluation_order_id)){
                 $evaluation_images = [];
                 $file = $request->file('evaluation_images');
+
                 foreach ($file as $k=>$v){
                     $info = $v->move(ROOT_PATH . 'public' . DS . 'upload');
                     $evaluation_url = str_replace("\\","/",$info->getSaveName());

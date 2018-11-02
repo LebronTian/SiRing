@@ -75,14 +75,14 @@
 			height: auto;
 		}
 		.aui-card-list{
-			overflow-x: scroll;
-			overflow-y: hidden;
-			height: 65px;
+			height: 54px;
 		}
 		.aui-card-list::-webkit-scrollbar{
 			display: none;
 		}
 		.aui-card-list img{
+			width: 100%;
+			height: 100%;
 			max-width: initial;
 		}
 		.tabClick{
@@ -205,7 +205,7 @@
 
 			</div>
 			<!-- 如果需要分页器 -->
-			<!-- <div class="swiper-pagination"></div> -->
+			<div class="swiper-pagination"></div>
 		</div>
 	</div>
 	<!-- <div class="aui-slide-page-wrap"> -->
@@ -240,7 +240,9 @@
 </div>
 <div class="div-border t-line"></div>
 <section class="aui-content-padded t-line" style="margin:0">
-	<div class="aui-card-list"></div>
+	<div class="aui-card-list">
+		<img src="__UPLOADS__/SB20181019/55.png">
+	</div>
 </section>
 <div class="div-border t-line"></div>
 <div class="wrap" id="wrap">
@@ -331,7 +333,7 @@
 				// 配件大图
 				$('.goods_parts_big_img div').html('<img src="__UPLOADS__/'+data.goods_parts_big_img+'">');
 				// 规格图片
-				$('.aui-card-list').append('<img src="__UPLOADS__/'+data.goods_spec_img+'">')
+				// $('.aui-card-list').append('<img src="__UPLOADS__/'+data.goods_spec_img+'">')
 				// 质检图
 				var quality = '<div><p class="zjtp_title">质检</p>';
 				$.each(data.goods_quality_img, function(idx, val){

@@ -264,11 +264,11 @@
             async: false,
             dataType: 'json',
             data: {
-                'goods_name':goods_name,
-                'order_num':order_num,
-                'all_pay':all_pay,
-                'express_fee':express_fee,
-                'unit_price': unit_price
+                'goods_name':goods_name, //商品名字
+                'order_num':order_num,      //商品数量
+                'all_pay':all_pay,             //实付金额
+                'express_fee':express_fee,      //快递费
+                'unit_price': unit_price        //商品的价格
             },
             success: function(data){
                 if(data.code==0){
