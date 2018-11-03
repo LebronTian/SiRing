@@ -206,7 +206,6 @@ class Order extends Controller {
         }
     }
 
-
     /**
      **************李火生*******************
      * ios购物车提交订单传过来的参数形成订单存库并返回对应的订单号给IOS
@@ -268,28 +267,21 @@ class Order extends Controller {
                         $res =Db::name('order')->insertGetId($datas);
 
                         if(!empty($res)){
-                            return ajax_success('下单成功',$res);
+                                $resss= Db::name('shopping')->where($where)->delete();
+                                $ressss= Db::name('shopping_shop')->where('id',$shopping_id['id'])->delete();
+                                if(!empty($resss)&&!empty($ressss)){
+                                    return ajax_success('下单成功', $res);
+                                }else{
+                                    return ajax_error('错误',['status'=>0]);
+                                }
+//                            return ajax_success('下单成功',$res);
                         }else{
                             return ajax_success('下单失败',['status'=>0]);
                         }
                         /*下单成功对购物车里面对应的商品进行删除*/
                         }
-                    if (!empty($res)) {
-                        $resss= Db::name('shopping')->where($where)->delete();
-                        $ressss= Db::name('shopping_shop')->where('id',$shopping_id['id'])->delete();
-                        if($resss&&$ressss){
-                            return ajax_success('下单成功', $datas);
-                        }else{
-                            return ajax_error('错误',['status'=>0]);
-                        }
-                    }else{
-                        return ajax_error('错误',['status'=>0]);
-                    }
 
                 }
-
-
-
             }
         }
     }
@@ -318,19 +310,16 @@ class Order extends Controller {
                        $app_ids =urlencode($app_id);
                        $time_encode =urlencode($time);
                         // 订单信息，在iOS端加密
-//                       require_once '\Alipays\aop\AopClient.php';
                        include('../vendor/Alipays/aop/AopClient.php');
-//                       $private_path =  "MIIEowIBAAKCAQEAz+SfWrndsOSD3AY3v5YtA9n+BoBcckMYfjgpIrT5Bu2YF2GR5oFCBJASSQeRRyDHPWL3i91lbyZeiBsE2l+rJcMTP+EfH6MpxMerwqfvOPw4p4OHHAnbI52xjdNZStBdIT7oEwEUsghuejCpWelL/b3CPFpW/1OpEVRnssw9gc0f1mius2eOXZ0+5JaJRZ/zJWxgyMHctF6NXcSG2oVOl0WyiNK/F4CuqdIcq1y8ZDiVvmRbyfzcEmbgob7MpwVFWw1Fge3z4fSnG7bicOJSXkPbWNhZmGe/yXCEXbA/8Kldp/nMkwnMGJ5A/3yFZTEUnmY60qnXA5T3R1KOnpXklwIDAQABAoIBAQCDq2VSbQ4AD3uES1vbuB3ipprBO2NR6zUEHEXReZWP0cPWazGhMJTDlww9vNFCn3wRYTEwIJUyBLcytQop1RXs4NS8TLUNsKWvwFcE/qABE54+WoukMonc0O+3x/hx7e5ONC2Ae9rDt5thQJjCHYTHvPvchcs8A5y9IRxcngcGweL6m6KUd4yT4yr5pPCXM8Q4B5cG/BM+MtLeqPJ1S7zheMKt4pN52M9pU9+n1V3nx1FgViv7ycOh8E+9L33S/Ri9HuLyIeV9zZ44g53ociUlSoQBnUIiDHWriHROWP0yxPdp0Et4oUPFcsDR1FVa8rFSmhZRauA6M7Um8SRXKVtBAoGBAPrhPqij8HfnOCJAGMcbwJnpQGZAypYBawEOSib3uIKyqEQmDlvzTjJgR2YbFUfGvgeAn0mX/Q4B/Vgffb1dqCJbU4McSE3GHJHCdBO6UqvUD4B8Qy6aJJomPGwgZAi+DAk9PtNDo2tC6DTZbd5UJMTqdpMq0776pjR6E3+7F2wZAoGBANQiyZTfw9qqf9xyQ4YKwu6v0165e+mnlycOTRkrBSESJUNSCH4aYHZnE4B9J1MU5fxxrZuk5qt6iu0N5AkUQY6xuLkKdjX8WJbHWgHHjvMxXsEqx1LQlQ2PSCCvF5jxB0xhzTjBa3uCzfabs3o+6MKh1QF1DuYMBE1B/rku8uwvAoGAdnuAIxbhj08EpLBOw2Ho8QdGocQBqRxcU7BS9tpRKnCDpUOvzl820/XCYodx4mcLAfINyCzelwn7gu3EbXVY3XjyFN57izd/8Jq8RUDeoEXTWGPXOqATnzVlnc8iTzqp5oclL5MnD5YWojb5e2GTx+fPPiuguvYXHnt00AMkyakCgYAkFOKqksDSUYu76Cd6BhyP0pImG3BrFplMCE+uxzVxIY/6+ln9cOkVWoTjpuXoaLaRkJhRz+N4KTi2B1XRAYQBDFN6DcB7gDdlNfUmNlYnIS+XtXn/qQChNMy02nMuDVkLcdshGyz37hCwMF1/nnGioToErG9jS4nzxhTYVJb2+wKBgGGU5XtXTZAeBtueAgwwPkdOe1pXHXjkeytG2cGeNJrBkMmj7B7eNt+3EkHw4yPgvj/e4OYNm4ojRH05FefZmb6dtLDUH0p1k9LeqEbGGbHn7cl7jDjTqaRznlODyaT3pJlRldZIaJ95VEwZtpMQCnItUAu5yGH3Vrgo2Y8eNpAn";//私钥路径
-                       $private_path ="MIIEpAIBAAKCAQEAwyr92dShYLGSl9NvYbxqgUwyoDi8ln8YLEaPMvwqwf7Nwevf2jBxbTENyghi8R3AGEvocjhxjc7b5AoA9RMB2cJRDj5bGqbktsASwssREv8fRrEDed+Pw+Yyrs65xB3vAYTKmcQWKvPYCD5CuChcwXMUD5XBlfIoaxsU1p2ps/cAcwwLd+ywg0/cHDWVaLq2b4F43U7EhYRDzUTwTSxl1YBUUWFxIs4cbifWLhSgsvncP1tx5yb5lZfucjpIvKmuFOahdl9HImpVtk1gXc2DIMMiE5oZqYO7agaBTQ60jsqxQweEozeJj68Wmh4cmjroiXHXyLBBw/TPyDrS4SOl4QIDAQABAoIBAAjgmr1ey5xfV2CqkGVssZeCBMd+7S0XSN0ytG7IQ5WhZnCMrxj4nSAvXAY1jXKUPNmeEkunv5qIrz3XKqX7IFlsWk2AjppOvxaE9BWCMRuhGSYZBSR1A9AQV3vWEWMXTXjPNnv6DFwVzVzKoDRKObXe6ymuUSjl4+rDR5Zfg4mY/T1YbPVnwJI+SZiYC7ttQGOUGPBlq7dNrYzJZvMWZq5aKXAgap31qx9NJwx3lDIMeprlxYijmpSDb1FAZkHW0eCUHf7GVABf8vMvwoL1hvqMqC9l0g3BPREo2obZ5yUH0DdEZksCmll4OuvErwXG1knppvVd8Zqq4n4RvEMlMWUCgYEA72Hj0WqeC0vFcfVJVtL+wqNh5nc07Hsm7CYh1H4vMYblBGaCazqtH0gs9oV5AAoCcZ2A5X1NzzNtVf88Qf8ovAzQtZJSzh0On91LOltdTRF07af6N9wGyaVP4LQ/JkQr/0QqOn1tFC34uEO/Av9ufurYrKhXvGQtUK0n0qhUTgMCgYEA0LdbuhwEXRSZzOvIv8oe5hJUQYu/qcE/0C9BtBzZf9B3bvrxVkFqqhuQswj+gFD4ZBK/+bMs9oDovgEktpin30awy3BCKkwKGV4knHVWtgKgf3jvXZaWYR3yVsSSPWaelpgEOtOHh37cYOnxR/BYIRMjhxll65n2SS3GoKabmUsCgYEA4A5SqudNCCuiodhBDcgtdcZw0sLOwW0/cBb84SQ+TfABmY3NEkp4Ueg/VXp2V8gGo4sVYzdWRdLPyoc8QlVuLh0cmGZdpNfjoVQCnpt3h7QIKo1oETKbE8/sJNjwpoN2XtXRZK+TEik5PFcEiOzF4nsz1N84R3fIRlPcCztMtTsCgYBKXbqiIk9vtuJiAHUD2QmPYmKBBEEjRAbvr5bSjSD2CJo1gdYxrJdLywyQrhi4MaF/Tqr2VmAj6KSE5rVlFhliVbayleoNVhCXH1MeKDTgHyl+oeFv0DL+oYPyZJHSrNi+waVoLGxy28G8Cj79KebMyhvzjBojizUUt+m43gQ85wKBgQCbH/lWSWLL+YmQlpq7iX2GJQW72oVdz/yjEy7PiPm8zxNpcsbwW4PbslYEkUbiU0dqOb5ycqUHKPaMt4ntKETav0W8IIIsCCpODRxklB8i/HcG1tElcVleqf/ozNa2Ket+RQoGREBqewGXxunBVz7dPtGVmgQpDJTT4ah+GiMIzw==";
+                       $private_path="MIIEpAIBAAKCAQEAyC9iRV5kLDbVK619EtISgMN5Gz0bOdFAfSojUzefVhKUrEJ6j48d1Awrg98yudp22kUs0zboMkVTYDT1l9ux5xj/p39JhqjjIl44oZsGFjSmu9/2HxaZ4UjfTJXkaGwJqyY0fSY2f+cE5YjoRYq5XhqijzF0BoKoH64pQNWxqp6f3wss2FKp707KV/oLAArqkqFcWfyylMsncdxV59Lo0mtJ7cIEOezng4es3KDdHmLT5kq3j0hl0kfIjdGuDR0cWnlcolHUoIOKVGSlSHn+WnFlZ20/fkfF+hdadUcG42tywCBVT40ugX1LmmdCI4hAnxLxeQ7bFkhrnpDWcW7KWQIDAQABAoIBAQCBQK730TFmpuTOtc669y6BOzUX1EWe+C/mYO28Dn7vqUGbU7UkuihtQIpcNCHhhGAXIHEH0zzrMH3b8XXdXjmo2ChBstr7elJlX2a7WYf9kHNTfRDCE+q5Xj7niSSYE6HOgvWDFMg9nyE3P0WRmTeEvjfVsv2SMoxxIBd8yD1Vxr3Gbg+gT8zWDrqXQ1Ap1gg5jNS14CFE3uKKwQ4n5JZWnIQ+jw3LZcpk9Eb/mrQ9kbnU7g0ikx8sYJpTiP7lAlb3dq1tdUmRV8+HfWYC/a8MbZtO6UyDWvms5Lb5g4we7FCmBAkG+zv62PxG9sQAvrQoSwKTOj/7LSeTgJsT97QNAoGBAPuQUNZEhVODVhCCISg84TGi0BozU64PqegJXFxbR++hQC2EsN6L2Mk2ftpd+J/9XRD0ffcBMea+H4N7ui4Y+OHoED/8d76dTX06PWfAYYJMu/o65c3IBSBiwgREuRo38a20CZ8hKr8LVpLXbtCB8WJ1kp5QeqqSPpwnjFncyBorAoGBAMu3Hokjze+FPpeFQ3tYVt9G/VSAhRMVAb5ZQClQH9plpVM9aMukp8jiaeSBg7d5RzNRGRU5ouKQ1AVs3jkgvVzUWRMKM+VkW4lzAhEkM766egpzngs9z4YXHcBW1bPJQap2TVLRcFmueDsVABXF5XZSgAwenBhtvmZ9X/UDCD+LAoGBALmXaOwLNUm9lVsshgXHlGQoN9t8jnnV+IXFkixY86NolY5/XHVzOwaHe+LifTCbnXOKzPvUF9qh3WIFf//OUJ9ps8NhIX6xUp/WvcKzfbzBm9Uqaqv8qzuPYJABm4YqS9TZBFgwAfdcCAzhf1G47Dq1fuvpd/YrWqGd07/gUIhtAoGAHDSkg7RzZQB75BrNdxyKGqwHk1WgFz5HWYWd/ppbbq+4LkhIZDnOCWBf7QWJqTOfihlmcavjQ59t27pxIlPIJDw6gQpemRpGGkfUN29dwsCq+Rt8/G14eEZnFiRvvk7VSrbKifb5qVEg0H1d36Xg2Xsew47Ragh33lTpnlDnKXUCgYBIuk9VU3DkITWsy+xiQbN4eQqbiFB7BA55xIjwPqK8K+0PVzRyObUEF6m9KSz2mEB1CHwr1fHj8qzJ/0CgKUeCONm5crLEGCGMbGUzMloGmVLSJz6+4xT8mwKOv/BcpTqkDLx+8HBaJppJnjWn0OmHLNa1JhAaVuef8eheH546kw==";
                        //构造业务请求参数的集合(订单信息)
                        $content = array();
-                       $content['subject'] = "gagaliang";
-                       $content['out_trade_no'] = "20181101325";
+                       $content['subject'] = $goods_name;
+                       $content['out_trade_no'] = $order_num;
 //                       $content['timeout_express'] = "90m";
-                       $content['total_amount'] = "9.00";
+                       $content['total_amount'] = $goods_pay_money;
                        $content['product_code'] = "QUICK_MSECURITY_PAY";
                         $con = json_encode($content);//$content是biz_content的值,将之转化成json字符串
-//                       $alipay_data = urlencode($response);
                        //公共参数
                        $Client = new \AopClient();//实例化支付宝sdk里面的AopClient类,下单时需要的操作,都在这个类里面
                        $param['app_id'] = '2018082761132725';
@@ -345,83 +334,89 @@ class Order extends Controller {
                        $sign = $Client->alonersaSign($paramStr, $private_path, 'RSA2', false);//生成签名()
                        $param['sign'] = $sign;
                        $str = $Client->getSignContentUrlencode($param);//最终请求参数
-                       $strings ='alipay_sdk=alipay-sdk-php-3.3.0&'.$str;
-                       return ajax_success('数据成功返回',$strings);
+//                       $strings ='alipay_sdk=alipay-sdk-php-3.3.0&'.$str;
+                       return ajax_success('数据成功返回',$str);
                    }
                }else{
                    return ajax_error('数据返回不成功',['status'=>0]);
                }
             }else{
-                return ajax_error('失败',['status=>0']);
+                return ajax_error('失败',['status'=>0]);
             }
         }
     }
 
     /**
      **************李火生*******************
-     * 异步处理
+     * 异步处理(支付宝IOS对接)
      **************************************
      */
     public function notifyurl()
     {
-        $aop = new \AopClient;
-//        $aop->alipayrsaPublicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz+SfWrndsOSD3AY3v5YtA9n+BoBcckMYfjgpIrT5Bu2YF2GR5oFCBJASSQeRRyDHPWL3i91lbyZeiBsE2l+rJcMTP+EfH6MpxMerwqfvOPw4p4OHHAnbI52xjdNZStBdIT7oEwEUsghuejCpWelL/b3CPFpW/1OpEVRnssw9gc0f1mius2eOXZ0+5JaJRZ/zJWxgyMHctF6NXcSG2oVOl0WyiNK/F4CuqdIcq1y8ZDiVvmRbyfzcEmbgob7MpwVFWw1Fge3z4fSnG7bicOJSXkPbWNhZmGe/yXCEXbA/8Kldp/nMkwnMGJ5A/3yFZTEUnmY60qnXA5T3R1KOnpXklwIDAQAB';
-        $aop->alipayrsaPublicKey ='MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwyr92dShYLGSl9NvYbxqgUwyoDi8ln8YLEaPMvwqwf7Nwevf2jBxbTENyghi8R3AGEvocjhxjc7b5AoA9RMB2cJRDj5bGqbktsASwssREv8fRrEDed+Pw+Yyrs65xB3vAYTKmcQWKvPYCD5CuChcwXMUD5XBlfIoaxsU1p2ps/cAcwwLd+ywg0/cHDWVaLq2b4F43U7EhYRDzUTwTSxl1YBUUWFxIs4cbifWLhSgsvncP1tx5yb5lZfucjpIvKmuFOahdl9HImpVtk1gXc2DIMMiE5oZqYO7agaBTQ60jsqxQweEozeJj68Wmh4cmjroiXHXyLBBw/TPyDrS4SOl4QIDAQAB';
-        $flag = $aop->rsaCheckV1($_POST, NULL, "RSA2");
-        if($flag){
+//        $aop = new \AopClient;
+//            $aop->alipayrsaPublicKey = "MIIEpAIBAAKCAQEA1YHhYsj9AaXi+UvoMWp8EqiJHHqD+O+YbQ9nF8POQuyaTPW4hZZPIq/HoEBIyu8Myh7UT5DS5HFA4ZUZeeySTISCPFUWbppQf7YM4UXuzqSzERQmcFw4wpfQglfb6ECuGyH81C7ibhHvoibzeFESMCC1nHvmMl+AjEqBK7b/CCJpC4KwPzoloivFNy8rXfP/mSocbADSfAORhJo15fjbQT2ixy7mRUA8bIK2hBLbDp8JsStJ3BoLGS4/zX0jQJRXQfeE3DLt95ITIul4RMTFnZ151fS7ylOgNWeAacDQ3fet7IF54QWP5zW9M7j8gcy7UexJdMfffPoZvvSetIItFwIDAQABAoIBAQCkJsZ1n9e985+NUgoELD2WTtOT/LIIq5WCjCwT/mxP0f9UGjuzIXxYS9NsZuBQffhUUd2kCtHJ5zUd+vdqYTOd9ub2oeisQqKPfhVrAcx4PfKat+ZRzuWo3vXlsM0XRNtXawsqy501ST73aYEZSSN1s0BOPogexIRd2E51oK11vy+BBotPOXmSj6sKAFNJ6drD3ckdJ678s+mYTxdIoKi45l+5wwpHxL7qsPTeuBijhhBufY6KzkxRYlR+zq5M+pVJcnsh3TZWsbW6z73tb/C31E5cOnuy2l53YHe20dda0Om6w41+QhekuZvwZyLWYqXeLYCc2tfR1DHs2Zicv6ZJAoGBAO1D0eZIldte7Ka6Yd+zrNhaNvL8JGUSosGmKwdS6PHQA27IBuVd";
+//        $flag = $aop->rsaCheckV1($_POST, NULL, "RSA2");
+//        if($flag){
             //验证成功
             //这里可以做一下你自己的订单逻辑处理
+                $data['status'] = 2;
+                $pay_time = time();
+                $data['pay_time']=$pay_time;
+            //原始订单号
+            $out_trade_no = input('out_trade_no');
+            //支付宝交易号
+            $trade_no = input('trade_no');
+            //交易状态
+            $trade_status = input('trade_status');
+            if ($trade_status == 'TRADE_FINISHED' || $trade_status == 'TRADE_SUCCESS') {
+                $condition['order_information_number'] = $out_trade_no;
+                $data['status'] = 2;
+//                $data['third_ordersn'] = $trade_no;
+                $result=Db::name('order')->where($condition)->update($data);//修改订单状态,支付宝单号到数据库
+                if($result){
+                    return ajax_success('支付成功',['statuss'=>1]);
+                }else{
+                    return ajax_error('支付失败',['statuss'=>0]);
+                }
+            }else{
+                return ajax_error('支付失败',['statuss'=>0]);
+            }
 
-            echo 'success';//这个必须返回给支付宝，响应个支付宝，
-        } else {
-            //验证失败
-            echo "fail";
-        }
+//                if(!empty($_GET['out_trade_no'])){
+//                    $shopping_goods = db("order")->where("order_information_number",$_GET["out_trade_no"])->field("goods_id,shopping_shop_id,order_num")->select();
+//                    $goods = db("goods")->where("id",$shopping_goods[0]['goods_id'])->field("goods_num")->find();
+//                    $goods_num = $goods['goods_num'] - 1;
+//                    $seckill = db("seckill")->where("goods_id",$shopping_goods[0]['goods_id'])->find();
+//                    if(empty($shopping_goods[0]["shopping_shop_id"])){
+//                        db("goods")->where("id",$shopping_goods[0]['goods_id'])->update(["goods_num"=>$goods_num]);
+//                    }
+//                    //第一次秒杀提交订单
+//                    if(!empty($seckill["goods_num"])){
+//                        $seckill_num = $seckill["goods_num"] - 1;
+//                        db("seckill")->where("goods_id",$shopping_goods[0]['goods_id'])->update(["residue_num"=>$seckill_num]);
+//                    }
+//                    //购物车提交订单
+//                    foreach ($shopping_goods as $key=>$value){
+//                        $goods_shopping_num = db("goods")->where("id",$value["goods_id"])->field("goods_num")->find();
+//                        if(!empty($value["shopping_shop_id"])){
+//                            $shopping_goods_num[] = $goods_shopping_num["goods_num"] - $value["order_num"];
+//                            db("goods")->where("id",$value["goods_id"])->update(["goods_num"=>$shopping_goods_num[$key]]);
+//                        }
+//                    }
+//                    $bool = db("order")->where("order_information_number",$_GET['out_trade_no'])->update($data);
+//                    if($bool){
+//                        $this->redirect(url("index/index/index"));
+//                    }
+//                }
+
+
+//            echo 'success';//这个必须返回给支付宝，响应个支付宝，
+//        } else {
+//            //验证失败
+//          return ajax_error('验证失败',['status'=>0]);
+//        }
         //$flag返回是的布尔值，true或者false,可以根据这个判断是否支付成功
     }
-
-
-    public function  order_information_test(){
-        $aop = new \AopClient;
-        $aop->gatewayUrl = "https://openapi.alipay.com/gateway.do";
-        $aop->appId = "2016112603335050";
-        $aop->rsaPrivateKey = 'MIIEowIBAAKCAQEAz+SfWrndsOSD3AY3v5YtA9n+BoBcckMYfjgpIrT5Bu2YF2GR5oFCBJASSQeRRyDHPWL3i91lbyZeiBsE2l+rJcMTP+EfH6MpxMerwqfvOPw4p4OHHAnbI52xjdNZStBdIT7oEwEUsghuejCpWelL/b3CPFpW/1OpEVRnssw9gc0f1mius2eOXZ0+5JaJRZ/zJWxgyMHctF6NXcSG2oVOl0WyiNK/F4CuqdIcq1y8ZDiVvmRbyfzcEmbgob7MpwVFWw1Fge3z4fSnG7bicOJSXkPbWNhZmGe/yXCEXbA/8Kldp/nMkwnMGJ5A/3yFZTEUnmY60qnXA5T3R1KOnpXklwIDAQABAoIBAQCDq2VSbQ4AD3uES1vbuB3ipprBO2NR6zUEHEXReZWP0cPWazGhMJTDlww9vNFCn3wRYTEwIJUyBLcytQop1RXs4NS8TLUNsKWvwFcE/qABE54+WoukMonc0O+3x/hx7e5ONC2Ae9rDt5thQJjCHYTHvPvchcs8A5y9IRxcngcGweL6m6KUd4yT4yr5pPCXM8Q4B5cG/BM+MtLeqPJ1S7zheMKt4pN52M9pU9+n1V3nx1FgViv7ycOh8E+9L33S/Ri9HuLyIeV9zZ44g53ociUlSoQBnUIiDHWriHROWP0yxPdp0Et4oUPFcsDR1FVa8rFSmhZRauA6M7Um8SRXKVtBAoGBAPrhPqij8HfnOCJAGMcbwJnpQGZAypYBawEOSib3uIKyqEQmDlvzTjJgR2YbFUfGvgeAn0mX/Q4B/Vgffb1dqCJbU4McSE3GHJHCdBO6UqvUD4B8Qy6aJJomPGwgZAi+DAk9PtNDo2tC6DTZbd5UJMTqdpMq0776pjR6E3+7F2wZAoGBANQiyZTfw9qqf9xyQ4YKwu6v0165e+mnlycOTRkrBSESJUNSCH4aYHZnE4B9J1MU5fxxrZuk5qt6iu0N5AkUQY6xuLkKdjX8WJbHWgHHjvMxXsEqx1LQlQ2PSCCvF5jxB0xhzTjBa3uCzfabs3o+6MKh1QF1DuYMBE1B/rku8uwvAoGAdnuAIxbhj08EpLBOw2Ho8QdGocQBqRxcU7BS9tpRKnCDpUOvzl820/XCYodx4mcLAfINyCzelwn7gu3EbXVY3XjyFN57izd/8Jq8RUDeoEXTWGPXOqATnzVlnc8iTzqp5oclL5MnD5YWojb5e2GTx+fPPiuguvYXHnt00AMkyakCgYAkFOKqksDSUYu76Cd6BhyP0pImG3BrFplMCE+uxzVxIY/6+ln9cOkVWoTjpuXoaLaRkJhRz+N4KTi2B1XRAYQBDFN6DcB7gDdlNfUmNlYnIS+XtXn/qQChNMy02nMuDVkLcdshGyz37hCwMF1/nnGioToErG9jS4nzxhTYVJb2+wKBgGGU5XtXTZAeBtueAgwwPkdOe1pXHXjkeytG2cGeNJrBkMmj7B7eNt+3EkHw4yPgvj/e4OYNm4ojRH05FefZmb6dtLDUH0p1k9LeqEbGGbHn7cl7jDjTqaRznlODyaT3pJlRldZIaJ95VEwZtpMQCnItUAu5yGH3Vrgo2Y8eNpAn' ;
-        $aop->format = "json";
-        $aop->charset = "UTF-8";
-        $aop->signType = "RSA2";
-        $aop->alipayrsaPublicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz+SfWrndsOSD3AY3v5YtA9n+BoBcckMYfjgpIrT5Bu2YF2GR5oFCBJASSQeRRyDHPWL3i91lbyZeiBsE2l+rJcMTP+EfH6MpxMerwqfvOPw4p4OHHAnbI52xjdNZStBdIT7oEwEUsghuejCpWelL/b3CPFpW/1OpEVRnssw9gc0f1mius2eOXZ0+5JaJRZ/zJWxgyMHctF6NXcSG2oVOl0WyiNK/F4CuqdIcq1y8ZDiVvmRbyfzcEmbgob7MpwVFWw1Fge3z4fSnG7bicOJSXkPbWNhZmGe/yXCEXbA/8Kldp/nMkwnMGJ5A/3yFZTEUnmY60qnXA5T3R1KOnpXklwIDAQAB';//对应填写
-//实例化具体API对应的request类,类名称和接口名称对应,当前调用接口名称：alipay.trade.app.pay
-        $request = new \AlipayTradeAppPayRequest();
-//SDK已经封装掉了公共参数，这里只需要传入业务参数
-
-//********注意*************************下面除了body描述不是必填，其他必须有，否则失败
-        $bizcontent = json_encode(array(
-            'body'=>'我是测试数据',
-
-            'subject' => 'App支付测试',//支付的标题，
-
-            'out_trade_no' => '20181200125test011',//支付宝订单号必须是唯一的，不能在支付宝再次使用，必须重新生成，哪怕是同一个订单，不能重复。否则二次支付时候会失败，订单号可以在自己订单那里保持一致，但支付宝那里必须要唯一，具体处理自己操作！
-
-            'timeout_express' => '30m',//過期時間（分钟）
-
-            'total_amount' => '0.01',//金額最好能要保留小数点后两位数
-
-            'product_code' => 'QUICK_MSECURITY_PAY'
-        ));
-
-        $request->setNotifyUrl("https://vip.gagaliang.com/Alipay_pay_code");//你在应用那里设置的异步回调地址
-        $request->setBizContent($bizcontent);
-//这里和普通的接口调用不同，使用的是sdkExecute
-        $response = $aop->sdkExecute($request);
-//htmlspecialchars是为了输出到页面时防止被浏览器将关键参数html转义，实际打印到日志以及http传输不会有这个问题
-//echo htmlspecialchars($response);//就是orderString 可以直接给客户端请求，无需再做处理。这里就是方便打印给你看，具体你直接可以在方法那里return出去，不用加htmlspecialchars，或者响应给app端让他拿着这串东西调起支付宝支付
-        return ajax_success('数据',$response);
-
-    }
-
-
-
-
 
 
 
@@ -661,7 +656,6 @@ class Order extends Controller {
             return view('myorder');
         }
 
-
     /**
      **************李火生*******************
      * @param Request $request
@@ -721,7 +715,6 @@ class Order extends Controller {
 
         }
 
-
     /**
      **************李火生*******************
      * @return \think\response\View
@@ -756,11 +749,6 @@ class Order extends Controller {
             }
 
         }
-
-
-
-
-
 
     /**
      **************李火生*******************
@@ -846,8 +834,6 @@ class Order extends Controller {
                return ajax_error('请登录',['status'=>0]);
            }
         }
-
-
 
 
     /**
@@ -989,8 +975,6 @@ class Order extends Controller {
             }
         }
     }
-
-
 
 
     /**
