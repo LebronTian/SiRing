@@ -18,10 +18,12 @@ class Shopping extends Base {
      * 陈绪
      */
     public function index(Request $request){
-        $data = Session::get("member");
-        $user_id =Db::name('user')->field('id')->where('phone_num',$data['phone_num'])->find();
-        $shopping = db("shopping")->where("user_id",$user_id['id'])->select();
-        return view("shopping_index",["shopping"=>$shopping]);
+        if($request->isGet()){
+            $data = Session::get("member");
+            $user_id =Db::name('user')->field('id')->where('phone_num',$data['phone_num'])->find();
+            $shopping = db("shopping")->where("user_id",$user_id['id'])->select();
+            return view("shopping_index",["shopping"=>$shopping]);
+        }
         if($request->isPost()){
             $phone = $request->only(['phone_num'])["phone_num"];
             $user_id =Db::name('user')->field('id')->where('phone_num',$phone)->find();
