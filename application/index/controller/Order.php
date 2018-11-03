@@ -267,23 +267,20 @@ class Order extends Controller {
                         $res =Db::name('order')->insertGetId($datas);
 
                         if(!empty($res)){
-                            return ajax_success('下单成功',$res);
+                                $resss= Db::name('shopping')->where($where)->delete();
+                                $ressss= Db::name('shopping_shop')->where('id',$shopping_id['id'])->delete();
+                                if(!empty($resss)&&!empty($ressss)){
+                                    return ajax_success('下单成功', $res);
+                                }else{
+                                    return ajax_error('错误',['status'=>0]);
+                                }
+//                            return ajax_success('下单成功',$res);
                         }else{
                             return ajax_success('下单失败',['status'=>0]);
                         }
                         /*下单成功对购物车里面对应的商品进行删除*/
                         }
-                    if (!empty($res)) {
-                        $resss= Db::name('shopping')->where($where)->delete();
-                        $ressss= Db::name('shopping_shop')->where('id',$shopping_id['id'])->delete();
-                        if($resss&&$ressss){
-                            return ajax_success('下单成功', $datas);
-                        }else{
-                            return ajax_error('错误',['status'=>0]);
-                        }
-                    }else{
-                        return ajax_error('错误',['status'=>0]);
-                    }
+
                 }
             }
         }
@@ -351,7 +348,7 @@ class Order extends Controller {
 
     /**
      **************李火生*******************
-     * 异步处理
+     * 异步处理(支付宝IOS对接)
      **************************************
      */
     public function notifyurl()
@@ -420,50 +417,6 @@ class Order extends Controller {
 //        }
         //$flag返回是的布尔值，true或者false,可以根据这个判断是否支付成功
     }
-
-
-    
-    public function  order_information_test(){
-        $aop = new \AopClient;
-        $aop->gatewayUrl = "https://openapi.alipay.com/gateway.do";
-        $aop->appId = "2016112603335050";
-        $aop->rsaPrivateKey = 'MIIEowIBAAKCAQEAz+SfWrndsOSD3AY3v5YtA9n+BoBcckMYfjgpIrT5Bu2YF2GR5oFCBJASSQeRRyDHPWL3i91lbyZeiBsE2l+rJcMTP+EfH6MpxMerwqfvOPw4p4OHHAnbI52xjdNZStBdIT7oEwEUsghuejCpWelL/b3CPFpW/1OpEVRnssw9gc0f1mius2eOXZ0+5JaJRZ/zJWxgyMHctF6NXcSG2oVOl0WyiNK/F4CuqdIcq1y8ZDiVvmRbyfzcEmbgob7MpwVFWw1Fge3z4fSnG7bicOJSXkPbWNhZmGe/yXCEXbA/8Kldp/nMkwnMGJ5A/3yFZTEUnmY60qnXA5T3R1KOnpXklwIDAQABAoIBAQCDq2VSbQ4AD3uES1vbuB3ipprBO2NR6zUEHEXReZWP0cPWazGhMJTDlww9vNFCn3wRYTEwIJUyBLcytQop1RXs4NS8TLUNsKWvwFcE/qABE54+WoukMonc0O+3x/hx7e5ONC2Ae9rDt5thQJjCHYTHvPvchcs8A5y9IRxcngcGweL6m6KUd4yT4yr5pPCXM8Q4B5cG/BM+MtLeqPJ1S7zheMKt4pN52M9pU9+n1V3nx1FgViv7ycOh8E+9L33S/Ri9HuLyIeV9zZ44g53ociUlSoQBnUIiDHWriHROWP0yxPdp0Et4oUPFcsDR1FVa8rFSmhZRauA6M7Um8SRXKVtBAoGBAPrhPqij8HfnOCJAGMcbwJnpQGZAypYBawEOSib3uIKyqEQmDlvzTjJgR2YbFUfGvgeAn0mX/Q4B/Vgffb1dqCJbU4McSE3GHJHCdBO6UqvUD4B8Qy6aJJomPGwgZAi+DAk9PtNDo2tC6DTZbd5UJMTqdpMq0776pjR6E3+7F2wZAoGBANQiyZTfw9qqf9xyQ4YKwu6v0165e+mnlycOTRkrBSESJUNSCH4aYHZnE4B9J1MU5fxxrZuk5qt6iu0N5AkUQY6xuLkKdjX8WJbHWgHHjvMxXsEqx1LQlQ2PSCCvF5jxB0xhzTjBa3uCzfabs3o+6MKh1QF1DuYMBE1B/rku8uwvAoGAdnuAIxbhj08EpLBOw2Ho8QdGocQBqRxcU7BS9tpRKnCDpUOvzl820/XCYodx4mcLAfINyCzelwn7gu3EbXVY3XjyFN57izd/8Jq8RUDeoEXTWGPXOqATnzVlnc8iTzqp5oclL5MnD5YWojb5e2GTx+fPPiuguvYXHnt00AMkyakCgYAkFOKqksDSUYu76Cd6BhyP0pImG3BrFplMCE+uxzVxIY/6+ln9cOkVWoTjpuXoaLaRkJhRz+N4KTi2B1XRAYQBDFN6DcB7gDdlNfUmNlYnIS+XtXn/qQChNMy02nMuDVkLcdshGyz37hCwMF1/nnGioToErG9jS4nzxhTYVJb2+wKBgGGU5XtXTZAeBtueAgwwPkdOe1pXHXjkeytG2cGeNJrBkMmj7B7eNt+3EkHw4yPgvj/e4OYNm4ojRH05FefZmb6dtLDUH0p1k9LeqEbGGbHn7cl7jDjTqaRznlODyaT3pJlRldZIaJ95VEwZtpMQCnItUAu5yGH3Vrgo2Y8eNpAn' ;
-        $aop->format = "json";
-        $aop->charset = "UTF-8";
-        $aop->signType = "RSA2";
-        $aop->alipayrsaPublicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz+SfWrndsOSD3AY3v5YtA9n+BoBcckMYfjgpIrT5Bu2YF2GR5oFCBJASSQeRRyDHPWL3i91lbyZeiBsE2l+rJcMTP+EfH6MpxMerwqfvOPw4p4OHHAnbI52xjdNZStBdIT7oEwEUsghuejCpWelL/b3CPFpW/1OpEVRnssw9gc0f1mius2eOXZ0+5JaJRZ/zJWxgyMHctF6NXcSG2oVOl0WyiNK/F4CuqdIcq1y8ZDiVvmRbyfzcEmbgob7MpwVFWw1Fge3z4fSnG7bicOJSXkPbWNhZmGe/yXCEXbA/8Kldp/nMkwnMGJ5A/3yFZTEUnmY60qnXA5T3R1KOnpXklwIDAQAB';//对应填写
-//实例化具体API对应的request类,类名称和接口名称对应,当前调用接口名称：alipay.trade.app.pay
-        $request = new \AlipayTradeAppPayRequest();
-//SDK已经封装掉了公共参数，这里只需要传入业务参数
-
-//********注意*************************下面除了body描述不是必填，其他必须有，否则失败
-        $bizcontent = json_encode(array(
-            'body'=>'我是测试数据',
-
-            'subject' => 'App支付测试',//支付的标题，
-
-            'out_trade_no' => '20181200125test011',//支付宝订单号必须是唯一的，不能在支付宝再次使用，必须重新生成，哪怕是同一个订单，不能重复。否则二次支付时候会失败，订单号可以在自己订单那里保持一致，但支付宝那里必须要唯一，具体处理自己操作！
-
-            'timeout_express' => '30m',//過期時間（分钟）
-
-            'total_amount' => '0.01',//金額最好能要保留小数点后两位数
-
-            'product_code' => 'QUICK_MSECURITY_PAY'
-        ));
-
-        $request->setNotifyUrl("https://vip.gagaliang.com/Alipay_pay_code");//你在应用那里设置的异步回调地址
-        $request->setBizContent($bizcontent);
-//这里和普通的接口调用不同，使用的是sdkExecute
-        $response = $aop->sdkExecute($request);
-//htmlspecialchars是为了输出到页面时防止被浏览器将关键参数html转义，实际打印到日志以及http传输不会有这个问题
-//echo htmlspecialchars($response);//就是orderString 可以直接给客户端请求，无需再做处理。这里就是方便打印给你看，具体你直接可以在方法那里return出去，不用加htmlspecialchars，或者响应给app端让他拿着这串东西调起支付宝支付
-        return ajax_success('数据',$response);
-
-    }
-
-
-
-
 
 
 
@@ -703,7 +656,6 @@ class Order extends Controller {
             return view('myorder');
         }
 
-
     /**
      **************李火生*******************
      * @param Request $request
@@ -763,7 +715,6 @@ class Order extends Controller {
 
         }
 
-
     /**
      **************李火生*******************
      * @return \think\response\View
@@ -798,11 +749,6 @@ class Order extends Controller {
             }
 
         }
-
-
-
-
-
 
     /**
      **************李火生*******************
@@ -888,8 +834,6 @@ class Order extends Controller {
                return ajax_error('请登录',['status'=>0]);
            }
         }
-
-
 
 
     /**
@@ -1031,8 +975,6 @@ class Order extends Controller {
             }
         }
     }
-
-
 
 
     /**
