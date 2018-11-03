@@ -320,10 +320,10 @@ class Order extends Controller {
 //                       $private_path="MIIEpAIBAAKCAQEA1YHhYsj9AaXi+UvoMWp8EqiJHHqD+O+YbQ9nF8POQuyaTPW4hZZPIq/HoEBIyu8Myh7UT5DS5HFA4ZUZeeySTISCPFUWbppQf7YM4UXuzqSzERQmcFw4wpfQglfb6ECuGyH81C7ibhHvoibzeFESMCC1nHvmMl+AjEqBK7b/CCJpC4KwPzoloivFNy8rXfP/mSocbADSfAORhJo15fjbQT2ixy7mRUA8bIK2hBLbDp8JsStJ3BoLGS4/zX0jQJRXQfeE3DLt95ITIul4RMTFnZ151fS7ylOgNWeAacDQ3fet7IF54QWP5zW9M7j8gcy7UexJdMfffPoZvvSetIItFwIDAQABAoIBAQCkJsZ1n9e985+NUgoELD2WTtOT/LIIq5WCjCwT/mxP0f9UGjuzIXxYS9NsZuBQffhUUd2kCtHJ5zUd+vdqYTOd9ub2oeisQqKPfhVrAcx4PfKat+ZRzuWo3vXlsM0XRNtXawsqy501ST73aYEZSSN1s0BOPogexIRd2E51oK11vy+BBotPOXmSj6sKAFNJ6drD3ckdJ678s+mYTxdIoKi45l+5wwpHxL7qsPTeuBijhhBufY6KzkxRYlR+zq5M+pVJcnsh3TZWsbW6z73tb/C31E5cOnuy2l53YHe20dda0Om6w41+QhekuZvwZyLWYqXeLYCc2tfR1DHs2Zicv6ZJAoGBAO1D0eZIldte7Ka6Yd+zrNhaNvL8JGUSosGmKwdS6PHQA27IBuVd";
                        //构造业务请求参数的集合(订单信息)
                        $content = array();
-                       $content['subject'] = "gagaliang";
-                       $content['out_trade_no'] = "20181101325";
+                       $content['subject'] = $goods_name;
+                       $content['out_trade_no'] = $order_num;
 //                       $content['timeout_express'] = "90m";
-                       $content['total_amount'] = "9.00";
+                       $content['total_amount'] = $goods_pay_money;
                        $content['product_code'] = "QUICK_MSECURITY_PAY";
                         $con = json_encode($content);//$content是biz_content的值,将之转化成json字符串
 //                       $alipay_data = urlencode($response);
