@@ -344,7 +344,7 @@ class Order extends Controller {
                    return ajax_error('数据返回不成功',['status'=>0]);
                }
             }else{
-                return ajax_error('失败',['status=>0']);
+                return ajax_error('失败',['status'=>0]);
             }
         }
     }
@@ -422,10 +422,7 @@ class Order extends Controller {
     }
 
 
-
-
-
-
+    
     public function  order_information_test(){
         $aop = new \AopClient;
         $aop->gatewayUrl = "https://openapi.alipay.com/gateway.do";
