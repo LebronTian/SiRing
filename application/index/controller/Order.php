@@ -400,6 +400,10 @@ class Order extends Controller {
     }
 
 
+
+
+
+
     public function  order_information_test(){
         $aop = new \AopClient;
         $aop->gatewayUrl = "https://openapi.alipay.com/gateway.do";
