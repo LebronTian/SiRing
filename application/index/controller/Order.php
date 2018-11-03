@@ -377,12 +377,12 @@ class Order extends Controller {
 //                $data['third_ordersn'] = $trade_no;
                 $result=Db::name('order')->where($condition)->update($data);//修改订单状态,支付宝单号到数据库
                 if($result){
-                    echo 'success';
+                    return ajax_success('支付成功',['statuss=1']);
                 }else{
-                    echo 'fail';
+                    return ajax_error('支付失败',['statuss=0']);
                 }
             }else{
-                echo "fail";
+                return ajax_error('支付失败',['statuss=0']);
             }
 
 //                if(!empty($_GET['out_trade_no'])){
