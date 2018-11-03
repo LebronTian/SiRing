@@ -365,32 +365,54 @@ class Order extends Controller {
                 $data['status'] = 2;
                 $pay_time = time();
                 $data['pay_time']=$pay_time;
-                if(!empty($_GET['out_trade_no'])){
-                    $shopping_goods = db("order")->where("order_information_number",$_GET["out_trade_no"])->field("goods_id,shopping_shop_id,order_num")->select();
-                    $goods = db("goods")->where("id",$shopping_goods[0]['goods_id'])->field("goods_num")->find();
-                    $goods_num = $goods['goods_num'] - 1;
-                    $seckill = db("seckill")->where("goods_id",$shopping_goods[0]['goods_id'])->find();
-                    if(empty($shopping_goods[0]["shopping_shop_id"])){
-                        db("goods")->where("id",$shopping_goods[0]['goods_id'])->update(["goods_num"=>$goods_num]);
-                    }
-                    //第一次秒杀提交订单
-                    if(!empty($seckill["goods_num"])){
-                        $seckill_num = $seckill["goods_num"] - 1;
-                        db("seckill")->where("goods_id",$shopping_goods[0]['goods_id'])->update(["residue_num"=>$seckill_num]);
-                    }
-                    //购物车提交订单
-                    foreach ($shopping_goods as $key=>$value){
-                        $goods_shopping_num = db("goods")->where("id",$value["goods_id"])->field("goods_num")->find();
-                        if(!empty($value["shopping_shop_id"])){
-                            $shopping_goods_num[] = $goods_shopping_num["goods_num"] - $value["order_num"];
-                            db("goods")->where("id",$value["goods_id"])->update(["goods_num"=>$shopping_goods_num[$key]]);
-                        }
-                    }
-                    $bool = db("order")->where("order_information_number",$_GET['out_trade_no'])->update($data);
-                    if($bool){
-                        $this->redirect(url("index/index/index"));
-                    }
+            //原始订单号
+            $out_trade_no = input('out_trade_no');
+            //支付宝交易号
+            $trade_no = input('trade_no');
+            //交易状态
+            $trade_status = input('trade_status');
+            if ($trade_status == 'TRADE_FINISHED' || $trade_status == 'TRADE_SUCCESS') {
+                $condition['order_information_number'] = $out_trade_no;
+                $data['status'] = 2;
+//                $data['third_ordersn'] = $trade_no;
+                $result=db('order')->where($condition)->update($data);//修改订单状态,支付宝单号到数据库
+                if($result){
+                    echo 'success';
+                }else{
+                    echo 'fail';
                 }
+            }else{
+                echo "fail";
+            }
+
+//                if(!empty($_GET['out_trade_no'])){
+//                    $shopping_goods = db("order")->where("order_information_number",$_GET["out_trade_no"])->field("goods_id,shopping_shop_id,order_num")->select();
+//                    $goods = db("goods")->where("id",$shopping_goods[0]['goods_id'])->field("goods_num")->find();
+//                    $goods_num = $goods['goods_num'] - 1;
+//                    $seckill = db("seckill")->where("goods_id",$shopping_goods[0]['goods_id'])->find();
+//                    if(empty($shopping_goods[0]["shopping_shop_id"])){
+//                        db("goods")->where("id",$shopping_goods[0]['goods_id'])->update(["goods_num"=>$goods_num]);
+//                    }
+//                    //第一次秒杀提交订单
+//                    if(!empty($seckill["goods_num"])){
+//                        $seckill_num = $seckill["goods_num"] - 1;
+//                        db("seckill")->where("goods_id",$shopping_goods[0]['goods_id'])->update(["residue_num"=>$seckill_num]);
+//                    }
+//                    //购物车提交订单
+//                    foreach ($shopping_goods as $key=>$value){
+//                        $goods_shopping_num = db("goods")->where("id",$value["goods_id"])->field("goods_num")->find();
+//                        if(!empty($value["shopping_shop_id"])){
+//                            $shopping_goods_num[] = $goods_shopping_num["goods_num"] - $value["order_num"];
+//                            db("goods")->where("id",$value["goods_id"])->update(["goods_num"=>$shopping_goods_num[$key]]);
+//                        }
+//                    }
+//                    $bool = db("order")->where("order_information_number",$_GET['out_trade_no'])->update($data);
+//                    if($bool){
+//                        $this->redirect(url("index/index/index"));
+//                    }
+//                }
+
+
             echo 'success';//这个必须返回给支付宝，响应个支付宝，
         } else {
             //验证失败
