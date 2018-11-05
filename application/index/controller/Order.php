@@ -248,7 +248,6 @@ class Order extends Controller {
                                 $create_time = time();
                                 foreach ($list as $k => $v) {
                                 $data = $_POST;
-                                if (!empty($data)) {
                                     $datas = [
                                         'goods_img' => $v['goods_images'],
                                         'goods_name' => $data['goods_name'][$k],
@@ -266,13 +265,8 @@ class Order extends Controller {
                                         'shopping_shop_id' => $v['id']
                                     ];
                                     $res =Db::name('order')->insertGetId($datas);
-
-                                    }else{
-                                            return ajax_success('下单失败',['status'=>0]);
-                                    }
                                     /*下单成功对购物车里面对应的商品进行删除*/
                                 }
-
                             if($res){
                                 $res_one =Db::name('shopping')->where($where)->delete();
                                 $res_tow = Db::name('shopping_shop')->where('id',$shopping_id)->delete();
