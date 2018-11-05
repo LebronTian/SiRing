@@ -271,12 +271,17 @@ class Order extends Controller {
                             if(!empty($res)){
                                     $res_one =Db::name('shopping')->where($where)->delete();
                                     if($res_one){
-                                        return ajax_success('111',$res_one);
+                                        $res_tow = Db::name('shopping_shop')->where('id',$shopping_id)->delete();
+                                        if($res_tow){
+                                            return ajax_success('4444',$res_one);
+                                        }else{
+                                            return ajax_success('333',$res_one);
+                                        }
                                     }else{
                                         return ajax_success('222',$res_one);
                                     }
 
-                                    $res_tow = Db::name('shopping_shop')->where('id',$shopping_id)->delete();
+
                                     if($res_one){
                                         if($res_tow){
                                             return ajax_success('下单成功', $datas['order_information_number']);
