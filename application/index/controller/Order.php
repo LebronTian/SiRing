@@ -265,7 +265,7 @@ class Order extends Controller {
                                         'order_information_number' => $create_time . $member['id'],//时间戳+用户id构成订单号
                                         'shopping_shop_id' => $v['id']
                                     ];
-                                    $res[$k] =Db::name('order')->insertGetId($datas);
+                                    $res[] =Db::name('order')->insertGetId($datas);
                                     /*下单成功对购物车里面对应的商品进行删除*/
                                 }
                                 if(!empty($res)){
