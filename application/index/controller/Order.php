@@ -397,8 +397,9 @@ class Order extends Controller {
                        $param['sign'] = $sign;
                        $str = $Client->getSignContentUrlencode($param);//最终请求参数
 //                       $strings ='alipay_sdk=alipay-sdk-php-3.3.0&'.$str;
-                       return ajax_success('数据成功返回',$str);
+
                    }
+                   return ajax_success('数据成功返回',$str);
                }else{
                    return ajax_error('数据返回不成功',['status'=>0]);
                }
