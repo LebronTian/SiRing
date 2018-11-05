@@ -276,9 +276,9 @@ class Order extends Controller {
                             }
                         }
                         if(!empty($res)){
-                                    $resss= Db::name('shopping')->where($where)->delete();
-                                    $ressss= Db::name('shopping_shop')->where('id',$shopping_id['id'])->delete();
-                                    if(!empty($resss)&&!empty($ressss)) {
+                                    $res_del= Db::name('shopping')->where($where)->delete();
+                                    $res_dels= Db::name('shopping_shop')->where('id',$shopping_id['id'])->delete();
+                                    if((!empty($res_del))&&(!empty($res_dels))) {
                                         return ajax_success('下单成功', $datas['order_information_number']);
                                     }else{
                                         return ajax_success('下单成功', $datas['order_information_number']);
@@ -361,48 +361,93 @@ class Order extends Controller {
             $out_trade_no="ZQLM3O56MJD4SK3";
             $time =date('Y-m-d H:i:s');
             if(!empty( $order_num)){
-                $data = Db::name('order')->where('order_information_number',$order_num)->select();
-               if(!empty($data)){
-                   foreach ($data as $k=>$v){
-                       $goods_name = $v['goods_name'];
-                       $order_num = $v['order_information_number'];
-                       $goods_pay_money =$v['pay_money'];
-                       $subject =$v['order_num'];
-                       $app_id ="{'timeout_express':'30m','seller_id':"."'".$order_num."'".",'product_code':"."'".$product_code."'".",'total_amount':"."'".$goods_pay_money."'".",'subject':"."'".$subject."'".",'body':"."'".$goods_name."'".",'out_trade_no':"."'".$out_trade_no."'"."}";
-                       $app_ids =urlencode($app_id);
-                       $time_encode =urlencode($time);
-                        // 订单信息，在iOS端加密
-                       include('../vendor/Alipays/aop/AopClient.php');
-                       $private_path="MIIEpAIBAAKCAQEAyC9iRV5kLDbVK619EtISgMN5Gz0bOdFAfSojUzefVhKUrEJ6j48d1Awrg98yudp22kUs0zboMkVTYDT1l9ux5xj/p39JhqjjIl44oZsGFjSmu9/2HxaZ4UjfTJXkaGwJqyY0fSY2f+cE5YjoRYq5XhqijzF0BoKoH64pQNWxqp6f3wss2FKp707KV/oLAArqkqFcWfyylMsncdxV59Lo0mtJ7cIEOezng4es3KDdHmLT5kq3j0hl0kfIjdGuDR0cWnlcolHUoIOKVGSlSHn+WnFlZ20/fkfF+hdadUcG42tywCBVT40ugX1LmmdCI4hAnxLxeQ7bFkhrnpDWcW7KWQIDAQABAoIBAQCBQK730TFmpuTOtc669y6BOzUX1EWe+C/mYO28Dn7vqUGbU7UkuihtQIpcNCHhhGAXIHEH0zzrMH3b8XXdXjmo2ChBstr7elJlX2a7WYf9kHNTfRDCE+q5Xj7niSSYE6HOgvWDFMg9nyE3P0WRmTeEvjfVsv2SMoxxIBd8yD1Vxr3Gbg+gT8zWDrqXQ1Ap1gg5jNS14CFE3uKKwQ4n5JZWnIQ+jw3LZcpk9Eb/mrQ9kbnU7g0ikx8sYJpTiP7lAlb3dq1tdUmRV8+HfWYC/a8MbZtO6UyDWvms5Lb5g4we7FCmBAkG+zv62PxG9sQAvrQoSwKTOj/7LSeTgJsT97QNAoGBAPuQUNZEhVODVhCCISg84TGi0BozU64PqegJXFxbR++hQC2EsN6L2Mk2ftpd+J/9XRD0ffcBMea+H4N7ui4Y+OHoED/8d76dTX06PWfAYYJMu/o65c3IBSBiwgREuRo38a20CZ8hKr8LVpLXbtCB8WJ1kp5QeqqSPpwnjFncyBorAoGBAMu3Hokjze+FPpeFQ3tYVt9G/VSAhRMVAb5ZQClQH9plpVM9aMukp8jiaeSBg7d5RzNRGRU5ouKQ1AVs3jkgvVzUWRMKM+VkW4lzAhEkM766egpzngs9z4YXHcBW1bPJQap2TVLRcFmueDsVABXF5XZSgAwenBhtvmZ9X/UDCD+LAoGBALmXaOwLNUm9lVsshgXHlGQoN9t8jnnV+IXFkixY86NolY5/XHVzOwaHe+LifTCbnXOKzPvUF9qh3WIFf//OUJ9ps8NhIX6xUp/WvcKzfbzBm9Uqaqv8qzuPYJABm4YqS9TZBFgwAfdcCAzhf1G47Dq1fuvpd/YrWqGd07/gUIhtAoGAHDSkg7RzZQB75BrNdxyKGqwHk1WgFz5HWYWd/ppbbq+4LkhIZDnOCWBf7QWJqTOfihlmcavjQ59t27pxIlPIJDw6gQpemRpGGkfUN29dwsCq+Rt8/G14eEZnFiRvvk7VSrbKifb5qVEg0H1d36Xg2Xsew47Ragh33lTpnlDnKXUCgYBIuk9VU3DkITWsy+xiQbN4eQqbiFB7BA55xIjwPqK8K+0PVzRyObUEF6m9KSz2mEB1CHwr1fHj8qzJ/0CgKUeCONm5crLEGCGMbGUzMloGmVLSJz6+4xT8mwKOv/BcpTqkDLx+8HBaJppJnjWn0OmHLNa1JhAaVuef8eheH546kw==";
-                       //构造业务请求参数的集合(订单信息)
-                       $content = array();
-                       $content['subject'] = $goods_name;
-                       $content['out_trade_no'] = $order_num;
+                $counts =Db::name('order')->where('order_information_number',$order_num)->count();
+                if($counts>1){
+                    $data = Db::name('order')->where('order_information_number',$order_num)->select();
+                    if(!empty($data)){
+                        foreach ($data as $k=>$v){
+                            $goods_name = $v['goods_name'];
+                            $order_num = $v['order_information_number'];
+                            $goods_pay_money =$v['pay_money'];
+                            $subject =$v['order_num'];
+                            $app_id ="{'timeout_express':'30m','seller_id':"."'".$order_num."'".",'product_code':"."'".$product_code."'".",'total_amount':"."'".$goods_pay_money."'".",'subject':"."'".$subject."'".",'body':"."'".$goods_name."'".",'out_trade_no':"."'".$out_trade_no."'"."}";
+                            $app_ids =urlencode($app_id);
+                            $time_encode =urlencode($time);
+                            // 订单信息，在iOS端加密
+                            include('../vendor/Alipays/aop/AopClient.php');
+                            $private_path="MIIEpAIBAAKCAQEAyC9iRV5kLDbVK619EtISgMN5Gz0bOdFAfSojUzefVhKUrEJ6j48d1Awrg98yudp22kUs0zboMkVTYDT1l9ux5xj/p39JhqjjIl44oZsGFjSmu9/2HxaZ4UjfTJXkaGwJqyY0fSY2f+cE5YjoRYq5XhqijzF0BoKoH64pQNWxqp6f3wss2FKp707KV/oLAArqkqFcWfyylMsncdxV59Lo0mtJ7cIEOezng4es3KDdHmLT5kq3j0hl0kfIjdGuDR0cWnlcolHUoIOKVGSlSHn+WnFlZ20/fkfF+hdadUcG42tywCBVT40ugX1LmmdCI4hAnxLxeQ7bFkhrnpDWcW7KWQIDAQABAoIBAQCBQK730TFmpuTOtc669y6BOzUX1EWe+C/mYO28Dn7vqUGbU7UkuihtQIpcNCHhhGAXIHEH0zzrMH3b8XXdXjmo2ChBstr7elJlX2a7WYf9kHNTfRDCE+q5Xj7niSSYE6HOgvWDFMg9nyE3P0WRmTeEvjfVsv2SMoxxIBd8yD1Vxr3Gbg+gT8zWDrqXQ1Ap1gg5jNS14CFE3uKKwQ4n5JZWnIQ+jw3LZcpk9Eb/mrQ9kbnU7g0ikx8sYJpTiP7lAlb3dq1tdUmRV8+HfWYC/a8MbZtO6UyDWvms5Lb5g4we7FCmBAkG+zv62PxG9sQAvrQoSwKTOj/7LSeTgJsT97QNAoGBAPuQUNZEhVODVhCCISg84TGi0BozU64PqegJXFxbR++hQC2EsN6L2Mk2ftpd+J/9XRD0ffcBMea+H4N7ui4Y+OHoED/8d76dTX06PWfAYYJMu/o65c3IBSBiwgREuRo38a20CZ8hKr8LVpLXbtCB8WJ1kp5QeqqSPpwnjFncyBorAoGBAMu3Hokjze+FPpeFQ3tYVt9G/VSAhRMVAb5ZQClQH9plpVM9aMukp8jiaeSBg7d5RzNRGRU5ouKQ1AVs3jkgvVzUWRMKM+VkW4lzAhEkM766egpzngs9z4YXHcBW1bPJQap2TVLRcFmueDsVABXF5XZSgAwenBhtvmZ9X/UDCD+LAoGBALmXaOwLNUm9lVsshgXHlGQoN9t8jnnV+IXFkixY86NolY5/XHVzOwaHe+LifTCbnXOKzPvUF9qh3WIFf//OUJ9ps8NhIX6xUp/WvcKzfbzBm9Uqaqv8qzuPYJABm4YqS9TZBFgwAfdcCAzhf1G47Dq1fuvpd/YrWqGd07/gUIhtAoGAHDSkg7RzZQB75BrNdxyKGqwHk1WgFz5HWYWd/ppbbq+4LkhIZDnOCWBf7QWJqTOfihlmcavjQ59t27pxIlPIJDw6gQpemRpGGkfUN29dwsCq+Rt8/G14eEZnFiRvvk7VSrbKifb5qVEg0H1d36Xg2Xsew47Ragh33lTpnlDnKXUCgYBIuk9VU3DkITWsy+xiQbN4eQqbiFB7BA55xIjwPqK8K+0PVzRyObUEF6m9KSz2mEB1CHwr1fHj8qzJ/0CgKUeCONm5crLEGCGMbGUzMloGmVLSJz6+4xT8mwKOv/BcpTqkDLx+8HBaJppJnjWn0OmHLNa1JhAaVuef8eheH546kw==";
+                            //构造业务请求参数的集合(订单信息)
+                            $content = array();
+                            $content['subject'] = $goods_name;
+                            $content['out_trade_no'] = $order_num;
 //                       $content['timeout_express'] = "90m";
-                       $content['total_amount'] = $goods_pay_money;
-                       $content['product_code'] = "QUICK_MSECURITY_PAY";
-                        $con = json_encode($content);//$content是biz_content的值,将之转化成json字符串
-                       //公共参数
-                       $Client = new \AopClient();//实例化支付宝sdk里面的AopClient类,下单时需要的操作,都在这个类里面
-                       $param['app_id'] = '2018082761132725';
-                       $param['method'] = 'alipay.trade.app.pay';//接口名称，固定值
-                       $param['charset'] = 'utf-8';//请求使用的编码格式
-                       $param['sign_type'] = 'RSA2';//商户生成签名字符串所使用的签名算法类型
-                       $param['timestamp'] = date("Y-m-d H:i:s");//发送请求的时间
-                       $param['version'] = '1.0';//调用的接口版本，固定为：1.0
-                       $param['notify_url'] = 'https://vip.gagaliang.com/notifyurl';
-                       $param['biz_content'] = $con;//业务请求参数的集合,长度不限,json格式，即前面一步得到的
-                       $paramStr = $Client->getSignContent($param);//组装请求签名参数
-                       $sign = $Client->alonersaSign($paramStr, $private_path, 'RSA2', false);//生成签名()
-                       $param['sign'] = $sign;
-                       $str = $Client->getSignContentUrlencode($param);//最终请求参数
+                            $content['total_amount'] = $goods_pay_money;
+                            $content['product_code'] = "QUICK_MSECURITY_PAY";
+                            $con = json_encode($content);//$content是biz_content的值,将之转化成json字符串
+                            //公共参数
+                            $Client = new \AopClient();//实例化支付宝sdk里面的AopClient类,下单时需要的操作,都在这个类里面
+                            $param['app_id'] = '2018082761132725';
+                            $param['method'] = 'alipay.trade.app.pay';//接口名称，固定值
+                            $param['charset'] = 'utf-8';//请求使用的编码格式
+                            $param['sign_type'] = 'RSA2';//商户生成签名字符串所使用的签名算法类型
+                            $param['timestamp'] = date("Y-m-d H:i:s");//发送请求的时间
+                            $param['version'] = '1.0';//调用的接口版本，固定为：1.0
+                            $param['notify_url'] = 'https://vip.gagaliang.com/notifyurl';
+                            $param['biz_content'] = $con;//业务请求参数的集合,长度不限,json格式，即前面一步得到的
+                            $paramStr = $Client->getSignContent($param);//组装请求签名参数
+                            $sign = $Client->alonersaSign($paramStr, $private_path, 'RSA2', false);//生成签名()
+                            $param['sign'] = $sign;
+                            $str = $Client->getSignContentUrlencode($param);//最终请求参数
+                        }
+                        return ajax_success('数据成功返回',$str);
+                    }else{
+                        return ajax_error('数据返回不成功',['status'=>0]);
+                    }
+                }else{
+                    $data = Db::name('order')->where('order_information_number',$order_num)->select();
+                    if(!empty($data)){
+                        foreach ($data as $k=>$v){
+                            $goods_name = $v['goods_name'];
+                            $order_num = $v['order_information_number'];
+                            $goods_pay_money =$v['pay_money'];
+                            $subject =$v['order_num'];
+                            $app_id ="{'timeout_express':'30m','seller_id':"."'".$order_num."'".",'product_code':"."'".$product_code."'".",'total_amount':"."'".$goods_pay_money."'".",'subject':"."'".$subject."'".",'body':"."'".$goods_name."'".",'out_trade_no':"."'".$out_trade_no."'"."}";
+                            $app_ids =urlencode($app_id);
+                            $time_encode =urlencode($time);
+                            // 订单信息，在iOS端加密
+                            include('../vendor/Alipays/aop/AopClient.php');
+                            $private_path="MIIEpAIBAAKCAQEAyC9iRV5kLDbVK619EtISgMN5Gz0bOdFAfSojUzefVhKUrEJ6j48d1Awrg98yudp22kUs0zboMkVTYDT1l9ux5xj/p39JhqjjIl44oZsGFjSmu9/2HxaZ4UjfTJXkaGwJqyY0fSY2f+cE5YjoRYq5XhqijzF0BoKoH64pQNWxqp6f3wss2FKp707KV/oLAArqkqFcWfyylMsncdxV59Lo0mtJ7cIEOezng4es3KDdHmLT5kq3j0hl0kfIjdGuDR0cWnlcolHUoIOKVGSlSHn+WnFlZ20/fkfF+hdadUcG42tywCBVT40ugX1LmmdCI4hAnxLxeQ7bFkhrnpDWcW7KWQIDAQABAoIBAQCBQK730TFmpuTOtc669y6BOzUX1EWe+C/mYO28Dn7vqUGbU7UkuihtQIpcNCHhhGAXIHEH0zzrMH3b8XXdXjmo2ChBstr7elJlX2a7WYf9kHNTfRDCE+q5Xj7niSSYE6HOgvWDFMg9nyE3P0WRmTeEvjfVsv2SMoxxIBd8yD1Vxr3Gbg+gT8zWDrqXQ1Ap1gg5jNS14CFE3uKKwQ4n5JZWnIQ+jw3LZcpk9Eb/mrQ9kbnU7g0ikx8sYJpTiP7lAlb3dq1tdUmRV8+HfWYC/a8MbZtO6UyDWvms5Lb5g4we7FCmBAkG+zv62PxG9sQAvrQoSwKTOj/7LSeTgJsT97QNAoGBAPuQUNZEhVODVhCCISg84TGi0BozU64PqegJXFxbR++hQC2EsN6L2Mk2ftpd+J/9XRD0ffcBMea+H4N7ui4Y+OHoED/8d76dTX06PWfAYYJMu/o65c3IBSBiwgREuRo38a20CZ8hKr8LVpLXbtCB8WJ1kp5QeqqSPpwnjFncyBorAoGBAMu3Hokjze+FPpeFQ3tYVt9G/VSAhRMVAb5ZQClQH9plpVM9aMukp8jiaeSBg7d5RzNRGRU5ouKQ1AVs3jkgvVzUWRMKM+VkW4lzAhEkM766egpzngs9z4YXHcBW1bPJQap2TVLRcFmueDsVABXF5XZSgAwenBhtvmZ9X/UDCD+LAoGBALmXaOwLNUm9lVsshgXHlGQoN9t8jnnV+IXFkixY86NolY5/XHVzOwaHe+LifTCbnXOKzPvUF9qh3WIFf//OUJ9ps8NhIX6xUp/WvcKzfbzBm9Uqaqv8qzuPYJABm4YqS9TZBFgwAfdcCAzhf1G47Dq1fuvpd/YrWqGd07/gUIhtAoGAHDSkg7RzZQB75BrNdxyKGqwHk1WgFz5HWYWd/ppbbq+4LkhIZDnOCWBf7QWJqTOfihlmcavjQ59t27pxIlPIJDw6gQpemRpGGkfUN29dwsCq+Rt8/G14eEZnFiRvvk7VSrbKifb5qVEg0H1d36Xg2Xsew47Ragh33lTpnlDnKXUCgYBIuk9VU3DkITWsy+xiQbN4eQqbiFB7BA55xIjwPqK8K+0PVzRyObUEF6m9KSz2mEB1CHwr1fHj8qzJ/0CgKUeCONm5crLEGCGMbGUzMloGmVLSJz6+4xT8mwKOv/BcpTqkDLx+8HBaJppJnjWn0OmHLNa1JhAaVuef8eheH546kw==";
+                            //构造业务请求参数的集合(订单信息)
+                            $content = array();
+                            $content['subject'] = $goods_name;
+                            $content['out_trade_no'] = $order_num;
+//                       $content['timeout_express'] = "90m";
+                            $content['total_amount'] = $goods_pay_money;
+                            $content['product_code'] = "QUICK_MSECURITY_PAY";
+                            $con = json_encode($content);//$content是biz_content的值,将之转化成json字符串
+                            //公共参数
+                            $Client = new \AopClient();//实例化支付宝sdk里面的AopClient类,下单时需要的操作,都在这个类里面
+                            $param['app_id'] = '2018082761132725';
+                            $param['method'] = 'alipay.trade.app.pay';//接口名称，固定值
+                            $param['charset'] = 'utf-8';//请求使用的编码格式
+                            $param['sign_type'] = 'RSA2';//商户生成签名字符串所使用的签名算法类型
+                            $param['timestamp'] = date("Y-m-d H:i:s");//发送请求的时间
+                            $param['version'] = '1.0';//调用的接口版本，固定为：1.0
+                            $param['notify_url'] = 'https://vip.gagaliang.com/notifyurl';
+                            $param['biz_content'] = $con;//业务请求参数的集合,长度不限,json格式，即前面一步得到的
+                            $paramStr = $Client->getSignContent($param);//组装请求签名参数
+                            $sign = $Client->alonersaSign($paramStr, $private_path, 'RSA2', false);//生成签名()
+                            $param['sign'] = $sign;
+                            $str = $Client->getSignContentUrlencode($param);//最终请求参数
 //                       $strings ='alipay_sdk=alipay-sdk-php-3.3.0&'.$str;
 
-                   }
-                   return ajax_success('数据成功返回',$str);
-               }else{
-                   return ajax_error('数据返回不成功',['status'=>0]);
-               }
+                        }
+                        return ajax_success('数据成功返回',$str);
+                    }else{
+                        return ajax_error('数据返回不成功',['status'=>0]);
+                    }
+                }
+
             }else{
                 return ajax_error('失败',['status'=>0]);
             }
