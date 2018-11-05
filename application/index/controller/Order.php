@@ -270,7 +270,6 @@ class Order extends Controller {
                                 }
                                 if($res){
                                     $order_information_numbers =Db::name('order')->field('order_information_number')->where('id',$res)->find();
-                                    return ajax_success('ssjjs',$order_information_numbers);
                                     $res_one = Db::name('shopping')->where($where)->delete();
                                     if($res_one){
                                         $res_tow = Db::name('shopping_shop')->where('id',$shopping_id)->delete();
