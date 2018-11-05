@@ -180,8 +180,8 @@ class Order extends Controller {
                             'harvest_phone_num' => $member['harvester_phone_num'],
                             'harvest_address' => $position,
                             'create_time' => $create_time,
-//                            'pay_money' => $data['all_pay'],
-                            'pay_money' => $v['money'],
+                            'pay_money' => $data['all_pay'],
+//                            'pay_money' => $v['money'],
                             'status' => 1,
                             'goods_id' => $v['goods_id'],
                             'send_money' => $data['express_fee'],
@@ -269,16 +269,16 @@ class Order extends Controller {
                                     /*下单成功对购物车里面对应的商品进行删除*/
                                 }
                                 if($res){
-                                    $res_one =Db::name('shopping')->where($where)->delete();
+                                    $res_one = Db::name('shopping')->where($where)->delete();
                                     if($res_one){
                                         $res_tow = Db::name('shopping_shop')->where('id',$shopping_id)->delete();
                                         if($res_tow){
-                                            return ajax_success('下单成功', $datas['order_information_number']);
+                                            return ajax_success('下单成功',1);
                                         }else{
-                                            return ajax_success('下单成功', $datas['order_information_number']);
+                                            return ajax_success('下单成功',2);
                                         }
                                     }else{
-                                        return ajax_success('下单成功', $datas['order_information_number']);
+                                        return ajax_success('下单成功', 3);
                                     }
                                 }else{
                                     return ajax_success('下单失败',['status'=>0]);
