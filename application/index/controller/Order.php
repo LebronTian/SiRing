@@ -268,11 +268,15 @@ class Order extends Controller {
                                 ];
                                 $res =Db::name('order')->insertGetId($datas);
                                 if($res){
-//                              $res_one =Db::name('shopping')->where($where)->delete();
-//                              $res_tow = Db::name('shopping_shop')->where('id',$shopping_id)->delete();
-                                    return ajax_success('下单成功', $datas['order_information_number']);
+                                  $res_one =Db::name('shopping')->where($where)->delete();
+                                  $res_tow = Db::name('shopping_shop')->where('id',$shopping_id)->delete();
+                                  if(!empty($res_one)&&!empty($res_tow)){
+                                      return ajax_success('下单成功', $datas['order_information_number']);
+                                  }else{
+                                      return ajax_success('下单成功', $datas['order_information_number']);
+                                    }
                                 }else{
-                                    return ajax_success('下单成功', $datas['order_information_number']);
+                                    return ajax_success('下单失败',['status'=>0]);
 
                                 }
                                 }else{
