@@ -270,6 +270,7 @@ class Order extends Controller {
                                 }
                             if(!empty($res)){
                                     $res_one =Db::name('shopping')->where($where)->delete();
+                                return ajax_success('111',$res_one);
                                     $res_tow = Db::name('shopping_shop')->where('id',$shopping_id)->delete();
                                     if($res_one){
                                         if($res_tow){
