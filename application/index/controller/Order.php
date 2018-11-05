@@ -269,11 +269,12 @@ class Order extends Controller {
                                     /*下单成功对购物车里面对应的商品进行删除*/
                                 }
                                 if($res){
+                                    $order_information_numbers =Db::name('order')->field('order_information_number')->where('id',$res)->find();
                                     $res_one = Db::name('shopping')->where($where)->delete();
                                     if($res_one){
                                         $res_tow = Db::name('shopping_shop')->where('id',$shopping_id)->delete();
                                         if($res_tow){
-                                            return ajax_success('下单成功',1);
+                                            return ajax_success('下单成功',$order_information_numbers['order_information_number']);
                                         }else{
                                             return ajax_success('下单成功',2);
                                         }
