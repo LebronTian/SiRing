@@ -282,7 +282,7 @@ class Order extends Controller {
 //                                    $resss= Db::name('shopping')->where($where)->delete();
 //                                    $ressss= Db::name('shopping_shop')->where('id',$shopping_id['id'])->delete();
 //                                    if(!empty($resss)&&!empty($ressss)){
-                            return ajax_success('下单成功', $res);
+                            return ajax_success('下单成功', $datas['order_information_number']);
                         }else{
                             return ajax_error('错误',['status'=>0]);
                         }
