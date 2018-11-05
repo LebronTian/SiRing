@@ -267,9 +267,7 @@ class Order extends Controller {
                                     'order_information_number' => $create_time . $member['id'],//时间戳+用户id构成订单号
                                     'shopping_shop_id' => $v['id']
                                 ];
-
                                 $res =Db::name('order')->insertGetId($datas);
-
 ////                            return ajax_success('下单成功',$res);
 //                                }else{
 //                                    return ajax_success('下单失败',['status'=>0]);
@@ -277,12 +275,14 @@ class Order extends Controller {
                                 /*下单成功对购物车里面对应的商品进行删除*/
                             }
                         }
-
                         if(!empty($res)){
-//                                    $resss= Db::name('shopping')->where($where)->delete();
-//                                    $ressss= Db::name('shopping_shop')->where('id',$shopping_id['id'])->delete();
-//                                    if(!empty($resss)&&!empty($ressss)){
-                            return ajax_success('下单成功', $datas['order_information_number']);
+                                    $resss= Db::name('shopping')->where($where)->delete();
+                                    $ressss= Db::name('shopping_shop')->where('id',$shopping_id['id'])->delete();
+                                    if(!empty($resss)&&!empty($ressss)) {
+                                        return ajax_success('下单成功', $datas['order_information_number']);
+                                    }else{
+                                        return ajax_success('下单成功', $datas['order_information_number']);
+                                    }
                         }else{
                             return ajax_error('错误',['status'=>0]);
                         }
