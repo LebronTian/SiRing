@@ -234,6 +234,7 @@ class Order extends Controller {
             }
             //从购物车过来的
             $shopping_id = $_POST['shopping_id'];
+//
             if (!empty($shopping_id)) {
                 $shopping = Db::name('shopping_shop')->where('id', $shopping_id)->find();
                 if(!empty($shopping)){
@@ -271,12 +272,14 @@ class Order extends Controller {
                                     $res_one =Db::name('shopping')->where($where)->delete();
                                     $res_tow = Db::name('shopping_shop')->where('id',$shopping_id)->delete();
                                     if(!empty($res_one)){
+                                        return ajax_success('数据情况',['staus'=>222]);
                                         if(!empty($res_tow)){
                                             return ajax_success('下单成功', $datas['order_information_number']);
                                         }else{
                                             return ajax_success('下单成功', $datas['order_information_number']);
                                         }
                                     }else{
+                                        return ajax_success('数据情况',['staus'=>333]);
                                         return ajax_success('下单成功', $datas['order_information_number']);
                                     }
                             }else{
