@@ -221,7 +221,6 @@ class Order extends Controller {
      */
     public function  ios_api_order_button_by_shop(Request $request){
         if ($request->isPost()) {
-            $data = $_POST;
             $member_data = session('member');
             $member = Db::name('user')->field('id,harvester,harvester_phone_num,city,address')->where('phone_num', $member_data['phone_num'])->find();
             if (empty($member['harvester']) || empty($member['harvester_phone_num']) || empty($member['city']) || empty($member['address'])) {
@@ -237,53 +236,116 @@ class Order extends Controller {
             $shopping_id = $_POST['shopping_id'];
             if (!empty($shopping_id)) {
                 $shopping = Db::name('shopping_shop')->where('id', $shopping_id)->find();
-                $shop_id = explode(',', $shopping['shopping_id']);
-                if (is_array($shop_id)) {
-                    $where = 'id in(' . implode(',', $shop_id) . ')';
-                } else {
-                    $where = 'id=' . $shop_id;
-                }
-                $list = Db::name('shopping')->where($where)->select();
-                $create_time = time();
-                foreach ($list as $k => $v) {
-                    if (!empty($data)) {
-                        $datas = [
-                            'goods_img' => $v['goods_images'],
-                            'goods_name' => $data['goods_name'][$k],
-                            'order_num' => $data['order_num'][$k],
-                            'user_id' => $member['id'],
-                            'harvester' => $member['harvester'],
-                            'harvest_phone_num' => $member['harvester_phone_num'],
-                            'harvest_address' => $position,
-                            'create_time' => $create_time,
-                            'pay_money' => $data['all_pay'],
+                if(!empty($shopping)){
+                    $shop_id = explode(',', $shopping['shopping_id']);
+                    if (is_array($shop_id)) {
+                        $where = 'id in(' . implode(',', $shop_id) . ')';
+                    } else {
+                        $where = 'id=' . $shop_id;
+                    }
+                    $list = Db::name('shopping')->where($where)->select();
+
+                    if(!empty($list)){
+                        $create_time = time();
+                        foreach ($list as $k => $v) {
+                            $data = $_POST;
+                            if (!empty($data)) {
+                                $datas = [
+                                    'goods_img' => $v['goods_images'],
+                                    'goods_name' => $data['goods_name'][$k],
+                                    'order_num' => $data['order_num'][$k],
+                                    'user_id' => $member['id'],
+                                    'harvester' => $member['harvester'],
+                                    'harvest_phone_num' => $member['harvester_phone_num'],
+                                    'harvest_address' => $position,
+                                    'create_time' => $create_time,
+                                    'pay_money' => $data['all_pay'],
 //                            'pay_money' => $data['money'],
-                            'status' => 1,
-                            'goods_id' => $v['goods_id'],
-                            'send_money' => $data['express_fee'],
-                            'order_information_number' => $create_time . $member['id'],//时间戳+用户id构成订单号
-                            'shopping_shop_id' => $v['id']
-                        ];
-                        $res =Db::name('order')->insertGetId($datas);
+                                    'status' => 1,
+                                    'goods_id' => $v['goods_id'],
+                                    'send_money' => $data['express_fee'],
+                                    'order_information_number' => $create_time . $member['id'],//时间戳+用户id构成订单号
+                                    'shopping_shop_id' => $v['id']
+                                ];
+
+                                $res =Db::name('order')->insertGetId($datas);
+
+////                            return ajax_success('下单成功',$res);
+//                                }else{
+//                                    return ajax_success('下单失败',['status'=>0]);
+//                                }
+                                /*下单成功对购物车里面对应的商品进行删除*/
+                            }
+                        }
 
                         if(!empty($res)){
-                                $resss= Db::name('shopping')->where($where)->delete();
-                                $ressss= Db::name('shopping_shop')->where('id',$shopping_id['id'])->delete();
-                                if(!empty($resss)&&!empty($ressss)){
-                                    return ajax_success('下单成功', $res);
-                                }else{
-                                    return ajax_error('错误',['status'=>0]);
-                                }
-//                            return ajax_success('下单成功',$res);
+//                                    $resss= Db::name('shopping')->where($where)->delete();
+//                                    $ressss= Db::name('shopping_shop')->where('id',$shopping_id['id'])->delete();
+//                                    if(!empty($resss)&&!empty($ressss)){
+                            return ajax_success('下单成功', $datas);
                         }else{
-                            return ajax_success('下单失败',['status'=>0]);
+                            return ajax_error('错误',['status'=>0]);
                         }
-                        /*下单成功对购物车里面对应的商品进行删除*/
-                        }
-
+                    }else{
+                        return ajax_error('测试没有数据返回1',['status'=>0]);
+                    }
+                }else{
+                    return ajax_error('测试没有数据返回4',['status'=>0]);
                 }
+//                    if(!empty($list)){
+//                        $create_time = time();
+//                        foreach ($list as $k => $v) {
+//                            $data = $_POST;
+//                            if (!empty($data)) {
+//                                $datas = [
+//                                    'goods_img' => $v['goods_images'],
+//                                    'goods_name' => $data['goods_name'][$k],
+//                                    'order_num' => $data['order_num'][$k],
+//                                    'user_id' => $member['id'],
+//                                    'harvester' => $member['harvester'],
+//                                    'harvest_phone_num' => $member['harvester_phone_num'],
+//                                    'harvest_address' => $position,
+//                                    'create_time' => $create_time,
+//                                    'pay_money' => $data['all_pay'],
+////                            'pay_money' => $data['money'],
+//                                    'status' => 1,
+//                                    'goods_id' => $v['goods_id'],
+//                                    'send_money' => $data['express_fee'],
+//                                    'order_information_number' => $create_time . $member['id'],//时间戳+用户id构成订单号
+//                                    'shopping_shop_id' => $v['id']
+//                                ];
+//                                $res =Db::name('order')->insertGetId($datas);
+//                                if(!empty($res)){
+//                                    $resss= Db::name('shopping')->where($where)->delete();
+//                                    $ressss= Db::name('shopping_shop')->where('id',$shopping_id['id'])->delete();
+//                                    if(!empty($resss)&&!empty($ressss)){
+//                                        return ajax_success('下单成功', $res);
+//                                    }else{
+//                                        return ajax_error('错误',['status'=>0]);
+//                                    }
+////                            return ajax_success('下单成功',$res);
+//                                }else{
+//                                    return ajax_success('下单失败',['status'=>0]);
+//                                }
+//                                /*下单成功对购物车里面对应的商品进行删除*/
+//                            }
+//                        }
+//                    }else{
+//                        return ajax_error('测试没有数据返回2',['status'=>0]);
+//                    }
+                }else{
+                    return ajax_error('测试没有数据返回3',['status'=>0]);
+                }
+
+//                if(!empty($list)){
+//                    return ajax_success('测试成功',$list);
+//                }else{
+//                    return ajax_error('测试没有数据返回',['status'=>0]);
+//                }
+
+
             }
-        }
+
     }
 
     /**
