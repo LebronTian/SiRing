@@ -267,22 +267,23 @@ class Order extends Controller {
                                     ];
                                     $res =Db::name('order')->insertGetId($datas);
                                     /*下单成功对购物车里面对应的商品进行删除*/
-                                }
-                            if(!empty($res)){
-                                    $res_one =Db::name('shopping')->where($where)->delete();
-                                    if($res_one){
-                                        $res_tow = Db::name('shopping_shop')->where('id',$shopping_id)->delete();
-                                        if($res_tow){
-                                            return ajax_success('下单成功', $datas['order_information_number']);
+                                    if(!empty($res)){
+                                        $res_one =Db::name('shopping')->where($where)->delete();
+                                        if($res_one){
+                                            $res_tow = Db::name('shopping_shop')->where('id',$shopping_id)->delete();
+                                            if($res_tow){
+                                                return ajax_success('下单成功', $datas['order_information_number']);
+                                            }else{
+                                                return ajax_success('下单成功', $datas['order_information_number']);
+                                            }
                                         }else{
                                             return ajax_success('下单成功', $datas['order_information_number']);
                                         }
                                     }else{
-                                        return ajax_success('下单成功', $datas['order_information_number']);
+                                        return ajax_success('下单失败',['status'=>0]);
                                     }
-                            }else{
-                                return ajax_success('下单失败',['status'=>0]);
-                            }
+                                }
+
                             }else{
                                 return ajax_error('错误',['status'=>0]);
                             }
