@@ -313,7 +313,7 @@ class Order extends Controller {
             $time =date('Y-m-d H:i:s');
             if(!empty( $order_num)){
                 $counts =Db::name('order')->where('order_information_number',$order_num)->count();
-                if($counts>1){
+                if($counts==1){
                     $data = Db::name('order')->where('order_information_number',$order_num)->select();
                     if(!empty($data)){
                         foreach ($data as $k=>$v){
@@ -354,7 +354,8 @@ class Order extends Controller {
                     }else{
                         return ajax_error('数据返回不成功',['status'=>0]);
                     }
-                }else{
+                }
+                if($counts>1){
                     $data = Db::name('order')->where('order_information_number',$order_num)->select();
                     if(!empty($data)){
                         foreach ($data as $k=>$v){
@@ -390,10 +391,9 @@ class Order extends Controller {
                             $sign = $Client->alonersaSign($paramStr, $private_path, 'RSA2', false);//生成签名()
                             $param['sign'] = $sign;
                             $str = $Client->getSignContentUrlencode($param);//最终请求参数
-//                       $strings ='alipay_sdk=alipay-sdk-php-3.3.0&'.$str;
-
+                            return ajax_success('数据成功返回',$str);
                         }
-                        return ajax_success('数据成功返回',$str);
+
                     }else{
                         return ajax_error('数据返回不成功',['status'=>0]);
                     }
