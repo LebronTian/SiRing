@@ -244,7 +244,6 @@ class Order extends Controller {
                         $where = 'id=' . $shop_id;
                     }
                     $list = Db::name('shopping')->where($where)->select();
-
                     if(!empty($list)){
                         $create_time = time();
                         foreach ($list as $k => $v) {
@@ -334,9 +333,9 @@ class Order extends Controller {
 //                    }else{
 //                        return ajax_error('测试没有数据返回2',['status'=>0]);
 //                    }
-                }else{
-                    return ajax_error('测试没有数据返回3',['status'=>0]);
-                }
+//                }else{
+//                    return ajax_error('测试没有数据返回3',['status'=>0]);
+//                }
 
 //                if(!empty($list)){
 //                    return ajax_success('测试成功',$list);
@@ -345,7 +344,7 @@ class Order extends Controller {
 //                }
 
 
-            }
+//            }
 
     }
 
