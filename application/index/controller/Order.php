@@ -12,7 +12,7 @@ use think\Request;
 use think\Session;
 
 
-class Order extends Controller {
+class Order extends Base {
 
     /**
      **************李火生*******************
@@ -289,10 +289,10 @@ class Order extends Controller {
                                 return ajax_error('错误',['status'=>0]);
                             }
                     }else{
-                        return ajax_error('测试没有数据返回',['status'=>0]);
+                        return ajax_error('没有数据返回',['status'=>0]);
                     }
                 }else{
-                    return ajax_error('测试没有数据返回',['status'=>0]);
+                    return ajax_error('没有数据返回',['status'=>0]);
                 }
 
            }
@@ -398,7 +398,6 @@ class Order extends Controller {
                         return ajax_error('数据返回不成功',['status'=>0]);
                     }
                 }
-
             }else{
                 return ajax_error('失败',['status'=>0]);
             }
@@ -766,7 +765,7 @@ class Order extends Controller {
                if(!empty($data)){
                    return ajax_success('待支付数据返回成功',$data);
                }else{
-                   return ajax_error('待支付数据返回为空',['status'=>0]);
+                   return ajax_error('暂无待支付',['status'=>0]);
                }
            }else{
                return ajax_error('请登录',['status'=>0]);
@@ -801,7 +800,7 @@ class Order extends Controller {
                 if(!empty($data)){
                     return ajax_success('待发IOS接口数据返回成功',$data);
                 }else{
-                    return ajax_error('待发IOS接口数据返回为空',['status'=>0]);
+                    return ajax_error('暂无待发货订单',['status'=>0]);
                 }
             }else{
                 return ajax_error('请登录',['status'=>0]);
@@ -845,7 +844,7 @@ class Order extends Controller {
                     if(!empty($data)){
                         return ajax_success('待收货ios数据返回成功',$data);
                     }else{
-                        return ajax_error('待收货IOS接口数据返回为空',['status'=>0]);
+                        return ajax_error('暂无待收货',['status'=>0]);
                     }
                 }else{
                     return ajax_error('请登录',['status'=>0]);
@@ -887,7 +886,7 @@ class Order extends Controller {
                if(!empty($data)){
                    return ajax_success('iso与待评价的接口数据返回成功',$data);
                }else{
-                  return ajax_error('iso与待评价的接口数据返回失败',['status'=>0]);
+                  return ajax_error('暂无待评价',['status'=>0]);
                }
            }else{
                return ajax_error('请登录',['status'=>0]);

@@ -14,11 +14,11 @@ use think\Request;
 class  Order extends  Controller{
 
     /**
-     **************李火生*******************
-     * @return \think\response\View
-     * 订单首页
-     **************************************
-     */
+**************李火生*******************
+* @return \think\response\View
+* 订单首页
+**************************************
+*/
     public function index(){
         $data=Db::table("tb_order")
             ->field("tb_order.*,tb_user.user_name tname,tb_user.phone_num phone")
@@ -33,11 +33,13 @@ class  Order extends  Controller{
         }
         return view('order_index');
     }
+
     /**
      **************李火生*******************
      * @param Request $request
-     * 模糊查询
+     * Notes:模糊查询
      **************************************
+     * @return \think\response\View
      */
 
     public function search(){
@@ -62,40 +64,6 @@ class  Order extends  Controller{
 
     }
 
-//    public function search(Request $request){
-//        if($request->isPost()){
-//            $keywords =input('search_key');
-//            if(!empty($keywords)){
-//                $condition = " `goods_name` like '%{$keywords}%' or `id` like '%{$keywords}%' or`user_id` like '%{$keywords}%'";
-//                $res = Db::name("order")->where($condition)->select();
-//                return ajax_success('成功',$res);
-//            }
-////            $timemin  =strtotime(input('datemin'));
-////            $timemax  =strtotime(input('datemax'));
-////            if(empty($timemin)||empty($timemax)){
-////                $condition = " `goods_name` like '%{$keywords}%' or `id` like '%{$keywords}%' or`user_id` like '%{$keywords}%'";
-////                $res = Db::name("order")->where($condition)->select();
-////                dump($res);
-////                return ajax_success('成功',$res);
-////            }
-////            if(!empty($timemin)&&!empty($timemax)){
-////                if(empty($keywords)){
-////                    $condition = "create_time>{$timemin} and create_time< {$timemax}";
-////                    $res = Db::name("order")->where($condition)->select();
-////                    return ajax_success('成功',$res);
-////                }
-////                if(!empty($keywords)){
-////                    $condition = " `goods_name` like '%{$keywords}%' or `id` like '%{$keywords}%' or`user_id` like '%{$keywords}%'";
-////                    $conditions = "create_time>{$timemin} and create_time< {$timemax}";
-////                    $res = Db::name("order")->where($condition)->where($conditions)->select();
-////                    return ajax_success('成功',$res);
-////                }else{
-////                    return ajax_error('失败');
-////                }
-////
-////            }
-//        }
-//    }
 
 
     /**
@@ -323,6 +291,7 @@ class  Order extends  Controller{
             ->field("tb_order.*,tb_user.user_name tname,tb_user.phone_num phone")
             ->join("tb_user","tb_order.user_id=tb_user.id",'left')
             ->where('tb_order.status',6)
+            ->whereOr('tb_order.status',5)
             ->order('tb_order.create_time','desc')
             ->paginate(10);
         $count =$data->count();
