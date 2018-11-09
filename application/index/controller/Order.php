@@ -411,79 +411,107 @@ class Order extends Base {
      */
     public function notifyurl()
     {
-//        $aop = new \AopClient;
-//            $aop->alipayrsaPublicKey = "MIIEpAIBAAKCAQEA1YHhYsj9AaXi+UvoMWp8EqiJHHqD+O+YbQ9nF8POQuyaTPW4hZZPIq/HoEBIyu8Myh7UT5DS5HFA4ZUZeeySTISCPFUWbppQf7YM4UXuzqSzERQmcFw4wpfQglfb6ECuGyH81C7ibhHvoibzeFESMCC1nHvmMl+AjEqBK7b/CCJpC4KwPzoloivFNy8rXfP/mSocbADSfAORhJo15fjbQT2ixy7mRUA8bIK2hBLbDp8JsStJ3BoLGS4/zX0jQJRXQfeE3DLt95ITIul4RMTFnZ151fS7ylOgNWeAacDQ3fet7IF54QWP5zW9M7j8gcy7UexJdMfffPoZvvSetIItFwIDAQABAoIBAQCkJsZ1n9e985+NUgoELD2WTtOT/LIIq5WCjCwT/mxP0f9UGjuzIXxYS9NsZuBQffhUUd2kCtHJ5zUd+vdqYTOd9ub2oeisQqKPfhVrAcx4PfKat+ZRzuWo3vXlsM0XRNtXawsqy501ST73aYEZSSN1s0BOPogexIRd2E51oK11vy+BBotPOXmSj6sKAFNJ6drD3ckdJ678s+mYTxdIoKi45l+5wwpHxL7qsPTeuBijhhBufY6KzkxRYlR+zq5M+pVJcnsh3TZWsbW6z73tb/C31E5cOnuy2l53YHe20dda0Om6w41+QhekuZvwZyLWYqXeLYCc2tfR1DHs2Zicv6ZJAoGBAO1D0eZIldte7Ka6Yd+zrNhaNvL8JGUSosGmKwdS6PHQA27IBuVd";
-//            $aop->alipayrsaPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyC9iRV5kLDbVK619EtISgMN5Gz0bOdFAfSojUzefVhKUrEJ6j48d1Awrg98yudp22kUs0zboMkVTYDT1l9ux5xj/p39JhqjjIl44oZsGFjSmu9/2HxaZ4UjfTJXkaGwJqyY0fSY2f+cE5YjoRYq5XhqijzF0BoKoH64pQNWxqp6f3wss2FKp707KV/oLAArqkqFcWfyylMsncdxV59Lo0mtJ7cIEOezng4es3KDdHmLT5kq3j0hl0kfIjdGuDR0cWnlcolHUoIOKVGSlSHn+WnFlZ20/fkfF+hdadUcG42tywCBVT40ugX1LmmdCI4hAnxLxeQ7bFkhrnpDWcW7KWQIDAQAB";
-//            $aop->alipayrsaPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmKw/C4jHlGLUhpATv2yesGaZOSI9MmOuw5AMcB6odktNj19CSNDAmS5gDCKM4bJyVFOCFb3BNgvADvhoXHMPngGUkqHkJuRotGpvbr3A5UCyWLsF442cFnO7KZC5blKY59DmB/zZ7E9gRT5BhmQebJkkMls2PcVkvEUNTdQiorcNunhxOfsyUuYqsZP0yPoptR8YarmiWZVXwNxJ7Ha3zVzc7kVPqNYyDkCYtSfvVjOeutUh2dGsz1irsYUZpQP4Kra2YyhPlXpNS/KR3TSl1eLXxAQH6g1YWIsQ7/AZRi+Qv1mczwB9miYjQyPkEtjyYQkHVaItxeGW3fvsSvXy9QIDAQAB";
-//
-//        $flag = $aop->rsaCheckV1($_POST, NULL, "RSA2");
-//        if($flag) {
-            //验证成功
-            //这里可以做一下你自己的订单逻辑处理
-            $data =['status'=>2];
-            $pay_time = time();
-            $data['pay_time'] = $pay_time;
-            //原始订单号
-            $out_trade_no = input('out_trade_no');
-            //支付宝交易号
-            $trade_no = input('trade_no');
-            //交易状态
-            $trade_status = input('trade_status');
-
-            if ($trade_status == 'TRADE_FINISHED' || $trade_status == 'TRADE_SUCCESS') {
-                $condition['order_information_number'] = $out_trade_no;
-//                $data['status'] = 2;
-//                $data['third_ordersn'] = $trade_no;
-//                $result = Db::name('order')->where($condition)->update($data);//修改订单状态,支付宝单号到数据库
-                $result = Db::name('order')->where('order_information_number',$out_trade_no)->update($data);//修改订单状态,支付宝单号到数据库
-                if ($result) {
-                    echo 'success';//这个必须返回给支付宝，响应个支付宝
-//                    return ajax_success('支付成功', ['statuss' => 1]);
-                } else {
-                    echo 'error';
-//                    return ajax_error('支付失败', ['statuss' => 0]);
-                }
+        //这里可以做一下你自己的订单逻辑处理
+        $pay_time = time();
+        $data['pay_time'] = $pay_time;
+        //原始订单号
+        $out_trade_no = input('out_trade_no');
+        //支付宝交易号
+        $trade_no = input('trade_no');
+        //交易状态
+        $trade_status = input('trade_status');
+        if ($trade_status == 'TRADE_FINISHED' || $trade_status == 'TRADE_SUCCESS') {
+            $data =['status'] = 2;
+            $condition['order_information_number'] = $out_trade_no;
+            $result = Db::name('order')->where($condition)->update($data);//修改订单状态,支付宝单号到数据库
+            if ($result) {
+                echo 'success';//这个必须返回给支付宝，响应个支付宝
             } else {
                 echo 'error';
-//                return ajax_error('支付失败', ['statuss' => 0]);
             }
-//        }
-
-//                if(!empty($_GET['out_trade_no'])){
-//                    $shopping_goods = db("order")->where("order_information_number",$_GET["out_trade_no"])->field("goods_id,shopping_shop_id,order_num")->select();
-//                    $goods = db("goods")->where("id",$shopping_goods[0]['goods_id'])->field("goods_num")->find();
-//                    $goods_num = $goods['goods_num'] - 1;
-//                    $seckill = db("seckill")->where("goods_id",$shopping_goods[0]['goods_id'])->find();
-//                    if(empty($shopping_goods[0]["shopping_shop_id"])){
-//                        db("goods")->where("id",$shopping_goods[0]['goods_id'])->update(["goods_num"=>$goods_num]);
-//                    }
-//                    //第一次秒杀提交订单
-//                    if(!empty($seckill["goods_num"])){
-//                        $seckill_num = $seckill["goods_num"] - 1;
-//                        db("seckill")->where("goods_id",$shopping_goods[0]['goods_id'])->update(["residue_num"=>$seckill_num]);
-//                    }
-//                    //购物车提交订单
-//                    foreach ($shopping_goods as $key=>$value){
-//                        $goods_shopping_num = db("goods")->where("id",$value["goods_id"])->field("goods_num")->find();
-//                        if(!empty($value["shopping_shop_id"])){
-//                            $shopping_goods_num[] = $goods_shopping_num["goods_num"] - $value["order_num"];
-//                            db("goods")->where("id",$value["goods_id"])->update(["goods_num"=>$shopping_goods_num[$key]]);
-//                        }
-//                    }
-//                    $bool = db("order")->where("order_information_number",$_GET['out_trade_no'])->update($data);
-//                    if($bool){
-//                        $this->redirect(url("index/index/index"));
-//                    }
-//                }
-
-
-//            echo 'success';//这个必须返回给支付宝，响应个支付宝，
-//        } else {
-//            //验证失败
-//          return ajax_error('验证失败',['status'=>0]);
-//        }
-        //$flag返回是的布尔值，true或者false,可以根据这个判断是否支付成功
+        } else {
+            echo 'error';
+        }
     }
+
+
+
+
+//    public function notifyurl()
+//    {
+////        $aop = new \AopClient;
+////            $aop->alipayrsaPublicKey = "MIIEpAIBAAKCAQEA1YHhYsj9AaXi+UvoMWp8EqiJHHqD+O+YbQ9nF8POQuyaTPW4hZZPIq/HoEBIyu8Myh7UT5DS5HFA4ZUZeeySTISCPFUWbppQf7YM4UXuzqSzERQmcFw4wpfQglfb6ECuGyH81C7ibhHvoibzeFESMCC1nHvmMl+AjEqBK7b/CCJpC4KwPzoloivFNy8rXfP/mSocbADSfAORhJo15fjbQT2ixy7mRUA8bIK2hBLbDp8JsStJ3BoLGS4/zX0jQJRXQfeE3DLt95ITIul4RMTFnZ151fS7ylOgNWeAacDQ3fet7IF54QWP5zW9M7j8gcy7UexJdMfffPoZvvSetIItFwIDAQABAoIBAQCkJsZ1n9e985+NUgoELD2WTtOT/LIIq5WCjCwT/mxP0f9UGjuzIXxYS9NsZuBQffhUUd2kCtHJ5zUd+vdqYTOd9ub2oeisQqKPfhVrAcx4PfKat+ZRzuWo3vXlsM0XRNtXawsqy501ST73aYEZSSN1s0BOPogexIRd2E51oK11vy+BBotPOXmSj6sKAFNJ6drD3ckdJ678s+mYTxdIoKi45l+5wwpHxL7qsPTeuBijhhBufY6KzkxRYlR+zq5M+pVJcnsh3TZWsbW6z73tb/C31E5cOnuy2l53YHe20dda0Om6w41+QhekuZvwZyLWYqXeLYCc2tfR1DHs2Zicv6ZJAoGBAO1D0eZIldte7Ka6Yd+zrNhaNvL8JGUSosGmKwdS6PHQA27IBuVd";
+////            $aop->alipayrsaPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyC9iRV5kLDbVK619EtISgMN5Gz0bOdFAfSojUzefVhKUrEJ6j48d1Awrg98yudp22kUs0zboMkVTYDT1l9ux5xj/p39JhqjjIl44oZsGFjSmu9/2HxaZ4UjfTJXkaGwJqyY0fSY2f+cE5YjoRYq5XhqijzF0BoKoH64pQNWxqp6f3wss2FKp707KV/oLAArqkqFcWfyylMsncdxV59Lo0mtJ7cIEOezng4es3KDdHmLT5kq3j0hl0kfIjdGuDR0cWnlcolHUoIOKVGSlSHn+WnFlZ20/fkfF+hdadUcG42tywCBVT40ugX1LmmdCI4hAnxLxeQ7bFkhrnpDWcW7KWQIDAQAB";
+////            $aop->alipayrsaPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmKw/C4jHlGLUhpATv2yesGaZOSI9MmOuw5AMcB6odktNj19CSNDAmS5gDCKM4bJyVFOCFb3BNgvADvhoXHMPngGUkqHkJuRotGpvbr3A5UCyWLsF442cFnO7KZC5blKY59DmB/zZ7E9gRT5BhmQebJkkMls2PcVkvEUNTdQiorcNunhxOfsyUuYqsZP0yPoptR8YarmiWZVXwNxJ7Ha3zVzc7kVPqNYyDkCYtSfvVjOeutUh2dGsz1irsYUZpQP4Kra2YyhPlXpNS/KR3TSl1eLXxAQH6g1YWIsQ7/AZRi+Qv1mczwB9miYjQyPkEtjyYQkHVaItxeGW3fvsSvXy9QIDAQAB";
+////
+////        $flag = $aop->rsaCheckV1($_POST, NULL, "RSA2");
+////        if($flag) {
+//            //验证成功
+//            //这里可以做一下你自己的订单逻辑处理
+//            $data =['status'=>2];
+//            $pay_time = time();
+//            $data['pay_time'] = $pay_time;
+//            //原始订单号
+//            $out_trade_no = input('out_trade_no');
+//            //支付宝交易号
+//            $trade_no = input('trade_no');
+//            //交易状态
+//            $trade_status = input('trade_status');
+//
+//            if ($trade_status == 'TRADE_FINISHED' || $trade_status == 'TRADE_SUCCESS') {
+//                $condition['order_information_number'] = $out_trade_no;
+////                $data['status'] = 2;
+////                $data['third_ordersn'] = $trade_no;
+////                $result = Db::name('order')->where($condition)->update($data);//修改订单状态,支付宝单号到数据库
+//                $result = Db::name('order')->where('order_information_number',$out_trade_no)->update($data);//修改订单状态,支付宝单号到数据库
+//                if ($result) {
+//                    echo 'success';//这个必须返回给支付宝，响应个支付宝
+////                    return ajax_success('支付成功', ['statuss' => 1]);
+//                } else {
+//                    echo 'error';
+////                    return ajax_error('支付失败', ['statuss' => 0]);
+//                }
+//            } else {
+//                echo 'error';
+////                return ajax_error('支付失败', ['statuss' => 0]);
+//            }
+////        }
+//
+////                if(!empty($_GET['out_trade_no'])){
+////                    $shopping_goods = db("order")->where("order_information_number",$_GET["out_trade_no"])->field("goods_id,shopping_shop_id,order_num")->select();
+////                    $goods = db("goods")->where("id",$shopping_goods[0]['goods_id'])->field("goods_num")->find();
+////                    $goods_num = $goods['goods_num'] - 1;
+////                    $seckill = db("seckill")->where("goods_id",$shopping_goods[0]['goods_id'])->find();
+////                    if(empty($shopping_goods[0]["shopping_shop_id"])){
+////                        db("goods")->where("id",$shopping_goods[0]['goods_id'])->update(["goods_num"=>$goods_num]);
+////                    }
+////                    //第一次秒杀提交订单
+////                    if(!empty($seckill["goods_num"])){
+////                        $seckill_num = $seckill["goods_num"] - 1;
+////                        db("seckill")->where("goods_id",$shopping_goods[0]['goods_id'])->update(["residue_num"=>$seckill_num]);
+////                    }
+////                    //购物车提交订单
+////                    foreach ($shopping_goods as $key=>$value){
+////                        $goods_shopping_num = db("goods")->where("id",$value["goods_id"])->field("goods_num")->find();
+////                        if(!empty($value["shopping_shop_id"])){
+////                            $shopping_goods_num[] = $goods_shopping_num["goods_num"] - $value["order_num"];
+////                            db("goods")->where("id",$value["goods_id"])->update(["goods_num"=>$shopping_goods_num[$key]]);
+////                        }
+////                    }
+////                    $bool = db("order")->where("order_information_number",$_GET['out_trade_no'])->update($data);
+////                    if($bool){
+////                        $this->redirect(url("index/index/index"));
+////                    }
+////                }
+//
+//
+////            echo 'success';//这个必须返回给支付宝，响应个支付宝，
+////        } else {
+////            //验证失败
+////          return ajax_error('验证失败',['status'=>0]);
+////        }
+//        //$flag返回是的布尔值，true或者false,可以根据这个判断是否支付成功
+//    }
 
 
 
