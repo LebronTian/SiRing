@@ -425,12 +425,12 @@ class Order extends Base {
             $condition['order_information_number'] = $out_trade_no;
             $result = Db::name('order')->where($condition)->update($data);//修改订单状态,支付宝单号到数据库
             if ($result) {
-                echo 'success';//这个必须返回给支付宝，响应个支付宝
+                return ajax_success('支付成功', ['statuss' =>1]);
             } else {
-                echo 'error';
+                return ajax_error('验证失败',['status'=>0]);
             }
         } else {
-            echo 'error';
+            return ajax_error('验证失败',['status'=>0]);
         }
     }
 
