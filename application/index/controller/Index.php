@@ -19,7 +19,7 @@ class Index extends Controller
         if($request->isPost()) {
             $goods_type = db("goods_type")->where("pid", "0")->order("sort_number")->select();
             $seckill = db("seckill")->select();
-            $goods = db("goods")->where("goods_status", 1)->select();
+            $goods = db("goods")->where("goods_status","<>",0)->select();
             $images = db("advertising")->select();
             $recommend = db("recommend")->where("status","<>","0")->select();
             $time = time();

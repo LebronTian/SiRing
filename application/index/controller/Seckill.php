@@ -32,7 +32,7 @@ class Seckill extends Controller{
     public function show(Request $request){
         if($request->isPost()) {
             $type_id = Session::get("type_id");
-            $goods = db("goods")->where("goods_type_id", $type_id)->select();
+            $goods = db("goods")->where("goods_type_id", $type_id)->where("goods_status",1)->select();
             $images = db("seckill")->where("type_id", $type_id)->select();
             $over_time = $images[0]["over_time"];
             $time = time();

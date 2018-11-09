@@ -110,7 +110,7 @@ class Shopping extends Base {
     }
 
 
-
+    /*购物车删除*/
     public function batch(Request $r){
         if($r->isPost()){
             $id = $r->only(['del_id']);
