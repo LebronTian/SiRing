@@ -431,7 +431,8 @@ class Order extends Base {
                 $condition['order_information_number'] = $out_trade_no;
 //                $data['status'] = 2;
 //                $data['third_ordersn'] = $trade_no;
-                $result = Db::name('order')->where($condition)->update($data);//修改订单状态,支付宝单号到数据库
+//                $result = Db::name('order')->where($condition)->update($data);//修改订单状态,支付宝单号到数据库
+                $result = Db::name('order')->where('order_information_number',$out_trade_no)->update($data);//修改订单状态,支付宝单号到数据库
                 if ($result) {
                     return ajax_success('支付成功', ['statuss' => 1]);
                 } else {
