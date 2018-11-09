@@ -421,7 +421,7 @@ class Order extends Base {
         //交易状态
         $trade_status = input('trade_status');
         if ($trade_status == 'TRADE_FINISHED' || $trade_status == 'TRADE_SUCCESS') {
-            $data =['status'] = 2;
+            $data['status'] = 2;
             $condition['order_information_number'] = $out_trade_no;
             $result = Db::name('order')->where($condition)->update($data);//修改订单状态,支付宝单号到数据库
             if ($result) {
