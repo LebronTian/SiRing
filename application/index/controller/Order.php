@@ -426,7 +426,8 @@ class Order extends Base {
             $trade_no = input('trade_no');
             //交易状态
             $trade_status = input('trade_status');
-            if ($trade_status == 'TRADE_FINISHED' || $trade_status == 'TRADE_SUCCESS') {
+
+//            if ($trade_status == 'TRADE_FINISHED' || $trade_status == 'TRADE_SUCCESS') {
                 $condition['order_information_number'] = $out_trade_no;
 //                $data['status'] = 2;
 //                $data['third_ordersn'] = $trade_no;
@@ -439,7 +440,7 @@ class Order extends Base {
             } else {
                 return ajax_error('支付失败', ['statuss' => 0]);
             }
-        }
+//        }
 
 //                if(!empty($_GET['out_trade_no'])){
 //                    $shopping_goods = db("order")->where("order_information_number",$_GET["out_trade_no"])->field("goods_id,shopping_shop_id,order_num")->select();
