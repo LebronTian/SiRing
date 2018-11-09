@@ -24,7 +24,7 @@ class Goods extends  Controller{
             $id = Session::get("id");
             $goods_type = db("goods_type")->where("pid",$id)->field("name,id")->select();
             foreach ($goods_type as $value){
-                $goods_list[] = db("goods")->where("goods_type_id",$value['id'])->select();
+                $goods_list[] = db("goods")->where("goods_type_id",$value['id'])->where('goods_status',1)->select();
             }
             return ajax_success("获取成功", array("goods_list"=>$goods_list,"goods_type"=>$goods_type));
         }
