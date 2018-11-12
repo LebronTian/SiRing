@@ -312,6 +312,7 @@ class Order extends Base {
             $time =date('Y-m-d H:i:s');
             if(!empty( $order_num)){
                 $counts =Db::name('order')->where('order_information_number',$order_num)->count();
+                return ajax_success('测试',$counts);
                 if($counts==1){
                     $data = Db::name('order')->where('order_information_number',$order_num)->select();
                     if(!empty($data)){
@@ -422,16 +423,16 @@ class Order extends Base {
         if ($trade_status == 'TRADE_FINISHED' || $trade_status == 'TRADE_SUCCESS') {
             $data['status'] = 2;
             return ajax_success('测试',$data);
-//            $condition['order_information_number'] = $out_trade_no;
-//            $select_data =Db::name('order')->where($condition)->select();
-//            foreach ($select_data as $key=>$val){
-//                $result = Db::name('order')->where($condition)->update($data);//修改订单状态,支付宝单号到数据库
-//            }
-//            if ($result) {
-//                return ajax_success('支付成功', ['status' =>1]);
-//            } else {
-//                return ajax_error('验证失败',['status'=>0]);
-//            }
+            $condition['order_information_number'] = $out_trade_no;
+            $select_data =Db::name('order')->where($condition)->select();
+            foreach ($select_data as $key=>$val){
+                $result = Db::name('order')->where($condition)->update($data);//修改订单状态,支付宝单号到数据库
+            }
+            if ($result) {
+                return ajax_success('支付成功', ['status' =>1]);
+            } else {
+                return ajax_error('验证失败',['status'=>0]);
+            }
         } else {
             return ajax_error('验证失败',['status'=>0]);
         }
