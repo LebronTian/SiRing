@@ -85,6 +85,7 @@ class Findpwd extends Controller{
                 session('mobile',$mobile);
 //                $_SESSION['mobile'] = $mobile;
             }
+            return ajax_success("发送成功", $mobile);
             $output = sendMsg($mobile, $mobileCode);
             if ($output) {
                 return ajax_success("发送成功", $output);
