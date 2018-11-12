@@ -82,7 +82,8 @@ class Findpwd extends Controller{
             //存入session中
             if (strlen($mobileCode)> 0){
                 session('mobileCode',$mobileCode);
-                $_SESSION['mobile'] = $mobile;
+                session('mobile',$mobile);
+//                $_SESSION['mobile'] = $mobile;
             }
             $output = sendMsg($mobile, $mobileCode);
             if ($output) {
