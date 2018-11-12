@@ -350,68 +350,68 @@
 					$('.zjtp_title').after(imei);
 				}
 
-				var img_num;
-                // 图片放大
-                // 给tpfd添加点击事件，事件委托img，获取img的src路径
-                $('.tabBox').click(function(e){
-                    activeIndex = $(e.target).index();
-                    var src = $(this).children('img')[activeIndex].src;
-                    img_num = $(this).children('img').length;
-                    loadImage(src);
-                })
-				// 取消事件冒泡
-				function stopBubble(event) {
-					if (event.stopPropagation) {
-						event.stopPropagation();
-					} else {
-						event.cancelBubble = true;
-					}
-				}
-                var activeIndex;//在tabBox的点击事件中获取当前图片的索引值
-                $('.show-image').on('tap',function(e){
-						stopBubble(e);
-                        $('.show-image').hide();
-                    })
-                    .on('swipeLeft',function(){
-                        activeIndex++;
-                        if(activeIndex > img_num - 1){
-                            activeIndex = img_num - 1;
-                        }else{
-                            // 下一张图片的src
-							var src = $('.tabBox').children('img')[activeIndex].src;
-                            loadImage(src);
-                        }
-                    })
-                    .on('swipeRight',function(){
-                        activeIndex--;
-                        if(activeIndex < 0){
-                            activeIndex = 0
-                        }else{
-                            // 上一张图片的src
-                            var src = $('.tabBox').children('img')[activeIndex].src;
-                            loadImage(src);
-                        }
-                    })
-				//show-image添加图片
-                //获取可视窗口比例
-                var bili = $(window).height() / $(window).width();
-                function loadImage(src) {
-                    $('.show-image').empty().show();//清空之前的图片
-                    var oImg = new Image(),
-                        oImage_src = src;
-                    oImg.src = oImage_src;
-                    oImg.onload = function () {
-                        //等图片下载完再显示
-                        //获取图片宽高比例
-                        var img_h = this.height,
-                            img_w = this.width;
-                        if(img_h / img_w > bili){
-                            $(oImg).appendTo($('.show-image')).css('height','100%').animate({opacity:1},500);
-                        }else{
-                            $(oImg).appendTo($('.show-image')).css('width','100%').animate({opacity:1},500);
-                        }
-                    }
-                }
+				// var img_num;
+                // // 图片放大
+                // // 给tpfd添加点击事件，事件委托img，获取img的src路径
+                // $('.tabBox').click(function(e){
+                //     activeIndex = $(e.target).index();
+                //     var src = $(this).children('img')[activeIndex].src;
+                //     img_num = $(this).children('img').length;
+                //     loadImage(src);
+                // })
+				// // 取消事件冒泡
+				// function stopBubble(event) {
+				// 	if (event.stopPropagation) {
+				// 		event.stopPropagation();
+				// 	} else {
+				// 		event.cancelBubble = true;
+				// 	}
+				// }
+                // var activeIndex;//在tabBox的点击事件中获取当前图片的索引值
+                // $('.show-image').on('tap',function(e){
+				// 		stopBubble(e);
+                //         $('.show-image').hide();
+                //     })
+                //     .on('swipeLeft',function(){
+                //         activeIndex++;
+                //         if(activeIndex > img_num - 1){
+                //             activeIndex = img_num - 1;
+                //         }else{
+                //             // 下一张图片的src
+				// 			var src = $('.tabBox').children('img')[activeIndex].src;
+                //             loadImage(src);
+                //         }
+                //     })
+                //     .on('swipeRight',function(){
+                //         activeIndex--;
+                //         if(activeIndex < 0){
+                //             activeIndex = 0
+                //         }else{
+                //             // 上一张图片的src
+                //             var src = $('.tabBox').children('img')[activeIndex].src;
+                //             loadImage(src);
+                //         }
+                //     })
+				// //show-image添加图片
+                // //获取可视窗口比例
+                // var bili = $(window).height() / $(window).width();
+                // function loadImage(src) {
+                //     $('.show-image').empty().show();//清空之前的图片
+                //     var oImg = new Image(),
+                //         oImage_src = src;
+                //     oImg.src = oImage_src;
+                //     oImg.onload = function () {
+                //         //等图片下载完再显示
+                //         //获取图片宽高比例
+                //         var img_h = this.height,
+                //             img_w = this.width;
+                //         if(img_h / img_w > bili){
+                //             $(oImg).appendTo($('.show-image')).css('height','100%').animate({opacity:1},500);
+                //         }else{
+                //             $(oImg).appendTo($('.show-image')).css('width','100%').animate({opacity:1},500);
+                //         }
+                //     }
+                // }
 
 				// 价格
 				$('.price').html('￥'+data.goods_bottom_money+' '+'<span class="goods_new_money">￥'+data.goods_new_money+'</span>');
