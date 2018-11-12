@@ -307,7 +307,6 @@ class Order extends Base {
     public function ios_api_alipay(Request $request){
         if($request->isPost()){
             $order_num =$request->only(['order_num'])['order_num'];
-//            $order_num ='1540519884103';
             $product_code ="QUICK_MSECURITY_PAY";
             $out_trade_no="ZQLM3O56MJD4SK3";
             $time =date('Y-m-d H:i:s');
@@ -331,7 +330,7 @@ class Order extends Base {
                             $content = array();
                             $content['subject'] = $goods_name;
                             $content['out_trade_no'] = $order_num;
-//                       $content['timeout_express'] = "90m";
+                            $content['timeout_express'] = "90m";
                             $content['total_amount'] = $goods_pay_money;
                             $content['product_code'] = "QUICK_MSECURITY_PAY";
                             $con = json_encode($content);//$content是biz_content的值,将之转化成json字符串
@@ -373,7 +372,7 @@ class Order extends Base {
                             $content = array();
                             $content['subject'] = $goods_name;
                             $content['out_trade_no'] = $order_num;
-//                       $content['timeout_express'] = "90m";
+                            $content['timeout_express'] = "90m";
                             $content['total_amount'] = $goods_pay_money;
                             $content['product_code'] = "QUICK_MSECURITY_PAY";
                             $con = json_encode($content);//$content是biz_content的值,将之转化成json字符串
