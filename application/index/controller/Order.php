@@ -12,7 +12,7 @@ use think\Request;
 use think\Session;
 
 
-class Order extends Base {
+class Order extends Controller {
 
     /**
      **************李火生*******************
