@@ -231,6 +231,7 @@ function ajax_success($msg = '提交成功',$data=array()){
     exit(json_encode($return,JSON_UNESCAPED_UNICODE));
 }
 
+
 /**
  * 打印调试函数
  * @param mixed $var 打印的东西

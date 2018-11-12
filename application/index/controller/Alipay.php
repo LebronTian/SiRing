@@ -75,11 +75,9 @@ class AliPay extends Controller
 
     /**
      * [回调修改数据]
-     *
      * @param Request
      */
     public function pay_code(Request $request){
-
         if($request->isGet()){
             $data['status'] = 2;
             $pay_time = time();
@@ -105,14 +103,12 @@ class AliPay extends Controller
                         db("goods")->where("id",$value["goods_id"])->update(["goods_num"=>$shopping_goods_num[$key]]);
                     }
                 }
-
                 $bool = db("order")->where("order_information_number",$_GET['out_trade_no'])->update($data);
                 if($bool){
                     Session::delete('goods_id');
                     $this->redirect(url("index/index/index"));
                 }
             }
-
         }
     }
 
