@@ -422,7 +422,6 @@ class Order extends Controller {
         $trade_status =  input('trade_status');
         if ($trade_status == 'TRADE_FINISHED' || $trade_status == 'TRADE_SUCCESS') {
             $data['status'] = 2;
-            return ajax_success('测试',$data);
             $condition['order_information_number'] = $out_trade_no;
             $select_data =Db::name('order')->where($condition)->select();
             foreach ($select_data as $key=>$val){
