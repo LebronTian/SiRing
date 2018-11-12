@@ -40,7 +40,6 @@ class Findpwd extends Controller{
 //                if (strlen($mobile) != 11 || substr($mobile, 0, 1) != '1' ) {
 //                    return ajax_success("请输入正确的手机号码",$mobile);
 //                }
-
 //                if($code == ''){
 //                   return ajax_success('验证码不能为空',$code);
 //                }
@@ -48,7 +47,6 @@ class Findpwd extends Controller{
                 if(empty($res)){
                     return ajax_success('此手机号不能存在，请前往注册',$mobile);
                 }else{
-
                     if (session('mobileCode') != $code) {
                             return ajax_success("验证码不正确",$mobile);
                     }else{
