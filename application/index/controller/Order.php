@@ -312,7 +312,6 @@ class Order extends Base {
             $time =date('Y-m-d H:i:s');
             if(!empty( $order_num)){
                 $counts =Db::name('order')->where('order_information_number',$order_num)->count();
-                return ajax_success('测试',$counts);
                 if($counts==1){
                     $data = Db::name('order')->where('order_information_number',$order_num)->select();
                     if(!empty($data)){
@@ -354,8 +353,7 @@ class Order extends Base {
                     }else{
                         return ajax_error('数据返回不成功',['status'=>0]);
                     }
-                }
-                if($counts>1){
+                }else if($counts>1){
                     $data = Db::name('order')->where('order_information_number',$order_num)->select();
                     if(!empty($data)){
                         foreach ($data as $k=>$v){
@@ -397,6 +395,8 @@ class Order extends Base {
                     }else{
                         return ajax_error('数据返回不成功',['status'=>0]);
                     }
+                }else{
+                    return ajax_error('没有这个订单号',['status'=>0]);
                 }
             }else{
                 return ajax_error('失败',['status'=>0]);
