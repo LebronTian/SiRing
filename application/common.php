@@ -94,7 +94,6 @@ function sendMsgPassword($mobile,$password){
     //这里的路径EXTEND_PATH就是指tp5根目录下的extend目录，系统自带常量。alisms为我们复制api_sdk过来后更改的目录名称
     include(EXTEND_PATH.'alisms/vendor/autoload.php');
     Config::load();             //加载区域结点配置
-
     $accessKeyId = 'LTAID1DEcOCLzwmv';  //阿里云短信获取的accessKeyId
 
     $accessKeySecret = 'KGMpwJhSxw76U0BoYcoNWzuGJh1pJ4';    //阿里云短信获取的accessKeySecret

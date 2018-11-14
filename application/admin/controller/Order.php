@@ -25,6 +25,7 @@ class  Order extends  Controller{
             ->join("tb_user","tb_order.user_id=tb_user.id",'left')
             ->order('tb_order.create_time','desc')
             ->paginate(10);
+        
         $count =Db::name('order')->count();
 
         if(!empty($data)){

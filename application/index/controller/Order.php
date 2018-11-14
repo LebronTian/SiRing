@@ -307,7 +307,6 @@ class Order extends Base {
     public function ios_api_alipay(Request $request){
         if($request->isPost()){
             $order_num =$request->only(['order_num'])['order_num'];
-//            $order_num ='1540519884103';
             $product_code ="QUICK_MSECURITY_PAY";
             $out_trade_no="ZQLM3O56MJD4SK3";
             $time =date('Y-m-d H:i:s');
@@ -331,7 +330,7 @@ class Order extends Base {
                             $content = array();
                             $content['subject'] = $goods_name;
                             $content['out_trade_no'] = $order_num;
-//                       $content['timeout_express'] = "90m";
+                            $content['timeout_express'] = "90m";
                             $content['total_amount'] = $goods_pay_money;
                             $content['product_code'] = "QUICK_MSECURITY_PAY";
                             $con = json_encode($content);//$content是biz_content的值,将之转化成json字符串
@@ -354,8 +353,7 @@ class Order extends Base {
                     }else{
                         return ajax_error('数据返回不成功',['status'=>0]);
                     }
-                }
-                if($counts>1){
+                }else if($counts>1){
                     $data = Db::name('order')->where('order_information_number',$order_num)->select();
                     if(!empty($data)){
                         foreach ($data as $k=>$v){
@@ -373,7 +371,7 @@ class Order extends Base {
                             $content = array();
                             $content['subject'] = $goods_name;
                             $content['out_trade_no'] = $order_num;
-//                       $content['timeout_express'] = "90m";
+                            $content['timeout_express'] = "90m";
                             $content['total_amount'] = $goods_pay_money;
                             $content['product_code'] = "QUICK_MSECURITY_PAY";
                             $con = json_encode($content);//$content是biz_content的值,将之转化成json字符串
@@ -397,6 +395,8 @@ class Order extends Base {
                     }else{
                         return ajax_error('数据返回不成功',['status'=>0]);
                     }
+                }else{
+                    return ajax_error('没有这个订单号',['status'=>0]);
                 }
             }else{
                 return ajax_error('失败',['status'=>0]);
@@ -404,38 +404,7 @@ class Order extends Base {
         }
     }
 
-    /**
-     **************李火生*******************
-     * 异步处理(支付宝IOS对接)
-     **************************************
-     */
-    public function notifyurl()
-    {
-        //这里可以做一下你自己的订单逻辑处理
-        $pay_time = time();
-        $data['pay_time'] = $pay_time;
-        //原始订单号
-        $out_trade_no = input('out_trade_no');
-        //支付宝交易号
-        $trade_no = input('trade_no');
-        //交易状态
-        $trade_status = input('trade_status');
-        if ($trade_status == 'TRADE_FINISHED' || $trade_status == 'TRADE_SUCCESS') {
-            $data['status'] = 2;
-            $condition['order_information_number'] = $out_trade_no;
-            $select_data =Db::name('order')->where($condition)->select();
-            foreach ($select_data as $key=>$val){
-                $result = Db::name('order')->where($condition)->update($data);//修改订单状态,支付宝单号到数据库
-            }
-            if ($result) {
-                return ajax_success('支付成功', ['status' =>1]);
-            } else {
-                return ajax_error('验证失败',['status'=>0]);
-            }
-        } else {
-            return ajax_error('验证失败',['status'=>0]);
-        }
-    }
+
 
 
 
