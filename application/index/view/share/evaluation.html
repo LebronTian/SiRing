@@ -169,6 +169,8 @@
         </div>
     </form>
 <script src="__STATIC__/index/js/jquery.js"></script>
+<script src="__STATIC__/index/js/layer.js"></script>
+
 <!--发表评价-->
 <script>
 
@@ -189,9 +191,21 @@
                console.log(data);
             //    alert(data.info);
                if(data.status==1){
-                   window.location.href ="{:url('index/Order/evaluate')}";
+                   layer.open({
+                       style: 'bottom:100px;',
+                       type: 0, //弹窗类型 0表示信息框，1表示页面层，2表示加载层
+                       skin: 'msg',
+                       content: data.info,
+                       time: 2
+                   })
                }else {
-                   window.location.href ="{:url('index/Order/evaluate')}";
+                   layer.open({
+                       style: 'bottom:100px;',
+                       type: 0, //弹窗类型 0表示信息框，1表示页面层，2表示加载层
+                       skin: 'msg',
+                       content: data.info,
+                       time: 2
+                   })
                }
 
            },
