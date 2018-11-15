@@ -155,20 +155,20 @@
         <!--</form>-->
     <!--</div>-->
     <!--<form action="{:url('index/Share/evaluation_add_img')}" method="post" enctype="multipart/form-data">-->
-    <form action="" method="post" enctype="multipart/form-data">
+    <!-- <form method="post" enctype="multipart/form-data"> -->
         <div class="text_box">
             <textarea name="evaluation_content" id="evaluation_content" cols="30" rows="10" class="describe" placeholder="请输入您的评价"></textarea>
         </div>
         <div class="photo_wrap">
-                <input class="files" name="evaluation_images[]" id="myFile" type="file" hidden multiple="multiple">
-                <div class="visible_box" >
-                    <i class="aui-iconfont aui-icon-camera"></i>
-                    <p>添加照片</p>
-                </div>
-                <div class="img_div"></div>
-                <button type="submit" class="evaluation_a">发表评价</button>
+            <input class="files" name="evaluation_images[]" id="myFile" type="file" hidden multiple="multiple">
+            <div class="visible_box" >
+                <i class="aui-iconfont aui-icon-camera"></i>
+                <p>添加照片</p>
+            </div>
+            <div class="img_div"></div>
+            <button type="submit" class="evaluation_a">发表评价</button>
         </div>
-    </form>
+    <!-- </form> -->
 <script src="__STATIC__/index/js/jquery.js"></script>
 <script src="__STATIC__/index/js/layer.js"></script>
 
@@ -179,40 +179,6 @@
         $('.files').click();
     })
 
-//   $(".evaluation_a").click(function () {
-//       var evaluation_content = $("#evaluation_content").val();
-//       $.ajax({
-//           type:'POST',
-//           url:'{:url("index/Share/evaluation_add")}',
-//           data:{
-//               'evaluation_content':evaluation_content
-//           },
-//           dataType: 'json',
-//           success: function(data){
-//               if(data.status==1){
-//                   layer.open({
-//                       style: 'bottom:100px;',
-//                       type: 0, //弹窗类型 0表示信息框，1表示页面层，2表示加载层
-//                       skin: 'msg',
-//                       content: data.data.info,
-//                       time: 2
-//                   })
-//               }else {
-//                   layer.open({
-//                       style: 'bottom:100px;',
-//                       type: 0, //弹窗类型 0表示信息框，1表示页面层，2表示加载层
-//                       skin: 'msg',
-//                       content: data.data.info,
-//                       time: 2
-//                   })
-//               }
-//
-//           },
-//           error:function(data) {
-//               console.log("失败");
-//           },
-//       });
-//   });
 </script>
 <script type="text/javascript">
     $(function() {
@@ -224,7 +190,8 @@
             console.log(filepath)
             for(var i = 0; i < this.files.length; i++) {
                 objUrl = getObjectURL(this.files[i]);
-                // 
+                // 发送后台所有图片
+                formData.append('evaluation_images[]', this.files[i]);
                 var extStart = filepath.lastIndexOf(".");
                 // 获取图片后缀
                 var ext = filepath.substring(extStart, filepath.length).toUpperCase();
@@ -294,40 +261,42 @@
 </script>
 
 <script>
-       $(".evaluation_a").click(function () {
-           var evaluation_content = $("#evaluation_content").val();
-           $.ajax({
-               type:'POST',
-               url:'{:url("index/Share/evaluation_add_img")}',
-               data:{
-                   'evaluation_content':evaluation_content
-               },
-               dataType: 'json',
-               success: function(data){
-                   if(data.status==1){
-                       layer.open({
-                           style: 'bottom:100px;',
-                           type: 0, //弹窗类型 0表示信息框，1表示页面层，2表示加载层
-                           skin: 'msg',
-                           content: data.data.info,
-                           time: 2
-                       })
-                   }else {
-                       layer.open({
-                           style: 'bottom:100px;',
-                           type: 0, //弹窗类型 0表示信息框，1表示页面层，2表示加载层
-                           skin: 'msg',
-                           content: data.data.info,
-                           time: 2
-                       })
-                   }
+    var formData = new FormData();
+    $(".evaluation_a").click(function () {
+        var evaluation_content = $("#evaluation_content").val();
+        formData.append('evaluation_content', evaluation_content);
+        $.ajax({
+            type:'POST',
+            url:'{:url("index/Share/evaluation_add_img")}',
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function(data){
+                if(data.status==1){
+                    layer.open({
+                        style: 'bottom:100px;',
+                        type: 0, //弹窗类型 0表示信息框，1表示页面层，2表示加载层
+                        skin: 'msg',
+                        content: data.info,
+                        time: 2
+                    })
+                }else {
+                    layer.open({
+                        style: 'bottom:100px;',
+                        type: 0, //弹窗类型 0表示信息框，1表示页面层，2表示加载层
+                        skin: 'msg',
+                        content: data.info,
+                        time: 2
+                    })
+                }
 
-               },
-               error:function(data) {
-                   console.log("失败");
-               },
-           });
-       });
+            },
+            error:function(data) {
+                console.log("失败");
+            },
+        });
+    });
 </script>
 </body>
 </html>
