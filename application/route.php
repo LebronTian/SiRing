@@ -207,11 +207,12 @@ Route::group("",[
     /*评价页面*/
     "evaluation"=>"index/Share/evaluation",
     /*添加评价*/
-    "evaluation_add"=>"index/Share/evaluation_add",
+//    "evaluation_add"=>"index/Share/evaluation_add",
     /**
-     * 图片
+     * 对接评价的图片和内容（添加评价）
      */
     "evaluation_add_img"=>"index/Share/evaluation_add_img",
+    "evaluation_herf"=>"index/Share/evaluation_herf", //评价成功之后跳转的成功页面
 
 
     /*优惠券*/

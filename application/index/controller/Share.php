@@ -265,7 +265,7 @@ class Share extends Controller{
     /**
      **************李火生*******************
      * @param Request $request
-     * 发表评价
+     * 发表评价(未使用)
      **************************************
      */
     public function  evaluation_add(Request $request){
@@ -305,6 +305,8 @@ class Share extends Controller{
             }
         }
     }
+
+
 
     /**
      **************李火生*******************
@@ -352,13 +354,14 @@ class Share extends Controller{
             if(!empty($evaluation_order_id)){
                 $evaluation_images = [];
                 $file = $request->file('evaluation_images');
-                foreach ($file as $k=>$v){
-                    $info = $v->move(ROOT_PATH . 'public' . DS . 'upload');
-                    $evaluation_url = str_replace("\\","/",$info->getSaveName());
-                    $evaluation_images[] = ["images"=>$evaluation_url,"evaluate_order_id"=>$evaluation_order_id];
+                if(!empty($file)){
+                    foreach ($file as $k=>$v){
+                        $info = $v->move(ROOT_PATH . 'public' . DS . 'upload');
+                        $evaluation_url = str_replace("\\","/",$info->getSaveName());
+                        $evaluation_images[] = ["images"=>$evaluation_url,"evaluate_order_id"=>$evaluation_order_id];
+                    }
                 }
                 if(empty($content)){
-//                    $this->error('请输入评价的内容');
                     return ajax_error('请输入评价的内容',['status'=>0]);
                 }
                 if(!empty($content)){
@@ -396,6 +399,16 @@ class Share extends Controller{
     }
 
 
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * Notes:评价成功跳的那个页面
+     **************************************
+     * @return \think\response\View
+     */
+    public function evaluation_herf(){
+        return view('evaluation_herf');
+    }
 
     /**
      **************李火生*******************
