@@ -178,42 +178,40 @@
         $('.files').click();
     })
 
-   $(".evaluation_a").click(function () {
-       var evaluation_content = $("#evaluation_content").val();
-       $.ajax({
-           type:'POST',
-           url:'{:url("index/Share/evaluation_add")}',
-           data:{
-               'evaluation_content':evaluation_content
-           },
-           dataType: 'json',
-           success: function(data){
-               console.log(data);
-            //    alert(data.info);
-               if(data.status==1){
-                   layer.open({
-                       style: 'bottom:100px;',
-                       type: 0, //弹窗类型 0表示信息框，1表示页面层，2表示加载层
-                       skin: 'msg',
-                       content: data.data.info,
-                       time: 2
-                   })
-               }else {
-                   layer.open({
-                       style: 'bottom:100px;',
-                       type: 0, //弹窗类型 0表示信息框，1表示页面层，2表示加载层
-                       skin: 'msg',
-                       content: data.data.info,
-                       time: 2
-                   })
-               }
-
-           },
-           error:function(data) {
-               console.log("失败");
-           },
-       });
-   });
+//   $(".evaluation_a").click(function () {
+//       var evaluation_content = $("#evaluation_content").val();
+//       $.ajax({
+//           type:'POST',
+//           url:'{:url("index/Share/evaluation_add")}',
+//           data:{
+//               'evaluation_content':evaluation_content
+//           },
+//           dataType: 'json',
+//           success: function(data){
+//               if(data.status==1){
+//                   layer.open({
+//                       style: 'bottom:100px;',
+//                       type: 0, //弹窗类型 0表示信息框，1表示页面层，2表示加载层
+//                       skin: 'msg',
+//                       content: data.data.info,
+//                       time: 2
+//                   })
+//               }else {
+//                   layer.open({
+//                       style: 'bottom:100px;',
+//                       type: 0, //弹窗类型 0表示信息框，1表示页面层，2表示加载层
+//                       skin: 'msg',
+//                       content: data.data.info,
+//                       time: 2
+//                   })
+//               }
+//
+//           },
+//           error:function(data) {
+//               console.log("失败");
+//           },
+//       });
+//   });
 </script>
 <script type="text/javascript">
     $(function() {

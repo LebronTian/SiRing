@@ -383,7 +383,9 @@ class Share extends Controller{
                         if($res!==null &&$order_status_check !==null){
 //                            $this->success('评价成功',url('index/Order/evaluate'));
                             return ajax_success('评价成功',['status'=>1]);
+//                            $this->redirect("index/Order/evaluate");
                         }else{
+//                            $this->redirect("index/Order/evaluate");
                             return ajax_error('评价失败',['status'=>0]);
                         }
                     }
