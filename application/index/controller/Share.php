@@ -276,7 +276,7 @@ class Share extends Controller{
                 if(!empty($data)){
                     $content = $data['evaluation_content'];
                     if(empty($content)){
-                        $this->error('请输入您的评价');
+                        return ajax_error('请输入您的评价');
                     }
                     if(!empty($content)){
                         $member =Session::get('member');
@@ -352,17 +352,14 @@ class Share extends Controller{
             if(!empty($evaluation_order_id)){
                 $evaluation_images = [];
                 $file = $request->file('evaluation_images');
-
                 foreach ($file as $k=>$v){
                     $info = $v->move(ROOT_PATH . 'public' . DS . 'upload');
                     $evaluation_url = str_replace("\\","/",$info->getSaveName());
                     $evaluation_images[] = ["images"=>$evaluation_url,"evaluate_order_id"=>$evaluation_order_id];
                 }
-//                dump($evaluation_images);exit;
-
-
                 if(empty($content)){
-                    $this->error('请输入评价的内容');
+//                    $this->error('请输入评价的内容');
+                    return ajax_error('请输入评价的内容',['status'=>0]);
                 }
                 if(!empty($content)){
                     $member =Session::get('member');
@@ -384,9 +381,10 @@ class Share extends Controller{
                         $res = Db::name('evaluate')->insert($datas);
                         $order_status_check =Db::name('order')->where('id',$evaluation_order_id)->update(['status'=>10]);
                         if($res!==null &&$order_status_check !==null){
-                            $this->success('评价成功',url('index/Order/evaluate'));
+//                            $this->success('评价成功',url('index/Order/evaluate'));
+                            return ajax_success('评价成功',['status'=>1]);
                         }else{
-                            $this->error('评价失败');
+                            return ajax_error('评价失败',['status'=>0]);
                         }
                     }
                 }

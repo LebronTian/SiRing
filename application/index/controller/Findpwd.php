@@ -68,6 +68,13 @@ class Findpwd extends Controller{
     }
 
 
+    /**
+     **************李火生*******************
+     * @param Request $request
+     * Notes:找回密码验证码
+     **************************************
+     * @param Request $request
+     */
     public function sendMobileCodeByPhone(Request $request)
     {
         //接受验证码的手机号码
@@ -85,7 +92,7 @@ class Findpwd extends Controller{
                 session('mobile',$mobile);
 //                $_SESSION['mobile'] = $mobile;
             }
-            $output = sendMsg($mobile, $mobileCode);
+            $output = sendMs($mobile, $mobileCode);
             if ($output) {
                 return ajax_success("发送成功", $output);
             } else {
@@ -93,4 +100,5 @@ class Findpwd extends Controller{
             }
         }
     }
+
 }

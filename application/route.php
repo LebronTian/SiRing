@@ -152,7 +152,6 @@ Route::group("",[
     'detail_del'=>"index/self_service/repair_del", //售后服务订单取消
     'detail_images'=>"index/self_service/detail_images", //售后图片删除
     'detail_updata'=>"index/self_service/updata", //售后服务订单更新
-
     'electronices'=>'index/self_service/electronics',//电子保修
     'electronices_show'=>'index/self_service/electronics_show',//电子保修
     'agreement'=>'index/self_service/agreement',//售后服务协议

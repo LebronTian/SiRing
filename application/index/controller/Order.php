@@ -738,6 +738,8 @@ class Order extends Base {
                         $data =Db::name('order')->where('user_id',$member_id['id'])->order('create_time','desc')->select();
                         if(!empty($data)){
                             return ajax_success('全部信息返回成功',$data);
+                        }else{
+                            return ajax_error('没有订单',['status'=>0]);
                         }
                     }
                 }else{

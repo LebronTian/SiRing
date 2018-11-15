@@ -188,7 +188,12 @@
            success: function(data){
                console.log(data);
             //    alert(data.info);
-               window.location.href ="{:url('index/Order/evaluate')}";
+               if(data.status==1){
+                   window.location.href ="{:url('index/Order/evaluate')}";
+               }else {
+                   window.location.href ="{:url('index/Order/evaluate')}";
+               }
+
            },
            error:function(data) {
                console.log("失败");
